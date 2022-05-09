@@ -1,0 +1,168 @@
+﻿@page
+@model WidgetNas.Pages.Components.OffcanvasModel
+@{
+    ViewData["Title"] = "پرده مخفی Offcanvas";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    یک نوار بازشو در کنارهای صفحه است، که برای خرید ها، منوهای کناری و موارد این چنینی مورد استفاده قرار میگیرد. این موضوع با استفاده از تکنیک modal به شما کمک میکند تا محتوی خود را نمایش دهید.
+</p>
+<h2>شکل نمایشی</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="offcanvas offcanvas-start show w-50" tabindex="-1" style="position:static;display:block" id="form1">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Offcanvas</h5>
+                <button type="button" class="close"></button>
+            </div>
+            <div class="offcanvas-body">
+                Content for the offcanvas goes here. You can place just about any Widgetnas component or custom elements here.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="offcanvas offcanvas-start show w-50" tabindex="-1" style="position:static;display:block">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">پرده مخفی</h5>
+                <button type="button" class="close"></button>
+            </div>
+            <div class="offcanvas-body">
+                محتوی پرده مخفی، در این قسمت نمایش داده میشود، شما میتوانید از کامپوننت های ویجت نس یا هر موضوعی استفاده کنید.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>مشاهده</h2>
+<p>این موضوع در ابتدا قابل نمایش نیست، این موضوع همانند مودال بوده و بایستی توسط جاوا اسکریپت فراخوانی شود، تا به درستی در مکان مد نظر نمایش داده شود.</p>
+<p>شما میتوانید در 4 جهت صفحه این موضوع را نمایش دهید، با استفاده از کلاسهای <bidi>offcanvas-start</bidi> <bidi>offcanvas-end</bidi> <bidi>offcanvas-top</bidi> <bidi>offcanvas-bottom</bidi></p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <button class="secondary w-200r" onclick="WN['offcanvas_start_ltr'].show()"><span class="fa fa-arrow-left"></span></button>
+        <button class="secondary w-200r" onclick="WN['offcanvas_end_ltr'].show()"><span class="fa fa-arrow-right"></span></button>
+        <button class="secondary w-200r" onclick="WN['offcanvas_top_ltr'].show()"><span class="fa fa-arrow-up"></span></button>
+        <button class="secondary w-200r" onclick="WN['offcanvas_bottom_ltr'].show()"><span class="fa fa-arrow-down"></span></button>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas_start_ltr" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Offcanvas</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                Content for the offcanvas goes here. You can place just about any Widgetnas component or custom elements here.
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas_end_ltr" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Offcanvas</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                Content for the offcanvas goes here. You can place just about any Widgetnas component or custom elements here.
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas_top_ltr" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Offcanvas</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                Content for the offcanvas goes here. You can place just about any Widgetnas component or custom elements here.
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvas_bottom_ltr" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Offcanvas</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                Content for the offcanvas goes here. You can place just about any Widgetnas component or custom elements here.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary w-200r" onclick="WN['offcanvas_start_rtl'].show()"><span class="fa fa-arrow-right"></span></button>
+        <button class="secondary w-200r" onclick="WN['offcanvas_end_rtl'].show()"><span class="fa fa-arrow-left"></span></button>
+        <button class="secondary w-200r" onclick="WN['offcanvas_top_rtl'].show()"><span class="fa fa-arrow-up"></span></button>
+        <button class="secondary w-200r" onclick="WN['offcanvas_bottom_rtl'].show()"><span class="fa fa-arrow-down"></span></button>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas_start_rtl" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">پرده مخفی</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                محتوی پرده مخفی، در این قسمت نمایش داده میشود، شما میتوانید از کامپوننت های ویجت نس یا هر موضوعی استفاده کنید.
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas_end_rtl" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">پرده مخفی</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                محتوی پرده مخفی، در این قسمت نمایش داده میشود، شما میتوانید از کامپوننت های ویجت نس یا هر موضوعی استفاده کنید.
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas_top_rtl" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">پرده مخفی</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                محتوی پرده مخفی، در این قسمت نمایش داده میشود، شما میتوانید از کامپوننت های ویجت نس یا هر موضوعی استفاده کنید.
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvas_bottom_rtl" wn-type="modal">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">پرده مخفی</h5>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="offcanvas-body">
+                محتوی پرده مخفی، در این قسمت نمایش داده میشود، شما میتوانید از کامپوننت های ویجت نس یا هر موضوعی استفاده کنید.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>پس زمینه تیره</h2>
+<p>برای اضافه کردن پس زمینه تیره کافیست کلاس <bidi>darkback</bidi> را به مجموعه کلاس های <bidi>offcanvas</bidi> خود اضافه کنید.</p>
+<p>اگر نمیخواهید پس زمینه تیره باشد ولی با کلیک کردن بر روی صفحه پرده مخفی شود، از کلاس <bidi>transparent</bidi> یا هر رنگی که مد نظر است استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="WN['offcanvas_darkback_ltr'].show()">Show</button>
+        <div class="modal darkback" tabindex="-1" id="offcanvas_darkback_ltr" wn-type="modal">
+            <div class="offcanvas offcanvas-start">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">Offcanvas</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="offcanvas-body">
+                    Content for the offcanvas goes here. You can place just about any Widgetnas component or custom elements here.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="WN['offcanvas_darkback_rtl'].show()">نمایش</button>
+        <div class="modal darkback" tabindex="-1" id="offcanvas_darkback_rtl" wn-type="modal">
+            <div class="offcanvas offcanvas-start">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">پرده مخفی</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="offcanvas-body">
+                    محتوی پرده مخفی، در این قسمت نمایش داده میشود، شما میتوانید از کامپوننت های ویجت نس یا هر موضوعی استفاده کنید.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>

@@ -1,0 +1,117 @@
+﻿@page
+@model WidgetNas.Pages.Components.EditorModel
+@{
+    ViewData["Title"] = "ویرایشگر متن Editor";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>ویرایشگر متن، یکی از مهمترین موضوعات برای ورود متن به صورت حرفه ای و دارای استایل خاص است.</p>
+<p>یرایشگر متن با  استفاده از خصوصیات HTML5 و توابع جاوا اسکرسپت به شما امکان میدهد تا بتوانید متن خود را ویرایش کنید.</p>
+<p>برای نمایش انواع مختلف به مثالهای زیر توجه کنید.</p>
+<h2>ساختار</h2>
+<p>
+    برای ایجاد یک محیط ویرایشگر متن با امکانات ساده میتوانید از این ویراشگر متن استفاده کنید، این ویرایشگر در 4 سطح دسترسی
+    طراحی شده است، که عبارتند از <bidi>simple</bidi> بدون هیچ ابزاری، <bidi>standard</bidi> با داشتن تعدادی از ویراستارهای متنی و
+    <bidi>full</bidi> که تمامی ابزارها در دسترس است، هر چند شما خود نیز میتوانید بر اساس نیاز، میله ابزار مد نظر خود را بچینید.
+</p>
+<h2>Simple</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="edit1" wn-type="editor" mode="simple"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="editor" mode="simple"></div>
+    </div>
+</div>
+<figure><code data-on="edit1"></code></figure>
+<h2>Standard</h2>
+<p>اگر از خصوصیت <bidi>mode</bidi> استفاده نکنید، این نوع به صورت پیش فرض انتخاب میشود.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="edit2" wn-type="editor" mode="standard"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="editor" mode="standard"></div>
+    </div>
+</div>
+<figure><code data-on="edit2"></code></figure>
+<h2>Full</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="edit3" wn-type="editor" mode="full"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="editor" mode="full"></div>
+    </div>
+</div>
+<figure><code data-on="edit3"></code></figure>
+<h2>شخصی سازی</h2>
+<p>برای ساخت میله ابزار شخصی سازی شده، کافیست یکبار ادیتور را به صورت full نمایش داده و کلیه محتوی toolbar را برداشته و بر اساس نیاز، هر گزینه ای که خواستید حذف نمایید.</p>
+
+<h2>فیلد مقدار</h2>
+<p>
+    اگر تمایل دارید، مقدار html در یک input قرار بگیرد، از خصوصیت <bidi>value-id</bidi> استفاده کنید. زمانی که ویرایشگر متن بارگزاری میشود، مقدار اولیه را از این ورودی خوانده و هر
+    هنگام تغییری کند مقدار را در آن قرار میدهد.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <textarea id="editor-value-ltr">Hello Worlds!</textarea>
+        <div wn-type="editor" value-id="editor-value-ltr"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <textarea id="editor-value-rtl">سلام دنیا!</textarea>
+        <div wn-type="editor" value-id="editor-value-rtl"></div>
+    </div>
+</div>
+
+<figure><code data-on="form1"></code></figure>
+<h2>قلمهای پیش فرض</h2>
+<p>
+    اگر میخواهید قلم های پیش فرض را تغییر دهید از خصوصیت <bidi>DefaultFonts</bidi> و سپس مقداری مانند زیر دهید.<br />
+    'Default On Page, Arial, Tahoma'
+</p>
+<h2>اندازه قلمهای پیش فرض</h2>
+<p>
+    اگر میخواهید اندازه قلم های پیش فرض را تغییر دهید از خصوصیت <bidi>DefaultFontSize</bidi> و سپس مقداری مانند زیر دهید.<br />
+    'X Small:4px, Small:8px, Medium:12px, Normal:16px, Large:20px, X Large:24px,2X Large:32px,3X Large:48px'
+</p>
+<h2>تگ های پیش فرض</h2>
+<p>
+    اگر میخواهید تگ های پیش فرض را تغییر دهید از خصوصیت <bidi>DefaultTags</bidi> و سپس مقداری مانند زیر دهید.<br />
+    'Paragraph:p,Heading 1:h1,Heading 2:h2,Heading 3:h3,Heading 4:h4,Heading 5:h5,Heading 6:h6,Preformat:pre'
+</p>
+<h2>پالت رنگ</h2>
+<p>
+    اگر میخواهید پالت رنگ را تغییر دهید از خصوصیت <bidi>DefaultColorPicker</bidi> و سپس مقداری مانند زیر دهید.<br />
+    '#000000,#333333,#555555'
+</p>
+<h2>جدا کننده پاراگراف</h2>
+<p>
+    اگر میخواهید جدا کننده پاراگراف را تغییر دهید از خصوصیت <bidi>ParagraphSeparator</bidi> و سپس مقداری مانند زیر دهید.<br />
+    'p'<br />
+    'div'
+</p>
+<h2>خصوصیت Html</h2>
+<p>
+    در هر زمان نیاز داشته باشید با استفاده این خصوصیت که توسط جاوا اسکریپت فراخوانی میشود، مقدار html ویرایشگر را خوانده و یا تنظیم کنید.
+</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">script</span>&gt;
+        alert(WN[<span class="hv">"editor1"</span>].Html);
+    &lt;/<span class="ht">script</span>&gt;
+
+
+    &lt;<span class="ht">script</span>&gt;
+        WN[<span class="hv">"editor1"</span>].Html='&lt;p&gt;Hello!&lt;/p&gt;';
+    &lt;/<span class="ht">script</span>&gt;
+</code></pre>
+</figure>

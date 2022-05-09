@@ -1,0 +1,50 @@
+﻿@page
+@model WidgetNas.Pages.Components.ScrollModel
+@{
+    ViewData["Title"] = "وضعیت اسکرول Scroll";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>اگر تمایل دارید در هنگام اسکرول کردن صفحه، بعد از مقداری قابل تنظیم، کلاسی به موضوع مورد نظر اضافه کنید، از این تابع استفاده کنید.</p>
+<p>برای مشاهده مثال ها اسکرول کنید.</p>
+<h2>خصوصیات</h2>
+<p>برای تنظیم مقدار اسکرول از خصوصیت <bidi>scroll-value</bidi> استفاده کنید، این مقدار با مقدار <bidi>ScrollY</bidi> یکی است.</p>
+<p>اگر میخواهید زمانیکه مقدار اسکرول بیش از آن بود کلاسی اضافه شود و کمتر بود آن کلاس حذف شود، از خصوصیت <bidi>toggle-class</bidi> استفاده کنید.</p>
+<p>اگر میخواهید در صورت بزرگ تر بودن مقدار اسکرول کلاس فقط اضافه گردد از خصوصیت <bidi>add-class</bidi> استفاده کنید.</p>
+<p>اگر میخواهید در صورت بزرگ تر بودن مقدار اسکرول کلاس فقط حذف گردد از خصوصیت <bidi>remove-class</bidi> استفاده کنید.</p>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">='scroll</span>'<span class="ha"> scroll-value</span><span class="hv">="50</span>"<span class="ha"> toggle-class</span><span class="hv">="h1</span>"<span class="hv">&gt;</span>After Scroll 50 value Changed to H1 and restor<span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">='scroll</span>'<span class="ha"> scroll-value</span><span class="hv">="150</span>"<span class="ha"> add-class</span><span class="hv">="primary-bkcolor</span>"<span class="hv">&gt;</span>After Scroll 150 value change back color<span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="third-bkcolor</span>"<span class="ha"> wn-type</span><span class="hv">='scroll</span>'<span class="ha"> scroll-value</span><span class="hv">="350</span>"<span class="ha"> remove-class</span><span class="hv">="third-bkcolor</span>"<span class="hv">&gt;</span>After Scroll 350 value removed back color<span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    </code></pre>
+</figure>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div wn-type='scroll' scroll-value="50" toggle-class="h1">After Scroll 50 value Changed to H1 and restor</div>
+<div wn-type='scroll' scroll-value="150" add-class="primary-bkcolor">After Scroll 150 value change back color</div>
+<div wn-type='scroll' scroll-value="250" add-class="secondary-bkcolor">After Scroll 250 value change back color</div>
+<div class="third-bkcolor" wn-type='scroll' scroll-value="350" remove-class="third-bkcolor">After Scroll 350 value removed back color</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div wn-type='scroll' scroll-value="500" toggle-class="h1">After Scroll 500 value Changed to H1 and restor</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

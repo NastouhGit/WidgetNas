@@ -1,0 +1,363 @@
+﻿@page
+@model WidgetNas.Pages.Components.LightBoxModel
+@{
+    ViewData["Title"] = "جعبه نمایش Light Box";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<style>
+    .shuffle-btn-group {
+        margin: 1rem 0 3.125rem;
+        width: 100%;
+        border-bottom: 3px solid #ffb600;
+    }
+
+        .shuffle-btn-group .button-group {
+            justify-content: center !important;
+        }
+
+        .shuffle-btn-group label {
+            border: none;
+            display: inline-block;
+            color: #212121;
+            font-size: 1rem;
+            padding-inline: 0.375rem;
+            padding-top: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .shuffle-btn-group input[type=radio]:checked + label {
+            color: #212121;
+            background: #ffb600;
+        }
+
+    .shuffle-item {
+        padding: 0;
+        position: relative;
+        transition: all;
+    }
+
+        .shuffle-item:hover .project-img-container-cover {
+            opacity: 1;
+            -webkit-transform: perspective(1px) scale3d(1, 1, 1);
+            transform: perspective(1px) scale3d(1, 1, 1);
+        }
+
+        .shuffle-item .project-img-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+            .shuffle-item .project-img-container > a,
+            .shuffle-item .project-img-container > [lightbox] {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 2;
+                cursor: pointer;
+            }
+
+            .shuffle-item .project-img-container img {
+                -webkit-transform: perspective(1px) scale3d(1.1, 1.1, 1);
+                transform: perspective(1px) scale3d(1.1, 1.1, 1);
+                transition: all 400ms;
+            }
+
+            .shuffle-item .project-img-container:hover img {
+                -webkit-transform: perspective(1px) scale3d(1.15, 1.15, 1);
+                transform: perspective(1px) scale3d(1.15, 1.15, 1);
+            }
+
+            .shuffle-item .project-img-container:after {
+                opacity: 0;
+                position: absolute;
+                content: '';
+                top: 0;
+                right: auto;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                transition: all 400ms;
+            }
+
+            .shuffle-item .project-img-container:hover:after {
+                opacity: 1;
+            }
+
+            .shuffle-item .project-img-container .project-item-info {
+                position: absolute;
+                top: 50%;
+                margin-top: -10%;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 0 30px;
+                z-index: 1;
+            }
+
+            .shuffle-item .project-img-container .project-item-info-content {
+                opacity: 0;
+                -webkit-transform: perspective(1px) translate3d(0, 15px, 0);
+                transform: perspective(1px) translate3d(0, 15px, 0);
+                transition: all 400ms;
+            }
+
+            .shuffle-item .project-img-container:hover .project-item-info-content {
+                opacity: 1;
+                -webkit-transform: perspective(1px) translate3d(0, 0, 0);
+                transform: perspective(1px) translate3d(0, 0, 0);
+            }
+
+            .shuffle-item .project-img-container .project-item-info-content .project-item-title {
+                font-size: 20px;
+                color: #fff;
+            }
+
+            .shuffle-item .project-img-container .project-item-info-content .project-cat {
+                background: #ffb600;
+                display: inline-block;
+                padding: 2px 8px;
+                font-weight: 700;
+                color: #000;
+                font-size: 10px;
+                text-transform: uppercase;
+            }
+
+        .shuffle-item .project-img-container-cover {
+            position: absolute;
+            z-index: 5;
+            padding: 5px 12px;
+            background: #ffb600;
+            color: #fff;
+            opacity: 0;
+            -webkit-transform: perspective(1px) scale3d(0, 0, 0);
+            transform: perspective(1px) scale3d(0, 0, 0);
+            transition: all 400ms;
+        }
+</style>
+<p>گاهی نیاز است، با کلیک کردن بر روی گزینه ای، بر روی آن صفحه ای باز شده و تصویر یا فیلمی شروع به نمایش کند، این موضوع، این عمل را انجام خواهد داد.</p>
+
+<div class="example-div" id="exp1">
+    <div class="container" wn-type="filter">
+        <div class="row shuffle-btn-group ">
+            <div class="col-12 button-group">
+                <input type="radio" id="shuffle-filter-value-1" name="shuffle-filter1" filter-value="">
+                <label for="shuffle-filter-value-1">Show All</label>
+                <input type="radio" id="shuffle-filter-value-2" name="shuffle-filter1" filter-value="commercial">
+                <label for="shuffle-filter-value-2">Commercial</label>
+                <input type="radio" id="shuffle-filter-value-3" name="shuffle-filter1" filter-value="education">
+                <label for="shuffle-filter-value-3">Education</label>
+                <input type="radio" id="shuffle-filter-value-4" name="shuffle-filter1" filter-value="government">
+                <label for="shuffle-filter-value-4">Government</label>
+                <input type="radio" id="shuffle-filter-value-5" name="shuffle-filter1" filter-value="infrastructure">
+                <label for="shuffle-filter-value-5">Infrastructure</label>
+                <input type="radio" id="shuffle-filter-value-6" name="shuffle-filter1" filter-value="residential">
+                <label for="shuffle-filter-value-6">Residential</label>
+                <input type="radio" id="shuffle-filter-value-7" name="shuffle-filter1" filter-value="healthcare">
+                <label for="shuffle-filter-value-7">Healthcare</label>
+            </div>
+        </div>
+        <div class="row" wn-type="lightbox" modalclose="true">
+            <div class="col-3 col-6-l col-4-m shuffle-item animate zoomIn" filter-category="government,healthcare">
+                <div class="project-img-container-cover">
+                    <a href="https://widgetnas.nastouh.com/" target="_blank"><span class="gallery-icon"><i class="fa fa-link"></i></span></a>
+                </div>
+                <div class="project-img-container">
+                    <div lightbox="~/media/video1.mp4">
+                        <h1>Capital Teltway Building</h1>
+                        <p>Salam</p>
+                    </div>
+                    <img class="img-fluid" src="~/images/projects/project1.jpg" alt="project-img">
+                    <div class="project-item-info">
+                        <div class="project-item-info-content">
+                            <h3 class="project-item-title">
+                                Capital Teltway Building
+                            </h3>
+                            <p class="project-cat">Commercial, Interiors</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-6-l col-4-m shuffle-item animate zoomIn" filter-category="healthcare">
+                <div class="project-img-container-cover">
+                    <a href="https://widgetnas.nastouh.com/" target="_blank"><span class="gallery-icon"><i class="fa fa-link"></i></span></a>
+                </div>
+                <div class="project-img-container">
+                    <a href="~/media/music1.mp3" lightbox>
+                        <h1>Ghum Touch Hospital</h1>
+                    </a>
+                    <img class="img-fluid" src="~/images/projects/project2.jpg" alt="project-img">
+                    <div class="project-item-info">
+                        <div class="project-item-info-content">
+                            <h3 class="project-item-title">
+                                Ghum Touch Hospital
+                            </h3>
+                            <p class="project-cat">Healthcare</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-6-l col-4-m shuffle-item animate zoomIn" filter-category="infrastructure,commercial">
+                <div class="project-img-container-cover">
+                    <a href="https://widgetnas.nastouh.com/" target="_blank"><span class="gallery-icon"><i class="fa fa-link"></i></span></a>
+                </div>
+                <div class="project-img-container">
+                    <a href="~/images/projects/project3.jpg" lightbox>
+                        <h1>TNT East Facility</h1>
+                    </a>
+                    <img class="img-fluid" src="~/images/projects/project3.jpg" alt="project-img">
+                    <div class="project-item-info">
+                        <div class="project-item-info-content">
+                            <h3 class="project-item-title">
+                                TNT East Facility
+                            </h3>
+                            <p class="project-cat">Government</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-6-l col-4-m shuffle-item animate zoomIn" filter-category="education,infrastructure">
+                <div class="project-img-container-cover">
+                    <a href="https://widgetnas.nastouh.com/" target="_blank"><span class="gallery-icon"><i class="fa fa-link"></i></span></a>
+                </div>
+                <div class="project-img-container">
+                    <a href="~/images/projects/project4.jpg" lightbox>
+                        <h1>Narriot Headquarters</h1>
+                    </a>
+                    <img class="img-fluid" src="~/images/projects/project4.jpg" alt="project-img">
+                    <div class="project-item-info">
+                        <div class="project-item-info-content">
+                            <h3 class="project-item-title">
+                                Narriot Headquarters
+                            </h3>
+                            <p class="project-cat">Infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-6-l col-4-m shuffle-item animate zoomIn" filter-category="infrastructure,education">
+                <div class="project-img-container-cover">
+                    <a href="https://widgetnas.nastouh.com/" target="_blank"><span class="gallery-icon"><i class="fa fa-link"></i></span></a>
+                </div>
+                <div class="project-img-container">
+                    <a href="~/images/projects/project5.jpg" lightbox>
+                        <h1>Residential</h1>
+                    </a>
+                    <img class="img-fluid" src="~/images/projects/project5.jpg" alt="project-img">
+                    <div class="project-item-info">
+                        <div class="project-item-info-content">
+                            <h3 class="project-item-title">
+                                Kalas Metrorail
+                            </h3>
+                            <p class="project-cat">Infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 col-6-l col-4-m shuffle-item animate zoomIn" filter-category="residential">
+                <div class="project-img-container-cover">
+                    <a href="https://widgetnas.nastouh.com/" target="_blank"><span class="gallery-icon"><i class="fa fa-link"></i></span></a>
+                </div>
+                <div class="project-img-container">
+                    <a href="~/images/projects/project6.jpg" lightbox>
+                        <h1>Residential</h1>
+                    </a>
+                    <img class="img-fluid" src="~/images/projects/project6.jpg" alt="project-img">
+                    <div class="project-item-info">
+                        <div class="project-item-info-content">
+                            <h3 class="project-item-title">
+                                Residential
+                            </h3>
+                            <p class="project-cat">Residential</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="exp1"></code></figure>
+<p>
+    در مثال بالا دو قسمت وجود دارد، قسمت اول که از خصوصیت <bidi>filter</bidi> استفاده میشود و برای فیلتر کردن تصاویر استفاده میشود.
+    و قسمت درونی که از نوع <bidi>lightbox</bidi> است.
+</p>
+<p>
+    برای نمایش اسلایدها و تصاویر هر گونه میخواهید عمل کنید، فقط برای آنکه وقتی روی موضوع مورد نظر کلیک کردید، آن را بتوان باز کرد، باید
+    خصوصیت <bidi>lightbox</bidi> را اضافه نمود.
+</p>
+<p>
+    اگر هنگام تعریف خصوصیت lightbox مقدار تصویر، فیلم و یا موسیقی را وارد کنید، سیستم به صورت خودکار، بعد از باز شدن، آن آدرس را بارگذاری میکند.
+    ولی اگر از تگ a استفاده کرده کرده باشید، سیستم به آدرس href نگاه میکند. البته این در صورتی است که مقدار مستقیم به lightbox نداده باشید.
+</p>
+<figure>
+    <code data-on="_code">
+        <div class="row" wn-type="lightbox">
+            <div lightbox="/images/projects/project1.jpg">
+                <h1>Capital Teltway Building</h1>
+                <p>Hello!</p>
+            </div>
+            <a href="~/images/projects/project2.jpg" lightbox>
+                <h1>TNT East Facility</h1>
+            </a>
+        </div>
+    </code>
+</figure>
+<p>برای نمایش لایت باکس به صورت خودکار، از الگوی زیر استفاده میکند.</p>
+<figure>
+    <code data-on="_code">
+        <div class="lightbox">
+            <div class="lightbox-slides">
+                <div class="media animate fadeIn">
+                </div>
+                <div class="content animate slideInUp">
+                </div>
+            </div>
+            <button class="close light"></button>
+            <button class="button-previous"></button>
+            <button class="button-next"></button>
+        </div>
+    </code>
+</figure>
+<p>اگر میخواهید، الگو را تغییر دهید، کافیست این مقدار html را در تگی که حاوی lightbox است، قرار داده و تغییرات مد نظر را انجام دهید.</p>
+<figure>
+    <code data-on="_code">
+        <div class="row" wn-type="lightbox">
+            <div class="lightbox">
+                <div class="lightbox-slides">
+                    <div class="media animate slideInDown">
+                    </div>
+                    <div class="content animate slideInLeft">
+                    </div>
+                </div>
+                <button class="close light"></button>
+                <button class="button-previous"></button>
+                <button class="button-next"></button>
+            </div>
+        </div>
+    </code>
+</figure>
+<p>برای تنظیم برخی خصوصیات میتوانید از گزینه های زیر استفاده کنید. در نظر داشته باشید به صورت پیش فرض تمامی این تنظیمات فعال هستند.</p>
+<ul class="list">
+    <li><bidi>loop</bidi>: اگر میخواهید اسلایدها به صورت دنباله هم پخش نشود، این مقدار را false کنید.</li>
+    <li><bidi>close</bidi>: اگر میخواهید گزینه ضربدر در بالای صفحه نمایش داده نشود، این مقدار را false کنید.</li>
+    <li><bidi>modalclose</bidi>: اگر میخواهید با کلیک بر روی فضای تیره رنگ، لایت باکس بسته نشود، این مقدار را false کنید.</li>
+    <li><bidi>autoplay</bidi>: اگر میخواهید ویدئو یا موسیقی بلافاصله بعد از نمایش پخش نشود، این مقدار را false کنید.</li>
+</ul>
+<figure>
+    <code data-on="_code">
+        <div class="row" wn-type="lightbox" loop="false" close="false" modalclose="false" autoplay="false">
+        </div>
+    </code>
+</figure>

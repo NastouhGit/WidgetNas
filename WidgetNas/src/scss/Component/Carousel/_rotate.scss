@@ -1,0 +1,45 @@
+﻿.carousel {
+    .carousel-slides {
+        $name: rotate;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: rotateIn;
+            }
+
+            &.end {
+                display: block;
+                animation-name: rotateOut;
+            }
+        }
+
+        $name: rotate-down;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: rotateInDownLeft;
+            }
+
+            &.end {
+                display: block;
+                animation-name: rotateOutUpRight;
+            }
+        }
+
+        $name: rotate-up;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: rotateInUpLeft;
+            }
+
+            &.end {
+                display: block;
+                animation-name: rotateOutDownRight;
+            }
+        }
+    }
+}

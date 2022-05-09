@@ -1,0 +1,36 @@
+﻿.alert {
+    padding-block: var(--padding-block);
+    padding-inline: var(--padding-inline);
+    margin-block: var(--margin-block);
+    margin-inline: var(--margin-inline);
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid var(--normal-border);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: var(--line-height);
+    text-decoration: none !important;
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    overflow: visible;
+    vertical-align: middle;
+    text-transform: none;
+    fill: var(--normal-color);
+    background-color: var(--normal-back);
+    color: var(--normal-color);
+    opacity: 1;
+    visibility: visible;
+    transition: visibility 150ms,opacity 150ms ease-in-out;
+
+    &.hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
+@import "style";

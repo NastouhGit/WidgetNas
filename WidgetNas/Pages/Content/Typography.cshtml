@@ -1,0 +1,350 @@
+﻿@page
+@model WidgetNas.Pages.Content.TypographyModel
+@{
+    ViewData["Title"] = "فنون چاپ و تایپوگرافی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>مقدار دهی تگهای استاندارد، کلاس های رابط و نمایش آنها و نحوه استفاده از آنها در این صفحه آمده است.</p>
+<h2>عناوین</h2>
+<p>تمامی عناوینی که در html تعیین شده اند مقدار دهی شده اند. همچنین میتوان از کلاس هم نام آن در انواع موضوعات دیگر نیز استفاده کرد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <tr><td class="ltr primary-color">&lt;h1&gt;&lt;/h1&gt;</td><td><h1>Heading 1 WidgetNas</h1></td></tr>
+            <tr><td class="ltr primary-color">&lt;h2&gt;&lt;/h2&gt;</td><td><h2>Heading 2 WidgetNas</h2></td></tr>
+            <tr><td class="ltr primary-color">&lt;h3&gt;&lt;/h3&gt;</td><td><h3>Heading 3 WidgetNas</h3></td></tr>
+            <tr><td class="ltr primary-color">&lt;h4&gt;&lt;/h4&gt;</td><td><h4>Heading 4 WidgetNas</h4></td></tr>
+            <tr><td class="ltr primary-color">&lt;h5&gt;&lt;/h5&gt;</td><td><h5>Heading 5 WidgetNas</h5></td></tr>
+            <tr><td class="ltr primary-color">&lt;h6&gt;&lt;/h6&gt;</td><td><h6>Heading 6 WidgetNas</h6></td></tr>
+        </table>
+        <p>.h? classes</p>
+        <table>
+            <tr><td class="ltr primary-color">&lt;p class='h1'&gt;&lt;/p&gt;</td><td><p class="h1">Heading 1 WidgetNas</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h2'&gt;&lt;/p&gt;</td><td><p class="h2">Heading 2 WidgetNas</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h3'&gt;&lt;/p&gt;</td><td><p class="h3">Heading 3 WidgetNas</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h4'&gt;&lt;/p&gt;</td><td><p class="h4">Heading 4 WidgetNas</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h5'&gt;&lt;/p&gt;</td><td><p class="h5">Heading 5 WidgetNas</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h6'&gt;&lt;/p&gt;</td><td><p class="h6">Heading 6 WidgetNas</p></td></tr>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <tr><td class="ltr primary-color">&lt;h1&gt;&lt;/h1&gt;</td><td><h1>عنوان 1 ویجت نس</h1></td></tr>
+            <tr><td class="ltr primary-color">&lt;h2&gt;&lt;/h2&gt;</td><td><h2>عنوان 2 ویجت نس</h2></td></tr>
+            <tr><td class="ltr primary-color">&lt;h3&gt;&lt;/h3&gt;</td><td><h3>عنوان 3 ویجت نس</h3></td></tr>
+            <tr><td class="ltr primary-color">&lt;h4&gt;&lt;/h4&gt;</td><td><h4>عنوان 4 ویجت نس</h4></td></tr>
+            <tr><td class="ltr primary-color">&lt;h5&gt;&lt;/h5&gt;</td><td><h5>عنوان 5 ویجت نس</h5></td></tr>
+            <tr><td class="ltr primary-color">&lt;h6&gt;&lt;/h6&gt;</td><td><h6>عنوان 6 ویجت نس</h6></td></tr>
+        </table>
+        <p>کلاسهای <span class="bidi-override">.h?</span></p>
+        <table>
+            <tr><td class="ltr primary-color">&lt;p class='h1'&gt;&lt;/p&gt;</td><td><p class="h1">عنوان 1 ویجت نس</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h2'&gt;&lt;/p&gt;</td><td><p class="h2">عنوان 2 ویجت نس</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h3'&gt;&lt;/p&gt;</td><td><p class="h3">عنوان 3 ویجت نس</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h4'&gt;&lt;/p&gt;</td><td><p class="h4">عنوان 4 ویجت نس</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h5'&gt;&lt;/p&gt;</td><td><p class="h5">عنوان 5 ویجت نس</p></td></tr>
+            <tr><td class="ltr primary-color">&lt;p class='h6'&gt;&lt;/p&gt;</td><td><p class="h6">عنوان 6 ویجت نس</p></td></tr>
+        </table>
+    </div>
+</div>
+<h2>عناوین سفارش سازی شده</h2>
+<p>شما میتوانید عناوین را بر اساس نیاز خود سفارشی کنید، مثال ها در زیر آورده شده است.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <h1>Heading <small class="text-muted">with muted text</small></h1>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h1>عنوان <small class="text-muted">با متن کم رنگ شده</small></h1>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">h1</span>&gt;Heading &lt;<span class="ht">small</span> <span class="ha">class=</span><span class="hv">"text-muted"</span>&gt;with muted text&lt;/<span class="ht">small</span>&gt;&lt;/<span class="ht">h1</span>&gt;
+</code></pre>
+</figure>
+<h2>چیدمان متن</h2>
+<p>برای آنکه متن خود را در صفحه به صورت راست و چپ و وسط چین داشته باشید، میتوانید از کلاسهای زیر استفاده کنید.</p>
+<p>به دلیل آنکه استانداردهای جدید به جای استفاده از left و right از گزینه های start و end استفاده میکنند. ما نیز در این فریم ورک عبارت چپ و راست را حذف و آنرا به شروع و پایان تغییر دادیم.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <h6>text-start:</h6>
+        <p class="text-start primary-border" style="width:20rem">Text Start</p>
+        <h6>text-center:</h6>
+        <p class="text-center primary-border" style="width:20rem">Text Center</p>
+        <h6>text-end:</h6>
+        <p class="text-end primary-border" style="width:20rem">Text End</p>
+        <h6>text-left:</h6>
+        <p class="text-left primary-border" style="width:20rem">Text Left</p>
+        <h6>text-right:</h6>
+        <p class="text-right primary-border" style="width:20rem">Text Right</p>
+        <h6>text-justify:</h6>
+        <p class="text-justify primary-border" style="width:20rem">This is test message with long width for looking justification.</p>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h6 class="ltr">text-start:</h6>
+        <p class="text-start primary-border" style="width:20rem">متن ابتدا</p>
+        <h6 class="ltr">text-center:</h6>
+        <p class="text-center primary-border" style="width:20rem">متن وسط</p>
+        <h6 class="ltr">text-end:</h6>
+        <p class="text-end primary-border" style="width:20rem">متن انتها</p>
+        <h6 class="ltr">text-left:</h6>
+        <p class="text-left primary-border" style="width:20rem">چپ چین</p>
+        <h6 class="ltr">text-right:</h6>
+        <p class="text-right primary-border" style="width:20rem">راست چین</p>
+        <h6 class="ltr">text-justify:</h6>
+        <p class="text-justify primary-border" style="width:20rem">این یک متن طولانی هست برای آنکه ببینید چطور چیدمان تنظیم میشود.</p>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"text-start"</span>&gt;Text Message&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+<h2>چیدمان افقی</h2>
+<p>به صورت پیش فرض متن ها از بالا به پایین پر میشوند، در صورتیکه تمایل به تغییر وضعیت چینش دارید از کلاسهای va-? استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="bordered">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">va-top</th>
+                    <th scope="col">va-middle</th>
+                    <th scope="col">va-bottom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width:10rem;">This here is some placeholder text, intended to take up quite a bit of vertical space, to demonstrate how the vertical alignment works in the preceding cells.</td>
+                    <td style="width:10rem;" class="va-top">This is test message</td>
+                    <td style="width:10rem;" class="va-middle">This is test message</td>
+                    <td style="width:10rem;" class="va-bottom">This is test message</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="bordered">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">va-top</th>
+                    <th scope="col">va-middle</th>
+                    <th scope="col">va-bottom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width:10rem;">این در اینجا متن متغیرهایی است که قصد دارد فضای عمودی زیادی را اشغال کند ، تا نشان دهد چگونه ترازبندی عمودی در سلولهای قبلی کار می کند.</td>
+                    <td style="width:10rem;" class="va-top">این یک متن آزمایشی است</td>
+                    <td style="width:10rem;" class="va-middle">این یک متن آزمایشی است</td>
+                    <td style="width:10rem;" class="va-bottom">این یک متن آزمایشی است</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"va-top"</span>&gt;...&lt;/<span class="ht">p</span>&gt;
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"va-middle"</span>&gt;...&lt;/<span class="ht">p</span>&gt;
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"va-bottom"</span>&gt;...&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+<h2>شکستن خط</h2>
+<p>برای آنکه متن درون یک کادر محدود چگونه نمایش داده شود میتوانید از گزینه های زیر استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <h6>text-wrap:</h6>
+        <p class="text-wrap primary-border" style="width:10rem">This is test message for watching wrap mode</p>
+        <h6>text-nowrap:</h6>
+        <p class="text-nowrap primary-border" style="width:10rem">This is test message for watching wrap mode</p>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h6 class="ltr">text-wrap:</h6>
+        <p class="text-wrap primary-border" style="width:10rem">این یک متن آزمایشی برای نمایش شکست است</p>
+        <h6 class="ltr">text-nowrap:</h6>
+        <p class="text-nowrap primary-border" style="width:10rem">این یک متن آزمایشی برای نمایش شکست است</p>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"text-wrap"</span>&gt;Text Message&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+<h2>اندازه ها</h2>
+<p>برای تغییر اندازه قلم میتوانید از گزینه های اندازه استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <tr><td class="ltr primary-color">fs-xs</td><td class="fs-xs">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fs-s</td><td class="fs-s">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fs-m</td><td class="fs-m">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fs-n</td><td class="fs-n">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fs-l</td><td class="fs-l">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fs-xl</td><td class="fs-xl">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fs-xxl</td><td class="fs-xxl">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fs-xxxl</td><td class="fs-xxxl">Test Message</td></tr>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <tr><td class="ltr primary-color">fs-xs</td><td class="fs-xs">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fs-s</td><td class="fs-s">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fs-m</td><td class="fs-m">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fs-n</td><td class="fs-n">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fs-l</td><td class="fs-l">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fs-xl</td><td class="fs-xl">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fs-xxl</td><td class="fs-xxl">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fs-xxxl</td><td class="fs-xxxl">متن آزمایشی</td></tr>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"fs-xl"</span>&gt;Text Message&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+<h2>درشتی Bold</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <tr><td class="ltr primary-color">fw-lighter</td><td class="fw-lighter">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fw-normal</td><td class="fw-normal">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fw-bold</td><td class="fw-bold">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fw-bolder</td><td class="fw-bolder">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fw-100</td><td class="fw-100">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fw-500</td><td class="fw-500">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fw-900</td><td class="fw-900">Test Message</td></tr>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <tr><td class="ltr primary-color">fw-lighter</td><td class="fw-lighter">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fw-normal</td><td class="fw-normal">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fw-bold</td><td class="fw-bold">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fw-bolder</td><td class="fw-bolder">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fw-100</td><td class="fw-100">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fw-500</td><td class="fw-500">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fw-900</td><td class="fw-900">متن آزمایشی</td></tr>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"fw-normal"</span>&gt;Text Message&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+
+<h2>شمایل</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <tr><td class="ltr primary-color">fst-n</td><td class="fst-n">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fst-i</td><td class="fst-i">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fst-o</td><td class="fst-o">Test Message</td></tr>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <tr><td class="ltr primary-color">fst-n</td><td class="fst-n">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fst-i</td><td class="fst-i">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fst-o</td><td class="fst-o">متن آزمایشی</td></tr>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"fst-i"</span>&gt;Text Message&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <tr><td class="ltr primary-color">fd-n</td><td class="fd-n">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fd-u</td><td class="fd-u">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fd-l</td><td class="fd-l">Test Message</td></tr>
+            <tr><td class="ltr primary-color">fd-o</td><td class="fd-o">Test Message</td></tr>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <tr><td class="ltr primary-color">fd-n</td><td class="fd-n">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fd-u</td><td class="fd-u">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fd-l</td><td class="fd-l">متن آزمایشی</td></tr>
+            <tr><td class="ltr primary-color">fd-o</td><td class="fd-o">متن آزمایشی</td></tr>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"fd-u"</span>&gt;Text Message&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+<p class="alert info">اگر میخواهید همه تنظیمات رو به حالت اول برگردانید از کلاس f-normal استفاده کنید.</p>
+<h2>فاصله خطوطی</h2>
+<p>برای تنظیم فاصله خطوط از کلاسlh- و یکی از واحدهای اندازه که قبلا تعریف شده استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <tr><td class="ltr primary-color">lh-n</td><td class="lh-n" style="width:20rem;height:5rem;">Some placeholder content to show off the line height utilities. Happy birthday. You could've been the greatest.</td></tr>
+            <tr><td class="ltr primary-color">lh-50r</td><td class="lh-50r" style="width:20rem;height:5rem;">Some placeholder content to show off the line height utilities. Happy birthday. You could've been the greatest.</td></tr>
+            <tr><td class="ltr primary-color">lh-100r</td><td class="lh-100r" style="width:20rem;height:5rem;">Some placeholder content to show off the line height utilities. Happy birthday. You could've been the greatest.</td></tr>
+            <tr><td class="ltr primary-color">lh-150r</td><td class="lh-150r" style="width:20rem;height:5rem;">Some placeholder content to show off the line height utilities. Happy birthday. You could've been the greatest.</td></tr>
+            <tr><td class="ltr primary-color">lh-200r</td><td class="lh-200r" style="width:20rem;height:5rem;">Some placeholder content to show off the line height utilities. Happy birthday. You could've been the greatest.</td></tr>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <tr><td class="ltr primary-color">lh-n</td><td class="lh-n" style="width:20rem;height:5rem;">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</td></tr>
+            <tr><td class="ltr primary-color">lh-50r</td><td class="lh-50r" style="width:20rem;height:5rem">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</td></tr>
+            <tr><td class="ltr primary-color">lh-100r</td><td class="lh-100r" style="width:20rem;height:5rem;">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</td></tr>
+            <tr><td class="ltr primary-color">lh-150r</td><td class="lh-150r" style="width:20rem;height:5rem;">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</td></tr>
+            <tr><td class="ltr primary-color">lh-200r</td><td class="lh-200r" style="width:20rem;height:5rem;">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</td></tr>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">p</span> <span class="ha">class=</span><span class="hv">"lh-150r"</span>&gt;Text Message&lt;/<span class="ht">p</span>&gt;
+</code></pre>
+</figure>
+<h2>جهت درست نوشتن متون چپ به راست در متون راست به چپ</h2>
+<p>خیلی اوقات اتفاق می افتد که تمایل دارید یک متن انگلیسی را درون یک متن فارسی بنویسید، ولیکن ممکن است ترتیب نوشتن بهم بریزد، متون مانند شماره تلفن، شما میتوانید از کلاس <code class="html ha">bidi-override</code> کمک بگیرید.</p>
+<p>برای مثال وقتی برنامه های تماس میخواهند شماره شما را شناسایی کنند، به دلیل تغییر در ساختار شماره تلفن برای نمایش درست انسانی، شماره به صورت ناصحیح شناسایی شده و قابل تماس نیست.</p>
+<div class="example-div justify-content-end">
+    <div class="rtl">
+        <h3>RTL</h3>
+        <p>شما با شماره تلفن +98 (21) 123456 تماس بگیرید. شماره درست نمایش داده نشده است.</p>
+        <p>شما با شماره تلفن <span class="bidi-override">+98 (21) 123456</span> تماس بگیرید. شماره درست نمایش داده شده است.</p>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">span</span> <span class="ha">class=</span><span class="hv">"bidi-override"</span>&gt;...&lt;/<span class="ht">span</span>&gt;
+    &lt;<span class="ht">bidi</span>&gt;...&lt;/<span class="ht">bidi</span>&gt;
+</code></pre>
+</figure>
+

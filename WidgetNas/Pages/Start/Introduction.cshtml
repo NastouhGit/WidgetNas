@@ -1,0 +1,32 @@
+﻿@page
+@model WidgetNas.Pages.Start.IntroductionModel
+@{
+    ViewData["Title"] = "ابزارک های نستوه Widgetnas";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.
+    این فریم ورک با الگو گرفتن از دیگر فریم ورکها و ساده سازی آنها، باعث می شود با نوشتن کد کمتر، بیشترین کارآیی را داشته باشید.
+</p>
+<h1>شروع کنیم</h1>
+<p>برای استفاده از این فریم ورک میتوانید آن را از آدرس <a href="~/App_Start/Download">دریافت ویجت نس</a> دانلود کنید.</p>
+<h1>چگونه استفاده کنیم؟</h1>
+<p>برای استفاده از این فریم ورک کافیست، ابتدا فایل css مربوطه را آدرس دهی کرده و سپس فایل جاوای مخصوص آنرا در کد فراخوانی کنید.</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">head</span>&gt;
+        &lt;<span class="ht">link</span> <span class="ha">href=</span><span class="hv">"WidgetNas.css"</span> <span class="ha">rel=</span><span class="hv">"stylesheet"</span>/&gt;
+    &lt;/<span class="ht">head</span>&gt;
+    &lt;<span class="ht">body</span>&gt;
+        &lt;<span class="ht">script</span> <span class="ha">src=</span><span class="hv">"WidgetNas.js"</span>&gt;&lt;/<span class="ht">script</span>&gt;
+    &lt;/<span class="ht">body</span>&gt;
+</code></pre>
+</figure>
+<h1>پوسته پذیری</h1>
+<p>این فریم ورک به گونه ای طراحی شده است که به راحتی بتوان برای سطوح رنگی انواع پوسته را به طور مجزی طراحی کرد، بطوری که به صورت آنی بتوان پوسته را  تغییر داد.</p>
+<p>
+    اطلاعات رنگی به صورت متغییرهای css مشخص شده است که با تغییر آنها میتوان آن را در بدنه فریم ورک مشاهده کرد.
+    برای ساخت انواع پوسته میتوانید از فایل مجزا که آن متغییر ها را مقدار دهی میکند استفاده کنید.
+</p>
+<p>برای اطلاع بیشتر میتوانید به بخش <a href="~/Theme">دسته رنگها</a> مراجعه کنید.</p>

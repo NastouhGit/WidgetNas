@@ -1,0 +1,441 @@
+﻿@page
+@model WidgetNas.Pages.Components.ButtonsModel
+@{
+    ViewData["Title"] = "دکمه ها Buttons";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>دکمه ها نقش مهمی در صفحات وب دارند، داشتن شکل زیبا و خوانا باعث زیبایی و کارآمدی در صفحه می شود.</p>
+<p>دکمه ها به دو صورت در صفحات وب وجود دارند، دکمه هایی از جنس button و دکمه هایی از جنس HyperLink.</p>
+<p>در این صفحه انواع دکمه ها را به شما نمایش خواهیم داد.</p>
+
+<h2>مثال</h2>
+<p>دکمه ها از جنس button در رنگهای متداول.</p>
+
+<h2>رنگها</h2>
+
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div>
+            <button>default</button>
+            <button class="m-b-50r primary">primary</button>
+            <button class="m-b-50r secondary">secondary</button>
+            <button class="m-b-50r third">third</button>
+            <button class="m-b-50r success">success</button>
+            <button class="m-b-50r info">info</button>
+            <button class="m-b-50r warning">warning</button>
+            <button class="m-b-50r danger">danger</button>
+            <button class="m-b-50r error">error</button>
+            <button class="m-b-50r light">light</button>
+            <button class="m-b-50r dark">dark</button>
+        </div>
+        <div class="m-bs-50r">
+            <button disabled>default</button>
+            <button class="m-b-50r primary" disabled>primary</button>
+            <button class="m-b-50r secondary" disabled>secondary</button>
+            <button class="m-b-50r third" disabled>third</button>
+            <button class="m-b-50r success" disabled>success</button>
+            <button class="m-b-50r info" disabled>info</button>
+            <button class="m-b-50r warning" disabled>warning</button>
+            <button class="m-b-50r danger" disabled>danger</button>
+            <button class="m-b-50r error" disabled>error</button>
+            <button class="m-b-50r light" disabled>light</button>
+            <button class="m-b-50r dark" disabled>dark</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="m-b-50r outline">default</button>
+            <button class="m-b-50r primary outline">primary</button>
+            <button class="m-b-50r secondary outline">secondary</button>
+            <button class="m-b-50r third outline">third</button>
+            <button class="m-b-50r success outline">success</button>
+            <button class="m-b-50r info outline">info</button>
+            <button class="m-b-50r warning outline">warning</button>
+            <button class="m-b-50r danger outline">danger</button>
+            <button class="m-b-50r error outline">error</button>
+            <button class="m-b-50r light outline">light</button>
+            <button class="m-b-50r dark outline">dark</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="m-b-50r outline" disabled>default</button>
+            <button class="m-b-50r primary outline" disabled>primary</button>
+            <button class="m-b-50r secondary outline" disabled>secondary</button>
+            <button class="m-b-50r third outline" disabled>third</button>
+            <button class="m-b-50r success outline" disabled>success</button>
+            <button class="m-b-50r info outline" disabled>info</button>
+            <button class="m-b-50r warning outline" disabled>warning</button>
+            <button class="m-b-50r danger outline" disabled>danger</button>
+            <button class="m-b-50r error outline" disabled>error</button>
+            <button class="m-b-50r light outline" disabled>light</button>
+            <button class="m-b-50r dark outline" disabled>dark</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button>پیش فرض</button>
+            <button class="m-b-50r primary">اصلی</button>
+            <button class="m-b-50r secondary">دومی</button>
+            <button class="m-b-50r third">سومی</button>
+            <button class="m-b-50r success">موفق</button>
+            <button class="m-b-50r info">اطلاعات</button>
+            <button class="m-b-50r warning">هشدار</button>
+            <button class="m-b-50r danger">خطرناک</button>
+            <button class="m-b-50r error">خطا</button>
+            <button class="m-b-50r light">روشن</button>
+            <button class="m-b-50r dark">تیره</button>
+        </div>
+        <div class="m-bs-50r">
+            <button disabled>پیش فرض</button>
+            <button class="m-b-50r primary" disabled>اصلی</button>
+            <button class="m-b-50r secondary" disabled>دومی</button>
+            <button class="m-b-50r third" disabled>سومی</button>
+            <button class="m-b-50r success" disabled>موفق</button>
+            <button class="m-b-50r info" disabled>اطلاعات</button>
+            <button class="m-b-50r warning" disabled>هشدار</button>
+            <button class="m-b-50r danger" disabled>خطرناک</button>
+            <button class="m-b-50r error" disabled>خطا</button>
+            <button class="m-b-50r light" disabled>روشن</button>
+            <button class="m-b-50r dark" disabled>تیره</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="m-b-50r outline">پیش فرض</button>
+            <button class="m-b-50r primary outline">اصلی</button>
+            <button class="m-b-50r secondary outline">دومی</button>
+            <button class="m-b-50r third outline">سومی</button>
+            <button class="m-b-50r success outline">موفق</button>
+            <button class="m-b-50r info outline">اطلاعات</button>
+            <button class="m-b-50r warning outline">هشدار</button>
+            <button class="m-b-50r danger outline">خطرناک</button>
+            <button class="m-b-50r error outline">خطا</button>
+            <button class="m-b-50r light outline">روشن</button>
+            <button class="m-b-50r dark outline">تیره</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="m-b-50r outline" disabled>پیش فرض</button>
+            <button class="m-b-50r primary outline" disabled>اصلی</button>
+            <button class="m-b-50r secondary outline" disabled>دومی</button>
+            <button class="m-b-50r third outline" disabled>سومی</button>
+            <button class="m-b-50r success outline" disabled>موفق</button>
+            <button class="m-b-50r info outline" disabled>اطلاعات</button>
+            <button class="m-b-50r warning outline" disabled>هشدار</button>
+            <button class="m-b-50r danger outline" disabled>خطرناک</button>
+            <button class="m-b-50r error outline" disabled>خطا</button>
+            <button class="m-b-50r light outline" disabled>روشن</button>
+            <button class="m-b-50r dark outline" disabled>تیره</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+<h2>Hyperlink</h2>
+<p>اکر در جایی از صفحه شما میخواستید دکمه ای از جنس hyperlink داشته باشید، کافیست کلاس button و بقیه کلاسهای مرتبط را اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div>
+            <a href="#" class="button primary">primary</a>
+            <a href="#" class="button secondary">secondary</a>
+            <a href="#" class="button third">third</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary disabled">primary</a>
+            <a href="#" class="button secondary disabled">secondary</a>
+            <a href="#" class="button third disabled">third</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary outline">primary</a>
+            <a href="#" class="button secondary outline">secondary</a>
+            <a href="#" class="button third outline">third</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary outline disabled">primary</a>
+            <a href="#" class="button secondary outline disabled">secondary</a>
+            <a href="#" class="button third outline disabled">third</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary outline" disabled>primary</a>
+            <a href="#" class="button secondary outline" disabled>secondary</a>
+            <a href="#" class="button third outline" disabled>third</a>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <a href="#" class="button primary">اصلی</a>
+            <a href="#" class="button secondary">دومی</a>
+            <a href="#" class="button third">سومی</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary disabled">اصلی</a>
+            <a href="#" class="button secondary disabled">دومی</a>
+            <a href="#" class="button third disabled">سومی</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary outline">اصلی</a>
+            <a href="#" class="button secondary outline">دومی</a>
+            <a href="#" class="button third outline">سومی</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary outline disabled">اصلی</a>
+            <a href="#" class="button secondary outline disabled">دومی</a>
+            <a href="#" class="button third outline disabled">سومی</a>
+        </div>
+        <div class="m-bs-50r">
+            <a href="#" class="button primary outline" disabled>اصلی</a>
+            <a href="#" class="button secondary outline" disabled>دومی</a>
+            <a href="#" class="button third outline" disabled>سومی</a>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+
+<h2>اندازه ها</h2>
+<p>اندازه ها طبق استاندارد اندازه گذاری در فریم ورک از xs شروع و با xxxl تمام میشود.</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form3">
+            <button class="m-b-50r primary s-xs">extra small (xs)</button>
+            <button class="m-b-50r primary s-s">small (s)</button>
+            <button class="m-b-50r primary s-m">medium (m)</button>
+            <button class="m-b-50r primary s-n">normal (n)</button>
+            <button class="m-b-50r primary s-l">large (l)</button>
+            <button class="m-b-50r primary s-xl">extra large (xl)</button>
+            <button class="m-b-50r primary s-xxl">super extra large (xxl)</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button class="m-b-50r primary s-xs">خیلی کوچک (xs)</button>
+            <button class="m-b-50r primary s-s">کوچک (s)</button>
+            <button class="m-b-50r primary s-m">متوسط (m)</button>
+            <button class="m-b-50r primary s-n">عادی (n)</button>
+            <button class="m-b-50r primary s-l">بزرگ (l)</button>
+            <button class="m-b-50r primary s-xl">بزرگتر (xl)</button>
+            <button class="m-b-50r primary s-xxl">خیلی بزرگتر (xxl)</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>دکمه های بلوکی</h2>
+<p>اگر میخواهید یک دکمه در سطح بلوک گسترش پیدا کند از روش زیر استفاده کنید.</p>
+
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <div class="d-grid gap-50r">
+            <button class="primary">Button 1</button>
+            <button class="primary">Button 2</button>
+            <button class="primary">Button 3</button>
+        </div>
+        <div class="col-6 d-grid gap-50r m-bs-50r m-i-a">
+            <button class="primary">Button 1</button>
+            <button class="primary">Button 2</button>
+            <button class="primary">Button 3</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="d-grid gap-50r">
+            <button class="primary">دکمه 1</button>
+            <button class="primary">دکمه 2</button>
+            <button class="primary">دکمه 3</button>
+        </div>
+        <div class="col-6 d-grid gap-50r m-bs-50r m-i-a">
+            <button class="primary">دکمه 1</button>
+            <button class="primary">دکمه 2</button>
+            <button class="primary">دکمه 3</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>حاوی تصویر</h2>
+<p>شما میتوانید در دکمه یک تصویر برای گویایی بیشتر اضافه نمایید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <div>
+            <button class="m-b-50r primary">
+                <i class="fas fa-camera"></i>
+                Have Icon
+            </button>
+            <button class="m-b-50r primary">
+                Have Icon
+                <i class="fas fa-camera"></i>
+            </button>
+            <button class="m-b-50r primary">
+                <svg viewBox="0 0 20 20">
+                    <path fill="none" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+                </svg>
+                Have SVG
+            </button>
+            <button class="m-b-50r primary">
+                <img src="~/images/tools24.png" />
+                Have Image
+            </button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="m-b-50r primary s-m">
+                <i class="fas fa-camera"></i>
+                Have Icon
+            </button>
+            <button class="m-b-50r primary s-l">
+                <i class="fas fa-camera"></i>
+                Have Icon
+            </button>
+            <button class="m-b-50r success s-xxl">
+                <svg viewBox="0 0 20 20">
+                    <path fill="solid" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+                </svg>
+                Have SVG
+            </button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button class="m-b-50r primary">
+                <i class="fas fa-camera"></i>
+                دارای تصویر
+            </button>
+            <button class="m-b-50r primary">
+                دارای تصویر
+                <i class="fas fa-camera"></i>
+            </button>
+            <button class="m-b-50r primary">
+                <svg viewBox="0 0 20 20">
+                    <path fill="none" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+                </svg>
+                تصویر SVG
+            </button>
+            <button class="m-b-50r primary">
+                <img src="~/images/tools24.png" />
+                تصویر png
+            </button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="m-b-50r primary s-m">
+                <i class="fas fa-camera"></i>
+                متوسط
+            </button>
+            <button class="m-b-50r primary s-l">
+                <i class="fas fa-camera"></i>
+                بزرگ
+            </button>
+            <button class="m-b-50r success s-xxl">
+                <svg viewBox="0 0 20 20">
+                    <path fill="solid" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+                </svg>
+                خیلی بزرگ svg
+            </button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>دکمه بستن</h2>
+<p>اگر خواستید، دکمه بستن را در کادر یا موضوعی نمایش دهید و یا آنرا به صورت خودکار ببندید، میتوانید از این دکمه استفاده کنید.</p>
+<p>تفاوت اصلی این دکمه با دکمه های معمولی داشتن خوصوصیت wn-type است. برای مشاهده آن به مثال زیر توجه کنید.</p>
+<p>اگر میخواهید فقط دکمه به شکل بستن نمایش داده شود و کنترل آن دست خود شما باشد، فقط کلاسهای مرتبط را نسبت دهید.</p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <div class="p-100r">
+            <button class="close"></button>
+        </div>
+        <div class="p-100r dark-color">
+            <button class="close light"></button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="p-100r">
+            <button class="close"></button>
+        </div>
+        <div class="p-100r dark-color">
+            <button class="close light"></button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<p>اگر میخواهید به صورت خودکار یک موضوعی را حذف کند، به مثال زیر توجه کنید.</p>
+<p>برای این منظور id موضوع مورد نظر را در خصوصیت <bidi>remove-id</bidi> بنویسید. قوانین نام گذاری بر اساس querySelectorAll است.</p>
+<p>دقت کنید، این خصوصیت کل موضوع را به صورت فیزیکی حذف میکند و دیگر قابل برگشت در صفحه نیست، مگر آنکه خود آن را مدیریت کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="dark-color round" id="divclose_ltr" >
+            <button class="close light" wn-type="closebutton" remove-id="#divclose_ltr"></button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="dark-color round" id="divclose_rtl">
+            <button class="close light" wn-type="closebutton" remove-id="#divclose_rtl"></button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="divclose_ltr"></code></figure>
+<p>اگر میخواهید به صورت خودکار به موضوعی کلاسی افزوده یا کسر شود، به مثال زیر توجه کنید.</p>
+<p>
+    برای این منظور id موضوع مورد نظر را در خصوصیت <bidi>target</bidi> بنویسید. قوانین نام گذاری بر اساس querySelectorAll است. همچنین میتوانید با مقدار <bidi>,</bidi> از هم جدا کنید.
+    سپس اگر میخواهید کلاسهایی حذف شود، آنها را در خصوصیت <bidi>remove-class</bidi> و آنهایی که اضافه شوند را در خصوصیت <bidi>add-class</bidi> بنویسید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form8">
+        <h3>LTR</h3>
+        <div class="alert" id="alerttest1_ltr">
+            <button class="close" wn-type="closebutton" target="#alerttest1_ltr" add-class="primary"></button>
+            By press close button add primary class.
+        </div>
+        <div class="alert secondary" id="alerttest2_ltr">
+            <button class="close" wn-type="closebutton" target="#alerttest2_ltr" remove-class="secondary"></button>
+            By press close button removed secondary class.
+        </div>
+        <div class="alert third">
+            <button class="close" wn-type="closebutton" target="#alerttest1_ltr,#alerttest2_ltr" add-class="third" remove-class="primary secondary"></button>
+            Reset to third class.
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="alert" id="alerttest1_rtl">
+            <button class="close" wn-type="closebutton" target="#alerttest1_rtl" add-class="primary"></button>
+            با انتخاب دکمه بستن، کلاس اصلی اضافه میشود.
+        </div>
+        <div class="alert secondary" id="alerttest2_rtl">
+            <button class="close" wn-type="closebutton" target="#alerttest2_rtl" remove-class="secondary"></button>
+            با انتخاب دکمه بستن، کلاس دومی حذف میشود.
+        </div>
+        <div class="alert third">
+            <button class="close" wn-type="closebutton" target="#alerttest1_rtl,#alerttest2_rtl" add-class="third" remove-class="primary secondary"></button>
+            تنظیم به عنوان سومین تم.
+        </div>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+<h2>اشکال مختلف</h2>
+<p>همانند بقیه کنترل ها شما میتوانید با اختصاصی کردن کلاسها، شکل دکمه را نیز برای خود تغییر دهید.</p>
+<p>در زیر چند نمونه کلاس پیاده سازی شده نمایش داده میشود.</p>
+
+<div class="example-div">
+    <div class="ltr" id="form9">
+        <h3>LTR</h3>
+        <div>
+            <button class="primary button-capsule">Capsule</button>
+            <button class="secondary button-bottom">Bottom</button>
+            <button class="warning button-outline">Outline</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button class="primary button-capsule">کپسول</button>
+            <button class="secondary button-bottom">خط در زیر</button>
+            <button class="error button-outline">دور خط</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>

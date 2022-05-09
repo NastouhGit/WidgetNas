@@ -1,0 +1,32 @@
+﻿@mixin callout () {
+    background-color: transparent ;
+    color: var(--normal-childcolor) ;
+    border-color: var(--default-normal-shadow);
+}
+.alert {
+    &.callout {
+        &-start {
+            @include callout;
+            border-inline-start-width: var(--border-radius);
+            border-inline-start-color: var(--normal-border) !important;
+        }
+
+        &-end {
+            @include callout;
+            border-inline-end-color: var(--normal-border) !important;
+            border-inline-end-width: var(--border-radius);
+        }
+
+        &-top {
+            @include callout;
+            border-block-start-width: var(--border-radius);
+            border-block-start-color: var(--normal-border) !important;
+        }
+
+        &-bottom {
+            @include callout;
+            border-block-end-color: var(--normal-border) !important;
+            border-block-end-width: var(--border-radius) !important;
+        }
+    }
+}

@@ -1,0 +1,255 @@
+﻿*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+hr {
+    margin: var(--margin-block) 0;
+    margin-block-start: var(--margin-block);
+    background-color: currentColor;
+    border: 0;
+    opacity: 0.25;
+}
+
+    hr:not([size]) {
+        height: var(--border-width);
+    }
+
+
+@each $name,$value in $heading-fontsize {
+    .#{$name}, #{$name} {
+        margin-block-start: calc(var(--margin-block) * #{$value});
+        margin-block-end: var(--margin-block);
+        font-size: calc(var(--font-size,1) * #{$value});
+        font-weight: bold;
+    }
+}
+
+p {
+    margin-block-start: 0;
+    margin-block-end: var(--margin-block);
+}
+
+abbr[title] {
+    text-decoration: underline;
+    text-decoration: underline dotted;
+    cursor: help;
+    text-decoration-skip-ink: none;
+}
+
+address {
+    margin-block-end: 1rem;
+    font-style: normal;
+    line-height: inherit;
+}
+
+ol,
+ul {
+    padding-inline-start: calc(var(--padding-inline)*2);
+}
+
+ol,
+ul,
+dl {
+    margin-block-start: 0;
+    margin-block-end: var(--margin-block);
+}
+
+    ol ol,
+    ul ul,
+    ol ul,
+    ul ol {
+        margin-block-end: 0;
+    }
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin-block-end: var(--margin-block);
+    margin-inline-start: 0;
+}
+
+blockquote {
+    margin: 0 0 1rem;
+}
+
+b,
+strong {
+    font-weight: bold;
+}
+
+small {
+    font-size: .875em;
+}
+
+mark {
+    background-color: var(--warning-color);
+    border-radius: var(--border-radius);
+}
+
+sub,
+sup {
+    position: relative;
+    font-size: 0.7em;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -.25em;
+}
+
+sup {
+    top: -.5em;
+}
+
+a {
+    color: var(--active-back);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+    a:not([href]):not([class]) {
+        &, &:hover {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+pre,
+code,
+kbd,
+samp {
+    font-family: $font-family-code;
+    font-size: .875em;
+    font-weight: inherit;
+    direction: ltr;
+    unicode-bidi: embed;
+
+    a > & {
+        color: inherit;
+    }
+}
+
+pre {
+    display: block;
+    margin-block-start: 0;
+    margin-block-end: 1em;
+    overflow: auto;
+}
+
+    pre code {
+        word-wrap: break-word;
+        text-align: left;
+    }
+
+kbd {
+    padding: $kbd-padding-y $kbd-padding-x;
+    color: var(--secondary-normal-color);
+    background-color: var(--secondary-normal-back);
+    border-radius: var(--border-radius);
+
+    kbd {
+        padding: 0;
+        font-size: 1em;
+        font-weight: bold;
+    }
+}
+
+[list]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+::-moz-focus-inner {
+    padding: 0;
+    border-style: none;
+}
+
+
+
+legend {
+    float: left;
+    float: inline-start;
+    width: 100%;
+    padding: 0;
+    margin-block-end: var(--margin-block);
+    font-size: calc(var(--font-size)*1.5);
+    line-height: inherit;
+
+    + * {
+        clear: left;
+        clear: inline-start;
+    }
+}
+
+::-webkit-datetime-edit-fields-wrapper,
+::-webkit-datetime-edit-text,
+::-webkit-datetime-edit-minute,
+::-webkit-datetime-edit-hour-field,
+::-webkit-datetime-edit-day-field,
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-year-field {
+    padding: 0;
+}
+
+::-webkit-inner-spin-button {
+    height: auto;
+}
+
+[type="search"] {
+    outline-offset: -2px;
+    -webkit-appearance: textfield;
+}
+
+::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+output {
+    display: inline-block;
+}
+
+iframe {
+    border: 0;
+}
+
+summary {
+    display: list-item;
+    cursor: pointer;
+}
+
+progress {
+    vertical-align: baseline;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    text-align: start;
+    font-weight: 400;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.rtl {
+    direction: rtl;
+    unicode-bidi: embed;
+    font-variant-numeric: diagonal-fractions;
+}
+
+.ltr {
+    direction: ltr;
+}

@@ -1,0 +1,211 @@
+﻿@page
+@model WidgetNas.Pages.Components.FilterModel
+@{
+    ViewData["Title"] = "فیلتر Filter";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>اگر میخواهید بر روی لیست یا مجموعه ای از موضوعات بر اساس موارد زیر فیلتر داشته باشید، از گزینه فیلتر استفاده کنید.</p>
+
+<h2>تابع WNFilter</h2>
+<p>تابع <bidi>WNFilter</bidi> دارای دو ورودی است به نام های <bidi>selectors</bidi> و <bidi>filterby</bidi> در زیر نحوه عملکرد هر کدام را توضیح میدهیم.</p>
+<h3>selectors</h3>
+<p>
+    این پارامتر مشخص میکند در کل سند صفحه، چه موضوعاتی را برای فیلتر کردن انتخاب کند، قوانین قابل استفاده دقیقا با قوانین سلکتورها یکی است
+    شما میتوانید قوانین را <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector" target="_blank">اینجا</a> مشاهده کنید.
+</p>
+<h3>filterby</h3>
+<p>در این قسمت مشخص میکنید، کدام موضوعات یافت شده باید نمایش داده شوند در غیر اینصورت مخفی گردند.</p>
+<p>قوانین بر اساس، قوانین سلکتورها عمل میکند.</p>
+<p>برای حذف فیلتر، این مقدار خالی باشد.</p>
+<p>اگر میخواهید در متن داخل موضوع یافت شده متنی باشد، از عبارت <bidi>contains(...)</bidi> استفاده کنید.</p>
+<div class="example-div" id="exp1">
+    <div class="row col-1">
+        Filter by Text: <input type="text" oninput="WNFilter('#Sample1 div[class*=alert]','contains('+this.value+')');" />
+        Filter by class: <button onclick="WNFilter('#Sample1 div[class*=alert]','');">all</button> <button onclick="WNFilter('#Sample1 div[class*=alert]','[class*=primary]');">primary</button><button onclick="WNFilter('#Sample1 div[class*=alert]','[class*=secondary]');">secondary</button><button onclick="WNFilter('#Sample1 div[class*=alert]','[class*=success]');">success</button>
+    </div>
+    <div id="Sample1" class="row col-11">
+        <div class="ltr">
+            <h3>LTR</h3>
+            <div class="alert">
+                A default alert.
+            </div>
+            <div class="alert primary">
+                A primary alert.
+            </div>
+            <div class="alert secondary">
+                A secondary alert.
+            </div>
+            <div class="alert primary">
+                A primary alert.
+            </div>
+            <div class="alert third">
+                A third alert.
+            </div>
+            <div class="alert primary">
+                A primary alert.
+            </div>
+            <div class="alert success">
+                A success alert.
+            </div>
+            <div class="alert primary">
+                A primary alert.
+            </div>
+        </div>
+        <div class="rtl">
+            <h3>RTL</h3>
+            <div class="alert">
+                یک هشدار پیش فرض.
+            </div>
+            <div class="alert primary">
+                یک هشدار اصلی.
+            </div>
+            <div class="alert secondary">
+                یک هشدار دومی.
+            </div>
+            <div class="alert primary">
+                یک هشدار اصلی.
+            </div>
+            <div class="alert primary">
+                یک هشدار اصلی.
+            </div>
+            <div class="alert third">
+                یک هشدار سومی.
+            </div>
+            <div class="alert primary">
+                یک هشدار اصلی.
+            </div>
+            <div class="alert success">
+                یک هشدار موفق.
+                <div>علی</div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="exp1"></code></figure>
+<div class="ltr" id="exp2">
+    <div class="row">
+        <div class="col-5">
+            <div class="button-group d-flex">
+                <button class="success" onclick="WNFilter('#Sample2 div[class*=col]','');">All</button>
+                <button class="primary" onclick="WNFilter('#Sample2 div[class*=col]','[category=book]');">Book</button>
+                <button class="primary" onclick="WNFilter('#Sample2 div[class*=col]','[category=folder]');">Folder</button>
+            </div>
+            <ig class="group">
+                <label>Search:</label>
+                <input type="text" oninput="WNFilter('#Sample2 div[class*=col]','contains('+this.value+')');" />
+            </ig>
+        </div>
+    </div>
+    <div id="Sample2" class="row">
+        <div class="col">
+        </div>
+        <div class="col" category="book">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-book"></i></div>
+                <div class="card-footer">Book</div>
+            </div>
+        </div>
+        <div class="col" category="book">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-book-dead"></i></div>
+                <div class="card-footer">Book dead</div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card" category="book">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-book-medical"></i></div>
+                <div class="card-footer">Book medical</div>
+            </div>
+
+        </div>
+        <div class="col" category="book">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-book-open"></i></div>
+                <div class="card-footer">Book open</div>
+            </div>
+        </div>
+        <div class="col" category="book">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-book-reader"></i></div>
+                <div class="card-footer">Book reader</div>
+            </div>
+        </div>
+        <div class="col" category="folder">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-folder"></i></div>
+                <div class="card-footer">Folder</div>
+            </div>
+        </div>
+        <div class="col" category="folder">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-folder-minus"></i></div>
+                <div class="card-footer">Folder minus</div>
+            </div>
+        </div>
+        <div class="col" category="folder">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-folder-open"></i></div>
+                <div class="card-footer">Folder open</div>
+            </div>
+        </div>
+        <div class="col" category="folder">
+            <div class="card">
+                <div class="card-img p-200r"><i style="font-size:10rem" class="fas fa-folder-plus"></i></div>
+                <div class="card-footer">Folder plus</div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="exp2"></code></figure>
+<h1>تنظیم خودکار</h1>
+<p>اگر میخواهید به صورت خودکار عملیات فیلتر شدن اعمال گردد، از روش زیر استفاده کنید.</p>
+<p>
+    بدین منظور ابتدا بایستی خصوصیت <bidi>filter-value</bidi> را به هر موضوعی که میخواهید عمل فیلتر کردن بر اساس آن انجام شود نسبت دهید.
+    در این خصوصیت مقدار گروه خود را وارد کنید، در صورتیکه خالی رد کنید، یعنی کلیه فیلترها باید حذف گردند.
+</p>
+<p>سپس برای معرفی زیر مجموعه ها، بایستی به گروه مد نظر خصوصیت <bidi>filter-category</bidi> را نسبت داده و مقدار گروه بندی را وارد کنید.</p>
+<p>سیستم پس از کلیک کردن بر روی هر گزینه ای که خصوصیت filter-value را دارد، در تگهایی که خصوصیت filter-category تنظیم شده، مقادیر مشابه را پیدا و ما بقی را فیلتر میکند.</p>
+<p>اگر مقدار filter-value را به تگ input از نوع text نسبت دهید، فیلتر بر اساس متن و داخل کلیه موضوعات زیر مجموعه که دارای خصوصیت filter-category هستند، میگردد.</p>
+<p>اگر میخواهید برای گزینه های رادیویی استفاده کنید، قوانین رادیو را رعایت کنید.</p>
+<p>اگر از checkbox استفاده میکند، گزینه هایی که تیک دار شده اند نمایش داده خواهد شد.</p>
+<div class="ltr" id="exp3" wn-type="filter">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <h3>Button</h3>
+            <div class="button-group">
+                <button filter-value="" class="button success">All</button>
+                <button filter-value="book" class="button primary">Book</button>
+                <button filter-value="folder" class="button primary">Folder</button>
+            </div>
+            <h3>Radio</h3>
+            <div class="button-group">
+                <input type="radio" id="rr1" name="r1" filter-value="" /><label for="rr1" class="button success">All</label>
+                <input type="radio" id="rr2" name="r1" filter-value="book" /><label for="rr2" class="button primary">Book</label>
+                <input type="radio" id="rr3" name="r1" filter-value="folder" /><label for="rr3" class="button primary">Folder</label>
+            </div>
+            <h3>Checkbox</h3>
+            <div class="button-group">
+                <input type="checkbox" id="cc1" filter-value="book" checked /><label for="cc1" class="button primary">Book</label>
+                <input type="checkbox" id="cc2" filter-value="folder" /><label for="cc2" class="button primary">Folder</label>
+                <input type="checkbox" id="cc3" filter-value="open" /><label for="cc3" class="button primary">Open</label>
+            </div>
+            <ig class="group">
+                <label>Search:</label>
+                <input type="text" filter-value="" />
+            </ig>
+        </div>
+    </div>
+    <div class="row g-b-100r g-i-100r">
+        <div class="col button primary" filter-category="book">Book</div>
+        <div class="col button secondary" filter-category="book">Book dead</div>
+        <div class="col button third" filter-category="book">Book medical</div>
+        <div class="col button success" filter-category="book,open">Book open</div>
+        <div class="col button info" filter-category="book">Book reader</div>
+        <div class="col button warning" filter-category="folder">Folder</div>
+        <div class="col button danger" filter-category="folder">Folder minus</div>
+        <div class="col button error" filter-category="folder,open">Folder open</div>
+        <div class="col button dark" filter-category="folder">Folder plus</div>
+    </div>
+</div>
+<figure><code data-on="exp3"></code></figure>

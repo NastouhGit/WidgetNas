@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outFile": "wwwroot/lib/WidgetNas/js/WidgetNas.js",
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ES2021",
+    "allowJs": true
+  },
+  "include": [
+    "src/ts/WidgetNas.ts",
+    "src/ts/**/*"
+  ],
+  "exclude": [
+
+  ]
+}

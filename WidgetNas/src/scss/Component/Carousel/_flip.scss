@@ -1,0 +1,45 @@
+﻿.carousel {
+    .carousel-slides {
+        $name: flip;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: flip;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: flip-x;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: flipInX;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: flip-y;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: flipInY;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+    }
+}

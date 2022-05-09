@@ -1,0 +1,82 @@
+﻿@page
+@model WidgetNas.Pages.Start.JavaScriptModel
+@{
+    ViewData["Title"] = "جاوا اسکریپت";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>برای سرویس دهی موضوعات ویجت نس از زبان جاوا اسکریپت استفاده شده است، این مجموعه کامپوننت ها توسط typescript و بدون استفاده از هیچ لایبری اضافی مانند jquery استفاده شده است.</p>
+<p>شما برای استفاده از این کامپوننت نیازی به اضافه کردن هیچ کتابخانه اضافی ندارید و همچنین سعی شده است سربارهای اضافی نیز حذف گردد.</p>
+<h1>توابع</h1>
+<p>قطعا شما نیز میتوانید از توابع نوشته شده برای اعمال اسکریپتی خود استفاده کنید، برخی از این توابع در زیر نام برده خواهد شد و به مرور زمان مستندات آن تکمیل خواهد گردید.</p>
+<ul class="list">
+    <li>
+        <h3 class="ltr">WNmod(a: number, b: number)</h3>
+        <p>مقدار باقیمانده دو پارامتر خود را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNparseBoolean(value: any, Default?: boolean)</h3>
+        <p>مقدار ورودی را بررسی و در صورت bool بودن، مقدار آنرا برمیگرداند، در غیر اینصورت مقدار پیش فرض انتخاب شده را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNparseNumber(value: any, Default?: number, culture: wnCultureInfo = WNDefaultCultureInfo)</h3>
+        <p>مقدار عددی ورودی را بررسی میکند، اگر عدد بود، مقدار آن و در غیر اینصورت مقدار پیش فرض را برمیگرداند. اگر اعداد به صورت اعداد محلی بودند، ابتدا اعداد را تبدیل و سپس صحت مقداری را بررسی میکند.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNparseString(value: any, Default?: string)</h3>
+        <p>مقدار رشته ای را بررسی کرده و در صورت عدم وجود مقدار رشته ای مانند null مقدار پیش فرض را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNLimitRange(value: number, min: number, max: number)</h3>
+        <p>اگر مقدار بین حداقل و حداکثر بود، مقدار خود و در غیر اینصورت مقدار حداقل یا حداکثر را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNParentHaveClass(child: HTMLElement, parentClassName: string)</h3>
+        <p>بررسی میکند، آیا کلاسی در تگهای والد موضوع مورد نظر استفاده شده است یا خیر.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNNaitveDigit(number: number | string, culture: wnCultureInfo, convert: boolean)</h3>
+        <p>اعداد درون یک رشته یا عدد را به صورت اعداد محلی تبدیل میکند، برای مثال عدد 1 را ۱ نمایش میدهد.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNDeNaitveDigit(value: string, culture: wnCultureInfo = WNDefaultCultureInfo)</h3>
+        <p>اعداد محلی را به اعداد سیستمی تبدیل میکند، برعکس تابع WNNaitveDigit</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNGetNodesList(list: string, parent: any = document, thiselemnt: HTMLElement = null)</h3>
+        <p>لیست تگهایی که با قوانین سلکتورها قابل شناسایی هستند را برمیگرداند، قوانین را میتوانید در پارامتر list و به صورت , جداکننده استفاده کنید.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNCalcValue(value1: string, value2: string, sign: string, elem: HTMLElement = null, min: number = Number.MIN_VALUE, max: number = Number.MAX_VALUE)</h3>
+        <p>محاسبه 4 عمل اصلی در واحدهای مختلف نمایشی که نسبت به المت انتخاب شده محاسبه میگردد، برای مثال تبدیل px و em یا rem</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNContainElement(elem: HTMLElement, findin: HTMLElement)</h3>
+        <p>بررسی میکند، یک المت داخل یک المت دیگر است یا خیر.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNHtmlToEscape(src:string)</h3>
+        <p>تبدیل تگهای html به تگهای قابل نمایش در pre</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNValueUnit(value: string): { value: number, unit: string }</h3>
+        <p>دریافت مقدار عددی و واحد یک رشته مانند 10px</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNGetCookie(cname: string)</h3>
+        <p>دریافت مقدار کوکی</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNSetCookie(cname: string, cvalue: string, exdays: number)</h3>
+        <p>ثبت مقدار کوکی، اگر مقدار تاریخ انقضا صفر باشد، آنرا تنظیم نمیکند.</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNGetStorage(key: string)</h3>
+        <p>دریافت مقدار از استوریج سشن، اگر نبود، از استوریج لوکال</p>
+    </li>
+    <li>
+        <h3 class="ltr">WNSetStorage(key: string, value: string, localstorage: boolean)</h3>
+        <p>تنظیم مقدار استوریج، در صورتیکه localstorage مقدار true باشد. در لوکال استرویج و در غیر اینصورت در سشن ذخیره میشود.</p>
+    </li>
+</ul>
+<p>در آینده نیر توابع مرتبط با ajax آورده خواهد شد.</p>

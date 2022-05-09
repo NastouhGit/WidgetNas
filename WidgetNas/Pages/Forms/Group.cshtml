@@ -1,0 +1,1071 @@
+﻿@page
+@model WidgetNas.Pages.Forms.GroupModel
+@{
+    ViewData["Title"] = "ورودی های گروهی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>به راحتی، انواع ورودی ها، برچسب ها، انواع دکمه ها را با هم در یک خط داشته باشید.</p>
+<h2>مثال</h2>
+<p>اگر میخواهید در فرم rtl یک گروه را به صورت چپ به راست نمایش دهید مانند ایمیل از کلاس ltr کمک بگیرید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <ig class="group">
+                <label>@@</label>
+                <input type="email" value="" placeholder="Email...">
+            </ig>
+            <ig class="group">
+                <input type="text" value="" placeholder="Username...">
+                <label>@@site.com</label>
+            </ig>
+            <label>Your vanity URL</label>
+            <ig class="group">
+                <label>http://www.</label>
+                <input type="text" value="" placeholder="Site Name...">
+                <label>.com</label>
+            </ig>
+            <ig class="group">
+                <input type="text" value="" placeholder="User Name...">
+                <label>@@</label>
+                <input type="text" value="" placeholder="Site.com">
+            </ig>
+            <ig class="group">
+                <label>Textarea</label>
+                <textarea placeholder="Some Text..." rows="3"></textarea>
+            </ig>
+            <ig class="group">
+                <input type="email" value="" placeholder="Email...">
+                <label>@@site.com</label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="group">
+                <label>@@</label>
+                <input type="email" value="" placeholder="پست الکترونیک...">
+            </ig>
+            <ig class="group">
+                <input type="text" value="" placeholder="نام کاربری...">
+                <label>@@site.com</label>
+            </ig>
+            <label>آدرس بدون استفاده</label>
+            <ig class="group">
+                <label>http://www.</label>
+                <input type="text" value="" placeholder="نام سایت...">
+                <label>.com</label>
+            </ig>
+            <ig class="group">
+                <input type="text" value="" placeholder="نام کاربر...">
+                <label>@@</label>
+                <input type="text" value="" placeholder="Site.com">
+            </ig>
+            <ig class="group">
+                <label>متن چند خطی</label>
+                <textarea placeholder="عبارتی بنویسید..." rows="3"></textarea>
+            </ig>
+            <ig class="group ltr" style="margin-inline-end: 0.2rem;">
+                <input type="email" value="" placeholder="پست الکترونیک ltr">
+                <label>@@site.com</label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>اندازه ها</h2>
+<p>طبق معمول و استاندارد گفته شده در اندازه ها، میتوانید برای تغییر اندازه از مقدارهای xs الی xxxl استفاده نمایید.</p>
+<p>این مقدار میتواند مستقیم به موضوع مورد نظر یا به ig نسبت داده شود.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <ig class="group s-m">
+            <label>Medium</label>
+            <input type="text" value="" placeholder="first name...">
+        </ig>
+        <ig class="group">
+            <label>Normal</label>
+            <input type="text" value="" placeholder="first name...">
+        </ig>
+        <ig class="group s-l">
+            <label>Large</label>
+            <input type="text" value="" placeholder="first name...">
+        </ig>
+        <ig class="group s-xl">
+            <label>XLarge</label>
+            <input type="text" value="" placeholder="first name...">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group s-m">
+            <label>متوسط</label>
+            <input type="text" value="" placeholder="نام کوچک...">
+        </ig>
+        <ig class="group">
+            <label>معمولی</label>
+            <input type="text" value="" placeholder="نام کوچک...">
+        </ig>
+        <ig class="group s-l">
+            <label>بزرگ</label>
+            <input type="text" value="" placeholder="نام کوچک...">
+        </ig>
+        <ig class="group s-xl">
+            <label>بزرگتر</label>
+            <input type="text" value="" placeholder="نام کوچک...">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>چک باکس و رادیو</h2>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <ig class="group">
+            <div class="text"><input type="checkbox" value=""></div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="checkbox" id="check1_1_ltr"></div>
+            <label for="check1_1_ltr">Check Box</label>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="radio" id="radio1_1_ltr" name="radio1_ltr" checked><label for="radio1_1_ltr">Radio</label></div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="radio" id="radio1_2_ltr" name="radio1_ltr"><label for="radio1_2_ltr">Radio</label></div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="radio" value="" name="radio2_ltr" checked></div>
+            <input type="text">
+            <div class="text"><input type="radio" value="" name="radio2_ltr"></div>
+            <input type="text">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group">
+            <div class="text"><input type="checkbox" value=""></div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="checkbox" id="check1_1_rtl"></div>
+            <label for="check1_1_rtl">چک باکس</label>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="radio" id="radio1_1_rtl" name="radio1_rtl" checked><label for="radio1_1_rtl">رادیو</label></div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="radio" id="radio1_2_rtl" name="radio1_rtl"><label for="radio1_2_rtl">رادیو</label></div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <div class="text"><input type="radio" value="" name="radio2_rtl" checked></div>
+            <input type="text">
+            <div class="text"><input type="radio" value="" name="radio2_rtl"></div>
+            <input type="text">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>دکمه</h2>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <ig class="group">
+            <button>Button</button>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <input type="text">
+            <button>Button</button>
+        </ig>
+        <ig class="group">
+            <button>Button</button>
+            <input type="text">
+            <button>Button</button>
+        </ig>
+        <ig class="group">
+            <button class="primary">Button</button>
+            <button class="secondary">Button</button>
+            <input type="text">
+            <button class="success">Button</button>
+            <button class="danger">Button</button>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group">
+            <button>دکمه</button>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <input type="text">
+            <button>دکمه</button>
+        </ig>
+        <ig class="group">
+            <button>دکمه</button>
+            <input type="text">
+            <button>دکمه</button>
+        </ig>
+        <ig class="group">
+            <button class="primary">دکمه</button>
+            <button class="secondary">دکمه</button>
+            <input type="text">
+            <button class="success">دکمه</button>
+            <button class="danger">دکمه</button>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>دکمه بازشو</h2>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <ig class="group">
+            <button class="dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <input type="text">
+            <button class="dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+        </ig>
+        <ig class="group">
+            <button class="primary dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <button class="secondary dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <input type="text">
+            <button class="success dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <button class="danger dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group">
+            <button class="dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پارگراف آزمایشی</p>
+            </div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <input type="text">
+            <button class="dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پارگراف آزمایشی</p>
+            </div>
+        </ig>
+        <ig class="group">
+            <button class="primary dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پارگراف آزمایشی</p>
+            </div>
+            <button class="secondary dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پارگراف آزمایشی</p>
+            </div>
+            <input type="text">
+            <button class="success dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پارگراف آزمایشی</p>
+            </div>
+            <button class="danger dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پارگراف آزمایشی</p>
+            </div>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>دکمه و دکمه بازشو</h2>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <ig class="group">
+            <button>Button</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <input type="text">
+            <button>Button</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+        </ig>
+        <ig class="group">
+            <button>Button</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+            <input type="text">
+            <button class="warning">Button</button>
+            <button class="warning dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+            <button class="success">Button</button>
+            <button class="danger dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group">
+            <button>دکمه</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+            <input type="text">
+        </ig>
+        <ig class="group">
+            <input type="text">
+            <button>دکمه</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+        </ig>
+        <ig class="group">
+            <button>دکمه</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+            <input type="text">
+            <button class="warning">دکمه</button>
+            <button class="warning dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+            <button class="success">دکمه</button>
+            <button class="danger dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>انتخاب</h2>
+<div class="example-div">
+    <div class="ltr" id="form7">
+        <h3>LTR</h3>
+        <ig class="group">
+            <label>Dropdown</label>
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+        </ig>
+        <ig class="group">
+            <label>Dropdown</label>
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+        </ig>
+        <ig class="group">
+            <label>Dropdown</label>
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+            <label>Text</label>
+            <input type="text">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group">
+            <label>انتخاب</label>
+            <select>
+                <option selected>گزینه 1</option>
+                <option>گزینه 2</option>
+                <option>گزینه 3</option>
+            </select>
+        </ig>
+        <ig class="group">
+            <label>انتخاب</label>
+            <select>
+                <option selected>گزینه 1</option>
+                <option>گزینه 2</option>
+                <option>گزینه 3</option>
+            </select>
+            <select>
+                <option selected>گزینه 1</option>
+                <option>گزینه 2</option>
+                <option>گزینه 3</option>
+            </select>
+        </ig>
+        <ig class="group">
+            <label>انتخاب</label>
+            <select>
+                <option selected>گزینه 1</option>
+                <option>گزینه 2</option>
+                <option>گزینه 3</option>
+            </select>
+            <label>متن</label>
+            <input type="text">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h2>آپلود فایل</h2>
+<div class="example-div">
+    <div class="ltr" id="form8">
+        <h3>LTR</h3>
+        <ig class="group">
+            <label>File</label>
+            <input type="file">
+            <button>Upload</button>
+        </ig>
+        <ig class="group">
+            <label>File</label>
+            <input type="file">
+            <select>
+                <option selected>Server 1</option>
+                <option>Server 2</option>
+                <option>Server 3</option>
+            </select>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group">
+            <label>فایل</label>
+            <input type="file">
+            <button>آپلود</button>
+        </ig>
+        <ig class="group">
+            <label>فایل</label>
+            <input type="file">
+            <select>
+                <option selected>سرور 1</option>
+                <option>سرور 2</option>
+                <option>سرور 3</option>
+            </select>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+<h2>غیر فعال</h2>
+<p>با غیرفعال کردن کل ig، تمامی اجزا را غیر فعال کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form9">
+        <h3>LTR</h3>
+        <ig class="group" disabled>
+            <div class="text"><input type="checkbox" value=""></div>
+            <label>Text</label>
+            <input type="text">
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+        </ig>
+        <ig class="group" disabled>
+            <label>Text</label>
+            <input type="text">
+            <button>Button</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group" disabled>
+            <div class="text"><input type="checkbox" value=""></div>
+            <label>متن</label>
+            <input type="text">
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+        </ig>
+        <ig class="group" disabled>
+            <label>متن</label>
+            <input type="text">
+            <button>دکمه</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>
+<h2>فقط خواندنی</h2>
+<p>با فقط خواندنی کردن کل ig، تمامی اجزا را غیر فعال کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form10">
+        <h3>LTR</h3>
+        <ig class="group" readonly>
+            <div class="text"><input type="checkbox" value=""></div>
+            <label>Text</label>
+            <input type="text">
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+        </ig>
+        <ig class="group" readonly>
+            <label>Text</label>
+            <input type="text">
+            <button>Button</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group" readonly>
+            <div class="text"><input type="checkbox" value=""></div>
+            <label>متن</label>
+            <input type="text">
+            <select>
+                <option selected>Item 1</option>
+                <option>Item 2</option>
+                <option>Item 3</option>
+            </select>
+        </ig>
+        <ig class="group" readonly>
+            <label>متن</label>
+            <input type="text">
+            <button>دکمه</button>
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form10"></code></figure>
+<h2>نمونه فرم</h2>
+<p>برای مشاهده آنکه اجزا در یک فرم ورود اطلاعات چگونه نمایش داده میشود، به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr" style="overflow:auto">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate class="w-max" id="form11">
+            <div class="row">
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_firstname_ltr'>First Name</label>
+                        <input id='form_sample1_firstname_ltr' type="text" required />
+                        <div class="valid-feedback">
+                            Ok!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_lastname_ltr'>Last Name</label>
+                        <input id='form_sample1_lastname_ltr' type="text" required />
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <label>Sex</label>
+                        <div class="box">
+                            <div>
+                                <input id='form_sample1_sex_o2_ltr' name='form_sample1_sex_ltr' type="radio" required />
+                                <label for='form_sample1_sex_o2_ltr'>Male</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_sex_o3_ltr' name='form_sample1_sex_ltr' type="radio" required />
+                                <label for='form_sample1_sex_o3_ltr'>Female</label>
+                                <div class="invalid-feedback">
+                                    Please check it!
+                                </div>
+                            </div>
+                        </div>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_state_ltr'>State</label>
+                        <select id='form_sample1_state_ltr' required>
+                            <option hidden disabled selected value=""></option>
+                            <option value="1">Tehran</option>
+                            <option value="2">Markazi</option>
+                            <option value="3">Fars</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_city_ltr'>City</label>
+                        <input id='form_sample1_city_ltr' type="text" required />
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="group">
+                        <label for='form_sample1_zip_ltr'>Zip</label>
+                        <input id='form_sample1_zip_ltr' type="text" inputmode="numeric" />
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ig class="group">
+                        <label for='form_sample1_address_ltr'>Address</label>
+                        <textarea id='form_sample1_address_ltr' required></textarea>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_age_ltr'>Age</label>
+                        <input id='form_sample1_age_ltr' type="number" min="18" max="90" required />
+                        <div class="invalid-feedback">
+                            Value must be between 18 and 90!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <div class="box">
+                            <div>
+                                <input id='form_sample1_task1_ltr' type="checkbox" />
+                                <label for='form_sample1_task1_ltr'>Task 1</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_task2_ltr' type="checkbox" />
+                                <label for='form_sample1_task2_ltr'>Task 2</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_task3_ltr' type="checkbox" />
+                                <label for='form_sample1_task3_ltr'>Task 3</label>
+                            </div>
+                        </div>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="group">
+                        <label for='form_sample1_range_ltr'>Range</label>
+                        <input id='form_sample1_range_ltr' type="range" />
+                    </ig>
+                </div>
+            </div>
+            <button class="danger" type="submit">Send</button>
+            <button class="warning" type="reset">Reset</button>
+        </form>
+    </div>
+    <div class="rtl" style="overflow:auto">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate class="w-max">
+            <div class="row">
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_firstname_rtl'>نام</label>
+                        <input id='form_sample1_firstname_rtl' type="text" required />
+                        <div class="valid-feedback">
+                            خوب است!
+                        </div>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_lastname_rtl'>نام خانوادگی</label>
+                        <input id='form_sample1_lastname_rtl' type="text" required />
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <label>جنسیت</label>
+                        <div class="box">
+                            <div>
+                                <input id='form_sample1_sex_o2_rtl' name='form_sample1_sex_rtl' type="radio" required />
+                                <label for='form_sample1_sex_o2_rtl'>مرد</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_sex_o3_rtl' name='form_sample1_sex_rtl' type="radio" required />
+                                <label for='form_sample1_sex_o3_rtl'>زن</label>
+                                <div class="invalid-feedback">
+                                    بررسی کنید!
+                                </div>
+                            </div>
+                        </div>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_state_rtl'>استان</label>
+                        <select id='form_sample1_state_rtl' required>
+                            <option hidden disabled selected value=""></option>
+                            <option value="1">تهران</option>
+                            <option value="2">مرکزی</option>
+                            <option value="3">فارس</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_city_rtl'>شهر</label>
+                        <input id='form_sample1_city_rtl' type="text" required />
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="group">
+                        <label for='form_sample1_zip_rtl'>کدپستی</label>
+                        <input id='form_sample1_zip_rtl' type="text" inputmode="numeric" />
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ig class="group">
+                        <label for='form_sample1_address_rtl'>آدرس</label>
+                        <textarea id='form_sample1_address_rtl' required></textarea>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="group">
+                        <label for='form_sample1_age_rtl'>سن</label>
+                        <input id='form_sample1_age_rtl' type="number" min="18" max="90" required />
+                        <div class="invalid-feedback">
+                            بایستی بین 18 و 90 باشد.
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="group">
+                        <div class="box">
+                            <div>
+                                <input id='form_sample1_task1_rtl' type="checkbox" />
+                                <label for='form_sample1_task1_rtl'>وظیفه 1</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_task2_rtl' type="checkbox" />
+                                <label for='form_sample1_task2_rtl'>وظیفه 2</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_task3_rtl' type="checkbox" />
+                                <label for='form_sample1_task3_rtl'>وظیفه 3</label>
+                            </div>
+                        </div>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="group">
+                        <label for='form_sample1_range_rtl'>محدوده</label>
+                        <input id='form_sample1_range_rtl' type="range" />
+                    </ig>
+                </div>
+            </div>
+            <button class="danger" type="submit">ارسال</button>
+            <button class="warning" type="reset">پاک</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form11"></code></figure>
+
+<h2>محفظه گروهی</h2>
+<p>در بسیاری از موارد نیاز است، گروهی از ورودهای مرتبط به هم را در یک قاب قرار دهیم، بدین منظور بایست از کلاس <bidi>groupcontainer</bidi> 
+    به عنوان فریم گروه و از تگ <bidi>h4</bidi> برای عنوان گروه استفاده کنید. توجه داشته باشید اولین تگ h4 است که برای عنوان استفاده میشود و تگهای بعدی برای مصارف دیگر است.
+    به مثال زیر توجه فرمایید.</p>
+<div class="example-div">
+    <div class="ltr" style="overflow:auto">
+        <h3>LTR</h3>
+        <form id="form12">
+            <div class="groupcontainer">
+                <h4>Group Title</h4>
+                <h4>Second Heading 4</h4>
+                <div class="row">
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_firstname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_firstname_ltr'>First Name</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_lastname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_lastname_ltr'>Last Name</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="">
+                            <div>
+                                <input id='form_sample1_sex_o10_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o10_ltr'>Male</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_sex_o11_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o11_ltr'>Female</label>
+                            </div>
+                        </ig>
+                    </div>
+                </div>
+                <button class="danger" type="submit">Send</button>
+                <button class="warning" type="reset">Reset</button>
+            </div>
+
+        </form>
+    </div>
+    <div class="rtl" style="overflow:auto">
+        <h3>RTL</h3>
+        <form >
+            <div class="groupcontainer">
+                <h4>عنوان گروه</h4>
+                <h4>دومین هدینگ 4</h4>
+                <div class="row">
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_firstname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_firstname_ltr'>نام</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_lastname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_lastname_ltr'>نام خانوادگی</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="">
+                            <div>
+                                <input id='form_sample1_sex_o10_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o10_ltr'>مرد</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_sex_o11_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o11_ltr'>زن</label>
+                            </div>
+                        </ig>
+                    </div>
+                </div>
+                <button class="danger" type="submit">ارسال</button>
+                <button class="warning" type="reset">ریست</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<figure><code data-on="form12"></code></figure>

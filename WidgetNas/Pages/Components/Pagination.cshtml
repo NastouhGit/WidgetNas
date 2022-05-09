@@ -1,0 +1,240 @@
+﻿@page
+@model WidgetNas.Pages.Components.PaginationModel
+@{
+    ViewData["Title"] = "شماره صفحه Pagination";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>اگر میخواهید اطلاع دهید اطلاعات مندرج از کادر بالایی خواه جدول باشد یا لیست، دارای چندین صفحه است، این گزینه به شما کمک خواهد کرد.</p>
+<p>
+    توجه داشته باشید، در شماره صفحه، شما تعداد زیادی اعداد و موارد مرتبط را نمایش میدهید، که این اعداد برای نرم افزارهای خواننده صفحه، بی معنی میشوند،
+    به همین دلیل، پیشنهاد ما این است، برای مدیریت درست این نرم افزارها، اطلاعات شماره صفحه درون nav قرار گیرد تا این نرم افزارها بتوانند این اعداد پشت سر هم را تشخیص دهند.
+</p>
+<p>برای مدیریت بیشتر طبق استانداردهای موجود میتوانید از خصوصیت های aria در بکارگیری این گزینه ها استفاده کنید.</p>
+<p>برای نمایش انواع مختلف شماره صفحه، به مثالهای زیر توجه کنید.</p>
+
+<h2>مثال</h2>
+<p>نمایش شماره صفحه به صورت لینک و دکمه در زیر آورده شده است.</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <h4>Link</h4>
+        <nav class="pagination">
+            <a href="#">Previous</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">Next</a>
+        </nav>
+        <h4 class="m-bs-100r">Button</h4>
+        <nav class="pagination">
+            <button>Previous</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>لینک</h4>
+        <nav class="pagination">
+            <a href="#">قبل</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">بعد</a>
+        </nav>
+        <h4 class="m-bs-100r">دکمه</h4>
+        <nav class="pagination">
+            <button>قبل</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>نمایش با اشکال</h2>
+<p>نمایش شماره صفحه به صورت لینک و دکمه در زیر آورده شده است.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <nav class="pagination" id="form2">
+            <button>&laquo;</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>&raquo;</button>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav class="pagination">
+            <button>&laquo;</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>&raquo;</button>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>غیر فعال و اکتیو</h2>
+<p>برای مدیریت صفحات، ممکن است بخواهید بگویید صفحه قبل وجود ندارد، یا هم اکنون در صفحه فلان هستید، مثال زیر به شما نشان میدهد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <nav class="pagination" id="form3">
+            <button disabled>Previous</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav class="pagination">
+            <button disabled>قبل</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>اندازه ها</h2>
+<p>برای تغییر اندازه میتوانید از کلاسهای مرتبط با اندازه ها استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <nav class="pagination s-s">
+            <button disabled>Previous</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+        <nav class="pagination s-xl m-bs-100r">
+            <button disabled>Previous</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav class="pagination  s-s">
+            <button disabled>قبل</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+        <nav class="pagination s-xl m-bs-100r">
+            <button disabled>قبل</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>موقعیت قرارگیری</h2>
+<p>برای تغییر اندازه میتوانید از کلاسهای مرتبط با اندازه ها استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <nav class="pagination justify-content-start">
+            <button disabled>Previous</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+        <nav class="pagination justify-content-center m-bs-50r">
+            <button disabled>Previous</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+        <nav class="pagination justify-content-end m-bs-50r">
+            <button disabled>Previous</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav class="pagination justify-content-start">
+            <button disabled>قبل</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+        <nav class="pagination justify-content-center m-bs-50r">
+            <button disabled>قبل</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+        <nav class="pagination justify-content-end m-bs-50r">
+            <button disabled>قبل</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+
+<h2>رنگها</h2>
+<p>در این موضوع هم همانند بقیه موضوعات میتوانید از کلاسهای تم رنگی استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <nav class="pagination primary">
+            <button disabled>Previous</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>Next</button>
+        </nav>
+        <nav class="pagination m-bs-100r">
+            <button class="primary">Previous</button>
+            <button class="secondary">1</button>
+            <button class="third">2</button>
+            <button class="warning">3</button>
+            <button class="error">Next</button>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav class="pagination primary">
+            <button disabled>قبل</button>
+            <button>1</button>
+            <button class="pagination-active">2</button>
+            <button>3</button>
+            <button>بعد</button>
+        </nav>
+        <nav class="pagination m-bs-100r">
+            <button class="primary">قبل</button>
+            <button class="secondary">1</button>
+            <button class="third">2</button>
+            <button class="warning">3</button>
+            <button class="error">بعد</button>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>

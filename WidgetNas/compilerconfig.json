@@ -1,0 +1,8 @@
+[
+  {
+    "outputFile": "wwwroot/lib/WidgetNas/css/WidgetNas.css",
+    "inputFile": "src/scss/WidgetNas.scss",
+    "sourceMap": false,
+    "useNodeSass": false
+  }
+]

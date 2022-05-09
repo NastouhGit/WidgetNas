@@ -1,0 +1,143 @@
+﻿.carousel {
+    .carousel-slides {
+        $name: flash;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: flash;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: pulse;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: pulse;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: rubber-band;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: rubberBand;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: shake;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: shake;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: swing;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: swing;
+            }
+
+            &.end {
+                display: block;
+                animation-name: slideOutDown, fadeOut;
+            }
+        }
+
+        $name: tada;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: tada;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: wobble;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: wobble;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+
+        $name: lightspeed;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: lightSpeedIn;
+            }
+
+            &.end {
+                display: block;
+                animation-name: slideOutLeft;
+            }
+        }
+
+        $name: fall;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: fallIn;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fallOut;
+            }
+        }
+
+        $name: roll;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: rollIn;
+            }
+
+            &.end {
+                display: block;
+                animation-name: rollOut;
+            }
+        }
+    }
+}

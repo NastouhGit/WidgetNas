@@ -1,0 +1,177 @@
+﻿@page
+@model WidgetNas.Pages.Components.BadgesModel
+@{
+    ViewData["Title"] = "نشان ها Badges";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>مستندات در خصوص نحوه استفاده از نشان ها به صورت شماره کوچک، یا برچسب کوچک در زیر آورده شده است.</p>
+
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <h1>Example heading <span class="badge secondary">New</span></h1>
+        <h2>Example heading <span class="badge secondary">New</span></h2>
+        <h4>Example heading <span class="badge secondary">New</span></h4>
+        <h5>Example heading <span class="badge secondary">New</span></h5>
+        <h6>Example heading <span class="badge secondary">New</span></h6>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h1>مثال تیتر <span class="badge secondary">جدید</span></h1>
+        <h2>مثال تیتر <span class="badge secondary">جدید</span></h2>
+        <h4>مثال تیتر <span class="badge secondary">جدید</span></h4>
+        <h5>مثال تیتر <span class="badge secondary">جدید</span></h5>
+        <h6>مثال تیتر <span class="badge secondary">جدید</span></h6>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>دکمه</h2>
+<p>نشان ها میتواند در بدنه انواع دکمه ها قرار گیرد.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div>
+            <button>Button <span class="badge secondary">3</span></button>
+            <button class="primary">Button <span class="badge warning">3</span></button>
+        </div>
+        <div class="m-bs-50r">
+            <a>Hyperlink <span class="badge secondary">3</span></a>
+            <a class="primary">Hyperlink <span class="badge warning">3</span></a>
+        </div>
+        <div class="m-bs-50r">
+            <a class="button">Hyperlink Button <span class="badge secondary">3</span></a>
+            <a class="button primary">Hyperlink Button <span class="badge warning">3</span></a>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button>دکمه <span class="badge secondary">3</span></button>
+            <button class="primary">دکمه <span class="badge warning">3</span></button>
+        </div>
+        <div class="m-bs-50r">
+            <a>هایپرلینک <span class="badge secondary">3</span></a>
+            <a class="primary">هایپرلینک <span class="badge warning">3</span></a>
+        </div>
+        <div class="m-bs-50r">
+            <a class="button">دکمه هایپرلینک <span class="badge secondary">3</span></a>
+            <a class="button primary">دکمه هایپرلینک <span class="badge warning">3</span></a>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<p>
+    وجود نشان ها برای افرادی که تصویر را به وضوح میبینند، قابل فهم است، ولیکن افرادی که کم بینا هستند و از نرم افزارهای اسکرین ریدر (Screen Reader)
+    استفاده میکنند، مفهوم عدد یا نوشته را درک نمیکنند، برای همین منظور، برای درک بیشتر این افراد از مطلب درج شده
+    پیشنهاد میشود، بعد از عدد، مطلبی توضیحی آورده شود.
+    اگر این مطلب درون span از کلاس visually-hidden استفاده شود، مطلب بر روی صفحه نمایش داده نمیشود، ولیکن از دید نرم افزارهای خواننده مخفی نمیگردد.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form3">
+            <button class="primary">Alert <span class="badge warning">3</span><span class="visually-hidden">unread messages</span></button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="primary">اعلان <span class="badge warning">3</span><span class="visually-hidden">پیام خوانده نشده</span></button>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>رنگها و اندازه</h2>
+<p>این موضوع نیز همانند بقیه اجزاء با استفاده از خصوصیات رنگی، قابلیت تغییر رنگ دارد.</p>
+<p>همچنین میتوانید از کلاسهای اندازه گذاری نیز استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form4">
+            <span class="badge s-xxl m-b-50r primary">Primary</span>
+            <span class="badge s-xxl m-b-50r secondary">Secondary</span>
+            <span class="badge s-xxl m-b-50r success">Success</span>
+            <span class="badge s-xxl m-b-50r danger">Danger</span>
+            <span class="badge s-xxl m-b-50r warning text-dark">Warning</span>
+            <span class="badge s-xxl m-b-50r info text-dark">Info</span>
+            <span class="badge s-xxl m-b-50r light text-dark">Light</span>
+            <span class="badge s-xxl m-b-50r dark">Dark</span>
+        </div>
+        <div>
+            <span class="badge m-b-50r primary">Primary</span>
+            <span class="badge m-b-50r secondary">Secondary</span>
+            <span class="badge m-b-50r success">Success</span>
+            <span class="badge m-b-50r danger">Danger</span>
+            <span class="badge m-b-50r warning text-dark">Warning</span>
+            <span class="badge m-b-50r info text-dark">Info</span>
+            <span class="badge m-b-50r light text-dark">Light</span>
+            <span class="badge m-b-50r dark">Dark</span>
+        </div>
+        <div>
+            <span class="badge s-xs m-b-50r primary">Primary</span>
+            <span class="badge s-xs m-b-50r secondary">Secondary</span>
+            <span class="badge s-xs m-b-50r success">Success</span>
+            <span class="badge s-xs m-b-50r danger">Danger</span>
+            <span class="badge s-xs m-b-50r warning text-dark">Warning</span>
+            <span class="badge s-xs m-b-50r info text-dark">Info</span>
+            <span class="badge s-xs m-b-50r light text-dark">Light</span>
+            <span class="badge s-xs m-b-50r dark">Dark</span>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <span class="badge s-xxl m-b-50r primary">اصلی</span>
+            <span class="badge s-xxl m-b-50r secondary">دومین</span>
+            <span class="badge s-xxl m-b-50r success">تایید</span>
+            <span class="badge s-xxl m-b-50r danger">خطر</span>
+            <span class="badge s-xxl m-b-50r warning text-dark">هشدار</span>
+            <span class="badge s-xxl m-b-50r info text-dark">اطلاع</span>
+            <span class="badge s-xxl m-b-50r light text-dark">روشن</span>
+            <span class="badge s-xxl m-b-50r dark">تیره</span>
+        </div>
+        <div>
+            <span class="badge m-b-50r primary">اصلی</span>
+            <span class="badge m-b-50r secondary">دومین</span>
+            <span class="badge m-b-50r success">تایید</span>
+            <span class="badge m-b-50r danger">خطر</span>
+            <span class="badge m-b-50r warning text-dark">هشدار</span>
+            <span class="badge m-b-50r info text-dark">اطلاع</span>
+            <span class="badge m-b-50r light text-dark">روشن</span>
+            <span class="badge m-b-50r dark">تیره</span>
+        </div>
+        <div>
+            <span class="badge s-xs m-b-50r primary">اصلی</span>
+            <span class="badge s-xs m-b-50r secondary">دومین</span>
+            <span class="badge s-xs m-b-50r success">تایید</span>
+            <span class="badge s-xs m-b-50r danger">خطر</span>
+            <span class="badge s-xs m-b-50r warning text-dark">هشدار</span>
+            <span class="badge s-xs m-b-50r info text-dark">اطلاع</span>
+            <span class="badge s-xs m-b-50r light text-dark">روشن</span>
+            <span class="badge s-xs m-b-50r dark">تیره</span>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>اشکال مختلف</h2>
+<p>این موضوع نیز میتواند دارای اشکال مختلفی باشد، شما میتوانید از شکلهای تعریف شده توسط ما استفاده کنید، یا هر شکلی که میخواهید خود بسازید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <span class="badge primary badge-capsule">Capsule</span>
+        <span class="badge secondary badge-capsule">C</span>
+        <span class="badge badge-certificate">50%</span>
+        <span class="badge badge-star">5</span>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <span class="badge primary badge-capsule">کپسول</span>
+        <span class="badge secondary badge-capsule">ن</span>
+        <span class="badge badge-certificate">50%</span>
+        <span class="badge badge-star">5</span>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<div class="alert info callout-start w-50">
+    توجه داشته باشید، رنگها و اشکال برای افرادی که بینایی ضعیف دارند، قابل فهم نیستند، به مفهوم آنها در قسمت مخفی شده اشاره کنید.
+</div>

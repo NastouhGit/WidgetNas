@@ -1,0 +1,22 @@
+﻿.container {
+    width: 90%;
+    padding-left: var(--gutter-inline);
+    padding-right: var(--gutter-inline);
+    padding-inline: var(--gutter-inline);
+    margin-left: auto;
+    margin-right: auto;
+    margin-inline: auto;
+}
+
+.fluid {
+    max-width: 100%;
+}
+
+@each $name, $value in $breakpoints {
+    @media (min-width: #{$value}) {
+        .container {
+            max-width: map-get($container-widths,$name);
+        }
+    }
+}
+

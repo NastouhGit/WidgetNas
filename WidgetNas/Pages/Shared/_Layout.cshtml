@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WidgetNas</title>
+    <meta name="description" content="@ViewData["Description"]" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/WidgetNas/css/WidgetNas.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/codemirror/codemirror.css" rel="stylesheet" />
+    <link href="~/lib/codemirror/vs.css" rel="stylesheet" />
+    <link href="~/lib/codemirror/show-hint.css" rel="stylesheet" />
+
+    <script src="~/lib/WidgetNas/js/WidgetNas.js"></script>
+    <script async src="https://cse.google.com/cse.js?cx=ff1cd877d369ff494"></script>
+    <script src="~/lib/codemirror/codemirror.js"></script>
+    <script src="~/lib/codemirror/xml.js"></script>
+    <script src="~/lib/codemirror/javascript.js"></script>
+    <script src="~/lib/codemirror/htmlmixed.js"></script>
+    <script src="~/lib/codemirror/css.js"></script>
+</head>
+<body class="rtl wn-light">
+
+    <header class="sticky-top" wn-type="sticky">
+        <div class="navbar light">
+            <a href="/" class="navbar-brand">WidgetNas</a>
+            <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#sidenavbar1,#wnnavbar"></button>
+            <div class="navbar-collapse" id="wnnavbar">
+                <nav class="m-ie-auto">
+                    <a class="nav-item" href="~/Start/Download">دریافت</a>
+                    <a class="nav-item" href="~/Start/Samples">مثالها</a>
+                    <a class="nav-item" href="#">تم ها</a>
+                </nav>
+                <div class="gcse-search"></div>
+            </div>
+        </div>
+    </header>
+    <div class="grid-layout-1-4 g-i-50r grid-block-l p-i-50r">
+        <div style="margin-inline-start:-.5rem">
+            <div class="navside light" id="sidenavbar1">
+                <ul class="tree tree-expand-item w-100" wn-type="tree">
+                    <li>
+                        <div class="tree-item fw-bold">شروع کنیم</div>
+                        <ul>
+                            <li><a class="tree-link" href='/Start/Introduction'>مقدمات</a></li>
+                            <li><a class="tree-link" href='/Start/Download'>دریافت</a></li>
+                            <li><a class="tree-link" href='/Start/Devices'>مرورگر و دستگاه ها</a></li>
+                            <li><a class="tree-link" href='/Start/JavaScript'>جاوا اسکریپت</a></li>
+                            <li><a class="tree-link" href='/Start/LtrRtl'>جهت های محتوا</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="tree-item fw-bold">چیدمان</div>
+                        <ul>
+                            <li><a class="tree-link" href='/Layout/Breakpoint'>نقاط شکست</a></li>
+                            <li><a class="tree-link" href='/Layout/Container'>نگهدارنده ها</a></li>
+                            <li><a class="tree-link" href='/Layout/Grid'>سیستم توری</a></li>
+                            <li><a class="tree-link" href='/Layout/Zindex'>اولویت های نمایشی</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="tree-item fw-bold">محتوا</div>
+                        <ul>
+                            <li><a class="tree-link" href='/Normalization'>عادی سازی</a></li>
+                            <li><a class="tree-link" href='/Theme'>دسته رنگها</a></li>
+                            <li><a class="tree-link" href='/Typography'>فنون چاپ</a></li>
+                            <li><a class="tree-link" href='/Size'>اندازه ها و فاصله ها</a></li>
+                            <li><a class="tree-link" href='/Image'>تصاویر</a></li>
+                            <li><a class="tree-link" href='/Table'>جداول</a></li>
+                            <li><a class="tree-link" href='/Figure'>اشکال</a></li>
+                            <li><a class="tree-link" href='/Animation'>انیمیشن</a></li>
+                            <li><a class="tree-link" href='/PreEditor'>تبدیل کد به نویسه</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="tree-item fw-bold">فرمها</div>
+                        <ul>
+                            <li><a class="tree-link" href='/Forms/controls'>کنترل ها</a></li>
+                            <li><a class="tree-link" href='/Forms/Select'>انتخاب ها</a></li>
+                            <li><a class="tree-link" href='/Forms/Checks'>انتخاب های چک و تیک</a></li>
+                            <li><a class="tree-link" href='/Forms/Range'>محدوده</a></li>
+                            <li><a class="tree-link" href='/Forms/Group'>ورودی های گروهی</a></li>
+                            <li><a class="tree-link" href='/Forms/Floating'>برچسبهای شناور</a></li>
+                            <li><a class="tree-link" href='/Forms/Layout'>چیدمان</a></li>
+                            <li><a class="tree-link" href='/Forms/Validation'>اعتبار سنجی</a></li>
+                        </ul>
+                    </li>
+                    <li class="w-100">
+                        <div class="tree-item fw-bold">عناصر</div>
+                        <ul class="w-100 p-ie-100r">
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Accordion'><span>آکاردئون</span><span>Accordion</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Alerts'><span>هشدارها</span><span>Alerts</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Badges'><span>نشان ها</span><span>Badge</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Breadcrumb'><span>تکه ها</span><span>Breadcrumb</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Buttons'><span>دکمه ها</span><span>Buttons</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/ButtonGroup'><span>دکمه های گروهی</span><span>Button group</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Cards'><span>کارتها</span><span>Card</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Carousel'><span>چرخنده های نمایشی</span><span>Carousel</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Slicker'><span>چرخنده نرم خطی</span><span>Slicker</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Collapse'><span>جمع شونده ها</span><span>Collapse</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Dropdowns'><span>کشویی ها</span><span>Dropdowns</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Indicators'><span>نشانگر</span><span>Indicators</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/PreLoader'><span>انتظار تا تکمیل بارگذاری</span><span>PreLoader</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/List'><span>لیست ها</span><span>List</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Modal'><span>مودال</span><span>Modal</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Confirm'><span>تاییده</span><span>Confirm</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Navs'><span>ناوگان و برگه ها</span><span>Navs & tabs</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Navbar'><span>نوار</span><span>Navbar</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Navside'><span>نوار کناری</span><span>Navside</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Offcanvas'><span>پرده مخفی</span><span>Offcanvas</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Pagination'><span>شماره صفحه</span><span>Pagination</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Toasts'><span>اعلان پنجره ای</span><span>Toasts</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Progress'><span>پیشرفت</span><span>Progress</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Tooltips'><span>نکته</span><span>Tooltips</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="w-100">
+                        <div class="tree-item fw-bold">پیشرفته</div>
+                        <ul class="w-100 p-ie-100r">
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Tree'><span>درختواره</span><span>Tree</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/DateJS'><span>اسکریپت تاریخ</span><span>Date Script</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/DateShow'><span>نمایش تاریخ</span><span>Date Show</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Calendar'><span>تقویم</span><span>Calendar</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Time'><span>زمان</span><span>Time</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Editor'><span>ویرایشگر متن</span><span>Text Editor</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Counter'><span>شمارنده</span><span>Counter</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Scroll'><span>وضعیت اسکرول</span><span>Scroll</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Filter'><span>فیلتر</span><span>Filter</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Lightbox'><span>جعبه نمایش</span><span>Lightbox</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/FileList'><span>انتخاب فایل</span><span>File List</span></a></li>
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/ListEx'><span>لیست پیشرفته</span><span>List</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <main class="white-bg">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="m-bs-100r p-100r dark-bg white-color text-center">
+        <div>ویجت نس &copy; @DateTime.Now.Year - با تکنولوژی <a href="http://nastouh.com" target="_blank">نوآوران سیستم های تخصصی و هوشمند (نستوه)</a></div>
+    </footer>
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRMWGK469E"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-JRMWGK469E');
+    </script>
+    <script>
+        let fig = document.querySelectorAll("code[data-on]");
+        fig.forEach((f) => {
+            let html = '';
+            if (f.getAttribute('data-on') !== '_code') {
+                html = document.getElementById(f.getAttribute('data-on')).outerHTML;
+                let l = html.split('\n');
+                let space = l[l.length - 1].substring(0, l[l.length - 1].indexOf('<'));
+                for (var i = 0; i < l.length; i++)
+                    l[i] = l[i].replace(space, '');
+                html = l.join('\n');
+            }
+            else {
+                html = f.innerHTML;
+                f.innerHTML = '';
+            }
+            let datamode = "text/html";
+            if (f.hasAttribute('data-mode'))
+                datamode = f.getAttribute('data-mode');
+
+            var editor = CodeMirror(f, {
+                mode: datamode,
+                value: html,
+                lineWrapping: true,
+                lineNumbers: true,
+                readOnly: true,
+                matchBrackets: true,
+            });
+
+        });
+
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

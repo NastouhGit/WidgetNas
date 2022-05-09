@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Omid Moridi, Widgetnas contributors">
+    <title>ثبت نام · ویجت نس</title>
+
+    <!-- Widgetnas core CSS -->
+    <link href="../../content/css/widgetnas.min.css" rel="stylesheet">
+    <link href="../../content/site.css" rel="stylesheet">
+    <link href="css.css" rel="stylesheet">
+    <script src="../../content/js/WidgetNas.js"></script>
+
+</head>
+<body class="rtl">
+
+    <div class="container">
+        <div class="form-signin animate slideInRight">
+            <div class="row g-i-200r">
+                <div class="col col-6 col-12-m  p-i-100r">
+                    <form novalidate wn-type="validator">
+                        <h2 class="m-b-75r">فرم ثبت نام</h2>
+                        <label for="inputEmail">آدرس ایمیل</label>
+                        <input type="email" id="inputEmail" placeholder="آدرس ایمیل" required autofocus>
+                        <div class="invalid-feedback">
+                            آدرس ایمیل را وارد کنید.
+                        </div>
+                        <label for="inputPassword">رمز</label>
+                        <input type="password" id="inputPassword" placeholder="رمز" required>
+                        <div class="invalid-feedback">
+                            رمز را وارد کنید.
+                        </div>
+                        <label for="inputPassword">تکرار رمز</label>
+                        <input type="password" id="inputPassword" placeholder="تکرار رمز" required>
+                        <div class="invalid-feedback">
+                            تکرار رمز را وارد کنید.
+                        </div>
+                        <label for="inputFullName">نام کامل</label>
+                        <input type="text" autocomplete="name" id="inputFullName" placeholder="نام کامل">
+                        <hr class="m-b-100r" />
+                        <div class="checkbox m-b-75r">
+                            <label>
+                                <input type="checkbox" value="accept" required> قوانین را می پذیرم
+                                <label class="invalid-feedback">
+                                    تیک پذیرش قوانین را بزنید.
+                                </label>
+                            </label>
+                            <a href="#">قوانین</a>
+
+                        </div>
+
+                        <button class="w-100 s-l primary" type="submit">ثبت نام</button>
+                        <div id="responceMessage" class="alert success text-center w-100">
+                            پیام ثبت نام یا عدم ثبت نام در این کادر نمایش داده میشود.
+                        </div>
+                        <hr class="m-bs-100r" />
+                        <a href="signin_rtl.html">برگشت به ورود</a> - <a href="forgot_rtl.html">فراموشی رمز</a>
+                    </form>
+                </div>
+                <div class="col border-inline-start p-bs-300r p-i-100r">
+                    <p class="alert error callout-start">هیچگاه رمز ایمیل خود را اینجا وارد نکنید.</p>
+                    <p class="alert info callout-start">آدرس ایمیل معتبر استفاده کنید، زیرا کلیه مکاتبات خودکار سایت با شما از این طریق میباشد.</p>
+                    <p class="alert info callout-start">رمز باید شامل حروف انگلیسی، عدد و علامت باشد.</p>
+                    <p class="alert info callout-start">ما هرگز رمز شما را به اشتراک نخواهیم گذاشت.</p>
+                    <hr class="m-b-100r" />
+                    <a href="#">کمک نیاز دارید؟</a> - <a href="#">ارتباط با مدیر سیستم</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

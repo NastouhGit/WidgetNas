@@ -1,0 +1,133 @@
+﻿.accordion {
+    .accordion-item {
+        margin-block-start: calc(var(--border-width) * -4);
+
+        .accordion-header {
+            margin-bottom: 0;
+            position: relative;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding-block: var(--padding-block);
+            padding-inline: var(--padding-inline);
+            color: var(--normal-color) !important;
+            border-radius: 0;
+            overflow-anchor: none;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
+            text-align: start;
+
+            &.collapsed {
+                border-bottom-width: 0;
+            }
+
+            &:not(.collapsed) {
+                color: var(--select-color) !important;
+                background-color: var(--select-back);
+
+                &::after {
+                    transform: rotate(180deg);
+                }
+            }
+
+            &::after {
+                flex-shrink: 0;
+                width: 1em;
+                height: 1em;
+                margin-inline-start: auto;
+                content: "";
+                background-image: var(--arrow-down-image);
+                background-repeat: no-repeat;
+                background-size: 0.8em;
+                transition: transform 0.2s ease-in-out;
+                background-position: center;
+            }
+
+            &:hover {
+                z-index: 2;
+            }
+
+            &:focus {
+                z-index: 3;
+            }
+        }
+
+        &:first-of-type .accordion-header {
+            border-start-start-radius: var(--border-radius);
+            border-start-end-radius: var(--border-radius);
+        }
+
+        &:last-of-type .accordion-header.collapsed {
+            border-bottom-width: var(--border-width);
+            border-end-start-radius: var(--border-radius);
+            border-end-end-radius: var(--border-radius);
+        }
+
+        .accordion-body {
+            padding: var(--padding-block) var(--padding-inline);
+            border: solid var(--normal-border);
+            border-width: 0 var(--border-width);
+            font-size: var(--font-size);
+            margin-inline-start: var(--margin-inline);
+            margin-inline-end: calc(-1 * var(--margin-inline));
+            margin-block-end: calc(-1 * var(--margin-block));
+        }
+
+        &:last-of-type .accordion-body {
+            border-block-end-width: var(--border-width);
+        }
+    }
+
+    &.accordion-noedge {
+        .accordion-item {
+            .accordion-header {
+                border: none;
+                border-block-end: var(--border-width) solid var(--normal-border);
+            }
+
+            &:first-of-type .accordion-header {
+                border-start-start-radius: 0;
+                border-start-end-radius: 0;
+            }
+
+            &:last-of-type .accordion-header.collapsed {
+                border-bottom-width: 0;
+                border-end-start-radius: 0;
+                border-end-end-radius: 0;
+            }
+
+            .accordion-body {
+                border: none;
+                border-block-end: var(--border-width) solid var(--normal-border);
+            }
+
+            &:last-of-type .accordion-body {
+                border-block-end-width: 0;
+            }
+        }
+    }
+
+
+    .accordion-collapse:not(.show) {
+        display: none;
+    }
+
+    .collapsing {
+        -webkit-animation-name: fadeOut !important;
+        animation-name: fadeOut !important;
+        -webkit-animation-duration: 0.3s !important;
+        animation-duration: 0.3s !important;
+        -webkit-animation-fill-mode: both !important;
+        animation-fill-mode: both !important;
+    }
+
+    .show {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+}

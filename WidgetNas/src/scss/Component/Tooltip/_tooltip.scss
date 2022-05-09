@@ -1,0 +1,141 @@
+﻿$tooltip-arrow-width: 0.4em;
+
+.tooltip {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    text-indent: 0;
+    font-family: inherit;
+    font-weight: normal;
+    font-style: normal;
+    text-shadow: none;
+    font-size: calc(var(--font-size) * .8);
+    background: var(--normal-back);
+    color: var(--normal-color);
+    border: var(--border-width) solid var(--normal-border);
+    border-radius: var(--border-radius);
+    padding: calc(var(--padding-block) * 0.8) calc(var(--padding-inline) * 0.8);
+    white-space: normal;
+    width: max-content;
+    z-index: $zindex-tooltip;
+    margin: $tooltip-arrow-width;
+    min-width: 3rem;
+    transition: $transition,left none,top none,right none, bottom none;
+    animation: none;
+
+    &.tooltip-arrow-bottom:before, &.tooltip-arrow-top:before, &.tooltip-arrow-end:before, &.tooltip-arrow-start:before {
+        //pointer-events: none;
+        width: 0;
+        height: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: $tooltip-arrow-width solid transparent;
+        content: "";
+        position: absolute;
+    }
+
+    &.tooltip-arrow-bottom:before {
+        border-top-color: var(--normal-border);
+        top: calc(100% + var(--border-width));
+        right: calc(50% - #{$tooltip-arrow-width});
+    }
+
+    &.tooltip-arrow-bottom[dir=ltr]:before {
+        left: calc(50% - #{$tooltip-arrow-width});
+    }
+
+    &.tooltip-arrow-top:before {
+        border-bottom-color: var(--normal-border);
+        top: calc(#{$tooltip-arrow-width * -2} - var(--border-width));
+        right: calc(50% - #{$tooltip-arrow-width});
+    }
+
+    &.tooltip-arrow-top[dir=ltr]:before {
+        left: calc(50% - #{$tooltip-arrow-width});
+    }
+
+    &.tooltip-arrow-start:before {
+        border-right-color: var(--normal-border);
+        top: calc(50% - #{$tooltip-arrow-width});
+        right: calc(100% + var(--border-width));
+    }
+
+    &.tooltip-arrow-start[dir=ltr]:before {
+        border-right-color: transparent;
+        border-left-color: var(--normal-border);
+        left: calc(100% + var(--border-width));
+    }
+
+    &.tooltip-arrow-end:before {
+        border-left-color: var(--normal-border);
+        top: calc(50% - #{$tooltip-arrow-width});
+        right: calc(#{$tooltip-arrow-width * -2} - var(--border-width));
+    }
+
+    &.tooltip-arrow-end[dir=ltr]:before {
+        border-left-color: transparent;
+        border-right-color: var(--normal-border);
+        top: calc(50% - #{$tooltip-arrow-width});
+        left: calc(#{$tooltip-arrow-width * -2} - var(--border-width));
+    }
+
+    &.tooltip-arrow-horizontal-start:before {
+        right: 5%;
+    }
+
+    &.tooltip-arrow-horizontal-start[dir=ltr]:before {
+        left: 5%;
+    }
+
+    &.tooltip-arrow-horizontal-end:before {
+        right: calc(95% - #{$tooltip-arrow-width * 2});
+    }
+
+    &.tooltip-arrow-horizontal-end[dir=ltr]:before {
+        left: calc(95% - #{$tooltip-arrow-width * 2});
+    }
+
+    &.tooltip-arrow-vertical-start:before {
+        top: 5%;
+    }
+
+    &.tooltip-arrow-vertical-end:before {
+        top: calc(95% - #{$tooltip-arrow-width * 2});
+    }
+
+    .tooltip-header {
+        background: var(--select-back);
+        border-start-start-radius: calc(var(--border-radius) * 0.9);
+        border-start-end-radius: calc(var(--border-radius) * 0.9);
+        border-block-end: var(--border-width) solid var(--normal-border);
+        margin-inline: calc(var(--padding-inline) * -0.85);
+        margin-block-start: calc(var(--padding-block) * -0.85);
+        padding-inline-start: calc(var(--padding-inline) * 0.8);
+        padding-block: calc(var(--padding-inline) * 0.8);
+    }
+
+    .tooltip-body {
+        padding: calc(var(--padding-block) * 0.8) calc(var(--padding-inline) * 0.8);
+        white-space: normal;
+    }
+
+    .tooltip-footer {
+        background: var(--select-back);
+        border-end-start-radius: calc(var(--border-radius) * 0.9);
+        border-end-end-radius: calc(var(--border-radius) * 0.9);
+        border-block-start: var(--border-width) solid var(--normal-border);
+        margin-inline: calc(var(--padding-inline) * -0.85);
+        margin-block-end: calc(var(--padding-block) * -0.85);
+        padding-inline: calc(var(--padding-inline) * 0.8);
+        padding-block: calc(var(--padding-inline) * 0.8);
+    }
+
+    &.show {
+        animation: none;
+        visibility: visible;
+        opacity: 1;
+    }
+}

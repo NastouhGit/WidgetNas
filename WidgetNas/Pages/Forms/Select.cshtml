@@ -1,0 +1,376 @@
+﻿@page
+@model WidgetNas.Pages.Forms.SelectModel
+@{
+    ViewData["Title"] = "کنترل های انتخاب";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>یکی از پرکاربرد ترین کنترل های مورد استفاده در فرمها، Select است، شما در زیر با نحوه استفاده از آن آشنا خواهید شد.</p>
+<p>موضوع select امکان تغییرات گسترده را ندارد، برای همین، پیش فرض بر روی محیط راست به چپ قرار داده شده است و برای تنظیم برخی خصوصیات چپ به راست باید از کلاس مربوط به آن استفاده شود.</p>
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <ig>
+                <select>
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </ig>
+            <ig>
+                <select>
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </ig>
+            <ig>
+                <select class="primary right">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </ig>
+            <ig class="third">
+                <select>
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <select>
+                    <option selected>برای انتخاب باز کنید</option>
+                    <option value="1">یک</option>
+                    <option value="2">دو</option>
+                    <option value="3">سه</option>
+                </select>
+            </ig>
+            <ig>
+                <select>
+                    <option selected>برای انتخاب باز کنید</option>
+                    <option value="1">یک</option>
+                    <option value="2">دو</option>
+                    <option value="3">سه</option>
+                </select>
+            </ig>
+            <ig>
+                <select class="primary">
+                    <option selected>برای انتخاب باز کنید</option>
+                    <option value="1">یک</option>
+                    <option value="2">دو</option>
+                    <option value="3">سه</option>
+                </select>
+            </ig>
+            <ig class="third">
+                <select>
+                    <option selected>برای انتخاب باز کنید</option>
+                    <option value="1">یک</option>
+                    <option value="2">دو</option>
+                    <option value="3">سه</option>
+                </select>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>اندازه ها</h2>
+<p>طبق معمول و استاندارد گفته شده در اندازه ها، میتوانید برای تغییر اندازه از مقدارهای xs الی xxxl استفاده نمایید.</p>
+<p>این مقدار میتواند مستقیم به موضوع مورد نظر یا به ig نسبت داده شود.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <ig>
+            <select class="right s-m">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <select class="right s-l">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <select class="right s-xl">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+        <ig class="s-l">
+            <select>
+                <option selected>ig size</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <select class="s-m">
+                <option selected>برای انتخاب باز کنید</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+            <select class="s-l">
+                <option selected>برای انتخاب باز کنید</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+            <select class="s-xl">
+                <option selected>برای انتخاب باز کنید</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+        <ig class="s-l">
+            <select>
+                <option selected>اندازه گروه ورودی</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>انتخاب چند گزینه ای</h2>
+<p>اگر قرار است در لیست چند گزینه انتخاب شود در select از خصوصیت multiple استفاده کنید.</p>
+<p>همچنین برای نمایش تعداد ردیف ها میتوانید از خصوصیت size استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <ig>
+            <select multiple>
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+        <ig>
+            <select multiple size="3">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <select multiple>
+                <option selected>برای انتخاب باز کنید</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+        <ig>
+            <select multiple size="3">
+                <option selected>برای انتخاب باز کنید</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>غیر فعال</h2>
+<p>شما میتوانید فقط select مورد نظر را غیر فعال کرده و یا کل ig را غیر فعال کنید</p>
+<p>این مقدار میتواند مستقیم به موضوع مورد نظر یا به ig نسبت داده شود.</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <ig>
+            <select disabled>
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+        <ig disabled>
+            <select>
+                <option selected>ig disabled</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <select disabled>
+                <option selected>برای انتخاب باز کنید</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+        <ig disabled>
+            <select>
+                <option selected>غیر فعال گروه ورودی</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>فقط خواندنی</h2>
+<p>شما میتوانید input مورد نظر و یا کل ig را فقط خواندنی کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <ig>
+            <select readonly>
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+        <ig readonly>
+            <select>
+                <option selected>ig Readonly</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <select readonly>
+                <option selected>برای انتخاب باز کنید</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+        <ig readonly>
+            <select>
+                <option selected>فقط خواندنی گروه ورودی</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>بدون کادر</h2>
+<p>شما میتوانید select مورد نظر و یا کل ig را فقط خواندنی و بدون کادر کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <ig>
+            <select class="right noborder" readonly>
+                <option selected>Readonly No Border</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+            <select class="right noborder">
+                <option selected>No Border</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+        <ig readonly class="noborder">
+            <select>
+                <option selected>ig Readonly No Border</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+        <ig class="noborder">
+            <select>
+                <option selected>ig No Border</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <select class="noborder" readonly>
+                <option selected>فقط خواندنی بدون کادر</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+            <select class="noborder">
+                <option selected>بدون کادر</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+        <ig readonly class="noborder">
+            <select>
+                <option selected>گروه ورودی فقط خواندنی بدون کادر</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+        <ig class="noborder">
+            <select>
+                <option selected>گروه ورودی بدون کادر</option>
+                <option value="1">یک</option>
+                <option value="2">دو</option>
+                <option value="3">سه</option>
+            </select>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+
+<h2>علامت باز شو</h2>
+<p>اگر تمایل دارید یک جعبه دارای شکل بازشو باشد از کلاس <bidi>dropdownarrow</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form7">
+        <h3>LTR</h3>
+        <ig>
+            <input class="dropdownarrow" />
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <input class="dropdownarrow" />
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+

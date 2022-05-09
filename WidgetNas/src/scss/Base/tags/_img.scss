@@ -1,0 +1,100 @@
+﻿.img,
+img,
+svg {
+    vertical-align: middle;
+
+    &.fluid {
+        max-width: 100%;
+        height: auto;
+    }
+
+    &.start {
+        display: block;
+        float: right;
+        float: inline-start;
+    }
+
+    &.end {
+        display: block;
+        float: left;
+        float: inline-end;
+    }
+
+    &[dir=ltr] {
+        &.start {
+            float: left;
+        }
+
+        &.end {
+            float: right;
+        }
+    }
+
+    &.left {
+        display: block;
+        float: left;
+    }
+
+    &.right {
+        display: block;
+        float: right;
+    }
+
+    &.center {
+        display: block;
+        margin-inline: auto;
+        text-align: center;
+    }
+}
+
+.thumbnail {
+    //@include style-color('white','');
+    padding-inline: var(--padding-inline);
+    padding-block: var(--padding-block);
+    background-color: var(--normal-back);
+    border: 1px solid var(--normal-border);
+    border-radius: var(--border-radius);
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    .thumbnail {
+        box-sizing: border-box;
+        user-select: none;
+        -webkit-appearance: none;
+        transition: $transition;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--hover-background);
+            color: var(--hover-color);
+            border-color: var(--hover-border);
+            box-shadow: 0 0 0 var(--button-shadow-width) var(--hover-shadow);
+        }
+
+        .active,
+        &:active,
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 var(--button-shadow-width) var(--active-shadow);
+            background-color: var(--active-background);
+            color: var(--active-color);
+        }
+
+
+        &.disabled,
+        &:disabled {
+            cursor: default;
+            pointer-events: none;
+            background-color: var(--disable-back);
+            color: var(--disable-color);
+            border-color: var(--disable-border);
+            filter: grayscale(100%) opacity(50%);
+        }
+    }
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}

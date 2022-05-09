@@ -1,0 +1,202 @@
+﻿@import "../../_variables.scss";
+
+slicker,
+.slicker {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    user-select: none;
+    touch-action: pan-y;
+    overflow: hidden;
+    max-width:99%;
+
+    .slicker-slides {
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+        top: 0;
+        left: 0;
+        transform: translate3d(0, 0, 0);
+        cursor: pointer;
+
+        &:before,
+        &:after {
+            display: table;
+            content: '';
+        }
+
+        &:after {
+            clear: both;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        .slicker-item {
+            display: block;
+            float: right;
+            height: 100%;
+            min-height: 1px;
+
+            &[dir=ltr] {
+                float: left;
+            }
+
+            .img,
+            img,
+            svg {
+                display: block;
+                border: none;
+                box-shadow: none;
+                -webkit-user-drag: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                user-drag: none;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .slicker-indicators {
+        display: block;
+        border-radius: 0;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 5;
+        padding-left: 0;
+        margin-right: 15%;
+        margin-left: 15%;
+        display: flex;
+        list-style: none;
+        justify-content: center;
+
+        .indicator-item {
+            text-align: center;
+            margin: 0.2em;
+            width: 1em;
+            height: 1em;
+            background-color: var(--normal-back);
+            border-radius: 0.2em;
+            margin-inline-end: 0.125rem;
+            border: var(--border-width) solid var(--normal-border);
+
+
+            &.active {
+                background-color: var(--active-back);
+            }
+        }
+
+        &.indicator-circle {
+            .indicator-item {
+                border-radius: 50%;
+            }
+        }
+
+        &.indicator-rectangle {
+            .indicator-item {
+                height: 0.3em;
+                border-radius: 0.2em;
+            }
+        }
+    }
+
+    .slicker-next, .slicker-previous {
+        position: absolute;
+        z-index: 2;
+        color: var(--normal-color);
+        background-color: var(--normal-back);
+        border: none;
+        border-radius: 1em;
+        opacity: 0.2;
+        transition: opacity 0.15s ease;
+        top: calc(50% - 1.5em);
+        width: 2em;
+        height: 3em;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+
+        &:hover,
+        &:focus {
+            color: var(--normal-color);
+            text-decoration: none;
+            outline: 0;
+            opacity: 0.7;
+            outline: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        &.bottom {
+            top: auto;
+            bottom: 0;
+        }
+    }
+
+    .slicker-next {
+        right: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        background-image: var(--arrow-right-image);
+
+        &.center {
+            right: calc(50% - 2em);
+        }
+    }
+
+    .slicker-previous {
+        left: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-image: var(--arrow-left-image);
+
+        &.center {
+            left: calc(50% - 2em);
+        }
+    }
+
+    .relative {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        * {
+            position: relative;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+        }
+
+        .slicker-indicators {
+            margin-inline: 1rem;
+        }
+    }
+}
+@media (max-width:map-get($breakpoints,'l') ) {
+    .tree {
+        li {
+            .tree-link {
+                padding-block: 0.125rem;
+            }
+        }
+    }
+}
+
+@media (max-width:map-get($breakpoints,'m') ) {
+    .tree {
+        li {
+            .tree-link {
+                padding-block:0.5rem;
+            }
+        }
+    }
+}

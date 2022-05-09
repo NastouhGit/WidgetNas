@@ -1,0 +1,701 @@
+﻿@page
+@model WidgetNas.Pages.Components.CalendarModel
+@{
+    ViewData["Title"] = "تقویم Calendar";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    تقویم ها یکی از کاربردی ترین ورودی برای دریافت تاریخ از کاربر هستند، تقویم ها به دو صورت درون خطی و کنترلی طراحی شده اند.
+</p>
+<h2>تقویم درون خطی</h2>
+<p>
+    با توجه به کلاسهای مرتبط با تاریخ و فرهنگ، شما میتوانید خود به صورت کدهای جاوا اسکریپت اقدام به نمایش تاریخ کنید، ولیکن ما کار را برای شما ساده تر کردیم.
+    در زیر، شما میتوانید با استفاده از اسکریپ آماده شده، تاریخ مد نظر خود را نمایش دهید.
+</p>
+<p>برای نمایش تقویم موارد بسیاری را در اختیار شما قرار میدهیم که در زیر یک مثال ساده از آن آورده شده است، همچین در مثالهای بیشتر، امکانات آنرا شرح خواهیم داد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div wn-type="calendar" class="calendar" style="width:17rem" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar" class="calendar" style="width:17rem" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"></div>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">="calendar</span>"<span class="ha"> class</span><span class="hv">="calendar</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    </code></pre>
+</figure>
+<p>در بالا ساده ترین نوع تقویم نمایش داده شده است، نوع تقویم و فرهنگ از مقادیر پیش فرض و متغییر های <bidi>WNDefaultCalendar</bidi> و <bidi>WNDefaultCultureInfo</bidi> گرفته میشود.</p>
+<p>اگر میخواهید، نوع تقویم و فرهنگ را به صورت دستی برای تقویم خود تعیین کنید بایستی در ادامه خصوصیات زیر را اضافه کنید.</p>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">="calendar</span>"<span class="ha"> class</span><span class="hv">="calendar</span>"<span class="ha"> calendar</span><span class="hv">="wnGregorianCalendar</span>"<span class="ha"> cultureinfo</span><span class="hv">="wnCultureInfo_en_US</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">="calendar</span>"<span class="ha"> class</span><span class="hv">="calendar</span>"<span class="ha"> calendar</span><span class="hv">="wnPersianCalendar</span>"<span class="ha"> cultureinfo</span><span class="hv">="wnCultureInfo_fa_IR</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+</code></pre>
+</figure>
+<p>در خصوصیت <bidi>calendar</bidi> نام یکی از کلاسهای از پیش تعیین شده و یا شخصی سازی شده خود را وارد کنید.</p>
+<p>در خصوصیت <bidi>cultureinfo</bidi> نام یکی از کلاسهای از پیش تعیین شده و یا شخصی سازی شده خود را وارد کنید.</p>
+<p>اگر نمیدانید، چه کلاسهایی پیاده سازی شده است، کافیست برای اطلاع بیشتر <a href="DateJS">اینجا</a> را مطالعه کنید.</p>
+<p>اعداد قابلیت نمایش به صورت محلی را دارند، مقدار پیش فرض از <bidi>WNDefaultNaitveDigit</bidi> گرفته میشود، ولیکن شما میتوانید با تعیین خصوصیت <bidi>naitvedigit = 'true'</bidi> یا <bidi>naitvedigit = 'false'</bidi> این تبدیل را کنترل کنید.</p>
+<h2>نمایش چند تاریخ</h2>
+<p>شما میتوانید علاوه بر تقویم اصلی، تا دو تقویم دیگر نیز، به مجموعه تقویم خود اضافه کنید، با این کار، دو تقویم دیگر به صورت اعداد کوچکتر در زیر عدد تقویم نمایش داده میشود.</p>
+<p>این خصوصیت برای برنامه هایی که میخواهند هم زمان دو یا سه نوع تقویم را بررسی کنند، کارآیی دارد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="cal1" wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             second-calendar="wnPersianCalendar" second-cultureinfo="wnCultureInfo_en_US"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             second-calendar="wnGregorianCalendar" second-cultureinfo="wnCultureInfo_en_US"></div>
+    </div>
+</div>
+<figure><code data-on="cal1"></code></figure>
+<p>
+    همانطور که خصوصیات calendar و cultureinfo عمل میکنند، برای تقویم دوم از خصوصیات <bidi>second-calendar</bidi> و <bidi>second-cultureinfo</bidi> استفاده کنید.
+    اگر خصوصیت <code>second-cultureinfo</code> را مقدار دهی نکنید، از فرهنگ لغات پیش فرضی که برای تقویم اصلی انتخاب شده است استفاده میشود.
+</p>
+<p>در صورتیکه میخواهید تقویم سومی اضافه کنید، خصوصیات <bidi>third-calendar</bidi> و <bidi>third-cultureinfo</bidi> را همانند second تنظیم کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="cal2" wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             second-calendar="wnPersianCalendar"
+             third-calendar="wnHijriCalendar"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             second-calendar="wnGregorianCalendar" second-cultureinfo="wnCultureInfo_en_US"
+             third-calendar="wnHijriCalendar"></div>
+    </div>
+</div>
+<figure><code data-on="cal2"></code></figure>
+<p>همیشه تقویم دوم سمت چپ و پایین و تقویم سوم سمت راست و پایین عدد اصلی تقویم نمایش داده میشود.</p>
+
+<h2>تعدد نمایش تقویم در یک قاب</h2>
+<p>اگر میخواهید چند برج را هم زمان نمایش دهید، میتوانید خصوصیت <bidi>viewcount</bidi> را مقدار دهید، این مقدار حداقل 1 میتواند باشد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="cal3" wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             viewcount="2"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             viewcount="2"></div>
+    </div>
+</div>
+<figure><code data-on="cal3"></code></figure>
+<p>اگر میخواهید تقویم ها به صورت افقی چینش شوند، کلاس <bidi>calendar-horizontal</bidi> را اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="cal4" wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             viewcount="2"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             viewcount="2"></div>
+    </div>
+</div>
+<figure><code data-on="cal4"></code></figure>
+<h2>مناسبتها</h2>
+<p>
+    شما میتوانید در تقویم خود، مناسبتهای تقویمی را نمایش دهید، این مناسبتها به دو صورت عمومی و شخصی سازی شده است.
+    در مناسبتهای عمومی بر اساس رخدادهای عمومی که در تمامی تقویم ها مشکترک است نمایش داده میشود،
+    در مناسبتهای شخصی سازی شده، شما میتوانید یک تاریخ و یا برج و روز را مشخص کنید و هر شرحی که مد نظر است بنویسید.
+</p>
+<p>برای نمایش تقویم عمومی، کافیست خصوصیت <bidi>allowcomment = 'true'</bidi> را اضافه کنید. بر اساس مناسبتهای تعریف شده در مدیریت اطلاعات محلی و بر اساس زبان، مناسبتها نمایش داده خواهد شد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="cal5" wn-type="calendar"
+             class="calendar"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             allowcomment="true"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             allowcomment="true"></div>
+    </div>
+</div>
+<figure><code data-on="cal5"></code></figure>
+<p>اگر فقط میخواهید، روزهای تعطیل مشخص شود، خصوصیت <bidi>allowdateholiday = 'true'</bidi> را تنظیم کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="cal6" wn-type="calendar"
+             class="calendar"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             allowdateholiday="true"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             allowdateholiday="true"></div>
+    </div>
+</div>
+<figure><code data-on="cal6"></code></figure>
+<p>اگر میخواهید فقط مناسبتهای شخصی سازی شده نمایش داده شود و مناسبتهای عمومی نمایش داده نشود خصوصیت<bidi>nocommoncomment = 'true'</bidi> را تنظیم کنید.</p>
+<p>برای تعریف مناسبتهای شخصی به مثال زیر توجه کنید.</p>
+<p>توجه داشته باشید، تنظیم سال، برج و روز در نوع تقویم انتخاب شده باید باشد.</p>
+<p>اگر مقدار year را مشخص کنید، فقط در تاریخ دقیق گفته شده پیام نمایش داده میشود.</p>
+<p>ورود برج و روز اجباری است.</p>
+
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <input type="hidden" id="commentstaticvalue" value="2020-05-06" />
+        <div wn-type="calendar"
+             class="calendar"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             value-id="commentstaticvalue"
+             allowcomment="true"
+             nocommoncomment="true">
+            <comment month="5" day="1" holiday="false" text="Some Comment 1" />
+            <comment month="5" day="2" holiday="true" text="Some Comment 2" />
+            <comment month="5" day="3" holiday="false" text="Some Comment 3" />
+            <comment month="5" day="4" holiday="true" text="Some Comment 4" />
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             value-id="commentstaticvalue"
+             allowcomment="true"
+             nocommoncomment="true">
+            <comment month="2" day="1" holiday="false" text="اول اردیبهشت" />
+            <comment month="2" day="2" holiday="true" text="دوم اردیبهشت" />
+            <comment month="2" day="3" holiday="false" text="سوم اردیبهشت" />
+            <comment month="2" day="4" holiday="true" text="چهارم اردیبهشت" />
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>انتخاب محدوده تاریخی</h2>
+<p>
+    اگر میخواهید، تقویم فقط به انتخاب یک تاریخ محدود نشده و بتوانید یک محدوده تاریخی داشته باشید، خصوصیت <bidi>daterange = 'true'</bidi> را اضافه کنید.
+    این خصوصیت باعث میشود، کاربر با انتخاب اول، ابتدای محدوده و با انتخاب دوم، انتهای محدوده را مشخص کند، بدیهی است
+    با انتخاب های بعدی انتخاب قبلی از بین میرد.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="cal7" wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             viewcount="2"
+             daterange="true"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             viewcount="2"
+             daterange="true"></div>
+    </div>
+</div>
+<figure><code data-on="cal7"></code></figure>
+<h2>دسترسی به تاریخهای انتخاب شده</h2>
+<p>تا به اینجا به نحوه نمایش تقویم اشاره شده است، حال باید ببینیم چطور میتوانیم به تاریخ یا تاریخهای انتخاب شده میتواند دسترسی داشت.</p>
+<p>
+    کلاس wncalendar دارای خصوصیاتی است که دو خصوصیت Date و Date2 که هر دو از جنس wnDate هستند، امکان دسترسی به مدیریت تاریخها را به شما میدهد.
+    <bidi>Date</bidi> تاریخ اولین و اصلی است و اگر شما نوع انتخاب به صورت محدوده را انتخاب کرده باشید، انتهای محدوده در <bidi>Date2</bidi> قابل دسترسی است.
+</p>
+<figure>
+    <pre><code class="html">
+        alert(WN['calendar-id'].Date.toString());
+        alert(WN['calendar-id'].Date2.toString());
+</code></pre>
+</figure>
+<p>
+    دسترسی داشتن به تاریخ ها امکان خوبی است ولی معمولا اضافه کردن کدهای تکراری به صفحه و مدیریت توسط جاوا اسکریپت آنچنان دلچسب نیست.
+    ما برای راحتتر شدن دسترسی و ذخیره تغییرات، دو خصوصیت <bidi>value-id</bidi> و <bidi>value2-id</bidi> را طراحی کردیم، تا زمانیکه تاریخ تغییر کرد، به صورت خودکار،
+    مقدارهای تغییر داده شده به صورت استاندارد ISO درون موضوعات تعیین شده قرار دهد.
+</p>
+<p>بنابر تعریف بالا، شما لازم دارید ابتدا یک ورودی به صورت مخفی یا غیر مخفی داشته باشید، و ID آنرا در هنگام تعریف تعیین کنید. به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <input id="date1_ltr" type="text" style="width:17rem" />
+        <div wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             value-id="date1_ltr">
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <input id="date1_rtl" type="text" style="width:17rem" />
+        <div wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             value-id="date1_rtl"></div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<p>بدیهی است، اگر این ورودی ها، در ابتدا مقداری داشته باشند، مقدار پیش فرض تقویم از آنها خوانده خواهد شد.</p>
+<p>اگر از امکان محدوده استفاده میکند، باید دو ورودی و خصوصیت value2-id را نیز تعیین کنید.</p>
+<h2>نمایش تاریخ انتخاب شده</h2>
+<p>
+    اگر تمایل دارید، تاریخ انتخاب شده در تقویم مد نظر و فرهنگ تعریف شده نیز در یک ورودی نمایش داده شود و همچنین با تغییر دستی آن ورودی تاریخ تقویم نیز دستخوش تغییر گردد
+    باید خصوصیت <bidi>display-id</bidi> را تنظیم کنید، اگر فقط یک تاریخ باشد، تاریخ مد نظر در آن نمایش داده میشود.
+    اگر نوع ورودی محدوده باشد، تاریخ اول <bidi>~</bidi> تاریخ دوم، نمایش داده میشود. اگر خصوصیت <bidi>display2-id</bidi> را تنظیم کنید، هر تاریخ در یک ورودی جداگانه
+    نمایش و مدیریت میشوند.
+</p>
+<div class="alert info callout-start">دقت کنید خصوصیت display-id برای نمایش تاریخ در تقویم انتخاب شده و value-id مقدار تاریخ در فرمت Date استاندارد میباشد.</div>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <input id="date2_d_ltr" type="text" style="width:17rem" />
+        <input id="date2_ltr" type="text" style="width:17rem" disabled />
+        <div wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             value-id="date2_ltr"
+             display-id="date2_d_ltr">
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <input id="date2_d_rtl" type="text" style="width:17rem" />
+        <input id="date2_rtl" type="text" style="width:17rem" disabled />
+        <div wn-type="calendar"
+             class="calendar" style="width:17rem"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             value-id="date2_rtl"
+             display-id="date2_d_rtl"></div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<p>اگر تمایل دارید نوع نمایش خروجی با فرمت خاصی باشد، خصوصیت <bidi>display-format</bidi> را طبق استانداردهای خروجی تاریخ تعیین کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <input id="date3_d_ltr" type="text" />
+        <div wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             display-id="date3_d_ltr"
+             daterange="true"
+             viewcount="2">
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <input id="date3_d_rtl" type="text" />
+        <div wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             display-id="date3_d_rtl"
+             daterange="true"
+             viewcount="2">
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <ig class="d-flex">
+            <input id="date4_d_ltr" type="text" />
+            <input id="date5_d_ltr" type="text" />
+        </ig>
+        <div wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             display-id="date4_d_ltr"
+             display2-id="date5_d_ltr"
+             daterange="true"
+             viewcount="2">
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="d-flex">
+            <input id="date4_d_rtl" type="text" />
+            <input id="date5_d_rtl" type="text" />
+        </ig>
+        <div wn-type="calendar"
+             class="calendar calendar-horizontal"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             display-id="date4_d_rtl"
+             display2-id="date5_d_rtl"
+             daterange="true"
+             viewcount="2">
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>تقویم بازشو</h2>
+<p>اگر میخواهید تقویم به صورت بازشو عمل کند، بایستی طبق موارد گفته شده در قسمت <a href="Dropdowns">dropdown</a> عمل کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <ig class="group">
+            <label for="inputdate1_ltr">Date</label>
+            <input id="inputdate1_ltr" type="text" />
+            <input id="inputdate1_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                     display-id="inputdate1_ltr"
+                     value-id="inputdate1_h_ltr">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate2_ltr">First</label>
+            <input id="inputdate2_ltr" type="text" />
+            <input id="inputdate2_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_ltr"></button>
+
+            <label for="inputdate3_ltr">Second</label>
+            <input id="inputdate3_ltr" type="text" />
+            <input id="inputdate3_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_ltr"></button>
+            <div id="dropdown1_ltr" class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                     display-id="inputdate2_ltr"
+                     display2-id="inputdate3_ltr"
+                     value-id="inputdate2_h_ltr"
+                     value2-id="inputdate3_h_ltr"
+                     daterange="true">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate4_ltr">Date Range</label>
+            <input id="inputdate4_ltr" type="text" />
+            <input id="inputdate4_h_ltr" type="hidden" />
+            <input id="inputdate4_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar calendar-horizontal"
+                     calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                     display-id="inputdate4_ltr"
+                     value-id="inputdate4_h_ltr"
+                     daterange="true"
+                     viewcount="2">
+                </div>
+            </div>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="group">
+            <label for="inputdate1_rtl">تاریخ</label>
+            <input id="inputdate1_rtl" type="text" />
+            <input id="inputdate1_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                     display-id="inputdate1_rtl"
+                     value-id="inputdate1_h_rtl">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate2_rtl">ابتدا</label>
+            <input id="inputdate2_rtl" type="text" />
+            <input id="inputdate2_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_rtl"></button>
+
+            <label for="inputdate2_rtl">انتها</label>
+            <input id="inputdate3_rtl" type="text" />
+            <input id="inputdate3_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_rtl"></button>
+            <div id="dropdown1_rtl" class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                     display-id="inputdate2_rtl"
+                     display2-id="inputdate3_rtl"
+                     value-id="inputdate2_h_rtl"
+                     value2-id="inputdate3_h_rtl"
+                     daterange="true">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate14_rtl">محدوده تاریخی</label>
+            <input id="inputdate4_rtl" type="text" />
+            <input id="inputdate4_h_rtl" type="hidden" />
+            <input id="inputdate4_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar calendar-horizontal"
+                     calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                     display-id="inputdate4_rtl"
+                     value-id="inputdate4_h_rtl"
+                     daterange="true"
+                     viewcount="2">
+                </div>
+            </div>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>ورودی به صورت ماه و سال</h2>
+<div class="example-div">
+    <div class="ltr" id="form7">
+        <h3>LTR</h3>
+        <div wn-type="calendar"
+             class="calendar bordered"
+             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             onlymonthyear="true">
+        </div>
+        <hr class="m-bs-100r" />
+        <ig class="group m-bs-100r">
+            <label for="inputdate5_ltr">Month Year</label>
+            <input id="inputdate5_ltr" type="text" />
+            <input id="inputdate5_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                     onlymonthyear="true"
+                     display-id="inputdate5_ltr"
+                     value-id="inputdate5_h_ltr">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate6_ltr">First</label>
+            <input id="inputdate6_ltr" type="text" readonly />
+            <input id="inputdate6_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown2_ltr"></button>
+
+            <label for="inputdate7_ltr">Second</label>
+            <input id="inputdate7_ltr" type="text" readonly />
+            <input id="inputdate7_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown2_ltr"></button>
+            <div id="dropdown2_ltr" class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                     display-id="inputdate6_ltr"
+                     display2-id="inputdate7_ltr"
+                     display-format="yyyy MMMM"
+                     value-id="inputdate6_h_ltr"
+                     value2-id="inputdate7_h_ltr"
+                     daterange="true"
+                     onlymonthyear="true">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate8_ltr">First</label>
+            <input id="inputdate8_ltr" type="text" readonly />
+            <input id="inputdate8_h_ltr" type="hidden" />
+
+            <label for="inputdate9_ltr">Second</label>
+            <input id="inputdate9_ltr" type="text" readonly />
+            <input id="inputdate9_h_ltr" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                     display-id="inputdate8_ltr"
+                     display2-id="inputdate9_ltr"
+                     display-format="yyyy MMMM"
+                     value-id="inputdate8_h_ltr"
+                     value2-id="inputdate9_h_ltr"
+                     daterange="true"
+                     onlymonthyear="true">
+                </div>
+            </div>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="calendar"
+             class="calendar bordered"
+             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             onlymonthyear="true">
+        </div>
+        <hr class="m-bs-100r" />
+        <ig class="group m-bs-100r">
+            <label for="inputdate5_rtl">Month Year</label>
+            <input id="inputdate5_rtl" type="text" />
+            <input id="inputdate5_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                     onlymonthyear="true"
+                     display-id="inputdate5_rtl"
+                     value-id="inputdate5_h_rtl">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate6_rtl">First</label>
+            <input id="inputdate6_rtl" type="text" readonly />
+            <input id="inputdate6_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown2_rtl"></button>
+
+            <label for="inputdate7_rtl">Second</label>
+            <input id="inputdate7_rtl" type="text" readonly />
+            <input id="inputdate7_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown2_rtl"></button>
+            <div id="dropdown2_rtl" class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                     display-id="inputdate6_rtl"
+                     display2-id="inputdate7_rtl"
+                     display-format="yyyy MMMM"
+                     value-id="inputdate6_h_rtl"
+                     value2-id="inputdate7_h_rtl"
+                     daterange="true"
+                     onlymonthyear="true">
+                </div>
+            </div>
+        </ig>
+        <ig class="group">
+            <label for="inputdate8_rtl">First</label>
+            <input id="inputdate8_rtl" type="text" readonly />
+            <input id="inputdate8_h_rtl" type="hidden" />
+
+            <label for="inputdate9_rtl">Second</label>
+            <input id="inputdate9_rtl" type="text" readonly />
+            <input id="inputdate9_h_rtl" type="hidden" />
+            <button class="dropdown-toggle" wn-type="dropdown"></button>
+            <div class="dropdown align-end p-0-i">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                     display-id="inputdate8_rtl"
+                     display2-id="inputdate9_rtl"
+                     display-format="yyyy MMMM"
+                     value-id="inputdate8_h_rtl"
+                     value2-id="inputdate9_h_rtl"
+                     daterange="true"
+                     onlymonthyear="true">
+                </div>
+            </div>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h2>تقویم بازشو در محیطهای دیگر</h2>
+<div class="example-div">
+    <div class="ltr" id="form8">
+        <h3>LTR</h3>
+        <ig class="floating">
+            <input id="form8_inputdate_ltr" type="text" placeholder="." class="dropdownarrow" wn-type="dropdown" />
+            <div class="dropdown align-fit">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                     display-id="form8_inputdate_ltr">
+                </div>
+            </div>
+            <label for="">Date</label>
+        </ig>
+        <button class="primary" onclick="WN['modal1_ltr'].show()">Modal</button>
+        <div class="modal darkback overflow-y-hidden" tabindex="-1" id="modal1_ltr" wn-type="modal" back-close="false" showclass="animate zoomIn" hideclass="animate zoomOut">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">Form Info</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body modal-limit userselect-none transform-none">
+                    <ig class="floating">
+                        <input id="form8_inputdate2_ltr" type="text" placeholder="." class="dropdownarrow" wn-type="dropdown" />
+                        <div class="dropdown align-fit">
+                            <div wn-type="calendar"
+                                 class="calendar"
+                                 calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                                 display-id="form8_inputdate2_ltr">
+                            </div>
+                        </div>
+                        <label for="">Date</label>
+                    </ig>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="floating">
+            <input id="form8_inputdate_rtl" type="text" placeholder="." class="dropdownarrow" wn-type="dropdown" />
+            <div class="dropdown align-fit">
+                <div wn-type="calendar"
+                     class="calendar"
+                     calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                     display-id="form8_inputdate_rtl">
+                </div>
+            </div>
+            <label for="">تاریخ</label>
+        </ig>
+        <button class="primary" onclick="WN['modal1_rtl'].show()">مودال</button>
+        <div class="modal darkback overflow-y-hidden" tabindex="-1" id="modal1_rtl" wn-type="modal" back-close="false" showclass="animate zoomIn" hideclass="animate zoomOut">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">اطلاعات فرم</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body modal-limit userselect-none transform-none">
+                    <ig class="floating">
+                        <input id="form8_inputdate2_rtl" type="text" placeholder="." class="dropdownarrow" wn-type="dropdown" />
+                        <div class="dropdown align-fit">
+                            <div wn-type="calendar"
+                                 class="calendar"
+                                 calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                                 display-id="form8_inputdate2_rtl">
+                            </div>
+                        </div>
+                        <label for="">تاریخ</label>
+                    </ig>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>

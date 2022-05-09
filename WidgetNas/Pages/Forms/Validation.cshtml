@@ -1,0 +1,279 @@
+﻿@page
+@model WidgetNas.Pages.Forms.ValidationModel
+@{
+    ViewData["Title"] = "اعتبار سنجی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>اعتبارسنجی یکی از رابط های مهم در ورود اطلاعات در فرم ها است، این اعتبار سنجی سمت کلاینت و یا سمت سرور ممکن است اتفاق بیافتد.</p>
+<p>مرورگر، خود بطور پیش فرض از این اعتبار سنجی پشتیبانی میکند، ولیکن، نمایش آن توسط ما به سادگی انجام پذیر نیست.</p>
+<h1>چگونه کار میکند؟</h1>
+<p>برای نسبت دادن اعتبار سنجی، ما از دو کلاس pseudo میتوانیم استفاده کنیم، کلاس <span class="bidi-override">:invalid</span> برای نمایش خطا و کلاس <span class="bidi-override">:valid</span> برای نمایش فیلدهای معتبر.</p>
+<p>این دو کلاس، فقط برای input، textarea و select وجود دارد، پس نمیتوانید برای موضوعات دیگر استفاده کنید. مگر آنکه در طراحی کنترل خود، جنس اصلی یکی از انواع گفته شده باشد.</p>
+<p>
+    همچنین دو کلاس بالا فقط توسط مرورگر صدا زده شده و شما نمیتوانید از سمت سرور، آنها را فراخوانی کنید، مگر با جاوا اسکریپت و نوشتن کدهای طولانی. راهی ساده تر در اختیار شما قرار میدهیم.
+    برای آنکه هم مشکل دیگر کنترل ها برطرف شود و هم بتوانید از سمت سرور مشخص کنید، کدام ورودی باید بررسی شود، علاوه بر آن دو کلاس، ما کلاسهای <span class="bidi-override">.invalid</span> و <span class="bidi-override">.valid</span> را اضافه کردیم.
+    در هر جا این کلاسها صدا زده شوند، نمایش آن به صورت گفته شده خواهد بود. دقت کنید فقط نمایش، عمل اعتبار سنجی توسط برنامه نویس از سمت سرور یا کلاینت کنترل گردیده و میگردد.
+</p>
+<h2>اعتبار سنجی مرورگر</h2>
+<p>در این مثال، کنترل به دست مرورگر است و نمایش کادرها و پیامها توسط مرورگر کنترل میگردد</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <partial name="Validation_form_ltr" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample1" } }' />
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <partial name="Validation_form_rtl" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample1" } }' />
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>اعتبار سنجی مرورگر با کلاس validated</h2>
+<p>در این مثال، کنترل به دست مرورگر است و نمایش کادرها و پیامها توسط کلاس validated طراحی شده کنترل میگردد. ورودی ها یا با کادر وضعیت valid هستند یا invalid.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form class="validated" id="form2">
+            <partial name="Validation_form_ltr" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample2" } }' />
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form class="validated">
+            <partial name="Validation_form_rtl" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample2" } }' />
+        </form>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<p>اگر علاقه ندارید فیلدهای valid نمایش داده شود از کلاس <span class="bidi-override">.hide-valid</span> و برای عدم نمایش کلاس های invalid از کلاس <span class="bidi-override">.hide-invalid</span> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form class="validated hide-valid" id="form3">
+            <partial name="Validation_form_ltr" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample3" } }' />
+
+        </form>
+        <form class="validated hide-invalid">
+            <partial name="Validation_form_ltr" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample4" } }' />
+
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form class="validated hide-valid">
+            <partial name="Validation_form_rtl" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample3" } }' />
+        </form>
+        <form class="validated hide-invalid">
+            <partial name="Validation_form_rtl" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample4" } }' />
+        </form>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+
+<h2>اعتبار سنجی توسط ویجت نس</h2>
+<p>اگر علاقه ندارید در ابتدا تمام ورودی ها بررسی شوند و میخواهید کنترل اعتبار سنجی به دست ویجت نس باشد، بایستی اعتبار سنجی را با اضافه کردن خصوصیت novalidated به فرم ساقط کرده و سپس خصوصیت wn-validated را به فرم اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form class="hide-valid" wn-type="validator" novalidate id="form4">
+            <partial name="Validation_form_ltr" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample5" } }' />
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form class="hide-valid" wn-type="validator" novalidate>
+            <partial name="Validation_form_rtl" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample5" } }' />
+        </form>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>نمایش پیام خطا شخصی</h2>
+<p>برای نمایش پیام مورد نظر، میتوانید بعد از معرفی ورودی، در یک موضوعی که از کلاس valid-feedback یا invalid-feedback استفاده شده است، برای نمایش پیامهای درست و اشتباه متن یا کد مورد نظر را درج کنید، در حالت پیش فرض این دو کلاس به صورت display: none است و با توجه به موقعیت، آنها به display:block تغییر وضعیت خواهند داد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate id="form5">
+            <partial name="Validation_form_ltr" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample6" }, { "feedback", "true" } }' />
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate>
+            <partial name="Validation_form_rtl" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample6" }, { "feedback", "true" } }' />
+        </form>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<p>شما میتوانید با گسترش کلاسهای نمایشی برای feedback انواع مختلفی از نمایش را داشته باشید برای مثال ما نوع tooltip را گسترش دادیم و مابقی میتواند بر عهده خود شما باشد.</p>
+<p>اگر میخواهید نمایش پیام مورد نظر به صورت tooltip باشد، میتوانید بعد از معرفی valid-feedback و invalid-feedback از کلاس tooltip استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate id="form6">
+            <partial name="Validation_form_ltr" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample7" }, { "feedback", "true" }, { "feedback-style", "tooltip" } }' />
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate>
+            <partial name="Validation_form_rtl" view-data='@new ViewDataDictionary(ViewData) { { "id", "sample7" }, { "feedback", "true" }, { "feedback-style", "tooltip" } }' />
+        </form>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>بررسی خاص</h2>
+<p>در مواقعی نیاز است، ورودی بر اساس مقادیر خاص مورد سنجش قرار گیرد، مثلا مقدار وارد شده با سرور ارتباط برقرار کرده و صحت سنجی سمت کلاینت مشخص شود. برای ایجاد چنین امکانی یک event طراحی کردیم به نام onvalidation در این event شما میتوانید صحت ورودی را بررسی کنید و نتیجه را اعلام کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate id="form7">
+            <ig class="col-4">
+                <label for='sample8_i1_ltr'>Input 1</label>
+                <input id='sample8_i1_ltr' type="text" onvalidation="(t, e) => { alert(t.id); return confirm('Input 1 is OK?'); }" />
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <ig class="col-4">
+                <label for='sample8_i2_ltr'>Input 2</label>
+                <input id='sample8_i2_ltr' type="text" onvalidation="return confirm('Input 2 is OK?');" />
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <button class="danger" type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate>
+
+            <ig class="col-4">
+                <label for='sample8_i1_rtl'>ورودی یک</label>
+                <input id='sample8_i1_rtl' type="text" onvalidation="(t, e) => { alert(t.id); return confirm('ورودی یک درست است؟'); }" />
+                <div class="valid-feedback">
+                    درست است
+                </div>
+                <div class="invalid-feedback">
+                    اشتباه است
+                </div>
+            </ig>
+            <ig class="col-4">
+                <label for='sample8_i2_rtl'>ورودی دو</label>
+                <input id='sample8_i2_rtl' type="text" onvalidation="return confirm('ورودی دو درست است؟');" />
+                <div class="valid-feedback">
+                    درست است
+                </div>
+                <div class="invalid-feedback">
+                    اشتباه است
+                </div>
+            </ig>
+            <button class="danger" type="submit">ارسال فرم</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+
+<h2>بررسی توسط جاوا اسکریپت</h2>
+<p>
+    به طور پیش فرض، زمانیکه قرار است فرم submit شود، عمل بررسی فرم و جلوگیری از submit شدن، انجام میپذیرد.
+    ولیکن ممکن است شما نخواهید در زمان submit فرم عمل بررسی را انجام دهید.
+    برای مثال میخواهید اطلاعات فرم را به صورت AJAX ارسال کنید و نیاز دارید قبل از ارسال، این بررسی انجام پذیرد. بدین منظور، کافیست قبل از
+    ارسال اطلاعات از تابع <bidi>IsValid</bidi> برای بررسی و صحت ورودی ها استفاده کنید.
+</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate id="form8">
+            <ig class="col-4 floating">
+                <input id='sample9_i1_ltr' type="text" placeholder="." required />
+                <label for='sample9_i1_ltr'>Input 1</label>
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <ig class="col-4 floating">
+                <select id='sample9_i2_ltr' required>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+                <label for='sample9_i2_ltr'>Master Value</label>
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <ig class="col-4 floating">
+                <input id='sample9_i3_ltr' type="text" placeholder="." onvalidation="return document.getElementById('sample9_i3_ltr').value == document.getElementById('sample9_i2_ltr').value" />
+                <label for='sample9_i3_ltr'>Value Same as Master Value</label>
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <button class="danger" type="button" onclick="alert(WN['form8'].IsValid())">Check</button>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate id="form8rtl">
+            <ig class="col-4 floating">
+                <input id='sample9_i1_rtl' type="text" placeholder="." required />
+                <label for='sample9_i1_rtl'>ورودی یک</label>
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    اشتباه!
+                </div>
+            </ig>
+            <ig class="col-4 floating">
+                <select id='sample9_i2_rtl' required>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+                <label for='sample9_i2_rtl'>مقدار اصلی</label>
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    اشتباه!
+                </div>
+            </ig>
+            <ig class="col-4 floating">
+                <input id='sample9_i3_rtl' type="text" placeholder="." onvalidation="return document.getElementById('sample9_i3_rtl').value == document.getElementById('sample9_i2_rtl').value" />
+                <label for='sample9_i3_rtl'>مقدار باید با مقدار اصلی یکی باشد</label>
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    اشتباه!
+                </div>
+            </ig>
+            <button class="danger" type="button" onclick="alert(WN['form8rtl'].IsValid())">بررسی فرم</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>

@@ -1,0 +1,600 @@
+﻿@page
+@model WidgetNas.Pages.Components.ButtonGroupModel
+@{
+    ViewData["Title"] = "دکمه های گروهی Button Group";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>در بسیاری از جاها نیازمند ایجاد دکمه ها به صورت گروهی هستیم. یعنی چند دکمه در کنار هم که اعمال مختلفی را انجام دهند.</p>
+<p>جنس دکمه ها همانند همان دکمه ها است ولی نوع چینش آنها متفاوت تر است.</p>
+<p>در این صفحه انواع دکمه های گروهی را به شما نمایش خواهیم داد.</p>
+<p>برای نمایش دکمه های گروهی بایستی دکمه های مد نظر درون div یا ig قرار گیرند سپس کلاس button-group به آن نسبت داده شود.</p>
+<p>همانند انواع دکمه ها و چک باکس یا رادیو، میتوانید، از کلاسهای مرتبط با آنها نیز استفاده کنید.</p>
+<p>اگر همه دکمه ها از یک تم رنگی استفاده میکنند، میتوانید آن تم رنگی را به کل مجموعه نسبت دهید.</p>
+<h2>مثال</h2>
+<p>دکمه ها از جنس button در رنگهای متداول.</p>
+
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div>
+            <ig class="button-group primary">
+                <button>start</button>
+                <button>first</button>
+                <button>second</button>
+                <button>third</button>
+                <button>end</button>
+            </ig>
+            <ig class="button-group primary">
+                <button>start</button>
+                <button>end</button>
+            </ig>
+            <ig class="button-group primary">
+                <button>start/end</button>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group">
+                <button class="primary">start</button>
+                <button class="secondary">first</button>
+                <button class="third">second</button>
+                <button class="warning">third</button>
+                <button class="danger">end</button>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary outline">
+                <button>start</button>
+                <button>first</button>
+                <button>second</button>
+                <button>third</button>
+                <button>end</button>
+            </ig>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <ig class="button-group primary">
+                <button>شروع</button>
+                <button>اول</button>
+                <button>دوم</button>
+                <button>سوم</button>
+                <button>پایان</button>
+            </ig>
+            <ig class="button-group primary">
+                <button>شروع</button>
+                <button>پایان</button>
+            </ig>
+            <ig class="button-group primary">
+                <button>شروع/پایان</button>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group">
+                <button class="primary">شروع</button>
+                <button class="secondary">اول</button>
+                <button class="third">دوم</button>
+                <button class="warning">سوم</button>
+                <button class="danger">پایان</button>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary outline">
+                <button>شروع</button>
+                <button>اول</button>
+                <button>دوم</button>
+                <button>سوم</button>
+                <button>پایان</button>
+            </ig>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+<h2>گروه چک باکس</h2>
+<p>اگر تمایل دارید، تعداد چک باکس در یک گروه داشته باشید، از مثال زیر استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div>
+            <ig class="button-group primary">
+                <input type="checkbox" id="btncheck11-ltr">
+                <label class="button" for="btncheck11-ltr">Checkbox 1</label>
+                <input type="checkbox" id="btncheck12-ltr">
+                <label class="button" for="btncheck12-ltr">Checkbox 2</label>
+                <input type="checkbox" id="btncheck13-ltr">
+                <label class="button" for="btncheck13-ltr">Checkbox 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary outline">
+                <input type="checkbox" id="btncheck21-ltr">
+                <label class="button" for="btncheck21-ltr">Checkbox 1</label>
+                <input type="checkbox" id="btncheck22-ltr">
+                <label class="button" for="btncheck22-ltr">Checkbox 2</label>
+                <input type="checkbox" id="btncheck23-ltr">
+                <label class="button" for="btncheck23-ltr">Checkbox 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary">
+                <input type="checkbox" id="btncheck31-ltr">
+                <label class="button" for="btncheck31-ltr">Checkbox 1</label>
+                <input type="checkbox" id="btncheck32-ltr">
+                <label class="button" for="btncheck32-ltr">Checkbox 2</label>
+                <input type="checkbox" id="btncheck33-ltr" disabled>
+                <label class="button" for="btncheck33-ltr">Disabled</label>
+                <input type="checkbox" id="btncheck34-ltr">
+                <label class="button" for="btncheck34-ltr">Checkbox 3</label>
+            </ig>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <ig class="button-group primary">
+                <input type="checkbox" id="btncheck11-rtl">
+                <label class="button" for="btncheck11-rtl">چک باکس 1</label>
+                <input type="checkbox" id="btncheck12-rtl">
+                <label class="button" for="btncheck12-rtl">چک باکس 2</label>
+                <input type="checkbox" id="btncheck13-rtl">
+                <label class="button" for="btncheck13-rtl">چک باکس 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary outline">
+                <input type="checkbox" id="btncheck21-rtl">
+                <label class="button" for="btncheck21-rtl">چک باکس 1</label>
+                <input type="checkbox" id="btncheck22-rtl">
+                <label class="button" for="btncheck22-rtl">چک باکس 2</label>
+                <input type="checkbox" id="btncheck23-rtl">
+                <label class="button" for="btncheck23-rtl">چک باکس 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary">
+                <input type="checkbox" id="btncheck31-rtl">
+                <label class="button" for="btncheck31-rtl">چک باکس 1</label>
+                <input type="checkbox" id="btncheck32-rtl">
+                <label class="button" for="btncheck32-rtl">چک باکس 2</label>
+                <input type="checkbox" id="btncheck33-rtl" disabled>
+                <label class="button" for="btncheck33-rtl">غیر فعال</label>
+                <input type="checkbox" id="btncheck34-rtl">
+                <label class="button" for="btncheck34-rtl">چک باکس 3</label>
+            </ig>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+
+<h2>گروه رادیو</h2>
+<p>اگر تمایل دارید گروهی به شکل رادیو داشته باشید به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <div>
+            <ig class="button-group primary">
+                <input type="radio" id="btnradio11-ltr" name="btnradio11-ltr">
+                <label class="button" for="btnradio11-ltr">Radio 1</label>
+                <input type="radio" id="btnradio12-ltr" name="btnradio11-ltr">
+                <label class="button" for="btnradio12-ltr">Radio 2</label>
+                <input type="radio" id="btnradio13-ltr" name="btnradio11-ltr">
+                <label class="button" for="btnradio13-ltr">Radio 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary outline">
+                <input type="radio" id="btnradio21-ltr" name="btnradio21-ltr">
+                <label class="button" for="btnradio21-ltr">Radio 1</label>
+                <input type="radio" id="btnradio22-ltr" name="btnradio21-ltr">
+                <label class="button" for="btnradio22-ltr">Radio 2</label>
+                <input type="radio" id="btnradio23-ltr" name="btnradio21-ltr">
+                <label class="button" for="btnradio23-ltr">Radio 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary">
+                <input type="radio" id="btnradio31-ltr" name="btnradio31-ltr">
+                <label class="button" for="btnradio31-ltr">Radio 1</label>
+                <input type="radio" id="btnradio32-ltr" name="btnradio31-ltr">
+                <label class="button" for="btnradio32-ltr">Radio 2</label>
+                <input type="radio" id="btnradio33-ltr" name="btnradio31-ltr" disabled>
+                <label class="button" for="btnradio33-ltr">Disabled</label>
+                <input type="radio" id="btnradio34-ltr" name="btnradio31-ltr">
+                <label class="button" for="btnradio34-ltr">Radio 3</label>
+            </ig>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <ig class="button-group primary">
+                <input type="radio" id="btnradio11-rtl" name="btnradio11-rtl">
+                <label class="button" for="btnradio11-rtl">رادیو 1</label>
+                <input type="radio" id="btnradio12-rtl" name="btnradio11-rtl">
+                <label class="button" for="btnradio12-rtl">رادیو 2</label>
+                <input type="radio" id="btnradio13-rtl" name="btnradio11-rtl">
+                <label class="button" for="btnradio13-rtl">رادیو 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary outline">
+                <input type="radio" id="btnradio21-rtl" name="btnradio21-rtl">
+                <label class="button" for="btnradio21-rtl">رادیو 1</label>
+                <input type="radio" id="btnradio22-rtl" name="btnradio21-rtl">
+                <label class="button" for="btnradio22-rtl">رادیو 2</label>
+                <input type="radio" id="btnradio23-rtl" name="btnradio21-rtl">
+                <label class="button" for="btnradio23-rtl">رادیو 3</label>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group primary">
+                <input type="radio" id="btnradio31-rtl" name="btnradio31-rtl">
+                <label class="button" for="btnradio31-rtl">رادیو 1</label>
+                <input type="radio" id="btnradio32-rtl" name="btnradio31-rtl">
+                <label class="button" for="btnradio32-rtl">رادیو 2</label>
+                <input type="radio" id="btnradio33-rtl" name="btnradio31-rtl" disabled>
+                <label class="button" for="btnradio33-rtl">غیر فعال</label>
+                <input type="radio" id="btnradio34-rtl" name="btnradio31-rtl">
+                <label class="button" for="btnradio34-rtl">رادیو 3</label>
+            </ig>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+
+<h2>گروه عمودی</h2>
+<p>اگر میخواهید گروه دکمه ها به صورتی عمودی نمایش داده شود، با حفظ همه قوانین، کافیست کلاس vertical را اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <div>
+            <ig class="button-group vertical primary">
+                <button>start</button>
+                <button>first</button>
+                <button class="dropdown-toggle" wn-type="dropdown">Click</button>
+                <div class="dropdown">
+                    <ul>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                        <li>Item 4</li>
+                    </ul>
+                </div>
+                <input type="checkbox" id="btncheck41-ltr">
+                <label class="button" for="btncheck41-ltr">Checkbox 1</label>
+                <input type="checkbox" id="btncheck42-ltr">
+                <label class="button" for="btncheck42-ltr">Checkbox 2</label>
+                <input type="radio" id="btnradio41-ltr" name="btnradio41-ltr">
+                <label class="button" for="btnradio41-ltr">Radio 1</label>
+                <input type="radio" id="btnradio42-ltr" name="btnradio41-ltr">
+                <label class="button" for="btnradio42-ltr">Radio 2</label>
+                <button>end</button>
+            </ig>
+            <ig class="button-group vertical primary">
+                <button>start</button>
+                <button>end</button>
+            </ig>
+            <ig class="button-group vertical primary">
+                <button>start/end</button>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group vertical">
+                <button class="primary">start</button>
+                <button class="secondary">first</button>
+                <button class="third">second</button>
+                <button class="warning">third</button>
+                <button class="danger">end</button>
+            </ig>
+            <ig class="button-group vertical primary outline">
+                <button>start</button>
+                <button>first</button>
+                <button>second</button>
+                <button>third</button>
+                <button>end</button>
+            </ig>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <ig class="button-group vertical primary">
+                <button>شروع</button>
+                <button>اول</button>
+                <button class="dropdown-toggle" wn-type="dropdown">بازشو</button>
+                <div class="dropdown">
+                    <ul>
+                        <li>گزینه 1</li>
+                        <li>گزینه 2</li>
+                        <li>گزینه 3</li>
+                        <li>گزینه 4</li>
+                    </ul>
+                </div>
+                <input type="checkbox" id="btncheck41-rtl">
+                <label class="button" for="btncheck41-rtl">چک باکس 1</label>
+                <input type="checkbox" id="btncheck42-rtl">
+                <label class="button" for="btncheck42-rtl">چک باکس 2</label>
+                <input type="radio" id="btnradio41-rtl" name="btnradio41-rtl">
+                <label class="button" for="btnradio41-rtl">رادیو 1</label>
+                <input type="radio" id="btnradio42-rtl" name="btnradio41-rtl">
+                <label class="button" for="btnradio42-rtl">رادیو 2</label>
+                <button>پایان</button>
+            </ig>
+            <ig class="button-group vertical primary">
+                <button>شروع</button>
+                <button>پایان</button>
+            </ig>
+            <ig class="button-group vertical primary">
+                <button>شروع/پایان</button>
+            </ig>
+        </div>
+        <div>
+            <ig class="button-group vertical">
+                <button class="primary">شروع</button>
+                <button class="secondary">اول</button>
+                <button class="third">دوم</button>
+                <button class="warning">سوم</button>
+                <button class="danger">پایان</button>
+            </ig>
+            <ig class="button-group vertical primary outline">
+                <button>شروع</button>
+                <button>اول</button>
+                <button>دوم</button>
+                <button>سوم</button>
+                <button>پایان</button>
+            </ig>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+
+<h2>گروه بازشو</h2>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <div>
+            <ig class="button-group primary">
+                <button>Dropdown</button>
+                <button class="dropdown-toggle" wn-type="dropdown"></button>
+                <div class="dropdown">
+                    <ul>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                        <li>Item 4</li>
+                    </ul>
+                </div>
+            </ig>
+            <ig class="button-group">
+                <button class="dropdown-toggle primary" wn-type="dropdown">Dropdown</button>
+                <div class="dropdown">
+                    <ul>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                        <li>Item 4</li>
+                    </ul>
+                </div>
+                <button class="secondary">Dropdown</button>
+                <button class="danger dropdown-toggle" wn-type="dropdown"></button>
+                <div class="dropdown">
+                    <ul>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                        <li>Item 4</li>
+                    </ul>
+                </div>
+            </ig>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <ig class="button-group primary">
+                <button>بازشو</button>
+                <button class="dropdown-toggle" wn-type="dropdown"></button>
+                <div class="dropdown">
+                    <ul>
+                        <li>گزینه 1</li>
+                        <li>گزینه 2</li>
+                        <li>گزینه 3</li>
+                        <li>گزینه 4</li>
+                    </ul>
+                </div>
+            </ig>
+            <ig class="button-group">
+                <button class="primary dropdown-toggle" wn-type="dropdown">بازشو</button>
+                <div class="dropdown">
+                    <ul>
+                        <li>گزینه 1</li>
+                        <li>گزینه 2</li>
+                        <li>گزینه 3</li>
+                        <li>گزینه 4</li>
+                    </ul>
+                </div>
+                <button class="secondary">بازشو</button>
+                <button class="danger dropdown-toggle" wn-type="dropdown"></button>
+                <div class="dropdown">
+                    <ul>
+                        <li>گزینه 1</li>
+                        <li>گزینه 2</li>
+                        <li>گزینه 3</li>
+                        <li>گزینه 4</li>
+                    </ul>
+                </div>
+            </ig>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+
+<h2>میله ابزار</h2>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <div>
+            <ig class="toolbar light">
+                <ig class="button-group">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                </ig>
+                <ig class="button-group">
+                    <input type="checkbox" id="checkbox1_ltr" name="checkbox1_ltr" />
+                    <label class="button" for="checkbox1_ltr"><i class="fas fa-bold"></i></label>
+                    <input type="checkbox" id="checkbox2_ltr" name="checkbox1_ltr" />
+                    <label class="button" for="checkbox2_ltr"><i class="fas fa-italic"></i></label>
+                    <input type="checkbox" id="checkbox3_ltr" name="checkbox1_ltr" />
+                    <label class="button" for="checkbox3_ltr"><i class="fas fa-underline"></i></label>
+                </ig>
+                <ig class="button-group">
+                    <input type="radio" id="radio1_ltr" name="radio1_ltr" />
+                    <label class="button" for="radio1_ltr"><i class="fas fa-align-left"></i></label>
+                    <input type="radio" id="radio2_ltr" name="radio1_ltr" />
+                    <label class="button" for="radio2_ltr"><i class="fas fa-align-center"></i></label>
+                    <input type="radio" id="radio3_ltr" name="radio1_ltr" />
+                    <label class="button" for="radio3_ltr"><i class="fas fa-align-right"></i></label>
+                    <input type="radio" id="radio4_ltr" name="radio1_ltr" />
+                    <label class="button" for="radio4_ltr"><i class="fas fa-align-justify"></i></label>
+                </ig>
+                <div class="button-group">
+                    <button class="light"><span class="fas fa-text-width"></span></button>
+                    <button class="light dropdown-toggle" wn-type="dropdown"></button>
+                    <div class="dropdown">
+                        <ul>
+                            <li>8pt</li>
+                            <li>10pt</li>
+                            <li>12pt</li>
+                            <li>14pt</li>
+                        </ul>
+                    </div>
+                </div>
+            </ig>
+        </div>
+        <div>
+            <ig class="toolbar light s-m">
+                <ig class="button-group">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                </ig>
+                <ig class="button-group">
+                    <input type="checkbox" id="checkbox12_ltr" name="checkbox1_ltr" />
+                    <label class="button" for="checkbox12_ltr"><i class="fas fa-bold"></i></label>
+                    <input type="checkbox" id="checkbox22_ltr" name="checkbox1_ltr" />
+                    <label class="button" for="checkbox22_ltr"><i class="fas fa-italic"></i></label>
+                    <input type="checkbox" id="checkbox32_ltr" name="checkbox1_ltr" />
+                    <label class="button" for="checkbox32_ltr"><i class="fas fa-underline"></i></label>
+                </ig>
+                <ig class="button-group">
+                    <input type="radio" id="radio12_ltr" name="radio12_ltr" />
+                    <label class="button" for="radio12_ltr"><i class="fas fa-align-left"></i></label>
+                    <input type="radio" id="radio22_ltr" name="radio12_ltr" />
+                    <label class="button" for="radio22_ltr"><i class="fas fa-align-center"></i></label>
+                    <input type="radio" id="radio32_ltr" name="radio12_ltr" />
+                    <label class="button" for="radio32_ltr"><i class="fas fa-align-right"></i></label>
+                    <input type="radio" id="radio42_ltr" name="radio12_ltr" />
+                    <label class="button" for="radio42_ltr"><i class="fas fa-align-justify"></i></label>
+                </ig>
+                <div class="button-group">
+                    <button class="light"><span class="fas fa-text-width"></span></button>
+                    <button class="light dropdown-toggle" wn-type="dropdown"></button>
+                    <div class="dropdown">
+                        <ul>
+                            <li>8pt</li>
+                            <li>10pt</li>
+                            <li>12pt</li>
+                            <li>14pt</li>
+                        </ul>
+                    </div>
+                </div>
+            </ig>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <ig class="toolbar light">
+                <ig class="button-group">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                </ig>
+                <ig class="button-group">
+                    <input type="checkbox" id="checkbox1_rtl" name="checkbox1_rtl" />
+                    <label class="button" for="checkbox1_rtl"><i class="fas fa-bold"></i></label>
+                    <input type="checkbox" id="checkbox2_rtl" name="checkbox1_rtl" />
+                    <label class="button" for="checkbox2_rtl"><i class="fas fa-italic"></i></label>
+                    <input type="checkbox" id="checkbox3_rtl" name="checkbox1_rtl" />
+                    <label class="button" for="checkbox3_rtl"><i class="fas fa-underline"></i></label>
+                </ig>
+                <ig class="button-group">
+                    <input type="radio" id="radio1_rtl" name="radio1_rtl" />
+                    <label class="button" for="radio1_rtl"><i class="fas fa-align-left"></i></label>
+                    <input type="radio" id="radio2_rtl" name="radio1_rtl" />
+                    <label class="button" for="radio2_rtl"><i class="fas fa-align-center"></i></label>
+                    <input type="radio" id="radio3_rtl" name="radio1_rtl" />
+                    <label class="button" for="radio3_rtl"><i class="fas fa-align-right"></i></label>
+                    <input type="radio" id="radio4_rtl" name="radio1_rtl" />
+                    <label class="button" for="radio4_rtl"><i class="fas fa-align-justify"></i></label>
+                </ig>
+                <ig class="button-group">
+                    <button class="light"><span class="fas fa-text-width"></span></button>
+                    <button class="light dropdown-toggle" wn-type="dropdown"></button>
+                    <div class="dropdown">
+                        <ul>
+                            <li>8pt</li>
+                            <li>10pt</li>
+                            <li>12pt</li>
+                            <li>14pt</li>
+                        </ul>
+                    </div>
+                </ig>
+            </ig>
+        </div>
+        <div>
+            <ig class="toolbar light s-m">
+                <ig class="button-group">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                </ig>
+                <ig class="button-group">
+                    <input type="checkbox" id="checkbox12_rtl" name="checkbox1_rtl" />
+                    <label class="button" for="checkbox12_rtl"><i class="fas fa-bold"></i></label>
+                    <input type="checkbox" id="checkbox22_rtl" name="checkbox1_rtl" />
+                    <label class="button" for="checkbox22_rtl"><i class="fas fa-italic"></i></label>
+                    <input type="checkbox" id="checkbox32_rtl" name="checkbox1_rtl" />
+                    <label class="button" for="checkbox32_rtl"><i class="fas fa-underline"></i></label>
+                </ig>
+                <ig class="button-group">
+                    <input type="radio" id="radio12_rtl" name="radio12_rtl" />
+                    <label class="button" for="radio12_rtl"><i class="fas fa-align-left"></i></label>
+                    <input type="radio" id="radio22_rtl" name="radio12_rtl" />
+                    <label class="button" for="radio22_rtl"><i class="fas fa-align-center"></i></label>
+                    <input type="radio" id="radio32_rtl" name="radio12_rtl" />
+                    <label class="button" for="radio32_rtl"><i class="fas fa-align-right"></i></label>
+                    <input type="radio" id="radio42_rtl" name="radio12_rtl" />
+                    <label class="button" for="radio42_rtl"><i class="fas fa-align-justify"></i></label>
+                </ig>
+                <ig class="button-group">
+                    <button class="light"><span class="fas fa-text-width"></span></button>
+                    <button class="light dropdown-toggle" wn-type="dropdown"></button>
+                    <div class="dropdown">
+                        <ul>
+                            <li>8pt</li>
+                            <li>10pt</li>
+                            <li>12pt</li>
+                            <li>14pt</li>
+                        </ul>
+                    </div>
+                </ig>
+            </ig>
+        </div>
+
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>

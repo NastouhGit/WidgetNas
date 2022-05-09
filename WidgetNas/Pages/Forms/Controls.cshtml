@@ -1,0 +1,315 @@
+﻿@page
+@model WidgetNas.Pages.Forms.ControlsModel
+@{
+    ViewData["Title"] = "کنترل های فرم";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>یکی از مهمترین کنترل های هر فرم input و textarea است، ما این کنترل ها را سفارشی کردیم تا عملکردی بهتر ایجاد شود.</p>
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <ig>
+                <label for="exampleFormControlInput1_ltr">Email address</label>
+                <input type="email" id="exampleFormControlInput1_ltr" placeholder="name@example.com">
+            </ig>
+            <ig>
+                <label for="exampleFormControlTextarea1_ltr">Example textarea</label>
+                <textarea id="exampleFormControlTextarea1_ltr" rows="3"></textarea>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <label for="exampleFormControlInput1_rtl">پست الکترونیک</label>
+                <input type="email" id="exampleFormControlInput1_rtl" placeholder="name@example.com">
+            </ig>
+            <ig>
+                <label for="exampleFormControlTextarea1_rtl">متن چند خطی</label>
+                <textarea id="exampleFormControlTextarea1_rtl" rows="3"></textarea>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+<h2>اندازه ها</h2>
+<p>طبق معمول و استاندارد گفته شده در اندازه ها، میتوانید برای تغییر اندازه از مقدارهای xs الی xxxl استفاده نمایید.</p>
+<p>این مقدار میتواند مستقیم به موضوع مورد نظر یا به ig نسبت داده شود.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <ig >
+            <input class="s-m" value="Medium">
+            <input class="s-l" value="Larg">
+            <input class="s-xl" value="X Larg">
+        </ig>
+        <ig>
+            <label class="s-m">Medium</label> |
+            <label class="s-l">Larg</label> |
+            <label class="s-xl">X Larg</label>
+        </ig>
+        <ig class="s-l">
+            <label>Test Label</label>
+            <input value="Test Message">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <input class="s-m" value="متوسط m">
+            <input class="s-l" value="بزرگ l">
+            <input class="s-xl" value="بزرگتر xl">
+        </ig>
+        <ig>
+            <label class="s-m">متوسط</label> |
+            <label class="s-l">بزرگ</label> |
+            <label class="s-xl">بزرگتر</label>
+        </ig>
+        <ig class="s-l">
+            <label>برچسب تستی</label>
+            <input value="پیام تست">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+
+<h2>غیر فعال</h2>
+<p>شما میتوانید فقط input مورد نظر را غیر فعال کرده و یا کل ig را غیر فعال کنید</p>
+<p>این مقدار میتواند مستقیم به موضوع مورد نظر یا به ig نسبت داده شود.</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <ig>
+            <input value="Disabled Text" disabled>
+        </ig>
+        <ig disabled>
+            <input value="Disabled ig">
+            <input value="Disabled ig">
+        </ig>
+        <ig disabled>
+            <label>Disabled Label</label>
+            <input value="Disabled ig">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <input value="ورودی غیر فعال" disabled>
+        </ig>
+        <ig disabled>
+            <input value="گروه ورودی غیر فعال">
+            <input value="گروه ورودی غیر فعال">
+        </ig>
+        <ig disabled>
+            <label>برچسب غیرفعال</label>
+            <input value="گروه ورودی غیر فعال">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>فقط خواندنی</h2>
+<p>شما میتوانید input مورد نظر و یا کل ig را فقط خواندنی کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <ig>
+            <input value="Read Only Text" readonly>
+        </ig>
+        <ig readonly>
+            <input value="Read Only ig">
+            <input value="Read Only ig">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <input value="ورودی فقط خواندنی" readonly>
+        </ig>
+        <ig readonly>
+            <input value="گروه ورودی فقط خواندنی">
+            <input value="گروه ورودی فقط خواندنی">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>بدون کادر</h2>
+<p>شما میتوانید input مورد نظر و یا کل ig را فقط خواندنی و بدون کادر کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <ig>
+            <input value="Read Only Text" readonly class="noborder">
+            <input value="No Border" class="noborder">
+        </ig>
+        <ig readonly class="noborder">
+            <input value="Read Only ig">
+            <input value="Read Only ig">
+        </ig>
+        <ig class="noborder">
+            <input value="No Border ig">
+            <input value="No Border ig">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <input value="فقط خواندنی" readonly class="noborder">
+            <input value="بدون کادر" class="noborder">
+        </ig>
+        <ig readonly class="noborder">
+            <input value="فقط خواندنی گروه ورودی">
+            <input value="فقط خواندنی گروه ورودی">
+        </ig>
+        <ig class="noborder">
+            <input value="بدون کادر گروه ورودی">
+            <input value="بدون کادر گروه ورودی">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>آپلود فایل</h2>
+<p>برای آپلود کردن فایل از روش زیر استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <ig>
+            <label for="formFile_ltr">Default file input example</label>
+            <input type="file" id="formFile_ltr">
+        </ig>
+        <ig>
+            <label for="formFileMultiple_ltr">Multiple files input example</label>
+            <input type="file" id="formFileMultiple_ltr" multiple>
+        </ig>
+        <ig>
+            <label for="formFileDisabled_ltr">Disabled file input example</label>
+            <input type="file" id="formFileDisabled_ltr" disabled>
+        </ig>
+        <ig disabled>
+            <label for="formFileDisabled2_ltr">Disabled ig file input example</label>
+            <input type="file" id="formFileDisabled2_ltr">
+        </ig>
+        <ig class="s-m">
+            <label for="formFilem_ltr">Medium file input example</label>
+            <input id="formFilem_ltr" type="file">
+        </ig>
+        <ig class="s-l">
+            <label for="formFilel_ltr">Large file input example</label>
+            <input id="formFilel_ltr" type="file">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <label for="formFile_rtl">آپلود فایل پیش فرض</label>
+            <input type="file" id="formFile_rtl">
+        </ig>
+        <ig>
+            <label for="formFileMultiple_rtl">آپلود فایل چند فایلی</label>
+            <input type="file" id="formFileMultiple_rtl" multiple>
+        </ig>
+        <ig>
+            <label for="formFileDisabled_rtl">آپلود فایل غیر فعال</label>
+            <input type="file" id="formFileDisabled_rtl" disabled>
+        </ig>
+        <ig disabled>
+            <label for="formFileDisabled2_rtl">آپلود فایل غیر فعال گروه ورودی</label>
+            <input type="file" id="formFileDisabled2_rtl">
+        </ig>
+        <ig class="s-m">
+            <label for="formFilem_rtl">آپلود فایل اندازه متوسط</label>
+            <input id="formFilem_rtl" type="file">
+        </ig>
+        <ig class="s-l">
+            <label for="formFilel_rtl">آپلود فایل اندازه بزرگ</label>
+            <input id="formFilel_rtl" type="file">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>ورودی رنگ</h2>
+<p>اگر تمایل به دریافت رنگ خاصی هستید، از این روش سود بجویید.</p>
+<div class="example-div">
+    <div class="ltr" id="form7">
+        <h3>LTR</h3>
+        <ig>
+            <label for="exampleColorInput_ltr">Color picker</label>
+            <input type="color" id="exampleColorInput_ltr" value="#563d7c">
+        </ig>
+        <ig class="s-l">
+            <label for="exampleColorInputl_ltr">Large Color picker</label>
+            <input type="color" id="exampleColorInputl_ltr" value="#563d7c">
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <label for="exampleColorInput_rtl">انتخاب رنگ</label>
+            <input type="color" id="exampleColorInput_rtl" value="#563d7c">
+        </ig>
+        <ig class="s-l">
+            <label for="exampleColorInput_rtl">انتخاب رنگ بزرگتر</label>
+            <input type="color" id="exampleColorInput_rtl" value="#563d7c">
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h2>دیتا لیست</h2>
+<p>اگر تمایل به داشتن لیست پیش فرض برای ورودی خود هستید، میتوانید از datalist استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form8">
+        <h3>LTR</h3>
+        <ig>
+            <label for="exampleDataList_ltr">Datalist example</label>
+            <input list="datalistOptions_ltr" id="exampleDataList_ltr" placeholder="Type to search..." autocomplete="off">
+            <datalist id="datalistOptions_ltr">
+                <option value="San Francisco"></option>
+                <option value="New York"></option>
+                <option value="Seattle"></option>
+                <option value="Los Angeles"></option>
+                <option value="Chicago"></option>
+            </datalist>
+        </ig>
+        <ig class="s-l">
+            <label for="exampleDataList1_ltr">Datalist example</label>
+            <input list="datalistOptions1_ltr" id="exampleDataList1_ltr" placeholder="Type to search..." autocomplete="off">
+            <datalist id="datalistOptions1_ltr">
+                <option value="San Francisco"></option>
+                <option value="New York"></option>
+                <option value="Seattle"></option>
+                <option value="Los Angeles"></option>
+                <option value="Chicago"></option>
+            </datalist>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <label for="exampleDataList_rtl">مثال دیتا لیست</label>
+            <input list="datalistOptions_rtl" id="exampleDataList_rtl" placeholder="برای جستجو تایپ کنید..." autocomplete="off">
+            <datalist id="datalistOptions_rtl">
+                <option value="تهران"></option>
+                <option value="شیراز"></option>
+                <option value="تبریز"></option>
+                <option value="اهواز"></option>
+                <option value="اصفهان"></option>
+            </datalist>
+        </ig>
+        <ig class="s-l">
+            <label for="exampleDataList1_rtl">مثال دیتا لیست</label>
+            <input list="datalistOptions1_rtl" id="exampleDataList1_rtl" placeholder="برای جستجو تایپ کنید..." autocomplete="off">
+            <datalist id="datalistOptions1_rtl">
+                <option value="تهران"></option>
+                <option value="شیراز"></option>
+                <option value="تبریز"></option>
+                <option value="اهواز"></option>
+                <option value="اصفهان"></option>
+            </datalist>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>

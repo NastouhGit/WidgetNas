@@ -1,0 +1,405 @@
+﻿@page
+@model WidgetNas.Pages.Components.NavbarModel
+@{
+    ViewData["Title"] = "نوار پیمایشی navbar";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    نمایش ناوگانی از لینک ها و کلیدها و برند برای نمایش به صورت نوارید در بالا یا مکان های خاص برنامه یا سایت مورد استفاده قرار میگیرد.
+    در نوار نیز بر اساس عملکرد collapse عملیات های مرتبط انجام میگیرد.
+</p>
+<h2>مثال</h2>
+<p>در زیر یک نمونه از نوار پیمایشی را مشاهده میکنید که در یک محدوده قرار داده شده است.</p>
+<div class="example-div">
+    <div class="ltr row w-90-i">
+        <h3>LTR</h3>
+        <div class="col-12" id="form1">
+            <div class="navbar light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar1_ltr"></button>
+                <div class="navbar-collapse" id="navbar1_ltr">
+                    <nav class="m-ie-auto">
+                        <a class="nav-item" href="#">Home</a>
+                        <a class="nav-item" href="#">Link</a>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                        <a href="#" class="nav-item" disabled>Disabled</a>
+                    </nav>
+                    <form class="d-flex">
+                        <input class="default m-be-20r" type="search" placeholder="Search">
+                        <button class="success outline" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div id="dropdown_ltr" class="dropdown p-i-0">
+                <ul class="list list-hover list-noedge p-i-50r">
+                    <li class="list-active round-top-s">Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>
+                        <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">ِDropdown</button>
+                        <div class="dropdown list">
+                            <ul>
+                                <li>Item 1</li>
+                                <li>Item 2</li>
+                                <li>Item 3</li>
+                                <li>
+                                    <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">ِDropdown</button>
+                                    <div class="dropdown list">
+                                        <ul>
+                                            <li>Item 1</li>
+                                            <li>Item 2</li>
+                                            <li>Item 3</li>
+                                        </ul>
+                                        <p>Test P</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>Test P</p>
+                        </div>
+                    </li>
+                    <li class="round-bottom-s" disabled>Disabled</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="rtl row w-90-i">
+        <h3>RTL</h3>
+        <div class="col-12">
+            <div class="navbar light">
+                <a class="navbar-brand" href="#">نوار</a>
+                <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar1_rtl"></button>
+                <div class="navbar-collapse" id="navbar1_rtl">
+                    <nav class="m-ie-auto">
+                        <a class="nav-item" href="#">خانه</a>
+                        <a class="nav-item" href="#">لینک</a>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+                        <a href="#" class="nav-item" disabled>غیر فعال</a>
+                    </nav>
+                    <form class="d-flex">
+                        <input class="default m-be-20r" type="search" placeholder="جستجو">
+                        <button class="success outline" type="submit">جستجو</button>
+                    </form>
+                </div>
+            </div>
+            <div id="dropdown_rtl" class="dropdown p-i-0">
+                <ul class="list list-hover list-noedge p-i-50r">
+                    <li class="list-active round-top-s"><a href="#">گزینه 1</a></li>
+                    <li><a href="#">گزینه 2</a></li>
+                    <li><a href="#">گزینه 3</a></li>
+                    <li>
+                        <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">بازشو</button>
+                        <div class="dropdown">
+                            <ul>
+                                <li>گزینه 1</li>
+                                <li>گزینه 2</li>
+                                <li>گزینه 3</li>
+                                <li>
+                                    <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">بازشو</button>
+                                    <div class="dropdown">
+                                        <ul>
+                                            <li>گزینه 1</li>
+                                            <li>گزینه 2</li>
+                                            <li>گزینه 3</li>
+                                            <li>گزینه 4</li>
+                                        </ul>
+                                        <p>پاراگراف تستی</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>پاراگراف تستی</p>
+                        </div>
+                    </li>                    <li class="round-bottom-s" disabled><a href="#">غیر فعال</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>سمت برند</h2>
+<p>
+    برای نمایش برند یا نام سایت، شما میتوانید از هر موضوعی استفاده کنید، ولیکن کلاس <bidi>navbar-brand</bidi> حالت بهتری برای نمایش ایجاد میکند.<br />
+    شما میتوانید از متن، یا تصویر و یا هر گزینه دیگری استفاده کنید.<br />
+    استفاده از لینک برای برند و آدرس به صفحه اصلی، میتواند باعث حذف شدن، کلید خانه در ناوگان پیمایشی باشد، البته شما میتوانید، آن را لینکدار نکنید، و یا
+    اگر کردید، به هر آدرسی که مد نظر است، منتقل کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div class="navbar light">
+            <a class="navbar-brand" href="#">Widgetnas</a>
+        </div>
+        <div class="navbar light m-bs-50r">
+            <a class="navbar-brand" href="#"><img src="~/images/WNLogo80x40.png" /></a>
+        </div>
+        <div class="navbar light m-bs-50r">
+            <a class="navbar-brand" href="#"><img src="~/images/WNLogo80x40.png" /> Widgetnas</a>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="navbar light">
+            <a class="navbar-brand" href="#">ویجت نس</a>
+        </div>
+        <div class="navbar light m-bs-50r">
+            <a class="navbar-brand" href="#"><img src="~/images/WNLogo80x40.png" /></a>
+        </div>
+        <div class="navbar light m-bs-50r">
+            <a class="navbar-brand" href="#"><img src="~/images/WNLogo80x40.png" /> ویجت نس</a>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>محفظه جمع شونده</h2>
+<p>
+    مهمترین خصوصیت یک نوار پیمایشی، تشخیص اندازه تصویر و نمایش مناسب ناوگان پیمایشی و فرمهاست، برای این منظور،
+    شما باید به سیستم بگویید، در صورتیکه اندازه مرورگر حداکثر در اندازه <a href="~/Layout/Breakpoint">s</a> یعنی 576px قرار گرفت، بایستی چه قسمتی را مخفی نماید.
+</p>
+<p>
+    در هر صورت باید برند نمایش داده شود، پس بعد از تعریف برند یک div با کلاس <bidi>navbar-collapse</bidi> تعریف کنید، هر آنچه در این محفظه قرار گیرد، وضعیت نمایش آن
+    در اندازه های مختلف تغییر خواهد کرد.
+</p>
+<p>اگر اندازه مرورگر کوچک شد و محفظه منو ها مخفی شد، چگونه میتوان به آنها دسترسی داشت؟ اینجاست که به کمک یک کمه و خصوصت collapse به منظور مورد نظر خود خواهیم رسید.</p>
+<p>
+    همانطور که در بالاتر گفته شد، برای تعریف محفظه یک div با کلاس <bidi>navbar-collapse</bidi> لازم است، این کلاس وظیفه مدیریت نمایش ناوگان به صورت عمودی یا افقی را در اندازه های مختلف دارد.<br />
+    برای تعریف دکمه باز کننده و جمع کننده یک button با نوع <bidi>wn-type="collapse"</bidi> نیاز است، سپس در خصوصیت <bidi>target="navbar-collapse-id"</bidi> بایستی id محفظه یا کلاس مرتبط با آن آورده شود.<br />
+    تا اینجا یک دکمه دارید که همیشه نمایان است و با کلیک بر روی آن محفظه مخفی و نمایان میشود.<br />
+    چون نیاز نیست همیشه این دکمه نمایان باشد و همچنین اندازه و شکل آن متفاوت باشد، بایستی حتما کلاس <bidi>navbar-toggler</bidi> به آن نسبت داده شود.<br />
+    اگر میخواهید آیکون خاص یا متنی داشته باشید میتوانید درون دکمه آن شکل یا متن را وارد کنید، ولی اگر میخواهید به صورت پیش فرض علامت سه خط نمایش داده شود،
+    از کلاس <bidi>toggler-icon</bidi> استفاده کنید.
+</p>
+<p>با تغییر اندازه مرورگر، نحوه عملکرد را مشاهده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="navbar light" id="form3">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar2_ltr"></button>
+            <div class="navbar-collapse" id="navbar2_ltr">
+                Some Text
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="navbar light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar2_rtl"></button>
+            <div class="navbar-collapse" id="navbar2_rtl">
+                متنی
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>ناوگان پیمایشی</h2>
+<p>
+    برای نمایش ناوگان پیمایشی کافیست یک <a href="~/Components/Navs">ناوگان</a> داشته باشید. موارد را طبق استانداردهای گفته شده پیاده سازی کنید.<br />
+    اگر میخواهید چند ناوگان داشته باشید، یا ناوگان و یک متن و یا فرم ورودی اطلاعات مثلا جستجو، یا مجموعه ای از دکمه ها داشته باشید و بین آنها فاصله قرار گیرد،
+    از سیستم فاصله گذاری استفاده کنید، برای مثال <bidi>m-ie-auto</bidi> به صورت خودکار فاصله بین ناوگان و محفظه بعدی را تنظیم خواهد کرد.
+</p>
+<p>با تغییر اندازه مرورگر، نحوه عملکرد را مشاهده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="navbar light" id="form4">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar2_ltr"></button>
+            <div class="navbar-collapse" id="navbar2_ltr">
+                <nav class="m-ie-auto">
+                    <a class="nav-item" href="#">Home</a>
+                    <a class="nav-item" href="#">Link</a>
+                    <a href="#" class="nav-item" disabled>Disabled</a>
+                </nav>
+                <form class="d-flex">
+                    <input class="default m-be-20r" type="search" placeholder="Search">
+                    <button class="success outline" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="navbar light">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar2_rtl"></button>
+            <div class="navbar-collapse" id="navbar2_rtl">
+                <nav class="m-ie-auto">
+                    <a class="nav-item" href="#">خانه</a>
+                    <a class="nav-item" href="#">لینک</a>
+                    <a href="#" class="nav-item" disabled>غیر فعال</a>
+                </nav>
+                <form class="d-flex">
+                    <input class="default m-be-20r" type="search" placeholder="جستجو">
+                    <button class="success outline" type="submit">جستجو</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>انواع محفظه نمایشی</h2>
+<p>با توجه به اندازه مرورگر، محفظه نمایشی به حالت افقی، عمودی و عمودی مخفی شده تبدیل میشود. اگر میخواهید، این نحوه نمایش متفاوت باشد، یکی از کلاسهای زیر را انتخاب کنید.</p>
+
+<div class="example-div">
+    <div class="ltr row w-100-i">
+        <h3>Normal</h3>
+        <div class="col-12">
+            <div class="navbar light" id="form5">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar3_ltr"></button>
+                <div class="navbar-collapse" id="navbar3_ltr">
+                    <nav class="m-ie-auto">
+                        <a class="nav-item" href="#">Home</a>
+                        <a class="nav-item" href="#">Link</a>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                        <a href="#" class="nav-item" disabled>Disabled</a>
+                    </nav>
+                    <form class="d-flex">
+                        <input class="default m-be-20r" type="search" placeholder="Search">
+                        <button class="success outline" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ltr row w-100-i">
+        <h3>Middle</h3>
+        <div class="col-12">
+            <div class="navbar navbar-m light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar4_ltr"></button>
+                <div class="navbar-collapse" id="navbar4_ltr">
+                    <nav class="m-ie-auto">
+                        <a class="nav-item" href="#">Home</a>
+                        <a class="nav-item" href="#">Link</a>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                        <a href="#" class="nav-item" disabled>Disabled</a>
+                    </nav>
+                    <form class="d-flex">
+                        <input class="default m-be-20r" type="search" placeholder="Search">
+                        <button class="success outline" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ltr row w-100-i">
+        <h3>Small</h3>
+        <div class="col-12">
+            <div class="navbar navbar-s light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar5_ltr"></button>
+                <div class="navbar-collapse" id="navbar5_ltr">
+                    <nav class="m-ie-auto">
+                        <a class="nav-item" href="#">Home</a>
+                        <a class="nav-item" href="#">Link</a>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                        <a href="#" class="nav-item" disabled>Disabled</a>
+                    </nav>
+                    <form class="d-flex">
+                        <input class="default m-be-20r" type="search" placeholder="Search">
+                        <button class="success outline" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>رنگ و اندازه</h2>
+<p>این موضوع نیز همانند دیگر موضوعات با تنظیم اندازه و تم، تغییرات را میتوان اعمال کرد.</p>
+
+<div class="example-div">
+    <div class="ltr row w-90-i">
+        <h3>primary s-m</h3>
+        <div class="col-12">
+            <div class="navbar primary s-m" id="form6">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar6_ltr"></button>
+                <div class="navbar-collapse" id="navbar6_ltr">
+                    <nav class="m-ie-auto">
+                        <a class="nav-item" href="#">Home</a>
+                        <a class="nav-item" href="#">Link</a>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                        <a href="#" class="nav-item" disabled>Disabled</a>
+                    </nav>
+                    <form class="d-flex">
+                        <input class="default m-be-20r" type="search" placeholder="Search">
+                        <button class="success outline" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ltr row w-90-i">
+        <h3>secondary s-s</h3>
+        <div class="col-12">
+            <div class="navbar secondary s-s">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navbar7_ltr"></button>
+                <div class="navbar-collapse" id="navbar7_ltr">
+                    <nav class="m-ie-auto">
+                        <a class="nav-item" href="#">Home</a>
+                        <a class="nav-item" href="#">Link</a>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                        <a href="#" class="nav-item" disabled>Disabled</a>
+                    </nav>
+                    <form class="d-flex">
+                        <input class="default m-be-20r" type="search" placeholder="Search">
+                        <button class="success outline" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>محل ثابت</h2>
+<p>
+    اگر میخواهید این نوار در یک محل ثابت بنماند، آن را درون یک محفظه دیگر قرار داده و آن محفظه را به صورت ثابت در بالا یا پایین قرار دهید.
+    توجه داشته باشید، در صورت ثابت نگه داشتن آن در بالا، ممکن است، متن اصلی سایت زیر آن قرار بگیرد، پس باید با توجه به
+    تکنیک های فاصله گذاری فاصله ای مناسب از بالا به کادر خود دهید تا هیچ گاه زیر این نوار قرار نگیرد..
+</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"fixed-top"</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"navbar light"</span>&gt;
+            ...
+        &lt;/<span class="ht">div</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"fixed-bottom"</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"navbar light"</span>&gt;
+            ...
+        &lt;/<span class="ht">div</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"sticky-top"</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"navbar light"</span>&gt;
+            ...
+        &lt;/<span class="ht">div</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"sticky-bottom"</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"navbar light"</span>&gt;
+            ...
+        &lt;/<span class="ht">div</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+    </code></pre>
+</figure>
+<p>
+    اگر میخواهید از محل ثابت استفاده کنید و زمانیکه صفحه اسکرول خورد، نوار شفافتر شود، میتوانید از جاوا اسکریپت و ماژول پیاده سازی شده استفاده کنید.<br />
+    برای آنکه بتوانید به راحتی این عمل را انجام دهید، ابتدا یک <bidi>bidi</bidi> با کلاس <bidi>sticky-top</bidi> یا <bidi>sticky-bottom</bidi> و <bidi>wn-type='sticky'</bidi> تعریف کنید. <br />
+    زمانیکه محفظه از جای خود جدا شد، سیستم کلاس <bidi>sticky-onfly</bidi> را اضافه میکند، و ما نیز برای <bidi>nav</bidi> آن کلاس را پیاده سازی کردیم. اگر شما نیز برای موضوعات دیگر میخواهید کافیست آن کلاس را برای هر موضوعی پیاده سازی کنید.
+</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"sticky-top"</span> <span class="ha">wn-type=</span><span class="hv">"sticky"</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"navbar light"</span>&gt;
+            ...
+        &lt;/<span class="ht">div</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+    </code></pre>
+</figure>
+

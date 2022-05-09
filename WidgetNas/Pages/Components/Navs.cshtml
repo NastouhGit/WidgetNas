@@ -1,0 +1,717 @@
+﻿@page
+@model WidgetNas.Pages.Components.NavsModel
+@{
+    ViewData["Title"] = "ناوگان و برگه ها Navs";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    نمایش ناوگانی از لینک ها و کلیدها برای نمایش عملیاتهای خاص، در برنامه های وبی کاربردی است. در زیر به نحوه ساخت و استفاده از آنها اشاره میشود.
+</p>
+<h2>ناوگان ابتدایی</h2>
+<p>برای استفاده از ناوگان ابتدایی میتوانید از ul یا nav استفاده کنید، اگر از nav استفاده نمیکنید، باید از کلاس مرتبط با آن <bidi>nav</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav">
+                <li class="nav-item show"><a href="#">Active</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item" disabled><a href="#">Disabled</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav>
+                <a href="#" class="nav-item show">Active</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav>
+                <button class="nav-item show">Active</button>
+                <button class="nav-item">Link</button>
+                <button class="nav-item">Link</button>
+                <button class="nav-item" disabled>Disabled</button>
+            </nav>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav">
+                <li class="nav-item show"><a href="#">فعال</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item" disabled><a href="#">غیر فعال</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav>
+                <a href="#" class="nav-item show">فعال</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav>
+                <button class="nav-item show">فعال</button>
+                <button class="nav-item">لینک</button>
+                <button class="nav-item">لینک</button>
+                <button class="nav-item" disabled>غیر فعال</button>
+            </nav>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>گزینه ها دکمه ای</h2>
+<p>
+    اگر میخواهید گزینه ها به شکل دکمه باشند، به مثال زیر توجه کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav nav-button">
+                <li class="nav-item show"><a href="#">Active</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item" disabled><a href="#">Disabled</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button">
+                <a href="#" class="nav-item show">Active</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav nav-button">
+                <li class="nav-item show"><a href="#">فعال</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item" disabled><a href="#">غیر فعال</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button">
+                <a href="#" class="nav-item show">فعال</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>مرتب سازی</h2>
+<p>
+    با توجه به آنکه نحوه نمایش به صورت flex است، شما میتوانید از انواع مرتب سازی مرتبط با آن استفاده کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav nav-button justify-content-start">
+                <li class="nav-item show"><a href="#">Active</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item"><a href="#">This link is bigger</a></li>
+                <li class="nav-item" disabled><a href="#">Disabled</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button justify-content-center">
+                <a href="#" class="nav-item show">Active</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item">This link is bigger</a>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button justify-content-end">
+                <button class="nav-item show">Active</button>
+                <button class="nav-item">Link</button>
+                <button class="nav-item">This link is bigger</button>
+                <button class="nav-item" disabled>Disabled</button>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button nav-fill">
+                <a href="#" class="nav-item show">Active</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item">This link is bigger</a>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button flex-justified">
+                <a href="#" class="nav-item show">Active</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item">This link is bigger</a>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav nav-button justify-content-start">
+                <li class="nav-item show"><a href="#">فعال</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item"><a href="#">لینک با متنی بزرگتر</a></li>
+                <li class="nav-item" disabled><a href="#">غیر فعال</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button justify-content-center">
+                <a href="#" class="nav-item show">فعال</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item">لینک با متنی بزرگتر</a>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-button justify-content-end">
+                <button class="nav-item show">فعال</button>
+                <button class="nav-item">لینک</button>
+                <button class="nav-item">لینک با متنی بزرگتر</button>
+                <button class="nav-item" disabled>غیر فعال</button>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-fill">
+                <a href="#" class="nav-item show">فعال</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item">لینک با متنی بزرگتر</a>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="flex-justified">
+                <a href="#" class="nav-item show">فعال</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item">لینک با متنی بزرگتر</a>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>عمودی</h2>
+<p>
+    با توجه به آنکه نحوه نمایش به صورت flex است، شما میتوانید از انواع چینش مرتبط با آن استفاده کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav flex-column">
+                <li class="nav-item show"><a href="#">Active</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item" disabled><a href="#">Disabled</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="flex-column">
+                <a href="#" class="nav-item show">Active</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav flex-column">
+                <li class="nav-item show"><a href="#">فعال</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item" disabled><a href="#">غیر فعال</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="flex-column">
+                <a href="#" class="nav-item show">فعال</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>دکمه بازشو</h2>
+<p>
+    برای اضافه کردن، دکمه به صورت کشویی میتوانید از مثال زیر استفاده کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav">
+                <li class="nav-item show"><a href="#">Active</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item"><button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button></li>
+                <li class="nav-item" disabled><a href="#">Disabled</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav>
+                <a href="#" class="nav-item show">Active</a>
+                <a href="#" class="nav-item">Link</a>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+        <div id="dropdown_ltr" class="dropdown p-i-0">
+            <ul class="list list-hover list-noedge p-i-50r">
+                <li class="list-active round-top-s">Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li class="round-bottom-s" disabled>Disabled</li>
+            </ul>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav">
+                <li class="nav-item show"><a href="#">فعال</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item"><button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button></li>
+                <li class="nav-item" disabled><a href="#">غیر فعال</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav>
+                <a href="#" class="nav-item show">فعال</a>
+                <a href="#" class="nav-item">لینک</a>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+        <div id="dropdown_rtl" class="dropdown p-i-0">
+            <ul class="list list-hover list-noedge p-i-50r">
+                <li class="list-active round-top-s">گزینه 1</li>
+                <li>گزینه 2</li>
+                <li>گزینه 3</li>
+                <li class="round-bottom-s" disabled>غیر فعال</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>کاربرگ یا Tab</h2>
+<p>
+    کاربرگ ها در بسیاری از برنامه های تحت وب استفاده میشود، در زیر ابتدا با نحوه نمایش آن و سپس با استفاده از خصوصیت Collapse یک کاربرگ کامل را توضیح خواهیم داد.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav nav-tab primary">
+                <li class="nav-item show"><a href="#">Active</a></li>
+                <li class="nav-item"><a href="#">Link</a></li>
+                <li class="nav-item"><button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button></li>
+                <li class="nav-item" disabled><a href="#">Disabled</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab primary outline">
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item show">Active</a>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab tab-highlight">
+                <a href="#" class="nav-item">Link</a>
+                <a href="#" class="nav-item show">Active</a>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                <a href="#" class="nav-item" disabled>Disabled</a>
+            </nav>
+        </div>
+        <div id="dropdown_ltr" class="dropdown p-i-0x">
+            <ul class="list list-hover list-noedge p-i-50r">
+                <li class="list-active round-top-s">Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li class="round-bottom-s" disabled>Disabled</li>
+            </ul>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <ul class="nav nav-tab primary">
+                <li class="nav-item show"><a href="#">فعال</a></li>
+                <li class="nav-item"><a href="#">لینک</a></li>
+                <li class="nav-item"><button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button></li>
+                <li class="nav-item" disabled><a href="#">غیر فعال</a></li>
+            </ul>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab primary outline">
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item show">فعال</a>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab tab-highlight">
+                <a href="#" class="nav-item">لینک</a>
+                <a href="#" class="nav-item show">فعال</a>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+                <a href="#" class="nav-item" disabled>غیر فعال</a>
+            </nav>
+        </div>
+        <div id="dropdown_rtl" class="dropdown p-i-0x">
+            <ul class="list list-hover list-noedge p-i-50r">
+                <li class="list-active round-top-s">گزینه 1</li>
+                <li>گزینه 2</li>
+                <li>گزینه 3</li>
+                <li class="round-bottom-s" disabled>غیر فعال</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<p>کاربرگ به صورت کامل و فعال شده توسط collapsed</p>
+<div class="example-div">
+    <div class="ltr" id="form7">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <nav id="tabnav1_ltr" class="nav-tab">
+                <button class="nav-item show" wn-type="collapse" target="this,#home1_ltr" remove="#tabcontent1_ltr .tab-pan,#tabnav1_ltr .nav-item">Home</button>
+                <button class="nav-item" wn-type="collapse" target="this,#profile1_ltr" remove="#tabcontent1_ltr .tab-pan,#tabnav1_ltr .nav-item">Profile</button>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+            </nav>
+            <div id="tabcontent1_ltr" class="tab-content">
+                <div class="tab-pan show" id="home1_ltr">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+                <div class="tab-pan" id="profile1_ltr">
+                    Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div id="tabcontent2_ltr" class="tab-content nav-bottom">
+                <div class="tab-pan show" id="home2_ltr">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+                <div class="tab-pan" id="profile2_ltr">
+                    Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
+                </div>
+            </div>
+            <nav id="tabnav2_ltr" class="nav-tab nav-bottom">
+                <button class="nav-item show" wn-type="collapse" target="this,#home2_ltr" remove="#tabcontent2_ltr .tab-pan,#tabnav2_ltr .nav-item">Home</button>
+                <button class="nav-item" wn-type="collapse" target="this,#profile2_ltr" remove="#tabcontent2_ltr .tab-pan,#tabnav2_ltr .nav-item">Profile</button>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="row g-i-0">
+                <div class="col-3">
+                    <nav id="tabnav3_ltr" class="nav-tab flex-column nav-start">
+                        <button class="nav-item show" wn-type="collapse" target="this,#home3_ltr" remove="#tabcontent3_ltr .tab-pan,#tabnav3_ltr .nav-item">Home</button>
+                        <button class="nav-item" wn-type="collapse" target="this,#profile3_ltr" remove="#tabcontent3_ltr .tab-pan,#tabnav3_ltr .nav-item">Profile</button>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                    </nav>
+                </div>
+                <div id="tabcontent3_ltr" class="tab-content nav-start col">
+                    <div class="tab-pan show" id="home3_ltr">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                    </div>
+                    <div class="tab-pan" id="profile3_ltr">
+                        Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="row g-i-0">
+                <div id="tabcontent4_ltr" class="tab-content nav-end col">
+                    <div class="tab-pan show" id="home4_ltr">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                    </div>
+                    <div class="tab-pan" id="profile4_ltr">
+                        Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
+                    </div>
+                </div>
+                <div class="col-4">
+                    <nav id="tabnav4_ltr" class="nav-tab flex-column nav-end">
+                        <button class="nav-item show" wn-type="collapse" target="this,#home4_ltr" remove="#tabcontent4_ltr .tab-pan,#tabnav4_ltr .nav-item">Home</button>
+                        <button class="nav-item" wn-type="collapse" target="this,#profile4_ltr" remove="#tabcontent4_ltr .tab-pan,#tabnav4_ltr .nav-item">Profile</button>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <nav id="tabnav1_rtl" class="nav-tab">
+                <button class="nav-item show" wn-type="collapse" target="this,#home1_rtl" remove="#tabcontent1_rtl .tab-pan,#tabnav1_rtl .nav-item">خانه</button>
+                <button class="nav-item" wn-type="collapse" target="this,#profile1_rtl" remove="#tabcontent1_rtl .tab-pan,#tabnav1_rtl .nav-item">پروفایل</button>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+            </nav>
+            <div id="tabcontent1_rtl" class="tab-content">
+                <div class="tab-pan show" id="home1_rtl">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                </div>
+                <div class="tab-pan" id="profile1_rtl">
+                    کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div id="tabcontent2_rtl" class="tab-content nav-bottom">
+                <div class="tab-pan show" id="home2_rtl">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                </div>
+                <div class="tab-pan" id="profile2_rtl">
+                    کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.
+                </div>
+            </div>
+            <nav id="tabnav2_rtl" class="nav-tab nav-bottom">
+                <button class="nav-item show" wn-type="collapse" target="this,#home2_rtl" remove="#tabcontent2_rtl .tab-pan,#tabnav2_rtl .nav-item">خانه</button>
+                <button class="nav-item" wn-type="collapse" target="this,#profile2_rtl" remove="#tabcontent2_rtl .tab-pan,#tabnav2_rtl .nav-item">پروفایل</button>
+                <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+            </nav>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="row g-i-0">
+                <div class="col-3">
+                    <nav id="tabnav3_rtl" class="nav-tab flex-column nav-start">
+                        <button class="nav-item show" wn-type="collapse" target="this,#home3_rtl" remove="#tabcontent3_rtl .tab-pan,#tabnav3_rtl .nav-item">خانه</button>
+                        <button class="nav-item" wn-type="collapse" target="this,#profile3_rtl" remove="#tabcontent3_rtl .tab-pan,#tabnav3_rtl .nav-item">پروفایل</button>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+                    </nav>
+                </div>
+                <div id="tabcontent3_rtl" class="tab-content nav-start col">
+                    <div class="tab-pan show" id="home3_rtl">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                    </div>
+                    <div class="tab-pan" id="profile3_rtl">
+                        کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="row g-i-0">
+                <div id="tabcontent4_rtl" class="tab-content nav-end col">
+                    <div class="tab-pan show" id="home4_rtl">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                    </div>
+                    <div class="tab-pan" id="profile4_rtl">
+                        کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.
+                    </div>
+                </div>
+                <div class="col-4">
+                    <nav id="tabnav4_rtl" class="nav-tab flex-column nav-end">
+                        <button class="nav-item show" wn-type="collapse" target="this,#home4_rtl" remove="#tabcontent4_rtl .tab-pan,#tabnav4_rtl .nav-item">خانه</button>
+                        <button class="nav-item" wn-type="collapse" target="this,#profile4_rtl" remove="#tabcontent4_rtl .tab-pan,#tabnav4_rtl .nav-item">پروفایل</button>
+                        <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<p>ارتفاع ثابت و ایجاد اسکرول</p>
+<div class="example-div">
+    <div class="ltr" id="form8">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab">
+                <button class="nav-item show">Home</button>
+                <button class="nav-item">Profile</button>
+            </nav>
+            <div class="tab-content" style="height:200px">
+                <div class="tab-pan show">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab">
+                <button class="nav-item show">Home</button>
+                <button class="nav-item">Profile</button>
+            </nav>
+            <div class="tab-content" style="height:150px">
+                <div class="tab-pan show">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.</p>
+                    <p>Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab">
+                <button class="nav-item show">خانه</button>
+                <button class="nav-item">پروفایل</button>
+            </nav>
+            <div class="tab-content" style="height:200px">
+                <div class="tab-pan show">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab">
+                <button class="nav-item show">خانه</button>
+                <button class="nav-item">پروفایل</button>
+            </nav>
+            <div class="tab-content" style="height:150px">
+                <div class="tab-pan show">
+                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                    <p>کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+<p>اندازه و رنگ</p>
+<div class="example-div">
+    <div class="ltr" id="form9">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab s-m">
+                <button class="nav-item show">Home</button>
+                <button class="nav-item">Profile</button>
+            </nav>
+            <div class="tab-content s-m">
+                <div class="tab-pan show">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r s-s">
+            <nav class="nav-tab">
+                <button class="nav-item show">Home</button>
+                <button class="nav-item">Profile</button>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pan show">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r s-s secondary outline">
+            <nav class="nav-tab">
+                <button class="nav-item show">Home</button>
+                <button class="nav-item">Profile</button>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pan show">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab secondary">
+                <button class="nav-item show">Home</button>
+                <button class="nav-item">Profile</button>
+            </nav>
+            <div class="tab-content primary outline">
+                <div class="tab-pan show">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab s-m">
+                <button class="nav-item show">خانه</button>
+                <button class="nav-item">پروفایل</button>
+            </nav>
+            <div class="tab-content s-m">
+                <div class="tab-pan show">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r s-s">
+            <nav class="nav-tab">
+                <button class="nav-item show">خانه</button>
+                <button class="nav-item">پروفایل</button>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pan show">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r s-s secondary outline">
+            <nav class="nav-tab">
+                <button class="nav-item show">خانه</button>
+                <button class="nav-item">پروفایل</button>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pan show">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <nav class="nav-tab secondary">
+                <button class="nav-item show">خانه</button>
+                <button class="nav-item">پروفایل</button>
+            </nav>
+            <div class="tab-content primary outline">
+                <div class="tab-pan show">
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>
+<p>جاوا اسکریپت</p>
+<p>برای فعال کردن یک کاربرگ با استفاده از جاوا اسکریپ کافیست طبق اصول فراخوانی <a href="~/Components/Collapse">collapse</a> عمل کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form10">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <nav id="tabnav5" class="nav-tab">
+                <button id="nav_home" class="nav-item show" wn-type="collapse" target="this,#home5" remove="#tabcontent5 .tab-pan,#tabnav5 .nav-item">Home</button>
+                <button id="nav_profile" class="nav-item" wn-type="collapse" target="this,#profile5" remove="#tabcontent5 .tab-pan,#tabnav5 .nav-item">Profile</button>
+            </nav>
+            <div id="tabcontent5" class="tab-content">
+                <div class="tab-pan show" id="home5">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+                </div>
+                <div class="tab-pan" id="profile5">
+                    Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="WN['nav_home'].collapse()">Show Home</button>
+            <button class="secondary" onclick="WN['nav_profile'].collapse()">Show Profile</button>
+        </div>
+    </div>
+</div>
+
+<figure><code data-on="form10"></code></figure>

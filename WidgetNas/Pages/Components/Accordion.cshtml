@@ -1,0 +1,403 @@
+﻿@page
+@model WidgetNas.Pages.Components.AccordionModel
+@{
+    ViewData["Title"] = "آکاردئون Accordion";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>آکاردئون یک جمع شونده باز شونده عمودی است، که با استفاده از جاوا اسکریپ مدیریت میشود.</p>
+<p>با استفاده از تکنیک <a href="~/Components/Collapse">جمع شونده</a> و دادن استایل به آن، شما میتوانید یک آکاردئون داشته باشید.</p>
+<p>برای نمایش انواع مختلف به مثالهای زیر توجه کنید.</p>
+<h2>ساختار</h2>
+<p>
+    تمای اجزا درون یک div از کلاس accordion قرار میگیرند، سپس یک div دیگر، از کلاس accordion-item مشخص میکند، هر ردیف دارای چه اجزایی است، به تعداد ردیف ها باید از این جزء داشته باشید.<br />
+    برای مدیریت باز و بسته شدن، یک دکمه از کلاس accordion-header لازم است که نوع <bidi>wn-type='collapse'</bidi> تنظیم شود، حالا اگر قرار است برگه ای جمع یا باز شود،
+    بایستی در پارامتر <bidi>target = "#id"</bidi> مشخص کنید، قرار است کدام بدنه را مدیریت کند. پس در آن اسم آن بدنه را بنویسید. همچنین در کلاس های مرتبط با آن باید بگویید، این دکمه حالت بسته است، پس
+    کلاس collapsed را علاوه برای کلاس accordion-header اضافه کنید. <bidi>class = "accordion-header collapsed"</bidi> این یعنی وضعیت این کلاس بسته است.<br />
+    حالا نوبت به تعریف بدنه میرسد، شما یک div باید تعریف کنید که از جنس کلاس accordion-body است، همچنین بر اساس استاندارد collapse باید تعریف کنید که این بدنه بسته است،
+    پس کلاس accordion-collapse را اضافه کنید.<br />
+    تا اینجا همه اجزا تعریف شدند ولی همه اجزا بسته هستند، طبیعی است که بخواهید یک جزء به صورت پیش فرض باز باشد، برای این منظور ردیف مورد نظر را انتخاب کنید.<br />
+    در موضوع accordion-header درون کلاسهای آن کلاس <bidi>collapsed</bidi> را حذف کنید و همچنین در کلاس بدنه مرتبط کلاس <bidi>show</bidi> را اضافه کنید.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="accordion" id="divSample1">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse1_ltr">
+                    Accordion Item #1
+                </button>
+                <div id="collapse1_ltr" class="accordion-body accordion-collapse show">
+                    <strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse2_ltr">
+                    Accordion Item #2
+                </button>
+                <div id="collapse2_ltr" class="accordion-body accordion-collapse">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse3_ltr">
+                    Accordion Item #3
+                </button>
+                <div id="collapse3_ltr" class="accordion-body accordion-collapse">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse1_rtl">
+                    گزینه 1 آکاردئون
+                </button>
+                <div id="collapse1_rtl" class="accordion-body accordion-collapse show">
+                    <strong>این اولین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse2_rtl">
+                    گزینه 2 آکاردئون
+                </button>
+                <div id="collapse2_rtl" class="accordion-body accordion-collapse">
+                    <strong>این دومین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse3_rtl">
+                    گزینه 3 آکاردئون
+                </button>
+                <div id="collapse3_rtl" class="accordion-body accordion-collapse">
+                    <strong>این سومین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="divSample1"></code></figure>
+
+<h2>باز بودن تنها یک ردیف</h2>
+<p>
+    اگر میخواهید، فقط در آن واحد یک ردیف باز بماند و با کلیک بر روی ردیف بعدی، قبلی بسته و فقط این گزینه باز شود، بایستی در خصوصیت <bidi>remove</bidi> موضوع جمع شونده، بگویید چه موضوعاتی را ببندد.<br />
+    به همین منظور ابتدا بایستی برای آکاردئون خود یک id تعریف کنید، سپس در قوانین مرتبط با remove بگویید تمامی کلاسهای accordion-collapse زیر مجموعه آن آکاردئون بسته شود و تمامی کلاس های accordion-header عبارت بسته شده <bidi>.collapsed</bidi> به آن اضافه گردد.<br />
+    <bidi>#accordion_id .accordion-collapse, #accordion_id .accordion-header</bidi>
+</p>
+<p>به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="accordion" id="accordion1_ltr">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse4_ltr" remove="#accordion1_ltr .accordion-collapse, #accordion1_ltr .accordion-header">
+                    Accordion Item #1
+                </button>
+                <div id="collapse4_ltr" class="accordion-body accordion-collapse show">
+                    <strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse5_ltr" remove="#accordion1_ltr .accordion-collapse, #accordion1_ltr .accordion-header">
+                    Accordion Item #2
+                </button>
+                <div id="collapse5_ltr" class="accordion-body accordion-collapse">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse6_ltr" remove="#accordion1_ltr .accordion-collapse, #accordion1_ltr .accordion-header">
+                    Accordion Item #3
+                </button>
+                <div id="collapse6_ltr" class="accordion-body accordion-collapse">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="accordion" id="accordion1_rtl">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse4_rtl" remove="#accordion1_rtl .accordion-collapse, #accordion1_rtl .accordion-header">
+                    گزینه 1 آکاردئون
+                </button>
+                <div id="collapse4_rtl" class="accordion-body accordion-collapse show">
+                    <strong>این اولین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse5_rtl" remove="#accordion1_rtl .accordion-collapse, #accordion1_rtl .accordion-header">
+                    گزینه 2 آکاردئون
+                </button>
+                <div id="collapse5_rtl" class="accordion-body accordion-collapse">
+                    <strong>این دومین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse6_rtl" remove="#accordion1_rtl .accordion-collapse, #accordion1_rtl .accordion-header">
+                    گزینه 3 آکاردئون
+                </button>
+                <div id="collapse6_rtl" class="accordion-body accordion-collapse">
+                    <strong>این سومین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="accordion1_ltr"></code></figure>
+
+<h2>آکاردئون بدون لبه</h2>
+<p>
+    اگر تمایل دارید، آکاردئون شما بدونه لبه باشد، میتوانید از کلاس accordion-noedge استفاده کنید.
+</p>
+<p>به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="accordion accordion-noedge" id="accordion2_ltr">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse7_ltr">
+                    Accordion Item #1
+                </button>
+                <div id="collapse7_ltr" class="accordion-body accordion-collapse show">
+                    <strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse8_ltr">
+                    Accordion Item #2
+                </button>
+                <div id="collapse8_ltr" class="accordion-body accordion-collapse">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse9_ltr">
+                    Accordion Item #3
+                </button>
+                <div id="collapse9_ltr" class="accordion-body accordion-collapse">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.body</code>, though the transition does limit overflow.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="accordion accordion-noedge">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse7_rtl">
+                    گزینه 1 آکاردئون
+                </button>
+                <div id="collapse7_rtl" class="accordion-body accordion-collapse show">
+                    <strong>این اولین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse8_rtl">
+                    گزینه 2 آکاردئون
+                </button>
+                <div id="collapse8_rtl" class="accordion-body accordion-collapse">
+                    <strong>این دومین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse9_rtl">
+                    گزینه 3 آکاردئون
+                </button>
+                <div id="collapse9_rtl" class="accordion-body accordion-collapse">
+                    <strong>این سومین بدنه از آکاردئون است.</strong> همه بدنه ها بطور پیش فرض مخفی هستند مگر با انتخاب کلاس مناسب آن،
+                    سیستم جمع کننده خود آنرا مدیریت میکند، تنها باید به صورت دستی، بدنه ای که باید نمایش داده شود را شبیه سازی کرد.
+                    برای درج اطلاعات در بدنه، میتوانید از سیستم فاصله گذاری، مرتب کردن متن و انواع کلاسهای مرتبط استفاده کنید.
+                    حتی با تغییر در کلاس <code>.body</code> میتوانید شکل آنرا به صورتی که میخواهید تغییر دهید.
+                    همیشه توجه داشته باشید، سیستم رنگ بندی، به شما کمک میکند، اشکال مختلفی از اجزا را داشته باشید.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="accordion2_ltr"></code></figure>
+
+
+<h2>رنگها</h2>
+<p>
+    همانند بقیه موضوعات میتوانید از کلاس های رنگی استفاده کنید.
+</p>
+<p>به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="accordion primary" id="accordion3_ltr">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse10_ltr">
+                    Primary 1
+                </button>
+                <div id="collapse10_ltr" class="accordion-body accordion-collapse show">
+                    Some Text
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse11_ltr">
+                    Primary 2
+                </button>
+                <div id="collapse11_ltr" class="accordion-body accordion-collapse">
+                    Some Text
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="accordion primary">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse10_rtl">
+                    رنگ اصلی 1
+                </button>
+                <div id="collapse10_rtl" class="accordion-body accordion-collapse show">
+                    متنی جهت آزمایش
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse11_rtl">
+                    رنگ اصلی 2
+                </button>
+                <div id="collapse11_rtl" class="accordion-body accordion-collapse">
+                    متنی جهت آزمایش
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="accordion3_ltr"></code></figure>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="accordion" id="accordion4_ltr">
+            <div class="accordion-item secondary">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse12_ltr">
+                    Primary 1
+                </button>
+                <div id="collapse12_ltr" class="accordion-body accordion-collapse show">
+                    Some Text
+                </div>
+            </div>
+            <div class="accordion-item third">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse13_ltr">
+                    Primary 2
+                </button>
+                <div id="collapse13_ltr" class="accordion-body accordion-collapse">
+                    Some Text
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="accordion">
+            <div class="accordion-item secondary">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse12_rtl">
+                    رنگ اصلی 1
+                </button>
+                <div id="collapse12_rtl" class="accordion-body accordion-collapse show">
+                    متنی جهت آزمایش
+                </div>
+            </div>
+            <div class="accordion-item third">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse13_rtl">
+                    رنگ اصلی 2
+                </button>
+                <div id="collapse13_rtl" class="accordion-body accordion-collapse">
+                    متنی جهت آزمایش
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="accordion4_ltr"></code></figure>
+
+<h2>اندازه</h2>
+<p>
+    همانند بقیه موضوعات میتوانید از کلاس های اندازه گذاری استفاده کنید.
+</p>
+<p>به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="accordion5_ltr">
+        <h3>LTR</h3>
+        <div class="accordion s-s" >
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse14_ltr">
+                    Small 1
+                </button>
+                <div id="collapse14_ltr" class="accordion-body accordion-collapse show">
+                    Some Text
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse15_ltr">
+                    Small 2
+                </button>
+                <div id="collapse15_ltr" class="accordion-body accordion-collapse">
+                    Some Text
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="accordion s-s">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button" wn-type="collapse" target="#collapse14_rtl">
+                    کوچک 1
+                </button>
+                <div id="collapse14_rtl" class="accordion-body accordion-collapse show">
+                    متنی جهت آزمایش
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button" wn-type="collapse" target="#collapse15_rtl">
+                    کوچک 2
+                </button>
+                <div id="collapse15_rtl" class="accordion-body accordion-collapse">
+                    متنی جهت آزمایش
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="accordion5_ltr"></code></figure>

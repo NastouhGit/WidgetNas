@@ -1,0 +1,112 @@
+﻿@page
+@model WidgetNas.Pages.Content.AnimationModel
+@{
+    ViewData["Title"] = "انیمیشن";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>برای ایجاد تصاویر متحرک، نویسه ها و غیره میتوانید از کلاسهای زیر استفاده کنید.</p>
+<h2>نحوه بکار گیری</h2>
+<p>استفاده از کلاس <bidi>animate</bidi> و سپس یکی از کلاسهای مرتبط با آن نوع نمایش و پویا نمایی خود را انتخاب کنید.</p>
+<div class="example-div overflow-hidden">
+    <div class="row w-100">
+        <div class="col-12 text-center overflow-hidden">
+            <div id="AnimateDiv" class="animate slideInDown">                
+                <h1 class="primary-bkcolor">This is sample header</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row w-100 m-bs-100r">
+        <div class="col-12">
+            <button onclick="Animate(this)">bounce</button>
+            <button onclick="Animate(this)">flash</button>
+            <button onclick="Animate(this)">pulse</button>
+            <button onclick="Animate(this)">rubberBand</button>
+            <button onclick="Animate(this)">swing</button>
+            <button onclick="Animate(this)">tada</button>
+            <button onclick="Animate(this)">wobble</button>
+            <button onclick="Animate(this)">bounceIn</button>
+            <button onclick="Animate(this)">bounceInDown</button>
+            <button onclick="Animate(this)">bounceInLeft</button>
+            <button onclick="Animate(this)">bounceInRight</button>
+            <button onclick="Animate(this)">bounceInUp</button>
+            <button onclick="Animate(this)">bounceOut</button>
+            <button onclick="Animate(this)">bounceOutDown</button>
+            <button onclick="Animate(this)">bounceOutLeft</button>
+            <button onclick="Animate(this)">bounceOutRight</button>
+            <button onclick="Animate(this)">bounceOutUp</button>
+            <button onclick="Animate(this)">fadeIn</button>
+            <button onclick="Animate(this)">fadeInDown</button>
+            <button onclick="Animate(this)">fadeInDownBig</button>
+            <button onclick="Animate(this)">fadeInLeft</button>
+            <button onclick="Animate(this)">fadeInLeftBig</button>
+            <button onclick="Animate(this)">fadeInRight</button>
+            <button onclick="Animate(this)">fadeInRightBig</button>
+            <button onclick="Animate(this)">fadeInUp</button>
+            <button onclick="Animate(this)">fadeInUpBig</button>
+            <button onclick="Animate(this)">fadeOut</button>
+            <button onclick="Animate(this)">fadeOutDown</button>
+            <button onclick="Animate(this)">fadeOutDownBig</button>
+            <button onclick="Animate(this)">fadeOutLeft</button>
+            <button onclick="Animate(this)">fadeOutLeftBig</button>
+            <button onclick="Animate(this)">fadeOutRight</button>
+            <button onclick="Animate(this)">fadeOutRightBig</button>
+            <button onclick="Animate(this)">fadeOutUp</button>
+            <button onclick="Animate(this)">fadeOutUpBig</button>
+            <button onclick="Animate(this)">animated flip</button>
+            <button onclick="Animate(this)">flipInX</button>
+            <button onclick="Animate(this)">flipInY</button>
+            <button onclick="Animate(this)">flipOutX</button>
+            <button onclick="Animate(this)">flipOutY</button>
+            <button onclick="Animate(this)">lightSpeedIn</button>
+            <button onclick="Animate(this)">lightSpeedOut</button>
+            <button onclick="Animate(this)">rotateIn</button>
+            <button onclick="Animate(this)">rotateInDownLeft</button>
+            <button onclick="Animate(this)">rotateInDownRight</button>
+            <button onclick="Animate(this)">rotateInUpLeft</button>
+            <button onclick="Animate(this)">rotateInUpRight</button>
+            <button onclick="Animate(this)">rotateOut</button>
+            <button onclick="Animate(this)">rotateOutDownLeft</button>
+            <button onclick="Animate(this)">rotateOutDownRight</button>
+            <button onclick="Animate(this)">rotateOutUpLeft</button>
+            <button onclick="Animate(this)">rotateOutUpRight</button>
+            <button onclick="Animate(this)">hinge</button>
+            <button onclick="Animate(this)">rollIn</button>
+            <button onclick="Animate(this)">rollOut</button>
+            <button onclick="Animate(this)">zoomIn</button>
+            <button onclick="Animate(this)">zoomInDown</button>
+            <button onclick="Animate(this)">zoomInLeft</button>
+            <button onclick="Animate(this)">zoomInRight</button>
+            <button onclick="Animate(this)">zoomInUp</button>
+            <button onclick="Animate(this)">zoomOut</button>
+            <button onclick="Animate(this)">zoomOutDown</button>
+            <button onclick="Animate(this)">zoomOutLeft</button>
+            <button onclick="Animate(this)">zoomOutRight</button>
+            <button onclick="Animate(this)">zoomOutUp</button>
+            <button onclick="Animate(this)">slideInDown</button>
+            <button onclick="Animate(this)">slideInLeft</button>
+            <button onclick="Animate(this)">slideInRight</button>
+            <button onclick="Animate(this)">slideInUp</button>
+            <button onclick="Animate(this)">slideOutDown</button>
+            <button onclick="Animate(this)">slideOutLeft</button>
+            <button onclick="Animate(this)">slideOutRight</button>
+            <button onclick="Animate(this)">slideOutUp</button>
+        </div>
+    </div>
+</div>
+
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="animate slideInDown</span>"<span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">h1</span><span class="hv">&gt;</span>This is sample header<span class="hv">&lt;/</span><span class="ht">h1</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+</code></pre>
+</figure>
+
+<script>
+    var animatediv = document.getElementById('AnimateDiv');
+    function Animate(obj) {
+        animatediv.className = 'animate ' + obj.innerHTML;
+        animatediv.animate(obj.innerHTML);
+    }
+</script>

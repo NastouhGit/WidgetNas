@@ -1,0 +1,462 @@
+﻿@page
+@model WidgetNas.Pages.Components.DropdownsModel
+@{
+    ViewData["Title"] = "کشویی ها Dropdowns";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>در بسیاری از مواقع نیازمند باز شدن یک پنجره در زیر یا بالا یا یکی از سمتهای موضوع مورد نظر هستیم، موضوع کشویی این امکان را به شما خواهد داد.</p>
+<p>در این صفحه نحوه استفاده از انواع کشوها را به شما نمایش خواهیم داد.</p>
+
+<h2>دکمه های کشویی</h2>
+<p>دکمه های کشویی، تشکیل شده از یک button از نوع <bidi>wn-type=dropdown</bidi> و کلاس <bidi>dropdown-toggle</bidi> و یک div که از کلاس <bidi>dropdown</bidi> استفاده شده است.</p>
+<p>زمانیکه بر روی دکمه کلیک شود، div از جنس <bidi>dropdown</bidi> با هر محتوایی نمایش داده میشود.</p>
+<p>خصوصیات مرتبط با دکمه باید در دکمه مقدار دهی شود و خصوصیات مرتبط با dropdown در آن. برای مثال جهت باز شدن آن، اندازه و ...</p>
+<p>توجه داشته باشید، کلاس dropdown باید دقیقا بعد از تعریف دکمه آورده شود، و گرنه، سیستم قادر به تشخیص نیست.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form1">
+            <button class="primary outline dropdown-toggle m-b-50r" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown list list-noedge list-hover">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>
+                        <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">ِDropdown</button>
+                        <div class="dropdown list">
+                            <ul>
+                                <li>Item 1</li>
+                                <li>Item 2</li>
+                                <li>Item 3</li>
+                                <li>
+                                    <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">ِDropdown</button>
+                                    <div class="dropdown list">
+                                        <ul>
+                                            <li>Item 1</li>
+                                            <li>Item 2</li>
+                                            <li>Item 3</li>
+                                        </ul>
+                                        <p>Test P</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>Test P</p>
+                        </div>
+                    </li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <button class="secondary dropdown-toggle m-b-50r" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown list">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <button class="dark dropdown-toggle m-b-50r" wn-type="dropdown">Dropdown align end</button>
+            <div class="dropdown list dark align-end">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <button class="info dropdown-toggle m-b-50r" wn-type="dropdown">Dropdown fit width</button>
+            <div class="dropdown list info align-fit">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <button class="warning dropdown-toggle m-b-50r" wn-type="dropdown">Width more than Fit width</button>
+            <div class="dropdown list warning align-end align-fit" style="width:20rem;">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button class="primary outline dropdown-toggle m-b-50r" wn-type="dropdown">بازشو</button>
+            <div class="dropdown list list-noedge list-hover">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>
+                        <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">بازشو</button>
+                        <div class="dropdown">
+                            <ul>
+                                <li>گزینه 1</li>
+                                <li>گزینه 2</li>
+                                <li>گزینه 3</li>
+                                <li>
+                                    <button class="primary outline dropdown-toggle m-b-50r pos-end" wn-type="dropdown">بازشو</button>
+                                    <div class="dropdown">
+                                        <ul>
+                                            <li>گزینه 1</li>
+                                            <li>گزینه 2</li>
+                                            <li>گزینه 3</li>
+                                            <li>گزینه 4</li>
+                                        </ul>
+                                        <p>پاراگراف تستی</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>پاراگراف تستی</p>
+                        </div>
+                    </li>
+                </ul>
+                <p>پاراگراف تستی</p>
+            </div>
+            <button class="secondary dropdown-toggle m-b-50r" wn-type="dropdown">بازشو</button>
+            <div class="dropdown list">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پاراگراف تستی</p>
+            </div>
+            <button class="dark dropdown-toggle m-b-50r" wn-type="dropdown">بازشو با تنظیم از انتها</button>
+            <div class="dropdown list dark align-end">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پاراگراف تستی</p>
+            </div>
+            <button class="info dropdown-toggle m-b-50r" wn-type="dropdown">بازشو به اندازه دکمه است</button>
+            <div class="dropdown list info align-fit">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پاراگراف تستی</p>
+            </div>
+            <button class="warning dropdown-toggle m-b-50r" wn-type="dropdown">طول بزرگتر از دکمه</button>
+            <div class="dropdown list warning align-end align-fit" style="width:20rem;">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>انواع نمایش و باز شدن</h2>
+<p>کلاس dropdown-toggle مخصوص دکمه است و علامت یک فلش را در کنار دکمه نمایش میدهد. اگر متنی وجود نداشته باشد، فقط یک فلش نمایش داده میشود. اگر میخواهید به جای علامت فلش از آیکون خاصی استفاده کنید، این کلاس را نسبت ندهید.</p>
+<p>کلاس های مرتبط با dropdown-toggle عبارتند از:</p>
+<table>
+    <thead>
+        <tr>
+            <th>نام کلاس</th>
+            <th class="w-40">موضوع فراخوان</th>
+            <th class="w-40">کادر بازشو</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th class="bidi-override">pos-top</th>
+            <td>علامت فلش به سمت بالا</td>
+            <td>کادر بالای موضوع فراخوان (دکمه) باز شود.</td>
+        </tr>
+        <tr>
+            <th class="bidi-override">pos-bottom</th>
+            <td></td>
+            <td>کادر پایین موضوع فراخوان (دکمه) باز شود.</td>
+        </tr>
+        <tr>
+            <th class="bidi-override">pos-end</th>
+            <td>علامت فلش به سمت انتها، در چپ به راست سمت راست دکمه و در راست به چپ در سمت چپ دکمه قرار میگیرد. همچنین جهت آیکون تغییر خواهد کرد.</td>
+            <td>کادر بعد از قرار گیری موضوع فراخوان (دکمه) باز شود.</td>
+        </tr>
+        <tr>
+            <th class="bidi-override">pos-start</th>
+            <td>علامت فلش در ابتدا قرار میگیرد، در چپ به راست سمت چپ دکمه و در راست به چپ در سمت راست دکمه قرار میگیرد. همچنین جهت آیکون تغییر خواهد کرد.</td>
+            <td>کادر قبل از قرار گیری موضوع فراخوان (دکمه) باز شود.</td>
+        </tr>
+        <tr>
+            <th class="bidi-override">icon-start</th>
+            <td>زمانیکه میخواهید حتما فلش با هر جهتی در ابتدای دکمه باشد.</td>
+            <td></td>
+        </tr>
+        <tr>
+            <th class="bidi-override">icon-end</th>
+            <td>زمانیکه میخواهید حتما فلش با هر جهتی در انتهای دکمه باشد.</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<p>موارد ذکر شده در بالا، بر اساس شرح ستون عمل خواهد کرد</p>
+<p>کلاسهای مرتبط با dropdown در زیر توضیح داده شده است.</p>
+<table>
+    <tbody>
+        <tr>
+            <th class="bidi-override">align-end</th>
+            <td>انتهای کادر با انتهای موضوع فراخوان یکسان در نظر گرفته خواهد شد.</td>
+        </tr>
+        <tr>
+            <th class="bidi-override">align-fit</th>
+            <td>عرض کادر، با عرض موضوع فراخوان، یکسان در نظر گرفته میشود. این در صورتی است که عرض کادر کوچکتر از عرض موضوع فراخوان باشد.</td>
+        </tr>
+        <tr>
+            <th class="bidi-override">show</th>
+            <td>کادر را از حالت مخفی درآورده و نمایش میدهد.</td>
+        </tr>
+        <tr>
+            <th class="bidi-override">single</th>
+            <td>کادر فقط توسط موضوع درخواست کننده باز یا بسته میشود.</td>
+        </tr>
+
+    </tbody>
+</table>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div>
+            <button class="primary dropdown-toggle pos-end" wn-type="dropdown" wn-dropdown="dropdown-ltr">End</button>
+            <button class="primary dropdown-toggle pos-top" wn-type="dropdown" wn-dropdown="dropdown-ltr">Top</button>
+            <button class="primary dropdown-toggle pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-ltr">Bottom</button>
+            <button class="primary dropdown-toggle pos-start" wn-type="dropdown" wn-dropdown="dropdown-ltr">Start</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary dropdown-toggle icon-start pos-end" wn-type="dropdown" wn-dropdown="dropdown-ltr">End</button>
+            <button class="primary dropdown-toggle icon-start pos-top" wn-type="dropdown" wn-dropdown="dropdown-ltr">Top</button>
+            <button class="primary dropdown-toggle icon-start pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-ltr">Bottom</button>
+            <button class="primary dropdown-toggle icon-start pos-start" wn-type="dropdown" wn-dropdown="dropdown-ltr">Start</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary dropdown-toggle icon-end pos-end" wn-type="dropdown" wn-dropdown="dropdown-ltr">End</button>
+            <button class="primary dropdown-toggle icon-end pos-top" wn-type="dropdown" wn-dropdown="dropdown-ltr">Top</button>
+            <button class="primary dropdown-toggle icon-end pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-ltr">Bottom</button>
+            <button class="primary dropdown-toggle icon-end pos-start" wn-type="dropdown" wn-dropdown="dropdown-ltr">Start</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary dropdown-toggle icon-none pos-end" wn-type="dropdown" wn-dropdown="dropdown-ltr">End</button>
+            <button class="primary dropdown-toggle icon-none pos-top" wn-type="dropdown" wn-dropdown="dropdown-ltr">Top</button>
+            <button class="primary dropdown-toggle icon-none pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-ltr">Bottom</button>
+            <button class="primary dropdown-toggle icon-none pos-start" wn-type="dropdown" wn-dropdown="dropdown-ltr">Start</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button class="primary dropdown-toggle pos-end" wn-type="dropdown" wn-dropdown="dropdown-rtl">انتها</button>
+            <button class="primary dropdown-toggle pos-top" wn-type="dropdown" wn-dropdown="dropdown-rtl">بالا</button>
+            <button class="primary dropdown-toggle pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-rtl">پایین</button>
+            <button class="primary dropdown-toggle pos-start" wn-type="dropdown" wn-dropdown="dropdown-rtl">ابتدا</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary dropdown-toggle icon-start pos-end" wn-type="dropdown" wn-dropdown="dropdown-rtl">انتها</button>
+            <button class="primary dropdown-toggle icon-start pos-top" wn-type="dropdown" wn-dropdown="dropdown-rtl">بالا</button>
+            <button class="primary dropdown-toggle icon-start pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-rtl">پایین</button>
+            <button class="primary dropdown-toggle icon-start pos-start" wn-type="dropdown" wn-dropdown="dropdown-rtl">ابتدا</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary dropdown-toggle icon-end pos-end" wn-type="dropdown" wn-dropdown="dropdown-rtl">انتها</button>
+            <button class="primary dropdown-toggle icon-end pos-top" wn-type="dropdown" wn-dropdown="dropdown-rtl">بالا</button>
+            <button class="primary dropdown-toggle icon-end pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-rtl">پایین</button>
+            <button class="primary dropdown-toggle icon-end pos-start" wn-type="dropdown" wn-dropdown="dropdown-rtl">ابتدا</button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary dropdown-toggle icon-none pos-end" wn-type="dropdown" wn-dropdown="dropdown-rtl">انتها</button>
+            <button class="primary dropdown-toggle icon-none pos-top" wn-type="dropdown" wn-dropdown="dropdown-rtl">بالا</button>
+            <button class="primary dropdown-toggle icon-none pos-bottom" wn-type="dropdown" wn-dropdown="dropdown-rtl">پایین</button>
+            <button class="primary dropdown-toggle icon-none pos-start" wn-type="dropdown" wn-dropdown="dropdown-rtl">ابتدا</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>باز شو یکسان</h2>
+<p>در مواقعی، لیست بازشو برای چندین موضوع یکسان است، برای جلوگیری از کدنویسی اضافی، کافیست div را نام گذاری کرده و در زمان فراخوانی، id آنرا معرفی کنید.</p>
+<p>در این نوع، اصلا نیاز به رعایت قانون قرارگیری div بعد از موضوع فراخوان نیست.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form3">
+            <div class="dropdown" id="dropdown-ltr">
+                <ul>
+                    <li><a href="#">Item 1</a></li>
+                    <li><a href="#">Item 2</a></li>
+                    <li><a href="#">Item 3</a></li>
+                    <li><a href="#">Item 4</a></li>
+                </ul>
+                <p>Test P</p>
+            </div>
+            <button class="primary dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown-ltr">Button 1</button>
+            <button class="secondary dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown-ltr">Button 2</button>
+            <button class="third dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown-ltr">Button 3</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <div class="dropdown" id="dropdown-rtl">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+                <p>پاراگراف تستی</p>
+            </div>
+            <button class="primary dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown-rtl">بازشو 1</button>
+            <button class="secondary dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown-rtl">بازشو 2</button>
+            <button class="third dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown-rtl">بازشو 3</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>باز و بسته فقط با دکمه</h2>
+<p>
+    بعد از باز شدن کادر، در هر جای صفحه یا هر موضوع دیگری کلیک کنید، کادر باز شده به طور خودکار بسته خواهد شد.
+    اگر تمایل دارید فقط با کلیک بر روی موضوع باز کننده، با کلیک بر روی همان موضوع، کادر بسته شود، کلاس single را به dropdown اضافه کنید.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form4">
+            <button class="primary dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown single">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+            <button class="secondary dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown secondary single">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button class="primary dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown single">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+            <button class="secondary dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown secondary single">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>باز شدن با event خاص</h2>
+<p>
+    اگر میخواهید غیر از کلیک کردن، در event خاصی عمل باز شدن کادر اتفاق بیافتد،
+    کافیست خصوصیت wn-dropdown-event را مقدار دهی کنید. با رخداد آن event عمل باز شدن صورت میپذیرد.
+</p>
+<p>در wn-dropdown-event تمامی eventهای مد نظر را بنویسید، مانند: focus, blur</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form5">
+            <input wn-type="dropdown" wn-dropdown-event="focus, blur" placeholder="show on focus..." />
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <input wn-type="dropdown" wn-dropdown-event="focus, blur" placeholder="نمایش در زمان ورود اشاره گر..." />
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+
+<h2>باز شو با جاوا اسکریپت</h2>
+<p>اگر تمایل دارید با جاوا اسکریپت، عمل باز شدن را انجام دهید، توابع مرتبط با آنرا نسبت به موضوع بازکننده صدا کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form6">
+            <button id="dropdown-button-ltr" class="primary dropdown-toggle" wn-type="dropdown">Dropdown</button>
+            <div class="dropdown">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+            <button class="secondary" onclick="WN['dropdown-button-ltr'].Show();">Show</button>
+            <button class="secondary" onclick="WN['dropdown-button-ltr'].Hide();">Hide</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <button id="dropdown-button-rtl" class="primary dropdown-toggle" wn-type="dropdown">بازشو</button>
+            <div class="dropdown">
+                <ul>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                </ul>
+            </div>
+            <button class="secondary" onclick="WN['dropdown-button-rtl'].Show();">نمایش</button>
+            <button class="secondary" onclick="WN['dropdown-button-rtl'].Hide();">مخفی</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>

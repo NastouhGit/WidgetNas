@@ -1,0 +1,131 @@
+﻿@page
+@model WidgetNas.Pages.Components.NavsideModel
+@{
+    ViewData["Title"] = "نوار پیمایشی کناری Navside";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    نوار پیمایشی کناری، همانند navbar است، ولیکن در قسمت چپ و راست نمایش داده میشود، این موضوع نیز همانند navbar با تغییر اندازه مرورگر، تغییرات لازم را انجام میدهد.
+</p>
+<h2>مثال</h2>
+<p>
+    نوارهای کناری، برای درست نمایش داده شدن، خوب وابسته به موقعیت قرار گیری، در صفحه دارد، بدین منظور پیشنهاد ما این است که به صورت
+    یک grid در صفحه جایگذاری شود، همچنین زمانیکه اندازه مرورگر از حدی کمتر شد، حالت grid به block تبدیل شود، تا نمایش مطلوبی ایجاد شود.
+    هر چند، نوع استفاده به شما بستگی دارید.
+</p>
+<p>در زیر یک نمونه از نوار پیمایشی را مشاهده میکنید که در یک محدوده قرار داده شده است.</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div class="row">
+            <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navside1_ltr,#navside1_rtl"></button>
+        </div>
+        <div class="grid-layout-1-3">
+            <div class="navside light" id="navside1_ltr">
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">List 1</li>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li disabled>Disabled</li>
+                </ul>
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">List 2</li>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li disabled>Disabled</li>
+                </ul>
+            </div>
+            <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="grid-layout-1-3">
+            <div class="navside light" id="navside1_rtl">
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">لیست 1</li>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li disabled>غیر فعال</li>
+                </ul>
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">لیست 2</li>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li disabled>غیر فعال</li>
+                </ul>
+            </div>
+            <div>
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<p>در مثال بالا ما یک دکمه قرار دادیم که از جنس <bidi>navbar-toggler</bidi> است، شما میتوانید این دکمه را با دکمه navbar یکسان کنید، کافیست مقدار target به شناسه نوار کناری نیز اشاره کند.</p>
+<h2>تبدیل به افقی</h2>
+<p>
+    اگر تمایل دارید نوار کناری ابتدا به نوار افقی تبدیل شود و سپس مخفی گردد، کافیست نوع نمایش grid را تغییر دهید.
+    بدین منظور کافیست کلاس <bidi>grid-block-l</bidi> یا m یا s را به آن اضافه کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div class="row">
+            <button class="navbar-toggler toggler-icon" type="button" wn-type="collapse" target="#navside2_ltr,#navside2_rtl"></button>
+        </div>
+        <div class="grid-layout-1-3 grid-block-l">
+            <div class="navside light" id="navside2_ltr">
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">List 1</li>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li disabled>Disabled</li>
+                </ul>
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">List 2</li>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li disabled>Disabled</li>
+                </ul>
+            </div>
+            <div>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="grid-layout-1-3 grid-block-l">
+            <div class="navside light" id="navside2_rtl">
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">لیست 1</li>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li disabled>غیر فعال</li>
+                </ul>
+                <ul class="list list-hover list-tiny">
+                    <li class="border-block fw-bold">لیست 2</li>
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li disabled>غیر فعال</li>
+                </ul>
+            </div>
+            <div>
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>

@@ -1,0 +1,167 @@
+﻿.validated {
+
+    &:not(.hide-valid) {
+        input,
+        textarea {
+            &.valid:not([type=radio]):not([type=checkbox]),
+            &:valid:not([type=radio]):not([type=checkbox]) {
+                background-image: var(--image-valid);
+                background-repeat: no-repeat;
+                background-position: left calc(var(--padding-inline)/2) center;
+                background-size: 1em;
+
+                &[dir=ltr] {
+                    background-position: right calc(var(--padding-inline)/2) center;
+                }
+            }
+
+            &.valid,
+            &:valid {
+                border: var(--border-width) solid var(--valid-border) !important;
+            }
+        }
+
+        select {
+            &.valid,
+            &:valid {
+                border: var(--border-width) solid var(--valid-border) !important;
+                background-image: var(--arrow-down-image),var(--image-valid);
+                background-repeat: no-repeat;
+                background-size: 0.8em,1em;
+                background-position: left calc(var(--padding-inline)/2) center, center left 1.2em;
+
+                &[dir=ltr] {
+                    background-position: right calc(var(--padding-inline)/2) center, center right 1.2em;
+                }
+            }
+        }
+
+        & *:valid ~ .valid-feedback,
+        & .valid ~ .valid-feedback,
+        & *:valid ~ .valid-tooltip,
+        & .valid ~ .valid-tooltip {
+            display: block;
+        }
+    }
+
+    &:not(.hide-invalid) {
+        input,
+        textarea {
+            &.invalid:not([type=radio]):not([type=checkbox]),
+            &:invalid:not([type=radio]):not([type=checkbox]) {
+                background-image: var(--image-invalid);
+                background-repeat: no-repeat;
+                background-position: left calc(var(--padding-inline)/2) center;
+                background-size: 1em;
+            }
+
+            &.invalid,
+            &:invalid {
+                border: var(--border-width) solid var(--invalid-border) !important;
+
+                &[type=radio] + label,
+                &[type=checkbox] + label {
+                    color: var(--invalid-back) !important;
+                    background-image: var(--image-invalid);
+                    background-repeat: no-repeat;
+                    background-position: left center;
+                    background-size: 1em;
+                    padding-inline-end: 1.2em;
+                }
+
+                &[dir=ltr] {
+                    &.invalid:not([type=radio]):not([type=checkbox]),
+                    &:invalid:not([type=radio]):not([type=checkbox]) {
+                        background-position: right calc(var(--padding-inline)/2) center;
+                    }
+
+                    &[type=radio] + label,
+                    &[type=checkbox] + label {
+                        background-position: right center;
+                    }
+                }
+            }
+        }
+
+        select {
+            &.invalid,
+            &:invalid {
+                border: var(--border-width) solid var(--invalid-border) !important;
+                background-repeat: no-repeat;
+                background-image: var(--arrow-down-image),var(--image-invalid);
+                background-size: 0.8em,1em;
+                background-position: left calc(var(--padding-inline)/2) center, center left 1.2em;
+            }
+
+            &[dir=ltr] {
+                &.invalid,
+                &:invalid {
+                    background-position: right calc(var(--padding-inline)/2) center, center right 1.2em;
+                }
+            }
+        }
+
+        & *:invalid ~ .invalid-feedback,
+        & .invalid ~ .invalid-feedback {
+            display: block;
+        }
+    }
+}
+
+.valid-feedback,
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-block-start: var(--margin-block);
+    font-size: 0.875em;
+    transition: $transition !important;
+
+    &.tooltip {
+        position: absolute;
+        opacity: 0.9;
+        top: 0;
+        z-index: 5;
+        display: none;
+        max-width: 100%;
+        left: 0;
+        padding-block: calc(var(--padding-block)/2);
+        padding-inline: calc(var(--padding-inline)/2);
+        font-size: 0.8rem;
+        border-radius: var(--border-radius);
+        user-select: none;
+        width: 1.8em;
+        height: 1.8em;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: $transition;
+    }
+
+    [dir=ltr] > &.tooltip {
+        left: auto;
+        right: 0;
+    }
+
+    &.tooltip:hover {
+        width: 100%;
+        height: auto;
+        border-radius: var(--border-radius);
+    }
+}
+
+.valid-feedback {
+    color: var(--valid-back);
+
+    &.tooltip {
+        color: var(--valid-color);
+        background-color: var(--valid-back);
+    }
+}
+
+.invalid-feedback {
+    color: var(--invalid-back);
+
+    &.tooltip {
+        color: var(--invalid-color);
+        background-color: var(--invalid-back);
+    }
+}

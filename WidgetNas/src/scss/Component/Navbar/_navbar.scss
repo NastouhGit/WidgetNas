@@ -1,0 +1,234 @@
+﻿navbar,
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--padding-block);
+    background-color: var(--normal-back);
+    padding-inline: var(--padding-inline);
+
+    .navbar-brand {
+        padding-block: var(--padding-block);
+        margin-inline: 0.5em;
+        font-size: calc(var(--font-size) *1.25);
+        text-decoration: none;
+        white-space: nowrap;
+        color: var(--normal-color);
+
+        &:hover,
+        &:focus {
+            color: var(--normal-color);
+        }
+    }
+
+    .navbar-collapse {
+        align-items: center;
+        width: 100%;
+
+        &.hide {
+            display: none;
+            opacity: 0;
+        }
+
+        &.show {
+            display: block !important;
+            opacity: 1;
+            height: auto;
+        }
+    }
+
+    .nav,
+    nav {
+        display: flex;
+        flex-direction: column;
+        padding-inline-start: 0;
+        margin-block-end: 0;
+        list-style: none;
+        font-size: var(--font-size);
+
+        .nav-item {
+            padding-inline: var(--padding-inline);
+        }
+
+            .nav-item button,
+            button.nav-item {
+                &.dropdown-toggle {
+                    width: max-content;
+                }
+            }
+    }
+}
+
+
+.navbar-toggler {
+    display: none;
+    margin-block: 0.25em;
+    margin-inline: 0.5em;
+    font-size: inherit;
+    line-height: 1;
+    background-color: transparent;
+    border: var(--border-width) solid transparent;
+    border-radius: var(--border-radius);
+    transition: box-shadow 0.15s ease-in-out;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:focus {
+        text-decoration: none;
+        outline: 0;
+        box-shadow: 0 0 0 0 var(--button-shadow-width);
+    }
+
+    &.toggler-icon {
+        width: 1.5em;
+        height: 1.5em;
+        vertical-align: middle;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        background-image: var(--bar-image);
+    }
+
+    &.show {
+        display: block !important;
+    }
+}
+
+.sticky-onfly {
+    navbar, .navbar {
+        opacity: 0.8;
+        transition: opacity 0.3s ease-in-out;
+        border-block: var(--border-width) solid var(--normal-border);
+        box-shadow: var(--box-shadow);
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.sticky-bottom.sticky-onfly {
+    navbar, .navbar {
+        padding-block-end: calc(var(--padding-block) * 2);
+    }
+}
+
+@media (min-width: map-get($breakpoints,'m')) {
+    navbar,
+    .navbar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+
+        .navbar-collapse {
+            display: flex;
+        }
+
+        .nav,
+        nav {
+            flex-direction: row;
+        }
+
+        &.navbar-m {
+            display: flex;
+            flex-wrap: wrap;
+
+            .navbar-collapse {
+                display: block;
+            }
+
+            .nav,
+            nav {
+                flex-direction: column;
+            }
+
+            .navbar-toggler {
+                display: none;
+            }
+        }
+
+        &.navbar-s {
+            display: flex;
+            flex-wrap: wrap;
+
+            .navbar-collapse {
+                display: none;
+            }
+
+            .nav,
+            nav {
+                flex-direction: column;
+            }
+
+            .navbar-toggler {
+                margin-inline-start: auto;
+                display: block;
+            }
+        }
+    }
+
+        .navbar-toggler {
+            display: none;
+        }
+    }
+
+@media (min-width: map-get($breakpoints,'s')) and (max-width: map-get($breakpoints,'m')) {
+    navbar,
+    .navbar {
+
+        &.navbar-l {
+            .navbar-collapse {
+                display: none;
+            }
+
+            .navbar-toggler {
+                display: block;
+            }
+        }
+
+        &.navbar-s {
+            .navbar-collapse {
+                display: none;
+            }
+
+            .navbar-toggler {
+                margin-inline-start: auto;
+                display: block;
+            }
+        }
+    }
+}
+
+@media (max-width: map-get($breakpoints,'s')) {
+
+    navbar,
+    .navbar {
+
+        .navbar-collapse {
+            display: none;
+        }
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+}
+
+@media (max-width: map-get($breakpoints,'m')) {
+
+    navbar,
+    .navbar {
+        .dropdown {
+            position: initial;
+            width: auto !important;
+            display: none;
+
+            &.show {
+                display: block;
+            }
+        }
+    }
+}

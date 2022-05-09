@@ -1,0 +1,178 @@
+﻿@page
+@model WidgetNas.Pages.Components.CollapseModel
+@{
+    ViewData["Title"] = "جمع شونده ها Collapse";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<style>
+    .alert {
+        display: none;
+    }
+
+        .alert.show {
+            display: block;
+        }
+</style>
+<h1>جمع شونده ها</h1>
+<p>جمع شونده ها یکسری توابع جاوا اسکریپ هستند تا شما بتوانید از نظر نمایشی، موضوعاتی را بسته یا باز کنید.</p>
+
+<h2>نحوه استفاده</h2>
+<p>برای استفاده بایستی <bidi>wn-type='collapse'</bidi> قرار گیرد. سپس مقادیر پیش فرض تنظیم شود.</p>
+<p>
+    <h6>خصوصیت <bidi>target</bidi></h6>
+    این خصلت مشخص میکند، چه موضوع یا موضوعاتی باید انتخاب شوند. برای مثال
+    میتوانید (<bidi>#id</bidi>) موضوع مورد نظر باشد، یا کلاسی از آن (<bidi>.class</bidi>) و یا موضوعی با جنس خاص (<bidi>div.class</bidi>).<br />
+    برای معرفی چند موضوع، اسم آنها را <bidi>","</bidi> از هم جدا کنید. <bidi>#id1, #id2, #id3, ...</bidi><br />
+    برای معرفی دسته ای از قانونهای <bidi>querySelectorAll</bidi> استفاده کنید. برای اطلاع بیشتر میتوانید <a href="https://www.w3schools.com/cssref/css_selectors.asp" target="_blank">اینجا</a> را مطالعه کنید.
+</p>
+<p>
+    <h6>خصوصیت <bidi>remove</bidi></h6>
+    اگر میخواهید، قبل از اعمال تغییرات توسط خصوصیت target عملیاتهای قبلی بر روی موضوعات از بین برود، اسامی موضوعات مد نظر را
+    در خصوصیت <bidi>remove</bidi> اعلام کنید. نحوه نام گذاری و مشخص کردن همانند خصوصیت target است.<br />
+    تمام موضوعاتی که در این خصلت وجود دارد، کلاس show حذف و کلاس collapsed به آن اضافه میشود.
+</p>
+<p>
+    <h6>خصوصیت <bidi>target-mode</bidi></h6>
+    بطور پیش فرض، اگر موضوع در حال نمایش باشد، مخفی و اگر مخفی باشد، نمایش میدهد، به این حالت <bidi>toggle</bidi> میگویند.<br />
+    اگر میخواهید در هر شرایطی فقط عملیات نمایش رخ دهد، از مقدار <bidi>show</bidi> استفاده کنید.<br />
+    اگر میخواهید در هر شرایطی فقط عملیات مخفی کردن رخ دهد، از مقدار <bidi>hide</bidi> استفاده کنید.<br />
+</p>
+
+<h2>نمایش</h2>
+<p>
+    در این صفحه ما به صورت دستی کلاس <bidi>alert</bidi> را تغییر دادیم و به صورت پیش فرض <bidi>display:none</bidi> شده است. همچنین کلاس <bidi>show</bidi> برای آن طراحی شده و در آن <bidi>display:block</bidi> قرار داده شده است.
+    این کار فقط برای آن است که به صورت پیش فرض موضوع هشدار مخفی باشد تا مثال های این صفحه قابل استفاده باشند.
+</p>
+<p>طبیعی است، شما نیز برای استفاده از این موضوع بایستی عملی مشابه برای کنترل خود انجام دهید.</p>
+
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">style</span><span class="hv">&gt;</span>
+        .alert {
+            display: none;
+        }
+
+            .alert.show {
+                display: block;
+            }
+    <span class="hv">&lt;/</span><span class="ht">style</span><span class="hv">&gt;</span>
+</code></pre>
+</figure>
+
+<div id="exp1" class="example-div" style="display:block;direction:inherit">
+    <div>
+        <button wn-type="collapse" target="#collapse1" target-mode="show">نمایش اطلاع</button>
+        <button wn-type="collapse" target="#collapse2" target-mode="show">نمایش اخطار</button>
+        <button wn-type="collapse" target="#collapse1, #collapse2" target-mode="show">نمایش هر دو</button>
+        <button wn-type="collapse" target="#collapse1, #collapse2" target-mode="hide">مخفی هر دو</button>
+    </div>
+    <div class="m-bs-100r">
+        <div id="collapse1" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="collapse2" class="alert danger">این یک پیام هشدار است از نوع اخطار</div>
+    </div>
+</div>
+<figure><code data-on="exp1"></code></figure>
+
+<h2>مخفی کردن</h2>
+<p>
+    در زمان مخفی کردن، ابتدا کلاس <bidi>collapsing</bidi> اضافه میشود، اگر میخواهید در هنگام مخفی شدن، افکتی داشته باشید، در این کلاس طراحی کنید، پس از اجرا این کلاس،
+    هم کلاس <bidi>collapsing</bidi> و هم کلاس <bidi>show</bidi> از لیست کلاسهای موضوع مرتبط حذف میگردد.
+</p>
+<div id="exp2" class="example-div" style="display:block;direction:inherit">
+    <div>
+        <button wn-type="collapse" target="#collapse3" target-mode="hide">مخفی اطلاع</button>
+        <button wn-type="collapse" target="#collapse4" target-mode="hide">مخفی اخطار</button>
+        <button wn-type="collapse" target="#collapse3, #collapse4" target-mode="hide">مخفی هر دو</button>
+        <button wn-type="collapse" target="#collapse3, #collapse4" target-mode="show">نمایش هر دو</button>
+    </div>
+    <div class="m-bs-100r">
+        <div id="collapse3" class="alert info show">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="collapse4" class="alert danger show">این یک پیام هشدار است از نوع اخطار</div>
+    </div>
+</div>
+<figure><code data-on="exp2"></code></figure>
+<h2>سوئیچ بین هم</h2>
+<div id="exp3" class="example-div" style="display:block;direction:inherit">
+    <div class="m-bs-50r">
+        <button wn-type="collapse" target="#collapse5">نمایش یا مخفی اطلاع</button>
+        <button wn-type="collapse" target="#collapse6">نمایش یا مخفی اخطار</button>
+        <button wn-type="collapse" target="#collapse5, #collapse6">نمایش یا مخفی هر دو</button>
+    </div>
+    <div class="m-bs-100r">
+        <div id="collapse5" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="collapse6" class="alert danger ">این یک پیام هشدار است از نوع اخطار</div>
+    </div>
+</div>
+<figure><code data-on="exp3"></code></figure>
+<h2>حذف وضعیت</h2>
+<p>
+    در حذف همه، از خصوصیت <bidi>remove</bidi> استفاده شده است، یعنی قبل از اعمال تغییرات بر روی <bidi>target</bidi> تمام موضوعاتی
+    که در خصوصیت remove معرفی شده، ابتدا کلاس <bidi>show</bidi> حذف و سپس کلاس <bidi>collapsed</bidi> به آن اضافه شود.
+</p>
+<p>
+    با استفاده از این خصوصیت و نسبت دادن آن به موضوعات معرفی شده، شما قادر خواهید بود، بر روی دکمه درخواست کننده و موضوعات زیر مجموعه
+    تعریف های متفاوتی داشته باشید. برای مثال <a href="~/Components/Accordion">آکاردئون</a> یک مثال خوب از این نوع استفاده است.
+</p>
+<p>در مثال زیر، تمامی موضوعاتی که زیر مجموعه container1 هستند که از جنس کلاس collapse هستند، عملیات حذف اعمال میگردد.</p>
+<div id="exp4" class="example-div" style="display:block;direction:inherit">
+    <div class="m-bs-50r">
+        <button wn-type="collapse" target="#collapse7" target-mode="show" remove="#collapse-container-1>.alert">نمایش یا مخفی اطلاع</button>
+        <button wn-type="collapse" target="#collapse8" target-mode="show" remove="#collapse-container-1>.alert">نمایش یا مخفی اخطار</button>
+        <button wn-type="collapse" target="#collapse9" target-mode="show" remove="#collapse-container-1>.alert">نمایش یا مخفی هشدار</button>
+        <button wn-type="collapse" target="#collapse-container-1>.alert" target-mode="show">نمایش همه</button>
+    </div>
+    <div id="collapse-container-1" class="m-bs-100r">
+        <div id="collapse7" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="collapse8" class="alert danger">این یک پیام هشدار است از نوع اخطار</div>
+        <div id="collapse9" class="alert warning">این یک پیام هشدار است از نوع هشدار</div>
+    </div>
+</div>
+<figure><code data-on="exp4"></code></figure>
+<h2>جاوا اسکریپت</h2>
+<p>شما میتوانید توسط جاوا اسکریپت نیز تنظیمات و عملیاتهای مختلف را انجام دهید.</p>
+<p>
+    <h6>خصوصیت <bidi>target</bidi></h6>
+    عملیات همانند خصوصیت target است.
+</p>
+<p>
+    <h6>خصوصیت <bidi>remove</bidi></h6>
+    عملیات همانند خصوصیت remove است.
+</p>
+<p>
+    <h6>خصوصیت <bidi>targetmode</bidi></h6>
+    عملیات همانند خصوصیت target-mode است.
+</p>
+<p>
+    <h6>رویه <bidi>collapse</bidi></h6>
+    با فراخوانی این رویه، انگار بر روی دکمه کلیک کردید و بایستی عملیات جمع شوندگی اجرا شود.
+</p>
+<p>
+    <h6>تنظیمات دستی</h6>
+    اگر شما از روش معرفی توسط <bidi>wn-type</bidi> استفاده کردید، هر زمان بخواهید میتوانید تغییرات را توسط جاوا اسکریپت انجام دهید.<br />
+    برای دسترسی به کلاس جاوایی، بایستی اسم دکمه را داشته باشید و با فراخوانی آن از آرایه WN تنظیمات را طبق دستورات بالا انجام دهید.<br />
+    <bidi>WN['button1'].collapse();</bidi>
+</p>
+<div id="exp5" class="example-div" style="display:block;direction:inherit">
+    <div class="m-bs-50r">
+        <button onclick="toggle('#collapse10')">نمایش اطلاع</button>
+        <button onclick="toggle('#collapse11')">نمایش اخطار</button>
+        <button onclick="toggle('#collapse12')">نمایش هشدار</button>
+    </div>
+    <div id="collapse-container-1" class="m-bs-100r">
+        <div id="collapse10" class="alert info collapse">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="collapse11" class="alert danger collapse">این یک پیام هشدار است از نوع اخطار</div>
+        <div id="collapse12" class="alert warning collapse">این یک پیام هشدار است از نوع هشدار</div>
+    </div>
+    <script>
+        var collapse = new wncollapse();
+        collapse.remove = '#collapse-container-1>.alert';
+        collapse.targetmode = 'show';
+
+        function toggle(e) {
+            collapse.target = e;
+            collapse.collapse();
+        }
+    </script>
+</div>
+<figure><code data-on="exp5"></code></figure>

@@ -1,0 +1,156 @@
+﻿@page
+@model WidgetNas.Pages.Components.BreadcrumbModel
+@{
+    ViewData["Title"] = "تکه ها Bread crumb";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>میخواهید یک آدرس یا مسیری را تکه تکه نشان دهید، یا آدرس صفحه خود را معیین کنید، از گزینه تکه ها استفاده کنید.</p>
+<h2>مثال</h2>
+<p>از یک نوع لیست برای نمایش تکه ها استفاده کنید.</p>
+<div class="example-div" >
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="active">Home</li>
+            </ol>
+        </nav>
+
+        <nav>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Library</li>
+            </ol>
+        </nav>
+
+        <nav>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ol>
+        </nav>
+
+        <nav>
+            <ol class="breadcrumb brdc-dash">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ol>
+        </nav>
+        <nav>
+            <ol class="breadcrumb brdc-colon">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="active">خانه</li>
+            </ol>
+        </nav>
+
+        <nav>
+            <ol class="breadcrumb">
+                <li><a href="#">خانه</a></li>
+                <li class="active">کتابخانه</li>
+            </ol>
+        </nav>
+
+        <nav>
+            <ol class="breadcrumb">
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">کتابخانه</a></li>
+                <li class="active">اطلاعات</li>
+            </ol>
+        </nav>
+
+        <nav>
+            <ol class="breadcrumb brdc-dash">
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">کتابخانه</a></li>
+                <li class="active">اطلاعات</li>
+            </ol>
+        </nav>
+        <nav>
+            <ol class="breadcrumb brdc-colon">
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">کتابخانه</a></li>
+                <li class="active">اطلاعات</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+<h2>علامت فاصله گذار</h2>
+<p>همانطور که در بالا دو نمونه کلاس brdc-dash و brdc-colon برای درج خط تیره و دو نقطه پیاده سازی شده است، شما میتوانید با مقدار دهی متغییر <span class="bidi-override">--breadcrumb-divider</span> هر متنی را جایگزین کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <nav>
+            <ol class="breadcrumb" style="--breadcrumb-divider:'>';">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ol>
+        </nav>
+        <nav>
+            <ol class="breadcrumb" style="--breadcrumb-divider: '►';">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav>
+            <ol class="breadcrumb" style="--breadcrumb-divider:'>';">
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">کتابخانه</a></li>
+                <li class="active">اطلاعات</li>
+            </ol>
+        </nav>
+        <nav>
+            <ol class="breadcrumb" style="--breadcrumb-divider: '◄'; ">
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">کتابخانه</a></li>
+                <li class="active">اطلاعات</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<p>همچنین شما میتوانید از تصویر ساخته شده برای نمایش استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <nav>
+            <ol class="breadcrumb" style="--breadcrumb-divider:url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='red'/%3E%3C/svg%3E&#34;);">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="active">Data</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <nav>
+            <ol class="breadcrumb" style="--breadcrumb-divider:url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='red'/%3E%3C/svg%3E&#34;);">
+                <li><a href="#">خانه</a></li>
+                <li><a href="#">کتابخانه</a></li>
+                <li class="active">اطلاعات</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<div class="alert info callout-start">
+    توجه داشته باشید، در صورت استفاده از کاراکترهای خاص و یا تصویر، موردی درست نسبت به جهت چینش راست به چپ و چپ به راست انتخاب کنید.
+</div> 

@@ -1,0 +1,121 @@
+﻿@page
+@model WidgetNas.Pages.Content.SizeModel
+@{
+    ViewData["Title"] = "اندازه ها";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>سعی شده است یکسری اندازه به صورت پیش فرض در این فریم ورک قرار داده شود و تمامی موضوعات از این اندازه ها ارث بری کنند و یک همانند سازی اندازه ای بین همه اجزا برقرار باشد.</p>
+<h2>اندازه های وصفی</h2>
+<p>همانند انتخاب لباس که هر اندازه یک نام دارد در این جا نیز از این قانون استفاده شده ا ست. در زیر لیست اسامی و مقدار آنها نمایش داده میشود.</p>
+<p>شما میتوانید یکی از اندازه ها را به عبارت شروعی <span class="bidi-override">s-?</span> اضافه کنید. مانند <span class="bidi-override">s-xl</span></p>
+<table class="w-auto va-middle">
+    <tr><td class="ltr primary-text">xs</td><td>0.4</td><td class="s-xs"><label>متن آزمایشی</label></td></tr>
+    <tr><td class="ltr primary-text">s</td><td>0.6</td><td class="s-s"><label>متن آزمایشی</label></td></tr>
+    <tr><td class="ltr primary-text">m</td><td>0.8</td><td class="s-m"><label>متن آزمایشی</label></td></tr>
+    <tr><td class="ltr primary-text">n</td><td>1</td><td class="s-n"><label>متن آزمایشی</label></td></tr>
+    <tr><td class="ltr primary-text">l</td><td>1.2</td><td class="s-l"><label>متن آزمایشی</label></td></tr>
+    <tr><td class="ltr primary-text">xl</td><td>1.4</td><td class="s-xl"><label>متن آزمایشی</label></td></tr>
+    <tr><td class="ltr primary-text">xxl</td><td>1.6</td><td class="s-xxl"><label>متن آزمایشی</label></td></tr>
+    <tr><td class="ltr primary-text">xxxl</td><td>2</td><td class="s-xxxl"><label>متن آزمایشی</label></td></tr>
+</table>
+<p>این اندازه ها برای هر موضوعی یکسری موارد خاص را تغییر میدهد. برای مثال برای قلم ها اندازه قلم ولی برای دکمه ها اندازه قلم، اندازه دکمه و حتی شعاع خمیدگی دکمه را تعیین خواهد کرد.</p>
+<h2>اندازه های دقیق</h2>
+<p>این اندازه ها به صورت ترکیبی با یک کلاس دیگر آورده میشود، و به مقداری که گفته شده است، آن خصوصیت را تغییر خواهد داد.</p>
+<table class="w-auto">
+    <tr><td class="ltr primary-text">a</td><td>auto</td></tr>
+    <tr><td class="ltr primary-text">n</td><td>normal</td></tr>
+    <tr><td class="ltr primary-text">0</td><td>0</td></tr>
+    <tr><td class="ltr primary-text">5x</td><td>5px</td></tr>
+    <tr><td class="ltr primary-text">10x</td><td>10px</td></tr>
+    <tr><td class="ltr primary-text">15x</td><td>15px</td></tr>
+    <tr><td class="ltr primary-text">20x</td><td>20px</td></tr>
+    <tr><td class="ltr primary-text">25r</td><td>0.25rem</td></tr>
+    <tr><td class="ltr primary-text">50r</td><td>0.5rem</td></tr>
+    <tr><td class="ltr primary-text">75r</td><td>0.75rem</td></tr>
+    <tr><td class="ltr primary-text">80r</td><td>0.8rem</td></tr>
+    <tr><td class="ltr primary-text">90r</td><td>0.9rem</td></tr>
+    <tr><td class="ltr primary-text">100r</td><td>1rem</td></tr>
+    <tr><td class="ltr primary-text">110r</td><td>1.1rem</td></tr>
+    <tr><td class="ltr primary-text">120r</td><td>1.2rem</td></tr>
+    <tr><td class="ltr primary-text">130r</td><td>1.3rem</td></tr>
+    <tr><td class="ltr primary-text">140r</td><td>1.4rem</td></tr>
+    <tr><td class="ltr primary-text">150r</td><td>1.5rem</td></tr>
+    <tr><td class="ltr primary-text">200r</td><td>2rem</td></tr>
+    <tr><td class="ltr primary-text">250r</td><td>2.5rem</td></tr>
+    <tr><td class="ltr primary-text">25e</td><td>0.25em</td></tr>
+    <tr><td class="ltr primary-text">50e</td><td>0.5em</td></tr>
+    <tr><td class="ltr primary-text">75e</td><td>0.75em</td></tr>
+    <tr><td class="ltr primary-text">80e</td><td>0.8em</td></tr>
+    <tr><td class="ltr primary-text">90e</td><td>0.9em</td></tr>
+    <tr><td class="ltr primary-text">100e</td><td>1em</td></tr>
+    <tr><td class="ltr primary-text">110e</td><td>1.1em</td></tr>
+    <tr><td class="ltr primary-text">120e</td><td>1.2em</td></tr>
+    <tr><td class="ltr primary-text">130e</td><td>1.3em</td></tr>
+    <tr><td class="ltr primary-text">140e</td><td>1.4em</td></tr>
+    <tr><td class="ltr primary-text">150e</td><td>1.5em</td></tr>
+    <tr><td class="ltr primary-text">200e</td><td>2em</td></tr>
+    <tr><td class="ltr primary-text">250e</td><td>2.5em</td></tr>
+</table>
+<p>
+    مقادیر اضافی بدین صورت است:<br />
+    10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 275, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000
+</p>
+<p>مقدار a و n برای خصوصیاتی است که از مقدارهای auto و normal استفاده میکنند، مانند marigin: auto. بقیه مقادیر، دقیقا مقدار گفته شده جلوی آن خصوصیت آورده خواهد شد.</p>
+<p>برای مثال کلاس lh-n مقدار line-height: normal و کلاس lh-150r مقدار line-height: 1.5rem را تنظیم خواهد کرد.</p>
+<h2>فاصله ها بیرونی</h2>
+<p>برای تعیین فاصله بیرونی margin دلخواه از کلاس زیر استفاده کنید.</p>
+<p>کلاس <span class="bidi-override">m-?</span> به همراه گزینه های اندازه دقیق قابل مقداردهی میباشند</p>
+<table class="w-auto">
+    <tr><td class="ltr primary-text">m</td><td>margin</td><td>m-0</td><td>margin:0</td><td>فاصله دور تا دور</td></tr>
+    <tr><td colspan="2"><td>m-100e</td><td>margin:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>m-50r</td><td>margin:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">m-b</td><td>margin-block</td><td>m-b-0</td><td>margin-block:0</td><td>فاصله بالا و پایین</td></tr>
+    <tr><td colspan="2"><td>m-b-100e</td><td>margin-block:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>m-b-50r</td><td>margin-block:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">m-bs</td><td>margin-block-start</td><td>m-bs-0</td><td>margin-block-start:0</td><td>فاصله بالا</td></tr>
+    <tr><td colspan="2"><td>m-bs-100e</td><td>margin-block-start:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>m-bs-50r</td><td>margin-block-start:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">m-be</td><td>margin-block-end</td><td>m-be-0</td><td>margin-block-end:0</td><td>فاصله پایین</td></tr>
+    <tr><td colspan="2"><td>m-be-100e</td><td>margin-block-end:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>m-be-50r</td><td>margin-block-end:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">m-i</td><td>margin-inline</td><td>m-i-0</td><td>margin-inline:0</td><td>فاصله شروع و انتها، چپ و راست</td></tr>
+    <tr><td colspan="2"><td>m-i-100e</td><td>margin-inline:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>m-i-50r</td><td>margin-inline:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">m-is</td><td>margin-inline-start</td><td>m-bs-0</td><td>margin-inline-start:0</td><td>بر اساس direction، چپ به راست، مقدار چپ، و راست به چپ، مقدار راست</td></tr>
+    <tr><td colspan="2"><td>m-is-100e</td><td>margin-inline-start:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>m-is-50r</td><td>margin-inline-start:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text m">m-ie</td><td>margin-inline-end</td><td>m-be-0</td><td>margin-inline-end:0</td><td>بر اساس direction، چپ به راست، مقدار راست، و راست به چپ، مقدار چپ</td></tr>
+    <tr><td colspan="2"><td>m-ie-100e</td><td>margin-inline-end:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>m-ie-50r</td><td>margin-inline-end:0.5rem</td><td></td></tr>
+</table>
+<h2>فاصله ها درونی</h2>
+<p>برای تعیین فاصله درونی padding دلخواه از کلاس زیر استفاده کنید.</p>
+<p>کلاس <span class="bidi-override">p-?</span> به همراه گزینه های اندازه دقیق قابل مقداردهی میباشند</p>
+<table class="w-auto">
+    <tr><td class="ltr primary-text">p</td><td>padding</td><td>m-0</td><td>padding:0</td><td>فاصله دور تا دور</td></tr>
+    <tr><td colspan="2"><td>p-100e</td><td>padding:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>p-50r</td><td>padding:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">p-b</td><td>padding-block</td><td>m-b-0</td><td>padding-block:0</td><td>فاصله بالا و پایین</td></tr>
+    <tr><td colspan="2"><td>p-b-100e</td><td>padding-block:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>p-b-50r</td><td>padding-block:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">p-bs</td><td>padding-block-start</td><td>m-bs-0</td><td>padding-block-start:0</td><td>فاصله بالا</td></tr>
+    <tr><td colspan="2"><td>p-bs-100e</td><td>padding-block-start:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>p-bs-50r</td><td>padding-block-start:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">p-be</td><td>padding-block-end</td><td>m-be-0</td><td>padding-block-end:0</td><td>فاصله پایین</td></tr>
+    <tr><td colspan="2"><td>p-be-100e</td><td>padding-block-end:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>p-be-50r</td><td>padding-block-end:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">p-i</td><td>padding-inline</td><td>m-i-0</td><td>padding-inline:0</td><td>فاصله شروع و انتها، چپ و راست</td></tr>
+    <tr><td colspan="2"><td>p-i-100e</td><td>padding-inline:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>p-i-50r</td><td>padding-inline:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text">p-is</td><td>padding-inline-start</td><td>m-bs-0</td><td>padding-inline-start:0</td><td>بر اساس direction، چپ به راست، مقدار چپ، و راست به چپ، مقدار راست</td></tr>
+    <tr><td colspan="2"><td>p-is-100e</td><td>padding-inline-start:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>p-is-50r</td><td>padding-inline-start:0.5rem</td><td></td></tr>
+    <tr><td class="ltr primary-text m">p-ie</td><td>padding-inline-end</td><td>m-be-0</td><td>padding-inline-end:0</td><td>بر اساس direction، چپ به راست، مقدار راست، و راست به چپ، مقدار چپ</td></tr>
+    <tr><td colspan="2"><td>p-ie-100e</td><td>padding-inline-end:1em</td><td></td></tr>
+    <tr><td colspan="2"><td>p-ie-50r</td><td>padding-inline-end:0.5rem</td><td></td></tr>
+</table>
+<h2>فاصله بین ستونی</h2>
+<p>برای تعیین بین ستونی در grid و تعیین g دلخواه از کلاس زیر استفاده کنید.</p>
+<p>کلاس <bidi>g-b-?</bidi> و <bidi>g-i-?</bidi> به همراه گزینه های اندازه دقیق قابل مقداردهی میباشند</p>
+<p>برای اطلاع بیشتر به بخش <a href="/Layout/Grid">سیستم توری</a> مراجعه کنید.</p>

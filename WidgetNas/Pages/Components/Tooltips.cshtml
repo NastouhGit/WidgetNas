@@ -1,0 +1,488 @@
+﻿@page
+@model WidgetNas.Pages.Components.TooltipsModel
+@{
+    ViewData["Title"] = "نمایش نکته Tooltip";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    در محیط وب و مخصوصا فرمها، نمایش نکات توضیحی برای موضوعی استفاده زیاد دارد، برای مثال یک برچسب بعنوان نام تنظیم شده است، با قرار گرفتن نشانه گر
+    مویس بر روی آن توضیح اضافی در این خصوص میدهد، برای مثال نام کوچک.
+</p>
+<p>برای نمایش انواع مختلف به مثالهای زیر توجه کنید.</p>
+
+<h2>انواع و جهت های اشاره گر</h2>
+<p>در زیر انواع نمایش نکته ها به همراه جهت نمایش اشاره گر آورده شده است که بر اساس نوع انتخاب میتوانید، تنظیم کنید.</p>
+<p>برای ساخت یک الگو برای نمایش نکته یک div با کلاس <bidi>tooltip</bidi> نیاز است، این حداقل است، متن مورد نظر درون div نوشته شود.</p>
+<p>
+    اگر میخواهید نکته شما فلش داشته باشد، بر اساس جهت فلش یکی از کلاسهای مرتبط را اضافه کنید،<br />
+    برای پایین <bidi>tooltip-arrow-bottom</bidi><br />
+    برای بالا <bidi>tooltip-arrow-top</bidi><br />
+    برای شروع <bidi>tooltip-arrow-start</bidi><br />
+    برای انتها <bidi>tooltip-arrow-end</bidi><br />
+    اگر میخواهید نشانگر وسط نباشد یا ابتدای کادر یا انتهای کادر باشد، یکی از موارد زیر را نیز علاوه بر جهت گفته شده اضافه کنید.<br />
+    برای ابتدا افقی <bidi>tooltip-arrow-horizontal-start</bidi><br />
+    برای انتهای افقی <bidi>tooltip-arrow-horizontal-end</bidi><br />
+    برای ابتدا عمودی <bidi>tooltip-arrow-vertical-start</bidi><br />
+    برای انتهای عمودی <bidi>tooltip-arrow-vertical-end</bidi><br />
+</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip p-relative show">
+                This is body, you write anything here!
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip p-relative show">
+                <div class="tooltip-header">Header</div>
+                <div class="tooltip-body">This is body, you write anything here!</div>
+                <div class="tooltip-footer">Footer</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show">
+                Arrow Bottom
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom tooltip-arrow-horizontal-start p-relative show">
+                Arrow bottom with horizontal start
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom tooltip-arrow-horizontal-end p-relative show">
+                Arrow bottom with horizontal end
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-top p-relative show">
+                Arrow Top
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-start p-relative show">
+                Arrow start
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-end p-relative show">
+                Arrow end
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-start tooltip-arrow-vertical-start p-relative show">
+                <div class="tooltip-header">Header</div>
+                <div class="tooltip-body">Arrow start with vertical start</div>
+                <div class="tooltip-footer">Footer</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-start tooltip-arrow-vertical-end p-relative show">
+                <div class="tooltip-header">Header</div>
+                <div class="tooltip-body">Arrow start with vertical end</div>
+                <div class="tooltip-footer">Footer</div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip p-relative show">
+                این یک متن تستی برای نمایش نکته است!
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip p-relative show">
+                <div class="tooltip-header">عنوان</div>
+                <div class="tooltip-body">اینجا بدنه است، هر چیزی میتوانید بنویسید!</div>
+                <div class="tooltip-footer">پانوشت</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show">
+                نشانگر پایین
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom tooltip-arrow-horizontal-start p-relative show">
+                نشانگر پایین جهت شروع افقی
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom tooltip-arrow-horizontal-end p-relative show">
+                نشانگر پایین جهت انتهای افقی
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-top p-relative show">
+                نشانگر بالا
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-start p-relative show">
+                نشانگر شروع
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-end p-relative show">
+                نشانگر انتها
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-start tooltip-arrow-vertical-start p-relative show">
+                <div class="tooltip-header">عنوان</div>
+                <div class="tooltip-body">نشانگر شروع جهت شروع عمودی</div>
+                <div class="tooltip-footer">پانوشت</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-start tooltip-arrow-vertical-end p-relative show">
+                <div class="tooltip-header">عنوان</div>
+                <div class="tooltip-body">نشانگر شروع جهت انتهای عمودی</div>
+                <div class="tooltip-footer">پانوشت</div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h1>نمایش پیش رفته</h1>
+<p>
+    اگر میخواهید اطلاعات بیشتری نمایش دهید، یا موارد خاص در آن داشته باشید، میتوانید از چند بخش زیر استفاده کنید.
+</p>
+<p>
+    برای عنوان، یک div با کلاس <bidi>tooltip-header</bidi> درون tooltip اضافه کنید، و درون آن مواردی که مد نظر است را قرار دهید.
+</p>
+<p>
+    برای پانوشت، یک div با کلاس <bidi>tooltip-footer</bidi> درون tooltip اضافه کنید، و درون آن مواردی که مد نظر است را قرار دهید.
+</p>
+<p>
+    اگر از عنوان یا پنوشت استفاده کردید، برای درج اطلاعات در بدنه، یک div با کلاس <bidi>tooltip-body</bidi> درون tooltip اضافه کنید، و درون آن مواردی که مد نظر است را قرار دهید.
+</p>
+<p>توجه داشته باشید ترتیب اضافه کردن عنوان، بدنه، پانوشت رعایت شود.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show" id="form2">
+                <div class="tooltip-header">Alert!</div>
+                <div class="tooltip-body">What do you want to do?</div>
+                <div class="tooltip-footer s-m">
+                    <button class="success"><span class="fa fa-thumbs-up"></span></button>
+                    Click One!
+                    <button class="error"><span class="fa fa-thumbs-down"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show">
+                <div class="tooltip-header">توجه!</div>
+                <div class="tooltip-body">چکار میخواهید بکنید؟</div>
+                <div class="tooltip-footer s-m">
+                    <button class="success"><span class="fa fa-thumbs-up"></span></button>
+                    یکی را کلیک کنید!
+                    <button class="error"><span class="fa fa-thumbs-down"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h1>سیستم رنگ بندی و اندازه</h1>
+<p>
+    این موضوع نیز همانند بقیه موضوعات از سیستم رنگ و اندازه پشتیبانی میکند.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show primary">
+                <div class="tooltip-header">Header</div>
+                <div class="tooltip-body">This is body, you write anything here!</div>
+                <div class="tooltip-footer">Footer</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show secondary">
+                <div class="tooltip-header">Header</div>
+                <div class="tooltip-body">This is body, you write anything here!</div>
+                <div class="tooltip-footer">Footer</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show s-s">
+                <div class="tooltip-header">Header</div>
+                <div class="tooltip-body">This is body, you write anything here!</div>
+                <div class="tooltip-footer">Footer</div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show primary">
+                <div class="tooltip-header">عنوان</div>
+                <div class="tooltip-body">اینجا بدنه است، هر چیزی میتوانید بنویسید!</div>
+                <div class="tooltip-footer">پانوشت</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show secondary">
+                <div class="tooltip-header">عنوان</div>
+                <div class="tooltip-body">اینجا بدنه است، هر چیزی میتوانید بنویسید!</div>
+                <div class="tooltip-footer">پانوشت</div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <div class="tooltip tooltip-arrow-bottom p-relative show s-s">
+                <div class="tooltip-header">عنوان</div>
+                <div class="tooltip-body">اینجا بدنه است، هر چیزی میتوانید بنویسید!</div>
+                <div class="tooltip-footer">پانوشت</div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h1>نحوه استفاده</h1>
+<p>
+    برای نسبت دادن نکته به موضوعی، دو راه است که در زیر به آنها اشاره میکنیم.
+</p>
+<p>
+    <strong>نمایش متن</strong><br />
+    برای نمایش یک متن، کافیست بر روی موضوع مورد نظر، یک خصوصیت به اسم <bidi>wn-tooltip</bidi> اضافه کرد و متن مورد نظر را درون آن نوشت.<br />
+    اگر میخواهید، کمی شکل و شمایل را تغییر دهید، میتوانید از خصوصیت <bidi>wn-tooltip-class</bidi> استفاده کنید، سیستم همه این کلاسها را به کلاس هایی که به صورت خودکار ایجاد نموده اضافه میکند.
+</p>
+<p>
+    <strong>نمایش الگو</strong><br />
+    برای نمایش یک الگو، کافیست بر روی موضوع مورد نظر، یک خصوصیت به اسم <bidi>wn-tooltip</bidi> اضافه کرد و id موضوعی که در آن tooltip تعریف شده را نوشت.
+</p>
+<h2>تنظیمات</h2>
+<p>
+    <strong>wn-tooltip-events</strong><br />
+    اگر میخواهید در رخداد خاصی، نمایش نکته فعال شود، آن رخداد ها را با جدا کردن <bidi>,</bidi> از هم معرفی کنید.
+</p>
+<p>
+    <strong>wn-tooltip-events-lost</strong><br />
+    زمانیکه به صورت دستی، مشخص کردید، در چه رخدادهایی نکته نمایش داده شود، باید در این خصوصیت نیز مشخص کنید، در چه رخدادهایی
+    نکته مخفی گردد. برای همین منظور رخدادها را مانند خصوصیت قبلی معرفی کنید.
+</p>
+<p>
+    در صورتیکه طی دو خصوصیت بالا، شما هیچ رخدادی را مشخص نکردید، سیستم به طور خودکار، مقدار
+    <bidi>wn-tooltip-events = "mouseenter"</bidi> و <bidi>wn-tooltip-events-lost = "mouseleave"</bidi> را تنظیم میکند.
+</p>
+<p>
+    <strong>wn-tooltip-nolost</strong><br />
+    اگر میخواهید به صورت پیش فرض مقدار <bidi>wn-tooltip-events-lost = "mouseleave"</bidi> تنظیم نشود، از این خصوصیت استفاده کنید.
+</p>
+<p>
+    <strong>wn-tooltip-delay</strong><br />
+    بعد از رخداد نمایش، زمانی صبر میکند و سپس نکته نمایش داده میشود، این زمان به صورت پیش فرض 500 میلی ثانیه است، اگر میخواهید این زمان را تغییر دهید،
+    آنرا در این خصوصیت و به میلی ثانیه وارد کنید. <bidi>wn-tooltip-delay = "750"</bidi>
+</p>
+<p>
+    <strong>wn-tooltip-hideafter</strong><br />
+    پس از آنکه نکته نمایش داده شد، 3000 میلی ثانیه یا 3 ثانیه صبر میکند و سپس نکته را مخفی میکند،
+    اگر میخواهید این زمان را تغییر دهید، آنرا در این خصوصیت و به میلی ثانیه وارد کنید. توجه داشته باشید، مقدار صفر به معنی عدم مخفی کردن است.<br />
+    <bidi>wn-tooltip-hideafter = "4000"</bidi>
+</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r" id="form4">
+            <label wn-tooltip="Sample Tooltip On Label">Check this tooltip</label>
+            <input wn-tooltip="tooltip1_ltr" />
+            <div id="tooltip1_ltr" class="tooltip tooltip-arrow-bottom error">
+                <div class="tooltip-header">Header</div>
+                <div class="tooltip-body">This is body, you write anything here!</div>
+                <div class="tooltip-footer">Footer</div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <label wn-tooltip="این یک نکته است">نکته این را ببینید</label>
+            <input wn-tooltip="tooltip1_rtl" />
+            <div id="tooltip1_rtl" class="tooltip tooltip-arrow-bottom error">
+                <div class="tooltip-header">عنوان</div>
+                <div class="tooltip-body">اینجا بدنه است، هر چیزی میتوانید بنویسید!</div>
+                <div class="tooltip-footer">پانوشت</div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>مثال پیشرفته</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r" id="form5">
+            <input wn-tooltip="tooltip2_ltr" wn-tooltip-hideafter="0" wn-tooltip-nolost />
+            <div id="tooltip2_ltr" class="tooltip tooltip-arrow-bottom info">
+                <div class="tooltip-header">
+                    <button wn-type="closebutton" class="close" target="#tooltip2_ltr" remove-class="show"></button>
+                    Fill form
+                </div>
+                <div class="tooltip-body s-m">
+                    <div>
+                        <label>First Name:</label><input />
+                    </div>
+                    <div>
+                        <label>Last Name:</label><input />
+                    </div>
+                    <div class="button-group">
+                        <input type="radio" name="feedback1_ltr" />
+                        <label class="button success">Good</label>
+                        <input type="radio" name="feedback1_ltr" />
+                        <label class="button warning">Normal</label>
+                        <input type="radio" name="feedback1_ltr" />
+                        <label class="button error">Bad</label>
+                    </div>
+                </div>
+                <div class="tooltip-footer">
+                    <button class="primary s-m">Send Feedback</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <input wn-tooltip="tooltip2_rtl" wn-tooltip-hideafter="0" wn-tooltip-nolost />
+            <div id="tooltip2_rtl" class="tooltip tooltip-arrow-bottom info">
+                <div class="tooltip-header">
+                    <button wn-type="closebutton" class="close" target="#tooltip2_rtl" remove-class="show"></button>
+                    فرم را پر کنید
+                </div>
+                <div class="tooltip-body s-m">
+                    <div>
+                        <label>نام:</label><input />
+                    </div>
+                    <div>
+                        <label>نام خانوادگی:</label><input />
+                    </div>
+                    <div class="button-group">
+                        <input type="radio" name="feedback1_rtl" />
+                        <label class="button success">خوب</label>
+                        <input type="radio" name="feedback1_rtl" />
+                        <label class="button warning">عادی</label>
+                        <input type="radio" name="feedback1_rtl" />
+                        <label class="button error">بد</label>
+                    </div>
+                </div>
+                <div class="tooltip-footer">
+                    <button class="primary s-m">ارسال نظر</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h1>جاوا اسکریپت</h1>
+<p>
+    شما میتوانید با استفاده از فراخوان های جاوا اسکریپت، این نکته ها را نمایش یا مخفی کنید.<br />
+    توابع زیر به شما کمک میکنند تا در امر خود موفق شوید.
+</p>
+<p>
+    <strong>delay</strong><br />
+    تنظیم این خصوصیت، باعث تنظیم دیر نمایش دادن نکته در زمان اتفاق رخداد نمایش میشود.
+</p>
+<p>
+    <strong>hideafter</strong><br />
+    تنظیم این خصوصیت، زمان مخفی شدن خودکار پس از نمایش نکته را به شما میدهد.
+</p>
+<p>
+    <strong>tooltipclass</strong><br />
+    تنظیم این خصوصیت، کلاسهای اضافه برای ساخت خودکار نکته را تعیین میکند.
+</p>
+<p>
+    <strong>target</strong><br />
+    نام id موضوعی است که باید به صورت نکته نمایش داده شود. این گزینه همانند نوشتن id در خصوصت wn-tooltip است.
+</p>
+<p>
+    <strong>events</strong><br />
+    لیست رخدادهایی که اگر اتفاق افتادند، عمل نمایش نکته شروع شود.
+</p>
+<p>
+    <strong>lostevents</strong><br />
+    لیست رخدادهایی که اگر اتفاق افتادند، عمل مخفی کردن نکته اتفاق افتد.
+</p>
+<p>
+    <strong>show</strong><br />
+    با فراخوانی این متد، نکته نمایش داده میشود.
+</p>
+<p>
+    <strong>autoshow</strong><br />
+    با فراخوانی این متد، عمل نمایش نکته شروع میشود.
+</p>
+<p>
+    <strong>hide</strong><br />
+    با فراخوانی این متد، عمل مخفی کردن نکته آغاز میگردد.
+</p>
+
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="tip.hide()">Hide</button>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="ShowTip(this,'top')">Show On Bottom</button>
+            <button class="primary" onclick="ShowTip(this,'bottom')">Show On Top</button>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="ShowTip(this,'end')">Show On End</button>
+            <button class="primary" onclick="ShowTip(this,'start')">Show On Start</button>
+        </div>
+        <div id="tooltip_js" class="tooltip white">
+            <div class="tooltip-header">Header of tip</div>
+            <div class="tooltip-body">Some text can be come here!</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="tiprtl.hide()">مخفی کردن</button>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="ShowTipRtl(this,'top')">نمایش پایین</button>
+            <button class="primary" onclick="ShowTipRtl(this,'bottom')">نمایش بالا</button>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="ShowTipRtl(this,'end')">نمایش انتها</button>
+            <button class="primary" onclick="ShowTipRtl(this,'start')">نمایش ابتدا</button>
+        </div>
+        <div id="tooltip_jsRtl" class="tooltip white">
+            <div class="tooltip-header">عنوان تیپ</div>
+            <div class="tooltip-body">هر متنی میتواند اینجا باشد.</div>
+        </div>
+    </div>
+    <script>
+        let tip = new wntooltip();
+        tip.delay = 0;
+        tip.target = document.getElementById("tooltip_js");
+
+        let tiprtl = new wntooltip();
+        tiprtl.delay = 0;
+        tiprtl.target = document.getElementById("tooltip_jsRtl");
+
+        function ShowTip(elem, pos) {
+            tip.hide();
+            tip.element = elem;
+            tip.tooltipclass = 'tooltip-arrow-' + pos;
+            tip.autoshow();
+        }
+        function ShowTipRtl(elem, pos) {
+            tiprtl.hide();
+            tiprtl.element = elem;
+            tiprtl.tooltipclass = 'tooltip-arrow-' + pos;
+            tiprtl.autoshow();
+        }
+    </script>
+</div>
+<figure><code data-on="form6"></code></figure>

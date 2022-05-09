@@ -1,0 +1,622 @@
+﻿@page
+@model WidgetNas.Pages.Content.NormalizationModel
+@{
+    ViewData["Title"] = "عادی سازی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>عادی سازی، برای هماهنگ کردن کلیه تگها و موضوعات پایه است.</p>
+<p>در اینجا دستور العمل ها و مواردی که انتخاب کردیم آورده شده است.</p>
+<ul>
+    <li>اکثر اعداد بر اساس مقادرهای پایه و نسبی به صورت rem و em انتخاب شده است.</li>
+    <li>سعی کنید از استفاده حاشیه ها خود داری کنید، وقتی اندازه صفحه تغییر میکند ممکن است با جابجایی موضوعات، شکل به درستی نمایش داده نشود.</li>
+    <li>برای مدیریت بهتر اندازه ها، بهتر است از مقادیر rem استفاده کنید.</li>
+    <li>سعی کنید، در صورت امکان، نوع قلم را تغییر ندهید و از مقادیر inherit استفاده کنید.</li>
+</ul>
+
+<h2>پیش فرض های صفحه</h2>
+
+<p>تنظیمات مربوط به  <b>&lt;html&gt;</b> و <b>&lt;body&gt;</b> به روز شده و برای صفحات گسترده تر بهتر شده است. مخصوصا::</p>
+
+<ul>
+    <li>نظیمات <b>box-sizing</b> برای تمامی موضوعات صفحه به صورت <b>*::before</b> و <b>*::after</b>، برای <b>border-box</b>. این باعث میشود، تا حاشیه های کناری به درستی نمایش داده شوند و دستخوش تغییرات نگردند.</li>
+    <li>اندازه قلم پیش فرضی تعریف نشده است ولیکن از <b>font-size</b> تعریف شده در <b>&lt;html&gt;</b> به اندازه <b>16px</b> که توسط مرورگر تنظیم شده است استفاده میشود. مقدار <b>font-size: 1rem</b> برای تثبیت اندازه ها در <b>&lt;body&gt;</b> استفاده شده تا در صفحات واکنش گرا به درستی تبادل اندازه شود.</li>
+    <li>تنظیمات بر اساس یکسان سازی تم های راست به چپ و چپ به راست تنظیم شده است، به دلیل آنکه کاربران معمولا از مرورگرهای خاص Firefox و Chrome استفاده میکنندو تقریبا این مرورگرها از تنظیمات مرتبط w3 بدرستی پشتیبانی میکنند، لذا طراحی بر اساس این دو مرورگر انجام شده است و مقادیر left به start و right به end تبدیل شده است. برای اطلاعات بیشتر میتوانید <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-start" target="_blank">اینجا</a> را بخوانید.</li>
+</ul>
+
+<h2>تیترها و پاراگراف ها</h2>
+
+<p>در تمامی <code class="html ht">&lt;h1&gt;</code> و <code class="html ht">&lt;p&gt;</code> مقدار <code class="html ha">margin-block-start</code> حذف شده است. تیترها <code class="html ht">margin-block-end: var(--margin-block)</code> اضافه شده و پاراگرافها <code class="html ha">margin-block-end: var(--margin-block)</code> برای بهبود فاصله ها قرار داده شده است.</p>
+
+<div class="example-div">
+    <div class="wn-mf5x">
+        <h3>LTR</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Heading</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h1&gt;&lt;/h1&gt;</code></p>
+                    </td>
+                    <td><span class="h1">h1. Bootstrap heading</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h2&gt;&lt;/h2&gt;</code></p>
+                    </td>
+                    <td><span class="h2">h2. Bootstrap heading</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h3&gt;&lt;/h3&gt;</code></p>
+                    </td>
+                    <td><span class="h3">h3. Bootstrap heading</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h4&gt;&lt;/h4&gt;</code></p>
+                    </td>
+                    <td><span class="h4">h4. Bootstrap heading</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h5&gt;&lt;/h5&gt;</code></p>
+                    </td>
+                    <td><span class="h5">h5. Bootstrap heading</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h6&gt;&lt;/h6&gt;</code></p>
+                    </td>
+                    <td><span class="h6">h6. Bootstrap heading</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>تیتر</th>
+                    <th>مثال</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h1&gt;&lt;/h1&gt;</code></p>
+                    </td>
+                    <td><span class="h1">h1. سر تیتر</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h2&gt;&lt;/h2&gt;</code></p>
+                    </td>
+                    <td><span class="h2">h2. سر تیتر</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h3&gt;&lt;/h3&gt;</code></p>
+                    </td>
+                    <td><span class="h3">h3. سر تیتر</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h4&gt;&lt;/h4&gt;</code></p>
+                    </td>
+                    <td><span class="h4">h4. سر تیتر</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h5&gt;&lt;/h5&gt;</code></p>
+                    </td>
+                    <td><span class="h5">h5. سر تیتر</span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><code class="language-plaintext highlighter-rouge">&lt;h6&gt;&lt;/h6&gt;</code></p>
+                    </td>
+                    <td><span class="h6">h6. سر تیتر</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h2>لیستها</h2>
+
+<p>در تمامی لیستهای <code class="html ht">&lt;ul&gt;</code>، <code class="html ht">&lt;ol&gt;</code> و <code class="html ht">&lt;dl&gt;</code> مقدار <code class="html ha">margin-block-start</code> حذف شده و <code class="html ht">margin-block-end: var(--margin-block)</code> تنظیم شده است. لیستهای تو در تو دارای مقدار <code class="html ha">margin-block-end</code> نمیباشند.</p>
+
+<div class="example-div">
+    <div class="wn-mf5x">
+        <h3>LTR</h3>
+        <ul>
+            <li>Lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipiscing elit</li>
+            <li>Integer molestie lorem at massa</li>
+            <li>Facilisis in pretium nisl aliquet</li>
+            <li>
+                Nulla volutpat aliquam velit
+                <ul>
+                    <li>Phasellus iaculis neque</li>
+                    <li>Purus sodales ultricies</li>
+                    <li>Vestibulum laoreet porttitor sem</li>
+                    <li>Ac tristique libero volutpat at</li>
+                </ul>
+            </li>
+            <li>Faucibus porta lacus fringilla vel</li>
+            <li>Aenean sit amet erat nunc</li>
+            <li>Eget porttitor lorem</li>
+        </ul>
+        <ol>
+            <li>Lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipiscing elit</li>
+            <li>Integer molestie lorem at massa</li>
+            <li>Facilisis in pretium nisl aliquet</li>
+            <li>Nulla volutpat aliquam velit</li>
+            <li>Faucibus porta lacus fringilla vel</li>
+            <li>Aenean sit amet erat nunc</li>
+            <li>Eget porttitor lorem</li>
+        </ol>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ul>
+            <li>لورم ایپسوم متن ساختگی با تولید سادگی</li>
+            <li>نامفهوم از صنعت چاپ و با استفاده</li>
+            <li>از طراحان گرافیک است.</li>
+            <li>چاپگرها و متون بلکه روزنامه و مجله در ستون</li>
+            <li>
+                و سطرآنچنان که لازم است و برای شرایط
+                <ul>
+                    <li>فعلی تکنولوژی مورد نیاز و کاربردهای متنوع</li>
+                    <li>با هدف بهبود ابزارهای کاربردی می باشد.</li>
+                    <li>کتابهای زیادی در شصت و سه درصد گذشته</li>
+                    <li>حال و آینده شناخت فراوان جامعه</li>
+                </ul>
+            </li>
+            <li>و متخصصان را می طلبد تا با نرم افزارها</li>
+            <li>شناخت بیشتری را برای طراحان رایانه ای</li>
+            <li>علی الخصوص طراحان خلاقی و فرهنگ</li>
+        </ul>
+        <ol>
+            <li>لورم ایپسوم متن ساختگی با تولید سادگی</li>
+            <li>نامفهوم از صنعت چاپ و با استفاده</li>
+            <li>از طراحان گرافیک است.</li>
+            <li>چاپگرها و متون بلکه روزنامه و مجله در ستون</li>
+            <li>و سطرآنچنان که لازم است و برای شرایط</li>
+            <li>فعلی تکنولوژی مورد نیاز و کاربردهای متنوع</li>
+            <li>با هدف بهبود ابزارهای کاربردی می باشد.</li>
+            <li>کتابهای زیادی در شصت و سه درصد گذشته</li>
+        </ol>
+    </div>
+</div>
+
+<p>برای بهتر دیده شدن عنوان <code class="html ht">dt</code> پر رنگ شده است.</p>
+
+<div class="example-div">
+    <div class="wn-mf5x">
+        <h3>LTR</h3>
+        <dl>
+            <dt>Description lists</dt>
+            <dd>A description list is perfect for defining terms.</dd>
+            <dt>Euismod</dt>
+            <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem.</dd>
+            <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+            <dt>Malesuada porta</dt>
+            <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+        </dl>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <dl>
+            <dt>لورم ایپسوم متن ساختگی با تولید سادگی</dt>
+            <dd>نامفهوم از صنعت چاپ و با استفاده</dd>
+            <dt>از طراحان گرافیک است.</dt>
+            <dd>چاپگرها و متون بلکه روزنامه و مجله در ستون</dd>
+            <dd>و سطرآنچنان که لازم است و برای شرایط</dd>
+            <dt>فعلی تکنولوژی مورد نیاز و کاربردهای متنوع</dt>
+            <dd>با هدف بهبود ابزارهای کاربردی می باشد.</dd>
+        </dl>
+    </div>
+</div>
+
+<h2>متون فورمت شده</h2>
+
+<p>در موضوع <code class="html ht">&lt;pre&gt;</code> مقدار خصوصیت <code class="html ha">margin-block-start</code> حذف شده و اندازه آن به صورت rem تعیین گردیده است.</p>
+
+<div class="example-div">
+    <div class="wn-mf5x">
+        <h3>LTR</h3>
+        <pre>.example-element {
+  margin-block-end: 1rem;
+}
+</pre>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <pre>.example-element {
+  margin-block-end: 1rem;
+}
+</pre>
+    </div>
+</div>
+
+<h2>جداول</h2>
+
+<p>کلیه تنظیمات جداول تغییر کرده و کادرها، نحوه چینش متون و ... تعیین شده است. برای اطلاع بیشتر میتوانید به بخش <a href="~/Table">جداول</a> مراجعه کنید.</p>
+
+<div class="example-div">
+    <div class="wn-mf5x">
+        <h3>LTR</h3>
+        <table>
+            <caption>
+                This is an example table, and this is its caption to describe the contents.
+            </caption>
+            <thead>
+                <tr>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                </tr>
+                <tr>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                </tr>
+                <tr>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <caption>
+                این یک جدول مثال است ، و عنوان آن برای توصیف مطالب است.
+            </caption>
+            <thead>
+                <tr>
+                    <th>عنوان جدول</th>
+                    <th>عنوان جدول</th>
+                    <th>عنوان جدول</th>
+                    <th>عنوان جدول</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                </tr>
+                <tr>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                </tr>
+                <tr>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                    <td>سلول جدول</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h2>فرم</h2>
+
+<p>عناصر فرم مختلف هستند و تغییراتی ساده بر روی آنها اعمال شده است که برخی عبارتند از:</p>
+
+<ul>
+    <li><code class="html ht">&lt;fieldset&gt;</code> ها هیچ فضای خالی درون یا بیرون خود ندارند، پس به راحتی میتوانید از این تگ برای مدیریت ورودی ها استفاده کنید.</li>
+    <li><code class="html ht">&lt;legend&gt;</code> نیز مانند fieldsets دوباره تنظیم شده و تنظیمات مرتبط با قلم، فاصله ها بهبود پیدا کرده است.</li>
+    <li><code class="html ht">&lt;label&gt;</code> وضعیت نمایش آن به <code class="html ha">display: inline-block</code> تغییر پیدا کرده است.</li>
+    <li><code class="html ht">&lt;input&gt;</code>، <code class="html ht">&lt;select&gt;</code>، <code class="html ht">&lt;textarea&gt;</code> و <code class="html ht">&lt;button&gt;</code> بطور کلی تغییر کرده است.</li>
+    <li><code class="html ht">&lt;textarea&gt;</code> در صورتی که کاربر تمایل به بزرگ کردن آن را دارد، میتواند در جهت عمودی این عمل را انجام دهد، تا تداخلی با نقاط شکست در صفحه ایجاد نشود.</li>
+    <li><code class="html ht">&lt;button&gt;</code> و <code class="html ht">&lt;input&gt;</code> از نوع دکمه شکل نمایش گر مویس زمانی که غیر فعال نیست به <code class="html ha">cursor: pointer</code> تغییر پیدا کرده است.</li>
+</ul>
+
+<p>در زیر تغییرات گفته شده در بالا و تغییرات بیشتری که اشاره نشده را مشاهده خواهید کرد.</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form>
+            <fieldset>
+                <legend>Example legend</legend>
+
+                <p>
+                    <label for="input_ltr">Example input</label>
+                    <input type="text" id="input_ltr" placeholder="Example input">
+                </p>
+
+                <p>
+                    <label for="select_ltr">Example select</label>
+                    <select id="select_ltr">
+                        <option value="">Choose...</option>
+                        <optgroup label="Option group 1">
+                            <option value="">Option 1</option>
+                            <option value="">Option 2</option>
+                            <option value="">Option 3</option>
+                        </optgroup>
+                        <optgroup label="Option group 2">
+                            <option value="">Option 4</option>
+                            <option value="">Option 5</option>
+                            <option value="">Option 6</option>
+                        </optgroup>
+                    </select>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="checkbox" value="">
+                        Check this checkbox
+                    </label>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="radio" name="optionsRadios_ltr" id="optionsRadios1_ltr" value="option1" checked="">
+                        Option one is this and that
+                    </label>
+                    <label>
+                        <input type="radio" name="optionsRadios_ltr" id="optionsRadios2_ltr" value="option2">
+                        Option two is something else that's also super long to demonstrate the wrapping of these fancy form controls.
+                    </label>
+                    <label>
+                        <input type="radio" name="optionsRadios_ltr" id="optionsRadios3_ltr" value="option3" disabled="">
+                        Option three is disabled
+                    </label>
+                </p>
+
+                <p>
+                    <label for="textarea_ltr">Example textarea</label>
+                    <textarea id="textarea_ltr" rows="3"></textarea>
+                </p>
+
+                <p>
+                    <label for="date_ltr">Example date</label>
+                    <input type="date" id="date_ltr">
+                </p>
+
+                <p>
+                    <label for="time_ltr">Example time</label>
+                    <input type="time" id="time_ltr">
+                </p>
+
+                <p>
+                    <label for="output_ltr">Example output</label>
+                    <output name="result" id="output_ltr">100</output>
+                </p>
+
+                <p>
+                    <button type="submit">Button submit</button>
+                    <input type="submit" value="Input submit button">
+                    <input type="reset" value="Input reset button">
+                    <input type="button" value="Input button">
+                </p>
+
+                <p>
+                    <button type="submit" disabled="">Button submit</button>
+                    <input type="submit" value="Input submit button" disabled="">
+                    <input type="reset" value="Input reset button" disabled="">
+                    <input type="button" value="Input button" disabled="">
+                </p>
+            </fieldset>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <fieldset>
+                <legend>مثال توصیفی</legend>
+
+                <p>
+                    <label for="input_rtl">مثال ورودی</label>
+                    <input type="text" id="input_rtl" placeholder="مثال ورودی">
+                </p>
+
+                <p>
+                    <label for="select_rtl">مثال انتخاب</label>
+                    <select id="select_rtl">
+                        <option value="">انتخاب...</option>
+                        <optgroup label="گروه انتخاب 1 1">
+                            <option value="">گزیه 1</option>
+                            <option value="">گزیه 2</option>
+                            <option value="">گزیه 3</option>
+                        </optgroup>
+                        <optgroup label="گروه انتخاب 2">
+                            <option value="">گزیه 4</option>
+                            <option value="">گزیه 5</option>
+                            <option value="">گزیه 6</option>
+                        </optgroup>
+                    </select>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="checkbox" value="">
+                        این کادر انتخاب است
+                    </label>
+                </p>
+
+                <p>
+                    <label>
+                        <input type="radio" name="optionsRadios_rtl" id="optionsRadios1_rtl" value="option1" checked="">
+                        گزینه اول این و آن است
+                    </label>
+                    <label>
+                        <input type="radio" name="optionsRadios_rtl" id="optionsRadios2_rtl" value="option2">
+                        گزینه دو چیز دیگری است که نشان دادن بسته بندی این کنترلهای فرم فانتزی نیز بسیار طولانی است.
+                    </label>
+                    <label>
+                        <input type="radio" name="optionsRadios_rtl" id="optionsRadios3_rtl" value="option3" disabled="">
+                        گزینه سه غیرفعال است
+                    </label>
+                </p>
+
+                <p>
+                    <label for="textarea_rtl">مثال متن طولانی</label>
+                    <textarea id="textarea_rtl" rows="3"></textarea>
+                </p>
+
+                <p>
+                    <label for="date_rtl">مثال تاریخ</label>
+                    <input type="date" id="date_rtl">
+                </p>
+
+                <p>
+                    <label for="time_rtl">مثال زمان</label>
+                    <input type="time" id="time_rtl">
+                </p>
+
+                <p>
+                    <label for="output_rtl">مثال خروجی</label>
+                    <output name="result" id="output_rtl">100</output>
+                </p>
+
+                <p>
+                    <button type="submit">دکمه ارسال</button>
+                    <input type="submit" value="دکمه ارسال Input">
+                    <input type="reset" value="دکمه ریست Input">
+                    <input type="button" value="دکمه Input">
+                </p>
+
+                <p>
+                    <button type="submit" disabled="">دکمه ارسال</button>
+                    <input type="submit" value="دکمه ارسال Input" disabled="">
+                    <input type="reset" value="دکمه ریست Input" disabled="">
+                    <input type="button" value="دکمه Input" disabled="">
+                </p>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<h2>موضوعات مختلف</h2>
+
+<h3>آدرس</h3>
+
+<p>موضوع <code class="html ht">&lt;address&gt;</code> پیش فرضهای مرورگر را تغییر داده مانند نوع نمایش قلم و اندازه.</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <address>
+            <strong>Nastouh, Inc.</strong><br>
+            21 no, 13 Aban<br>
+            Tehran, Iran<br>
+            <abbr title="Phone">P:</abbr> (123) 456-7890
+        </address>
+
+        <address>
+            <strong>Full Name</strong><br>
+            <a href="mailto:first.last@example.com">first.last@example.com</a>
+        </address>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <address>
+            <strong>شرکت نستوه</strong><br>
+            ایران، تهران<br>
+            13 ابان، پلاک 21<br>
+            <abbr title="تلفن">ت:</abbr> <span class="bidi-override">(123) 456-7890</span>
+        </address>
+
+        <address>
+            <strong>نام کامل</strong><br>
+            <a href="mailto:first.last@example.com">first.last@example.com</a>
+        </address>
+    </div>
+</div>
+
+<h3>نقل قول</h3>
+
+<p>در این موضوع حاشیه ها تنظیم شده است.</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <blockquote>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+        </blockquote>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <blockquote>
+            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. </p>
+            <footer>کسی مشهور وجود دارد در <cite title="عنوان منبع">عنوان منبع</cite></footer>
+        </blockquote>
+    </div>
+</div>
+
+<h3>المانهای خطی</h3>
+
+<p>عنصر <code class="html ht">&lt;abbr&gt;</code> طوری تغییر داده شده که در بین متن قابل مشاهده باشد..</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        Nulla <abbr title="attribute">attr</abbr> vitae elit libero, a pharetra augue.
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        نولا <abbr title="عنصر">ع.ص</abbr> یک مثال بی معنی است.
+    </div>
+</div>
+
+<h3>جمع بندی Summery</h3>
+
+<p>شکل پیش فرض اشاره گر مویس <code class="html ha">cursor</code> برای سامری <code class="html ha">text</code> است. برای بهتر دیده شدن ما آنرا به <code class="html ha">pointer</code> تغییر داده ایم.</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <details>
+            <summary>Some details</summary>
+            <p>More info about the details.</p>
+        </details>
+
+        <details open="">
+            <summary>Even more details</summary>
+            <p>Here are even more details about the details.</p>
+        </details>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <details>
+            <summary>برخی از جزئیات</summary>
+            <p>اطلاعات بیشتر در مورد جزئیات</p>
+        </details>
+
+        <details open="">
+            <summary>حتی جزئیات بیشتر</summary>
+            <p>در اینجا حتی جزئیات بیشتری در مورد جزئیات آورده شده است.</p>
+        </details>
+    </div>
+</div>

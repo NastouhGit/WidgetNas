@@ -1,0 +1,190 @@
+﻿@page
+@model WidgetNas.Pages.Components.ListExModel
+@{
+    ViewData["Title"] = "لیست پویا ListEx";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>لیست ها یکی از کاربردی ترین موارد برای نمایش اطلاعات، انتخاب های تک منظوره و منوها می باشد.</p>
+<p>لیستها یکی از قدرتمندترین گزینه ها برای نمایش سری موضوعات پشت سر هم هستند. در زیر به انواع آن و نحوه استفاده از آن اشاره میگردد.</p>
+<p>لیست پویا با استفاده از توابع جاوا اسکریپت قابلیت انتخاب، اضافه کردن به لیست و حذف را با شما میدهد.</p>
+<h2>لیست ساده</h2>
+<p>در نمایش ساده شما فقط امکان مشاهده و انتخاب در لیست را خواهید دید.</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul wn-type="list">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li>Item 5</li>
+        </ul>
+        <h4>div</h4>
+        <div wn-type="list">
+            <div class="list-item">Item 1</div>
+            <div class="list-item">Item 2</div>
+            <div class="list-item">Item 3</div>
+            <div class="list-item">Item 4</div>
+            <div class="list-item">Item 5</div>
+        </div>
+        <h4>Table</h4>
+        <table wn-type="list">
+            <thead>
+                <tr>
+                    <td>Col 1</td>
+                    <td>Col 2</td>
+                    <td>Col 3</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>V 1-1</td>
+                    <td>V 1-2</td>
+                    <td>V 1-3</td>
+                </tr>
+                <tr>
+                    <td>V 2-1</td>
+                    <td class="primary">V 2-2</td>
+                    <td>V 2-3</td>
+                </tr>
+                <tr>
+                    <td>V 3-1</td>
+                    <td>V 3-2</td>
+                    <td>V 3-3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul wn-type="list">
+            <li>گزینه 1</li>
+            <li>گزینه 2</li>
+            <li>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li>گزینه 5</li>
+        </ul>
+        <h4>div</h4>
+        <div wn-type="list">
+            <div class="list-item">گزینه 1</div>
+            <div class="list-item">گزینه 2</div>
+            <div class="list-item">گزینه 3</div>
+            <div class="list-item">گزینه 4</div>
+            <div class="list-item">گزینه 5</div>
+        </div>
+        <h4>Table</h4>
+        <table wn-type="list">
+            <thead>
+                <tr>
+                    <td>ستون 1</td>
+                    <td>ستون 2</td>
+                    <td>ستون 3</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>مقدار 1-1</td>
+                    <td>مقدار 1-2</td>
+                    <td>مقدار 1-3</td>
+                </tr>
+                <tr>
+                    <td>مقدار 2-1</td>
+                    <td class="primary">مقدار 2-2</td>
+                    <td>مقدار 2-3</td>
+                </tr>
+                <tr>
+                    <td>مقدار 3-1</td>
+                    <td>مقدار 3-2</td>
+                    <td>مقدار 3-3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>کنترل لیست</h2>
+<p>برای آنکه بتوانید به صورت آنلاین لیست خود را کنترل کنید، مثال زیر را مشاهده کنید.</p>
+<p>برای ایجاد یک رکورد از تابع addrow استفاده کنید.</p>
+<p>برای تغییر متن یک رکورد از تابع settext استفاده کنید.</p>
+<p>برای تغییر مقدار یک رکورد از تابع setvalue استفاده کنید.</p>
+<p>برای ورود رکوردها توسط یک آرایه از تابع setdata استفاده کنید.</p>
+<p>برای حذف یک رکورد از تابع removerow استفاده کنید.</p>
+<p>برای مرتب سازی رکوردها از تابع order استفاده کنید.</p>
+<p>برای جستجوی یک رکورد از تابع findbyvalue و یا findbytext استفاده کنید.</p>
+<p>برای فیلتر رکوردها از تابع filterbytext استفاده کنید.</p>
+<div class="example-div" id="exam2">
+    <div class="row w-100">
+        <div class="col-6">
+            <ig class="group">
+                <label for="Insert1">Item</label>
+                <input id="Insert1" />
+                <button onclick="InsertItem()">Insert</button>
+            </ig>
+            <ig class="button-group">
+                <button onclick="DeleteItem()">Delete Selected Item</button>
+                <button onclick="WN['list1'].order()">Order by Text</button>
+                <button onclick="WN['list1'].order(true)">Order Desc</button>
+                <button onclick="Import(false)">Import Data</button>
+                <button onclick="Import(true)">Append Data</button>
+                <button onclick="WN['list1'].settext('Changed!',2)">Change Index 2 Text</button>
+            </ig>
+            <ig class="group">
+                <label for="Filter1">Text</label>
+                <input id="Filter1" />
+                <button onclick="FilterItem()">Filter</button>
+            </ig>
+            <ig class="group">
+                <label for="Find1">Text</label>
+                <input id="Find1" />
+                <button onclick="FindItem(false)">Find Text</button>
+                <button onclick="FindItem(true)">Find Value</button>
+            </ig>
+            <script>
+                function InsertItem() {
+                    let value = document.getElementById('Insert1')?.value;
+                    if (value != '') {
+                        WN['list1'].addrow(value, value);
+                    }
+                }
+                function DeleteItem() {
+                    WN['list1'].removerow(WN['list1'].selectedindex);
+                }
+                function FilterItem() {
+                    let value = document.getElementById('Filter1')?.value;
+                    WN['list1'].filterbytext(value, true);
+                }
+                function FindItem(findvalue) {
+                    let value = document.getElementById('Find1')?.value;
+                    if (findvalue)
+                        WN['list1'].findbyvalue(value);
+                    else
+                        WN['list1'].findbytext(value, true);
+                }
+                function Import(append) {
+                    let o = [
+                        { text: 'item 1', value: 'a1' },
+                        { text: 'item 2', value: 'a2' },
+                        { text: 'item 3', value: 'a3' },
+                        { text: 'item 4', value: 'a4' },
+                    ];
+                    WN['list1'].setdata(o, 'text', 'value', append);
+                }
+            </script>
+        </div>
+    </div>
+    <div class="row w-100">
+        <div class="ltr col">
+            <h3>LTR</h3>
+            <ul id="list1" class="list" wn-type="list">
+                <li value="omid">Omid</li>
+                <li value="ali">Ali</li>
+                <li value="reza">Reza</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<figure><code data-on="exam2"></code></figure>

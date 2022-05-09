@@ -1,0 +1,377 @@
+﻿@page
+@model WidgetNas.Pages.Components.CarouselModel
+@{
+    ViewData["Title"] = "چرخنده های نمایشی Carousel";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>برای نمایش چندین اسلاید پشت سر هم، با موضوعات مختلف، توسط این چرخنده های نمایشی قابل اجرا است.</p>
+<p>
+    حرکات نمایشی توسط کلاس های css و مقداری جاوا اسکریپ انجام میشود.
+    شما میتوانید، تصاویر، اشکال، متون و تگهای html را در این اسلایدها داشته باشید.
+</p>
+<p>چرخنده ها از چند قسمت اصلی تشکیل شده اند، یکی قسمت درج ردیفهای نمایشی و دیگری قمستهای کنترلی.</p>
+<p>برای استفاده از این چرخنده ها بایستی یک div از کلاس <bidi>carousel</bidi> داشت، سپس باید برای فعال سازی جاوا اسکریپت، باید نوع آن را نیز تعیین کرد، <bidi>wn-type="carousel"</bidi>. پارامترهای پیش فرض برای این موضوع وجود دارد ولیکن شما میتوانید به صورت دستی یا فراخوانی جاوا اسکریپت آنها را تغییر دهید.</p>
+<p>
+    <h3>خصوصیت autoplay</h3>
+    مقدار این خصوصیت به صورت پیش فرض true است، یعنی با نمایش صفحه، اسلایدها به صورت خودکار پشت سر هم نمایش داده میشوند،
+    اگر نمیخواهید به صورت خودکار این عمل انجام شود، مقدار آنرا false کنید. یعنی خصوصیت زیر را در موضوع بنویسید.<br />
+    <bidi>autoplay = "false"</bidi><br />
+    <strong>تنظیم توسط جاوا اسکریپت</strong><br />
+    <bidi>WN["ID"].autoplay = false;</bidi><br />
+</p>
+<p>
+    <h3>خصوصیت interval</h3>
+    اگر تمایل دارید بین هر نمایش اسلاید زمانی صبر شود، این خصوصیت را تنظیم کنید، مقدار پیش فرض 5 ثانیه است،
+    این مقدار بایستی به میلی ثانیه باشد.<br />
+    <bidi>interval = "5000"</bidi><br />
+    <strong>تنظیم توسط جاوا اسکریپت</strong><br />
+    <bidi>WN["ID"].interval = 5000;</bidi><br />
+</p>
+<p>
+    <h3>خصوصیت hoverpause</h3>
+    اگر میخواهید با ورود نشانگر مویس، عمل نمایش اسلایدها متوقف شود و با خروج مویس، ادامه داده شود، این مقدار را تنظیم کنید.
+    مقدار پیش فرض true است.<br />
+    <bidi>hoverpause = "true"</bidi><br />
+    <strong>تنظیم توسط جاوا اسکریپت</strong><br />
+    <bidi>WN["ID"].hoverpause = true;</bidi><br />
+</p>
+<p>نحوه نمایش افکت ها این موضوع برای صفحات راست به چپ و چ به راست یکسان است.</p>
+
+<h2>نمایش اسلاید ساده</h2>
+<p>ابتدایی ترین حالت نمایش اسلایدها بدون هیچ افکتی به شکل زیر است.</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel" wn-type="carousel" id="form1">
+                <div class="carousel-slides">
+                    <div class="carousel-item active">
+                        <img src="~/images/Slides16-9-h-1.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-2.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-3.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>افکت های نمایشی</h2>
+<p>
+    تعداد زیادی افکت نمایشی وجود دارد، که شما میتوانید از آنها استفاده کنید، اگر میخواهید همه اسلایدها از یک نوع افکت استفاده کنند،
+    به div حاوی ردیف های اسلاید، کلاس نمایشی مرتبط را اضافه کنید. <bidi>class="carousel-slides carousel-effect-fade"</bidi>
+</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel" wn-type="carousel" id="form2">
+                <div class="carousel-slides carousel-effect-fade">
+                    <div class="carousel-item active">
+                        <img src="~/images/Slides16-9-h-1.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-2.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-3.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<p>
+    اگر میخواهید هر اسلاید دارای یک افکت نمایشی و زمان نمایش باشد، میتوانید تنظیمات را به ردیف مورد نظر اضافه کنید.<br />
+    برای اضافه کردن افکت، نام افکت را به div حاوی کلاس item اضافه کنید. <bidi>class="carousel-item carousel-effect-fade"</bidi><br />
+    اگر میخواهید زمان نمایش این اسلاید با دیگران متفاوت باشد، خصوصیت <bidi>interval="ms"</bidi> را مقدار دهی کنید.
+</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel" wn-type="carousel" id="form3">
+                <div class="carousel-slides">
+                    <div class="carousel-item active carousel-effect-zoom-down">
+                        <img src="~/images/Slides16-9-h-1.png" />
+                    </div>
+                    <div class="carousel-item carousel-effect-fall" interval="10000">
+                        <img src="~/images/Slides16-9-h-2.png" />
+                    </div>
+                    <div class="carousel-item carousel-effect-rotate">
+                        <img src="~/images/Slides16-9-h-3.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h4>لیست افکتها</h4>
+<p>در زیر لیست انواع افکتهای طراحی شده آورده شده است. با انتخاب هر کدام نوع افکت را مشاهده کنید. نام هر افکت دقیقا باید در کلاس آورده شود.</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel" wn-type="carousel" interval="2000" id="form4">
+                <div id="sampleslides" class="carousel-slides">
+                    <div class="carousel-item active">
+                        <img src="~/images/Slides16-9-h-1.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-2.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-3.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="sampleeffectlist" class="row m-bs-50r">
+        <div class="col m-ie-50r list list-hover">
+            <div class="list-item">carousel-effect-bounce-down</div>
+            <div class="list-item">carousel-effect-bounce-left</div>
+            <div class="list-item">carousel-effect-bounce-right</div>
+            <div class="list-item">carousel-effect-bounce-up</div>
+            <div class="list-item">carousel-effect-fade</div>
+            <div class="list-item">carousel-effect-fall</div>
+            <div class="list-item">carousel-effect-flash</div>
+        </div>
+        <div class="col m-ie-50r list list-hover">
+            <div class="list-item">carousel-effect-flip</div>
+            <div class="list-item">carousel-effect-flip-x</div>
+            <div class="list-item">carousel-effect-flip-y</div>
+            <div class="list-item">carousel-effect-lightspeed</div>
+            <div class="list-item">carousel-effect-pulse</div>
+            <div class="list-item">carousel-effect-roll</div>
+            <div class="list-item">carousel-effect-rotate</div>
+            <div class="list-item">carousel-effect-rotate-down</div>
+            <div class="list-item">carousel-effect-rotate-up</div>
+        </div>
+        <div class="col m-ie-50r list list-hover">
+            <div class="list-item">carousel-effect-rubber-band</div>
+            <div class="list-item">carousel-effect-shake</div>
+            <div class="list-item">carousel-effect-slide-down</div>
+            <div class="list-item">carousel-effect-slide-left</div>
+            <div class="list-item">carousel-effect-slide-right</div>
+            <div class="list-item">carousel-effect-slide-up</div>
+            <div class="list-item">carousel-effect-swing</div>
+            <div class="list-item">carousel-effect-tada</div>
+            <div class="list-item">carousel-effect-wobble</div>
+        </div>
+        <div class="col list list-hover">
+            <div class="list-item">carousel-effect-zoom</div>
+            <div class="list-item">carousel-effect-zoom-down</div>
+            <div class="list-item">carousel-effect-zoom-left</div>
+            <div class="list-item">carousel-effect-zoom-right</div>
+            <div class="list-item">carousel-effect-zoom-up</div>
+        </div>
+    </div>
+    <script>
+        let t = document.querySelectorAll('#sampleeffectlist .list-item');
+        let sampleslides = document.getElementById('sampleslides');
+        for (var i = 0; i < t.length; i++) {
+            t[i].addEventListener('click', function (e) { sampleslides.className = 'carousel-slides ' + e.currentTarget.innerText; });
+        }
+    </script>
+</div>
+<h2>نمایش کنترل عقب و جلو</h2>
+<p>اگر میخواهید کاربر بتواند روی اسلایدها عقب و جلو رود به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel" wn-type="carousel" id="form5">
+                <div class="carousel-slides carousel-effect-fade">
+                    <div class="carousel-item active">
+                        <img src="~/images/Slides16-9-h-1.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-2.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-3.png" />
+                    </div>
+                </div>
+                <button class="carousel-previous"></button>
+                <button class="carousel-next"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>نشانگر تصویر</h2>
+<p>اگر میخواهید برای هر تصویر یک نشانگر داشته باشید یک div از کلاس <bidi>carousel-indicators</bidi> اضافه کنید</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel" wn-type="carousel" id="form6">
+                <div class="carousel-slides carousel-effect-fade">
+                    <div class="carousel-item active">
+                        <img src="~/images/Slides16-9-h-1.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-2.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-3.png" />
+                    </div>
+                </div>
+                <button class="carousel-previous"></button>
+                <button class="carousel-next"></button>
+                <div class="carousel-indicators">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<p>اگر میخواهید به جای مربع ها از دایره یا مستطیل کوچک استفاده کنید، یکی از کلاسهای <bidi>indicator-circle</bidi> و یا <bidi>indicator-rectangle</bidi> را اضافه کنید.</p>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="carousel</span>"<span class="ha"> wn-type</span><span class="hv">="carousel</span>"<span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="carousel-slides carousel-effect-fade</span>"<span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="carousel-item active</span>"<span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">img</span><span class="ha"> src</span><span class="hv">="~/images/Slides16-9-h-1.png</span>" /<span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="carousel-item</span>"<span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">img</span><span class="ha"> src</span><span class="hv">="~/images/Slides16-9-h-2.png</span>" /<span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="carousel-item</span>"<span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">img</span><span class="ha"> src</span><span class="hv">="~/images/Slides16-9-h-3.png</span>" /<span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="carousel-previous</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="carousel-next</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="carousel-indicators indicator-circle</span>"<span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    </code></pre>
+</figure>
+<p>
+    تا به اینجا دقت کنید، تعداد نمایشگرها به صورت خودکار بر حسب تعداد ردیف های نمایشی ساخته میشود و نیازی نیست شما به صورت دستی بخواهید ردیفی تعیین کنید.
+    اما اگر میخواهید کنترل نمایش به دست خود شما باشد، با اضافه کردن اولین فرزند به div سیستم دیگر عملیات اضافه کردن خودکار را رها کرده و کنترل فرمان را به خود شما میدهد.
+</p>
+<p>
+    دقت کنید برای تعریف هر ردیف، تما باید کلاس <bidi>indicator-item</bidi> بکار برده شود، و گرنه سیستم قادر به شناسایی نیست. همچنین باید ایندکس ردیف تصویر نیز به آن وصل شود،
+    این ایندکس از شماره صفر شروع میشود. <bidi>indicator-index="0"</bidi>
+</p>
+<p>برای اضافه کردن نشانگرهای تصویری به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel" wn-type="carousel" id="form7">
+                <div class="carousel-slides carousel-effect-fade">
+                    <div class="carousel-item active">
+                        <img src="~/images/Slides16-9-h-1.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-2.png" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/images/Slides16-9-h-3.png" />
+                    </div>
+                </div>
+                <button class="carousel-previous"></button>
+                <button class="carousel-next"></button>
+                <div class="carousel-indicators indicator-thumbnail">
+                    <div class="indicator-item" indicator-index="0"><img src="~/images/Slides16-9-h-1.png" /></div>
+                    <div class="indicator-item" indicator-index="1"><img src="~/images/Slides16-9-h-2.png" /></div>
+                    <div class="indicator-item" indicator-index="2"><img src="~/images/Slides16-9-h-3.png" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h2>محتوی</h2>
+<p>شما میتوانید هر محتوایی درون هر ردیف داشته باشید، برای این منظور محتوی خود را درون هر ردیف تعیین کنید.</p>
+<div class="example-div">
+    <div class="row">
+        <div class="col-12">
+            <div class="carousel dark" wn-type="carousel" id="form8">
+                <div class="carousel-slides carousel-effect-zoom-down">
+                    <div class="carousel-item active">
+                        <div class="row primary primary-color p-250r m-0 w-100">
+                            <div class="col-4">
+                                <h1>Heading</h1>
+                                <p>Some text for preview paragraph.</p>
+                            </div>
+                            <div class="col-4">
+                                <div class="list list-hover error">
+                                    <a href="#" class="list-item">Item 1</a>
+                                    <a href="#" class="list-item">Item 2</a>
+                                    <a href="#" class="list-item">Item 3</a>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <h2>More info</h2>
+                                <p>Click on below links</p>
+                                <p>
+                                    <a href="#">Link 1</a>
+                                    <a href="#">Link 2</a>
+                                    <a href="#">Link 3</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row secondary secondary-color p-250r m-0 w-100">
+                            <div class="col-4">
+                                <div class="list list-hover success">
+                                    <a href="#" class="list-item">Item 1</a>
+                                    <a href="#" class="list-item">Item 2</a>
+                                    <a href="#" class="list-item">Item 3</a>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <h1>Heading</h1>
+                                <p>Some text for preview paragraph.</p>
+                            </div>
+                            <div class="col-4">
+                                <h2>More info</h2>
+                                <p>Click on below links</p>
+                                <p>
+                                    <a href="#">Link 1</a>
+                                    <a href="#">Link 2</a>
+                                    <a href="#">Link 3</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row third third-color p-250r m-0 w-100">
+                            <div class="col-4">
+                                <h1>Heading</h1>
+                                <p>Some text for preview paragraph.</p>
+                            </div>
+                            <div class="col-4">
+                                <h2>More info</h2>
+                                <p>Click on below links</p>
+                                <p>
+                                    <a href="#">Link 1</a>
+                                    <a href="#">Link 2</a>
+                                    <a href="#">Link 3</a>
+                                </p>
+                            </div>
+                            <div class="col-4">
+                                <div class="list list-hover warning">
+                                    <a href="#" class="list-item">Item 1</a>
+                                    <a href="#" class="list-item">Item 2</a>
+                                    <a href="#" class="list-item">Item 3</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-previous"></button>
+                <button class="carousel-next"></button>
+                <div class="carousel-indicators">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>

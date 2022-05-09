@@ -1,0 +1,130 @@
+﻿<div class="row">
+    <ig class="col-4">
+        <label for='@ViewData["id"]_firstname_rtl'>نام</label>
+        <input id='@ViewData["id"]_firstname_rtl' type="text" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                نام درست است
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                نام را بررسی کنید
+            </div>
+        }
+    </ig>
+    <ig class="col-4">
+        <label for='@ViewData["id"]_lastname_rtl'>نام خانوادگی</label>
+        <input id='@ViewData["id"]_lastname_rtl' type="text" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                نام خانوادگی درست است
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                نام خانوادگی را بررسی کنید
+            </div>
+        }
+    </ig>
+    <ig class="col">
+        <label id='@ViewData["id"]_password_rtl'>رمز عبور</label>
+        <input id='@ViewData["id"]_password_rtl' type="password" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                رمز عبور درست است
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                رمز عبور را بررسی کنید
+            </div>
+        }
+    </ig>
+</div>
+<div class="row">
+    <ig class="col-4">
+        <label for='@ViewData["id"]_city_rtl'>شهر</label>
+        <input id='@ViewData["id"]_city_rtl' type="text" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                شهر درست است
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                شهر را بررسی کنید
+            </div>
+        }
+    </ig>
+    <ig class="col-4">
+        <label for='@ViewData["id"]_state_rtl'>استان</label>
+        <select id='@ViewData["id"]_state_rtl' required>
+            <option hidden disabled selected value=""></option>
+            <option value="1">تهران</option>
+            <option value="2">مرکزی</option>
+            <option value="3">فارس</option>
+        </select>
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                استان درست است
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                استان را بررسی کنید
+            </div>
+        }
+    </ig>
+    <ig class="col">
+        <label for='@ViewData["id"]_zip_rtl'>کد پستی</label>
+        <input id='@ViewData["id"]_zip_rtl' type="text" inputmode="numeric" />
+    </ig>
+</div>
+<div class="row">
+    <ig class="col">
+        <label for='@ViewData["id"]_address_rtl'>آدرس</label>
+        <textarea id='@ViewData["id"]_address_rtl' required></textarea>
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                آدرس درست است
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                آدرس را بررسی کنید
+            </div>
+        }
+    </ig>
+</div>
+<div class="row">
+    <ig>
+        <label>جنسیت</label>
+        <ig class="d-inline">
+            <input id='@ViewData["id"]_sex_o2_rtl' name='@ViewData["id"]_sex_rtl' type="radio" required />
+            <label for='@ViewData["id"]_sex_o2_rtl'>مرد</label>
+            <input id='@ViewData["id"]_sex_o3_rtl' name='@ViewData["id"]_sex_rtl' type="radio" required />
+            <label for='@ViewData["id"]_sex_o3_rtl'>زن</label>
+            @if (Convert.ToBoolean(ViewData["feedback"]))
+            {
+                <div class="valid-feedback @ViewData["feedback-style"]">
+                    جنسیت درست است
+                </div>
+                <div class="invalid-feedback @ViewData["feedback-style"]">
+                    جنسیت را بررسی کنید
+                </div>
+            }
+        </ig>
+    </ig>
+</div>
+<div class="row">
+    <ig>
+        <input id='@ViewData["id"]_accept_rtl' type="checkbox" required />
+        <label>اطلاعات بالا مورد تایید است.</label>
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                درست است تیک زدید
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                لطفا تیک را بزنید...
+            </div>
+        }
+    </ig>
+</div>
+<button class="danger" type="submit">ارسال فرم</button>
+<button class="warning" type="reset">پاک کردن</button>

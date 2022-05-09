@@ -1,0 +1,56 @@
+﻿.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+
+    a,
+    button {
+        position: relative;
+        display: block;
+        color: var(--normal-color);
+        font-size: var(--font-size);
+        text-decoration: none;
+        background-color: var(--normal-back);
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        padding-block: var(--padding-block);
+        padding-inline: var(--padding-inline);
+        border: var(--border-width) solid var(--normal-border);
+        border-radius: 0;
+        border-inline-end: none;
+
+        &:first-child {
+            border-start-start-radius: var(--border-radius);
+            border-end-start-radius: var(--border-radius);
+        }
+
+        &:last-child {
+            border-inline-end: var(--border-width) solid var(--normal-border);
+            border-start-end-radius: var(--border-radius);
+            border-end-end-radius: var(--border-radius);
+        }
+
+        &:focus {
+            z-index: 2;
+            box-shadow: 0 0 0 var(--button-shadow-width) var(--focus-shadow);
+            background-color: var(--focus-back);
+            color: var(--focus-color);
+        }
+
+        &:hover {
+            color: var(--hover-color);
+            background-color: var(--hover-back);
+            border-color: var(--hover-border);
+        }
+
+        @include disabled-tag {
+            color: var(--disable-color);
+        }
+
+        &.pagination-active {
+            color: var(--active-color);
+            background-color: var(--active-back);
+            border-color: var(--active-border);
+            pointer-events: none;
+        }
+    }
+}

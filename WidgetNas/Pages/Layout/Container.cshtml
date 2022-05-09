@@ -1,0 +1,59 @@
+﻿@page
+@model WidgetNas.Pages.Layout.ContainerModel
+@{
+    ViewData["Title"] = "نگهدارنده ها";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>برای محدود کردن محتوی نسبت به اندازه نمایش، میتوانید از این کلاس استفاده کنید.</p>
+<h2>اندازه ها</h2>
+<p>به صورت پیش فرض اندازه این کلاس 100% است وکلیکن نسبت به اندازه نمایش حداکثر اندازه نمایش تغییر خواهد کرد.</p>
+<table class="ltr w-auto">
+    <thead>
+        <tr>
+            <th>اندازه نمایش</th>
+            <th>حداکثر طول</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>&lt;576px</td>
+            <td>100%</td>
+        </tr>
+        <tr>
+            <td>≥576px</td>
+            <td>540px</td>
+        </tr>
+        <tr>
+            <td>≥768px</td>
+            <td>720px</td>
+        </tr>
+        <tr>
+            <td>≥992px</td>
+            <td>960px</td>
+        </tr>
+        <tr>
+            <td>≥1200px</td>
+            <td>1140px</td>
+        </tr>
+        <tr>
+            <td>≥1400px</td>
+            <td>1320px</td>
+        </tr>
+    </tbody>
+</table>
+<h2>نحوه استفاده</h2>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"container"</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+</code></pre>
+</figure>
+<h2>همیشه 100%</h2>
+<p>اگر مایل هستید همیشه نگهدارنده شما به صورت 100% باشد از کلاس زیر استفاده کنید</p>
+<figure >
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"container fluid"</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+</code></pre>
+</figure>

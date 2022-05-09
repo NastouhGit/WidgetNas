@@ -1,0 +1,73 @@
+﻿.indicator {
+    display: inline-block;
+    width: calc(2rem * var(--scale-factor));
+    height: calc(2rem * var(--scale-factor));
+    vertical-align: text-bottom;
+    animation-iteration-count: infinite;
+    color: var(--normal-border);
+    fill: var(--normal-border);
+    -webkit-transform-origin: top center;
+    -ms-transform-origin: top center;
+    transform-origin: top center;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    //Anitmation class is on _animate.scss
+    &.indicator-effect-border {
+        border: 0.25em solid var(--normal-border);
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: 0.75s linear infinite rotate-360deg;
+        animation: 0.75s linear infinite rotate-360deg;
+        -webkit-transform-origin: center center;
+        -ms-transform-origin: center center;
+        transform-origin: center center;
+    }
+
+    &.indicator-effect-grow {
+        background-color: var(--normal-border);
+        border-radius: 50%;
+        opacity: 0;
+        -webkit-animation: 0.75s linear infinite grow;
+        animation: 0.75s linear infinite grow;
+    }
+
+    &.indicator-effect-growicon {
+        opacity: 0;
+        -webkit-animation: 0.75s linear infinite grow;
+        animation: 0.75s linear infinite grow;
+    }
+
+    &.indicator-effect-swing {
+        -webkit-animation-name: swing;
+        animation-name: swing;
+    }
+
+    &.indicator-effect-pulse {
+        -webkit-animation-name: pulse;
+        animation-name: pulse;
+    }
+
+    &.indicator-effect-shake {
+        -webkit-animation-name: shake;
+        animation-name: shake;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+    }
+
+    &.indicator-effect-flash {
+        -webkit-animation-name: flash;
+        animation-name: flash;
+    }
+
+    &.indicator-effect-rotateOut {
+        -webkit-animation-name: rotateOut;
+        animation-name: rotateOut;
+    }
+
+    &.indicator-effect-bounce {
+        -webkit-animation-name: bounce;
+        animation-name: bounce;
+    }
+}

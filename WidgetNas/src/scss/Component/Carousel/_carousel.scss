@@ -1,0 +1,202 @@
+﻿.carousel {
+    position: relative;
+    background-color: var(--normal-back);
+    user-select: none;
+    touch-action:pan-y;
+
+    .carousel-slides {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+
+        &::after {
+            display: block;
+            clear: both;
+            content: "";
+        }
+
+
+        .carousel-item {
+            position: relative;
+            width: 100%;
+            top: 0;
+            z-index: 0;
+            transition: all 1s ease-in-out;
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+            animation-delay: 0;
+            animation-direction: normal;
+            animation-fill-mode: both;
+            display: none;
+            opacity: 1;
+
+            & > * {
+                z-index: 1;
+            }
+
+            .img,
+            img,
+            svg {
+                width: 100%;
+                z-index: 0;
+                border: none;
+                box-shadow: none;
+                -webkit-user-drag: none;
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                user-drag: none;
+            }
+
+            &.start {
+                display: block;
+                z-index: 2;
+            }
+
+            &.active {
+                display: block;
+                z-index: 4;
+            }
+
+            &.end {
+                display: none;
+                z-index: 3;
+            }
+
+            .overflow {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    }
+
+    .carousel-caption {
+        position: absolute;
+        right: 15%;
+        bottom: 1.25rem;
+        left: 15%;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+        color: #fff;
+    }
+
+    .carousel-next, .carousel-previous {
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 15%;
+        color: var(--normal-color);
+        background-color: var(--normal-back);
+        border: none;
+        border-radius: 1em;
+        text-align: center;
+        opacity: 0.2;
+        transition: opacity 0.15s ease;
+        top: calc(50% - 1.5em);
+        width: 2em;
+        height: 3em;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        z-index: 5;
+
+        &:hover,
+        &:focus {
+            color: var(--normal-color);
+            text-decoration: none;
+            outline: 0;
+            opacity: 0.7;
+        }
+    }
+
+    .carousel-next {
+        right: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        background-image: var(--arrow-right-image);
+    }
+
+    .carousel-previous {
+        left: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background-image: var(--arrow-left-image);
+    }
+
+    .carousel-indicators {
+        border-radius: 0;
+        position: absolute;
+        right: 0;
+        bottom: 0.5em;
+        left: 0;
+        z-index: 5;
+        padding-left: 0;
+        margin-right: 15%;
+        margin-left: 15%;
+        display: flex;
+        list-style: none;
+        justify-content: center;
+
+        .indicator-item {
+            text-align: center;
+            margin: 0.2em;
+            width: 1em;
+            height: 1em;
+            background-color: var(--normal-back);
+            border-radius: 0.2em;
+
+            &.active {
+                background-color: var(--active-back);
+            }
+        }
+
+
+        &.indicator-circle {
+            .indicator-item {
+                border-radius: 50%;
+            }
+        }
+
+        &.indicator-rectangle {
+            .indicator-item {
+                height: 0.3em;
+                border-radius: 0.2em;
+            }
+        }
+
+        &.indicator-thumbnail {
+            .indicator-item {
+                width: 4em;
+                height: 3em;
+                border: var(--border-width) solid var(--normal-border);
+                border-radius: 0.2em;
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+
+                &.active {
+                    border-color: var(--active-back);
+                }
+
+                img {
+                    border-radius: calc(0.2em - var(--border-width));
+                    width: calc(100% - var(--border-width));
+                    height: calc(100% - var(--border-width));
+                }
+            }
+        }
+    }
+}
+
+@import "_slide.scss";
+@import "_fade.scss";
+@import "_zoom.scss";
+@import "_bounce.scss";
+@import "_flip.scss";
+@import "_rotate.scss";
+@import "_other.scss";

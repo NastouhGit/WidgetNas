@@ -1,0 +1,48 @@
+﻿@mixin disabled-tag($extend: '') {
+    fieldset:disabled & #{$extend},
+    fieldset[disabled] & #{$extend},
+    .ig[disabled] & #{$extend},
+    .ig:disabled & #{$extend},
+    ig:disabled & #{$extend},
+    ig[disabled] & #{$extend},
+    &:disabled #{$extend},
+    &.disabled #{$extend} {
+        pointer-events: none;
+        @content;
+    }
+}
+
+@mixin readonly-tag($extend: '') {
+    fieldset[readonly] & #{$extend},
+    .ig[readonly] & #{$extend},
+    ig[readonly] & #{$extend},
+    &[readonly] #{$extend},
+    &.readonly #{$extend} {
+        pointer-events: none;
+        @content;
+    }
+}
+
+@mixin media() {
+    $minvalue: 0px;
+
+    @content('');
+
+    @each $name, $value in $breakpoints {
+        @media (max-width: #{$value}) {
+            @content('-'+$name);
+        }
+
+        $minvalue: $value;
+    }
+}
+
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}

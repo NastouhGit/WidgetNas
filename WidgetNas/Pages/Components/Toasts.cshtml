@@ -1,0 +1,392 @@
+﻿@page
+@model WidgetNas.Pages.Components.ToastsModel
+@{
+    ViewData["Title"] = "اعلان پنجره ای Toasts";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    پیامی را برای کاربر به سادگی و قابل فهم نشان دهید.
+</p>
+<h2>شکل نمایشی</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="toast show" id="form1">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">WidgetNas</strong>
+                <small>12 mins ago</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="toast show">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">وجیت نس</strong>
+                <small>12 دقیقه پیش</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                سلام! این یک اعلان پنجره ای است.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>نمایش</h2>
+<p>
+    برای نمایش تست ها، کافیست <bidi>WN['toast1'].show()</bidi> را فراخوانی کنید، آن در مکانی که هست نمایش داده میشود و اگر خصوصیت <bidi>timeout</bidi> را مقداری بیش از 0 دهید
+    بعد سپری شده آن مقدار میلی ثانیه به طور خودکار محو میشود.
+</p>
+<p>
+    اما ما میخواهیم اعلان ها در قسمتی خاص از صفحه نمایش داده شود و اگر بیش از یک اعلان هست مرتب همه نمایش داده شود.
+    برای همین موضوع، بایستی یک محفظه برای معرفی اعلان ها تعریف کنیم و سپس بگوییم این محفظه در کدام قسمت صفحه قرار گیرد.<br />
+    برای تعریف محفظه از div و کلاس <bidi>toast-container</bidi> استفاده کنید. حال وقت آن رسیده که بگویید این محفظه در کجای صفحه نمایش قرار گیرد.
+</p>
+<p>
+    <strong>toast-block-start</strong><br />
+    نمایش عمودی در بالای صفحه
+</p>
+<p>
+    <strong>toast-block-center</strong><br />
+    نمایش عمودی در وسط صفحه
+</p>
+<p>
+    <strong>toast-block-end</strong><br />
+    نمایش عمودی در پایین صفحه
+</p>
+<p>
+    <strong>toast-inline-start</strong><br />
+    نمایش افقی در جهت شروع اگر راست به چپ است راست صفحه و اگر چپ به راست است چپ صفحه
+</p>
+<p>
+    <strong>toast-inline-center</strong><br />
+    نمایش افقی در وسط صفحه
+</p>
+<p>
+    <strong>toast-inline-end</strong><br />
+    نمایش افقی در انتهای جهت چیدمان در صفحه
+</p>
+<p>بنا بر توضیحات گفته شده در بالا، به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-start toast-inline-start')"><span class="fa fa-arrow-up rotate315"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-start toast-inline-center')"><span class="fa fa-arrow-up"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-start toast-inline-end')"><span class="fa fa-arrow-up rotate45"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-center toast-inline-start')"><span class="fa fa-arrow-left"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-center toast-inline-center')"><span class="fa fa-circle"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-center toast-inline-end')"><span class="fa fa-arrow-right"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-end toast-inline-start')"><span class="fa fa-arrow-down rotate45"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-end toast-inline-center')"><span class="fa fa-arrow-down"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_ltr', 'toast-block-end toast-inline-end')"><span class="fa fa-arrow-down rotate315"></span></button>
+        </div>
+        <div class="toast-container" id="toast-container1_ltr">
+            <div class="toast" wn-type="toast" timeout="3000">
+                <div class="toast-header">
+                    <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                    <strong class="m-ie-auto">WidgetNas Dialog 1</strong>
+                    <small>12 mins ago</small>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+            <div class="toast" wn-type="toast" timeout="2800">
+                <div class="toast-header">
+                    <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                    <strong class="m-ie-auto">WidgetNas Dialog 2</strong>
+                    <small>12 mins ago</small>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+        </div>
+        <script>
+            function showtoast(id, classes) {
+                let c = document.getElementById(id);
+                c.className = 'toast-container ' + classes;
+                let t = c.querySelectorAll('.toast');
+                t.forEach((e) => { WN[e.id].show() });
+            }
+        </script>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-start toast-inline-start')"><span class="fa fa-arrow-up rotate45"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-start toast-inline-center')"><span class="fa fa-arrow-up"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-start toast-inline-end')"><span class="fa fa-arrow-up rotate315"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-center toast-inline-start')"><span class="fa fa-arrow-right"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-center toast-inline-center')"><span class="fa fa-circle"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-center toast-inline-end')"><span class="fa fa-arrow-left"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-end toast-inline-start')"><span class="fa fa-arrow-down rotate315"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-end toast-inline-center')"><span class="fa fa-arrow-down"></span></button>
+            <button class="secondary w-200r" onclick="showtoast('toast-container1_rtl', 'toast-block-end toast-inline-end')"><span class="fa fa-arrow-down rotate45"></span></button>
+        </div>
+        <div class="toast-container" id="toast-container1_rtl">
+            <div class="toast" wn-type="toast" timeout="3000">
+                <div class="toast-header">
+                    <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                    <strong class="m-ie-auto">ویجت نس دیالوگ 1</strong>
+                    <small>12 دقیقه قبل</small>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="toast-body">
+                    سلام! این یک اعلان پنجره ای است.
+                </div>
+            </div>
+            <div class="toast" wn-type="toast" timeout="2800">
+                <div class="toast-header">
+                    <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                    <strong class="m-ie-auto">ویجت نس دیالوگ 2</strong>
+                    <small>12 دقیقه قبل</small>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="toast-body">
+                    سلام! این یک اعلان پنجره ای است.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>فراخوانی اسکریپت قبل از مخفی کردن</h2>
+<p>
+    اگر میخواهید، قبل از مخفی شدن اعلان، عملیاتی را انجام دهید، میتوانید، آن عملیات را در خصوصیت <bidi>onbeforehide</bidi> معرفی کنید،
+    اگر مقدار برگشتی true باشد، مودال مخفی میشود و اگر false باشد، مودال بسته نمیشود.
+</p>
+<p>اگر میخواهید تابع خود را به صورت جاوا اسکریپت نسبت دهید، به <bidi>WN[id].beforehide = ()=>{return true}</bidi> نسبت دهید.</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"toast"</span> <span class="ha">id=</span><span class="hv">"toast1"</span> <span class="ha">onbeforehide=</span><span class="hv">"return ..."</span>&gt;
+    ...
+    &lt;/<span class="ht">div</span>&gt;
+</code></pre>
+</figure>
+<h2>انواع</h2>
+<p>برای نمایش اعلان ها میتوانید از انواع تم های رنگی استفاده کنید</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <div class="toast show success">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">WidgetNas</strong>
+                <small>12 mins ago</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+        <div class="toast show warning m-bs-50r">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">WidgetNas</strong>
+                <small>12 mins ago</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+        <div class="toast show m-bs-50r">
+            <div class="toast-header error">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">WidgetNas</strong>
+                <small>12 mins ago</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body success">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="toast show success">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">وجیت نس</strong>
+                <small>12 دقیقه پیش</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                سلام! این یک اعلان پنجره ای است.
+            </div>
+        </div>
+        <div class="toast show warning m-bs-50r">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">وجیت نس</strong>
+                <small>12 دقیقه پیش</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                سلام! این یک اعلان پنجره ای است.
+            </div>
+        </div>
+        <div class="toast show m-bs-50r">
+            <div class="toast-header error">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">وجیت نس</strong>
+                <small>12 دقیقه پیش</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body success">
+                سلام! این یک اعلان پنجره ای است.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<p>همچنین میتوانید اندازه عرض آن را نیز معرفی کنید</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <div class="toast show" style="width:250px">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">WidgetNas</strong>
+                <small>12 mins ago</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+        <div class="toast show m-bs-50r" style="width:400px">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">WidgetNas</strong>
+                <small>12 mins ago</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="toast show" style="width:250px">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">وجیت نس</strong>
+                <small>12 دقیقه پیش</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                سلام! این یک اعلان پنجره ای است.
+            </div>
+        </div>
+        <div class="toast show m-bs-50r" style="width:400px">
+            <div class="toast-header">
+                <div class="toast-icon" style="background-image:url(/images/tools16.png)"></div>
+                <strong class="m-ie-auto">وجیت نس</strong>
+                <small>12 دقیقه پیش</small>
+                <button class="close" close-parent></button>
+            </div>
+            <div class="toast-body">
+                سلام! این یک اعلان پنجره ای است.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>محتوی خاص</h2>
+<p>شما هر محتوایی که مد نظر دارید میتوانید درون بدنه یا محفظه قرار دهید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <div class="toast show">
+            <div class="toast-header">
+                <strong class="m-ie-auto">WidgetNas</strong>
+            </div>
+            <div class="toast-body">
+                <p>
+                    Hello, world! This is a toast message.
+                </p>
+                <div class="text-center">
+                    <button class="success">Great!</button>
+                    <button class="error">Ouh!</button>
+                </div>
+            </div>
+        </div>
+        <div class="toast show m-bs-50r info">
+            <div class="d-flex align-content-stretch">
+                <div class="toast-body m-ie-auto">This is message</div>
+                <button class="close" close-parent></button>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="toast show">
+            <div class="toast-header">
+                <strong class="m-ie-auto">وجیت نس</strong>
+            </div>
+            <div class="toast-body">
+                <p>
+                    سلام! این یک اعلان پنجره ای است.
+                </p>
+                <div class="text-center">
+                    <button class="success">عالی!</button>
+                    <button class="error">اوه!</button>
+                </div>
+            </div>
+        </div>
+        <div class="toast show m-bs-50r info">
+            <div class="d-flex align-content-stretch">
+                <div class="toast-body m-ie-auto">یک پیام</div>
+                <button class="close" close-parent></button>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>فراخوانی با جاوا اسکریپت</h2>
+<p>
+    اگر میخواهید با جاوا اسکریپت کنترل را به عهده بگیرید، میتوانید از گزینه های زیر استفاده کنید.
+</p>
+<p>
+    <strong>timeout</strong><br />
+    زمان مخفی کردن خودکار اعلان به میلی ثانیه. صفر به معنی عدم بستن خودکار است.<bidi>WN[id].timeout=3000</bidi>
+</p>
+<p>
+    <strong>beforehide</strong><br />
+    نسبت دادن یک تابع جهت بررسی قبل از مخفی کردن اعلان.
+</p>
+<p>
+    <strong>show</strong><br />
+    نمایش اعلان. <bidi>WN[id].show()</bidi>
+</p>
+<p>
+    <strong>hide</strong><br />
+    مخفی کردن اعلان. <bidi>WN[id].hide()</bidi>
+</p>
+<p>
+    <strong>toggle</strong><br />
+    سوئیچ کردن بین نمایش و عدم نمایش اعلان. <bidi>WN[id].toggle()</bidi>
+</p>
+

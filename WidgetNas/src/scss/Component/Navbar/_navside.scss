@@ -1,0 +1,44 @@
+﻿navside,
+.navside {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: stretch;
+    padding-block: 0;
+    padding-inline: 0;
+    background-color: var(--normal-back);
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    justify-content: space-between;
+
+    &.show {
+        display: flex;
+        height: auto !important;
+        width: auto !important;
+        opacity: 1;
+    }
+}
+@media (min-width: map-get($breakpoints,'s')) {
+    navside,
+    .navside {
+        height: auto !important;
+        width: auto;
+    }
+}
+    @media (max-width: map-get($breakpoints,'l')) {
+        navside,
+        .navside {
+            flex-direction: row;
+            padding-block: var(--padding-block);
+            padding-inline: var(--padding-inline);
+        }
+    }
+@media (max-width: map-get($breakpoints,'s')) {
+    navside,
+    .navside {
+        display:none;
+    }
+}

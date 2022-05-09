@@ -1,0 +1,910 @@
+﻿@page
+@model WidgetNas.Pages.Components.ListModel
+@{
+    ViewData["Title"] = "لیست ها List";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>لیست ها یکی از کاربردی ترین موارد برای نمایش اطلاعات، انتخاب های تک منظوره و منوها می باشد.</p>
+<p>لیستها یکی از قدرتمندترین گزینه ها برای نمایش سری موضوعات پشت سر هم هستند. در زیر به انواع آن و نحوه استفاده از آن اشاره میگردد.</p>
+
+<h2>لیست ساده</h2>
+<p>در این لیست، با استفاده از لیست پیش فرض ul و li نمایش ساده ای از موضوعات انجام میپذیرد.</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul class="list">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li>Item 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list">
+            <div class="list-item">Item 1</div>
+            <div class="list-item">Item 2</div>
+            <div class="list-item">Item 3</div>
+            <div class="list-item">Item 4</div>
+            <div class="list-item">Item 5</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul class="list">
+            <li>گزینه 1</li>
+            <li>گزینه 2</li>
+            <li>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li>گزینه 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list">
+            <div class="list-item">گزینه 1</div>
+            <div class="list-item">گزینه 2</div>
+            <div class="list-item">گزینه 3</div>
+            <div class="list-item">گزینه 4</div>
+            <div class="list-item">گزینه 5</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>انتخاب شده</h2>
+<p>اگر میخواهید یک ردیف انتخاب شود، از کلاس <bidi>list-active</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul class="list">
+            <li class="list-active">Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li>Item 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list">
+            <div class="list-item list-active">Item 1</div>
+            <div class="list-item">Item 2</div>
+            <div class="list-item">Item 3</div>
+            <div class="list-item">Item 4</div>
+            <div class="list-item">Item 5</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul class="list">
+            <li class="list-active">گزینه 1</li>
+            <li>گزینه 2</li>
+            <li>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li>گزینه 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list">
+            <div class="list-item list-active">گزینه 1</div>
+            <div class="list-item">گزینه 2</div>
+            <div class="list-item">گزینه 3</div>
+            <div class="list-item">گزینه 4</div>
+            <div class="list-item">گزینه 5</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>غیر فعال</h2>
+<p>اگر میخواهید یک ردیف غیر فعال نمایش داده شود، از کلاس یا خصوصیت <bidi>disabled</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul class="list">
+            <li class="list-active">Item 1</li>
+            <li>Item 2</li>
+            <li disabled>Item 3</li>
+            <li>Item 4</li>
+            <li class="list-disabled">Item 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list">
+            <div class="list-item list-active">Item 1</div>
+            <div class="list-item">Item 2</div>
+            <div class="list-item" disabled>Item 3</div>
+            <div class="list-item">Item 4</div>
+            <div class="list-item list-disabled">Item 5</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul class="list">
+            <li class="list-active">گزینه 1</li>
+            <li>گزینه 2</li>
+            <li disabled>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li class="list-disabled">گزینه 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list">
+            <div class="list-item list-active">گزینه 1</div>
+            <div class="list-item">گزینه 2</div>
+            <div class="list-item" disabled>گزینه 3</div>
+            <div class="list-item">گزینه 4</div>
+            <div class="list-item list-disabled">گزینه 5</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>نمایش hover</h2>
+<p>اگر میخواهید با حرکت نمایشگر مویس بر روی هر ردیف، آن برجسته شود، از کلاس <bidi>list-hover</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul class="list list-hover">
+            <li class="list-active">Item 1</li>
+            <li>Item 2</li>
+            <li disabled>Item 3</li>
+            <li>Item 4</li>
+            <li class="list-disabled">Item 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list list-hover">
+            <div class="list-item list-active">Item 1</div>
+            <div class="list-item">Item 2</div>
+            <div class="list-item" disabled>Item 3</div>
+            <div class="list-item">Item 4</div>
+            <div class="list-item list-disabled">Item 5</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul class="list list-hover">
+            <li class="list-active">گزینه 1</li>
+            <li>گزینه 2</li>
+            <li disabled>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li class="list-disabled">گزینه 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list list-hover">
+            <div class="list-item list-active">گزینه 1</div>
+            <div class="list-item">گزینه 2</div>
+            <div class="list-item" disabled>گزینه 3</div>
+            <div class="list-item">گزینه 4</div>
+            <div class="list-item list-disabled">گزینه 5</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>نمایش hover و غیر فعال کردن آن برای گزینه ها</h2>
+<p>اگر میخواهید با حرکت نمایشگر مویس بر روی هر ردیف، آن برجسته شود، از کلاس <bidi>list-hover</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul class="list list-hover">
+            <li class="list-active noover">Item 1</li>
+            <li>Item 2</li>
+            <li disabled>Item 3</li>
+            <li class="noover">Item 4 no over</li>
+            <li class="list-disabled">Item 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list list-hover">
+            <div class="list-item list-active noover">Item 1</div>
+            <div class="list-item">Item 2</div>
+            <div class="list-item" disabled>Item 3</div>
+            <div class="list-item noover">Item 4 no over</div>
+            <div class="list-item list-disabled">Item 5</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul class="list list-hover">
+            <li class="list-active noover">گزینه 1</li>
+            <li>گزینه 2</li>
+            <li disabled>گزینه 3</li>
+            <li class="noover">گزینه 4 غیر اور</li>
+            <li class="list-disabled">گزینه 5</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list list-hover">
+            <div class="list-item list-active noover">گزینه 1</div>
+            <div class="list-item">گزینه 2</div>
+            <div class="list-item" disabled>گزینه 3</div>
+            <div class="list-item noover">گزینه 4 غیر اور</div>
+            <div class="list-item list-disabled">گزینه 5</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>گزینه های hyperlink و دکمه</h2>
+<p>شما میتوانید در دل لیست از هایپرلینک و یا دکمه استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <h4>ul & a</h4>
+        <ul class="list list-hover">
+            <li><a href="#">Item 1</a></li>
+            <li class="list-active"><a href="#">Item 2</a></li>
+            <li><a href="#">Item 3</a></li>
+            <li><a href="#">Item 4</a></li>
+            <li class="list-disabled"><a href="#">Item 5</a></li>
+            <li><a href="#">Item 6</a></li>
+        </ul>
+        <h4>ul & button</h4>
+        <ul class="list list-hover">
+            <li><button>Item 1</button></li>
+            <li class="list-active"><button>Item 2</button></li>
+            <li><button>Item 3</button></li>
+            <li><button>Item 4</button></li>
+            <li class="list-disabled"><button>Item 5</button></li>
+            <li><button>Item 6</button></li>
+        </ul>
+        <h4>div & a</h4>
+        <div class="list list-hover">
+            <a href="#" class="list-item">Item 1</a>
+            <a href="#" class="list-item list-active">Item 2</a>
+            <a href="#" class="list-item">Item 3</a>
+            <a href="#" class="list-item">Item 4</a>
+            <a href="#" class="list-item list-disabled">Item 5</a>
+            <a href="#" class="list-item">Item 6</a>
+        </div>
+        <h4>div & button</h4>
+        <div class="list list-hover">
+            <button class="list-item">Item 1</button>
+            <button class="list-item list-active">Item 2</button>
+            <button class="list-item">Item 3</button>
+            <button class="list-item">Item 4</button>
+            <button class="list-item list-disabled">Item 5</button>
+            <button class="list-item">Item 6</button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul & a</h4>
+        <ul class="list list-hover">
+            <li><a href="#">گزینه 1</a></li>
+            <li class="list-active"><a href="#">گزینه 2</a></li>
+            <li><a href="#">گزینه 3</a></li>
+            <li><a href="#">گزینه 4</a></li>
+            <li class="list-disabled"><a href="#">گزینه 5</a></li>
+            <li><a href="#">گزینه 6</a></li>
+        </ul>
+        <h4>ul & button</h4>
+        <ul class="list list-hover">
+            <li><button>گزینه 1</button></li>
+            <li class="list-active"><button>گزینه 2</button></li>
+            <li><button>گزینه 3</button></li>
+            <li><button>گزینه 4</button></li>
+            <li class="list-disabled"><button>گزینه 5</button></li>
+            <li><button>گزینه 6</button></li>
+        </ul>
+        <h4>div & a</h4>
+        <div class="list list-hover">
+            <a href="#" class="list-item">گزینه 1</a>
+            <a href="#" class="list-item list-active">گزینه 2</a>
+            <a href="#" class="list-item">گزینه 3</a>
+            <a href="#" class="list-item">گزینه 4</a>
+            <a href="#" class="list-item list-disabled">گزینه 5</a>
+            <a href="#" class="list-item">گزینه 6</a>
+        </div>
+        <h4>div & button</h4>
+        <div class="list list-hover">
+            <button class="list-item">گزینه 1</button>
+            <button class="list-item list-active">گزینه 2</button>
+            <button class="list-item">گزینه 3</button>
+            <button class="list-item">گزینه 4</button>
+            <button class="list-item list-disabled">گزینه 5</button>
+            <button class="list-item">گزینه 6</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>لیست بدون لبه</h2>
+<p>اگر میخواهید فقط گزینه ها با یک خط از هم جدا شوند از کلاس <bidi>list-noedge</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form7">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul class="list list-noedge">
+            <li>Item 1</li>
+            <li class="list-active">Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li class="list-disabled">Item 5</li>
+            <li>Item 6</li>
+        </ul>
+        <h4>ul & a hover</h4>
+        <ul class="list list-hover list-noedge">
+            <li><a href="#">Item 1</a></li>
+            <li class="list-active"><a href="#">Item 2</a></li>
+            <li><a href="#">Item 3</a></li>
+            <li><a href="#">Item 4</a></li>
+            <li class="list-disabled"><a href="#">Item 5</a></li>
+            <li><a href="#">Item 6</a></li>
+        </ul>
+        <h4>div & a hover</h4>
+        <div class="list list-hover list-noedge">
+            <a class="list-item" href="#">Item 1</a>
+            <a class="list-item list-active" href="#">Item 2</a>
+            <a class="list-item" href="#">Item 3</a>
+            <a class="list-item" href="#">Item 4</a>
+            <a class="list-item list-disabled" href="#">Item 5</a>
+            <a class="list-item" href="#">Item 6</a>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul class="list list-noedge">
+            <li>گزینه 1</li>
+            <li class="list-active">گزینه 2</li>
+            <li>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li class="list-disabled">گزینه 5</li>
+            <li>گزینه 6</li>
+        </ul>
+        <h4>ul & a hover</h4>
+        <ul class="list list-hover list-noedge">
+            <li><a href="#">گزینه 1</a></li>
+            <li class="list-active"><a href="#">گزینه 2</a></li>
+            <li><a href="#">گزینه 3</a></li>
+            <li><a href="#">گزینه 4</a></li>
+            <li class="list-disabled"><a href="#">گزینه 5</a></li>
+            <li><a href="#">گزینه 6</a></li>
+        </ul>
+        <h4>div & a hover</h4>
+        <div class="list list-hover list-noedge">
+            <a class="list-item" href="#">گزینه 1</a>
+            <a class="list-item list-active" href="#">گزینه 2</a>
+            <a class="list-item" href="#">گزینه 3</a>
+            <a class="list-item" href="#">گزینه 4</a>
+            <a class="list-item list-disabled" href="#">گزینه 5</a>
+            <a class="list-item" href="#">گزینه 6</a>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h2>شماره گذاری</h2>
+<p>اگر تمایل دارید در لیست هر گزینه شماره داشته باشد، بایستی از کلاس <bidi>list-numbering</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form8">
+        <h3>LTR</h3>
+        <ul class="list list-numbering">
+            <li>Item 1</li>
+            <li class="list-active">Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li class="list-disabled">Item 5</li>
+            <li>Item 6</li>
+        </ul>
+        <h4>dash</h4>
+        <ul class="list list-numbering list-dash">
+            <li>Item 1</li>
+            <li class="list-active">Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li class="list-disabled">Item 5</li>
+            <li>Item 6</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list list-hover list-numbering">
+            <div class="list-item">Item 1</div>
+            <a class="list-item" href="#">Item 2 type a</a>
+            <div class="list-item">Item 3</div>
+            <button class="list-item">Item 4 type button</button>
+            <div class="list-item list-disabled">Item 5</div>
+            <div class="list-item">Item 6</div>
+        </div>
+
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ul class="list list-numbering">
+            <li>گزینه 1</li>
+            <li class="list-active">گزینه 2</li>
+            <li>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li class="list-disabled">گزینه 5</li>
+            <li>گزینه 6</li>
+        </ul>
+        <h4>خط تیره</h4>
+        <ul class="list list-numbering list-dash">
+            <li>گزینه 1</li>
+            <li class="list-active">گزینه 2</li>
+            <li>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li class="list-disabled">گزینه 5</li>
+            <li>گزینه 6</li>
+        </ul>
+        <h4>div</h4>
+        <div class="list list-hover list-numbering">
+            <div class="list-item">گزینه 1</div>
+            <a class="list-item" href="#">گزینه 2 از نوع هایپرلینک</a>
+            <div class="list-item">گزینه 3</div>
+            <button class="list-item">گزینه 4 از نوع دکمه</button>
+            <div class="list-item list-disabled">گزینه 5</div>
+            <div class="list-item">گزینه 6</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+<h2>لیست های افقی</h2>
+<p>ممکن است تمایل داشته باشید، لیست به صورت افقی نمایش داده شود. بدین منظور کلاس <bidi>list-horizontal</bidi> را اضافه کنید.</p>
+<p>به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form9">
+        <h3>LTR</h3>
+        <h4>ul</h4>
+        <ul class="list list-horizontal">
+            <li>Item 1</li>
+            <li class="list-active">Item 2</li>
+            <li>Item 3</li>
+            <li>Item 4</li>
+            <li class="list-disabled">Item 5</li>
+            <li>Item 6</li>
+        </ul>
+        <h4>ul & a</h4>
+        <ul class="list list-hover list-horizontal">
+            <li><a href="#">Item 1</a></li>
+            <li class="list-active"><a href="#">Item 2</a></li>
+            <li><a href="#">Item 3</a></li>
+            <li><a href="#">Item 4</a></li>
+            <li class="list-disabled"><a href="#">Item 5</a></li>
+            <li><a href="#">Item 6</a></li>
+        </ul>
+        <h4>ul & button</h4>
+        <ul class="list list-hover list-horizontal">
+            <li><button>Item 1</button></li>
+            <li class="list-active"><button>Item 2</button></li>
+            <li><button>Item 3</button></li>
+            <li><button>Item 4</button></li>
+            <li class="list-disabled"><button>Item 5</button></li>
+            <li><button>Item 6</button></li>
+        </ul>
+        <h4>div & a</h4>
+        <div class="list list-hover list-horizontal">
+            <a class="list-item" href="#">Item 1</a>
+            <a class="list-item list-active" href="#">Item 2</a>
+            <a class="list-item" href="#">Item 3</a>
+            <a class="list-item" href="#">Item 4</a>
+            <a class="list-item" href="#" disabled>Item 5</a>
+            <a class="list-item" href="#">Item 6</a>
+        </div>
+        <h4>div & button</h4>
+        <div class="list list-hover list-horizontal">
+            <button class="list-item">Item 1</button>
+            <button class="list-item list-active">Item 2</button>
+            <button class="list-item">Item 3</button>
+            <button class="list-item">Item 4</button>
+            <button class="list-item list-disabled">Item 5</button>
+            <button class="list-item">Item 6</button>
+        </div>
+        <h4>ul flex-fill</h4>
+        <ul class="list list-hover list-horizontal">
+            <li class="flex-fill">Item 1</li>
+            <li class="flex-fill active">Item 2</li>
+            <li class="flex-fill">Item 3</li>
+            <li class="flex-fill disabled">Item 5</li>
+            <li class="flex-fill">Item 6</li>
+        </ul>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ul</h4>
+        <ul class="list list-horizontal">
+            <li>گزینه 1</li>
+            <li class="list-active">گزینه 2</li>
+            <li>گزینه 3</li>
+            <li>گزینه 4</li>
+            <li class="list-disabled">گزینه 5</li>
+            <li>گزینه 6</li>
+        </ul>
+        <h4>ul & a</h4>
+        <ul class="list list-hover list-horizontal">
+            <li><a href="#">گزینه 1</a></li>
+            <li class="list-active"><a href="#">گزینه 2</a></li>
+            <li><a href="#">گزینه 3</a></li>
+            <li><a href="#">گزینه 4</a></li>
+            <li class="list-disabled"><a href="#">گزینه 5</a></li>
+            <li><a href="#">گزینه 6</a></li>
+        </ul>
+        <h4>ul & button</h4>
+        <ul class="list list-hover list-horizontal">
+            <li><button>گزینه 1</button></li>
+            <li class="list-active"><button>گزینه 2</button></li>
+            <li><button>گزینه 3</button></li>
+            <li><button>گزینه 4</button></li>
+            <li class="list-disabled"><button>گزینه 5</button></li>
+            <li><button>گزینه 6</button></li>
+        </ul>
+        <h4>div & a</h4>
+        <div class="list list-hover list-horizontal">
+            <a class="list-item" href="#">گزینه 1</a>
+            <a class="list-item list-active" href="#">گزینه 2</a>
+            <a class="list-item" href="#">گزینه 3</a>
+            <a class="list-item" href="#">گزینه 4</a>
+            <a class="list-item" href="#" disabled>گزینه 5</a>
+            <a class="list-item" href="#">گزینه 6</a>
+        </div>
+        <h4>div & button</h4>
+        <div class="list list-hover list-horizontal">
+            <button class="list-item">گزینه 1</button>
+            <button class="list-item list-active">گزینه 2</button>
+            <button class="list-item">گزینه 3</button>
+            <button class="list-item">گزینه 4</button>
+            <button class="list-item list-disabled">گزینه 5</button>
+            <button class="list-item">گزینه 6</button>
+        </div>
+        <h4>ul flex-fill</h4>
+        <ul class="list list-hover list-horizontal">
+            <li class="flex-fill">گزینه 1</li>
+            <li class="flex-fill active">گزینه 2</li>
+            <li class="flex-fill">گزینه 3</li>
+            <li class="flex-fill disabled">گزینه 5</li>
+            <li class="flex-fill">گزینه 6</li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>
+<div class="alert info callout-start">
+    <p>اگر میخواهید در لیست افقی خود، تمامی خانه ها یک اندازه باشند، از کلاس <bidi>flex-fill</bidi> برای هر خانه استفاده کنید.</p>
+</div>
+<h2>لیست های نشان دار</h2>
+<p>شما میتوانید هر چیزی درون لیست خود داشته باشید، برای مثال اگر میخواهید از نشان درون آن استفاده کنید، به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form10">
+        <h3>LTR</h3>
+        <h4>simple</h4>
+        <ul class="list list-hover">
+            <li class="d-flex justify-content-between align-items-center">
+                Short description.
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                Short description.
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                Short description.
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+        </ul>
+        <h4>extend</h4>
+        <ul class="list list-hover list-numbering">
+            <li class="d-flex justify-content-between align-items-center">
+                <div class="m-is-100r m-ie-auto">
+                    <div class="fw-bold">Subject</div>
+                    Short description.
+                </div>
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                <div class="m-is-100r m-ie-auto">
+                    <div class="fw-bold">Subject</div>
+                    Short description.
+                </div>
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                <div class="m-is-100r m-ie-auto">
+                    <div class="fw-bold">Subject</div>
+                    Short description.
+                </div>
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+        </ul>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h4>ساده</h4>
+        <ul class="list list-hover">
+            <li class="d-flex justify-content-between align-items-center">
+                متنی برای شرح
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                متنی برای شرح
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                متنی برای شرح
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+        </ul>
+        <h4>اضافه</h4>
+        <ul class="list list-hover list-numbering">
+            <li class="d-flex justify-content-between align-items-center">
+                <div class="m-is-100r m-ie-auto">
+                    <div class="fw-bold">عنوان</div>
+                    متنی برای شرح
+                </div>
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                <div class="m-is-100r m-ie-auto">
+                    <div class="fw-bold">عنوان</div>
+                    متنی برای شرح
+                </div>
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+            <li class="d-flex justify-content-between align-items-center">
+                <div class="m-is-100r m-ie-auto">
+                    <div class="fw-bold">عنوان</div>
+                    متنی برای شرح
+                </div>
+                <span class="badge primary s-l badge-capsule">12</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="form10"></code></figure>
+<h2>لیست با محتوی خاص</h2>
+<p>وقتی بخواهید محتوی خاصی را به صورت لیست نمایش دهید، به ساختار زیر نیاز خواهید داشت.</p>
+<div class="example-div">
+    <div class="ltr" id="form11">
+        <h3>LTR</h3>
+        <div class="list list-hover">
+            <a href="#" class="list-item list-active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="m-b-10r">List group item heading</h5>
+                    <small>3 days ago</small>
+                </div>
+                <p class="m-b-10r">Some placeholder content in a paragraph.</p>
+                <small>And some small print.</small>
+            </a>
+            <a href="#" class="list-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="m-b-10r">List group item heading</h5>
+                    <small>3 days ago</small>
+                </div>
+                <p class="m-b-10r">Some placeholder content in a paragraph.</p>
+                <small>And some small print.</small>
+            </a>
+            <a href="#" class="list-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="m-b-10r">List group item heading</h5>
+                    <small>3 days ago</small>
+                </div>
+                <p class="m-b-10r">Some placeholder content in a paragraph.</p>
+                <small>And some small print.</small>
+            </a>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="list list-hover">
+            <a href="#" class="list-item list-active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="m-b-10r">عنوان در لیست</h5>
+                    <small>3 روز پیش</small>
+                </div>
+                <p class="m-b-10r">فضایی برای نوشتن متن به صورت پاراگراف</p>
+                <small>جایی برای نوشتن متن ریزتر</small>
+            </a>
+            <a href="#" class="list-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="m-b-10r">عنوان در لیست</h5>
+                    <small>3 روز پیش</small>
+                </div>
+                <p class="m-b-10r">فضایی برای نوشتن متن به صورت پاراگراف</p>
+                <small>جایی برای نوشتن متن ریزتر</small>
+            </a>
+            <a href="#" class="list-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="m-b-10r">عنوان در لیست</h5>
+                    <small>3 روز پیش</small>
+                </div>
+                <p class="m-b-10r">فضایی برای نوشتن متن به صورت پاراگراف</p>
+                <small>جایی برای نوشتن متن ریزتر</small>
+            </a>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form11"></code></figure>
+<h2>لیست چک باکس و رادیو</h2>
+<p>اگر تمایل دارید، در لیست خود چک باکس یا رادیو داشته باشید، به مثالهای زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <ul class="list list-hover" id="form12">
+            <li>
+                <input class="m-ie-10r" type="checkbox" value="">
+                First checkbox
+            </li>
+            <li>
+                <input class="m-ie-10r" type="checkbox" value="">
+                Second checkbox
+            </li>
+            <li>
+                <input class="m-ie-10r" type="checkbox" value="">
+                Third checkbox
+            </li>
+        </ul>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ul class="list list-hover">
+            <li>
+                <input class="m-ie-10r" type="checkbox" value="">
+                چک اول
+            </li>
+            <li>
+                <input class="m-ie-10r" type="checkbox" value="">
+                چک دوم
+            </li>
+            <li>
+                <input class="m-ie-10r" type="checkbox" value="">
+                چک سوم
+            </li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="form12"></code></figure>
+<p>اگر میخواهید کل ردیف با کلیک کردن عمل تیک انجام شوند، به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="list list-hover" id="form13">
+            <label class="list-item">
+                <input class="m-ie-10r" type="checkbox" value="">
+                First checkbox
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="checkbox" value="">
+                Second checkbox
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="checkbox" value="">
+                Third checkbox
+            </label>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="list list-hover">
+            <label class="list-item">
+                <input class="m-ie-10r" type="checkbox" value="">
+                چک اول
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="checkbox" value="">
+                چک دوم
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="checkbox" value="">
+                چک سوم
+            </label>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form13"></code></figure>
+<p>همانند چک باکس شما میتوانید از رادیو استفاده کنید</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="list list-hover" id="form14">
+            <label class="list-item">
+                <input class="m-ie-10r" type="radio" value="" name="radio1_ltr">
+                First radio
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="radio" value="" name="radio1_ltr">
+                Second radio
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="radio" value="" name="radio1_ltr">
+                Third radio
+            </label>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="list list-hover">
+            <label class="list-item">
+                <input class="m-ie-10r" type="radio" value="" name="radio1_rtl">
+                رادیو اول
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="radio" value="" name="radio1_rtl">
+                رادیو دوم
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r" type="radio" value="" name="radio1_rtl">
+                رادیو سوم
+            </label>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form14"></code></figure>
+<p>اگر تنظیماتی دارید که میخواهید به صورت فعال و غیر فعال تنظیم شوند به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="list list-hover" id="form15">
+            <label class="list-item">
+                <input class="m-ie-10r switch" type="checkbox">
+                Option 1
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r switch" type="checkbox" checked>
+                Option 2
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r switch" type="checkbox">
+                Option 3
+            </label>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="list list-hover">
+            <label class="list-item">
+                <input class="m-ie-10r switch" type="checkbox">
+                گزینه اول
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r switch" type="checkbox" checked>
+                گزینه دوم
+            </label>
+            <label class="list-item">
+                <input class="m-ie-10r switch" type="checkbox">
+                گزینه سوم
+            </label>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form15"></code></figure>
+<h2>رنگها و اندازه ها</h2>
+<p>شما قادر هستید مانند دیگر موضوعات از کلاسهای رنگی و یا کلاسهای اندازه استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form16">
+        <h3>Theme</h3>
+        <h4>ul</h4>
+        <ul class="list list-hover">
+            <li class="primary">Item 1</li>
+            <li class="secondary">Item 2</li>
+            <li class="third">Item 3</li>
+            <li class="info">Item 4</li>
+            <li class="danger">Item 5</li>
+            <li class="warning">Item 6</li>
+        </ul>
+        <br />
+        <div class="list list-hover">
+            <a class="list-item primary" href="#">Item 1</a>
+            <a class="list-item secondary" href="#">Item 2</a>
+            <a class="list-item third" href="#">Item 3</a>
+            <a class="list-item info" href="#">Item 4</a>
+            <a class="list-item danger" href="#">Item 5</a>
+            <a class="list-item warning" href="#">Item 6</a>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>Size</h3>
+        <h4>Size Small (s)</h4>
+        <ul class="list list-hover s-s">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+        <h4>Size XLarge (xl)</h4>
+        <ul class="list list-hover s-xl">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+        <h4>اندازه برای ردیف</h4>
+        <ul class="list list-hover">
+            <li>Item 1</li>
+            <li class="s-xl">Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="form16"></code></figure>

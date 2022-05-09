@@ -1,0 +1,609 @@
+﻿@page
+@model WidgetNas.Pages.Forms.ChecksModel
+@{
+    ViewData["Title"] = "انتخاب های چک و تیک";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>استفاده از checkbox و radio یک امر مرسوم در انواع فرمها است، در این صفحه به تغییرات اعمال شده بر روی آنها اشاره خواهیم کرد.</p>
+<p>توجه داشته باشید رابطه برچسب بعد checkbox و radio یک رابطه اجباری است، یعنی اگر میخواهید رنگ و خاصیت آن تنظیم شود باید حتما label بعد از موضوع آمده و از خصوصیت for نیز استفاده شود.</p>
+<p>تنظیم مقدار Indeterminate فقط توسط جاوا اسکریپت امکان پذیر است.</p>
+<h2>چک باکس</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <ig>
+                <input type="checkbox" value="" id="flexCheckDefault_ltr">
+                <label for="flexCheckDefault_ltr">
+                    Default checkbox
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="flexCheckChecked_ltr" checked>
+                <label for="flexCheckChecked_ltr">
+                    Checked checkbox
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" id="flexCheckIndeterminate_ltr" value="">
+                <label for="flexCheckIndeterminate_ltr">
+                    Indeterminate checkbox
+                </label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <input type="checkbox" value="" id="flexCheckDefault_rtl">
+                <label for="flexCheckDefault_rtl">
+                    چک باکس پیش فرض
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="flexCheckChecked_rtl" checked>
+                <label for="flexCheckChecked_rtl">
+                    چک باکس تیک دار
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" id="flexCheckIndeterminate_rtl" value="">
+                <label for="flexCheckIndeterminate_rtl">
+                    چک باکس بدون مقدار
+                </label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>رنگها</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form2">
+            <ig class="primary">
+                <input type="checkbox" id="primary_ltr">
+                <label for="primary_ltr">
+                    Primary
+                </label>
+            </ig>
+            <ig class="secondary">
+                <input type="checkbox" id="secondary_ltr">
+                <label for="secondary_ltr">
+                    Secondary
+                </label>
+            </ig>
+            <ig class="danger">
+                <input type="checkbox" id="danger_ltr">
+                <label for="danger_ltr">
+                    Danger
+                </label>
+            </ig>
+            <ig class="success">
+                <input type="checkbox" id="success_ltr">
+                <label for="success_ltr">
+                    Success
+                </label>
+            </ig>
+            <ig class="error">
+                <input type="checkbox" id="error_ltr">
+                <label for="error_ltr">
+                    Error
+                </label>
+            </ig>
+            <ig class="warning">
+                <input type="checkbox" id="warning_ltr">
+                <label for="warning_ltr" class="primary-text">
+                    Label with primary theme
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" id="third_ltr" class="third">
+                <label for="third_ltr" class="third-text">
+                    Input with third theme
+                </label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="primary">
+                <input type="checkbox" value="" id="primary_rtl">
+                <label for="primary_rtl">
+                    اصلی
+                </label>
+            </ig>
+            <ig class="secondary">
+                <input type="checkbox" value="" id="secondary_rtl">
+                <label for="secondary_rtl">
+                    دومی
+                </label>
+            </ig>
+            <ig class="danger">
+                <input type="checkbox" value="" id="danger_rtl">
+                <label for="danger_rtl">
+                    هشدار
+                </label>
+            </ig>
+            <ig class="success">
+                <input type="checkbox" value="" id="success_rtl">
+                <label for="success_rtl">
+                    موفق
+                </label>
+            </ig>
+            <ig class="error">
+                <input type="checkbox" value="" id="error_rtl">
+                <label for="error_rtl">
+                    خطا
+                </label>
+            </ig>
+            <ig class="warning">
+                <input type="checkbox" value="" id="warning_rtl">
+                <label for="warning_rtl" class="primary-text">
+                    برچسب رنگ اصلی
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="third_rtl" class="third">
+                <label for="third_rtl" class="third-text">
+                    چکباکس با رنگ سومی
+                </label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>اندازه ها</h2>
+<p>طبق معمول و استاندارد گفته شده در اندازه ها، میتوانید برای تغییر اندازه از مقدارهای xs الی xxxl استفاده نمایید.</p>
+<p>این مقدار میتواند مستقیم به موضوع مورد نظر یا به ig نسبت داده شود.</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <ig class="s-m">
+            <input type="checkbox" value="" id="checkm_ltr">
+            <label for="checkm_ltr">
+                Medium
+            </label>
+        </ig>
+        <ig class="s-l">
+            <input type="checkbox" value="" id="checkl_ltr">
+            <label for="checkl_ltr">
+                Large
+            </label>
+        </ig>
+        <ig class="s-xl">
+            <input type="checkbox" value="" id="checkxl_ltr">
+            <label for="checkxl_ltr">
+                X Large
+            </label>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig class="s-m">
+            <input type="checkbox" value="" id="checkm_rtl">
+            <label for="checkm_rtl">
+                معمولی
+            </label>
+        </ig>
+        <ig class="s-l">
+            <input type="checkbox" value="" id="checkl_rtl">
+            <label for="checkl_rtl">
+                بزرگ
+            </label>
+        </ig>
+        <ig class="s-xl">
+            <input type="checkbox" value="" id="checkxl_rtl">
+            <label for="checkxl_rtl">
+                بزرگتر
+            </label>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>غیر فعال</h2>
+<p>شما میتوانید فقط input مورد نظر را غیر فعال کرده و یا کل ig را غیر فعال کنید</p>
+<p>این مقدار میتواند مستقیم به موضوع مورد نظر یا به ig نسبت داده شود.</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <ig>
+            <input type="checkbox" value="" id="checkdisabled1_ltr" checked disabled>
+            <label for="checkdisabled1_ltr">
+                Direct Disabled
+            </label>
+        </ig>
+        <ig disabled>
+            <input type="checkbox" value="" id="checkdisabled2_ltr">
+            <label for="checkdisabled2_ltr">
+                ig Disabled
+            </label>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <input type="checkbox" value="" id="checkdisabled1_rtl" checked disabled>
+            <label for="checkdisabled1_rtl">
+                غیر فعال مستقیم
+            </label>
+        </ig>
+        <ig disabled>
+            <input type="checkbox" value="" id="checkdisabled2_rtl">
+            <label for="checkdisabled2_rtl">
+                غیر فعال گروه ورودی
+            </label>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>فقط خواندنی</h2>
+<p>شما میتوانید input مورد نظر و یا کل ig را فقط خواندنی کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <ig>
+            <input type="checkbox" value="" id="checkreadonly1_ltr" checked readonly>
+            <label for="checkreadonly1_ltr">
+                Direct readonly
+            </label>
+        </ig>
+        <ig readonly>
+            <input type="checkbox" value="" id="checkreadonly2_ltr">
+            <label for="checkreadonly2_ltr">
+                ig readonly
+            </label>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <input type="checkbox" value="" id="checkreadonly1_rtl" checked readonly>
+            <label for="checkreadonly1_rtl">
+                فقط خواندنی مستقیم
+            </label>
+        </ig>
+        <ig readonly>
+            <input type="checkbox" value="" id="checkreadonly2_rtl">
+            <label for="checkreadonly2_rtl">
+                فقط خواندنی گروه ورودی
+            </label>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>رادیو</h2>
+<p>تمامی خصوصیات مانند چک باکس است، با این تفاوت که نوع Input از جنس radio است.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form6">
+            <ig>
+                <input type="radio" value="" id="radioDefault_ltr" name="radioDefault_ltr">
+                <label for="radioDefault_ltr">
+                    Default radio
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="radioChecked_ltr" name="radioDefault_ltr" checked>
+                <label for="radioChecked_ltr">
+                    Checked radio
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="radiodisabled_ltr" name="radioDefault_ltr" disabled>
+                <label for="radiodisabled_ltr">
+                    Disabled radio
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="radioreadonly_ltr" name="radioDefault_ltr" readonly>
+                <label for="radioreadonly_ltr">
+                    Readonly radio
+                </label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <input type="radio" value="" id="radioDefault_rtl" name="radioDefault_rtl">
+                <label for="radioDefault_rtl">
+                    رادیو پیش فرض
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="radioChecked_rtl" name="radioDefault_rtl" checked>
+                <label for="radioChecked_rtl">
+                    رادیو انتخاب شده
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="radiodisabled_rtl" name="radioDefault_rtl" disabled>
+                <label for="radiodisabled_rtl">
+                    رادیو غیر فعال
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="radioreadonly_rtl" name="radioDefault_rtl" readonly>
+                <label for="radioreadonly_rtl">
+                    رادیو فقط خواندنی
+                </label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>چینش افقی</h2>
+<p>چینش پیش فرض گروه ورودی ها به صورت عمودی است، اگر تمایل به چینش به صورت افقی هستید از کلاس d-inline استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form7">
+            <ig class="d-inline">
+                <input type="checkbox" value="" id="flexCheckDefault1_ltr">
+                <label for="flexCheckDefault1_ltr">
+                    Default checkbox
+                </label>
+            </ig>
+            <ig class="d-inline">
+                <input type="checkbox" value="" id="flexCheckChecked1_ltr" checked>
+                <label for="flexCheckChecked1_ltr">
+                    Checked checkbox
+                </label>
+            </ig>
+            <ig class="d-inline">
+                <input type="checkbox" id="flexCheckIndeterminate1_ltr" value="" disabled>
+                <label for="flexCheckIndeterminate1_ltr">
+                    Disabled checkbox
+                </label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="d-inline">
+                <input type="checkbox" value="" id="flexCheckDefault1_rtl">
+                <label for="flexCheckDefault1_rtl">
+                    چک باکس پیش فرض
+                </label>
+            </ig>
+            <ig class="d-inline">
+                <input type="checkbox" value="" id="flexCheckChecked1_rtl" checked>
+                <label for="flexCheckChecked1_rtl">
+                    چک باکس تیک دار
+                </label>
+            </ig>
+            <ig class="d-inline">
+                <input type="checkbox" id="flexCheckIndeterminate1_rtl" value="" disabled>
+                <label for="flexCheckIndeterminate1_rtl">
+                    چک باکس غیر فعال
+                </label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h1>اشکال</h1>
+<h2>سوئیچ</h2>
+<p>سوئیچ همان checkbox یا radio است که نوع نمایش آن متفاوت گشته است. برای استفاده باید کلاس switch را اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form8">
+            <ig>
+                <input type="checkbox" value="" id="switchDefault_ltr" class="switch">
+                <label for="switchDefault_ltr">
+                    Default switch
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="switchChecked_ltr" checked class="switch primary">
+                <label for="switchChecked_ltr">
+                    Checked switch primary theme
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="switchdisabled_ltr" class="switch" disabled>
+                <label for="switchdisabled_ltr">
+                    Disabled switch
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="switchreadonly_ltr" class="switch" readonly checked>
+                <label for="switchreadonly_ltr">
+                    Readonly switch
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="switchRadio1_ltr" name="switchRadio1_ltr" checked class="switch secondary">
+                <label for="switchRadio1_ltr">
+                    Radio
+                </label>
+            </ig>
+            <ig class="l">
+                <input type="radio" value="" id="switchRadio2_ltr" name="switchRadio1_ltr" class="switch secondary">
+                <label for="switchRadio2_ltr">
+                    Radio
+                </label>
+            </ig>
+            <ig class="xl">
+                <input type="radio" value="" id="switchRadio3_ltr" name="switchRadio1_ltr" class="switch secondary">
+                <label for="switchRadio3_ltr">
+                    Radio
+                </label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <input type="checkbox" value="" id="switchDefault_rtl" class="switch">
+                <label for="switchDefault_rtl">
+                    سوئیچ پیش فرض
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="switchChecked_rtl" checked class="switch primary">
+                <label for="switchChecked_rtl">
+                    سوئیچ انتخاب شده با رنگ اصلی
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="switchdisabled_rtl" class="switch" disabled>
+                <label for="switchdisabled_rtl">
+                    سوئیچ غیر فعال
+                </label>
+            </ig>
+            <ig>
+                <input type="checkbox" value="" id="switchreadonly_rtl" class="switch" readonly checked>
+                <label for="switchreadonly_rtl">
+                    سوئیچ فقط خواندنی
+                </label>
+            </ig>
+            <ig>
+                <input type="radio" value="" id="switchRadio1_rtl" name="switchRadio1_rtl" checked class="switch secondary">
+                <label for="switchRadio1_rtl">
+                    رادیو
+                </label>
+            </ig>
+            <ig class="l">
+                <input type="radio" value="" id="switchRadio2_rtl" name="switchRadio1_rtl" class="switch secondary">
+                <label for="switchRadio2_rtl">
+                    رادیو
+                </label>
+            </ig>
+            <ig class="xl">
+                <input type="radio" value="" id="switchRadio3_rtl" name="switchRadio1_rtl" class="switch secondary">
+                <label for="switchRadio3_rtl">
+                    رادیو
+                </label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+<h2>دکمه</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form9">
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttonDefault_ltr" class="button">
+                <label for="buttonDefault_ltr">
+                    Check Box
+                </label>
+            </ig>
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttonChecked_ltr" checked class="button">
+                <label for="buttonChecked_ltr">
+                    Check Box
+                </label>
+            </ig>
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttonreadonly_ltr" class="button">
+                <label for="buttonreadonly_ltr">
+                    Check Box
+                </label>
+            </ig>
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttondisabled_ltr" class="button" disabled>
+                <label for="buttondisabled_ltr">
+                    Check Box
+                </label>
+            </ig>
+        </form>
+        <form>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttonDefault_ltr" name="radiobuttonDefault_ltr" class="button">
+                <label for="radiobuttonDefault_ltr">
+                    Radio
+                </label>
+            </ig>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttonChecked_ltr" name="radiobuttonDefault_ltr" checked class="button">
+                <label for="radiobuttonChecked_ltr">
+                    Radio
+                </label>
+            </ig>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttonreadonly_ltr" name="radiobuttonDefault_ltr" class="button">
+                <label for="radiobuttonreadonly_ltr">
+                    Radio
+                </label>
+            </ig>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttondisabled_ltr" name="radiobuttonDefault_ltr" class="button" disabled>
+                <label for="radiobuttondisabled_ltr">
+                    Radio
+                </label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttonDefault_rtl" class="button">
+                <label for="buttonDefault_rtl">
+                    چک باکس
+                </label>
+            </ig>
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttonChecked_rtl" checked class="button">
+                <label for="buttonChecked_rtl">
+                    چک باکس
+                </label>
+            </ig>
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttonreadonly_rtl" class="button">
+                <label for="buttonreadonly_rtl">
+                    چک باکس
+                </label>
+            </ig>
+            <ig class="primary d-inline">
+                <input type="checkbox" value="" id="buttondisabled_rtl" class="button" disabled>
+                <label for="buttondisabled_rtl">
+                    چک باکس
+                </label>
+            </ig>
+        </form>
+        <form>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttonDefault_rtl" name="radiobuttonDefault_rtl" class="button">
+                <label for="radiobuttonDefault_rtl">
+                    رادیو
+                </label>
+            </ig>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttonChecked_rtl" name="radiobuttonDefault_rtl" checked class="button">
+                <label for="radiobuttonChecked_rtl">
+                    رادیو
+                </label>
+            </ig>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttonreadonly_rtl" name="radiobuttonDefault_rtl" class="button">
+                <label for="radiobuttonreadonly_rtl">
+                    رادیو
+                </label>
+            </ig>
+            <ig class="secondary outline d-inline">
+                <input type="radio" value="" id="radiobuttondisabled_rtl" name="radiobuttonDefault_rtl" class="button" disabled>
+                <label for="radiobuttondisabled_rtl">
+                    رادیو
+                </label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>
+<script>
+    document.getElementById('flexCheckIndeterminate_ltr').indeterminate = true;
+    document.getElementById('flexCheckIndeterminate_rtl').indeterminate = true;
+</script>

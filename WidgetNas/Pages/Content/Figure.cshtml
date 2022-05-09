@@ -1,0 +1,68 @@
+﻿@page
+@model WidgetNas.Pages.Content.FigureModel
+@{
+    ViewData["Title"] = "اشکال";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>اگر تمایل به نشان دادن تصاویر با عنوان هستید از این کلاس ها سود بجویید</p>
+<h2>اشکال پایه</h2>
+<p>یک جدول ساده به صورت پیش فرض به شکل زیر میباشد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <figure>
+            <img src="~/images/WNSticker.png" />
+            <figcaption>A caption for the above image.</figcaption>
+        </figure>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <figure>
+            <img src="~/images/WNSticker.png" />
+            <figcaption>عنوان برای تصویر بالا.</figcaption>
+        </figure>
+
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">figure</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">img</span><span class="ha"> src</span><span class="hv">="/images/WNSticker.png</span>" /<span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">figcaption</span><span class="hv">&gt;</span>A caption for the above image.<span class="hv">&lt;/</span><span class="ht">figcaption</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">figure</span><span class="hv">&gt;</span>
+</code></pre>
+</figure>
+<h2>چیدمان عنوان</h2>
+<p>برای چینش متن میتوانید از کلاسهای استاندارد چینش متن استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <figure>
+            <img src="~/images/WNSticker.png" />
+            <figcaption class="text-start">A caption for the above image. Align start</figcaption>
+        </figure>
+        <figure>
+            <img src="~/images/WNSticker.png" />
+            <figcaption class="text-end">A caption for the above image. Align end</figcaption>
+        </figure>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <figure>
+            <img src="~/images/WNSticker.png" />
+            <figcaption class="text-start">عنوان برای تصویر بالا. چینش ابتدا</figcaption>
+        </figure>
+        <figure>
+            <img src="~/images/WNSticker.png" />
+            <figcaption class="text-end">عنوان برای تصویر بالا. چینش انتها</figcaption>
+        </figure>
+
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+        <span class="hv">&lt;</span><span class="ht">figcaption</span><span class="ha"> class</span><span class="hv">="text-start</span>"<span class="hv">&gt;</span>...<span class="hv">&lt;/</span><span class="ht">figcaption</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">figcaption</span><span class="ha"> class</span><span class="hv">="text-end</span>"<span class="hv">&gt;</span>...<span class="hv">&lt;/</span><span class="ht">figcaption</span><span class="hv">&gt;</span>
+</code></pre>
+</figure>

@@ -1,0 +1,45 @@
+﻿@import "../../_variables.scss";
+
+.dropdown {
+    position: fixed;
+    z-index: $zindex-dropdown;
+    display: block;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--normal-border);
+    color: var(--normal-color);
+    background-color: var(--normal-back);
+    min-width: 10rem;
+    padding: 0;
+    margin: 0;
+    margin-top: calc(var(--border-width)*3);
+    text-align: start;
+    background-clip: padding-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: $transition,left none,top none,right none, bottom none;
+    box-shadow: var(--box-shadow);
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        margin-block-start: 0;
+        margin-block-end: 0;
+        padding-inline-start: 0;
+    }
+
+    p {
+        padding: var(--padding-inline);
+    }
+
+    button,
+    .button {
+        &.dropdown-toggle[dir=ltr] {
+            padding-left: 0;
+        }
+    }
+}

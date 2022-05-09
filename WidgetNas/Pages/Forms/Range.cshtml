@@ -1,0 +1,174 @@
+﻿@page
+@model WidgetNas.Pages.Forms.RangeModel
+@{
+    ViewData["Title"] = "محدوده";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>هر چند استفاده از رنج بسیار محبوب نیست، ولیکن در برخی مواقع استفاده از آن خارج از لطف نیست، Range نیز یکی از انواع ورودی است که ما آنرا نیز بروز کردیم.</p>
+<h2>رنج به صورت کلی</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <ig>
+                <label for="customRange1_ltr" class="form">Default range</label>
+                <input type="range" id="customRange1_ltr">
+            </ig>
+            <ig class="primary">
+                <label for="customRange2_ltr" class="form">Primary range</label>
+                <input type="range" id="customRange2_ltr">
+            </ig>
+            <ig class="secondary">
+                <label for="customRange3_ltr" class="form">Secondary range</label>
+                <input type="range" id="customRange3_ltr">
+            </ig>
+            <ig class="s-m">
+                <label for="customRange4_ltr" class="form">Default range Medium</label>
+                <input type="range" id="customRange4_ltr">
+            </ig>
+            <ig class="info s-l">
+                <label for="customRange5_ltr" class="form">Info range Large</label>
+                <input type="range" id="customRange5_ltr">
+            </ig>
+            <ig class="danger s-xl">
+                <label for="customRange6_ltr" class="form">Danger range X Large</label>
+                <input type="range" id="customRange6_ltr">
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <label for="customRange1_rtl" class="form">رنج پیش فرض</label>
+                <input type="range" id="customRange1_rtl">
+            </ig>
+            <ig class="primary">
+                <label for="customRange2_rtl" class="form">رنج تم اصلی</label>
+                <input type="range" id="customRange2_rtl">
+            </ig>
+            <ig class="secondary">
+                <label for="customRange3_rtl" class="form">رنج تم دومی</label>
+                <input type="range" id="customRange3_rtl">
+            </ig>
+            <ig class="s-m">
+                <label for="customRange4_rtl" class="form">رنج پیش فرض اندازه معمولی</label>
+                <input type="range" id="customRange4_rtl">
+            </ig>
+            <ig class="info s-l">
+                <label for="customRange5_rtl" class="form">رنج اطلاع بزرگ</label>
+                <input type="range" id="customRange5_rtl">
+            </ig>
+            <ig class="danger s-xl">
+                <label for="customRange6_rtl" class="form">رنگ اخطار بزرگ تر</label>
+                <input type="range" id="customRange6_rtl">
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>غیر فعال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form2">
+            <ig>
+                <label for="customRangedis1_ltr" class="form">Input disabled</label>
+                <input type="range" id="customRangedis1_ltr" disabled>
+            </ig>
+            <ig disabled>
+                <label for="customRangedis1_ltr" class="form">ig disabled</label>
+                <input type="range" id="customRangedis1_ltr">
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <label for="customRangedis1_rtl" class="form">غیر فعال مستقیم</label>
+                <input type="range" id="customRangedis1_rtl" disabled>
+            </ig>
+            <ig disabled>
+                <label for="customRangedis1_rtl" class="form">غیر فعال گروه ورودی</label>
+                <input type="range" id="customRangedis1_rtl">
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>فقط خواندنی</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form3">
+            <ig>
+                <label for="customRangereadonly1_ltr" class="form">Input readonly</label>
+                <input type="range" id="customRangereadonly1_ltr" readonly>
+            </ig>
+            <ig readonly>
+                <label for="customRangereadonly1_ltr" class="form">ig readonly</label>
+                <input type="range" id="customRangereadonly1_ltr">
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <label for="customRangereadonly1_rtl" class="form">فقط خواندنی مستقیم</label>
+                <input type="range" id="customRangereadonly1_rtl" readonly>
+            </ig>
+            <ig readonly>
+                <label for="customRangereadonly1_rtl" class="form">فقط خواندنی گروه ورودی</label>
+                <input type="range" id="customRangereadonly1_rtl">
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>حداقل و حداکثر</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form4">
+            <ig>
+                <label for="customRangeminmax_ltr" class="form">Min 5 Max 10</label>
+                <input type="range" id="customRangeminmax_ltr" min="5" max="10">
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <label for="customRangeminmax_rtl" class="form">حداقل 5 حداکثر 10</label>
+                <input type="range" id="customRangeminmax_rtl" min="5" max="10">
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>پرش</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form5">
+            <ig>
+                <label for="customRangeminmaxstep_ltr" class="form">Min 5 Max 10 step 0.5</label>
+                <input type="range" id="customRangeminmaxstep_ltr" min="5" max="10" step="0.5">
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig>
+                <label for="customRangeminmaxstep_rtl" class="form">حداقل 5 حداکثر 10 پرش 0.5</label>
+                <input type="range" id="customRangeminmaxstep_rtl" min="5" max="10" step="0.5">
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>

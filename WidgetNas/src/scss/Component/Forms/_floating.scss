@@ -1,0 +1,168 @@
+﻿@import "../../_variables.scss";
+
+$label-transform: scale(0.85) translateY(-0.9em);
+
+.floating {
+    position: relative;
+    margin-block-end: var(--margin-block);
+
+    input,
+    textarea {
+        padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.5em) !important;
+        padding-inline: var(--padding-inline) !important;
+        margin-block: 0 !important;
+        margin-inline: 0 !important;
+    }
+
+    input,
+    textarea,
+    select {
+        &::-webkit-input-placeholder {
+            color: transparent;
+        }
+
+        &::-moz-placeholder {
+            color: transparent;
+        }
+
+        &::placeholder {
+            color: transparent;
+        }
+
+        &:focus,
+        &:not(:placeholder-shown),
+        &:-webkit-autofill {
+            padding-block-start: var(--padding-block2);
+            padding-block-end: var(--padding-block);
+        }
+
+        &:not(:-moz-placeholder-shown) {
+            padding-block-start: var(--padding-block2);
+            padding-block-end: var(--padding-block);
+        }
+
+        &:focus ~ label,
+        &:not(:placeholder-shown) ~ label,
+        &:-webkit-autofill ~ label {
+            opacity: 0.65;
+            transform: $label-transform;
+            transform-origin: right;
+
+            &[dir=ltr] {
+                transform-origin: left;
+            }
+        }
+
+
+        &:not(:-moz-placeholder-shown) ~ label {
+            opacity: 0.65;
+            transform: $label-transform;
+            transform-origin: right;
+        }
+
+        &[dir=ltr] {
+            &:not(:-moz-placeholder-shown) ~ label {
+                transform-origin: left;
+            }
+        }
+
+        &:focus ~ .valid-feedback,
+        &:focus ~ .invalid-feedback,
+        &:hover ~ .valid-feedback,
+        &:hover ~ .invalid-feedback {
+            display: none !important;
+        }
+    }
+
+    select {
+        padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.5em) !important;
+        padding-inline: var(--padding-inline) !important;
+        margin-block: 0 !important;
+        margin-inline: 0 !important;
+        background-position-y: calc(var(--padding-block) + var(--margin-block) + 0.3em);
+
+        & ~ label {
+            opacity: 0.65;
+            transform: $label-transform;
+        }
+    }
+
+    input[type=range] {
+        border: var(--border-width) solid var(--normal-border) !important;
+        padding-block-start: calc(var(--padding-block) + var(--margin-block) + 1.42em) !important;
+        padding-block-end: calc(var(--padding-block) + var(--margin-block) + 0.3em) !important;
+        padding-inline: var(--padding-inline) !important;
+    }
+
+    label {
+        position: absolute;
+        top: 0;
+        padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.25em) !important;
+        padding-inline: var(--padding-inline) !important;
+        pointer-events: none;
+        border: var(--border-width) solid transparent;
+        transition: $transition;
+    }
+
+    > ig {
+        border: var(--border-width) solid var(--normal-border);
+        border-radius: var(--border-radius);
+        padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.6em) !important;
+        padding-block-end: calc(var(--padding-block) / 2) !important;
+        padding-inline: var(--padding-inline) !important;
+
+        ig {
+            display: inline-block !important;
+            padding: 0 !important;
+
+            label {
+                padding-block: 0 !important;
+                opacity: 1 !important;
+                position: relative;
+                transform: none !important;
+                transition: none !important;
+                pointer-events: auto !important;
+            }
+        }
+
+        & ~ label {
+            opacity: 0.65;
+            transform: $label-transform;
+        }
+    }
+
+    .valid-feedback {
+        background-color: var(--valid-back);
+        color: var(--valid-color);
+    }
+
+    .invalid-feedback {
+        background-color: var(--invalid-back);
+        color: var(--invalid-color)
+    }
+
+    .valid-feedback, .invalid-feedback {
+        display: none;
+        font-size: 0.875em;
+        transition: $transition !important;
+        position: absolute;
+        opacity: 0.9;
+        bottom: 0;
+        z-index: $zindex-tooltip;
+        max-width: 100%;
+        min-width: max-content;
+        left: auto;
+        right: auto;
+        width: auto;
+        padding-block: 0;
+        padding-inline: calc(var(--padding-inline)/2);
+        font-size: 0.8rem;
+        border-radius: var(--border-radius);
+        user-select: none;
+        overflow: hidden;
+
+        &:hover {
+            display: none !important;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+﻿.carousel {
+    .carousel-slides {
+        $name: fade;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: fadeIn;
+            }
+
+            &.end {
+                display: block;
+                animation-name: fadeOut;
+            }
+        }
+    }
+}

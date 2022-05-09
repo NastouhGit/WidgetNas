@@ -1,0 +1,89 @@
+﻿select {
+    display: block;
+    font-size: var(--font-size);
+    font-weight: inherit;
+    color: var(--normal-color);
+    background-color: var(--normal-back);
+    border-width: var(--border-width);
+    border-style: solid;
+    border-color: var(--normal-border);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: var(--border-radius);
+    transition: $transition,background-position none;
+    line-height: var(--line-height);
+    min-width: 4em;
+    width: 100%;
+    margin: calc(var(--border-width) * 3);
+    padding-top: var(--padding-block);
+    padding-bottom: var(--padding-block);
+    padding-right: var(--padding-inline);
+    padding-left: calc(var(--padding-inline) + 0.8em);
+    background-image: var(--arrow-down-image);
+    background-repeat: no-repeat;
+    background-size: 0.8em;
+    background-position: left var(--padding-inline) center;
+
+
+    &[dir=ltr] {
+        padding-left: var(--padding-inline);
+        padding-right: calc(var(--padding-inline) + 0.8em);
+        background-position: right var(--padding-inline) center;
+    }
+
+    &:focus {
+        color: var(--focus-color);
+        background-color: var(--focus-back);
+        border-color: var(--focus-shadow);
+        outline: 0;
+        box-shadow: 0 0 0 var(--input-shadow-width) var(--focus-shadow);
+    }
+
+    option {
+        font-family: inherit !important;
+        color: var(--normal-color);
+        background-color: var(--normal-back);
+
+        &:checked {
+            color: var(--select-color);
+            background-color: var(--select-back);
+        }
+    }
+
+    @include disabled-tag {
+        background-color: var(--disable-back);
+        color: var(--disable-color);
+    }
+
+    @include readonly-tag {
+        background-color: var(--readonly-back);
+        padding-right: var(--padding-inline);
+        padding-left: var(--padding-inline);
+        background-image: none;
+    }
+
+    &[multiple], &[size]:not([size="1"]) {
+        padding-right: var(--padding-inline);
+        padding-left: var(--padding-inline);
+        background-image: none;
+    }
+
+
+    fieldset.noborder &,
+    .ig.noborder &,
+    ig.noborder &,
+    &.noborder {
+        border-color: transparent;
+        background-color: var(--normal-back);
+    }
+}
+.dropdownarrow {
+    background-image: var(--arrow-down-image);
+    background-repeat: no-repeat;
+    background-size: 0.8em;
+    background-position: left var(--padding-inline) center;
+
+    &[dir=ltr] {
+        background-position: right var(--padding-inline) center;
+    }
+}

@@ -1,0 +1,142 @@
+﻿.list {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 0;
+  margin-bottom: 0;
+  border-radius: var(--border-radius);
+}
+.list li, .list .list-item {
+  font-size: var(--font-size);
+  position: relative;
+  display: block;
+  padding-block: var(--padding-block);
+  padding-inline: var(--padding-inline);
+  text-decoration: none;
+  color: var(--normal-color);
+  background-color: var(--normal-back);
+  border: var(--border-width) solid var(--normal-border);
+  border-block-end: none;
+  border-radius: 0;
+}
+.list li:first-child, .list .list-item:first-child {
+  border-start-start-radius: inherit;
+  border-start-end-radius: inherit;
+}
+.list li:last-child, .list .list-item:last-child {
+  border-end-start-radius: inherit;
+  border-end-end-radius: inherit;
+  border-block-end: var(--border-width) solid var(--normal-border);
+}
+.list li.list-active, .list .list-item.list-active {
+  z-index: 2;
+  color: var(--active-color);
+  background-color: var(--active-back);
+}
+.list li.list-active.noover:hover, .list .list-item.list-active.noover:hover {
+  color: var(--active-color) !important;
+  background-color: var(--active-back) !important;
+  border-color: var(--active-border) !important;
+}
+.list li:disabled, .list li.list-disabled, .list li[disabled], .list .list-item:disabled, .list .list-item.list-disabled, .list .list-item[disabled] {
+  color: var(--disable-color) !important;
+  pointer-events: none;
+}
+.list.list-hover li, .list.list-hover .list-item {
+  cursor: default;
+}
+.list.list-hover li:hover, .list.list-hover .list-item:hover {
+  color: var(--hover-color);
+  background-color: var(--hover-back);
+  border-color: var(--hover-border);
+}
+.list.list-hover li.noover:hover, .list.list-hover .list-item.noover:hover {
+  color: var(--normal-color);
+  background-color: var(--normal-back);
+  border-color: var(--normal-border);
+}
+
+.list a, .list button {
+  background-color: transparent;
+  border: none;
+  padding-block: 0;
+  padding-inline: 0;
+  margin: 0;
+  width: 100%;
+  text-align: start;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.list.list-noedge {
+  border-radius: 0;
+  border: none;
+}
+.list.list-noedge .list-item, .list.list-noedge li {
+  border: none;
+  border-block-end-style: solid;
+  border-block-end-width: var(--border-width);
+  border-block-end-color: var(--normal-border);
+}
+.list.list-noedge .list-item:last-child, .list.list-noedge li:last-child {
+  border-block-end: none;
+}
+
+.list.list-numbering {
+  list-style-type: none;
+  counter-reset: section;
+}
+.list.list-numbering > *::before {
+  content: counters(section, ".") ". ";
+  counter-increment: section;
+}
+.list.list-numbering.list-dash > *::before {
+  content: counters(section, ".") "- ";
+  counter-increment: section;
+}
+
+.list.list-horizontal {
+  flex-direction: row;
+  border-radius: 0;
+}
+.list.list-horizontal li, .list.list-horizontal .list-item {
+  border: var(--border-width) solid var(--normal-border);
+  border-inline-end: none;
+  padding-block: var(--padding-block);
+  padding-inline: var(--padding-inline);
+}
+.list.list-horizontal li:first-child, .list.list-horizontal .list-item:first-child {
+  border-start-start-radius: var(--border-radius);
+  border-end-start-radius: var(--border-radius);
+}
+.list.list-horizontal li:last-child, .list.list-horizontal .list-item:last-child {
+  border-inline-end: var(--border-width) solid var(--normal-border);
+  border-start-end-radius: var(--border-radius);
+  border-end-end-radius: var(--border-radius);
+}
+
+.list.list-tiny {
+  border-radius: 0;
+}
+.list.list-tiny li, .list.list-tiny .list-item {
+  font-size: var(--font-size);
+  position: relative;
+  display: block;
+  padding-block: 0;
+  padding-inline: var(--padding-inline);
+  text-decoration: none;
+  color: var(--normal-color);
+  background-color: var(--normal-back);
+  border: none;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+@media (max-width: 768px) {
+  .list li, .list .list-item {
+    padding-block: var(--padding-block) !important;
+    padding-inline: var(--padding-inline) !important;
+  }
+}

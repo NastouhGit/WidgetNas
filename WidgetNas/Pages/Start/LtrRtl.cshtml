@@ -1,0 +1,30 @@
+﻿@page
+@model WidgetNas.Pages.Start.LtrRtlModel
+@{
+    ViewData["Title"] = "راست به چپ";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>قوت ویج نس به پشتیبانی از نحوه نمایش rtl و ltr است، آن هم به صورت هم زمان. در بوت استرپپ برای پشتیبانی از آن دو فایل css طراحی کرده است که در برخی مواقع نیز به درستی عمل نمیکند.</p>
+<p>در ویجت نس، فقط کافیست برای راست به چپ کردن و یا چپ به راست کردن، از دو کلاس rtl و ltr در تگ مورد نظر استفاده کنید، پس از آن هر چه در آن تگ باشد بر اساس اصول انتخاب شده نمایش داده میشود.</p>
+<h1>صفحات راست به چپ</h1>
+<p>برای استفاده از صفحات راست به چپ کلاس <bidi>rtl</bidi> را به تگ body اضافه کنید.</p>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">body</span><span class="ha"> class</span><span class="hv">="rtl</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">body</span><span class="hv">&gt;</span>    </code></pre>
+</figure>
+<p>اگر در داخل صفحه راست به چپ خواستید مطلبی به صورت چپ با راست نماش داده شود، کافیست کلاس ltr را به تگ مد نظر اضافه کنید.</p>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">body</span><span class="ha"> class</span><span class="hv">="rtl</span>"<span class="hv">&gt;</span>
+         <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="ltr</span>"<span class="hv">&gt;</span>
+         <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">body</span><span class="hv">&gt;</span>    </code></pre>
+</figure>
+
+<h1>صفحات چپ به راست</h1>
+<p>برای استفاده از صفحات چپ به راست کلاس <bidi>ltr</bidi> را به تگ body اضافه کنید.</p>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">body</span><span class="ha"> class</span><span class="hv">="ltr</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">body</span><span class="hv">&gt;</span>    </code></pre>
+</figure>

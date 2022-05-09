@@ -1,0 +1,31 @@
+﻿pre {
+    max-height: 80vh;
+    white-space: pre-wrap;
+    overflow: auto;
+    display: block;
+    max-width:100%;
+}
+code {
+    word-wrap: normal;
+    word-break: keep-all;
+}
+
+.html {
+    color: #333;
+    font-weight:700;
+    .ht, &.ht {
+        color: #90033e !important;
+    }
+
+    .ha, &.ha {
+        color: #ff0000 !important;
+    }
+
+    .hv, &.hv {
+        color: #2500ff !important;
+    }
+
+    .hr, &.hr {
+        color: #78a10f !important;
+    }
+}

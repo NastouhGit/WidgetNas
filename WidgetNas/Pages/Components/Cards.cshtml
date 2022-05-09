@@ -1,0 +1,581 @@
+﻿@page
+@model WidgetNas.Pages.Components.CardsModel
+@{
+    ViewData["Title"] = "کارتها Cards";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>میخواهید اطلاعاتی را به صورت کارت مانند در اختیار کاربر قرار دهید، کارتها در این خصوص به شما کمک خواهند کرد.</p>
+<p>
+    ما تعدادی از حالات کارت را پیاده سازی کردیم، ولیکن انواع مختلفی از نمایش کارتها وجود دارد، که شما میتوانید با تغییر در استایل
+    سیستم فاصله گذاری، رنگ بندی و ... آنرا بهبود دهید.
+</p>
+<p>برای نمایش انواع مختلف به مثالهای زیر توجه کنید.</p>
+
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="card" style="width: 18rem;" id="form1">
+            <img src="~/images/WN01.png">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-img-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="button primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card" style="width: 18rem;">
+            <img src="~/images/WN01.png">
+            <div class="card-body">
+                <h5 class="card-title">عنوان کارت</h5>
+                <p class="card-text">این یک متن آزمایشی است برای ساختن بدنه کارت.</p>
+                <a href="#" class="button primary">برو یه جایی</a>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>اجزا</h2>
+<p>کارتهای به چند بخش تقسیم شده اند، بخش مهم که بدنه است، با کلاس <bidi>card-body</bidi> مشخص میشود، شما در این کلاس میتوانید اطلاعات مد نظر را درج کنید. طبیعی است از سیستم فاصله گذاری مرتب سازی و غیره برای بهبود نمایش استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="card" id="form2">
+            <div class="card-body">
+                This is some text within a card body.
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card">
+            <div class="card-body">
+                این یک متن آزمایش است برای آنکه ببینید متن درون بدنه چگونه نمایش داده میشود.
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>عنوان، متن و لینک</h2>
+<p>درون بدنه شما میتوانید از انواع هدینگ <bidi>h?</bidi> استفاده کنید، بهتر است کلاس <bidi>card-title</bidi> را نیز اضافه کنید.</p>
+<p>برای اضافه کردن زیر تیتر، میتوانید از یک هدینگ کوچکتر با کلاس <bidi>card-subtitle</bidi> استفاده کنید، این کلاس، جایگاه نمایش را بهبود میدهد.</p>
+<p>برای درج لینکها، کلاس <bidi>card-link</bidi> را نیز اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="card" style="width: 18rem;" id="form3">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">عنوان کارت</h5>
+                <h6 class="card-subtitle text-muted">زیر عنوان</h6>
+                <p class="card-text">این یک متن آزمایش است برای آنکه ببینید متن درون بدنه چگونه نمایش داده میشود.</p>
+                <a href="#" class="card-link">لینک کارت</a>
+                <a href="#" class="card-link">لینکی دیگر</a>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>تصویر</h2>
+<p>
+    شما میتوانید هر تصویری را در کارت خود داشته باشید، کافیست از کلاس <bidi>card-img</bidi> استفاده کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <div class="card" style="width: 18rem;">
+            <img src="~/images/WN01.png" class="card-img">
+            <div class="card-body">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <div class="card-body">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+            <img src="~/images/WN01.png" class="card-img">
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <img src="~/images/WN01.png" class="card-img">
+            <div class="card-body">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+            <img src="~/images/WN01.png" class="card-img">
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card" style="width: 18rem;">
+            <img src="~/images/WN01.png" class="card-img">
+            <div class="card-body">
+                این یک متن آزمایش است برای آنکه ببینید متن درون بدنه چگونه نمایش داده میشود.
+            </div>
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <div class="card-body">
+                این یک متن آزمایش است برای آنکه ببینید متن درون بدنه چگونه نمایش داده میشود.
+            </div>
+            <img src="~/images/WN01.png" class="card-img">
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <img src="~/images/WN01.png" class="card-img">
+            <div class="card-body">
+                این یک متن آزمایش است برای آنکه ببینید متن درون بدنه چگونه نمایش داده میشود.
+            </div>
+            <img src="~/images/WN01.png" class="card-img">
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>هدر، فوتر و لیست</h2>
+<p>
+    شما میتوانید در کارت خود یک لیست بدون لبه داشته باشید، برای همین منظور یک لیست با کلاس <bidi>list-noedge</bidi> در کارت خود قرار دهید.
+</p>
+<p>همچنین میتوانید برای کارت خود یک هدر داشته باشید، برای همین یک div با کلاس <bidi>card-header</bidi> اضافه کنید.</p>
+<p>اگر تمایل دارید برای کارت خود یک فوتر داشته باشید، یک div با کلاس <bidi>card-footer</bidi> اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <div class="card" style="width: 18rem;">
+            <div class="list list-noedge">
+                <a href="#" class="list-item">Item 1</a>
+                <a href="#" class="list-item">Item 2</a>
+                <a href="#" class="list-item">Item 3</a>
+            </div>
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <div class="card-header">
+                Featured
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">Item 1</a>
+                <a href="#" class="list-item">Item 2</a>
+                <a href="#" class="list-item">Item 3</a>
+            </div>
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <div class="card-header">
+                Featured
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">Item 1</a>
+                <a href="#" class="list-item">Item 2</a>
+                <a href="#" class="list-item">Item 3</a>
+            </div>
+            <div class="card-footer">
+                Card Footer
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card" style="width: 18rem;">
+            <div class="list list-noedge">
+                <a href="#" class="list-item">گزینه 1</a>
+                <a href="#" class="list-item">گزینه 2</a>
+                <a href="#" class="list-item">گزینه 3</a>
+            </div>
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <div class="card-header">
+                ویژه
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">گزینه 1</a>
+                <a href="#" class="list-item">گزینه 2</a>
+                <a href="#" class="list-item">گزینه 3</a>
+            </div>
+        </div>
+        <div class="card m-bs-50r" style="width: 18rem;">
+            <div class="card-header">
+                ویژه
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">گزینه 1</a>
+                <a href="#" class="list-item">گزینه 2</a>
+                <a href="#" class="list-item">گزینه 3</a>
+            </div>
+            <div class="card-footer">
+                فوتر کارت
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>مخلوط اجزاء</h2>
+<p>
+    برای ساخت کارت دلخواه خود میتوانید مجموعه ای از اجزاء را کنار هم قرار دهید تا کارت دلخواه خود را بسازید.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="card" style="width: 18rem;" id="form6">
+            <img src="~/images/WN01.png">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">Item 1</a>
+                <a href="#" class="list-item">Item 2</a>
+                <a href="#" class="list-item">Item 3</a>
+            </div>
+            <div class="card-body">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card" style="width: 18rem;">
+            <img src="~/images/WN01.png">
+            <div class="card-body">
+                <h5 class="card-title">عنوان کارت</h5>
+                <h6 class="card-subtitle text-muted">زیر عنوان</h6>
+                <p class="card-text">این یک متن آزمایش است برای آنکه ببینید متن درون بدنه چگونه نمایش داده میشود.</p>
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">گزینه 1</a>
+                <a href="#" class="list-item">گزینه 2</a>
+                <a href="#" class="list-item">گزینه 3</a>
+            </div>
+            <div class="card-body">
+                <a href="#" class="card-link">لینک کارت</a>
+                <a href="#" class="card-link">لینکی دیگر</a>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>اندازه گذاری</h2>
+<p>
+    کارتها به صورت پیش فرض اندازه 100% را دارند، اگر میخواهید از اندازه خاصی استفاده کنید، میتوانید از کلاسهای مرتبط با اندازه عرض <bidi>w-?</bidi> استفاده کنید.
+</p>
+<p>همچنین برای تغییر اندازه کلی میتوانید از کلاس های مرتبط با اندازه <bidi>s-?</bidi> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="card w-25 s-s" id="form7">
+            <div class="card-header">
+                Small size
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">Item 1</a>
+                <a href="#" class="list-item">Item 2</a>
+                <a href="#" class="list-item">Item 3</a>
+            </div>
+            <div class="card-body">
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card w-25 s-s">
+            <div class="card-header">
+                اندازه کوچک
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">عنوان کارت</h5>
+                <h6 class="card-subtitle text-muted">زیر عنوان</h6>
+                <p class="card-text">این یک متن آزمایش است برای آنکه ببینید متن درون بدنه چگونه نمایش داده میشود.</p>
+            </div>
+            <div class="list list-hover list-noedge">
+                <a href="#" class="list-item">گزینه 1</a>
+                <a href="#" class="list-item">گزینه 2</a>
+                <a href="#" class="list-item">گزینه 3</a>
+            </div>
+            <div class="card-body">
+                <a href="#" class="card-link">لینک کارت</a>
+                <a href="#" class="card-link">لینکی دیگر</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+
+<h2>پوشش تصویر</h2>
+<p>
+    اگر میخواهید بدنه بر روی تصویر قرار گیرد، به صورتیکه تصویر در پس زمینه قرار گیرد، میتوانید از کلاس <bidi>card-overlay</bidi> برای بدنه استفاده کنید.
+</p>
+<p>توجه داشته باشید فقط یک <bidi>card-body card-overlay</bidi> میتوانید داشته باشید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="card" style="width: 18rem;" id="form8">
+            <img src="~/images/WN01.png">
+            <div class="card-body card-overlay default-text">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="button primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card" style="width: 18rem;">
+            <img src="~/images/WN01.png">
+            <div class="card-body card-overlay default-text">
+                <h5 class="card-title">عنوان کارت</h5>
+                <p class="card-text">این یک متن آزمایشی است برای ساختن بدنه کارت.</p>
+                <a href="#" class="button primary">برو یه جایی</a>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+<h2>کارت افقی</h2>
+<p>
+    اگر میخواهید چینش درون کارت را تغییر دهید و به صورت افقی نمایش دهید به مثال زیر توجه کنید.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="card" id="form9">
+            <div class="row g-i-0x g-b-0x">
+                <div class="col-4 dark-bkcolor">
+                    <img src="~/images/tools128.png">
+                </div>
+                <div class="col-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="button primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card">
+            <div class="row g-i-0x g-b-0x">
+                <div class="col-4 dark-bkcolor">
+                    <img src="~/images/tools128.png">
+                </div>
+                <div class="col-8">
+                    <div class="card-body">
+                        <h5 class="card-title">عنوان کارت</h5>
+                        <p class="card-text">این یک متن آزمایشی است برای ساختن بدنه کارت.</p>
+                        <a href="#" class="button primary">برو یه جایی</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>
+<h2>رنگها</h2>
+<p>با استفاده از سیستم رنگ بندی، رنگهای متفاوت را تجربه کنید</p>
+<div class="example-div">
+    <div class="ltr" id="form10">
+        <h3>LTR</h3>
+        <div class="card primary" style="width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+            <div class="card-footer">Footer</div>
+        </div>
+        <div class="card error m-bs-50r" style="width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+            <div class="card-footer">Footer</div>
+        </div>
+        <div class="card success m-bs-50r" style="width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+            <div class="card-footer">Footer</div>
+        </div>
+        <div class="card success outline m-bs-50r" style="width: 18rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+            <div class="card-footer">Footer</div>
+        </div>
+        <div class="card success outline m-bs-50r" style="width: 18rem;">
+            <div class="card-header error">Header</div>
+            <div class="card-body warning">
+                Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+            <div class="card-footer danger">Footer</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card primary" style="width: 18rem;">
+            <div class="card-header">عنوان</div>
+            <div class="card-body">
+                این یک متن آزمایشی است برای ساختن بدنه کارت.
+            </div>
+            <div class="card-footer">پانوشت</div>
+        </div>
+        <div class="card error m-bs-50r" style="width: 18rem;">
+            <div class="card-header">عنوان</div>
+            <div class="card-body">
+                این یک متن آزمایشی است برای ساختن بدنه کارت.
+            </div>
+            <div class="card-footer">پانوشت</div>
+        </div>
+        <div class="card success m-bs-50r" style="width: 18rem;">
+            <div class="card-header">عنوان</div>
+            <div class="card-body">
+                این یک متن آزمایشی است برای ساختن بدنه کارت.
+            </div>
+            <div class="card-footer">پانوشت</div>
+        </div>
+        <div class="card success outline m-bs-50r" style="width: 18rem;">
+            <div class="card-header">عنوان</div>
+            <div class="card-body">
+                این یک متن آزمایشی است برای ساختن بدنه کارت.
+            </div>
+            <div class="card-footer">پانوشت</div>
+        </div>
+        <div class="card success outline m-bs-50r" style="width: 18rem;">
+            <div class="card-header error">عنوان</div>
+            <div class="card-body warning">
+                این یک متن آزمایشی است برای ساختن بدنه کارت.
+            </div>
+            <div class="card-footer danger">پانوشت</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form10"></code></figure>
+<h2>کارتهای گروهی</h2>
+<p>با استفاده از سیستم رنگ بندی، رنگهای متفاوت را تجربه کنید</p>
+<div class="example-div">
+    <div class="ltr" id="form11">
+        <h3>LTR</h3>
+        <div class="card-group">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                </div>
+                <div class="card-footer">Footer</div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                </div>
+                <div class="card-footer">Footer</div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    Some quick example text to build on the card title and make up the bulk of the card's content.
+                </div>
+                <div class="card-footer">Footer</div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="card-group">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">عنوان</div>
+                <div class="card-body">
+                    این یک متن آزمایشی است برای ساختن بدنه کارت.
+                </div>
+                <div class="card-footer">پانوشت</div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">عنوان</div>
+                <div class="card-body">
+                    این یک متن آزمایشی است برای ساختن بدنه کارت.
+                </div>
+                <div class="card-footer">پانوشت</div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">عنوان</div>
+                <div class="card-body">
+                    این یک متن آزمایشی است برای ساختن بدنه کارت.
+                </div>
+                <div class="card-footer">پانوشت</div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form11"></code></figure>
+<h2>نمایش توری</h2>
+<p>
+    با استفاده از کلاس های row و col ساختار چینش و اندازه دلخواه کارتها را مشخص کنید.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="row" id="form12">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="button primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="button primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">عنوان کارت</h5>
+                        <p class="card-text">این یک متن آزمایشی است برای ساختن بدنه کارت.</p>
+                        <a href="#" class="button primary">برو یه جایی</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">عنوان کارت</h5>
+                        <p class="card-text">این یک متن آزمایشی است برای ساختن بدنه کارت.</p>
+                        <a href="#" class="button primary">برو یه جایی</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form12"></code></figure>

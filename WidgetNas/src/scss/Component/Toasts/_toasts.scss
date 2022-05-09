@@ -1,0 +1,124 @@
+﻿.toast-container {
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    height: max-content;
+    max-width: 100%;
+    max-height: 100vh;
+    pointer-events: none;
+    z-index: $zindex-tooltip;
+    position: fixed;
+    left: auto;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    margin: 1rem;
+
+
+    & > *:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    &.toast-block-start {
+        top: 0;
+        bottom: auto;
+    }
+
+    &.toast-block-center {
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%);
+    }
+
+    &.toast-block-end {
+        top: auto;
+        bottom: 0;
+    }
+
+    &.toast-inline-start {
+        left: auto;
+        right: 0;
+
+        &[dir=ltr] {
+            right: auto;
+            left: 0;
+        }
+    }
+
+    &.toast-inline-center {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+        &.toast-inline-center.toast-block-center {
+            transform: translate(-50%,-50%) !important;
+        }
+
+    &.toast-inline-end {
+        right: auto;
+        left: 0;
+
+        &[dir=ltr] {
+            left: auto;
+            right: 0;
+        }
+    }
+}
+
+toast,
+.toast {
+    width: 320px;
+    max-width: 100%;
+    font-size: calc(var(--font-size) * 0.8);
+    pointer-events: auto;
+    background-color: var(--normal-back);
+    background-clip: padding-box;
+    border: var(--border-width) solid var(--normal-border);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: var(--border-radius);
+    display: none;
+    transition: $transition;
+
+    &.show {
+        display: block;
+    }
+
+
+    .toast-header {
+        display: flex;
+        align-items: center;
+        padding-inline: var(--padding-inline);
+        padding-block: var(--padding-block);
+        color: var(--normal-color);
+        background-color: var(--normal-back);
+        background-clip: padding-box;
+        border-bottom: var(--border-width) solid var(--normal-border);
+        border-top-left-radius: calc(var(--border-radius) * .8);
+        border-top-right-radius: calc(var(--border-radius) * .8);
+
+        .close {
+            margin: 0;
+            margin-inline-start: var(--padding-inline);
+        }
+
+        .toast-icon {
+            width: 1.5em;
+            height: 1.5em;
+            margin-inline-end: var(--margin-inline);
+            background-position: center;
+            background-size: auto;
+            background-repeat: no-repeat;
+            background-clip: content-box;
+        }
+    }
+
+    .toast-body {
+        color: var(--normal-color);
+        background-color: var(--normal-back);
+        padding-inline: var(--padding-inline);
+        padding-block: var(--padding-block);
+        border-bottom-left-radius: calc(var(--border-radius) * .8);
+        border-bottom-right-radius: calc(var(--border-radius) * .8);
+    }
+}

@@ -1,0 +1,34 @@
+﻿@page
+@model WidgetNas.Pages.Content.PreEditorModel
+@{
+    ViewData["Title"] = "تبدیل کد به نویسه";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>در مواقعی نیاز است، کد html را به صورت نمایشی، نمایش داد، در این حالت بایستی تغییراتی در نحوه کاراکترها و ایجاد استایل مرتبط کرد. در قسمت زیر میتوانید این عمل را انجام دهید.</p>
+<h2>ورودی html</h2>
+<div>
+    <textarea id="source" class="w-100 ltr" rows="10" oninput="Convert()"></textarea>
+</div>
+<h2>خروجی</h2>
+<div>
+    <textarea id="target" class="w-100 ltr" rows="10"></textarea>
+</div>
+<h2>پیش نمایش</h2>
+<div>
+    <figure>
+        <pre><code class="html" id="preview">
+    </code></pre>
+    </figure>
+</div>
+<script>
+    var src = document.getElementById('source');
+    var trg = document.getElementById('target');
+    var prv = document.getElementById('preview');
+    function Convert() {
+        let out = WNHtmlToEscape(src.value);
+        trg.value = out;
+        prv.innerHTML = out;
+    }
+
+</script>

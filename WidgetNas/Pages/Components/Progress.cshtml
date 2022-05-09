@@ -1,0 +1,316 @@
+﻿@page
+@model WidgetNas.Pages.Components.ProgressModel
+@{
+    ViewData["Title"] = "میله پیشرفت Progress bar";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>در بسیاری از جاها نیاز است که درصد پیشرفت عملیاتی را مشخص کرد، برای مثال ارسال اطلاعات حجیم دارید، در حال محاسبه سمت سرور یا کلاینت است و یا حتی درصد پیشرفت پروژه کاری را میخواهید مشخص کنید. </p>
+<p>پیشنهاد نمیشود از موضوع پیش فرض progress استفاده کنید، این موضوع بسیار محدود است.</p>
+<p>برای نمایش انواع مختلف به مثالهای زیر توجه کنید.</p>
+
+<h2>مثال</h2>
+<p>نمایش شماره صفحه به صورت لینک و دکمه در زیر آورده شده است.</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div class="progress">
+            <div class="progress-bar" style="width:0%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:50%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:75%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:100%"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="progress">
+            <div class="progress-bar" style="width:0%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:50%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:75%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar" style="width:100%"></div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>برچسب</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="progress" id="form2">
+            <div class="progress-bar" style="width:25%">25%</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="progress">
+            <div class="progress-bar" style="width:25%">25%</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>ارتفاع</h2>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <div class="progress" style="height:3px;">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r h-50r-i">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r h-75r-i">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="progress" style="height:3px;">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r h-50r-i">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r h-75r-i">
+            <div class="progress-bar" style="width:25%"></div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>رنگ و شکل میله</h2>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR</h3>
+        <div class="progress">
+            <div class="progress-bar w-50-i primary-color">50%</div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar w-50-i third-color">50%</div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar w-50-i round error-color">50%</div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar w-50-i capsule success-color">50%</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="progress">
+            <div class="progress-bar w-50-i primary-color">50%</div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar w-50-i third-color">50%</div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar w-50-i round error-color">50%</div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar w-50-i capsule success-color">50%</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>چند میله ای</h2>
+<p>اگر میخواهید عدد درصد در وسط نوار قرار گیرد، مقدار را در کلاس <bidi>progress-caption</bidi> بنویسید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="progress" id="form5">
+            <div class="progress-bar w-10-i danger-color"></div>
+            <div class="progress-bar w-20-i warning-color"></div>
+            <div class="progress-bar w-30-i success-color"></div>
+            <div class="progress-caption">60%</div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="progress">
+            <div class="progress-bar w-10-i danger-color"></div>
+            <div class="progress-bar w-20-i warning-color"></div>
+            <div class="progress-bar w-30-i success-color"></div>
+            <div class="progress-caption">60%</div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>راه راه</h2>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <div class="progress">
+            <div class="progress-bar progress-striped primary-color" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped success-color" style="width:50%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped danger-color" style="width:75%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped warning-color" style="width:100%"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="progress">
+            <div class="progress-bar progress-striped primary-color" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped success-color" style="width:50%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped danger-color" style="width:75%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped warning-color" style="width:100%"></div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>راه راه متحرک</h2>
+<div class="example-div">
+    <div class="ltr" id="form7">
+        <h3>LTR</h3>
+        <div class="progress">
+            <div class="progress-bar progress-striped progress-animated primary-color" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped progress-animated success-color" style="width:50%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped progress-animated danger-color" style="width:75%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped progress-animated warning-color" style="width:100%"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="progress">
+            <div class="progress-bar progress-striped progress-animated primary-color" style="width:25%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped progress-animated success-color" style="width:50%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped progress-animated danger-color" style="width:75%"></div>
+        </div>
+        <div class="progress m-bs-100r">
+            <div class="progress-bar progress-striped progress-animated warning-color" style="width:100%"></div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h2>جاوا اسکریپت</h2>
+<p>برای تنظیم و مقدار دهی توسط جاوا اسکریپت ابتدا باید <span class="bidi-override">wn-type="progress"</span> را به div  اصلی نسبت دهید. از این جا به بعد، سیستم میفهمند که شما میخواهید از توابع جاوا اسکریپت استفاده کنید.</p>
+<p>
+    <h6>خصوصیت min و max</h6>
+    اگر میخواهید، عددی که وارد میکنید به طور خودکار محاسبه شود، باید مقدار min و max را مقدار دهی کنید، مقدار پیش فرض 0 و 100 است.
+</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span>
+        <span class="ha">id=</span><span class="hv">"progress1"</span>
+        <span class="ha">class=</span><span class="hv">"progress"</span>
+        <span class="ha">wn-type=</span><span class="hv">"progress"</span>
+        <span class="ha">min=</span><span class="hv">"0"</span>
+        <span class="ha">max=</span><span class="hv">"1000"</span>&gt;
+        ...
+    &lt;/<span class="ht">div</span>&gt;
+
+    &lt;<span class="ht">script</span>&gt;
+        WN[<span class="ht">'progress1'</span>].min=0;
+        WN[<span class="ht">'progress1'</span>].max=1000;
+    &lt;/<span class="ht">script</span>&gt;
+</code></pre>
+</figure>
+<p>
+    <h6>خصوصیت value</h6>
+    این مقدار فقط توسط جاوا اسکریپت مقدار دهی خواهد شد، مقداری که در بین min و max است.
+</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span>
+        <span class="ha">id=</span><span class="hv">"progress1"</span>
+        <span class="ha">class=</span><span class="hv">"progress"</span>
+        <span class="ha">wn-type=</span><span class="hv">"progress"</span>
+        <span class="ha">min=</span><span class="hv">"0"</span>
+        <span class="ha">max=</span><span class="hv">"1000"</span>&gt;
+        ...
+    &lt;/<span class="ht">div</span>&gt;
+
+    &lt;<span class="ht">script</span>&gt;
+        WN[<span class="ht">'progress1'</span>].value=500;
+    &lt;/<span class="ht">script</span>&gt;
+</code></pre>
+</figure>
+<p>
+    <h6>چند میله ای</h6>
+    اگر میخواهید چند نوع خط پیشرفت داشته باشید، مثلا تا 30 درصد، رنگ قرمز، تا 70 درصد زرد و تا 100 درصد سبز باشد،
+    باید طبق موارد گفته شده در بالا، چند میله داشته باشید، ولیکن برای مشخص نمودن مرز این اعداد از خصوصیت
+    <span class="bidi-override">max = 'x'</span> استفاده کنید.<br />
+    توجه داشته باشید این اعداد باید به صورت درصد باشند یعنی بین 0 تا 100.
+</p>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span>
+        <span class="ha">id=</span><span class="hv">"progress1"</span>
+        <span class="ha">class=</span><span class="hv">"progress"</span>
+        <span class="ha">wn-type=</span><span class="hv">"progress"</span>
+        <span class="ha">min=</span><span class="hv">"0"</span>
+        <span class="ha">max=</span><span class="hv">"1000"</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"progress-bar danger-color"</span> <span class="ha">max=</span><span class="hv">"30"</span>&gt;&lt;/<span class="ht">div</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"progress-bar warning-color"</span> <span class="ha">max=</span><span class="hv">"70"</span>&gt;&lt;/<span class="ht">div</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"progress-bar success-color"</span> <span class="ha">max=</span><span class="hv">"100"</span>&gt;&lt;/<span class="ht">div</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"progress-caption"</span>&gt;&lt;/<span class="ht">div</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+
+    &lt;<span class="ht">script</span>&gt;
+        WN[<span class="ht">'progress1'</span>].value=500;
+    &lt;/<span class="ht">script</span>&gt;
+</code></pre>
+</figure>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="progress1_ltr" wn-type="progress">
+            <div class="progress-bar"></div>
+        </div>
+        <div class="m-bs-50r">
+            <button onclick="WN['progress1_ltr'].value=25">25%</button>
+            <button onclick="WN['progress1_ltr'].value=50">50%</button>
+            <button onclick="WN['progress1_ltr'].value=75">75%</button>
+            <button onclick="WN['progress1_ltr'].value=100">100%</button>
+        </div>
+        <div id="progress2_ltr" wn-type="progress" class="progress m-bs-100r" min="0" max="1000">
+            <div class="progress-bar progress-striped progress-animated error-color" max="30"></div>
+            <div class="progress-bar progress-striped progress-animated warning-color" max="70"></div>
+            <div class="progress-bar progress-striped progress-animated success-color" max="100"></div>
+            <div class="progress-caption"></div>
+        </div>
+        <div class="m-bs-50r">
+            <button onclick="WN['progress2_ltr'].value=250">250</button>
+            <button onclick="WN['progress2_ltr'].value=500">500</button>
+            <button onclick="WN['progress2_ltr'].value=750">750</button>
+            <button onclick="WN['progress2_ltr'].value=1000">1000</button>
+        </div>
+    </div>
+</div>

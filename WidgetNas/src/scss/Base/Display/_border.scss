@@ -1,0 +1,93 @@
+﻿.border {
+    border-width:1px;
+    border-style:solid;
+}
+.border-block {
+    border-block: var(--border-width) solid var(--normal-border) !important;
+}
+.border-inline {
+    border-inline: var(--border-width) solid var(--normal-border) !important;
+}
+.noborder {
+    border-width: 0 !important;
+}
+
+.noborder-is {
+    border-inline-start: none !important;
+}
+.noborder-ie {
+    border-inline-end: none !important;
+}
+.noborder-bs {
+    border-block-start: none !important;
+}
+
+.noborder-be {
+    border-block-end: none !important;
+}
+
+.round {
+    border-radius: var(--border-radius);
+}
+
+
+.circle {
+    border-radius: 50% !important;
+}
+
+.capsule {
+    border-radius: 1em !important;
+}
+
+.round-top {
+    border-start-start-radius: var(--border-radius) !important;
+    border-start-end-radius: var(--border-radius) !important;
+}
+.round-bottom {
+    border-end-start-radius: var(--border-radius) !important;
+    border-end-end-radius: var(--border-radius) !important;
+}
+.round-top-s {
+    --brd-radius: calc(var(--border-radius) * 0.8);
+    border-start-start-radius: var(--brd-radius) !important;
+    border-start-end-radius: var(--brd-radius) !important;
+}
+
+.round-bottom-s {
+    --brd-radius: calc(var(--border-radius) * 0.8);
+    border-end-start-radius: var(--brd-radius) !important;
+    border-end-end-radius: var(--brd-radius) !important;
+}
+.bordered {
+    border: var(--border-width) solid var(--normal-border);
+}
+.border-inline-start {
+    border-inline-start: var(--border-width) solid var(--normal-border);
+}
+.border-inline-end {
+    border-inline-end: var(--border-width) solid var(--normal-border);
+}
+.border-block-start {
+    border-block-start: var(--border-width) solid var(--normal-border);
+}
+.border-block-end {
+    border-block-end: var(--border-width) solid var(--normal-border);
+}
+.noround-is {
+    border-start-start-radius: 0 !important;
+    border-end-start-radius: 0 !important;
+}
+.noround-ie {
+    border-start-end-radius: 0 !important;
+    border-end-end-radius: 0 !important;
+}
+
+.noround-bs {
+    border-start-start-radius: 0 !important;
+    border-start-end-radius: 0 !important;
+}
+
+.noround-be {
+    border-end-start-radius: 0 !important;
+    border-end-end-radius: 0 !important;
+}

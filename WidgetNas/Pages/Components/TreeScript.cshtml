@@ -1,0 +1,370 @@
+﻿@page
+@model WidgetNas.Pages.Components.TreeScriptModel
+@{
+    ViewData["Title"] = "درختواره جاوا اسکریپت";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    زمان آن رسیده با استفاده از توابع جاوا اسکریپت به پویایی درختواره کمک کنید.
+    اگر میخواهید به درختواره گزینه اضافه کنید، در آن جستجو کنید، فیلتر کنید و کارهای دیگر،
+    توابع جاوا اسکریپت به کمک شما می آید.
+</p>
+<h3>مثال مشترک</h3>
+<div class="example-div">
+    <div class="ltr" style="min-height:50vh">
+        <input class="m-ie-20r" type="search" placeholder="Filter" onkeyup="WN['tree1'].filterbytext(this.value, true)">
+        <ul id="tree1" class="tree" wn-type="tree"
+            onbeforeclick="AppendResult('Before Click '+ t.currentselect.innerText + ' offsetX: ' + e.offsetX)"
+            onafterclick="AppendResult('After Click '+ t.currentselect.innerText + ' offsetX: ' + e.offsetX)"
+            onselectionchange="AppendResult('Selection Change '+ t.currentselect.innerText + ' Node: ' + n.localName)"
+            onbeforetoggle="AppendResult('Before Toggle '+ t.currentselect.innerText + ' Node: ' + n.localName)"
+            onaftertoggle="AppendResult('After Toggle '+ t.currentselect.innerText + ' Node: ' + n.localName)"
+            onbeforecollapse="AppendResult('Before Collapse '+ t.currentselect.innerText + ' Node: ' + n.localName)"
+            onaftercollapse="AppendResult('After Collapse '+ t.currentselect.innerText + ' Node: ' + n.localName)"
+            onbeforeexpand="AppendResult('Before Expand '+ t.currentselect.innerText + ' Node: ' + n.localName)"
+            onafterexpand="AppendResult('After Expand '+ t.currentselect.innerText + ' Node: ' + n.localName)">
+            <li>
+                <div class="tree-item active">Level 1 Item 1</div>
+                <ul>
+                    <li><div class="tree-item"><img src="~/images/tools16.png" />Level 2 Item 1</div></li>
+                    <li><a href="#" class="tree-link">Level 2 Link 1</a></li>
+                    <li>
+                        <div class="tree-item">Level 2 Item 2</div>
+                        <ul>
+                            <li><a class="tree-item" href="#">Level 3 Item 1</a></li>
+                            <li>
+                                <div id="itemLevel3Item2" class="tree-item">Level 3 Item 2</div>
+                                <ul>
+                                    <li><a class="tree-link" href="#">Level 4 Link 1</a></li>
+                                    <li><a class="tree-link" href="#">Level 4 Link 2</a></li>
+                                    <li>
+                                        <div class="tree-item">Level 4 Item 1</div>
+                                        <ul>
+                                            <li><a class="tree-link" href="#">Level 5 Link 1</a></li>
+                                            <li><a class="tree-link" href="#">Level 5 Link 2</a></li>
+                                            <li><a class="tree-link" href="#">Level 5 Link 3</a></li>
+                                            <li><a class="tree-link" href="#">Level 5 Link 4</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a class="tree-link" href="#">Level 4 Link 3</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="tree-link" href="#">Level 3 Item 3</a></li>
+                            <li><a class="tree-link" href="#">Level 3 Item 4</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                </ul>
+            </li>
+            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
+            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
+            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+        </ul>
+    </div>
+    <div class="ltr">
+        <label>Target Node is: 'Level 3 Item 2'</label>
+        <div>
+            <div class="button-group primary">
+                <button onclick="WN['tree1'].toggle(document.getElementById('itemLevel3Item2'))">Toggle</button>
+            </div>
+            <div class="button-group primary">
+                <button onclick="WN['tree1'].collapse(document.getElementById('itemLevel3Item2'))">Collapse</button>
+                <button onclick="WN['tree1'].collapsewithchild(document.getElementById('itemLevel3Item2'))">Collapse With Child</button>
+                <button onclick="WN['tree1'].collapsedall()">Collapsed all</button>
+            </div>
+            <div class="button-group primary">
+                <button onclick="WN['tree1'].expand(document.getElementById('itemLevel3Item2'))">Expand</button>
+                <button onclick="WN['tree1'].expandtoparent(document.getElementById('itemLevel3Item2'))">Expand To Parent</button>
+                <button onclick="WN['tree1'].expandall()">Expand all</button>
+            </div>
+            <div class="button-group primary">
+                <button onclick="WN['tree1'].select(document.getElementById('itemLevel3Item2'))">Select</button>
+                <button onclick="WN['tree1'].findbytext('Level 3 Item 2', false,true)">Find</button>
+                <button onclick="WN['tree1'].filterbytext('Level 4', true)">Filter Level 4</button>
+                <button onclick="WN['tree1'].filterbytext('', true)">Clear Filter</button>
+            </div>
+        </div>
+        <textarea id="result" class="w-100 h-50"></textarea>
+        <script>
+            let resObj = document.getElementById('result');
+            let rowIndex = 1;
+            function AppendResult(text) {
+                resObj.value = (rowIndex++) + '- ' + text + '\r\n' + resObj.value;
+            }
+        </script>
+    </div>
+</div>
+
+<h3>رخدادها</h3>
+<p>پارامترهای t به معنی کلاس جاوایی tree است یا همان this</p>
+<p>پارامترهای e به معنی رخداد جاوایی مرتبط با عمل است. مثلا در کلیک کردن پارامترهای مرتبط با MouseEvent</p>
+<p>پارامترهای n به معنی انجام عملیات بر روی کدام node است.</p>
+<p>
+    <strong>beforeclick و afterclick</strong><br />
+    قبل از اعمال تنظیمات مخصوص کلیک کردن، این رخداد فراخوانی میشود، شما میتوانید آنرا مستقیم مقدار دهی کرده یا در خصوصیت onbeforeclick درختواره خود تابعی به آن نسبت دهید. همچنین پس از پایان عمل کلیک رخداد afterclick اتفاق می افتد.
+</p>
+<figure>
+    <pre><code class="html">
+        &lt;<span class="ht">ul</span> <span class="ha">onbeforeclick=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].beforeclick=(t,e)=>{};
+
+        &lt;<span class="ht">ul</span> <span class="ha">onafterclick=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].afterclick=(t,e)=>{};
+    </code></pre>
+</figure>
+<p>
+    <strong>selectionchange</strong><br />
+    اگر درختواره قابلیت انتخاب گزینه ای داشت، بعد از انتخاب آن گزینه این رخداد صدا زده میشود.
+</p>
+<figure>
+    <pre><code class="html">
+        &lt;<span class="ht">ul</span> <span class="ha">onselectionchange=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].selectionchange=(t,n)=>{};
+    </code></pre>
+</figure>
+<p>
+    <strong>beforetoggle و aftertoggle</strong><br />
+    زمانیکه یک نود، بین بسته شدن و یا باز شدن سوئیچ میکند، این رخدادها صدا زده میشود.
+</p>
+<figure>
+    <pre><code class="html">
+        &lt;<span class="ht">ul</span> <span class="ha">onbeforetoggle=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].beforetoggle=(t,n)=>{};
+
+        &lt;<span class="ht">ul</span> <span class="ha">onaftertoggle=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].aftertoggle=(t,n)=>{};
+    </code></pre>
+</figure>
+<p>
+    <strong>beforecollapse و aftercollapse</strong><br />
+    زمانیکه تابع collapse توسط جاوا اسکریپت صدا زده میشود، این رخدادها فعال میشوند.
+</p>
+<figure>
+    <pre><code class="html">
+        &lt;<span class="ht">ul</span> <span class="ha">onbeforecollapse=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].beforecollapse=(t,n)=>{};
+
+        &lt;<span class="ht">ul</span> <span class="ha">onaftercollapse=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].aftercollapse=(t,n)=>{};
+    </code></pre>
+</figure>
+<p>
+    <strong>beforeexpand و afterexpand</strong><br />
+    زمانیکه تابع expand توسط جاوا اسکریپت صدا زده میشود، این رخدادها فعال میشوند.
+</p>
+<figure>
+    <pre><code class="html">
+        &lt;<span class="ht">ul</span> <span class="ha">onbeforeexpand=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].beforeexpand=(t,n)=>{};
+
+        &lt;<span class="ht">ul</span> <span class="ha">onafterexpand=</span><span class="hv">"..."</span> ...&gt;
+        WN[<span class="ha">'tree-id'</span>].afterexpand=(t,n)=>{};
+    </code></pre>
+</figure>
+<h3>توابع</h3>
+<p>اجرای برخی دستورات برای مدیریت بهتر درختواره توسط این توابع انجام میشود.</p>
+<p>
+    <strong>select</strong><br />
+    انتخاب یک نود که از کلاس tree-item استفاده شده است. خود آن نود بایستی در پارامتر ورودی باشد نه نام آن.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].select(document.getElementById(<span class="ha">'node-id'</span>));
+    </code></pre>
+</figure>
+<p>
+    <strong>toggle</strong><br />
+    سوئیچ بین باز شدن یا بسته شدن یک li است. خود آن نود یا li بایستی در پارامتر ورودی باشد نه نام آن.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].toggle(document.getElementById(<span class="ha">'node-id'</span>));
+
+        WN[<span class="ha">'tree-id'</span>].toggle(document.getElementById(<span class="ha">'li-id'</span>));
+    </code></pre>
+</figure>
+<p>
+    <strong>collapse</strong><br />
+    عمل بستن یک li توسط این تابع انجام میشود. خود آن نود یا li بایستی در پارامتر ورودی باشد نه نام آن.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].collapse(document.getElementById(<span class="ha">'node-id'</span>));
+
+        WN[<span class="ha">'tree-id'</span>].collapse(document.getElementById(<span class="ha">'li-id'</span>));
+    </code></pre>
+</figure>
+<p>
+    <strong>expand</strong>
+    <br />
+    عمل باز کردن یک li توسط این تابع انجام میشود. خود آن نود یا li بایستی در پارامتر ورودی باشد نه نام آن.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].expand(document.getElementById(<span class="ha">'node-id'</span>));
+
+        WN[<span class="ha">'tree-id'</span>].expand(document.getElementById(<span class="ha">'li-id'</span>));
+    </code></pre>
+</figure>
+<p>
+    <strong>collapsewithchild</strong><br />
+    عمل بستن یک li با تمام زیر مجموعه آن توسط این تابع انجام میشود. خود آن نود یا li بایستی در پارامتر ورودی باشد نه نام آن.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].collapsewithchild(document.getElementById(<span class="ha">'node-id'</span>));
+
+        WN[<span class="ha">'tree-id'</span>].collapsewithchild(document.getElementById(<span class="ha">'li-id'</span>));
+    </code></pre>
+</figure>
+<p>
+    <strong>expandtoparent</strong>
+    <br />
+    عمل باز کردن یک li تا ریشه اصلی توسط این تابع انجام میشود. یعنی شما مطمئن میشوید که کاربر قادر به مشاهده آن خواهد شد. خود آن نود یا li بایستی در پارامتر ورودی باشد نه نام آن.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].expandtoparent(document.getElementById(<span class="ha">'node-id'</span>));
+
+        WN[<span class="ha">'tree-id'</span>].expandtoparent(document.getElementById(<span class="ha">'li-id'</span>));
+    </code></pre>
+</figure>
+<p>
+    <strong>collapsedall</strong>
+    <br />
+    این تابع تمامی بلوکها را میبندد.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].collapsedall();
+    </code></pre>
+</figure>
+<p>
+    <strong>expandall</strong>
+    <br />
+    این تابع تمامی بلوکها را باز میکند.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].expandall();
+    </code></pre>
+</figure>
+<p>
+    <strong>findbytext</strong>
+    <br />
+    زمانیکه میخواهید یک نود را پیدا کنید، از این تابع استفاده کنید، این تابع اولین نودی که دارای چنین متنی باشد را انتخاب میکند.<br />
+    پارامترها:<br />
+    <strong>text</strong>: متن مورد جستجو<br />
+    <strong>contains</strong>: مقدار متن شامل باشد یا نه دقیقا همان متن جستجو شود.<br />
+    <strong>select</strong>: پس از جستجو، آنرا انتخاب کند یا خیر<br />
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].findbytext('text',true,true);
+    </code></pre>
+</figure>
+<p>
+    <strong>findbyvalue</strong>
+    <br />
+    جستجوی به دنبال نود بر اساس مقدار آن، یعنی مقادیری که در <bdi>wn-tree-value</bdi> وارد شده است.<br />
+    پارامترها:<br />
+    <strong>text</strong>: متن مورد جستجو<br />
+    <strong>select</strong>: پس از جستجو، آنرا انتخاب کند یا خیر<br />
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].findbyvalue('text',true);
+    </code></pre>
+</figure>
+<p>
+    <strong>filterbytext</strong>
+    <br />
+    زمانیکه میخواهید یک سری نود را که حاوی متنی مشخص است را نمایش دهید،
+    از این تابع استفاده کنید، این تابع تمامی نودهایی که دارای چنین متنی باشد را نمایش داده و بقیه را مخفی میکند،
+    در صورتیکه نود پیدا شده زیر مجموعه نود دیگری باشد، آن نود نیز نمایش داده میشود.<br />
+    پارامترها:<br />
+    <strong>text</strong>: متن مورد جستجو<br />
+    <strong>contains</strong>: مقدار متن شامل باشد یا نه دقیقا همان متن جستجو شود.<br />
+</p>
+<p>برای از بین بردن فیلتر، کافیست با مقدار خالی عمل فیلتر را انجام دهید.</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].filterbytext('text',true);
+
+        WN[<span class="ha">'tree-id'</span>].filterbytext('',true);
+    </code></pre>
+</figure>
+<p>
+    <strong>addrow</strong>
+    <br />
+    برای آنکه یک ردیف یا گزینه به درخت خود اضافه کنید، این تابع به شما کمک خواهد کرد، بدین صورت که به یک ردیف اشاره کرده و عنوان و مقدار مد نظر را وارد کنید.
+    تابع به صورت خودکار در صورت نبود زیر مجموعه، آنرا ایجاد کرده و در صورت وجود، به انتهای آن اضافه میکند.
+    <br />
+    پارامترها:<br />
+    <strong>node</strong>: نود مورد نظر که میخواهید زیر مجموعه آن ردیف اضافه شود<br />
+    <strong>type</strong>: نوع ردیف، link یا item بر اساس این گزینه های مقدار tree-item و tree-link انتخاب میشود.<br />
+    <strong>text</strong>: متن قابل درج<br />
+    <strong>value</strong>: در صورت داشتن مقدار، آنرا وارد کنید، اگر لینک است، آدرس href قرار داده میشود.<br />
+    <strong>image</strong>: اگر تمایل به درج تصویر نیز است، آدرس بارگذاری را وارد کنید.<br />
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].addrow(document.getElementById(<span class="ha">'node-id'</span>),'item','text');
+        WN[<span class="ha">'tree-id'</span>].addrow(document.getElementById(<span class="ha">'node-id'</span>),'item','text','','/images/icon.png');
+        WN[<span class="ha">'tree-id'</span>].addrow(document.getElementById(<span class="ha">'node-id'</span>),'link','text','#');
+        WN[<span class="ha">'tree-id'</span>].addrow(document.getElementById(<span class="ha">'node-id'</span>),'link','text','#','/images/icon.png');
+    </code></pre>
+</figure>
+<p>
+    <strong>addrowhtml</strong>
+    <br />
+    این تابع همانند تابع addrow است با این تفاوت که شما خود هر آنچه که میخواهید برای یک ردیف نمایش داده شود، آنرا به صورت تگهای html میسازید و سپس اضافه میکنید.
+    <br />
+    پارامترها:<br />
+    <strong>node</strong>: نود مورد نظر که میخواهید زیر مجموعه آن ردیف اضافه شود<br />
+    <strong>html</strong>: اطلاعات به صورت زبان html که باید اضافه گردند.<br />
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].addrowhtml(document.getElementById(<span class="ha">'node-id'</span>),'&lt;div class='tree-item'&gt;...');
+    </code></pre>
+</figure>
+<p>در مثال زیر با کلیک کردن بر روی هر ردیف  یک item و دو لینک اضافه میشود، لینکها قابلیت گسترش ندارند.</p>
+<div class="example-div justify-content-start">
+    <div class="ltr">
+        <ul id="tree2" class="tree" wn-type="tree"
+            onselectionchange="
+                if (!WN['tree2'].findLI(n).classList.contains('expandable')) {
+                    WN['tree2'].addrow(n, 'item','item');
+                    WN['tree2'].addrow(n, 'link', 'link 1','#');
+                    WN['tree2'].addrow(n, 'link', 'link 2', '#');
+                }
+        ">
+            <li>
+                <div class="tree-item">Item 1</div>
+            </li>
+            <li>
+                <div class="tree-item">Item 2</div>
+            </li>
+            <li>
+                <div class="tree-item">Item 3</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">ul</span> <span class="ha">class=</span><span class="hv">"tree"</span> <span class="ha">wn-type=</span><span class="hv">"tree"</span> <span class="ha">id=</span><span class="hv">"tree1"</span>
+    <span class="ha">onselectionchange=</span><span class="hv">"</span>
+             if (!WN['tree1'].findLI(n).classList.contains('expandable')) {
+                    WN['tree1'].addrow(n, 'item','item');
+                    WN['tree1'].addrow(n, 'link', 'link 1','#');
+                    WN['tree1'].addrow(n, 'link', 'link 2', '#');
+                }
+    <span class="hv">"</span>&gt;
+        ...
+    &lt;/<span class="ht">ul</span>&gt;
+</code></pre>
+</figure>
+<p>برای دریافت اطلاعات از سمت سرور میتوانید اطلاعات را به صورت josn از سرور درخواست و سپس آنها را بااستفاده از این توابع به درخت اضافه کرد.</p>

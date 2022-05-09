@@ -1,0 +1,170 @@
+﻿@page
+@model WidgetNas.Pages.Content.ImageModel
+@{
+    ViewData["Title"] = "فنون نمایش تصاویر";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>برای نمایش تصاویر در صفحه میتوانید از کلاس های زیر استفاده کنید.</p>
+<h2>تصاویر ریسپانسیو یا واکنش گرا</h2>
+<p>اندازه تصویر بر اساس تغییر اندازه، تغییر خواهد کرد.</p>
+<div class="example-div">
+    <div class="row ltr">
+        <h3>LTR</h3>
+        <img src="~/images/WidgetNasBanner.png" class="fluid" />
+    </div>
+    <div class="row rtl">
+        <h3>RTL</h3>
+        <img src="~/images/WidgetNasBanner.png" class="fluid" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"fluid"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<h2>تصاویر بند انگشتی</h2>
+<p>برای نمایش تصاویر به صورت بندانگشتی میتوانید از کلاس های زیر سود بجویید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <img src="~/images/tools128.png" class="thumbnail" />
+        <img src="~/images/tools128.png" class="thumbnail primary" />
+        <img src="~/images/tools128.png" class="thumbnail secondary" />
+        <img src="~/images/tools128.png" class="thumbnail primary outline" />
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <img src="~/images/tools128.png" class="thumbnail" />
+        <img src="~/images/tools128.png" class="thumbnail primary" />
+        <img src="~/images/tools128.png" class="thumbnail secondary" />
+        <img src="~/images/tools128.png" class="thumbnail primary outline" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"thumbnail primary outline"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <img src="~/images/tools128.png" class="thumbnail round xl" />
+        <img src="~/images/tools128.png" class="thumbnail round xxl" />
+        <img src="~/images/tools128.png" class="thumbnail circle" />
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <img src="~/images/tools128.png" class="thumbnail round xl" />
+        <img src="~/images/tools128.png" class="thumbnail round xxl" />
+        <img src="~/images/tools128.png" class="thumbnail circle" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"thumbnail round xxl"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"thumbnail circle"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <a href="#"><img src="~/images/tools128.png" class="thumbnail primary" /></a>
+        <a href="#"><img src="~/images/tools128.png" class="thumbnail secondary" /></a>
+        <a href="#" disabled><img src="~/images/tools128.png" class="thumbnail primary disabled" /></a>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <a href="#"><img src="~/images/tools128.png" class="thumbnail primary" /></a>
+        <a href="#"><img src="~/images/tools128.png" class="thumbnail secondary" /></a>
+        <a href="#" disabled><img src="~/images/tools128.png" class="thumbnail primary disabled" /></a>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">a</span>&gt;
+        &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"thumbnail primary"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+        &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"thumbnail primary disabled"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+    &lt;<span class="ht">a</span>/&gt;
+</code></pre>
+</figure>
+<h2>موقعیت</h2>
+<p>برای جابجایی تصویر در سمت خاص، میتوانید از کلاسهای زیر استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr primary-border" style="width:40%">
+        <h3>LTR</h3>
+        <img src="~/images/tools128.png" class="start" />
+    </div>
+    <div class="rtl primary-border" style="width:40%">
+        <h3>RTL</h3>
+        <img src="~/images/tools128.png" class="start" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"start"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<div class="example-div">
+    <div class="ltr primary-border" style="width:40%">
+        <h3>LTR</h3>
+        <img src="~/images/tools128.png" class="left" />
+    </div>
+    <div class="rtl primary-border" style="width:40%">
+        <h3>RTL</h3>
+        <img src="~/images/tools128.png" class="left" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"left"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<div class="example-div">
+    <div class="ltr primary-border" style="width:40%">
+        <h3>LTR</h3>
+        <img src="~/images/tools128.png" class="end" />
+    </div>
+    <div class="rtl primary-border" style="width:40%">
+        <h3>RTL</h3>
+        <img src="~/images/tools128.png" class="end" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"end"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<div class="example-div">
+    <div class="ltr primary-border" style="width:40%">
+        <h3>LTR</h3>
+        <img src="~/images/tools128.png" class="right" />
+    </div>
+    <div class="rtl primary-border" style="width:40%">
+        <h3>RTL</h3>
+        <img src="~/images/tools128.png" class="right" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"right"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<div class="example-div">
+    <div class="ltr primary-border" style="width:40%">
+        <h3>LTR</h3>
+        <img src="~/images/tools128.png" class="center" />
+    </div>
+    <div class="rtl primary-border" style="width:40%">
+        <h3>RTL</h3>
+        <img src="~/images/tools128.png" class="center" />
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">img </span><span class="ha">class=</span><span class="hv">"center"</span> <span class="ha">src=</span><span class="hv">"..."</span>/&gt;
+</code></pre>
+</figure>
+<div class="alert warning callout-start">
+    برخی از مرورگر ها از خصوصیت float: inline-start و inline-end پشتیبانی نمیکنند.
+</div>

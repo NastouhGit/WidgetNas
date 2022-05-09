@@ -1,0 +1,68 @@
+﻿@page
+@model WidgetNas.Pages.Components.CounterModel
+@{
+    ViewData["Title"] = "شمارنده Counter";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>اگر تمایل دارید، در هنگام نمایش و زمانیکه اسکرول بر روی موضوعی قرار گرفت و شمارنده شروع به شمارش از عددی به عددی دیگر کند، از این موضوع استفاده کنید'</p>
+
+<h2>انواع شمارنده</h2>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <div wn-type='counter' count="1000" class="h1">0</div>
+        <div wn-type='counter' count="2000" class="h1">0</div>
+        <div wn-type='counter' count="1000" duration="2000" class="h1">0</div>
+        <div wn-type='counter' count="2000" duration="3000" class="h1">0</div>
+    </div>
+    <button class="primary" onclick="document.location.reload(true)">Reset</button>
+</div>
+<figure><code data-on="form1"></code></figure>
+<p>خصوصیت <bidi>count</bidi> آخرین شماره را مشخص میکند.</p>
+<p>خصوصیت <bidi>duration</bidi> مدت زمان نمایش شمارنده به میلی ثانیه مشخص میکند. مقدار پیش فرض 1000 میلی ثانیه است.</p>
+<p>یک مثال دیگر در پایین است.</p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div class="example-div">
+    <div class="ltr">
+        <div wn-type='counter' count="1000" class="h1">0</div>
+        <div wn-type='counter' count="2000" class="h1">0</div>
+        <div wn-type='counter' count="1000" duration="2000" class="h1">0</div>
+        <div wn-type='counter' count="2000" duration="3000" class="h1">0</div>
+    </div>
+    <button class="primary" onclick="document.location.reload(true)">Reset</button>
+</div>

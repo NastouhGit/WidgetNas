@@ -1,0 +1,51 @@
+﻿@page
+@model WidgetNas.Pages.Components.ConfirmModel
+@{
+    ViewData["Title"] = "تاییده Confirm";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    در برخی مواقع میخواهید توسط اسکریپت یک تاییده از کاربر بگیرید، با استفاده از روش زیر این عمل ممکن میشود.
+</p>
+<p>تاییده یک <a href="Modal">مودال</a> شخصی سازی شده است، برای تغییر تنظیمات و کلاسهای آن و جابجایی موقعیت نمایش آن میتوانید از کلاسهای مودال استفاده کنید.</p>
+<h2>مثال</h2>
+<div class="example-div" id="from1">
+    <button class="primary" onclick="modalconfirm(true)">Confirm with close button</button>
+    <button class="primary m-is-100r" onclick="modalconfirm(false)">Confirm without close button</button>
+    <script>
+        function modalconfirm(closebutton) {
+            let confirm = new wnconfirm();
+            confirm.modalclass = "ltr";
+            confirm.title = "Confirm Title";
+            confirm.headclass = "warning";
+            confirm.body = "<p>This is sample paragraph with <b>html</b> attribute</p><p><input/></p>";
+            confirm.bodyclass = "";
+            confirm.footerclass = "";
+            confirm.closebutton = closebutton;
+            confirm.buttons = [
+                { caption: 'Ok', class: 'success', click: () => { alert('You select OK button.'); } },
+                { caption: 'Cancel', class: 'danger', click: () => { alert('You select Cancel button.'); } },
+            ]
+            showclass = "animation zoomIn";  //this value is defualt
+            confirm.show();
+        }
+    </script>
+</div>
+
+<figure><code data-on="from1"></code></figure>
+
+<h2>خصوصیات</h2>
+<p><bidi>modalclass</bidi>: اگر میخواهید برای نمایش مودال کلاسهایی را تنظیم کنید، آنها را در این خصوصیت بنویسید.</p>
+<p><bidi>showclass</bidi>: زمانیکه مودال نمایش داده میشود، این کلاسها نسبت داده شوند، اغلب برای انیمیشن استفاده میشود، برای اطلاع بیشتر به قست مودال مراجعه کنید.</p>
+<p><bidi>headclass</bidi>: کلاس مرتبط با هدر مودال است، اگر میخواهید هد دارای رنگ خصوصیت خاصی باشد، کلاسهای مرتبط را نسبت دهید.</p>
+<p><bidi>title</bidi>: عنوان مودال است.</p>
+<p><bidi>closebutton</bidi>: اگر نمیخواهید دکمه بستن در هدر باشد، این خصوصیت را false کنید. زیرا مقدار پیش فرض true است.</p>
+<p><bidi>bodyclass</bidi>: اگر میخواهید بدنه مودال دارای خصوصیت خاصی باشد، آنها را در این خصوصیت مشخص کنید.</p>
+<p><bidi>body</bidi>: هر آنچه که تمایل دارید در بدنه نمایش داده شود، به صورت html وارد کنید.</p>
+<p><bidi>footerclass</bidi>: اگر میخواهید قسمت پایین مودال که دکمه ها نمایش داده میشوند، دارای خصوصیت خاصی باشد، آنها را در این خصوصیت مشخص کنید.</p>
+<h3>buttons</h3>
+<p>برای نمایش دکمه های زیر شما میتوانید آرایه ای از خصوصیات اشاره شده، نسبت دهید تا آن دکمه ها ایجاد شوند. برای هر دکمه باید خصوصیات زیر را تنظیم کنید.</p>
+<p><bidi>caption</bidi>: عنوان دکمه.</p>
+<p><bidi>class</bidi>: کلاسهای مرتبط با هر دکمه.</p>
+<p><bidi>click</bidi>: یک تابع که بعد از کلیک شدن، آن فراخوانی شود.</p>

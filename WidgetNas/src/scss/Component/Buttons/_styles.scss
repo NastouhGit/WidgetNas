@@ -1,0 +1,61 @@
+﻿button, .button {
+    &.button-capsule {
+        border-radius: calc(var(--border-radius) * 4) !important;
+    }
+
+    &.button-bottom {
+        &:hover {
+            background-color: var(--normal-color) !important;
+            color: var(--normal-back) !important;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            height: 0.25em;
+            width: 0;
+            background: var(--normal-border);
+            transition: 200ms ease all;
+            right: inherit;
+            top: inherit;
+            left: 50%;
+            bottom: 0;
+        }
+
+        &:hover:after {
+            width: 100%;
+            left: 0;
+            transition: 200ms ease all;
+        }
+    }
+
+    &.button-outline {
+        &:hover {
+            background-color: var(--normal-color) !important;
+            color: var(--normal-back) !important;
+        }
+
+        &:before, &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 0.175em;
+            width: 0;
+            background: var(--normal-back);
+            transition: 400ms ease all;
+        }
+
+        &:after {
+            right: inherit;
+            top: inherit;
+            left: 0;
+            bottom: 0;
+        }
+
+        &:hover:before, &:hover:after {
+            width: 100%;
+            transition: 400ms ease all;
+        }
+    }
+}

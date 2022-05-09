@@ -1,0 +1,324 @@
+﻿@page
+@model WidgetNas.Pages.Components.SlickerModel
+@{
+    ViewData["Title"] = "چرخنده نرم خطی Slicker";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>گاهی نیاز است، بخواهید به صورت ساده چند متن یا تصویر را پشت سر هم به صورت خطی نمایش دهید، اگر تمایل دارید از موضوع زیر استفاده کنید.</p>
+
+<h2>نمایش اسلاید ساده</h2>
+<p>در مثال زیر، چرخنده به صورت ساده بوده و توسط کاربر بین صفحات جابجا میشود، همچنین در ادامه به نحوه ساخت آن اشاره خواهد شد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+    
+        <div class="slicker" wn-type="slicker" id="form1">
+            <div class="slicker-slides">
+                <div class="slicker-item p-200r">
+                    <img src="~/images/clients/testimonial1.png" class="float-left m-50r" />
+                    <h3>Title 1</h3>
+                    <p>
+                        Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                        view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                        subline of her own road.
+                    </p>
+                    <hr />
+                    <p>
+                        Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                        view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                        subline of her own road.
+                    </p>
+                </div>
+                <div class="slicker-item p-200r active">
+                    <img src="~/images/clients/testimonial2.png" class="float-left m-50r" />
+                    <h3>Title 2</h3>
+                    <p>
+                        Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                        view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                        subline of her own road.
+                    </p>
+                    <hr />
+                    <p>
+                        Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                        view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                        subline of her own road.
+                    </p>
+                </div>
+                <div class="slicker-item p-200r">
+                    <img src="~/images/clients/testimonial3.png" class="float-left m-50r" />
+                    <h3>Title 3</h3>
+                    <p>
+                        Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                        view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                        subline of her own road.
+                    </p>
+                </div>
+            </div>
+            <button class="slicker-previous"></button>
+            <button class="slicker-next"></button>
+            <div class="slicker-indicators">
+            </div>
+
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="slicker" wn-type="slicker">
+            <div class="slicker-slides">
+                <div class="slicker-item p-200r">
+                    <img src="~/images/clients/testimonial1.png" class="float-left m-50r" />
+                    <h3>عنوان 1</h3>
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                    </p>
+                    <hr />
+                    <p>
+                        این یک متن برای تست است.
+                    </p>
+                </div>
+                <div class="slicker-item p-200r active">
+                    <img src="~/images/clients/testimonial2.png" class="float-left m-50r" />
+                    <h3>عنوان 2</h3>
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                    </p>
+                </div>
+                <div class="slicker-item p-200r">
+                    <img src="~/images/clients/testimonial3.png" class="float-left m-50r" />
+                    <h3>عنوان 3</h3>
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+                    </p>
+                </div>
+            </div>
+            <button class="slicker-previous"></button>
+            <button class="slicker-next"></button>
+            <div class="slicker-indicators">
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<figure><code data-on="form1"></code></figure>
+<p>
+    در ابتدا مانند بقیه موضوعات یک div با کلاس <bidi>slicker</bidi> و <bidi>wn-type='slicker'</bidi> ایجاد کنید.
+    سپس درون این محفظه بایستی اشاره کنید، محتوی تصاویر در چه قسمتی تعریف شده اند، بدین منظور یک div با کلاس <bidi>slicker-slides</bidi> بسازید.
+    حال نوبت به تعریف گزینه ها برای نمایش اسلاید ها می باشد، بدین منظور به ازای هر اسلاید باید یک div با کلاس <bidi>slicker-item</bidi> تعریف کنید و اگر خواستید در هنگام
+    نمایش یکی از اسلایدها در ابتدا نمایش داده شود کلاس <bidi>active</bidi> را به آن اضافه کنید.
+    حال هر چه درون این محفظه ها باشند نمایش داده خواهد شد.
+</p>
+<h2>نمایش خودکار</h2>
+<p>اگر میخواهید، اسلایدها به صورت خودکار تغییر کنند، بایستی پارامترهای زیر را تعیین کنید.</p>
+<p><bidi>autoplay</bidi>: برای نمایش خودکار، بایستی مقدار این خصوصیت را true تنظیم کنید.</p>
+<p>
+    <bidi>interval</bidi>: این خصوصیت، زمان توقف بین هر اسلاید را مشخص میکند، اگر این خصوصیت را تنظیم نکنید، مقدار پیش فرض 20 ثانیه یا معادل 20000 میلی ثانیه است.
+    توجه داشته باشید، زمان مد نظر بایستی به میلی ثانیه باشد.
+</p>
+<div class="example-div">
+    <div class="row w-100-i">
+        <div class="col-6">
+            <div class="slicker" wn-type="slicker" id="form2" autoplay="false" interval="3000">
+                <div class="slicker-slides">
+                    <div class="slicker-item">
+                        <img src="~/images/clients/testimonial1.png" class="float-left m-50r" />
+                        <h3>Title</h3>
+                        <p>
+                            Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                            view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                            subline of her own road.
+                        </p>
+                        <hr />
+                        <p>
+                            Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                            view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                            subline of her own road.
+                        </p>
+                    </div>
+                    <div class="slicker-item">
+                        <img src="~/images/clients/testimonial2.png" class="float-left m-50r" />
+                        <h3>Title 2</h3>
+                        <p>
+                            Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                            view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                            subline of her own road.
+                        </p>
+                        <hr />
+                        <p>
+                            Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                            view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                            subline of her own road.
+                        </p>
+                    </div>
+                    <div class="slicker-item">
+                        <img src="~/images/clients/testimonial3.png" class="float-left m-50r" />
+                        <h3>Title 3</h3>
+                        <p>
+                            Question ran over her cheek When she reached the first hills of the Italic Mountains, she had a last
+                            view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the
+                            subline of her own road.
+                        </p>
+                    </div>
+                </div>
+                <button class="slicker-previous"></button>
+                <button class="slicker-next"></button>
+                <div class="slicker-indicators">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+
+<h2>تنظیم اندازه اسلاید ها</h2>
+<p>
+    اسلایدها به صورت خودکار به اندازه، فضایی که برای نمایش وجود دارند بزرگ یا کوچک میشوند، ولیکن ممکن است برخی از مواقع بخواهید اندازه
+    اسلایدها کوچکتر و در یک اندازه خاص باشند یا به صورت خودکار اندازه هر کدام محاسبه شوند.
+    بدین منظور بایستی خصوصیت <bidi>slidewidth</bidi> را مقدار دهی کنید.
+</p>
+<p>اگر میخواهید اندازه هر اسلاید به اندازه واقعی خودش باشد، مقدار auto را نسبت دهید.</p>
+<p>اگر میخواهید مقدار ثابتی داشته باشند، آن مقدار را وارد کنید، مانند 300px یا 50rem یا 30em</p>
+
+<div class="example-div">
+    <div class="row">
+        <div class="col-6">
+            <div class="slicker" wn-type="slicker" id="form3" autoplay="true" interval="3000" slidewidth="auto">
+                <div class="slicker-slides">
+                    <div class="slicker-item active p-100r">
+                        <img src="~/images/clients/client1.png" />
+                    </div>
+                    <div class="slicker-item p-100r">
+                        <img src="~/images/clients/client2.png" />
+                    </div>
+                    <div class="slicker-item p-100r">
+                        <img src="~/images/clients/client3.png" />
+                    </div>
+                    <div class="slicker-item p-100r">
+                        <img src="~/images/clients/client4.png" />
+                    </div>
+                    <div class="slicker-item p-100r">
+                        <img src="~/images/clients/client5.png" />
+                    </div>
+                    <div class="slicker-item p-100r">
+                        <img src="~/images/clients/client6.png" />
+                    </div>
+                </div>
+                <button class="slicker-previous"></button>
+                <button class="slicker-next"></button>
+                <div class="slicker-indicators">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+
+<h2>تنظیمات بیشتر</h2>
+<p>برای تنظیم بیشتر میتوانید از خصوصیات زیر بهره ببرید.</p>
+<p><bidi>itemshow</bidi>: اگر میخواهید تعداد چند اسلاید در یک صفحه نمایش داده شود، مقدار لازم را مشخص کنید. دقت کنید بهتر است اندازه اسلایدها یکسان باشند. طول هر اسلاید با او.لین اسلاید سنجیده میشود.</p>
+<p><bidi>align</bidi>: جهت چیدن اسلاید فعال است، که میتواند مقادیر center، left و right را به خود بگیرد. مقدار پیش فرض center است.</p>
+<p>اگر میخواهید کنترلر اسلایدها در زیر یا بالا قرار گیرد میتوانید یک div ساخته و کلاس relative را به آن بدهید.</p>
+<p>در مثالهای زیر تمام موارد آورده شده است.</p>
+<div class="example-div">
+    <div class="ltr w-90-i">
+        <h3>LTR</h3>
+        <div class="slicker p-be-250r" wn-type="slicker" id="form4" autoplay="true" interval="3000" slidewidth="auto" itemshow="3" align="right">
+            <div class="slicker-slides m-be-3r">
+                <div class="slicker-item active p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team1.jpg" />
+                        <div class="card-body"><h1>Team 1</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team2.jpg" />
+                        <div class="card-body"><h1>Team 2</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team3.jpg" />
+                        <div class="card-body"><h1>Team 3</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team4.jpg" />
+                        <div class="card-body"><h1>Team 4</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team5.jpg" />
+                        <div class="card-body"><h1>Team 5</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team6.jpg" />
+                        <div class="card-body"><h1>Team 6</h1>Some text here</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <button class="slicker-previous"></button>
+                <div class="slicker-indicators">
+                </div>
+                <button class="slicker-next"></button>
+            </div>
+        </div>
+    </div>
+    <div class="rtl w-90-i">
+        <h3>LTR</h3>
+        <div class="slicker p-be-250r" wn-type="slicker" id="form4" autoplay="true" interval="3000" slidewidth="auto" itemshow="3" align="right">
+            <div class="slicker-slides m-be-3r">
+                <div class="slicker-item active p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team1.jpg" />
+                        <div class="card-body"><h1>Team 1</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team2.jpg" />
+                        <div class="card-body"><h1>Team 2</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team3.jpg" />
+                        <div class="card-body"><h1>Team 3</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team4.jpg" />
+                        <div class="card-body"><h1>Team 4</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team5.jpg" />
+                        <div class="card-body"><h1>Team 5</h1>Some text here</div>
+                    </div>
+                </div>
+                <div class="slicker-item p-100r">
+                    <div class="card">
+                        <img src="~/images/team/team6.jpg" />
+                        <div class="card-body"><h1>Team 6</h1>Some text here</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <button class="slicker-next"></button>
+                <div class="slicker-indicators">
+                </div>
+                <button class="slicker-previous"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>

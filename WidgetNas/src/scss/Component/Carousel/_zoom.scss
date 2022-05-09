@@ -1,0 +1,73 @@
+﻿.carousel {
+    .carousel-slides {
+        $name: zoom;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: zoomIn;
+            }
+
+            &.end {
+                display: block;
+                animation-name: zoomOut;
+            }
+        }
+
+        $name: zoom-down;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: zoomInDown;
+            }
+
+            &.end {
+                display: block;
+                animation-name: zoomOutDown;
+            }
+        }
+
+        $name: zoom-up;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: zoomInUp;
+            }
+
+            &.end {
+                display: block;
+                animation-name: zoomOutUp;
+            }
+        }
+
+        $name: zoom-left;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: zoomInLeft;
+            }
+
+            &.end {
+                display: block;
+                animation-name: zoomOutRight;
+            }
+        }
+
+        $name: zoom-right;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: zoomInRight;
+            }
+
+            &.end {
+                display: block;
+                animation-name: zoomOutLeft;
+            }
+        }
+    }
+}

@@ -1,0 +1,654 @@
+﻿@page
+@model WidgetNas.Pages.Components.DateJSModel
+@{
+    ViewData["Title"] = "اسکریپت تاریخ";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    تاریخ، یکی از ارکان ورودی اطلاعات و نمایش زمان است، شاید برای افرادی که با تاریخ میلادی کار میکنند، خیلی مورد نیاز نباشد،
+    ولی برای فارسی زبانان، مورد مهمی است، در این سند، سعی بر آن شده ارکان تاریخ و فرهنگ درج توصیح داده شود.
+</p>
+<h2>اطلاعات فرهنگ چیست؟</h2>
+<p>
+    اطلاعات فرهنگ یا همان CultureInfo مجموعه ای از تنظیمات است که به فریم ورک نحوه نمایش اعداد، تاریخ و متون را مشخص میکند.<br />
+    در حقیقت اطلاعات فرهنگ یک کلاس حاوی اطلاعات زیر است.
+</p>
+<figure><code data-on="_code" data-mode="text/typescript">
+interface wnCultureInfo {
+    DisplayName: string;
+    EnglishName: string;
+    ThreeLetterISOLanguageName: string;
+    TwoLetterISOLanguageName: string;
+    DateTimeFormat: {
+        AMDesignator: string;
+        AbbreviatedDayNames: string[];
+        AbbreviatedMonthNames: { [Calendar: string]: string[] };
+        DateSeparator: string;
+        DayNames: string[];
+        FirstDayOfWeek: number
+        FullDateTimePattern: string;
+        LongDatePattern: string;
+        LongTimePattern: string;
+        MonthDayPattern: string;
+        MonthNames: { [Calendar: string]: string[] };
+        PMDesignator: string;
+        ShortDatePattern: string;
+        ShortTimePattern: string;
+        ShortestDayNames: string[];
+        TimeSeparator: string;
+        YearMonthPattern: string;
+        Holiday: number;
+    },
+    NumberFormat: {
+        CurrencyDecimalDigits: number;
+        CurrencyDecimalSeparator: string;
+        CurrencyGroupSeparator: string;
+        CurrencyGroupSizes: number[];
+        CurrencyNegativePattern: number;
+        CurrencyPositivePattern: number;
+        CurrencySymbol: string;
+        NaNSymbol: string;
+        NativeDigits: string[];
+        NegativeInfinitySymbol: string;
+        NegativeSign: string;
+        NumberDecimalDigits: number;
+        NumberDecimalSeparator: string;
+        NumberGroupSeparator: string;
+        NumberGroupSizes: number[];
+        NumberNegativePattern: number;
+        PerMilleSymbol: string;
+        PercentDecimalDigits: number;
+        PercentDecimalSeparator: string;
+        PercentGroupSeparator: string;
+        PercentGroupSizes: number[];
+        PercentNegativePattern: number;
+        PercentPositivePattern: number;
+        PercentSymbol: string;
+        PositiveInfinitySymbol: string;
+        PositiveSign: string;
+    },
+    TextInfo: {
+        ANSICodePage: number;
+        CultureName: string;
+        EBCDICCodePage: number;
+        IsRightToLeft: boolean;
+        LCID: number;
+        ListSeparator: string;
+        MacCodePage: number;
+        OEMCodePage: number;
+    }
+}
+</code></figure>
+<p>با ساخت یک کلاس از این جنس، شما میتوانید فرهنگ مد نظر خود را بسازید، ما به طور پیش فرض دو فرهنگ انگلیسی آمریکایی و پارسی ایرانی را به شکل زیر تعریف کردیم.</p>
+<figure><code data-on="_code" data-mode="text/typescript">
+    class wnCultureInfo_en_US {
+        constructor() {
+            this.DisplayName = 'English';
+            this.EnglishName = 'English';
+            this.ThreeLetterISOLanguageName = 'eng';
+            this.TwoLetterISOLanguageName = 'en';
+            this.DateTimeFormat = {
+                AMDesignator: 'AM',
+                AbbreviatedDayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                AbbreviatedMonthNames: {
+                    "wnGregorianCalendar": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""],
+                    "wnJulianCalendar": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""],
+                    "wnPersianCalendar": ["Far", "Ord", "Kho", "Tir", "Mor", "Sha", "Meh", "Aba", "Aza", "Dey", "Bah", "Esf", ""],
+                    "wnHijriCalendar": ["Muh", "Saf", "RAw", "RTh", "JAw", "JTh", "Raj", "Sha", "Ram", "Shw", "ZQa", "ZHi", ""],
+                },
+                DateSeparator: '-',
+                DayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                FirstDayOfWeek: 0,
+                FullDateTimePattern: 'dddd, MMMM d, yyyy h:mm:ss tt',
+                LongDatePattern: 'dddd, MMMM d, yyyy',
+                LongTimePattern: 'h:mm:ss tt',
+                MonthDayPattern: 'MMMM d',
+                MonthNames: {
+                    "wnGregorianCalendar": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                    "wnJulianCalendar": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                    "wnPersianCalendar": ["Farvardin", "Ordibehesht", "Khordad", "Tir", "Mordad", "Shahrivar", "Mehr", "Aban", "Azar", "Dey", "Bahman", "Esfand", ""],
+                    "wnHijriCalendar": ["al-Muharram", "Safar", "Rabi al-Awwal", "Rabi ath-Thani", "Jumada al-Awwal", "Jumada ath-Thaniyah", "Rajab", "Shaban", "Ramadan", "Shawwal", "Zu al-Qadah", "Zu al-Hijjah", ""],
+                },
+                PMDesignator: 'PM',
+                ShortDatePattern: "M-d-yyyy",
+                ShortTimePattern: "h:mm tt",
+                ShortestDayNames: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+                TimeSeparator: ':',
+                YearMonthPattern: 'MMMM yyyy',
+                Holiday: 0
+            };
+            this.NumberFormat = {
+                CurrencyDecimalDigits: 2,
+                CurrencyDecimalSeparator: ".",
+                CurrencyGroupSeparator: ",",
+                CurrencyGroupSizes: [3],
+                CurrencyNegativePattern: 0,
+                CurrencyPositivePattern: 0,
+                CurrencySymbol: "$",
+                NaNSymbol: "NaN",
+                NativeDigits: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                NegativeInfinitySymbol: "-∞",
+                NegativeSign: "-",
+                NumberDecimalDigits: 2,
+                NumberDecimalSeparator: ".",
+                NumberGroupSeparator: ",",
+                NumberGroupSizes: [3],
+                NumberNegativePattern: 1,
+                PerMilleSymbol: "‰",
+                PercentDecimalDigits: 2,
+                PercentDecimalSeparator: ".",
+                PercentGroupSeparator: ",",
+                PercentGroupSizes: [3],
+                PercentNegativePattern: 1,
+                PercentPositivePattern: 1,
+                PercentSymbol: "%",
+                PositiveInfinitySymbol: "∞",
+                PositiveSign: "+"
+            };
+            this.TextInfo = {
+                ANSICodePage: 1252,
+                CultureName: "en-US",
+                EBCDICCodePage: 37,
+                IsRightToLeft: false,
+                LCID: 1033,
+                ListSeparator: ",",
+                MacCodePage: 10000,
+                OEMCodePage: 437
+            };
+        }
+    }
+    class wnCultureInfo_fa_IR {
+        constructor() {
+            this.DisplayName = 'پارسی';
+            this.EnglishName = 'Persian';
+            this.ThreeLetterISOLanguageName = 'fas';
+            this.TwoLetterISOLanguageName = 'fa';
+            this.DateTimeFormat = {
+                AMDesignator: 'ق.ظ',
+                AbbreviatedDayNames: ["يكش", "دوش", "س.ش", "چ.ش", "پنج", "جمع", "شنب"],
+                AbbreviatedMonthNames: {
+                    "wnPersianCalendar": ["فرو", "ارد", "خرد", "تیر", "مرد", "شهر", "مهر", "آبا", "آذر", "دی", "بهم", "اسف", ""],
+                    "wnGregorianCalendar": ["ژان", "فور", "مار", "آپر", "می", "جون", "جول", "آگو", "سپت", "اکت", "نوا", "دسا", ""],
+                    "wnJulianCalendar": ["ژان", "فور", "مار", "آپر", "می", "جون", "جول", "آگو", "سپت", "اکت", "نوا", "دسا", ""],
+                    "wnHijriCalendar": ["محر", "صفر", "راول", "رثانی", "جاول", "جثانی", "رجب", "شعب", "رمض", "شوا", "ذقعده", "ذحجه", ""],
+                },
+                DateSeparator: '/',
+                DayNames: ["يكشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"],
+                FirstDayOfWeek: 6,
+                FullDateTimePattern: 'dddd, d MMMM yyyy hh:mm:ss tt',
+                LongDatePattern: 'dddd, d MMMM yyyy',
+                LongTimePattern: 'h:mm:ss tt',
+                MonthDayPattern: 'd MMMM',
+                MonthNames: {
+                    "wnPersianCalendar": ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", ""],
+                    "wnGregorianCalendar": ["ژانویه", "فوریه", "مارچ", "آپریل", "می", "جون", "جولای", "آگوست", "سپتامبر", "اکتبر", "نوامبر", "دسامبر", ""],
+                    "wnJulianCalendar": ["ژانویه", "فوریه", "مارچ", "آپریل", "می", "جون", "جولای", "آگوست", "سپتامبر", "اکتبر", "نوامبر", "دسامبر", ""],
+                    "wnHijriCalendar": ["محرم", "صفر", "ربیع الاول", "ربیع الثانی", "جمادی الاول", "جمادی الثانی", "رجب", "شعبان", "رمضان", "شوال", "ذوالقعده", "ذوالحجه", ""],
+                },
+                PMDesignator: 'ب.ظ',
+                ShortDatePattern: "dd/MM/yyyy",
+                ShortTimePattern: "hh:mm tt",
+                ShortestDayNames: ["ی", "د", "س", "چ", "پ", "ج", "ش"],
+                TimeSeparator: ':',
+                YearMonthPattern: 'MMMM, yyyy',
+                Holiday: 5
+            };
+            this.NumberFormat = {
+                CurrencyDecimalDigits: 2,
+                CurrencyDecimalSeparator: "/",
+                CurrencyGroupSeparator: ",",
+                CurrencyGroupSizes: [3],
+                CurrencyNegativePattern: 6,
+                CurrencyPositivePattern: 1,
+                CurrencySymbol: "ريال",
+                NaNSymbol: "ناعدد",
+                NativeDigits: ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"],
+                NegativeInfinitySymbol: "-∞",
+                NegativeSign: "-",
+                NumberDecimalDigits: 2,
+                NumberDecimalSeparator: "/",
+                NumberGroupSeparator: ",",
+                NumberGroupSizes: [3],
+                NumberNegativePattern: 1,
+                PerMilleSymbol: "‰",
+                PercentDecimalDigits: 2,
+                PercentDecimalSeparator: "/",
+                PercentGroupSeparator: ",",
+                PercentGroupSizes: [3],
+                PercentNegativePattern: 1,
+                PercentPositivePattern: 1,
+                PercentSymbol: "%",
+                PositiveInfinitySymbol: "∞",
+                PositiveSign: "+"
+            };
+            this.TextInfo = {
+                ANSICodePage: 1256,
+                CultureName: "fa-IR",
+                EBCDICCodePage: 20420,
+                IsRightToLeft: true,
+                LCID: 1065,
+                ListSeparator: "؛",
+                MacCodePage: 10004,
+                OEMCodePage: 720
+            };
+        }
+    }
+</code></figure>
+        <p>در کلاس بالا تقریبا همه موارد روشن و هویدا است، ولیکن چند مورد وجود دارد که قابل توضیح است.</p>
+        <p>
+            در قسمت DateTimeFormat بایستی، نام بروج را درج کنید، ولیکن هر نوع فرهنگ، از ساختار نوشتاری خود بهره میبرد،
+            برای مثال، اسامی برج ها در فرهنگ انگلیسی بایستی به انگلیسی بوده و در فارسی بایستی به فارسی نمایش داده شود،
+            اگر شما میخواهید فرهنگ عربی بسازید، بایستی اسامی بروج به عربی باشد.
+        </p>
+        <p>بروج از آرایه 13 عنصری تشکیل شده است، زیرا در برخی از تقویم ها، 13 برج وجود دارد، مانند تقویم اسکندری، اگر تقویم شما 12 برج دارد، فقط 12 گزینه را تعیین کنید و آخری را خالی بگذارید.</p>
+        <p>
+            برای معرفی اسامی روزها، از ابتدای روز میلادی در نظر گرفته شده است، یعنی یکشنبه، پس اسامی را بر این اساس تنظیم کنید یعنی یکشنبه در آن زبان چه میباشد.
+            در خصوصیت FirstDayOfWeek مشخص میکنید، اولین روز هفته در آن فرهنگ از چندمین روز هفته میلادی شروع میشود، برای تشخیص کافیست، طبق ورود اسامی، از صفر شمارده و عددش را مشخص کنید.
+        </p>
+        <div class="alert callout-start info">در صورتیکه یک فرهنگ جدید ساختید، آنرا برای گسترش بیشتر این فریم ورک برای ما ارسال کنید.</div>
+        <h2>فرهنگ و تقویم پیش فرض</h2>
+        <p>فریم ورک پس از بارگذاری صفحه، به طور خودکار، تقویم و اطلاعات فرهنگ را بر اساس تنظیمات صفحه و مرورگر تعیین میکند، هر چند شما نیز میتوانید، آنها را مشخص کنید.</p>
+        <p>
+            <strong>WNDefaultCultureInfo</strong><br />
+            اطلاعات فرهنگ پیش فرض، در این متغییر در سطح عمومی معرفی میشود.
+        </p>
+        <p>
+            <strong>WNDefaultCalendar</strong><br />
+            تقویم پیش فرض، در این متغییر در سطح عمومی معرفی میشود.
+        </p>
+        <p>
+            اگر زبان پیش فرض صفحه یا زبان مرورگر fa باشد، فرهنگ پیش فرض wnCultureInfo_fa_IR انتخاب شده و تقویم wnPersianCalendar.<br />
+            در غیر اینصورت، فرهنگ wnCultureInfo_en_US و تقویم wnGregorianCalendar انتخاب میشود.
+        </p>
+        <hr />
+        <p>در ادامه به معرفی تقویم و نحوه ساخت دیگر تقویم ها اشاره خواهیم کرد.</p>
+        <h2>تقویم</h2>
+        <p>تقویم روشی برای تبدیل تعداد روزها از ابتدای سال ژولین است، برای مثال اولین روز تاریخ شمسی 1948320 روز با اولین روز ژولین فاصله دارد. برای اطلاع بیشتر میتوانید <a href="https://www.fourmilab.ch/documents/calendar/" target="_blank">اینجا</a> را مطالعه کنید.</p>
+        <h2>چگونه یک تقویم بسازیم؟</h2>
+        <p>برای ساخت یک تقویم کافیست کلاسی به خصوصیات زیر بسازید</p>
+<figure><code data-on="_code" data-mode="text/typescript">
+    class WN[CalendarName] {
+        constructor() {
+            this.Name = "[CalendarName]";
+            this.LeapMonth = 12;
+            this.MonthsInYear = 12;
+        }
+        GetDayOfWeek(Year, Month, Day) {
+            return x;
+        }
+        GetDayOfYear(Year, Month, Day) {
+            return x;
+        }
+        GetDaysInMonth(Year, Month) {
+            return x;
+        }
+        GetDaysInYear(Year) { return this.IsLeapYear(Year) ? 366 : 365; }
+        GetWeekOfYear(Year, Month, Day) {
+            return x;
+        }
+        IsLeapDay(Year, Month, Day) {
+            return this.IsLeapMonth(Year, Month) && Day === 30;
+        }
+        IsLeapMonth(Year, Month) { return this.IsLeapYear(Year) && Month === this.LeapMonth; }
+        IsLeapYear(Year) {
+            return x;
+        }
+        GetDaysFromBase(Year, Month, Day) {
+            return x;
+        }
+        GetYearMontDayFromDays(jd) {
+            return { Year: year, Month: month, Day: day };
+        }
+    }
+</code></figure>
+        <p>بدیهی است برای گسترش تقویم خود، توابع دیگری نیاز داشته باشید که بخواهید اضافه کنید، ولیکن این توابع به صورت اجباری بایستی پیاده سازی شود.</p>
+        <p>
+            <strong>Name</strong><br />
+            نام تقویم به صورت متنی، معمولا با نام کلاس یکی است.
+        </p>
+        <p>
+            <strong>LeapMonth</strong><br />
+            چه برجی از سال، میتواند کبیسه باشد.
+        </p>
+        <p>
+            <strong>MonthsInYear</strong><br />
+            در سال چند برج وجود دارد.
+        </p>
+        <p>
+            <strong>GetDayOfWeek</strong><br />
+            GetDayOfWeek(Year: number, Month: number, Day: number): number<br />
+            شماره روز هفته را بر اساس سال، برج و روز بر میگرداند، برای مثال 1400، 02، 27 روز دوشنبه است پس مقدار 1 را برمیگرداند.
+        </p>
+        <p>
+            <strong>GetDayOfYear</strong><br />
+            GetDayOfYear(Year: number, Month: number, Day: number): number<br />
+            تاریخ مد نظر، چندمین روز از ابتدای سال است.برای مثال 1400، 02، 27 روز 58 از ابتدای سال است.
+        </p>
+        <p>
+            <strong>GetDaysInMonth</strong><br />
+            GetDaysInMonth(Year: number, Month: number): number<br />
+            در سال و برج مورد نظر، چند روز وجود دارد، تابع بایستی تعداد روز برجی که در سال کبیسه است را نیز در نظر بگیرد.
+        </p>
+        <p>
+            <strong>GetDaysInYear</strong><br />
+            GetDaysInYear(Year: number): number<br />
+            در سال مشخص شده چند روز وجود دارد، اگر سال کبیسه باشد، بایستی مشخص شود.
+        </p>
+        <p>
+            <strong>GetWeekOfYear</strong><br />
+            GetWeekOfYear(Year: number, Month: number, Day: number): number<br />
+            تاریخ گفته شده، هفته چندم از ابتدای سال است.
+        </p>
+        <p>
+            <strong>IsLeapDay</strong><br />
+            IsLeapDay(Year: number, Month: number, Day: number): boolean<br />
+            آیا تاریخ مشخص شده روز سال کبیسه است یا خیر.
+        </p>
+        <p>
+            <strong>IsLeapMonth</strong><br />
+            IsLeapMonth(Year: number, Month: number): boolean<br />
+            آیا برج مشخص شده، برج کبیسه است یا خیر.
+        </p>
+        <p>
+            <strong>IsLeapYear</strong><br />
+            IsLeapYear(Year: number): boolean<br />
+            آیا سال مشخص شده کبیسه است یا خیر.
+        </p>
+        <p>
+            <strong>GetDaysFromBase</strong><br />
+            GetDaysFromBase(Year: number, Month: number, Day: number): number<br />
+            یکی از مهمترین توابع است، وظیفه آن محاسبه تعداد روزهای گذشته از ابتدای سال ژولین است.
+        </p>
+        <p>
+            <strong>GetYearMontDayFromDays</strong><br />
+            GetYearMontDayFromDays(mNum: number): { Year: number, Month: number, Day: number }<br />
+            این تابع برعکس تابع بالاست، یعنی این تعداد روز گذشته از ابتدای تاریخ ژولین، چه تاریخی در این تقویم است.
+        </p>
+        <h2>تقویم های پیاده سازی شده</h2>
+        <p>در این فریم ورک، تقویم های زیر به صورت پیش فرض و با اسامی کلاس های زیر تعریف شده است.</p>
+        <ul>
+            <li>wnJulianCalendar: تقویم ژولین</li>
+            <li>wnGregorianCalendar: تقویم میلادی</li>
+            <li>wnPersianCalendar: تقویم پارسی یا جلالی یا هجری شمسی</li>
+            <li>wnHijriCalendar: تقویم هجری قمری</li>
+        </ul>
+        <h2>نحوه استفاده</h2>
+        <p>در ابتدا بگوییم، تمامی خروجی های تاریخی به صورت تاریخ استاندارد میلادی است، فقط توابع قابلیت تبدیل و نمایش و محاسبات خاص را بر روی تقویم انتخاب شده دارند.</p>
+        <p>برای استفاده از تقویم ها و اعمال محاسبات بر روی آنها بایستی متغییری از جنس <bidi>wnDate</bidi> بسازید و از توابع، رخداد ها و خصوصیات آن استفاده کنید. در زیر به آنها اشاره میشود.</p>
+        <p>
+            برای ساخت متغییر چند ویزگی وجود دارد.<br />
+            <bidi>new wnDate()</bidi><br />
+            نوع فرهنگ از WNDefaultCultureInfo گرفته میشود و تقویم از WNDefaultCalendar همچنین مقدار پیش فرض صفر در نظر گرفته میشود.<br />
+            <bidi>new wnDate(wnDate)</bidi><br />
+            یک تاریخ جدید بر اساس تنظیمات فرهنگ و تقویم و مقدار آن میسازد.<br />
+            <bidi>new wnDate(wnCultureInfo,wnCalendar)</bidi><br />
+            یک تاریخ بر اساس فرهنگ و تقویم مد نظر میسازد.<br />
+            <bidi>new wnDate(wnCultureInfo,wnCalendar,Date)</bidi><br />
+            یک تاریخ بر اساس فرهنگ و تقویم و مقدار تاریخ استاندارد مد نظر میسازد.
+        </p>
+        <h2>توابع</h2>
+        <p>
+            <bidi>AddDays(value)</bidi><br />
+            به مقدار مشخص روز، به تاریخ اضافه میکند.
+        </p>
+        <p>
+            <bidi>AddMonths(value)</bidi><br />
+            به مقدار مشخص برج، به تاریخ اضافه میکند.
+        </p>
+        <p>
+            <bidi>AddYears(value)</bidi><br />
+            به مقدار مشخص سال، به تاریخ اضافه میکند.
+        </p>
+        <p>
+            <bidi>AddWeeks(value)</bidi><br />
+            به مقدار مشخص هفته، به تاریخ اضافه میکند. در حقیقت این تابع همان تابع اضافه کردن روز است که عدد هفته در 7 ضرب میشود.
+        </p>
+        <p>
+            <bidi>AddHours(value)</bidi><br />
+            به مقدار مشخص ساعت، به تاریخ اضافه میکند.
+        </p>
+        <p>
+            <bidi>AddMinutes(value)</bidi><br />
+            به مقدار مشخص دقیقه، به تاریخ اضافه میکند.
+        </p>
+        <p>
+            <bidi>AddSeconds(value)</bidi><br />
+            به مقدار مشخص ثانیه، به تاریخ اضافه میکند.
+        </p>
+        <p>
+            <bidi>AddMilliseconds(value)</bidi><br />
+            به مقدار مشخص میلی ثانیه، به تاریخ اضافه میکند.
+        </p>
+        <p>
+            <bidi>SetDate(Date)</bidi><br />
+            بر اساس تاریخ استاندارد میلادی، تبدیلات را انجام داده و تاریخ را تنظیم میکند.
+        </p>
+        <p>
+            <bidi>SetDateYMD(Year, Month, Day, Hour, Minute, Second, Millisecond)</bidi><br />
+            بر اساس ورودی ها تاریخ را تنظیم میکند، مقدار ساعت، دقیقه، ثانیه و میلی ثانیه به صورت اختیاری است و مقدار پیش فرض صفر است.
+        </p>
+        <p>
+            <bidi>SetDateNumber(jd)</bidi><br />
+            مقدار تاریخ را بر اساس روزهای گذشته از ابتدای تاریخ ژولین محاسبه و تنظیم میکند. این تابع برای تبدیل بین تقویم ها بسیار کاربردی است.
+        </p>
+        <p>
+            <bidi>SetDateString(string)</bidi><br />
+            اگر تاریخ به صورت متنی است، آنرا تبدیل به تاریخ میکند، ترتیب ورودی، سال، ماه، روز، ساعت، دقیقه، ثانیه و میلی ثانیه است.
+            اگر به هر دلیلی تعداد روزها بیشتر 31 بود، جای سال و روز خودکار تغییر میکند.
+        </p>
+        <p>
+            <bidi>Set(wnDate)</bidi><br />
+            بر اساس، یک تاریخ، این تاریخ را تنظیم میکند، اگر تقویم ها یکسان نباشند نیز تبدیلات انجام شده و سپس تنظیم میگردد.
+        </p>
+        <p>
+            <bidi>ToDateTime()</bidi><br />
+            تاریخ تنظیم شده را به صورت تاریخ استاندارد بر میگرداند.
+        </p>
+        <p>
+            <bidi>ToNumber()</bidi><br />
+            تاریخ تنظیم شده را به صورت تعداد روزها از ابتدای تاریخ ژولین بر میگرداند.
+        </p>
+        <p>
+            <bidi>ToNumberDate()</bidi><br />
+            تاریخ تنظیم شده را به صورت تعداد روزها از ابتدای تاریخ ژولین بدون مقدار ساعت روز بر میگرداند.
+        </p>
+        <p>
+            <bidi>ToNumberYMD(Year, Month, Day)</bidi><br />
+            تعداد روزهای سپری شده از ابتدای تاریخ ژولین، بر اساس سال، ماه و روز داده شده محاسبه کرده و عدد آنرا برمیگرداند.
+        </p>
+        <p>
+            <bidi>toString(format, naitvedigit)</bidi><br />
+            تاریخ را به صورت رشته برمیگرداند.<br />
+            مقدار پارامتر format اختیاری است و به صورت پیش فرض از فرهنگ CultureInfo.DateTimeFormat.FullDateTimePattern گرفته میشود.
+            اگر میخواهید فرمت خاصی داشته باشد، بر اساس استاندارد فورمت تاریخ، آنرا وارد کنید.<br />
+            پارامتر naitvedigit، تعیین میکند، تبدیل اعداد بر اساس عدد مندرج در فرهنگ باشد یا خیر، این مقدار اختیاری است و از متغییر WNDefaultNaitveDigit تنظیم میگردد.<br />
+            برای مثال اعداد نمایشی برای فارسی عبارتند از"۰۱۲۳۴۵۶۷۸۹" در صورتیکه در محیط وب اعداد به این گونه شناخته میشود "0123456789" توجه داشته باشید، برای محاسبات این
+            تبدیل قابل برگشت و محاسبه نیست و فقط برای نمایش کاربرد دارد.
+        </p>
+        <p>برای اطلاع بیشتر در خصوص انواع فورمت خروجی برای نمایش تاریخ میتوانید <a href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings" target="_blank">اینجا</a> را مطالعه فرمایید.</p>
+        <p>
+            <bidi>toLongDateString(WNDefaultNaitveDigit)</bidi><br />
+            تبدیل تاریخ به رشته به صورت فرمت CultureInfo.DateTimeFormat.LongDatePattern
+        </p>
+        <p>
+            <bidi>toShortDateString(WNDefaultNaitveDigit)</bidi><br />
+            تبدیل تاریخ به رشته به صورت فرمت CultureInfo.DateTimeFormat.ShortDatePattern
+        </p>
+        <p>
+            <bidi>toLongTimeString(WNDefaultNaitveDigit)</bidi><br />
+            تبدیل تاریخ به رشته به صورت فرمت CultureInfo.DateTimeFormat.LongTimePattern
+        </p>
+        <p>
+            <bidi>toShortTimeString(WNDefaultNaitveDigit)</bidi><br />
+            تبدیل تاریخ به رشته به صورت فرمت CultureInfo.DateTimeFormat.ShortTimePattern
+        </p>
+        <p>
+            <bidi>FixedDate</bidi><br />
+            اگر به هر دلیلی، توازن تاریخی بهم ریهخته باشد، برای مثال تعداد روزها بیشتر از روزهای یک برج باشند، این تابع آن توازن را برقرار کرده و تعداد روزهای اضافی را به
+            برج بعدی منتقل میکند.
+        </p>
+        <h2>توابع مقایسه ای</h2>
+        <p>
+            <bidi>LessThan(wnDate)</bidi><br />
+            تاریخ جاری از تاریخ داده شده کوچکتر است یا خیر.
+        </p>
+        <p>
+            <bidi>LessThanEqual(wnDate)</bidi><br />
+            تاریخ جاری از تاریخ داده شده کوچکتر یا مساوی است یا خیر.
+        </p>
+        <p>
+            <bidi>GreaterThan(wnDate)</bidi><br />
+            تاریخ جاری از تاریخ داده شده بزرگتر است یا خیر.
+        </p>
+        <p>
+            <bidi>GreaterThanEqual(wnDate)</bidi><br />
+            تاریخ جاری از تاریخ داده شده بزرگتر یا مساوی است یا خیر.
+        </p>
+        <p>
+            <bidi>Equal(wnDate)</bidi><br />
+            تاریخ جاری از تاریخ داده شده برابر است یا خیر.
+        </p>
+        <p>
+            <bidi>NotEqual(wnDate)</bidi><br />
+            تاریخ جاری از تاریخ داده شده برابر نیست یا خیر.
+        </p>
+        <p>
+            <bidi>LessThanExact(wnDate)</bidi><br />
+            تاریخ و ساعت جاری از تاریخ و ساعت داده شده کوچکتر است یا خیر.
+        </p>
+        <p>
+            <bidi>LessThanEqualExact(wnDate)</bidi><br />
+            تاریخ و ساعت جاری از تاریخ و ساعت داده شده کوچکتر یا مساوی است یا خیر.
+        </p>
+        <p>
+            <bidi>GreaterThanExact(wnDate)</bidi><br />
+            تاریخ و ساعت جاری از تاریخ و ساعت داده شده بزرگتر است یا خیر.
+        </p>
+        <p>
+            <bidi>GreaterThanEqualExact(wnDate)</bidi><br />
+            تاریخ و ساعت جاری از تاریخ و ساعت داده شده بزرگتر یا مساوی است یا خیر.
+        </p>
+        <p>
+            <bidi>EqualExact(wnDate)</bidi><br />
+            تاریخ و ساعت جاری از تاریخ و ساعت داده شده برابر است یا خیر.
+        </p>
+        <p>
+            <bidi>NotEqualExact(wnDate)</bidi><br />
+            تاریخ و ساعت جاری از تاریخ و ساعت داده شده برابر نیست یا خیر.
+        </p>
+        <h2>خصوصیات</h2>
+        <p>
+            <bidi>Year</bidi><br />
+            تنظیم یا دریافت سال در تقویم تنظیم شده.
+        </p>
+        <p>
+            <bidi>Month</bidi><br />
+            تنظیم یا دریافت برج در تقویم تنظیم شده.
+        </p>
+        <p>
+            <bidi>Day</bidi><br />
+            تنظیم یا دریافت روز در تقویم تنظیم شده.
+        </p>
+        <p>
+            <bidi>Hour</bidi><br />
+            تنظیم یا دریافت ساعت در تقویم تنظیم شده.
+        </p>
+        <p>
+            <bidi>Minute</bidi><br />
+            تنظیم یا دریافت دقیقه در تقویم تنظیم شده.
+        </p>
+        <p>
+            <bidi>Second</bidi><br />
+            تنظیم یا دریافت ثانیه در تقویم تنظیم شده.
+        </p>
+        <p>
+            <bidi>Milliseconds</bidi><br />
+            تنظیم یا دریافت میلی ثانیه در تقویم تنظیم شده.
+        </p>
+        <p>
+            <bidi>DayOfWeek</bidi><br />
+            دریافت روز هفته تاریخ تنظیم شده.
+        </p>
+        <p>
+            <bidi>DayOfYear</bidi><br />
+            دریافت تعداد روزهای گذشته از ابتدای سال تقویم جاری.
+        </p>
+        <p>
+            <bidi>DaysInMonth</bidi><br />
+            تعداد روزهای موجود در سال و برج تنظیم شده.
+        </p>
+        <p>
+            <bidi>DaysInYear</bidi><br />
+            تعداد روزهای سال تنظیم شده.
+        </p>
+        <p>
+            <bidi>IsLeapYear</bidi><br />
+            سال تنظیم شده کبیسه است یا خیر.
+        </p>
+        <p>
+            <bidi>IsLeapMonth</bidi><br />
+            برج تنظیم شده، برج کبیسه است یا خیر.
+        </p>
+        <p>
+            <bidi>IsLeapDay</bidi><br />
+            سال، برج و روز تنظیم شده، روز کبیسه است یا خیر.
+        </p>
+        <p>
+            <bidi>MonthsInYear</bidi><br />
+            تعداد برجهای موجود در یک سال.
+        </p>
+        <p>
+            <bidi>LeapMonth</bidi><br />
+            برج کبیسه کدام برج است.
+        </p>
+        <p>
+            <bidi>WeekOfYear</bidi><br />
+            تاریخ تنظیم شده، چندمین هفته سال است.
+        </p>
+        <p>
+            <bidi>Value</bidi><br />
+            تنظیم مقدار تاریخی، که بر اساس نوع وروی، تنظیمات انجام میشود. مقدار عددی از ابتدای سال ژولین برگردانده میشود.
+        </p>
+        <h2>مثال تاریخ امروز</h2>
+        <div class="example-div">
+            <div class="ltr">
+                Julian: <span id="JulianCalendar_ltr"></span><br />
+                Gregorian: <span id="GregorianCalendar_ltr"></span><br />
+                Persian: <span id="PersianCalendar_ltr"></span><br />
+                Hijri: <span id="HijriCalendar_ltr"></span><br />
+                <script>
+                    WNDefaultCultureInfo = new wnCultureInfo_en_US();
+                    let dateJulianCalendar = new wnDate(WNDefaultCultureInfo, new wnJulianCalendar(), new Date());
+                    let dateGregorianCalendar = new wnDate(WNDefaultCultureInfo, new wnGregorianCalendar(), new Date());
+                    let datePersianCalendar = new wnDate(WNDefaultCultureInfo, new wnPersianCalendar(), new Date());
+                    let dateHijriCalendar = new wnDate(WNDefaultCultureInfo, new wnHijriCalendar(), new Date());
+                    document.getElementById('JulianCalendar_ltr').innerHTML = dateJulianCalendar.toString();
+                    document.getElementById('GregorianCalendar_ltr').innerHTML = dateGregorianCalendar.toString();
+                    document.getElementById('PersianCalendar_ltr').innerHTML = datePersianCalendar.toString();
+                    document.getElementById('HijriCalendar_ltr').innerHTML = dateHijriCalendar.toString();
+                </script>
+            </div>
+            <div class="rtl" id="form1">
+                ژولین: <span id="JulianCalendar_rtl"></span><br />
+                میلادی: <span id="GregorianCalendar_rtl"></span><br />
+                پارسی، جلالی، هجری شمسی: <span id="PersianCalendar_rtl"></span><br />
+                هجری قمری: <span id="HijriCalendar_rtl"></span><br />
+                <script>
+                    WNDefaultCultureInfo = new wnCultureInfo_fa_IR();
+                    dateJulianCalendar = new wnDate(WNDefaultCultureInfo, new wnJulianCalendar(), new Date());
+                    dateGregorianCalendar = new wnDate(WNDefaultCultureInfo, new wnGregorianCalendar(), new Date());
+                    datePersianCalendar = new wnDate(WNDefaultCultureInfo, new wnPersianCalendar(), new Date());
+                    dateHijriCalendar = new wnDate(WNDefaultCultureInfo, new wnHijriCalendar(), new Date());
+                    document.getElementById('JulianCalendar_rtl').innerHTML = dateJulianCalendar.toString();
+                    document.getElementById('GregorianCalendar_rtl').innerHTML = dateGregorianCalendar.toString();
+                    document.getElementById('PersianCalendar_rtl').innerHTML = datePersianCalendar.toString();
+                    document.getElementById('HijriCalendar_rtl').innerHTML = dateHijriCalendar.toString();
+                </script>
+            </div>
+        </div>
+        <div class="alert info callout-start">
+            توجه داشته باشید در تاریخ هجری قمری، ممکن است تا 2 روز اختلاف باشد که با تنظیم خصوصیت HijriAdjustment در تقویم هجری قمری، این اختلاف حل میشود.
+            برای عدم تکرار تنظیم نیز میتوانید با تنظیم متغییر WNDefaultHijriAdjustment از تکرار آن جلوگیری کنید.
+        </div>
+        <figure><code data-on="form1"></code></figure>

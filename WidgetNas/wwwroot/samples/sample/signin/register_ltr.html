@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Omid Moridi, Widgetnas contributors">
+    <title>Register example · Widgetnas</title>
+
+    <!-- Widgetnas core CSS -->
+    <link href="../../content/css/widgetnas.min.css" rel="stylesheet">
+    <link href="../../content/site.css" rel="stylesheet">
+    <link href="css.css" rel="stylesheet">
+    <script src="../../content/js/WidgetNas.js"></script>
+
+</head>
+<body class="ltr">
+    <div class="container">
+        <div class="form-signin animate slideInLeft">
+            <div class="row">
+                <div class="col col-6 col-12-m  p-i-100r">
+                    <form novalidate wn-type="validator">
+                        <h2 class="m-b-75r">Register form</h2>
+                        <label for="inputEmail">Email address</label>
+                        <input type="email" id="inputEmail" placeholder="Email address" required autofocus>
+                        <div class="invalid-feedback">
+                            Input email address.
+                        </div>
+                        <label for="inputPassword">Password</label>
+                        <input type="password" id="inputPassword" placeholder="Password" required>
+                        <div class="invalid-feedback">
+                            Input password.
+                        </div>
+                        <label for="inputPassword">Try password</label>
+                        <input type="password" id="inputPassword" placeholder="Try Password" required>
+                        <div class="invalid-feedback">
+                            Input try password.
+                        </div>
+                        <label for="inputFullName">Full name</label>
+                        <input type="text" autocomplete="name" id="inputFullName" placeholder="Full name">
+                        <hr class="m-b-100r" />
+                        <div class="checkbox m-b-75r">
+                            <label>
+                                <input type="checkbox" value="accept" required> I accept the policy
+                                <label class="invalid-feedback">
+                                    Accept policy.
+                                </label>
+                            </label>
+                            <a href="#">Policy roles</a>
+
+                        </div>
+
+                        <button class="w-100 s-l primary" type="submit">Register me</button>
+                        <div id="responceMessage" class="alert success text-center w-100">
+                            Register or not registering message after submit.
+                        </div>
+                        <hr class="m-bs-100r" />
+                        <a href="signin_ltr.html">Back to signin</a> - <a href="forgot_ltr.html">Forgot password</a>
+                    </form>
+                </div>
+                <div class="col border-inline-start p-bs-300r p-i-100r">
+                    <p class="alert error callout-start">Never choose your email password with the same password.</p>
+                    <p class="alert info callout-start">Use a valid email address, because all site automation corresponds to you through this.</p>
+                    <p class="alert info callout-start">The password must contain the letter, number and symbol.</p>
+                    <p class="alert info callout-start">We will never share your password.</p>
+                    <hr class="m-b-100r" />
+                    <a href="#">Need Help?</a> - <a href="#">Contact admin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

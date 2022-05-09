@@ -1,0 +1,130 @@
+﻿<div class="row">
+    <ig class="col-4">
+        <label for='@ViewData["id"]_firstname_ltr'>First Name</label>
+        <input id='@ViewData["id"]_firstname_ltr' type="text" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                Looks good!
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                Please check it!
+            </div>
+        }
+    </ig>
+    <ig class="col-4">
+        <label for='@ViewData["id"]_lastname_ltr'>Last Name</label>
+        <input id='@ViewData["id"]_lastname_ltr' type="text" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                Looks good!
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                Please check it!
+            </div>
+        }
+    </ig>
+    <ig class="col">
+        <label id='@ViewData["id"]_password_ltr'>Password</label>
+        <input id='@ViewData["id"]_password_ltr' type="password" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                Looks good!
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                Please check it!
+            </div>
+        }
+    </ig>
+</div>
+<div class="row">
+    <ig class="col-4">
+        <label for='@ViewData["id"]_city_ltr'>City</label>
+        <input id='@ViewData["id"]_city_ltr' type="text" required />
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                Looks good!
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                Please check it!
+            </div>
+        }
+    </ig>
+    <ig class="col-4">
+        <label for='@ViewData["id"]_state_ltr'>State</label>
+        <select id='@ViewData["id"]_state_ltr' required>
+            <option hidden disabled selected value=""></option>
+            <option value="1">Tehran</option>
+            <option value="2">Markazi</option>
+            <option value="3">Fars</option>
+        </select>
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                Looks good!
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                Please check it!
+            </div>
+        }
+    </ig>
+    <ig class="col">
+        <label for='@ViewData["id"]_zip_ltr'>Zip</label>
+        <input id='@ViewData["id"]_zip_ltr' type="text" inputmode="numeric" />
+    </ig>
+</div>
+<div class="row">
+    <ig class="col">
+        <label for='@ViewData["id"]_address_ltr'>Address</label>
+        <textarea id='@ViewData["id"]_address_ltr' required></textarea>
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                Looks good!
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                Please check it!
+            </div>
+        }
+    </ig>
+</div>
+<div class="row">
+    <ig>
+        <label>Sex</label>
+        <ig class="d-inline">
+            <input id='@ViewData["id"]_sex_o2_ltr' name='@ViewData["id"]_sex_ltr' type="radio" required />
+            <label for='@ViewData["id"]_sex_o2_ltr'>Male</label>
+            <input id='@ViewData["id"]_sex_o3_ltr' name='@ViewData["id"]_sex_ltr' type="radio" required />
+            <label for='@ViewData["id"]_sex_o3_ltr'>Female</label>
+            @if (Convert.ToBoolean(ViewData["feedback"]))
+            {
+                <div class="valid-feedback @ViewData["feedback-style"]">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback @ViewData["feedback-style"]">
+                    Please check it!
+                </div>
+            }
+        </ig>
+    </ig>
+</div>
+<div class="row">
+    <ig>
+        <input id='@ViewData["id"]_accept_ltr' type="checkbox" required />
+        <label>Click to accept.</label>
+        @if (Convert.ToBoolean(ViewData["feedback"]))
+        {
+            <div class="valid-feedback @ViewData["feedback-style"]">
+                Correct you checked!
+            </div>
+            <div class="invalid-feedback @ViewData["feedback-style"]">
+                Please checked!
+            </div>
+        }
+    </ig>
+</div>
+<button class="danger" type="submit">Send</button>
+<button class="warning" type="reset">Reset</button>

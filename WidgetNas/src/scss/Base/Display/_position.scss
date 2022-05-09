@@ -1,0 +1,130 @@
+﻿@import "../../_variables.scss";
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-start {
+    float: right;
+    float: inline-start;
+
+    [dir=ltr] > & {
+        float: left;
+    }
+}
+
+.float-end {
+    float: left;
+    float: inline-end;
+
+    [dir=ltr] > & {
+        float: right;
+    }
+}
+
+.float-none {
+    float: none;
+}
+
+.responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.p-static {
+    position: static !important;
+}
+
+.p-relative {
+    position: relative !important;
+}
+
+.p-absolute {
+    position: absolute !important;
+}
+
+.p-absolute-fill {
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.p-fixed {
+    position: fixed !important;
+}
+
+.p-sticky {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+}
+
+.fixed-top {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: #{$zindex-fixed} !important;
+}
+
+.fixed-bottom {
+    position: fixed !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: #{$zindex-fixed} !important;
+}
+
+.sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: #{$zindex-sticky};
+}
+
+.sticky-bottom {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0;
+    z-index: #{$zindex-sticky};
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+.overflow-hidden {
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.overflow-scroll {
+    overflow: scroll;
+}
+.overlay {
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+}
+$sizes:(1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,1000,2000,3000,4000,5000);
+@each $value in $sizes {
+    .zindex-#{$value} {
+        z-index:#{$value};
+    }
+    .zindex-#{$value}-n {
+        z-index: -#{$value};
+    }
+    .zindex-#{$value}-i {
+        z-index: #{$value} !important;
+    }
+
+        .zindex-#{$value}-n-i {
+            z-index: -#{$value} !important;
+        }
+}

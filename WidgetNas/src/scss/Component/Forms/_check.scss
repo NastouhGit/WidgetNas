@@ -1,0 +1,117 @@
+﻿input[type=checkbox],
+input[type=radio] {
+    display: inline-block !important;
+    width: 1em !important;
+    height: 1em !important;
+    margin: 0;
+    margin-block: var(--padding-block);
+    padding: 0 !important;
+    vertical-align: middle;
+    background-color: var(--normal-back);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    border: var(--border-width) solid var(--normal-border);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-print-color-adjust: exact;
+    transition: $transition;
+
+    &:focus {
+        border-color: var(--focus-shadow);
+        outline: 0;
+        box-shadow: 0 0 0 var(--input-shadow-width) var(--focus-shadow);
+    }
+
+    & + label {
+        padding-block: var(--padding-block);
+        color: var(--normal-childcolor);
+        user-select: none;
+    }
+
+    &:checked {
+        background-color: var(--select-border) !important;
+        border-color: var(--select-border) !important;
+    }
+
+    @include disabled-tag('+ label') {
+        color: var(--disable-color);
+    }
+
+    @include disabled-tag {
+        background-color: var(--disable-back) !important;
+        border-color: var(--disable-border) !important;
+    }
+
+    @include readonly-tag {
+        background-color: var(--readonly-back) !important;
+        border-color: var(--normal-border) !important;
+    }
+
+    @include readonly-tag('+ label') {
+        color: var(--readonly-color);
+    }
+}
+
+input[type=checkbox] {
+    border-radius: var(--border-radius);
+
+    &:checked {
+        background-image: var(--checkbox-image);
+    }
+
+    &:indeterminate {
+        background-color: var(--normal-border);
+        border-color: var(--normal-border);
+        background-image: var(--indeterminate-image);
+    }
+}
+
+
+input[type=radio] {
+    border-radius: 50% !important;
+    background-size:cover;
+
+    &:checked {
+        background-image: var(--radio-image);
+    }
+}
+
+//Styles
+input[type=checkbox],
+input[type=radio] {
+    &.switch {
+        width: 2em !important;
+        border-radius: 2em !important;
+        background-color: var(--readonly-back) !important;
+        background-size: 0.9em !important;
+        background-position: left center;
+        background-image: var(--radio-image);
+
+        &:checked {
+            background-color: var(--active-back) !important;
+            background-position: right center;
+        }
+    }
+
+    &.button {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+        pointer-events: none;
+
+        & + label {
+            @include button();
+        }
+
+        &:checked + label {
+            background-color: var(--select-border) !important;
+            border-color: var(--select-border) !important;
+        }
+
+        &:disabled + label {
+            background-color: var(--disable-back) !important;
+            color: var(--disable-color) !important;
+            border-color: var(--disable-border) !important;
+        }
+    }
+}

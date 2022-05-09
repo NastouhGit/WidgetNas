@@ -1,0 +1,20 @@
+﻿$breakpoints: (s: 576px,m: 768px,l: 992px,xl: 1200px,xxl: 1400px);
+$container-widths: (s: 540px, m: 720px, l: 960px, xl: 1140px, xxl: 1320px);
+
+$grid-columns: 12 !default;
+
+$zindex-dropdown: 2000 !default;
+$zindex-sticky: 2020 !default;
+$zindex-fixed: 2030 !default;
+$zindex-modal: 2050 !default;
+$zindex-tooltip: 2070 !default;
+$zindex-alltop: 2900 !default;
+    
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$heading-fontsize: ('h1':1.6,'h2':1.4,'h3':1.3,'h4':1.2,'h5':1.1,'h6':1);
+$font-family-code: $font-family-monospace;
+
+$kbd-padding-y: .2rem !default;
+$kbd-padding-x: .4rem !default;
+
+$transition: all 0.25s ease-in-out;

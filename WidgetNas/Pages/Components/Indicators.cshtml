@@ -1,0 +1,358 @@
+﻿@page
+@model WidgetNas.Pages.Components.IndicatorsModel
+@{
+    ViewData["Title"] = "نشانگرها Indicators";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>در حال انجام عملیاتی هستید که زمان آن را نمیدانید، نشانگرها، به کاربر می گویند صبر کنید، در حال انجام عملیاتی هستیم. آیا میخواهید، به کاربر نکته ای را هشدار دهید، این نشانگرها به شما کمک خواهند کرد.</p>
+<p>برای نمایش انواع مختلف به مثالهای زیر توجه کنید.</p>
+<h2>کادر چرخنده</h2>
+<p>نمایش یک کادر به صورت چرخش است، با استفاده از رنگها و سیستم اندازه گذاری، چرخنده خود را به دلخواه نمایش دهید.</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div>
+            <div class="indicator indicator-effect-border"></div>
+            <div class="indicator indicator-effect-border primary"></div>
+            <div class="indicator indicator-effect-border secondary"></div>
+            <div class="indicator indicator-effect-border danger"></div>
+            <div class="indicator indicator-effect-border warning"></div>
+        </div>
+        <div class="m-bs-100r">
+            <div class="indicator indicator-effect-border s-xs"></div>
+            <div class="indicator indicator-effect-border primary s-s"></div>
+            <div class="indicator indicator-effect-border secondary s-m"></div>
+            <div class="indicator indicator-effect-border danger  s-n"></div>
+            <div class="indicator indicator-effect-border warning  s-l"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <div class="indicator indicator-effect-border"></div>
+            <div class="indicator indicator-effect-border primary"></div>
+            <div class="indicator indicator-effect-border secondary"></div>
+            <div class="indicator indicator-effect-border danger"></div>
+            <div class="indicator indicator-effect-border warning"></div>
+        </div>
+        <div class="m-bs-100r">
+            <div class="indicator indicator-effect-border s-xs"></div>
+            <div class="indicator indicator-effect-border primary s-s"></div>
+            <div class="indicator indicator-effect-border secondary s-m"></div>
+            <div class="indicator indicator-effect-border danger  s-n"></div>
+            <div class="indicator indicator-effect-border warning  s-l"></div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>بزرگ شونده</h2>
+<p>نمایش یک دایره که بزرگ میشود، با استفاده از رنگها و سیستم اندازه گذاری، چرخنده خود را به دلخواه نمایش دهید.</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div>
+            <div class="indicator indicator-effect-grow"></div>
+            <div class="indicator indicator-effect-grow primary"></div>
+            <div class="indicator indicator-effect-grow secondary"></div>
+            <div class="indicator indicator-effect-grow danger"></div>
+            <div class="indicator indicator-effect-grow warning"></div>
+        </div>
+        <div class="m-bs-100r">
+            <div class="indicator indicator-effect-grow s-xs"></div>
+            <div class="indicator indicator-effect-grow primary s-s"></div>
+            <div class="indicator indicator-effect-grow secondary s-m"></div>
+            <div class="indicator indicator-effect-grow danger  s-n"></div>
+            <div class="indicator indicator-effect-grow warning  s-l"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div>
+            <div class="indicator indicator-effect-grow"></div>
+            <div class="indicator indicator-effect-grow primary"></div>
+            <div class="indicator indicator-effect-grow secondary"></div>
+            <div class="indicator indicator-effect-grow danger"></div>
+            <div class="indicator indicator-effect-grow warning"></div>
+        </div>
+        <div class="m-bs-100r">
+            <div class="indicator indicator-effect-grow s-xs"></div>
+            <div class="indicator indicator-effect-grow primary s-s"></div>
+            <div class="indicator indicator-effect-grow secondary s-m"></div>
+            <div class="indicator indicator-effect-grow danger  s-n"></div>
+            <div class="indicator indicator-effect-grow warning  s-l"></div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>بزرگ شونده شکل دلخواه</h2>
+<p>نمایش یک تصویر به صورت svg یا img یا حروف که بزرگ میشود، با استفاده از رنگها و سیستم اندازه گذاری، چرخنده خود را به دلخواه نمایش دهید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form3">
+            <div class="indicator indicator-effect-growicon">
+                <svg class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="var(--normal-border)" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+            </div>
+            <div class="indicator indicator-effect-growicon warning">
+                <svg class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="var(--normal-border)" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+            </div>
+            <div class="indicator indicator-effect-growicon error">
+                New!
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-growicon">
+            <svg class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="var(--normal-border)" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+        </div>
+        <div class="indicator indicator-effect-growicon warning">
+            <svg class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="var(--normal-border)" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+        </div>
+        <div class="indicator indicator-effect-growicon error">
+            جدید!
+        </div>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>تاب خوردن</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form4">
+            <div class="indicator indicator-effect-swing">
+                ☼
+            </div>
+            <div class="indicator indicator-effect-swing warning">
+                ♥
+            </div>
+            <div class="indicator indicator-effect-swing error">
+                New!
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-swing">
+            ☼
+        </div>
+        <div class="indicator indicator-effect-swing warning">
+            ♥
+        </div>
+        <div class="indicator indicator-effect-swing error">
+            جدید!
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>پالس</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form5">
+            <div class="indicator indicator-effect-pulse warning">
+                ☼
+            </div>
+            <div class="indicator indicator-effect-pulse error">
+                New!
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-pulse warning">
+            ☼
+        </div>
+        <div class="indicator indicator-effect-pulse error">
+            جدید!
+        </div>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>لرزش</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form6">
+            <div class="indicator indicator-effect-shake warning">
+                ☼
+            </div>
+            <div class="indicator indicator-effect-shake error">
+                New!
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-shake warning">
+            ☼
+        </div>
+        <div class="indicator indicator-effect-shake error">
+            جدید!
+        </div>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<h2>فلاش</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form7">
+            <div class="indicator indicator-effect-flash warning">
+                ☼
+            </div>
+            <div class="indicator indicator-effect-flash error">
+                New!
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-flash warning">
+            ☼
+        </div>
+        <div class="indicator indicator-effect-flash error">
+            جدید!
+        </div>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+<h2>گردش و مخفی</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form8">
+            <div class="indicator indicator-effect-rotateOut warning">
+                ☼
+            </div>
+            <div class="indicator indicator-effect-rotateOut error">
+                New!
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-rotateOut warning">
+            ☼
+        </div>
+        <div class="indicator indicator-effect-rotateOut error">
+            جدید!
+        </div>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+<h2>جست و خیز</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form9">
+            <div class="indicator indicator-effect-bounce warning">
+                ☼
+            </div>
+            <div class="indicator indicator-effect-bounce error">
+                New!
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-bounce warning">
+            ☼
+        </div>
+        <div class="indicator indicator-effect-bounce error">
+            جدید!
+        </div>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>
+<h2>حاشیه ها</h2>
+<p>شما میتوانید از سرویس حاشیه بندی برای ایجاد فضای مناسب استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="form10">
+            <div class="indicator indicator-effect-grow error m-100r"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="indicator indicator-effect-grow error m-100r"></div>
+    </div>
+</div>
+<figure><code data-on="form10"></code></figure>
+<h2>جایگذاری</h2>
+<p>برای نمایش گزینه در جای مناسب میتوانید از روش زیر استفاده کنید.</p>
+<p>علاوه بر مثالهای زیر، شما میتوانید از انواع سیستم جایگذاری مانند float، text-align و ... نیز استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form11">
+        <h3>LTR</h3>
+        <div class="d-flex justify-content-center">
+            <div class="indicator indicator-effect-grow error"></div>
+        </div>
+        <div class="d-flex align-items-center">
+            Loading...
+            <div class="indicator indicator-effect-border error m-i-auto"></div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="d-flex justify-content-center">
+            <div class="indicator indicator-effect-grow error"></div>
+        </div>
+        <div class="d-flex align-items-center">
+            در حال بارگذاری...
+            <div class="indicator indicator-effect-border error m-i-auto"></div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form11"></code></figure>
+<h2>دکمه</h2>
+<p>میتوانید درون دکمه نیز این گزینه را استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr" id="form12">
+        <h3>LTR</h3>
+        <button class="primary" disabled>
+            <span class="indicator indicator-effect-border s-m"></span>
+        </button>
+        <button class="primary" disabled>
+            <span class="indicator indicator-effect-border s-m"></span>
+            Loading...
+        </button>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="primary" disabled>
+            <span class="indicator indicator-effect-border s-m"></span>
+        </button>
+        <button class="primary" disabled>
+            <span class="indicator indicator-effect-border s-m"></span>
+            بارگذاری...
+        </button>
+    </div>
+</div>
+<figure><code data-on="form12"></code></figure>
+<h2>مثالی دیگر</h2>
+<div class="example-div">
+    <div class="d-flex justify-content-center" id="form13">
+        <span class="indicator indicator-effect-grow s-xs primary"></span>
+        <span class="indicator indicator-effect-grow s-xs error m-i-50r"></span>
+        <span class="indicator indicator-effect-grow s-xs success"></span>
+    </div>
+</div>
+<figure><code data-on="form13"></code></figure>
+<h2>نمایش و عدم نمایش</h2>
+<p>طبیعی است که نیاز ندارید همیشه این نمایشگر ها نمایش داده شوند، به همین منظور در ابتدا بایستی با کلاس d-none در کد پیاده سازی کرد، و هر زمان که نیاز بود، توسط جاوا اسکریپت، آن کلاس را حذف کرد.</p>
+<div class="example-div">
+    <div id="form14">
+        <div id="ind1" class="d-flex justify-content-center d-none">
+            <span class="indicator indicator-effect-grow s-xs primary"></span>
+            <span class="indicator indicator-effect-grow s-xs error m-i-50r"></span>
+            <span class="indicator indicator-effect-grow s-xs success"></span>
+        </div>
+        <div class="m-bs-100r">
+            <button class="primary" onclick="document.getElementById('ind1').classList.toggle('d-none');">Toggle</button>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form14"></code></figure>

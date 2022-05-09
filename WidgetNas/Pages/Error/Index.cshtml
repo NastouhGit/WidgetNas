@@ -1,0 +1,21 @@
+﻿@page
+@model WidgetNas.Pages.Error.IndexModel
+@{
+    ViewData["Title"] = "خطا در سامانه";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<div class="content p-200r">
+    <div class="alert error callout-start shadow-100r">
+        <h1 class="error-text">
+            @ViewData["Title"]
+        </h1>
+        <hr class="m-b-100r" />
+        <h5>
+            با عرض پوزش در هنگام اجرای صفحه، با خطا روبرو شدیم.
+        </h5>
+        <p>
+            ممکن است آدرس صفحه مورد نظر پیدا نشده باشد و یا آدرس را اشتباه وارد کرده باشید، شما میتوانید از منوی سمت راست
+            آدرس صحیح را انتخاب فرمایید.
+        </p>
+    </div>
+</div>

@@ -1,0 +1,230 @@
+﻿@mixin button {
+    padding-block: calc(var(--padding-block)*1.2);
+    padding-inline: var(--padding-inline);
+    margin-block: var(--margin-block);
+    margin-inline: var(--margin-inline);
+    border-radius: var(--border-radius);
+    border: var(--border-width) solid var(--normal-border);
+    font-family: inherit !important;
+    font-size: var(--font-size) !important;
+    line-height: var(--line-height) !important;
+    text-decoration: none !important;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-appearance: none;
+    overflow: visible;
+    vertical-align: middle;
+    transition: $transition,background-position none;
+    text-transform: none !important;
+    cursor: pointer !important;
+    fill: var(--normal-color);
+    background-color: var(--normal-back);
+    color: var(--normal-color);
+
+    svg, img, i {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        fill: var(--normal-color);
+        stroke: var(--normal-color);
+        stroke-width: 1;
+    }
+
+    &.button-active,
+    &:active {
+        outline: none;
+        box-shadow: 0 0 0 var(--button-shadow-width) var(--active-shadow);
+        background-color: var(--active-back);
+        color: var(--active-color);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 var(--button-shadow-width) var(--focus-shadow);
+        background-color: var(--focus-back);
+        color: var(--focus-color);
+    }
+
+    &:hover {
+        background-color: var(--hover-back);
+        color: var(--hover-color);
+    }
+
+    @include disabled-tag {
+        cursor: default;
+        pointer-events: none;
+        background-color: var(--disable-back);
+        color: var(--disable-color);
+        border-color: var(--disable-border);
+    }
+
+    @include readonly-tag {
+        cursor: default;
+        pointer-events: none;
+        background-color: var(--readonly-back);
+        color: var(--readonly-color);
+        border: none;
+        opacity: 0.9;
+
+        &:hover {
+            background-color: var(--readonly-back);
+            color: var(--readonly-color);
+        }
+    }
+}
+
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+    border-radius: 0;
+    -webkit-appearance: button;
+
+    &:not(:disabled) {
+        cursor: pointer;
+    }
+
+    &:focus:not(:focus-visible) {
+        outline: 0;
+    }
+}
+
+[type=button],
+[type=reset],
+[type=submit],
+button,
+.button {
+
+    @include button();
+
+    &.dropdown-toggle {
+        background-image: var(--arrow-down-image);
+        background-repeat: no-repeat;
+        background-size: 0.8em;
+        background-position: left calc(var(--padding-inline) / 2) center;
+        padding-inline: var(--padding-inline);
+        padding-right: var(--padding-inline);
+        padding-left: calc(var(--padding-inline) + 0.8em);
+
+        &[dir=ltr] {
+            padding-left: var(--padding-inline);
+            padding-right: calc(var(--padding-inline) + 0.8em);
+            background-position: right calc(var(--padding-inline) / 2) center;
+        }
+
+        &:empty {
+            padding-right: var(--padding-inline);
+            padding-left: var(--padding-inline);
+            background-position: left var(--padding-inline) center;
+            min-width: calc(var(--padding-inline2) + 0.8em);
+
+            &[dir=ltr] {
+                background-position: left var(--padding-inline) center;
+            }
+        }
+
+        &.pos-top {
+            background-image: var(--arrow-up-image);
+        }
+
+        &.pos-end {
+            background-image: var(--arrow-left-image);
+            background-size: 0.7em;
+
+            &[dir=ltr] {
+                background-image: var(--arrow-right-image);
+            }
+        }
+
+        &.pos-start {
+            background-image: var(--arrow-right-image);
+            background-size: 0.7em;
+            padding-left: var(--padding-inline);
+            padding-right: calc(var(--padding-inline) + 1rem);
+            background-position: right calc(var(--padding-inline) / 2) center;
+
+            &[dir=ltr] {
+                background-image: var(--arrow-left-image);
+                background-position: left calc(var(--padding-inline) / 2) center;
+                padding-right: var(--padding-inline);
+                padding-left: calc(var(--padding-inline) + 1rem);
+            }
+        }
+
+        &.icon-start {
+            padding-left: var(--padding-inline) !important;
+            padding-right: calc(var(--padding-inline) + 1rem) !important;
+            background-position: right calc(var(--padding-inline) / 2) center !important;
+
+
+            &[dir=ltr] {
+                padding-right: var(--padding-inline) !important;
+                padding-left: calc(var(--padding-inline) + 1rem) !important;
+                background-position: left calc(var(--padding-inline) / 2) center !important;
+            }
+        }
+
+        &.icon-end {
+            padding-right: var(--padding-inline) !important;
+            padding-left: calc(var(--padding-inline) + 1rem) !important;
+            background-position: left calc(var(--padding-inline) / 2) center !important;
+
+            &[dir=ltr] {
+                padding-left: var(--padding-inline) !important;
+                padding-right: calc(var(--padding-inline) + 1rem) !important;
+                background-position: right calc(var(--padding-inline) / 2) center !important;
+            }
+        }
+
+        &.icon-none {
+            padding-right: var(--padding-inline) !important;
+            padding-left: var(--padding-inline) !important;
+            background-image: none !important;
+        }
+    }
+
+    &.close {
+        box-sizing: content-box;
+        width: 1.5em;
+        height: 1.5em;
+        min-width: 1.5em;
+        background-color: transparent !important;
+        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="165.19 101.834 121.309 122.875" width="121.309" height="122.875"%3E%3Cg transform="matrix(1, 0, 0, 1, 165.189713, 101.833252)"%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M90.914,5.296c6.927-7.034,18.188-7.065,25.154-0.068 c6.961,6.995,6.991,18.369,0.068,25.397L85.743,61.452l30.425,30.855c6.866,6.978,6.773,18.28-0.208,25.247 c-6.983,6.964-18.21,6.946-25.074-0.031L60.669,86.881L30.395,117.58c-6.927,7.034-18.188,7.065-25.154,0.068 c-6.961-6.995-6.992-18.369-0.068-25.397l30.393-30.827L5.142,30.568c-6.867-6.978-6.773-18.28,0.208-25.247 c6.983-6.963,18.21-6.946,25.074,0.031l30.217,30.643L90.914,5.296L90.914,5.296z" style="fill: rgb(0, 0, 0);"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 50% 50%;
+        border: 0;
+        padding-block-start: 0;
+        padding-block-end: 0;
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+        margin-block-start: var(--margin-block);
+        margin-block-end: var(--margin-block);
+        margin-inline-start: var(--margin-inline);
+        margin-inline-end: var(--margin-inline);
+        opacity: .5;
+        transition: opacity 150ms ease-in-out;
+        border-radius: 50%;
+
+        &.light {
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="165.19 101.834 121.309 122.875" width="121.309" height="122.875"%3E%3Cg transform="matrix(1, 0, 0, 1, 165.189713, 101.833252)"%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M90.914,5.296c6.927-7.034,18.188-7.065,25.154-0.068 c6.961,6.995,6.991,18.369,0.068,25.397L85.743,61.452l30.425,30.855c6.866,6.978,6.773,18.28-0.208,25.247 c-6.983,6.964-18.21,6.946-25.074-0.031L60.669,86.881L30.395,117.58c-6.927,7.034-18.188,7.065-25.154,0.068 c-6.961-6.995-6.992-18.369-0.068-25.397l30.393-30.827L5.142,30.568c-6.867-6.978-6.773-18.28,0.208-25.247 c6.983-6.963,18.21-6.946,25.074,0.031l30.217,30.643L90.914,5.296L90.914,5.296z" style="fill: rgb(255, 255, 255);"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+        }
+    }
+
+        &.close:hover {
+            background-color: rgba(255,255,255, 0.5) !important;
+            box-shadow: 0 0 0.125rem 0.125rem rgba(0,0,0,0.1);
+            opacity: 0.8;
+        }
+}
+
+a[disabled] {
+    cursor: default;
+    pointer-events: none;
+    color: var(--disable-color);
+}
+
+@import "styles";

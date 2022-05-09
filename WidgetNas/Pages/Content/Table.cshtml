@@ -1,0 +1,1632 @@
+﻿@page
+@model WidgetNas.Pages.Content.TableModel
+@{
+    ViewData["Title"] = "نمایش انواع جداول";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>جداول کاربرد بسیاری در نمایش اطلاعات دارد. در زیر به کلاسهای مرتبط با جداول اشاره خواهد شد.</p>
+<h2>جدول پایه</h2>
+<p>یک جدول ساده به صورت پیش فرض به شکل زیر میباشد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">table</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">thead</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>#<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>First Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Last Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Position<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">thead</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">tbody</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>1<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Omid<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Moridi<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>WidgetNas Creator<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>2<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Reza<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Rahmani<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Developer<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>3<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> colspan</span><span class="hv">="2</span>"<span class="hv">&gt;</span>Mohammad Keshavarz<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Marketing<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">tbody</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">table</span><span class="hv">&gt;</span></code></pre>
+</figure>
+<h2>انواع جدول</h2>
+<p>شما میتوانید با استفاده از کلاسهای اصلی تم، رنگبندی جدول را تغییر دهید</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="primary">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary outline">
+            <thead>
+                <tr class="secondary">
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr class="warning">
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="primary">
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr class="secondary">
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr class="third">
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td class="info">Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="warning">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td class="danger outline">Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="primary">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary outline">
+            <thead>
+                <tr class="secondary">
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr class="warning">
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="primary">
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr class="secondary">
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr class="third">
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td class="info">امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="warning">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td class="danger outline">بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    برای جدول
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"primary"</span>&gt;
+    برای ردیف
+    &lt;<span class="ht">tr</span> <span class="ha">class=</span><span class="hv">"primary"</span>&gt;
+    برای ستون
+    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"primary outline"</span>&gt;
+</code></pre>
+</figure>
+<h2>جدول راه راه</h2>
+<p>برای آنکه هر ردیف از ردیف قبلی قابل تفکیک باشد میتوانید از کلاس زیر استفاده کنید</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="primary outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="primary outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary striped">
+            <thead>
+                <tr class="primary">
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="danger outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="warning outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="primary outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="primary outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary striped">
+            <thead>
+                <tr class="primary">
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="danger outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="warning outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"striped"</span>&gt;
+    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"primary outline"</span>&gt;
+</code></pre>
+</figure>
+<h2>ردیف های حساس به اشاره گر</h2>
+<p>اگر تمایل دارید با حرکت اشاره گر بر روی هر ردیف آن ردیف تحریک شود، از کلاس زیر استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="primary outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="primary outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary striped hover">
+            <thead>
+                <tr class="primary">
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="danger outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="warning outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="primary outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="primary outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary striped hover">
+            <thead>
+                <tr class="primary">
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="danger outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="warning outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"hover"</span>&gt;
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"primary striped hover"</span>&gt;
+</code></pre>
+</figure>
+<h2>کادر جداول</h2>
+<p>اگر تمایل دارید جدول دارای کادر باشد از کلاس زیر استفاده کنید</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="bordered primary-border">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="primary outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="primary outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary striped bordered">
+            <thead>
+                <tr class="primary">
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="danger outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="warning outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="noborder">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="bordered primary-border">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="primary outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="primary outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="secondary striped bordered">
+            <thead>
+                <tr class="primary">
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="danger outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="warning outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="noborder">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"bordered"</span>&gt;
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"noborder"</span>&gt;
+</code></pre>
+</figure>
+<h2>ارتفاع ردیف متفاوت</h2>
+<p>در برخی مواقع نیاز است که جداول با ارتفاع متفاوتی نمایش داده شوند. شما میتوانید از مقدارهای اندازه xs تا xxxl استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="bordered s">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="primary outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="primary outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="bordered m">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="primary outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="primary outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="bordered l">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td class="primary outline">Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td class="primary outline">Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="bordered s">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="primary outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="primary outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="bordered m">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="primary outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="primary outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="bordered l">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td class="primary outline">مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td class="primary outline">رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"s"</span>&gt;
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"m"</span>&gt;
+    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"l"</span>&gt;
+</code></pre>
+</figure>
+<h2>چینش عمودی متن</h2>
+<p>به صورت پیش فرض متن ها از بالا به پایین پر میشوند، در صورتیکه تمایل به تغییر وضعیت چینش دارید از کلاسهای <span class="bidi-override">va-?</span> استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="bordered">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">va-top</th>
+                    <th scope="col">va-middle</th>
+                    <th scope="col">va-bottom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width:10rem;">This here is some placeholder text, intended to take up quite a bit of vertical space, to demonstrate how the vertical alignment works in the preceding cells.</td>
+                    <td style="width:10rem;" class="va-top">This is test message</td>
+                    <td style="width:10rem;" class="va-middle">This is test message</td>
+                    <td style="width:10rem;" class="va-bottom">This is test message</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="bordered">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">va-top</th>
+                    <th scope="col">va-middle</th>
+                    <th scope="col">va-bottom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width:10rem;">این در اینجا متن متغیرهایی است که قصد دارد فضای عمودی زیادی را اشغال کند ، تا نشان دهد چگونه ترازبندی عمودی در سلولهای قبلی کار می کند.</td>
+                    <td style="width:10rem;" class="va-top">این یک متن آزمایشی است</td>
+                    <td style="width:10rem;" class="va-middle">این یک متن آزمایشی است</td>
+                    <td style="width:10rem;" class="va-bottom">این یک متن آزمایشی است</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"va-top"</span>&gt;
+    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"va-middle"</span>&gt;
+    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"va-bottom"</span>&gt;
+</code></pre>
+</figure>
+<h2>جداول تو در تو</h2>
+<p>در برخی مواقع نیاز است یک جدول در جدولی دیگر نمایش داده شود. خصوصیات رنگی جدول والد به جدول زیر مجموعه ارث داده میشود.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table class="striped bordered secondary">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td colspan="3">
+                        <table class="bordered s">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Position</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Omid</td>
+                                    <td>Moridi</td>
+                                    <td>WidgetNas Creator</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Reza</td>
+                                    <td>Rahmani</td>
+                                    <td>Developer</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">Mohammad Keshavarz</td>
+                                    <td>Marketing</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="striped bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td colspan="3">
+                        <table class="bordered s third">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Position</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Omid</td>
+                                    <td>Moridi</td>
+                                    <td>WidgetNas Creator</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Reza</td>
+                                    <td>Rahmani</td>
+                                    <td>Developer</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">Mohammad Keshavarz</td>
+                                    <td>Marketing</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table class="striped bordered secondary">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td colspan="3">
+                        <table class="bordered s">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">نام</th>
+                                    <th scope="col">نام خانوادگی</th>
+                                    <th scope="col">عنوان</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>امید</td>
+                                    <td>مریدی</td>
+                                    <td>سازنده ویجت نس</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>رضا</td>
+                                    <td>رحمانی</td>
+                                    <td>برنامه نویس</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">محمد کشاورز</td>
+                                    <td>بازاریابی</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="striped bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td colspan="3">
+                        <table class="bordered s third">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">نام</th>
+                                    <th scope="col">نام خانوادگی</th>
+                                    <th scope="col">عنوان</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>امید</td>
+                                    <td>مریدی</td>
+                                    <td>سازنده ویجت نس</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>رضا</td>
+                                    <td>رحمانی</td>
+                                    <td>برنامه نویس</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">محمد کشاورز</td>
+                                    <td>بازاریابی</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">table</span>&gt;
+        &lt;<span class="ht">tr</span>&gt;
+            &lt;<span class="ht">td</span>&gt;
+                &lt;<span class="ht">table</span>&gt;
+                    &lt;<span class="ht">tr</span>&gt;
+                        &lt;<span class="ht">td</span>&gt;
+                        &lt;/<span class="ht">td</span>&gt;
+                    &lt;/<span class="ht">tr</span>&gt;
+                &lt;/<span class="ht">table</span>&gt;
+            &lt;/<span class="ht">td</span>&gt;
+        &lt;/<span class="ht">tr</span>&gt;
+    &lt;/<span class="ht">table</span>&gt;
+</code></pre>
+</figure>
+<h2>فوتر و عنوان در جدول</h2>
+<p>در برخی مواقع نیاز است یک جدول در جدولی دیگر نمایش داده شود. خصوصیات جدول والد به جدول زیر مجموعه ارث داده نمیشود.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table>
+            <caption class="top">List of users caption top</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col"></th>
+                    <td scope="col">Foot</td>
+                    <td scope="col">Foot</td>
+                    <td scope="col">Foot</td>
+                </tr>
+            </tfoot>
+        </table>
+        <table>
+            <caption>List of users caption auto</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Mohammad Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col"></th>
+                    <td scope="col">Foot</td>
+                    <td scope="col">Foot</td>
+                    <td scope="col">Foot</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <caption class="top">لیست کاربرها، عنوان بالا</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <td>فوتر</td>
+                    <td>فوتر</td>
+                    <td>فوتر</td>
+                </tr>
+            </tfoot>
+        </table>
+        <table>
+            <caption>لیست کاربرها، عنوان خودکار</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">محمد کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <td>فوتر</td>
+                    <td>فوتر</td>
+                    <td>فوتر</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">table</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">caption</span><span class="ha"> class</span><span class="hv">="top</span>"<span class="hv">&gt;</span>List of users caption top<span class="hv">&lt;/</span><span class="ht">caption</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">thead</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>#<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>First Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Last Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Position<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">thead</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">tbody</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>1<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Omid<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Moridi<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>WidgetNas Creator<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>2<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Reza<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Rahmani<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Developer<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>3<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> colspan</span><span class="hv">="2</span>"<span class="hv">&gt;</span>Mohammad Keshavarz<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Marketing<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">tbody</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">tfoot</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Foot<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Foot<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Foot<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">tfoot</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">table</span><span class="hv">&gt;</span></code></pre>
+</figure>
+<h2>جداول واکنش گرا یا ریسپانسیو</h2>
+<p>برای آنکه جدول در محیطهای مختلف به درستی قابل نمایش باشند، میتواند از خاصیت div با کلاس responsive استفاده نمایید. هر چند که این تکنیک برای هر موضوع دیگری قابل استفاده است.</p>
+<div class="example-div">
+    <div class="ltr row">
+        <h3>LTR</h3>
+        <div class="responsive">
+            <table class="bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                        <th scope="col">Heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                        <td>Cell</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"responsive"</span>&gt;
+        &lt;<span class="ht">table</span>&gt;
+        &lt;/<span class="ht">table</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+</code></pre>
+</figure>

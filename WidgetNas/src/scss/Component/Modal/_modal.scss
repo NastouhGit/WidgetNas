@@ -1,0 +1,148 @@
+﻿modal,
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-modal;
+    display: none;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+    align-items: center;
+    justify-content: center;
+    transition: opacity ease 1s;
+
+    &.modal-block-start {
+        align-items: flex-start !important;
+    }
+
+    &.modal-block-end {
+        align-items: flex-end !important;
+    }
+
+    &.modal-block-fill {
+        align-items: stretch !important;
+    }
+
+    &.modal-inline-start {
+        justify-content: flex-start !important;
+    }
+
+    &.modal-inline-end {
+        justify-content: flex-end !important;
+    }
+
+    &.modal-inline-fill {
+        justify-content: stretch !important;
+
+        .modal-dialog {
+            width: 100%;
+        }
+    }
+
+    &.darkback {
+        background-color: rgba(0,0,0,.6);
+    }
+
+    &.transparent {
+        background-color: transparent;
+    }
+
+    &.show {
+        display: flex;
+        overflow-x: hidden;
+        overflow-y: auto;
+        opacity: 1;
+    }
+
+    .modal-limit {
+        max-height: 70vh;
+        overflow: auto;
+    }
+
+    .modal-dialog {
+        position: relative;
+        margin-inline: 2em;
+        margin-block: 2em;
+        display: flex;
+        flex-direction: column;
+        pointer-events: auto;
+        background-color: var(--normal-back);
+        background-clip: padding-box;
+        border: var(--border-width) solid var(--normal-border);
+        border-radius: var(--border-radius);
+        outline: 0;
+        box-shadow: var(--box-shadow);
+
+        .modal-header {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: space-between;
+            padding-inline: var(--padding-inline);
+            padding-block: var(--padding-block);
+            border-bottom: var(--border-width) solid var(--normal-border);
+            border-top-left-radius: calc(var(--border-radius) *0.8);
+            border-top-right-radius: calc(var(--border-radius) *0.8);
+            color: var(--normal-color);
+            background-color: var(--normal-back);
+            user-select: none;
+
+            .close {
+                margin-block-start: 0;
+            }
+        }
+
+        .modal-body {
+            position: relative;
+            flex: 1 1 auto;
+            padding-inline: var(--padding-inline);
+            padding-block: var(--padding-block);
+            color: var(--normal-color);
+            background-color: var(--normal-back);
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: flex-end;
+            padding-inline: var(--padding-inline);
+            padding-block: var(--padding-block);
+            border-top: var(--border-width) solid var(--normal-border);
+            border-bottom-left-radius: calc(var(--border-radius) *0.8);
+            border-bottom-right-radius: calc(var(--border-radius) *0.8);
+            color: var(--normal-color);
+            background-color: var(--normal-back);
+            user-select: none;
+
+            & > * {
+                margin: var(--margin-inline);
+            }
+        }
+    }
+}
+@media (max-width: map-get($breakpoints,'s')) {
+    .modal-dialog {
+        width:90vw;
+    }
+}
+@media (min-width:map-get($breakpoints,'s')+1 ) and (max-width: map-get($breakpoints,'m')) {
+    .modal-dialog {
+        width: 70vw;
+    }
+}
+@media (min-width:map-get($breakpoints,'m')+1 ) and (max-width: map-get($breakpoints,'l')) {
+    .modal-dialog {
+        width: 50vw;
+    }
+}
+
+@media (min-width:map-get($breakpoints,'l')+1 ) {
+    .modal-dialog {
+        width: 40vw;
+    }
+}

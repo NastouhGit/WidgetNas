@@ -1,0 +1,16 @@
+﻿figure {
+    display: block;
+    margin: 0 0 1em;
+
+    .img, img,
+    svg {
+        margin-bottom: 0.5em;
+        line-height: 1em;
+    }
+
+    figcaption {
+        font-size: 0.875em;
+        color: var(--readonly-color);
+        text-align: center;
+    }
+}

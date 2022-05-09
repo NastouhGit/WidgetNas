@@ -1,0 +1,61 @@
+﻿.carousel {
+    .carousel-slides {
+        $name: slide-right;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: slideInLeft;
+            }
+
+            &.end {
+                display: block;
+                animation-name: slideOutRight;
+            }
+        }
+
+        $name: slide-left;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+            &.start {
+                position: absolute;
+                animation-name: slideInRight;
+            }
+
+            &.end {
+                display: block;
+                animation-name: slideOutLeft;
+            }
+        }
+
+        $name: slide-down;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+
+            &.start {
+                position: absolute;
+                animation-name: slideInDown;
+            }
+
+            &.end {
+                display: block;
+                animation-name: slideOutDown;
+            }
+        }
+
+        $name: slide-up;
+
+        &.carousel-effect-#{$name} > .carousel-item, .carousel-item.carousel-effect-#{$name} {
+
+            &.start {
+                position: absolute;
+                animation-name: slideInUp;
+            }
+
+            &.end {
+                display: block;
+                animation-name: slideOutUp;
+            }
+        }
+    }
+}

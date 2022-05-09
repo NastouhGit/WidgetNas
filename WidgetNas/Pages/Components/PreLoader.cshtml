@@ -1,0 +1,30 @@
+﻿@page
+@model WidgetNas.Pages.Components.PreLoaderModel
+@{
+    ViewData["Title"] = "انتظار تا تکمیل بارگذاری PreLoader";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>در بسیاری مواقع نیاز دارید تا بارگذاری کامل صفحه یا ارسال اطلاعات به سرور و دریافت جواب، صفحه به حالت انتظار در آید، با استفاده از روش زیر این امر امکان پذیر خواهد شد.</p>
+<h2>نحوه بکار گیری</h2>
+
+<button class="primary" onclick="document.getElementById('preloader').classList.toggle('hide')">Show</button>
+
+<div class="preloader" id="preloader">
+    <div class="loader">
+        <div class="spinner">
+            <div class="p-be-50r">
+                <div class="indicator indicator-effect-grow red-800-cb-i s-xs"></div>
+                <div class="indicator indicator-effect-grow animate-delay-start-10 red-500-cb-i s-s"></div>
+                <div class="indicator indicator-effect-grow animate-delay-start-20 red-100-cb-i s-m"></div>
+                <div class="indicator indicator-effect-grow animate-delay-start-30 red-500-cb-i s-s"></div>
+                <div class="indicator indicator-effect-grow animate-delay-start-40 red-800-cb-i s-xs"></div>
+            </div>
+            <div>
+                <div class="indicator indicator-effect-border s-xxl white"></div>
+            </div>
+        </div>
+    </div>
+    <button class="close" onclick="document.getElementById('preloader').classList.toggle('hide')"></button>
+</div>
+<figure><code data-on="preloader"></code></figure>

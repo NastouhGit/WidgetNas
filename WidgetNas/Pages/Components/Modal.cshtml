@@ -1,0 +1,615 @@
+﻿@page
+@model WidgetNas.Pages.Components.ModalModel
+@{
+    ViewData["Title"] = "مودال Modal";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    پنجره مودال، یک کادر است که به صورت کامل بر روی همه موضوعات باز میشود، اینکه درون مودال چه چیزی نمایش داده شود، کاملا به طراحی شما بستگی دارد.
+    ما به صورت پیش فرض یک دیالوگ طراحی کردیم، هر چند از خصوص مودال در موضوعات دیگر نیز استفاده کرده ایم. در مدال از تگهای html استفاده شده است.
+    این تگها فقط برای نمایش ظاهری است و به صورت پیش فرض نیست مخفی هستند، اگر شما میخواهید آن پنجره نمایش داده شود، بایستی کلاس <bidi>show</bidi> را به آن اضافه کنید.
+    یا با استفاده از جاوا اسکریپت پیاده سازی شده، آنرا فراخوانی کنید.
+</p>
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="modal d-block p-relative w-auto-i h-auto-i show" style="z-index:0" tabindex="-1">
+            <div class="modal-dialog w-auto-i">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary">Close</button>
+                    <button class="primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="modal d-block p-relative w-auto-i h-auto-i show" style="z-index:0" tabindex="-1">
+            <div class="modal-dialog w-auto-i">
+                <div class="modal-header">
+                    <h5 class="modal-title">عنوان مدال</h5>
+                    <button class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary">بستن</button>
+                    <button class="primary">ذخیره تغییرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal w-auto-i h-auto-i</span>"<span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-dialog w-auto-i</span>"<span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-header</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">h5</span><span class="ha"> class</span><span class="hv">="modal-title</span>"<span class="hv">&gt;</span>Modal title<span class="hv">&lt;/</span><span class="ht">h5</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="close</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-body</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">p</span><span class="hv">&gt;</span>Modal body text goes here.<span class="hv">&lt;/</span><span class="ht">p</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-footer</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="secondary</span>"<span class="hv">&gt;</span>Close<span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="primary</span>"<span class="hv">&gt;</span>Save changes<span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    </code></pre>
+</figure>
+<p>نمایش به صورت واقعی</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="showmodal('modal1_ltr', '','', true,'')">Show</button>
+        <div class="modal" tabindex="-1" id="modal1_ltr" wn-type="modal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary" close-parent>Close</button>
+                    <button class="primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="showmodal('modal1_rtl','','',true,'')">نمایش</button>
+        <div class="modal" tabindex="-1" id="modal1_rtl" wn-type="modal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">عنوان مدال</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body">
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary" close-parent>بستن</button>
+                    <button class="primary">ذخیره تغییرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h2>پس زمینه تیره</h2>
+<p>برای اضافه کردن پس زمینه تیره کافیست کلاس <bidi>darkback</bidi> را به مجموعه کلاس های <bidi>modal</bidi> خود اضافه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="showmodal('modal1_ltr', 'darkback','', true,'')">Show</button>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="showmodal('modal1_rtl','darkback','',true,'')">نمایش</button>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal darkback</span>"<span class="ha"> tabindex</span><span class="hv">="-1</span>"<span class="ha"> id</span><span class="hv">="modal1_ltr</span>"<span class="ha"> wn-type</span><span class="hv">="modal</span>"<span class="hv">&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-dialog</span>"<span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-header</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">h5</span><span class="ha"> class</span><span class="hv">="modal-title</span>"<span class="hv">&gt;</span>Modal title<span class="hv">&lt;/</span><span class="ht">h5</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="close</span>" close-parent<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-body</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">p</span><span class="hv">&gt;</span>Modal body text goes here.<span class="hv">&lt;/</span><span class="ht">p</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-footer</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="secondary</span>" close-parent<span class="hv">&gt;</span>Close<span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="primary</span>"<span class="hv">&gt;</span>Save changes<span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    </code></pre>
+</figure>
+<h2>عدم بسته شدن با کلیک خارج از دیالوگ</h2>
+<p>اگر میخواهید با کلیک کردن خارج از دیالوگ عمل مخفی شدن صورت نگیرد، کافیست خصوصیت <bidi>back-close="false"</bidi> را به مودال خد اضافه کنید، مقدار پیش فرض true است.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="showmodal('modal1_ltr', 'darkback', '', false, '')">Show</button>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="showmodal('modal1_rtl','darkback','',false,'')">نمایش</button>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal darkback</span>"<span class="ha"> tabindex</span><span class="hv">="-1</span>"<span class="ha"> id</span><span class="hv">="modal1_ltr</span>"<span class="ha"> wn-type</span><span class="hv">="modal</span>"<span class="hv"> <span class="ha">back-close=</span><span class="hv">"false"</span>&gt;</span>
+        <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-dialog</span>"<span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-header</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">h5</span><span class="ha"> class</span><span class="hv">="modal-title</span>"<span class="hv">&gt;</span>Modal title<span class="hv">&lt;/</span><span class="ht">h5</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="close</span>" <span class="ha">close-parent</span><span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-body</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">p</span><span class="hv">&gt;</span>Modal body text goes here.<span class="hv">&lt;/</span><span class="ht">p</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="modal-footer</span>"<span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="secondary</span>" close-parent<span class="hv">&gt;</span>Close<span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+                <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="primary</span>"<span class="hv">&gt;</span>Save changes<span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+            <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+        <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
+</code></pre>
+</figure>
+<h2>دکمه های بستن مودال</h2>
+<p>
+    اگر میخواهید با کلیک بر روی یک دکمه مودال شما بسته شود، کافیست خصوصیت <bidi>close-parent</bidi> را به دکمه مد نظر اضافه کنید. سیستم به طور خودکار هر دکمه ای که
+    این خصوصیت را داشته باشد، به عنوان دکمه بستن مودال در نظر میگیرد.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="showmodal('modal1_ltr', 'darkback', '', false, '')">Show</button>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="showmodal('modal1_rtl','darkback','',false,'')">نمایش</button>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    <span class="hv">&lt;</span><span class="ht">button</span><span class="ha"> class</span><span class="hv">="close</span>" <span class="ha">close-parent</span><span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">button</span><span class="hv">&gt;</span>
+</code></pre>
+</figure>
+<h2>فراخوانی اسکریپت قبل از مخفی کردن</h2>
+<p>
+    اگر میخواهید، قبل از مخفی کردن مودال، عملیاتی را انجام دهید، میتوانید، آن عملیات را در خصوصیت <bidi>onbeforehide</bidi> معرفی کنید،
+    اگر مقدار برگشتی true باشد، مودال مخفی میشود و اگر false باشد، مودال بسته نمیشود.
+</p>
+<p>از این خصوصیت برای گرفتن تایید، بررسی فرم قبل از بستن و موارد این چنینی استفاده میشود.</p>
+<p>اگر میخواهید تابع خود را به صورت جاوا اسکریپت نسبت دهید، به <bidi>WN[id].beforehide = ()=>{}</bidi> نسبت دهید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="showmodal('modal1_ltr', 'darkback', '', false, 'return confirm(`do you want to close?`)')">Show</button>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="showmodal('modal1_rtl','darkback','',false,'return confirm(`آیا مایل به بستن هستید؟`)')">نمایش</button>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal"</span> <span class="ha">tabindex=</span><span class="hv">"-1"</span> <span class="ha">id=</span><span class="hv">"modal1"</span> <span class="ha">onbeforehide=</span><span class="hv">"return ..."</span>&gt;
+    ...
+    &lt;/<span class="ht">div</span>&gt;
+</code></pre>
+</figure>
+<h2>فراخوانی با جاوا اسکریپت</h2>
+<p>
+    اگر میخواهید با جاوا اسکریپت کنترل را به عهده بگیرید، میتوانید از گزینه های زیر استفاده کنید.
+</p>
+<p>
+    <strong>backclose</strong><br />
+    بستن یا عدم بستن با کلیک بر روی غیر از دیالوگ. مقدار به صورت true یا false باید باشد.
+</p>
+<p>
+    <strong>beforehide</strong><br />
+    نسبت دادن یک تابع جهت بررسی قبل از مخفی کردن مودال.
+</p>
+<p>
+    <strong>show</strong><br />
+    نمایش مودال. <bidi>WN[id].show()</bidi>
+</p>
+<p>
+    <strong>hide</strong><br />
+    مخفی کردن مودال. <bidi>WN[id].hide()</bidi>
+</p>
+<p>
+    <strong>toggle</strong><br />
+    سوئیچ کردن بین نمایش و عدم نمایش مودال. <bidi>WN[id].toggle()</bidi>
+</p>
+<p>
+    درست است که در ظاهر با اضافه شدن کلاس <bidi>show</bidi> به مودال، عمل نمایش انجام میشود، ولی در پس زمینه توابع و دستورات جاوایی برای کنترل اجرا میگردد.
+    حذف کلاس show از مدال، باعث میشود تغییرات کناری، برگشت داده نشود.
+</p>
+<h2>حالتهای نمایشی</h2>
+<p>
+    برای نمایش دیالوگ، در اقساط نقاط صفحه و همچنین نحوه نمایش آن و کنترل محتوی، کلاسهایی طراحی کردیم که امید است برای استفاده کار آمد باشد.
+    در نظر داشته باشید برای کنترل اندازه دیالوگ یکسری پیش فرض وجود دارد، ولیکن شما میتوانید با مقدار دهی مستقیم طول و ارتفاع دیالوگ را به اندازه
+    مد نظر خود درآورید. فقط موارد مرتبط با محیطهای کوچک و بزرگ و موبایل را نیز فراموش نکنید.
+</p>
+<h3>موقعیت های نمایشی</h3>
+<p>به صورت پیش فرض دیالوگ در وسط تصویر نمایش داده میشود، اگر میخواهید در نقطه خاص نمایش داده شود از ترکیب کلاسهای زیر استفاده کنید.</p>
+<p>
+    <strong>modal-block-start</strong><br />
+    نمایش دیالوگ در بالای تصویر
+</p>
+<p>
+    <strong>modal-block-end</strong><br />
+    نمایش دیالوگ در پایین تصویر
+</p>
+<p>
+    <strong>modal-block-fill</strong><br />
+    نمایش دیالوگ شروع از بالا و پایان در پایین تصویر
+</p>
+<p>
+    <strong>modal-inline-start</strong><br />
+    نمایش دیالوگ به صورت افقی در ابتدای شروع جهت نمایش، راست در راست به چپ و چپ در چپ به راست
+</p>
+<p>
+    <strong>modal-inline-end</strong><br />
+    نمایش دیالوگ به صورت افقی در انتهای جهت نمایش، چپ در راست به چپ و راست در چپ به راست
+</p>
+<p>
+    <strong>modal-inline-fill</strong><br />
+    نمایش دیالوگ به صورت افقی شروع و پایان کناره های تصویر
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-start modal-inline-start', '', true, '')"><span class="fa fa-arrow-up rotate315"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-start', '', true, '')"><span class="fa fa-arrow-up"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-start modal-inline-end', '', true, '')"><span class="fa fa-arrow-up rotate45"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-inline-start', '', true, '')"><span class="fa fa-arrow-left"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback', '', true, '')"><span class="fa fa-circle"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-inline-end', '', true, '')"><span class="fa fa-arrow-right"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-end modal-inline-start', '', true, '')"><span class="fa fa-arrow-down rotate45"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-end', '', true, '')"><span class="fa fa-arrow-down"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-end modal-inline-end', '', true, '')"><span class="fa fa-arrow-down rotate315"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-fill', '', true, '')"><span class="fa fa-arrows-alt-v"></span></button>
+            <button class="primary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-inline-fill', '', true, '')"><span class="fa fa-arrows-alt-h"></span></button>
+            <button class="primary w-200r" onclick="showmodal('modal1_ltr', 'darkback modal-block-fill modal-inline-fill', '', true, '')"><span class="fa fa-arrows-alt"></span></button>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-start modal-inline-start', '', true, '')"><span class="fa fa-arrow-up rotate45"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-start', '', true, '')"><span class="fa fa-arrow-up"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-start modal-inline-end', '', true, '')"><span class="fa fa-arrow-up rotate315"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-inline-start', '', true, '')"><span class="fa fa-arrow-right"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback', '', true, '')"><span class="fa fa-circle"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-inline-end', '', true, '')"><span class="fa fa-arrow-left"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-end modal-inline-start', '', true, '')"><span class="fa fa-arrow-down rotate315"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-end', '', true, '')"><span class="fa fa-arrow-down"></span></button>
+            <button class="secondary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-end modal-inline-end', '', true, '')"><span class="fa fa-arrow-down rotate45"></span></button>
+        </div>
+        <div class="m-bs-50r">
+            <button class="primary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-fill', '', true, '')"><span class="fa fa-arrows-alt-v"></span></button>
+            <button class="primary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-inline-fill', '', true, '')"><span class="fa fa-arrows-alt-h"></span></button>
+            <button class="primary w-200r" onclick="showmodal('modal1_rtl', 'darkback modal-block-fill modal-inline-fill', '', true, '')"><span class="fa fa-arrows-alt"></span></button>
+        </div>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-start modal-inline-start"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-start"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-start modal-inline-end"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-inline-start"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal "</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-inline-end"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-end modal-inline-start"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-end"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-end modal-inline-end"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-fill"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-inline-fill"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-fill modal-inline-fill"</span> ...&gt;...&lt;/<span class="ht">div</span>&gt;
+</code></pre>
+</figure>
+<h2>مودال با طول بیش از تصویر</h2>
+<p>
+    اگر فرمی دارید که اطلاعات زیادی دارد و از حجم صفحه بیشتر است، مودال به طور خودکار اسکرول میزند.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="WN['modal2_ltr'].show()">Show</button>
+        <div class="modal darkback modal-block-start" tabindex="-1" id="modal2_ltr" wn-type="modal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body h-100vh">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary" close-parent>Close</button>
+                    <button class="primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="WN['modal2_rtl'].show()">نمایش</button>
+        <div class="modal darkback modal-block-start" tabindex="-1" id="modal2_rtl" wn-type="modal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">عنوان مدال</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body h-100vh">
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary" close-parent>بستن</button>
+                    <button class="primary">ذخیره تغییرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal modal-block-start"</span> <span class="ha">tabindex=</span><span class="hv">"-1"</span> <span class="ha">id=</span><span class="hv">"modal1"</span>&gt;
+        ...
+    &lt;/<span class="ht">div</span>&gt;
+    </code></pre>
+</figure>
+<p>
+    اگر محتوی دیالوگ زیاد است و نمیخواهید کل صفحه اسکرول بخورد و میخواهید محتوی دارای اسکرول شود، کلاس <bidi>modal-limit</bidi> را به قسمت بدنه اضافه کنید.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="WN['modal3_ltr'].show()">Show</button>
+        <div class="modal darkback" tabindex="-1" id="modal3_ltr" wn-type="modal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body modal-limit">
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary" close-parent>Close</button>
+                    <button class="primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="WN['modal3_rtl'].show()">نمایش</button>
+        <div class="modal darkback" tabindex="-1" id="modal3_rtl" wn-type="modal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">عنوان مدال</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body modal-limit">
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary" close-parent>بستن</button>
+                    <button class="primary">ذخیره تغییرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure>
+    <pre><code class="html">
+    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal"</span> <span class="ha">tabindex=</span><span class="hv">"-1"</span> <span class="ha">id=</span><span class="hv">"modal1"</span>&gt;
+        &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal-dialog"</span>&gt;
+            ...
+            &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"modal-body modal-limit"</span>&gt;
+                ...
+            &lt;/<span class="ht">div</span>&gt;
+            ...
+        &lt;/<span class="ht">div</span>&gt;
+    &lt;/<span class="ht">div</span>&gt;
+    </code></pre>
+</figure>
+<h2>اندازه های پیش فرض</h2>
+<p>
+    سیستم بر اساس اندازه مرورگر یک عرض پیش فرض برای دیالوگ انتخاب میکند، شما میتوانید به صورت دستی، هر اندازه ای بدهید.<br />
+    <table class="w-auto">
+        <thead>
+            <tr>
+                <th>اندازه تصویر</th>
+                <th>اندازه دیالوگ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>کمتر 576px</td>
+                <td>90vw</td>
+            </tr>
+            <tr>
+                <td>بین 577px و 768px</td>
+                <td>70vw</td>
+            </tr>
+            <tr>
+                <td>بین 769px و 992px</td>
+                <td>50vw</td>
+            </tr>
+            <tr>
+                <td>بزرگتر از 993px</td>
+                <td>40vw</td>
+            </tr>
+        </tbody>
+    </table>
+</p>
+
+<h2>نمایش انیمشین</h2>
+<p>
+    اگر تمایل دارید در هنگام نمایش یا مخفی کردن مودال، افکت نمایشی یا کلاسهایی خاص اضافه شود، از خصوصیتهای <bidi>showclass</bidi> و <bidi>hideclass</bidi> استفاده کنید.
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button class="secondary" onclick="WN['modal4_ltr'].show()">Show</button>
+        <div class="modal darkback" tabindex="-1" id="modal4_ltr" wn-type="modal" showclass="animation zoomIn" hideclass="animation zoomOut">
+            <div class="modal-dialog">
+                <div class="modal-header error">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer dark">
+                    <button class="secondary" close-parent>Close</button>
+                    <button class="primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button class="secondary" onclick="WN['modal4_rtl'].show()">نمایش</button>
+        <div class="modal" tabindex="-1" id="modal4_rtl" wn-type="modal" showclass="animate zoomIn" hideclass="animate zoomOut">
+            <div class="modal-dialog">
+                <div class="modal-header error">
+                    <h5 class="modal-title">عنوان مدال</h5>
+                    <button class="close" close-parent></button>
+                </div>
+                <div class="modal-body">
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                    <p>متن بدنه مدال در این قسمت می آید.</p>
+                </div>
+                <div class="modal-footer dark">
+                    <button class="secondary" close-parent>بستن</button>
+                    <button class="primary">ذخیره تغییرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="modal4_ltr"></code></figure>
+
+<script>
+    function showmodal(id, modelclass, dialogclass, backclose, beforehide) {
+        let modal = document.getElementById(id);
+        modal.className = 'modal ' + modelclass;
+        if (beforehide !== '')
+            WN[id].beforehide = new Function(beforehide);
+        else
+            WN[id].beforehide = null;
+        WN[id].backclose = backclose;
+
+        let dialog = modal.querySelector(".modal-dialog");
+        dialog.className = 'modal-dialog ' + dialogclass;
+
+        WN[id].show();
+    }
+</script>

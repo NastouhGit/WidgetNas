@@ -1,0 +1,29 @@
+﻿label {
+    display: inline-block;
+    color: var(--label-color);
+    font-size: var(--font-size);
+
+    &.col-label {
+        padding-block-start: var(--padding-inline);
+        font-size: inherit;
+        line-height: var(--line-height);
+    }
+}
+
+fieldset,
+.ig,
+ig{
+    & label {
+        font-size: calc(var(--font-size)* 0.875);
+    }
+
+    &:disabled label {
+        color: var(--disable-color);
+    }
+
+    .text {
+        margin-top: var(--margin-block);
+        font-size: 0.875em;
+        color: var(--normal-color);
+    }
+}

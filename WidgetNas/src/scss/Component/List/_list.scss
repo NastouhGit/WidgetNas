@@ -1,0 +1,257 @@
+﻿@import "../../_variables.scss";
+.list {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 0;
+    margin-bottom: 0;
+    border-radius: var(--border-radius);
+
+
+    tr, li, .list-item {
+        font-size: var(--font-size);
+        position: relative;
+        display: block;
+        padding-block: var(--padding-block);
+        padding-inline: var(--padding-inline);
+        text-decoration: none;
+        color: var(--normal-color);
+        background-color: var(--normal-back);
+        border: var(--border-width) solid var(--normal-border);
+        border-block-end: none;
+        border-radius: 0;
+
+        &:first-child {
+            border-start-start-radius: var(--border-radius);
+            border-start-end-radius: var(--border-radius);
+        }
+
+        &:last-child {
+            border-end-start-radius: var(--border-radius);
+            border-end-end-radius: var(--border-radius);
+            border-block-end: var(--border-width) solid var(--normal-border);
+        }
+
+        &.list-active {
+            z-index: 2;
+            color: var(--active-color);
+            background-color: var(--active-back);
+
+            &.noover {
+                &:hover {
+                    color: var(--active-color) !important;
+                    background-color: var(--active-back) !important;
+                    border-color: var(--active-border) !important;
+                }
+            }
+        }
+
+        &:disabled,
+        &.list-disabled,
+        &[disabled] {
+            color: var(--disable-color) !important;
+            pointer-events: none;
+        }
+    }
+
+    &.list-hover {
+        tr, li, .list-item {
+            cursor: default;
+
+
+            &:hover {
+                color: var(--hover-color);
+                background-color: var(--hover-back);
+                border-color: var(--hover-border);
+            }
+
+            &.noover {
+                &:hover {
+                    color: var(--normal-color);
+                    background-color: var(--normal-back);
+                    border-color: var(--normal-border);
+                }
+            }
+        }
+
+        .list-active {
+            &:hover {
+                color: var(--select-color);
+                background-color: var(--select-back);
+            }
+        }
+    }
+}
+
+table {
+    &.list {
+        > :not(table.caption) > * > * {
+            padding-block: var(--padding-block);
+            padding-inline: var(--padding-inline);
+            border-bottom-width: 0;
+        }
+
+        tr, td {
+            cursor: default;
+        }
+
+        thead {
+            tr:last-child {
+                border-end-start-radius: 0;
+                border-end-end-radius: 0;
+            }
+        }
+
+        tbody {
+            tr:first-child {
+                border-start-start-radius: 0;
+                border-start-end-radius: 0;
+            }
+
+
+            .list-active {
+                background-color: var(--active-back);
+                box-shadow: inset 0 0 0 9999px var(--active-back);
+
+                td {
+                    color: var(--active-color);
+                    box-shadow: none !important;
+                }
+            }
+        }
+
+        &.list-hover {
+            thead {
+                tr:hover {
+                    box-shadow: none !important;
+                    background-color: transparent;
+
+                    td {
+                        box-shadow: none !important;
+                    }
+                }
+            }
+
+            tr:hover {
+                box-shadow: inset 0 0 0 9999px var(--hover-back);
+
+                td {
+                    box-shadow: inset 0 0 0 9999px var(--hover-back);
+                }
+            }
+
+            .list-active {
+                &:hover {
+                    color: var(--select-color);
+                    box-shadow: inset 0 0 0 9999px var(--select-back);
+                }
+            }
+        }
+    }
+}
+.list {
+    a, button {
+        background-color: transparent;
+        border: none;
+        padding-block: 0;
+        padding-inline: 0;
+        margin: 0;
+        width: 100%;
+        text-align: start;
+        color: inherit;
+        text-decoration: inherit;
+    }
+}
+
+.list {
+    &.list-noedge {
+        border-radius: 0;
+        border: none;
+
+        & .list-item, li,tr {
+            border: none;
+            border-block-end-style: solid;
+            border-block-end-width: var(--border-width);
+            border-block-end-color: var(--normal-border);
+
+            &:last-child {
+                border-block-end: none;
+            }
+        }
+    }
+}
+
+.list {
+    &.list-numbering {
+        list-style-type: none;
+        counter-reset: section;
+
+        & > *::before {
+            content: counters(section, ".") ". ";
+            counter-increment: section;
+        }
+
+        &.list-dash {
+            & > *::before {
+                content: counters(section, ".") "- ";
+                counter-increment: section;
+            }
+        }
+    }
+}
+
+.list {
+    &.list-horizontal {
+        flex-direction: row;
+        border-radius: 0;
+
+        tr,li, .list-item {
+            border: var(--border-width) solid var(--normal-border);
+            border-inline-end: none;
+            padding-block: var(--padding-block);
+            padding-inline: var(--padding-inline);
+
+            &:first-child {
+                border-start-start-radius: var(--border-radius);
+                border-end-start-radius: var(--border-radius);
+            }
+
+            &:last-child {
+                border-inline-end: var(--border-width) solid var(--normal-border);
+                border-start-end-radius: var(--border-radius);
+                border-end-end-radius: var(--border-radius);
+            }
+        }
+    }
+}
+
+.list {
+    &.list-tiny {
+        border-radius: 0;
+
+        li, .list-item {
+            font-size: var(--font-size);
+            position: relative;
+            display: block;
+            padding-block: 0;
+            padding-inline: var(--padding-inline);
+            text-decoration: none;
+            color: var(--normal-color);
+            background-color: var(--normal-back);
+            border: none;
+        }
+    }
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+@media (max-width: map-get($breakpoints,'m')) {
+    .list {
+        li, .list-item {
+            padding-block: var(--padding-block) !important;
+            padding-inline: var(--padding-inline) !important;
+        }
+    }
+}

@@ -1,0 +1,51 @@
+﻿fieldset {
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.ig,
+ig {
+    display: block;
+    min-width: 0;
+    padding: 0;
+    padding-inline: 0;
+    padding-block: 0;
+    margin-block-start: ig-scale(var(--margin-block));
+    margin-block-end: ig-scale(var(--margin-block));
+    margin-inline-start: ig-scale(var(--margin-inline));
+    margin-inline-end: ig-scale(var(--margin-inline));
+    border: 0;
+    background-color: transparent;
+    color: var(--normal-color);
+    position:relative;
+
+    &[readonly],
+    &[disabled] {
+        pointer-events:none;
+    }
+}
+
+select {
+    word-wrap: normal;
+}
+textarea {
+    resize: vertical;
+}
+
+
+input,
+button,
+select,
+optgroup,
+textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+button,
+select {
+    text-transform: none;
+}

@@ -1,0 +1,298 @@
+﻿@page
+@model WidgetNas.Pages.Forms.LayoutModel
+@{
+    ViewData["Title"] = "چیدمان";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>برای مرتب سازی ورودی ها و موضوعات در صفحه و اولویت بندی نمایش آنها، پیشنهاد میشود اطلاعات زیر را بخوانید.</p>
+<h2>فرم</h2>
+<p>اجزا یک فرم باید داخل تگ form قرار بگیرند، ویجدنس، استایل خاصی برای این در نظر نگرفته است، ولیکن میتوانید از کلاسهای مرتب سازی صفحه استفاده کنید.</p>
+<p>برای کنار هم قرار داده شدن اجزای یک ورودی، از برچسب تا نوع ورودی پیشنهاد میشود حتما آن مجموعه را در ig قرار دهید.</p>
+<p>بطور پیش فرض، زمانیکه از button در فرم استفاده میکنید، مقدار submit به خود میگیرد، برای اصلاح وضعیت پیشنهاد میشود از type و نوع button استفاده شود.</p>
+<p>برای <a href="~/Size">فاصله گذاری</a> بین موضوعات میتوانید از کلاسهای مرتبط استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <ig class="m-be-100r">
+                <label>Example</label>
+                <input type="text" />
+            </ig>
+            <ig class="m-be-100r">
+                <label>Another Example</label>
+                <input type="text" />
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="m-be-100r">
+                <label>مثال</label>
+                <input type="text" />
+            </ig>
+            <ig class="m-be-100r">
+                <label>مثالی دیگر</label>
+                <input type="text" />
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>نمایش شبکه ای</h2>
+<p>اگر تمایل دارید، به صورت ردیف و ستون، اجزا را چینش کنید، از روش زیر استفاده کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form2">
+            <div class="row">
+                <div class="col">
+                    <ig>
+                        <label>Example</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig>
+                        <label>Another Example</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <div class="row">
+                <div class="col">
+                    <ig>
+                        <label>مثال</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig>
+                        <label>مثالی دیگر</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>فاصله بین ستون ها</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form3">
+            <div class="row gap-100r">
+                <div class="col">
+                    <ig>
+                        <label>Example</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig>
+                        <label>Another Example</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <div class="row gap-100r">
+                <div class="col">
+                    <ig>
+                        <label>مثال</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig>
+                        <label>مثالی دیگر</label>
+                        <input type="text" />
+                    </ig>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>چند ستونی</h2>
+<p>توجه داشته باشید در هر ردیف 12 ستون وجود دارد، پس میتوان این 12 ستون را بین اجزا تقسیم کرد، جمع ستونها که بیش از 12 رسید، به ردیف بعدی منتقل خواهد شد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form4">
+            <div class="row">
+                <div class="col-6">
+                    <ig>
+                        <label>Email</label>
+                        <input type="email" placeholder="Email..." />
+                    </ig>
+                </div>
+                <div class="col-6">
+                    <ig>
+                        <label>Password</label>
+                        <input type="password" placeholder="Password..." />
+                    </ig>
+                </div>
+                <div class="col-12">
+                    <ig>
+                        <label>Address</label>
+                        <textarea rows="2" placeholder="Address..."></textarea>
+                    </ig>
+                </div>
+                <div class="col-6">
+                    <ig>
+                        <label>City</label>
+                        <input type="text" placeholder="City..." />
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig>
+                        <label>State</label>
+                        <select>
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </ig>
+                </div>
+                <div class="col-2">
+                    <ig>
+                        <label>Zip</label>
+                        <input type="text" placeholder="Zip code..." />
+                    </ig>
+                </div>
+                <div class="col-12">
+                    <ig>
+                        <input type="checkbox" id="check1_ltr" />
+                        <label for="check1_ltr">Check me</label>
+                    </ig>
+                </div>
+                <div class="col-12">
+                    <button class="primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <div class="row">
+                <div class="col-6">
+                    <ig>
+                        <label>پست الکترونیک</label>
+                        <input type="email" placeholder="پست الکترونیک..." />
+                    </ig>
+                </div>
+                <div class="col-6">
+                    <ig>
+                        <label>رمز</label>
+                        <input type="password" placeholder="رمز..." />
+                    </ig>
+                </div>
+                <div class="col-12">
+                    <ig>
+                        <label>آدرس</label>
+                        <textarea rows="2" placeholder="آدرس..."></textarea>
+                    </ig>
+                </div>
+                <div class="col-6">
+                    <ig>
+                        <label>شهر</label>
+                        <input type="text" placeholder="شهر..." />
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig>
+                        <label>استان</label>
+                        <select>
+                            <option selected>انتخاب کنید...</option>
+                            <option>...</option>
+                        </select>
+                    </ig>
+                </div>
+                <div class="col-2">
+                    <ig>
+                        <label>کدپستی</label>
+                        <input type="text" placeholder="کدپستی..." />
+                    </ig>
+                </div>
+                <div class="col-12">
+                    <ig>
+                        <input type="checkbox" id="check1_rtl" />
+                        <label for="check1_rtl">تیک بزن</label>
+                    </ig>
+                </div>
+                <div class="col-12">
+                    <button class="primary" type="submit">ارسال</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>فرمهای سطری</h2>
+<p>اگر تمایل دارید هر وردی در یک سطر یا ردیف قرار گیرد، هر ورودی را یک کلاس row معرفی کنید</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form5">
+            <div class="row">
+                <label class="col-4 col-label">Email</label>
+                <div class="col-8">
+                    <input type="email" placeholder="Email..." />
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-4 col-label">Password</label>
+                <div class="col-8">
+                    <input type="password" placeholder="Password..." />
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-4 col-label">Checks</label>
+                <div class="col-8">
+                    <ig>
+                        <input type="checkbox" id="check2_ltr" />
+                        <label for="check2_ltr">Check me</label>
+                    </ig>
+                </div>
+            </div>
+            <button class="primary" type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <div class="row">
+                <ig>
+                    <label>پست الکترونیک</label>
+                    <input type="email" placeholder="پست الکترونیک..." />
+                </ig>
+            </div>
+            <div class="row">
+                <ig>
+                    <label>رمز</label>
+                    <input type="password" placeholder="رمز..." />
+                </ig>
+            </div>
+            <div class="row">
+                <ig>
+                    <input type="checkbox" id="check2_rtl" />
+                    <label for="check2_rtl">تیک بزن</label>
+                </ig>
+            </div>
+            <button class="primary" type="submit">ارسال</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>

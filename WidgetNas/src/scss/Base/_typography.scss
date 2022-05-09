@@ -1,0 +1,181 @@
+﻿@include media() using ($media) {
+    .text-start#{$media} {
+        text-align: left;
+        text-align: start;
+    }
+
+    .text-end#{$media} {
+        text-align: right;
+        text-align: end;
+    }
+
+    .text-center#{$media} {
+        text-align: center;
+    }
+
+    .text-justify#{$media} {
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    .text-start#{$media}-i {
+        text-align: right !important;
+        text-align: start !important;
+
+        &[dir=ltr] {
+            text-align: left !important;
+        }
+    }
+
+    .text-end#{$media}-i {
+        text-align: left !important;
+        text-align: end !important;
+
+        &[dir=ltr] {
+            text-align: right !important;
+        }
+    }
+
+    .text-center#{$media}-i {
+        text-align: center !important;
+    }
+
+    .text-right#{$media} {
+        text-align: right;
+    }
+
+    .text-left#{$media} {
+        text-align: left;
+    }
+
+    @each $name,$value in $sizes {
+        .fs-#{$name}#{$media} {
+            font-size: #{$value}em;
+        }
+    }
+}
+
+
+.text-wrap {
+    white-space: normal;
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.fw-bold {
+    font-weight: bold;
+}
+
+.fw-bolder {
+    font-weight: bolder;
+}
+
+.fw-lighter {
+    font-weight: lighter;
+}
+
+.fw-normal {
+    font-weight: normal;
+}
+
+.fw-100 {
+    font-weight: 100;
+}
+
+.fw-300 {
+    font-weight: 300;
+}
+
+.fw-400 {
+    font-weight: 400;
+}
+
+.fw-500 {
+    font-weight: 500;
+}
+
+.fw-700 {
+    font-weight: 700;
+}
+
+.fw-900 {
+    font-weight: 900;
+}
+
+.fst-o {
+    font-style: oblique;
+}
+
+.fst-i {
+    font-style: italic;
+}
+
+.fst-n {
+    font-style: normal;
+}
+
+.fd-n {
+    text-decoration: none;
+}
+
+.fd-u {
+    text-decoration: underline;
+}
+
+.fd-l {
+    text-decoration: line-through;
+}
+
+.fd-o {
+    text-decoration: overline;
+}
+
+.f-normal {
+    font-size: 1rem;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+
+.va-auto {
+    vertical-align: auto;
+}
+
+.va-top {
+    vertical-align: top;
+}
+
+.va-bottom {
+    vertical-align: bottom;
+}
+
+.va-middle {
+    vertical-align: middle;
+}
+
+.va-central {
+    vertical-align: central;
+}
+
+.va-sub {
+    vertical-align: sub;
+}
+
+.va-super {
+    vertical-align: super;
+}
+
+bidi,
+.bidi-override {
+    direction: ltr;
+    unicode-bidi: bidi-override
+}
+
+.lead {
+    font-size: calc(var(--font-size) * 1.25);
+    font-weight: 300;
+}
