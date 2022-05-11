@@ -190,8 +190,10 @@
         let selectedNode = null;
         let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\','\\\\') + '"]') as HTMLElement
         selectedNode = n;
-        if (select)
+        if (select) {
+            this._currentSelect = null;
             this.select(selectedNode);
+        }
         return selectedNode;
 
     }
