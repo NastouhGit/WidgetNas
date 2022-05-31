@@ -1,8 +1,8 @@
 function wnabout() {
     return `
 /*--------------------------------------
- * Widgetnas Version:1.1.0.1
- * Release Date: 1400-12-01 - 2022-02-20
+ * Widgetnas Version: 1.2.0.2
+ * Release Date: 1401-02-24 - 2022-05-14
  *--------------------------------------*/
 `;
 }
@@ -4031,8 +4031,11 @@ class wnfilelist {
                 let files = this.GetSelectedItems();
                 if (files.files.length > 0)
                     value = files.files[0];
-                else
+                else {
                     value = files.path ?? '';
+                    let f = value.split('\\');
+                    value = f[f.length - 1];
+                }
                 if (value == '' || value == '\\')
                     return;
                 let d = new wnconfirm();
@@ -4370,7 +4373,7 @@ class wnfilelist {
         let o = { command: "createfolder", path: path + '\\' + value };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r) {
+            if (r = true) {
                 await this.GetFolders("");
                 path = path + '\\' + value;
                 path = WNTrim(path, '\\');
@@ -4402,7 +4405,7 @@ class wnfilelist {
         let o = { command: "rename", source: oldName, destination: newfileName };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r) {
+            if (r = true) {
                 if (files.path == oldName) {
                     await this.GetFolders('');
                     this._foldertree.findbyvalue(newfileName, true);
@@ -4432,7 +4435,7 @@ class wnfilelist {
         let o = { command: "delete", source: items.join('\n') };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r) {
+            if (r = true) {
                 if (files.path == items[0]) {
                     await this.GetFolders('');
                 }
@@ -4463,7 +4466,7 @@ class wnfilelist {
         let o = { command: cmd, source: src.join('\n'), destination: dst };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r) {
+            if (r == true) {
                 await this.GetFolders('');
                 this._foldertree.findbyvalue(dst, true);
                 this.ShowMessage("pasted", "success");
@@ -4479,7 +4482,7 @@ class wnfilelist {
     async UploadFile(files) {
         this.PreLoad(true);
         await Upload(files, this._foldertree.currentvalue, this._Url).then(async (r) => {
-            if (r) {
+            if (r == true) {
                 await this.GetFiles(this._foldertree.currentvalue);
                 this.ShowMessage("uploaded", "success");
             }
@@ -4518,10 +4521,10 @@ class wnfilelist {
         let items = files.files;
         if (items.length == 0)
             return false;
-        let o = { command: "compress", source: items.join('\n'), destination: value };
+        let o = { command: "compress", sourcepath: files.path, source: items.join('\n'), destination: value };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r) {
+            if (r == true) {
                 this.GetFiles(files.path);
                 this.ShowMessage("compressed", "success");
                 ret = true;
@@ -4542,20 +4545,18 @@ class wnfilelist {
         for (var i = 0; i < files.files.length; i++)
             files.files[i] = WNTrim(files.path + '\\' + files.files[i], '\\');
         let o = { command: "decompress", source: items.join('\n') };
-        let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r) {
-                this.GetFolders('');
+            if (r == true) {
+                await this.GetFolders('');
                 this._foldertree.findbyvalue(files.path, true);
                 this.ShowMessage("decompressed", "success");
-                ret = true;
             }
             else {
                 this.ShowMessage("errorcommand", "error");
             }
         });
         this.PreLoad(false);
-        return ret;
+        return true;
     }
     ShowMessage(MessageId, className) {
         this.PreLoad(false);
@@ -6037,8 +6038,10 @@ class wntree {
         let selectedNode = null;
         let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\', '\\\\') + '"]');
         selectedNode = n;
-        if (select)
+        if (select) {
+            this._currentSelect = null;
             this.select(selectedNode);
+        }
         return selectedNode;
     }
     filterbytext(text, contains = true) {
