@@ -1,0 +1,94 @@
+﻿@page
+@model WidgetNas.Pages.Functions.JSVarModel
+@{
+    ViewData["Title"] = "جاوا اسکریپت خطی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    گاهی اوقات نیاز داریم، مقدار یک متغییر جاوا اسکریپتی و یا یک محاسبه را در بین متون html قرار دهیم. برای این منظور ابتدا بایستی آن متغییر را در بین اسکریپت تعریف کنید.
+    سپس نام آن متغییر را در بین علامت گفته شده قرار دهید. <bidi>$[var_name]</bidi>
+</p>
+<div class="alert warning callout-start">کدهای زیر به دلیل تغییر خودکار دارای کاراکترهای مخفی میباشند. لذا از کپی کردن آن خودداری کنید.</div>
+<div class="example-div">
+    <div>
+        <p>Name: $[name]</p>
+        <p>Inline Script: $[name+ ' Moridi']</p>
+
+        <script>
+            let name = 'Omid';
+        </script>
+    </div>
+</div>
+<figure>
+    <code data-on="_code">
+        <p>Name: $[name‍]</p>
+        <p>Inline Script: $[name‍ + ' Moridi']</p>
+
+        <script>
+            let name = 'Omid';
+        </script>
+    </code>
+</figure>
+<h2>تغییر کلاس</h2>
+<p>از این روش نیز برای تغییر کلاس و یا رشته کلاسها نیز استفاده خواهد شد.</p>
+<div class="example-div">
+    <div class="$[localAlert]">
+        This is sample text.
+        <style>
+            .localAlert {
+                background-color: yellow;
+            }
+        </style>
+        <script>
+            let localAlert = 'localAlert';
+        </script>
+    </div>
+</div>
+<figure>
+    <code data-on="_code">
+        <div class="$[localAlert‍]">
+            This is sample text.
+            <style>
+                .localAlert‍ {
+                    background-color: yellow;
+                }
+            </style>
+            <script>
+                let localAlert = 'localAlert';
+            </script>
+        </div>
+    </code>
+</figure>
+<h2>تغییر استایل</h2>
+<p>از این روش نیز برای تغییر استایل نیز استفاده خواهد شد.</p>
+<div class="example-div">
+    <div style="$[localStyle]">
+        This is sample text.
+        <script>
+            let localStyle = 'background-color:yellow;';
+        </script>
+    </div>
+</div>
+<figure>
+    <code data-on="_code">
+        <div style="$[localStyle‍]">
+            This is sample text.
+            <script>
+                let localStyle = 'background-color:yellow;';
+            </script>
+        </div>
+    </code>
+</figure>
+<h2>اعمال تغییرات به صورت دستی</h2>
+<p>اگر خصوصیتی یا متن html را به صورت دستی تغییر دادید میتوانید برای فراخوانی دوباره آن از تابع <bidi>WNTagEvalScriptBody</bidi> استفاده نمایید.</p>
+<div class="example-div" id="ss1">
+    <div id="s1">
+        <p>Name: $[name]</p>
+    </div>
+    <div class="w-100">
+        <button class="primary" onclick="document.getElementById('s1').innerHTML = '<p>Name: $['+'name]</p>';">Reset</button>
+        <button class="secondary" onclick="WNTagEvalScriptBody()">Run</button>
+    </div>
+</div>
+<figure><code data-on="ss1"></code></figure>

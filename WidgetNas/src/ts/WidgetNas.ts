@@ -23,6 +23,12 @@ function initComponents() {
     CheckBrowserCompatibility();
 
     InitWNBlock(document);
+
+    WNTagEvalScript(document.head);
+    WNTagEvalScriptBody();
+
+
+    
 }
 
 function CheckBrowserCompatibility() {
@@ -114,3 +120,18 @@ function SetComponentCompatibility(elem: HTMLElement | HTMLDocument = document) 
         }
     }
 }
+function WNTagEvalScriptBody() { WNTagEvalScript(document.body); }
+function WNTagEvalScript(elem: HTMLElement) {
+    const regexp = /\$\[([\s\S]*?)\]/img;
+    let html = elem.innerHTML;
+    let v = html.matchAll(regexp);
+    for (const m of v) {
+        try {
+            html = html.replace(m[0], eval(m[1]));
+        } catch (e) {
+
+        }
+    }
+    elem.innerHTML = html;
+}
+
