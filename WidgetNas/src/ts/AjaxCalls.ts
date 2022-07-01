@@ -163,7 +163,9 @@ async function Get(data: any, postUrl: string): Promise<any> {
         else
             url = '/' + url;
     }
-    url += "?" + encodeURIComponent(JSON.stringify(data));
+
+    if (data != undefined && data != '')
+        url += "?" + encodeURIComponent(JSON.stringify(data));
 
     return new Promise<any>(async (resolve, reject) => {
         await fetch(url, {
@@ -183,6 +185,47 @@ async function Get(data: any, postUrl: string): Promise<any> {
             .then((response) => {
                 try {
                     resolve(response.json());
+                } catch (e) {
+                    console.error(e);
+                    reject(e);
+                }
+
+            })
+            .catch((e) => {
+                console.error(e); reject(e);
+            });
+    });
+}
+async function GetText(postUrl: string): Promise<any> {
+
+    let url = postUrl;
+    if (url.startsWith('/'))
+        url = url.substr(1);
+    if (!url.toLowerCase().startsWith('http')) {
+        if (WNBaseFetchUri !== undefined)
+            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
+        else
+            url = '/' + url;
+    }
+
+    return new Promise<any>(async (resolve, reject) => {
+        await fetch(url, {
+            method: "get",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            redirect: "manual",
+            referrerPolicy: "origin",
+            headers: {
+                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Content-Encoding": "deflate, gzip",
+                "Content-Type": "application/json",
+                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
+            }
+        })
+            .then((response) => {
+                try {
+                    resolve(response.text());
                 } catch (e) {
                     console.error(e);
                     reject(e);

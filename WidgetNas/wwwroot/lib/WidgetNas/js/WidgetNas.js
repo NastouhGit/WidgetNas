@@ -18,10 +18,10 @@ function initComponents() {
         WNDefaultCalendar = new wnGregorianCalendar();
         WNDefaultCultureInfo = new wnCultureInfo_en_US();
     }
-    CheckBrowserCompatibility();
-    InitWNBlock(document);
     WNTagEvalScript(document.head);
     WNTagEvalScriptBody();
+    CheckBrowserCompatibility();
+    InitWNBlock(document);
 }
 function CheckBrowserCompatibility() {
     let objAgent = navigator.userAgent;
@@ -264,7 +264,8 @@ async function Get(data, postUrl) {
         else
             url = '/' + url;
     }
-    url += "?" + encodeURIComponent(JSON.stringify(data));
+    if (data != undefined && data != '')
+        url += "?" + encodeURIComponent(JSON.stringify(data));
     return new Promise(async (resolve, reject) => {
         await fetch(url, {
             method: "get",
@@ -283,6 +284,46 @@ async function Get(data, postUrl) {
             .then((response) => {
             try {
                 resolve(response.json());
+            }
+            catch (e) {
+                console.error(e);
+                reject(e);
+            }
+        })
+            .catch((e) => {
+            console.error(e);
+            reject(e);
+        });
+    });
+}
+async function GetText(postUrl) {
+    let url = postUrl;
+    if (url.startsWith('/'))
+        url = url.substr(1);
+    if (!url.toLowerCase().startsWith('http')) {
+        if (WNBaseFetchUri !== undefined)
+            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
+        else
+            url = '/' + url;
+    }
+    return new Promise(async (resolve, reject) => {
+        await fetch(url, {
+            method: "get",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            redirect: "manual",
+            referrerPolicy: "origin",
+            headers: {
+                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Content-Encoding": "deflate, gzip",
+                "Content-Type": "application/json",
+                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
+            }
+        })
+            .then((response) => {
+            try {
+                resolve(response.text());
             }
             catch (e) {
                 console.error(e);
@@ -5225,6 +5266,27 @@ class wnscroll {
                     this.element.classList.remove(this.toggleclass);
             }
         }
+    }
+}
+class wnsearchlist {
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.Init();
+        }
+    }
+    Init() {
+        this.searchbox = this.element.querySelector('[type=search]');
+        this.searchbox.autocomplete = 'off';
+        this.list = this.searchbox.nextElementSibling;
+        if (this.list == null)
+            this.list = this.searchbox.previousElementSibling;
+        if (this.list == null)
+            return;
+        this.searchbox.addEventListener('input', (e) => {
+            let v = e.target.value;
+            WNFilter(this.list.querySelectorAll('*'), 'contains(' + v + ')');
+        });
     }
 }
 class wnslicker {

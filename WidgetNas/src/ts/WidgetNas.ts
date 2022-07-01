@@ -20,15 +20,12 @@ function initComponents() {
         WNDefaultCultureInfo = new wnCultureInfo_en_US();
     }
 
-    CheckBrowserCompatibility();
-
-    InitWNBlock(document);
-
     WNTagEvalScript(document.head);
     WNTagEvalScriptBody();
 
+    CheckBrowserCompatibility();
 
-    
+    InitWNBlock(document);
 }
 
 function CheckBrowserCompatibility() {

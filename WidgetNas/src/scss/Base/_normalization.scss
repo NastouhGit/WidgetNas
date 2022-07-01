@@ -3,6 +3,9 @@
 *::after {
     box-sizing: border-box;
 }
+html {
+    font-display: auto;
+}
 
 hr {
     margin: var(--margin-block) 0;
