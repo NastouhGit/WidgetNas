@@ -4922,6 +4922,7 @@ class wnlist {
         });
     }
     get currentvalue() { return this._currentSelect?.getAttribute('wn-list-value'); }
+    get currentcaption() { return this._currentSelect?.innerText; }
     Init() {
         this._listType = this.element.nodeName;
         this.element.classList.add('list');
@@ -4947,11 +4948,12 @@ class wnlist {
     }
     click(e) {
         let node = e.target;
-        if (this._listType == 'TABLE')
+        if (this._listType == 'TABLE') {
             if (node.parentElement.tagName == 'THEAD')
                 return;
-        if (node.tagName == 'TD')
-            node = node.parentElement;
+            if (node.tagName == 'TD')
+                node = node.parentElement;
+        }
         if (this.beforeclick != null)
             if (!this.beforeclick(this, e))
                 return;
@@ -5283,10 +5285,58 @@ class wnsearchlist {
             this.list = this.searchbox.previousElementSibling;
         if (this.list == null)
             return;
-        this.searchbox.addEventListener('input', (e) => {
+        if (this.element.hasAttribute('display-id'))
+            this.displayelement = document.getElementById(this.element.getAttribute('display-id'));
+        if (this.element.hasAttribute('value-id'))
+            this.valueelement = document.getElementById(this.element.getAttribute('value-id'));
+        this.searchbox.addEventListener('input', async (e) => {
             let v = e.target.value;
             WNFilter(this.list.querySelectorAll('*'), 'contains(' + v + ')');
+            if (this.list.getAttribute('wn-type') == 'tree') {
+                this.FixedTreeDisplay();
+            }
         });
+        this.WaitToInitList();
+    }
+    WaitToInitList() {
+        if (this.displayelement == null && this.valueelement == null)
+            return;
+        let tim = setInterval(() => {
+            if (WN[this.list.id] != null) {
+                if (this.list.getAttribute('wn-type') == 'list')
+                    WN[this.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
+                if (this.list.getAttribute('wn-type') == 'tree')
+                    WN[this.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
+                clearInterval(tim);
+            }
+        }, 100);
+    }
+    FixedTreeDisplay() {
+        let nodes = this.list.querySelectorAll('li:not([style*="display:none"]):not([style*="display: none"])');
+        nodes.forEach((x) => {
+            let p = x.parentElement;
+            while (p != this.list) {
+                p.style.display = '';
+                p.classList.remove('collapsed');
+                let pp = p.querySelectorAll('[class*="tree-item"]');
+                pp.forEach((xx) => { xx.style.display = ''; });
+                p = p.parentElement;
+            }
+        });
+    }
+    selectionchange(t, n) {
+        if (this.displayelement != null) {
+            if (this.list.getAttribute('wn-type') == 'tree')
+                this.displayelement.value = t.currentcaption;
+            else if (this.list.getAttribute('wn-type') == 'list')
+                this.displayelement.value = t.currentcaption;
+        }
+        if (this.valueelement != null) {
+            if (this.list.getAttribute('wn-type') == 'tree')
+                this.valueelement.value = t.currentvalue;
+            else if (this.list.getAttribute('wn-type') == 'list')
+                this.valueelement.value = t.currentvalue;
+        }
     }
 }
 class wnslicker {

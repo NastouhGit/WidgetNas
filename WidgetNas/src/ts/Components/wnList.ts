@@ -5,7 +5,7 @@
     get selecteditem() { return this._currentSelect; }
     set selecteditem(value: HTMLElement) { this.select(value); }
 
-    get selectedindex() { return WNparseNumber( this._currentSelect?.getAttribute('index'),-1); }
+    get selectedindex() { return WNparseNumber(this._currentSelect?.getAttribute('index'), -1); }
     set selectedindex(value: number) {
         this._items.forEach((x) => {
             if (WNparseNumber(x.getAttribute('index')) == value) {
@@ -16,6 +16,7 @@
     }
 
     get currentvalue() { return this._currentSelect?.getAttribute('wn-list-value'); }
+    get currentcaption() { return this._currentSelect?.innerText; }
 
 
 
@@ -24,7 +25,7 @@
     selectionchange: any;
     //private
     _listType: string = '';
-    _items: HTMLElement[]=[];
+    _items: HTMLElement[] = [];
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
@@ -62,12 +63,12 @@
 
     click(e: MouseEvent): void {
         let node = e.target as HTMLElement;
-        if (this._listType == 'TABLE')
+        if (this._listType == 'TABLE') {
             if (node.parentElement.tagName == 'THEAD')
                 return;
-        if (node.tagName == 'TD')
-            node = node.parentElement;
-
+            if (node.tagName == 'TD')
+                node = node.parentElement;
+        }
         if (this.beforeclick != null)
             if (!this.beforeclick(this, e))
                 return;
@@ -150,7 +151,7 @@
             this.element.appendChild(elem);
 
 
-        this._items.push( elem);
+        this._items.push(elem);
 
         return elem;
     }
@@ -171,9 +172,9 @@
         this.reindex();
     }
     order(desc = false) {
-        this._items.sort((x, y) =>{
+        this._items.sort((x, y) => {
             if (x.innerText > y.innerText)
-                return desc?-1:1;
+                return desc ? -1 : 1;
             else if (x.innerText < y.innerText)
                 return desc ? 1 : -1;
             return 0;

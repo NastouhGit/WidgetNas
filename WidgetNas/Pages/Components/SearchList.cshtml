@@ -10,24 +10,297 @@
     وارد کردن برخی حروف فقط موضوعاتی را نمایش دهد که آن حروف در آن باشد.
 </p>
 <p>قبلا در قسمت <a href="/Components/Filter" alt="فیلتر">فیلتر</a> مشابه این موضوع را پیاده سازی کرده ایم. حال میخواهیم موضوعی پیش رفته تر را با استفاده از آن خاصیت نمایش دهیم.</p>
+<h4>نمایش لیست</h4>
 <div class="example-div">
     <div class="ltr" id="form1">
         <h3>LTR</h3>
-        <h4>List</h4>
         <div class="SearchList" wn-type="searchlist">
-            <input type="search" placeholder="Type for search"  />
+            <input type="search" placeholder="Type for search" />
             <ul wn-type="list">
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-                <li>Item 4</li>
-                <li>Item 5</li>
+                <li>First Name</li>
+                <li>Last Name</li>
+                <li>Company</li>
+                <li>Address</li>
+                <li>City</li>
+                <li>Country</li>
+                <li>State/Province</li>
+                <li>ZIP/Postal Code</li>
+                <li>Phone 1</li>
+                <li>Phone 2</li>
+                <li>Email</li>
+                <li>Web</li>
+            </ul>
+        </div>
+        <hr class="m-b-100r" />
+        <div class="SearchList" wn-type="searchlist">
+            <ul wn-type="list">
+                <li>First Name</li>
+                <li>Last Name</li>
+                <li>Company</li>
+                <li>Address</li>
+                <li>City</li>
+                <li>Country</li>
+                <li>State/Province</li>
+                <li>ZIP/Postal Code</li>
+                <li>Phone 1</li>
+                <li>Phone 2</li>
+                <li>Email</li>
+                <li>Web</li>
+            </ul>
+            <input type="search" placeholder="Type for search" />
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="SearchList" wn-type="searchlist">
+            <input type="search" placeholder="برای جستجو بنویسید" />
+            <ul wn-type="list">
+                <li>نام</li>
+                <li>نام خانوادگی</li>
+                <li>شرکت</li>
+                <li>آدرس</li>
+                <li>شهر</li>
+                <li>کشور</li>
+                <li>استان</li>
+                <li>کد پستی</li>
+                <li>تلفن 1</li>
+                <li>تلفن 2</li>
+                <li>پست الکترونیک</li>
+                <li>آدرس وب</li>
+            </ul>
+        </div>
+        <hr class="m-b-100r" />
+        <div class="SearchList" wn-type="searchlist">
+            <ul wn-type="list">
+                <li>نام</li>
+                <li>نام خانوادگی</li>
+                <li>شرکت</li>
+                <li>آدرس</li>
+                <li>شهر</li>
+                <li>کشور</li>
+                <li>استان</li>
+                <li>کد پستی</li>
+                <li>تلفن 1</li>
+                <li>تلفن 2</li>
+                <li>پست الکترونیک</li>
+                <li>آدرس وب</li>
+            </ul>
+            <input type="search" placeholder="برای جستجو بنویسید" />
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h4>نمایش درختواره</h4>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div class="SearchList" wn-type="searchlist">
+            <input type="search" placeholder="Type for search" />
+            <ul class="tree" wn-type="tree">
+                <li>
+                    <div class="tree-item">Personal Info</div>
+                    <ul>
+                        <li>
+                            <div class="tree-item">Name</div>
+                            <ul>
+                                <li><div class="tree-item">First Name</div></li>
+                                <li><div class="tree-item">Last Name</div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="tree-item">Address</div>
+                            <ul>
+                                <li><div class="tree-item">Address</div></li>
+                                <li><div class="tree-item">City</div></li>
+                                <li><div class="tree-item">Country</div></li>
+                                <li><div class="tree-item">State/Province</div></li>
+                                <li><div class="tree-item">ZIP/Postal Code</div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="tree-item">Job Info</div>
+                    <ul>
+                        <li><div class="tree-item">Company</div></li>
+                        <li><div class="tree-item">Phone 1</div></li>
+                        <li><div class="tree-item">Phone 2</div></li>
+                        <li><div class="tree-item">Email</div></li>
+                        <li><div class="tree-item">Web</div></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        
+        <div class="SearchList" wn-type="searchlist">
+            <input type="search" placeholder="Type for search" />
+            <ul class="tree" wn-type="tree">
+                <li>
+                    <div class="tree-item">اطلاعات شخصی</div>
+                    <ul>
+                        <li>
+                            <div class="tree-item">نام</div>
+                            <ul>
+                                <li><div class="tree-item">نام</div></li>
+                                <li><div class="tree-item">نام خانوادگی</div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="tree-item">آدرس</div>
+                            <ul>
+                                <li><div class="tree-item">آدرس</div></li>
+                                <li><div class="tree-item">شهر</div></li>
+                                <li><div class="tree-item">کشور</div></li>
+                                <li><div class="tree-item">استان</div></li>
+                                <li><div class="tree-item">کدپستی</div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="tree-item">اطلاعات شغلی</div>
+                    <ul>
+                        <li><div class="tree-item">شرکت</div></li>
+                        <li><div class="tree-item">تلفن 1</div></li>
+                        <li><div class="tree-item">تلفن 2</div></li>
+                        <li><div class="tree-item">پست الکترونیک</div></li>
+                        <li><div class="tree-item">وب</div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <figure><code data-on="form1"></code></figure>
+
+<h4>انتخاب مقادیر</h4>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <input id="display1-ltr" type="text" readonly placeholder="Selected Text" />
+        <input id="value1-ltr"type="text" readonly placeholder="Selected Value" />
+        <div class="SearchList" wn-type="searchlist" display-id="display1-ltr" value-id="value1-ltr">
+            <input type="search" placeholder="Type for search" />
+            <ul wn-type="list">
+                <li wn-list-value="FirstName" >First Name</li>
+                <li wn-list-value="LastName">Last Name</li>
+                <li wn-list-value="Company">Company</li>
+                <li wn-list-value="Address">Address</li>
+                <li wn-list-value="City">City</li>
+                <li wn-list-value="Country">Country</li>
+                <li wn-list-value="State">State/Province</li>
+                <li wn-list-value="PostalCode">ZIP/Postal Code</li>
+                <li wn-list-value="Phone1">Phone 1</li>
+                <li wn-list-value="Phone2">Phone 2</li>
+                <li wn-list-value="Email">Email</li>
+                <li wn-list-value="Web">Web</li>
+            </ul>
+        </div>
+        <hr class="m-b-100r" />
+        <input id="display2-ltr" type="text" readonly placeholder="Selected Text" />
+        <input id="value2-ltr"type="text" readonly placeholder="Selected Value" />
+        <div class="SearchList" wn-type="searchlist" display-id="display2-ltr" value-id="value2-ltr">
+            <input type="search" placeholder="Type for search" />
+            <ul class="tree" wn-type="tree">
+                <li>
+                    <div class="tree-item">Personal Info</div>
+                    <ul>
+                        <li>
+                            <div class="tree-item">Name</div>
+                            <ul>
+                                <li><div class="tree-item" wn-tree-value="FirstName">First Name</div></li>
+                                <li><div class="tree-item" wn-tree-value="LastName">Last Name</div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="tree-item">Address</div>
+                            <ul>
+                                <li><div class="tree-item" wn-tree-value="Address">Address</div></li>
+                                <li><div class="tree-item" wn-tree-value="City">City</div></li>
+                                <li><div class="tree-item" wn-tree-value="Country">Country</div></li>
+                                <li><div class="tree-item" wn-tree-value="State">State/Province</div></li>
+                                <li><div class="tree-item" wn-tree-value="PostalCode">ZIP/Postal Code</div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="tree-item">Job Info</div>
+                    <ul>
+                        <li><div class="tree-item" wn-tree-value="Company">Company</div></li>
+                        <li><div class="tree-item" wn-tree-value="Phone1">Phone 1</div></li>
+                        <li><div class="tree-item" wn-tree-value="Phone2">Phone 2</div></li>
+                        <li><div class="tree-item" wn-tree-value="Email">Email</div></li>
+                        <li><div class="tree-item" wn-tree-value="Web">Web</div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <input id="display1-rtl" type="text" readonly placeholder="عنوان انتخاب شده" />
+        <input id="value1-rtl" type="text" readonly placeholder="مقدار انتخاب شده" />
+        <div class="SearchList" wn-type="searchlist" display-id="display1-rtl" value-id="value1-rtl">
+            <input type="search" placeholder="برای جستجو بنویسید" />
+            <ul wn-type="list">
+                <li wn-list-value="FirstName">نام</li>
+                <li wn-list-value="LastName">نام خانوادگی</li>
+                <li wn-list-value="Company">شرکت</li>
+                <li wn-list-value="Address">آدرس</li>
+                <li wn-list-value="City">شهر</li>
+                <li wn-list-value="Country">کشور</li>
+                <li wn-list-value="State">استان</li>
+                <li wn-list-value="PostalCode">کد پستی</li>
+                <li wn-list-value="Phone1">تلفن 1</li>
+                <li wn-list-value="Phone2">تلفن 2</li>
+                <li wn-list-value="Email">پست الکترونیک</li>
+                <li wn-list-value="Web">آدرس وب</li>
+            </ul>
+        </div>
+        <hr class="m-b-100r" />
+        <input id="display2-rtl" type="text" readonly placeholder="عنوان انتخاب شده" />
+        <input id="value2-rtl" type="text" readonly placeholder="مقدار انتخاب شده" />
+        <div class="SearchList" wn-type="searchlist" display-id="display2-rtl" value-id="value2-rtl">
+            <input type="search" placeholder="Type for search" />
+            <ul class="tree" wn-type="tree">
+                <li>
+                    <div class="tree-item">اطلاعات شخصی</div>
+                    <ul>
+                        <li>
+                            <div class="tree-item">نام</div>
+                            <ul>
+                                <li><div class="tree-item" wn-tree-value="FirstName">نام</div></li>
+                                <li><div class="tree-item" wn-tree-value="LastName">نام خانوادگی</div></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="tree-item">آدرس</div>
+                            <ul>
+                                <li><div class="tree-item" wn-tree-value="Address">آدرس</div></li>
+                                <li><div class="tree-item" wn-tree-value="City">شهر</div></li>
+                                <li><div class="tree-item" wn-tree-value="Country">کشور</div></li>
+                                <li><div class="tree-item" wn-tree-value="State">استان</div></li>
+                                <li><div class="tree-item" wn-tree-value="PostalCode">کدپستی</div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="tree-item">اطلاعات شغلی</div>
+                    <ul>
+                        <li><div class="tree-item" wn-tree-value="Company">شرکت</div></li>
+                        <li><div class="tree-item" wn-tree-value="Phone1">تلفن 1</div></li>
+                        <li><div class="tree-item" wn-tree-value="Phone2">تلفن 2</div></li>
+                        <li><div class="tree-item" wn-tree-value="Email">پست الکترونیک</div></li>
+                        <li><div class="tree-item" wn-tree-value="Web">وب</div></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>

@@ -1,0 +1,99 @@
+﻿@page
+@model WidgetNas.Pages.Components.MultiSelectModel
+@{
+    ViewData["Title"] = "انتخاب چند تایی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    لیست از موضوعات داریم که بیش از تعداد استاندارد جستجوی چشمی است، به دین منظور، نیاز داریم کابر بتواند روی این لیست اعمال فیلتر کند و با
+    وارد کردن برخی حروف فقط موضوعاتی را نمایش دهد که آن حروف در آن باشد.
+</p>
+<p>قبلا در قسمت <a href="/Components/Filter" alt="فیلتر">فیلتر</a> مشابه این موضوع را پیاده سازی کرده ایم. حال میخواهیم موضوعی پیش رفته تر را با استفاده از آن خاصیت نمایش دهیم.</p>
+<h4>نمایش لیست</h4>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div class="MultiSelect" wn-type="multiselect">
+            <ig class="floating">
+                <div class="selecteditem"><span>Ali</span><span>Omid</span></div>
+                <input type="text" placeholder="." class="dropdownarrow">
+                <label>Full Name</label>
+                
+            </ig>
+            <input type="search" placeholder="Type for search" />
+
+            <ul wn-type="list">
+                <li>First Name</li>
+                <li>Last Name</li>
+                <li>Company</li>
+                <li>Address</li>
+                <li>City</li>
+                <li>Country</li>
+                <li>State/Province</li>
+                <li>ZIP/Postal Code</li>
+                <li>Phone 1</li>
+                <li>Phone 2</li>
+                <li>Email</li>
+                <li>Web</li>
+            </ul>
+        </div>
+        <hr class="m-b-100r" />
+        <div class="SearchList" wn-type="searchlist">
+            <ul wn-type="list">
+                <li>First Name</li>
+                <li>Last Name</li>
+                <li>Company</li>
+                <li>Address</li>
+                <li>City</li>
+                <li>Country</li>
+                <li>State/Province</li>
+                <li>ZIP/Postal Code</li>
+                <li>Phone 1</li>
+                <li>Phone 2</li>
+                <li>Email</li>
+                <li>Web</li>
+            </ul>
+            <input type="search" placeholder="Type for search" />
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="SearchList" wn-type="searchlist">
+            <input type="search" placeholder="برای جستجو بنویسید" />
+            <ul wn-type="list">
+                <li>نام</li>
+                <li>نام خانوادگی</li>
+                <li>شرکت</li>
+                <li>آدرس</li>
+                <li>شهر</li>
+                <li>کشور</li>
+                <li>استان</li>
+                <li>کد پستی</li>
+                <li>تلفن 1</li>
+                <li>تلفن 2</li>
+                <li>پست الکترونیک</li>
+                <li>آدرس وب</li>
+            </ul>
+        </div>
+        <hr class="m-b-100r" />
+        <div class="SearchList" wn-type="searchlist">
+            <ul wn-type="list">
+                <li>نام</li>
+                <li>نام خانوادگی</li>
+                <li>شرکت</li>
+                <li>آدرس</li>
+                <li>شهر</li>
+                <li>کشور</li>
+                <li>استان</li>
+                <li>کد پستی</li>
+                <li>تلفن 1</li>
+                <li>تلفن 2</li>
+                <li>پست الکترونیک</li>
+                <li>آدرس وب</li>
+            </ul>
+            <input type="search" placeholder="برای جستجو بنویسید" />
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
