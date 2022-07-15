@@ -20,7 +20,7 @@ input:not([type=button]):not([type=submit]):not([type=reset]) {
     -webkit-appearance: none;
     -moz-appearance: none;
     border-radius: var(--border-radius);
-    transition: $transition,background-position none;
+    transition: $transition, background-position none;
     line-height: var(--line-height);
     width: 100%;
     margin: calc(var(--border-width)*3);

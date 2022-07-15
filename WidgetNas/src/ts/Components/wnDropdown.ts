@@ -40,16 +40,17 @@ class wndropdown {
         if (this.element.hasAttribute('wn-dropdown-event'))
             defaultevent = this.element.getAttribute('wn-dropdown-event');
 
-        defaultevent.split(',').forEach((s) => {
-            this.element.addEventListener(s.trim(), (e) => {
-                if (this.CheckOnlyDropDown) {
-                    if ((e.target == this.dropdown))
+        if (defaultevent !== '')
+            defaultevent.split(',').forEach((s) => {
+                this.element.addEventListener(s.trim(), (e) => {
+                    if (this.CheckOnlyDropDown) {
+                        if ((e.target == this.dropdown))
+                            this._Toggle();
+                    }
+                    else
                         this._Toggle();
-                }
-                else
-                    this._Toggle();
+                });
             });
-        });
         if (this.element.hasAttribute('onbeforeshow'))
             this.beforeshow = new Function('t', this.element.getAttribute('onbeforeshow'));
         if (this.element.hasAttribute('onbeforehide'))

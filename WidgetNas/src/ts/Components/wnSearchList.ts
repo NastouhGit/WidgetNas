@@ -1,8 +1,10 @@
 ﻿class wnsearchlist {
     element: HTMLElement;
 
+    filterchanged: any;
+
     private searchbox: HTMLInputElement;
-    private list: HTMLElement;
+    list: HTMLElement;
     private displayelement: HTMLInputElement;
     private valueelement: HTMLInputElement;
 
@@ -32,6 +34,8 @@
                 if (this.list.getAttribute('wn-type') == 'tree') {
                     this.FixedTreeDisplay();
                 }
+                if (this.filterchanged != null)
+                    this.filterchanged();
             });
 
         this.WaitToInitList();
