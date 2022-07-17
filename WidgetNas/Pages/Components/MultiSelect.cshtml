@@ -11,10 +11,12 @@
 </p>
 <p>قبلا در قسمت <a href="/Components/Filter" alt="فیلتر">فیلتر</a> مشابه این موضوع را پیاده سازی کرده ایم. حال میخواهیم موضوعی پیش رفته تر را با استفاده از آن خاصیت نمایش دهیم.</p>
 <h4>نمایش لیست</h4>
+<p>برای استفاده از انتخاب چند تایی از مثال زیر استفاده کنید.</p>
+<p>خصوصیت <bidi>max</bidi>: با تنظیم این خصوصیت، تعداد حداکثر انتخاب مجاز را میتوانید مشخص کنید. در صورتیکه مقدار صفر را مشخص کنید، بدون محدودیت قابل انتخاب است. </p>
 <div class="example-div">
     <div class="ltr" id="form1">
         <h3>LTR</h3>
-        <div class="MultiSelect" wn-type="multiselect">
+        <div class="MultiSelect" wn-type="multiselect" max="2">
             <label>Selected</label>
             <input type="search">
             <div class="selecteditem rows"></div>
@@ -83,7 +85,7 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <div class="MultiSelect" wn-type="multiselect">
+        <div class="MultiSelect" wn-type="multiselect" max="2">
             <label>انتخاب شده</label>
             <input type="search">
             <div class="selecteditem"></div>
@@ -154,3 +156,100 @@
     </div>
 </div>
 <figure><code data-on="form1"></code></figure>
+<h4>توابع جاوا اسکریپت</h4>
+<p>
+    <h5>selecteditems</h5>
+    با استفاده از این خصوصیت میتوانید لیست موضوعات انتخاب شده را در قالب یک آرایه با دو خصوصیت <bidi>value</bidi> و <bidi>caption</bidi> دریافت کنید.
+</p>
+<p>
+    <h5>selectionchanged</h5>
+    اگر میخواهید بعد از هر انتخاب تابعی اجرا شود از این رخداد استفاده کنید.
+    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onselectionchanged</bidi> بنویسید.
+    <br />پارامترهای این رخداد عبارتند از t:this
+</p>
+<p>
+    <h5>max</h5>
+    تعداد حداکثر انتخاب را مخشص میکند. مقدار 0 به معنی انتخاب به صورت نامحدود است.
+</p>
+<p>
+    <h5>search</h5>
+    این خصوصیت از جنس <a href="/Components/SearchList">wnsearchlist</a> است. برای مشاهده خصوصیات آن به صفحه مرتبط مراجعه شود.
+</p>
+<p>
+    <h5>setdata</h5>
+    این تابع با ورودی لیست موارد انتخاب شده طبق استاندارد selecteditems میباشد. بعد از فراخوانی این تابع گزینه های مد نظر به حالت انتخاب در می آید.
+    <figure style="direction:ltr">
+        <code>
+            setdata([{value:'a',caption:'aa'},{value:'b',caption:'bb'}])
+        </code>
+    </figure>
+</p>
+<p>
+    <h5>beforedeselect</h5>
+    اگر میخواهید قبل از هر برگشت انتخاب تابعی اجرا شود و اگر مقدار false برگرداند، عمل عدم انتخاب اعمال نگردد از این رخداد استفاده کنید.
+    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onbeforedeselect</bidi> بنویسید.<br />
+    پارامترهای این رخداد عبارتند از t:this, n:node, i:item
+</p>
+<p>
+    <h5>afterdeselect</h5>
+    پس از آنکه عمل عدم انتخاب به درستی انجام شد، این رخداد صدا زده میشود.
+    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onafterdeselect</bidi> بنویسید.
+    <br />پارامترهای این رخداد عبارتند از t:this, i:item
+</p>
+
+<h4>مثال پویا</h4>
+<div class="example-div">
+    <div class="ltr w-95-i" id="form2">
+        <div id="m1" class="MultiSelect floating" wn-type="multiselect">
+            <input type="search" placeholder=".">
+            <label>Selected</label>
+            <div class="selecteditem"></div>
+            <div class="dropdown">
+                <ul wn-type="list">
+                    <li wn-list-value="FirstName">First Name</li>
+                    <li wn-list-value="LastName">Last Name</li>
+                    <li wn-list-value="Company">Company</li>
+                    <li wn-list-value="Address">Address</li>
+                    <li wn-list-value="City">City</li>
+                    <li wn-list-value="Country">Country</li>
+                    <li wn-list-value="State">State/Province</li>
+                    <li wn-list-value="ZIP">ZIP/Postal Code</li>
+                    <li wn-list-value="Phone1">Phone 1</li>
+                    <li wn-list-value="Phone2">Phone 2</li>
+                    <li wn-list-value="Email">Email</li>
+                    <li wn-list-value="Web">Web</li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex">
+            <input type="text" id="insList" />
+            <button onclick="AddToList()">Insert to List</button>
+            <button onclick="Deselect(true)">Deselect By Caption</button>
+            <button onclick="Deselect(false)">Deselect By Value</button>
+            <button onclick="SelectDefault()">Default Select</button>
+            <button onclick="GetSelected()">Get Selected</button>
+            <div id="result1"></div>
+        </div>
+        <script>
+            function AddToList() {
+                let v = document.getElementById('insList').value;
+                WN['m1'].search.list.addrow(v, v);
+            }
+            function Deselect(bycaption) { 
+                let v = document.getElementById('insList').value;
+                if (bycaption==true)
+                    WN['m1'].DeselectByCaption(v);
+                else
+                    WN['m1'].DeselectByValue(v);
+            }
+            function SelectDefault() {
+                WN['m1'].setdata([{ value:'FirstName', caption:'First Name' }, { value:'City', caption:'City' }]);
+            }
+            function GetSelected() { 
+                let o = 
+                WN['m1'].selecteditems;
+            }
+        </script>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>

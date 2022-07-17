@@ -7,6 +7,10 @@
         white-space: nowrap;
     }
 
+    input[type=search] {
+        width:auto !important;
+    }
+
     &.floating, &.group {
         border: var(--border-width) solid var(--normal-border);
         border-radius: var(--border-radius);

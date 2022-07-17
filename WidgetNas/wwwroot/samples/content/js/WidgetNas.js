@@ -1904,6 +1904,9 @@ class wndropdown {
         if (this.aftershow != null)
             this.aftershow(this);
     }
+    HideAllDropDowns() {
+        LastDropdownOpened.forEach((x) => { x.classList.remove('show'); });
+    }
     SetPosition() {
         let dropdown_cs = getComputedStyle(this.dropdown);
         let dropdown_pos = this.dropdown.getBoundingClientRect();
@@ -5173,14 +5176,21 @@ class wnmodal {
 }
 class wnmultiselect {
     constructor(elem) {
+        this.max = 0;
         if (elem !== undefined && elem !== null) {
             this.element = elem;
             this.Init();
         }
     }
     Init() {
-        this.selectedvalue = [];
-        this.selectedcaption = [];
+        this.selecteditems = [];
+        this.max = WNparseNumber(this.element.getAttribute('max'), 0);
+        if (this.element.hasAttribute('onselectionchanged'))
+            this.selectionchanged = new Function('t', this.element.getAttribute('onselectionchanged'));
+        if (this.element.hasAttribute('onbeforedeselect'))
+            this.beforedeselect = new Function('t', 'n', 'i', this.element.getAttribute('onbeforedeselect'));
+        if (this.element.hasAttribute('onafterdeselect'))
+            this.afterdeselect = new Function('t', 'i', this.element.getAttribute('onafterdeselect'));
         this.searchbox = this.element.querySelector('[type=search]');
         this.selectedarea = this.element.querySelector('.selecteditem');
         this.dropdownlist = this.element.querySelector('.dropdown');
@@ -5201,68 +5211,86 @@ class wnmultiselect {
         this.dropdown = new wndropdown(this.element);
         this.search = new wnsearchlist(this.element);
         if (this.dropdownlist.hasChildNodes())
-            this.search.list = this.dropdownlist.firstElementChild;
+            this.search.listelement = this.dropdownlist.firstElementChild;
         this.search.filterchanged = async () => {
             this.dropdown.Show();
         };
-        this.searchbox.addEventListener('focusin', async () => {
-            this.dropdown.Show();
+        this.searchbox.addEventListener('focus', async () => {
+            if (!this.dropdown.element.classList.contains('show')) {
+                this.dropdown.HideAllDropDowns();
+                this.dropdown.Show();
+            }
         });
         this.WaitToInitList();
     }
     WaitToInitList() {
         let tim = setInterval(() => {
-            if (WN[this.search.list.id] != null) {
-                if (this.search.list.getAttribute('wn-type') == 'list')
-                    WN[this.search.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
-                if (this.search.list.getAttribute('wn-type') == 'tree')
-                    WN[this.search.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
+            if (WN[this.search.listelement.id] != null) {
+                WN[this.search.listelement.id].selectionchange = (t, n) => this.selectionchange(t, n);
                 clearInterval(tim);
             }
         }, 100);
     }
     selectionchange(t, n) {
-        let value = '';
-        let caption = '';
-        if (this.search.list.getAttribute('wn-type') == 'tree') {
-            caption = t.currentcaption;
-            value = t.currentvalue;
-        }
-        else if (this.search.list.getAttribute('wn-type') == 'list') {
-            caption = t.currentcaption;
-            value = t.currentvalue;
-        }
+        let value = this.search.list.currentvalue;
+        let caption = this.search.list.currentcaption;
         if (value == null)
             value = '';
-        if (this.selectedvalue.indexOf(value) == -1 || this.selectedcaption.indexOf(caption) == -1) {
-            this.selectedvalue.push(value);
-            this.selectedcaption.push(caption);
-            let sp = document.createElement('span');
-            sp.innerHTML = caption;
-            sp.setAttribute('value', value);
-            sp.dir = this.element.dir;
-            sp.addEventListener('click', (t) => {
-                let node = t.target;
-                let value = node.getAttribute('value');
-                let caption = node.innerHTML;
-                let idx1 = this.selectedcaption.indexOf(caption);
-                let idx2 = this.selectedvalue.indexOf(value);
-                if (idx1 == idx2) {
-                    this.selectedcaption.splice(idx1, 1);
-                    this.selectedvalue.splice(idx1, 1);
-                }
-                else if (value != '') {
-                    this.selectedcaption.splice(idx2, 1);
-                    this.selectedvalue.splice(idx2, 1);
-                }
-                else {
-                    this.selectedcaption.splice(idx1, 1);
-                    this.selectedvalue.splice(idx1, 1);
-                }
-                node.remove();
-            });
-            this.selectedarea.appendChild(sp);
+        let item = { value: value, caption: caption };
+        if (this.selecteditems.find((x) => x.value == item.value && x.caption == item.caption) == null) {
+            if (this.max > 0 && this.selecteditems.length >= this.max)
+                return;
+            this.selecteditems.push(item);
+            this.AddSelectedSpan(caption, value);
+            if (this.selectionchanged != null)
+                this.selectionchanged(this);
         }
+    }
+    AddSelectedSpan(caption, value) {
+        let sp = document.createElement('span');
+        sp.innerHTML = caption;
+        sp.setAttribute('value', value);
+        sp.dir = this.element.dir;
+        sp.addEventListener('click', (t) => {
+            let node = t.target;
+            let item = { value: node.getAttribute('value'), caption: node.innerHTML };
+            this.DeselectByItem(item);
+        });
+        this.selectedarea.appendChild(sp);
+    }
+    DeselectByItem(item) {
+        if (item == null)
+            return;
+        let node;
+        let nodes = this.selectedarea.querySelectorAll("span");
+        nodes.forEach((x) => {
+            if (x.getAttribute('value') == item.value && x.innerHTML == item.caption) {
+                node = x;
+            }
+        });
+        if (this.beforedeselect != null)
+            if (!this.beforedeselect(this, node, item))
+                return;
+        let idx = this.selecteditems.findIndex((x) => x.value == item.value && x.caption == item.caption);
+        if (idx > -1) {
+            this.selecteditems.splice(idx, 1);
+            node.remove();
+            if (this.afterdeselect != null)
+                this.afterdeselect(this, item);
+        }
+    }
+    DeselectByCaption(caption) {
+        let item = this.selecteditems.find((x) => x.caption == caption);
+        this.DeselectByItem(item);
+    }
+    DeselectByValue(value) {
+        let item = this.selecteditems.find((x) => x.value == value);
+        this.DeselectByItem(item);
+    }
+    setdata(datasource) {
+        this.selecteditems = datasource;
+        this.selectedarea.innerHTML = '';
+        this.selecteditems.forEach((x) => { this.AddSelectedSpan(x.caption, x.value); });
     }
 }
 class wnprogress {
@@ -5375,10 +5403,10 @@ class wnsearchlist {
     Init() {
         this.searchbox = this.element.querySelector('[type=search]');
         this.searchbox.autocomplete = 'off';
-        this.list = this.searchbox.nextElementSibling;
-        if (this.list == null)
-            this.list = this.searchbox.previousElementSibling;
-        if (this.list == null)
+        this.listelement = this.searchbox.nextElementSibling;
+        if (this.listelement == null)
+            this.listelement = this.searchbox.previousElementSibling;
+        if (this.listelement == null)
             return;
         if (this.element.hasAttribute('display-id'))
             this.displayelement = document.getElementById(this.element.getAttribute('display-id'));
@@ -5386,8 +5414,8 @@ class wnsearchlist {
             this.valueelement = document.getElementById(this.element.getAttribute('value-id'));
         this.searchbox.addEventListener('input', async (e) => {
             let v = e.target.value;
-            WNFilter(this.list.querySelectorAll('*'), 'contains(' + v + ')');
-            if (this.list.getAttribute('wn-type') == 'tree') {
+            WNFilter(this.listelement.querySelectorAll('*'), 'contains(' + v + ')');
+            if (this.listelement.getAttribute('wn-type') == 'tree') {
                 this.FixedTreeDisplay();
             }
             if (this.filterchanged != null)
@@ -5396,23 +5424,19 @@ class wnsearchlist {
         this.WaitToInitList();
     }
     WaitToInitList() {
-        if (this.displayelement == null && this.valueelement == null)
-            return;
         let tim = setInterval(() => {
-            if (WN[this.list.id] != null) {
-                if (this.list.getAttribute('wn-type') == 'list')
-                    WN[this.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
-                if (this.list.getAttribute('wn-type') == 'tree')
-                    WN[this.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
+            if (WN[this.listelement.id] != null) {
+                this.list = WN[this.listelement.id];
+                this.list.selectionchange = (t, n) => this.selectionchange(t, n);
                 clearInterval(tim);
             }
         }, 100);
     }
     FixedTreeDisplay() {
-        let nodes = this.list.querySelectorAll('li:not([style*="display:none"]):not([style*="display: none"])');
+        let nodes = this.listelement.querySelectorAll('li:not([style*="display:none"]):not([style*="display: none"])');
         nodes.forEach((x) => {
             let p = x.parentElement;
-            while (p != this.list) {
+            while (p != this.listelement) {
                 p.style.display = '';
                 p.classList.remove('collapsed');
                 let pp = p.querySelectorAll('[class*="tree-item"]');
@@ -5423,16 +5447,10 @@ class wnsearchlist {
     }
     selectionchange(t, n) {
         if (this.displayelement != null) {
-            if (this.list.getAttribute('wn-type') == 'tree')
-                this.displayelement.value = t.currentcaption;
-            else if (this.list.getAttribute('wn-type') == 'list')
-                this.displayelement.value = t.currentcaption;
+            this.displayelement.value = this.list.currentcaption;
         }
         if (this.valueelement != null) {
-            if (this.list.getAttribute('wn-type') == 'tree')
-                this.valueelement.value = t.currentvalue;
-            else if (this.list.getAttribute('wn-type') == 'list')
-                this.valueelement.value = t.currentvalue;
+            this.valueelement.value = this.list.currentvalue;
         }
     }
 }

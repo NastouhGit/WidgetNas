@@ -4,7 +4,8 @@
     filterchanged: any;
 
     private searchbox: HTMLInputElement;
-    list: HTMLElement;
+    listelement: HTMLElement;
+    list: wnlist | wntree;
     private displayelement: HTMLInputElement;
     private valueelement: HTMLInputElement;
 
@@ -17,11 +18,12 @@
     private Init() {
         this.searchbox = this.element.querySelector('[type=search]');
         this.searchbox.autocomplete = 'off';
-        this.list = this.searchbox.nextElementSibling as HTMLElement;
-        if (this.list == null)
-            this.list = this.searchbox.previousElementSibling as HTMLElement;
-        if (this.list == null)
+        this.listelement = this.searchbox.nextElementSibling as HTMLElement;
+        if (this.listelement == null)
+            this.listelement = this.searchbox.previousElementSibling as HTMLElement;
+        if (this.listelement == null)
             return;
+        
         if (this.element.hasAttribute('display-id'))
             this.displayelement = document.getElementById(this.element.getAttribute('display-id')) as HTMLInputElement;
         if (this.element.hasAttribute('value-id'))
@@ -30,8 +32,8 @@
         this.searchbox.addEventListener('input',
             async (e) => {
                 let v = (<HTMLInputElement>e.target).value;
-                WNFilter(this.list.querySelectorAll('*'), 'contains(' + v + ')');
-                if (this.list.getAttribute('wn-type') == 'tree') {
+                WNFilter(this.listelement.querySelectorAll('*'), 'contains(' + v + ')');
+                if (this.listelement.getAttribute('wn-type') == 'tree') {
                     this.FixedTreeDisplay();
                 }
                 if (this.filterchanged != null)
@@ -41,24 +43,22 @@
         this.WaitToInitList();
     }
     private WaitToInitList() {
-        if (this.displayelement == null && this.valueelement == null)
-            return;
+        //if (this.displayelement == null && this.valueelement == null)
+        //    return;
         let tim = setInterval(() => {
-            if (WN[this.list.id] != null) {
-                if (this.list.getAttribute('wn-type') == 'list')
-                    WN[this.list.id].selectionchange = (t, n) =>this.selectionchange(t, n);
-                if (this.list.getAttribute('wn-type') == 'tree')
-                    WN[this.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
+            if (WN[this.listelement.id] != null) {
+                this.list = WN[this.listelement.id];
+                this.list.selectionchange = (t, n) => this.selectionchange(t, n);
                 clearInterval(tim);
 
             }
         }, 100)
     }
     private FixedTreeDisplay() {
-        let nodes = this.list.querySelectorAll('li:not([style*="display:none"]):not([style*="display: none"])');
+        let nodes = this.listelement.querySelectorAll('li:not([style*="display:none"]):not([style*="display: none"])');
         nodes.forEach((x) => {
             let p = x.parentElement;
-            while (p != this.list) {
+            while (p != this.listelement) {
                 p.style.display = '';
                 p.classList.remove('collapsed');
                 let pp = p.querySelectorAll('[class*="tree-item"]');
@@ -70,16 +70,10 @@
 
     private selectionchange(t, n) {
         if (this.displayelement != null) {
-            if (this.list.getAttribute('wn-type') == 'tree')
-                this.displayelement.value = (<wntree>t).currentcaption;
-            else if (this.list.getAttribute('wn-type') == 'list')
-                this.displayelement.value = (<wnlist>t).currentcaption;
+            this.displayelement.value = this.list.currentcaption;
         }
         if (this.valueelement != null) {
-            if (this.list.getAttribute('wn-type') == 'tree')
-                this.valueelement.value = (<wntree>t).currentvalue;
-            else if (this.list.getAttribute('wn-type') == 'list')
-                this.valueelement.value = (<wnlist>t).currentvalue;
+            this.valueelement.value = this.list.currentvalue;
         }
 
     }

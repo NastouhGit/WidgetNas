@@ -1,15 +1,18 @@
 ﻿class wnmultiselect {
     element: HTMLElement;
 
-    selectedvalue: string[];
-    selectedcaption: string[];
+    selecteditems: any[];
+    selectionchanged: any;
+    beforedeselect: any;
+    afterdeselect: any;
+    max: number = 0;
 
     private searchbox: HTMLInputElement;
     private selectedarea: HTMLElement;
     private dropdownlist: HTMLElement;
 
     private dropdown: wndropdown;
-    private search: wnsearchlist;
+    search: wnsearchlist;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
@@ -18,8 +21,16 @@
         }
     }
     private Init() {
-        this.selectedvalue= [];
-        this.selectedcaption = [];
+        this.selecteditems = [];
+        this.max = WNparseNumber(this.element.getAttribute('max'), 0);
+
+        if (this.element.hasAttribute('onselectionchanged'))
+            this.selectionchanged = new Function('t', this.element.getAttribute('onselectionchanged'));
+        if (this.element.hasAttribute('onbeforedeselect'))
+            this.beforedeselect = new Function('t', 'n', 'i', this.element.getAttribute('onbeforedeselect'));
+        if (this.element.hasAttribute('onafterdeselect'))
+            this.afterdeselect = new Function('t', 'i', this.element.getAttribute('onafterdeselect'));
+
 
         this.searchbox = this.element.querySelector('[type=search]');
         this.selectedarea = this.element.querySelector('.selecteditem');
@@ -30,7 +41,7 @@
             this.searchbox.type = "search";
         }
         this.searchbox.autocomplete = 'off';
-        if (this.selectedarea==null) {
+        if (this.selectedarea == null) {
             this.selectedarea = document.createElement("div");
             this.selectedarea.className = "selecteditem";
         }
@@ -43,80 +54,97 @@
 
         this.search = new wnsearchlist(this.element);
         if (this.dropdownlist.hasChildNodes())
-            this.search.list = this.dropdownlist.firstElementChild as HTMLElement;
+            this.search.listelement = this.dropdownlist.firstElementChild as HTMLElement;
 
         this.search.filterchanged = async () => {
             this.dropdown.Show();
         };
 
-        this.searchbox.addEventListener('focusin', async () => {
-            this.dropdown.Show();
+        this.searchbox.addEventListener('focus', async () => {
+            if (!this.dropdown.element.classList.contains('show')) {
+                this.dropdown.HideAllDropDowns();
+                this.dropdown.Show();
+            }
         });
 
         this.WaitToInitList();
 
-        
+
     }
     private WaitToInitList() {
         let tim = setInterval(() => {
-            if (WN[this.search.list.id] != null) {
-                if (this.search.list.getAttribute('wn-type') == 'list')
-                    WN[this.search.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
-                if (this.search.list.getAttribute('wn-type') == 'tree')
-                    WN[this.search.list.id].selectionchange = (t, n) => this.selectionchange(t, n);
+            if (WN[this.search.listelement.id] != null) {
+                WN[this.search.listelement.id].selectionchange = (t, n) => this.selectionchange(t, n);
                 clearInterval(tim);
-
             }
         }, 100)
     }
     private selectionchange(t, n) {
-        let value = '';
-        let caption = '';
+        let value = this.search.list.currentvalue;
+        let caption = this.search.list.currentcaption;
 
-        if (this.search.list.getAttribute('wn-type') == 'tree') {
-            caption = (<wntree>t).currentcaption;
-            value = (<wntree>t).currentvalue;
-        }
-        else if (this.search.list.getAttribute('wn-type') == 'list') {
-            caption = (<wnlist>t).currentcaption;
-            value = (<wnlist>t).currentvalue;
-        }
         if (value == null) value = '';
+        let item = { value: value, caption: caption };
 
-        if (this.selectedvalue.indexOf(value) == -1 || this.selectedcaption.indexOf(caption) == -1) {
-            this.selectedvalue.push(value);
-            this.selectedcaption.push(caption);
-
-            let sp = document.createElement('span');
-            sp.innerHTML = caption;
-            sp.setAttribute('value', value);
-            sp.dir = this.element.dir;
-            
-            sp.addEventListener('click', (t) => {
-                let node = (<HTMLElement>t.target);
-                let value = node.getAttribute('value');
-                let caption = node.innerHTML;
-
-                let idx1 = this.selectedcaption.indexOf(caption);
-                let idx2 = this.selectedvalue.indexOf(value);
-
-                if (idx1 == idx2) {
-                    this.selectedcaption.splice(idx1, 1);
-                    this.selectedvalue.splice(idx1, 1);
-                }
-                else if (value!='') {
-                    this.selectedcaption.splice(idx2, 1);
-                    this.selectedvalue.splice(idx2, 1);
-                }
-                else  {
-                    this.selectedcaption.splice(idx1, 1);
-                    this.selectedvalue.splice(idx1, 1);
-                }
-
-                node.remove();
-            });
-            this.selectedarea.appendChild(sp);
+        if (this.selecteditems.find((x) => x.value == item.value && x.caption==item.caption) == null) {
+            if (this.max > 0 && this.selecteditems.length >= this.max)
+                return;
+            this.selecteditems.push(item);
+            this.AddSelectedSpan(caption, value);
+            if (this.selectionchanged != null)
+                this.selectionchanged(this);
         }
+    }
+    AddSelectedSpan(caption, value) {
+        let sp = document.createElement('span');
+        sp.innerHTML = caption;
+        sp.setAttribute('value', value);
+        sp.dir = this.element.dir;
+
+        sp.addEventListener('click', (t) => {
+            let node = (<HTMLElement>t.target);
+            let item = { value: node.getAttribute('value'), caption: node.innerHTML };
+            this.DeselectByItem(item);
+        });
+        this.selectedarea.appendChild(sp);
+    }
+    DeselectByItem(item: { value, caption }) {
+        if (item == null) return;
+
+        let node;
+        let nodes = this.selectedarea.querySelectorAll("span");
+        nodes.forEach((x) => {
+            if (x.getAttribute('value') == item.value && x.innerHTML == item.caption) {
+                node = x;
+            }
+        })
+        
+        if (this.beforedeselect != null)
+            if (!this.beforedeselect(this, node, item))
+                return;
+
+        let idx = this.selecteditems.findIndex((x) => x.value == item.value && x.caption == item.caption);
+        if (idx > -1) {
+            this.selecteditems.splice(idx, 1);
+            node.remove();
+
+            if (this.afterdeselect != null)
+                this.afterdeselect(this, item);
+        }
+    }
+    DeselectByCaption(caption: string) {
+        let item = this.selecteditems.find((x) => x.caption == caption);
+        this.DeselectByItem(item);
+    }
+    DeselectByValue(value: string) {
+        let item = this.selecteditems.find((x) => x.value == value);
+        this.DeselectByItem(item);
+    }
+
+    setdata(datasource: any[]) {
+        this.selecteditems = datasource;
+        this.selectedarea.innerHTML = '';
+        this.selecteditems.forEach((x) => { this.AddSelectedSpan(x.caption, x.value); })
     }
 }
 

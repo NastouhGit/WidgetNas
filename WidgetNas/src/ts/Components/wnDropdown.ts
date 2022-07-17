@@ -136,6 +136,9 @@ class wndropdown {
         this.dropdown.focus();
         if (this.aftershow != null) this.aftershow(this);
     }
+    HideAllDropDowns() {
+        LastDropdownOpened.forEach((x) => { x.classList.remove('show'); });
+    }
     SetPosition(): void {
 
         let dropdown_cs = getComputedStyle(this.dropdown);
