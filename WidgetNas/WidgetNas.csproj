@@ -6,6 +6,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\TempFiles\Excel\**" />
+    <Compile Remove="wwwroot\TempFiles\Image\Company\Year 2020\April\**" />
+    <Compile Remove="wwwroot\TempFiles\Image\Company\Year 2020\May\**" />
+    <Compile Remove="wwwroot\TempFiles\Image\Company\Year 2020\September\**" />
+    <Compile Remove="wwwroot\TempFiles\Image\Home\Utility\**" />
+    <Compile Remove="wwwroot\TempFiles\Word\**" />
+    <Content Remove="wwwroot\TempFiles\Excel\**" />
+    <Content Remove="wwwroot\TempFiles\Image\Company\Year 2020\April\**" />
+    <Content Remove="wwwroot\TempFiles\Image\Company\Year 2020\May\**" />
+    <Content Remove="wwwroot\TempFiles\Image\Company\Year 2020\September\**" />
+    <Content Remove="wwwroot\TempFiles\Image\Home\Utility\**" />
+    <Content Remove="wwwroot\TempFiles\Word\**" />
+    <EmbeddedResource Remove="wwwroot\TempFiles\Excel\**" />
+    <EmbeddedResource Remove="wwwroot\TempFiles\Image\Company\Year 2020\April\**" />
+    <EmbeddedResource Remove="wwwroot\TempFiles\Image\Company\Year 2020\May\**" />
+    <EmbeddedResource Remove="wwwroot\TempFiles\Image\Company\Year 2020\September\**" />
+    <EmbeddedResource Remove="wwwroot\TempFiles\Image\Home\Utility\**" />
+    <EmbeddedResource Remove="wwwroot\TempFiles\Word\**" />
+    <None Remove="wwwroot\TempFiles\Excel\**" />
+    <None Remove="wwwroot\TempFiles\Image\Company\Year 2020\April\**" />
+    <None Remove="wwwroot\TempFiles\Image\Company\Year 2020\May\**" />
+    <None Remove="wwwroot\TempFiles\Image\Company\Year 2020\September\**" />
+    <None Remove="wwwroot\TempFiles\Image\Home\Utility\**" />
+    <None Remove="wwwroot\TempFiles\Word\**" />
+    <TypeScriptCompile Remove="wwwroot\TempFiles\Excel\**" />
+    <TypeScriptCompile Remove="wwwroot\TempFiles\Image\Company\Year 2020\April\**" />
+    <TypeScriptCompile Remove="wwwroot\TempFiles\Image\Company\Year 2020\May\**" />
+    <TypeScriptCompile Remove="wwwroot\TempFiles\Image\Company\Year 2020\September\**" />
+    <TypeScriptCompile Remove="wwwroot\TempFiles\Image\Home\Utility\**" />
+    <TypeScriptCompile Remove="wwwroot\TempFiles\Word\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.6" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.7.4">
       <PrivateAssets>all</PrivateAssets>
@@ -14,17 +47,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\TempFiles\Excel\Part 1\" />
-    <Folder Include="wwwroot\TempFiles\Excel\Part 2\" />
-    <Folder Include="wwwroot\TempFiles\Image\Company\Year 2020\April\" />
-    <Folder Include="wwwroot\TempFiles\Image\Company\Year 2020\May\" />
-    <Folder Include="wwwroot\TempFiles\Image\Company\Year 2020\September\" />
+    <Folder Include="wwwroot\TempFiles\Image\Company\Year 2020\" />
     <Folder Include="wwwroot\TempFiles\Image\Company\Year 2021\" />
     <Folder Include="wwwroot\TempFiles\Image\Company\Year 2022\" />
-    <Folder Include="wwwroot\TempFiles\Image\Home\Utility\" />
+    <Folder Include="wwwroot\TempFiles\Image\Home\" />
     <Folder Include="wwwroot\TempFiles\Image\Personal\" />
     <Folder Include="wwwroot\TempFiles\PDF\" />
-    <Folder Include="wwwroot\TempFiles\Word\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

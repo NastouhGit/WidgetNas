@@ -279,5 +279,24 @@
         li.classList.add('expandable');
         return subli;
     }
+    //setdata(datasource: any[], displayfield: string, valuefield: string,parentfield:string, append: boolean = false) {
+    //    if (!append) {
+    //        this.element.innerHTML = '';
+    //    }
+    //    if (valuefield == '' && displayfield == '') {
+    //        let keys = Object.keys(datasource);
+    //        let values = Object.values(datasource);
+    //        for (var i = 0; i < values.length; i++) {
+    //            let k = '';
+    //            if (i >= keys.length)
+    //                k = keys[i];
+    //            this.addrow(values[i], k);
+    //        }
+    //    }
+    //    else
+    //        datasource.forEach((x) => {
+    //            this.addrow(x[displayfield], x[valuefield]);
+    //        });
+    //}
 
 }

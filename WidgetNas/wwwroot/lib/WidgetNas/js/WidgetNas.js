@@ -5085,9 +5085,20 @@ class wnlist {
             this._items = [];
             this.refresh();
         }
-        datasource.forEach((x) => {
-            this.addrow(x[displayfield], x[valuefield]);
-        });
+        if (valuefield == '' && displayfield == '') {
+            let keys = Object.keys(datasource);
+            let values = Object.values(datasource);
+            for (var i = 0; i < values.length; i++) {
+                let k = '';
+                if (i >= keys.length)
+                    k = keys[i];
+                this.addrow(values[i], k);
+            }
+        }
+        else
+            datasource.forEach((x) => {
+                this.addrow(x[displayfield], x[valuefield]);
+            });
     }
 }
 class wnmodal {
@@ -5412,11 +5423,27 @@ class wnsearchlist {
             this.displayelement = document.getElementById(this.element.getAttribute('display-id'));
         if (this.element.hasAttribute('value-id'))
             this.valueelement = document.getElementById(this.element.getAttribute('value-id'));
+        this._Url = WNparseString(this.element.getAttribute('url'), this._Url);
         this.searchbox.addEventListener('input', async (e) => {
             let v = e.target.value;
-            WNFilter(this.listelement.querySelectorAll('*'), 'contains(' + v + ')');
-            if (this.listelement.getAttribute('wn-type') == 'tree') {
-                this.FixedTreeDisplay();
+            if (this._Url == null || this._Url == '') {
+                WNFilter(this.listelement.querySelectorAll('*'), 'contains(' + v + ')');
+                if (this.listelement.getAttribute('wn-type') == 'tree') {
+                    this.FixedTreeDisplay();
+                }
+            }
+            else {
+                await Post(WNAddStringQuote(v), this._Url).then((r) => {
+                    if (this.listelement.getAttribute('wn-type') == 'list') {
+                        let l = this.list;
+                        l.setdata(r, '', '', false);
+                    }
+                    if (this.listelement.getAttribute('wn-type') == 'tree') {
+                        this.FixedTreeDisplay();
+                    }
+                }).catch((e) => {
+                    console.log(e);
+                });
             }
             if (this.filterchanged != null)
                 this.filterchanged();
