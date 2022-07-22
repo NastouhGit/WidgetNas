@@ -50,7 +50,11 @@
                                 false);
                         }
                         if (this.listelement.getAttribute('wn-type') == 'tree') {
-                            this.FixedTreeDisplay();
+                            let fs = WNparseString(this.element.getAttribute('fieldset'), '').split(',');
+                            if (fs.length == 6) {
+                                let l = <wntree>this.list;
+                                l.setdata(r, fs[0], fs[1], fs[2], fs[3], fs[4], fs[5], false);
+                            }
                         }
 
                     }).catch((e) => {

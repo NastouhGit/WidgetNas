@@ -5436,10 +5436,14 @@ class wnsearchlist {
                 await Post(WNAddStringQuote(v), this._Url).then((r) => {
                     if (this.listelement.getAttribute('wn-type') == 'list') {
                         let l = this.list;
-                        l.setdata(r, '', '', false);
+                        l.setdata(r, WNparseString(this.element.getAttribute('field-display'), ''), WNparseString(this.element.getAttribute('field-value'), ''), false);
                     }
                     if (this.listelement.getAttribute('wn-type') == 'tree') {
-                        this.FixedTreeDisplay();
+                        let fs = WNparseString(this.element.getAttribute('fieldset'), '').split(',');
+                        if (fs.length == 6) {
+                            let l = this.list;
+                            l.setdata(r, fs[0], fs[1], fs[2], fs[3], fs[4], fs[5], false);
+                        }
                     }
                 }).catch((e) => {
                     console.log(e);
@@ -6348,7 +6352,7 @@ class wntree {
                 html += " wn-tree-value='" + value + "'";
             html += ">";
             if (image != '')
-                html = "<img src='" + image + "' />";
+                html += "<img src='" + image + "' />";
             html += text;
             html += "</div>";
         }
@@ -6393,7 +6397,23 @@ class wntree {
         ul.appendChild(subli);
         this.checkitemstatus(subli);
         li.classList.add('expandable');
+        this.checkitemstatus(li);
         return subli;
+    }
+    setdata(datasource, idfield, parentfield, typefield, displayfield, valuefield, imagefield, append = false) {
+        if (typeof (datasource) == 'string')
+            return;
+        if (!append) {
+            this.element.innerHTML = '';
+        }
+        this.adddschilds(this.element, datasource, null, idfield, parentfield, typefield, displayfield, valuefield, imagefield);
+    }
+    adddschilds(element, datasource, parentvalue, idfield, parentfield, typefield, displayfield, valuefield, imagefield) {
+        let dp = datasource.filter((x) => { return x[parentfield] == parentvalue; });
+        dp.forEach((x) => {
+            let n = this.addrow(element, x[typefield], x[displayfield], x[valuefield], x[imagefield]);
+            this.adddschilds(n, datasource, x[idfield], idfield, parentfield, typefield, displayfield, valuefield, imagefield);
+        });
     }
 }
 class wnvalidator {

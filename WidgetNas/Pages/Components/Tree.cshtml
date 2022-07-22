@@ -968,3 +968,28 @@
 <p>به دلیل ازیاد حجم صفحه، از آوردن مثال خود داری شده است.</p>
 <h2>جاوا اسکریپت</h2>
 <a href="/Components/TreeScript" class="button secondary s-xl">نمایش مستندات در صفحه مربوطه</a>
+
+<h2>بارگذاری اطلاعات</h2>
+<p>همیشه درختواره مقدارش از پیش تعیین شده نیست، در بسیاری از مواقع این اطلاعات توسط سرویس از سرور گرفته شده و بایستی آن مقدار دهی شود.<br />
+    بدین منظور از تابع <bidi>setdata</bidi> استفاده باید کنید.
+    </p>
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <ul id="tree1" class="tree tree-expand-item tree-arrow" wn-type="tree" >
+        </ul>
+        <script>
+            WNE(document).Ready(async() => { 
+                await Post(null, '/Components/Tree').then((r) => {
+                    WN['tree1'].setdata(r, 'index', 'parent', 'type', 'text', 'value', 'image',false);
+                }).catch((e) => {
+                    console.log(e);
+                });
+            });
+        </script>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+<p>در مثال بالا مقادیر به صورت آرایه ای از موضوعات از سرور درخواست شده است. پس از آن
+    مشخص میکند، نام خصوصیت ایندکس، والد، نوع گزینه در درختواره، متن، مقدار و تصویر در چه خصوصیاتی ذخیره شده اند.
+    پس از آن بر اساس این اطلاعات، هر ردیف بر اساس والد یا فرزند را برای درخت ایجاد میکند.
+</p>

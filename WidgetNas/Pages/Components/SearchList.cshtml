@@ -327,7 +327,7 @@
 </p>
 <div class="example-div">
     <div class="ltr" id="form3">
-        <h3>LTR</h3>
+        <h3>LTR List</h3>
         <div class="SearchList" wn-type="searchlist" url="/components/SearchList">
             <input type="search" placeholder="Type for search" />
             <ul wn-type="list">
@@ -338,3 +338,17 @@
     </div>
 </div>
 <figure><code data-on="form3"></code></figure>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>LTR Tree</h3>
+        <div class="SearchList" wn-type="searchlist" url="/components/Tree?handler=Filter" fieldset="index,parent,type,text,value,image">
+            <input type="search" placeholder="Type for search" />
+            <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
+            </ul>
+        </div>
+
+
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<p>برای شناسایی فیلدهای برگشتی از سمت سرور، باید آنها را به ترتیب درون خصوصیت fieldset تعریف کنید.</p>

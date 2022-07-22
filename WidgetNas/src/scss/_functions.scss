@@ -28,9 +28,9 @@
 
     @content('');
 
-    @each $name, $value in $breakpoints {
+    @each $media, $value in $breakpoints {
         @media (max-width: #{$value}) {
-            @content('-'+$name);
+            @content('-'+$media);
         }
 
         $minvalue: $value;

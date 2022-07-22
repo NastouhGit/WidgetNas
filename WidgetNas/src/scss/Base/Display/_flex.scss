@@ -1,4 +1,7 @@
-﻿.d-flex {
+﻿@import "../../_variables.scss";
+@import "../../_functions.scss";
+
+.d-flex {
     display: flex !important;
 }
 
@@ -130,6 +133,10 @@
             flex: 0 0 auto;
             width: #{percentage($i / $grid-columns)};
         }
+    }
+
+    .d-none#{$media} {
+        display:none;
     }
 }
 

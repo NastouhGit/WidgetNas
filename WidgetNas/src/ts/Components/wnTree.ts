@@ -188,7 +188,7 @@
     }
     findbyvalue(value: string, select: boolean = false): HTMLElement {
         let selectedNode = null;
-        let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\','\\\\') + '"]') as HTMLElement
+        let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\', '\\\\') + '"]') as HTMLElement
         selectedNode = n;
         if (select) {
             this._currentSelect = null;
@@ -232,7 +232,7 @@
                 html += " wn-tree-value='" + value + "'";
             html += ">";
             if (image != '')
-                html = "<img src='" + image + "' />";
+                html += "<img src='" + image + "' />";
             html += text;
             html += "</div>";
         }
@@ -277,26 +277,25 @@
         ul.appendChild(subli);
         this.checkitemstatus(subli);
         li.classList.add('expandable');
+        this.checkitemstatus(li);
         return subli;
     }
-    //setdata(datasource: any[], displayfield: string, valuefield: string,parentfield:string, append: boolean = false) {
-    //    if (!append) {
-    //        this.element.innerHTML = '';
-    //    }
-    //    if (valuefield == '' && displayfield == '') {
-    //        let keys = Object.keys(datasource);
-    //        let values = Object.values(datasource);
-    //        for (var i = 0; i < values.length; i++) {
-    //            let k = '';
-    //            if (i >= keys.length)
-    //                k = keys[i];
-    //            this.addrow(values[i], k);
-    //        }
-    //    }
-    //    else
-    //        datasource.forEach((x) => {
-    //            this.addrow(x[displayfield], x[valuefield]);
-    //        });
-    //}
+    setdata(datasource: any[], idfield: string, parentfield: string, typefield: string, displayfield: string, valuefield: string, imagefield: string, append: boolean = false) {
+        if (typeof (datasource) == 'string')
+            return;
+        if (!append) {
+            this.element.innerHTML = '';
+        }
+        
+        this.adddschilds(this.element, datasource, null, idfield,parentfield, typefield, displayfield, valuefield, imagefield);
+
+    }
+    adddschilds(element: HTMLElement, datasource: any[], parentvalue: string, idfield: string, parentfield: string, typefield: string, displayfield: string, valuefield: string, imagefield: string) {
+        let dp = datasource.filter((x) => { return x[parentfield] == parentvalue });
+        dp.forEach((x) => {
+            let n = this.addrow(element, x[typefield], x[displayfield], x[valuefield], x[imagefield]);
+            this.adddschilds(n, datasource, x[idfield], idfield, parentfield, typefield, displayfield, valuefield, imagefield);
+        });
+    }
 
 }

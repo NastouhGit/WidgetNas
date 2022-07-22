@@ -140,7 +140,6 @@ async function Post(data: any, postUrl: string): Promise<any> {
                         resolve(res);
 
                 } catch (e) {
-
                     resolve(res);
                 }
 

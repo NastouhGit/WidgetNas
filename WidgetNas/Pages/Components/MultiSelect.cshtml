@@ -265,7 +265,7 @@
     <div class="ltr w-95-i" id="form3">
         <div id="m2" class="MultiSelect floating" wn-type="multiselect" url="/components/SearchList">
             <input type="search" placeholder=".">
-            <label>Selected</label>
+            <label>Select From List</label>
             <div class="selecteditem"></div>
             <div class="dropdown">
                 <ul wn-type="list">
@@ -275,3 +275,17 @@
     </div>
 </div>
 <figure><code data-on="form3"></code></figure>
+<div class="example-div">
+    <div class="ltr w-95-i" id="form4">
+        <div id="m3" class="MultiSelect floating" wn-type="multiselect" url="/components/Tree?handler=Filter" fieldset="index,parent,type,text,value,image">
+            <input type="search" placeholder=".">
+            <label>Select From Tree</label>
+            <div class="selecteditem"></div>
+            <div class="dropdown">
+                <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
