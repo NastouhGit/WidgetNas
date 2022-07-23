@@ -5427,7 +5427,8 @@ class wnsearchlist {
         this.searchbox.addEventListener('input', async (e) => {
             let v = e.target.value;
             if (this._Url == null || this._Url == '') {
-                WNFilter(this.listelement.querySelectorAll('*'), 'contains(' + v + ')');
+                WNFilter(this.listelement.querySelectorAll('tr'), 'contains(' + v + ')');
+                WNFilter(this.listelement.querySelectorAll('li'), 'contains(' + v + ')');
                 if (this.listelement.getAttribute('wn-type') == 'tree') {
                     this.FixedTreeDisplay();
                 }
@@ -6359,7 +6360,7 @@ class wntree {
         if (type == 'tree-link' || type == 'link') {
             html = "<a class='tree-link' wn-tree-caption='" + text + "' wn-tree-value='" + value + "' href='" + value + "'>";
             if (image != '')
-                html = "<img src='" + image + "' />";
+                html += "<img src='" + image + "' />";
             html += text;
             html += "</a>";
         }

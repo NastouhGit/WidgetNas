@@ -239,7 +239,7 @@
         if (type == 'tree-link' || type == 'link') {
             html = "<a class='tree-link' wn-tree-caption='" + text + "' wn-tree-value='" + value + "' href='" + value + "'>";
             if (image != '')
-                html = "<img src='" + image + "' />";
+                html += "<img src='" + image + "' />";
             html += text;
             html += "</a>";
         }

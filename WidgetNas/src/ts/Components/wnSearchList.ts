@@ -35,7 +35,8 @@
             async (e) => {
                 let v = (<HTMLInputElement>e.target).value;
                 if (this._Url == null || this._Url == '') {
-                    WNFilter(this.listelement.querySelectorAll('*'), 'contains(' + v + ')');
+                    WNFilter(this.listelement.querySelectorAll('tr'), 'contains(' + v + ')');
+                    WNFilter(this.listelement.querySelectorAll('li'), 'contains(' + v + ')');
                     if (this.listelement.getAttribute('wn-type') == 'tree') {
                         this.FixedTreeDisplay();
                     }
