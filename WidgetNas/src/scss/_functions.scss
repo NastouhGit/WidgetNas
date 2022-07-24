@@ -28,8 +28,8 @@
 
     @content('');
 
-    @each $media, $value in $breakpoints {
-        @media (max-width: #{$value}) {
+    @each $media, $value in $breakpoints-min {
+        @media (min-width: #{$value}) and (max-width:#{map-get($breakpoints,$media)}) {
             @content('-'+$media);
         }
 

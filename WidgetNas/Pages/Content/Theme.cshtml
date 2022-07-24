@@ -494,28 +494,80 @@
 </figure>
 <h2 class="m-bs-50e">رنگهای ثابت</h2>
 <p>ویجت نس دارای یک پالت داخلی است، که با استفاده از نام رنگ و میزان روشنایی آن میتوان رنگ دلخواه را به پس زمینه یا متن داد.</p>
-<p>برای پس زمینه <bidi>red-100-bkcolor</bidi> و متن <bidi>red-100-text</bidi></p>
+<p>نحوه کار بدین صورت است که، ابتدا پالت رنگ و سپس دسته رنگی آورده میشود. دسته رتگی بین اعداد 50، 100، 200، 300، 400، 500، 600، 700، 800 و 900 است و دسته رنگی بعدی از a100، a200، a400 و a700 میباشد.</p>
+<p>
+    برای نسبت دادن به رنگ پس زمینه و ... از عبارات زیر استفاده کنید. برای مثال برای رنگ قرمز: <br />
+    <bidi>red-400-bkcolor</bidi>: پس زمینه<br />
+    <bidi>red-400-text</bidi>: متن<br />
+    <bidi>red-400-cb</bidi>: پس زمینه و متن<br />
+    <bidi>red-400-cbf</bidi>: پس زمینه، متن و پرکردن svg (fill)<br />
+    <bidi>red-400-border</bidi>: کادر<br />
+    همانطور اضافه شده مقدار ?-i به معنی اجباری شدن است. <bidi>red-400-text-i</bidi><br />
+    برای اطلاع بیشتر فایل css را بررسی کنید.
+</p>
 <h3>اسامی رنگها</h3>
-<ul class="list w-50">
-    <li>amber</li>
-    <li>black</li>
-    <li>blue</li>
-    <li>blue-grey</li>
-    <li>brown</li>
-    <li>cyan</li>
-    <li>deep-orange</li>
-    <li>deep-purple</li>
-    <li>green</li>
-    <li>grey</li>
-    <li>indigo</li>
-    <li>light-blue</li>
-    <li>light-green</li>
-    <li>lime</li>
-    <li>orange</li>
-    <li>pink</li>
-    <li>purple</li>
-    <li>red</li>
-    <li>teal</li>
-    <li>white</li>
-    <li>yellow</li>
-</ul>
+<div class="d-flex row ltr m-50r text-center">
+    <div class="col yellow-400-bkcolor-i">yellow - yellow-400</div>
+    <div class="col yellow-a400-bkcolor-i">yellow a - yellow-a400</div>
+    <div class="col amber-400-bkcolor-i">amber - amber-400</div>
+    <div class="col amber-a400-bkcolor-i">ambera - amber-a400</div>
+    <div class="col orange-400-bkcolor-i">orange - orange-400</div>
+    <div class="col orange-a400-bkcolor-i">orange a - orange-a400</div>
+    <div class="col deep-orange-400-bkcolor-i">deep-orange - deep-orange-400</div>
+    <div class="col deep-orange-a400-bkcolor-i">deep-orange a - deep-orange-a400</div>
+</div>
+<div class="d-flex row ltr m-50r text-center">
+    <div class="col blue-400-bkcolor-i">blue - blue-400</div>
+    <div class="col blue-a400-bkcolor-i">blue a - blue-a400</div>
+    <div class="col blue-grey-400-bkcolor-i">blue-grey - blue-grey-400</div>
+    <div class="col cyan-400-bkcolor-i">cyan - cyan-400</div>
+    <div class="col cyan-a400-bkcolor-i">cyan a - cyan-a400</div>
+    <div class="col indigo-400-bkcolor-i">indigo - indigo-400</div>
+    <div class="col indigo-a400-bkcolor-i">indigo a - indigo-a400</div>
+    <div class="col light-blue-400-bkcolor-i">light-blue - light-blue-400</div>
+    <div class="col light-blue-a400-bkcolor-i">light-blue a - light-blue-a400</div>
+</div>
+<div class="d-flex row ltr m-50r text-center">
+    <div class="col green-400-bkcolor-i">green - green-400</div>
+    <div class="col green-a400-bkcolor-i">green a - green-a400</div>
+    <div class="col light-green-400-bkcolor-i">light-green - light-green-400</div>
+    <div class="col light-green-a400-bkcolor-i">light-green a - light-green-a400</div>
+    <div class="col lime-400-bkcolor-i">lime - lime-400</div>
+    <div class="col lime-a400-bkcolor-i">lime a - lime-a400</div>
+    <div class="col teal-400-bkcolor-i">teal - teal-400</div>
+    <div class="col teal-a400-bkcolor-i">teal a - teal-a400</div>
+</div>
+<div class="d-flex row ltr m-50r text-center">
+    <div class="col red-400-bkcolor-i">red - red-400</div>
+    <div class="col red-a400-bkcolor-i">red a- red-a400</div>
+    <div class="col pink-400-bkcolor-i">pink - pink-400</div>
+    <div class="col pink-a400-bkcolor-i">pink a - pink-a400</div>
+    <div class="col purple-400-bkcolor-i">purple - purple-400</div>
+    <div class="col purple-a400-bkcolor-i">purple a - purple-a400</div>
+    <div class="col deep-purple-400-bkcolor-i">deep-purple - deep-purple-400</div>
+    <div class="col deep-purple-a400-bkcolor-i">deep-purple a - deep-purple-a400</div>
+    <div class="col brown-400-bkcolor-i">brown - brown-400</div>
+</div>
+<div class="d-flex row ltr m-50r text-center">
+    <div class="col black-bkcolor-i white-text-i">black - black</div>
+    <div class="col grey-400-bkcolor-i">grey - grey-400</div>
+    <div class="col white-bkcolor-i">white - white</div>
+</div>
+<div class="d-flex row ltr m-50r text-center">
+    <div class="col grey-50-bkcolor-i">50</div>
+    <div class="col grey-100-bkcolor-i">100</div>
+    <div class="col grey-200-bkcolor-i">200</div>
+    <div class="col grey-300-bkcolor-i">300</div>
+    <div class="col grey-400-bkcolor-i">400</div>
+    <div class="col grey-500-bkcolor-i">500</div>
+    <div class="col grey-600-bkcolor-i">600</div>
+    <div class="col grey-700-bkcolor-i">700</div>
+    <div class="col grey-800-bkcolor-i">800</div>
+    <div class="col grey-900-bkcolor-i">900</div>
+</div>
+<div class="d-flex row ltr m-50r text-center">
+    <div class="col blue-a100-bkcolor-i">100</div>
+    <div class="col blue-a200-bkcolor-i">200</div>
+    <div class="col blue-a400-bkcolor-i">400</div>
+    <div class="col blue-a700-bkcolor-i">700</div>
+</div>

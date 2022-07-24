@@ -22,13 +22,10 @@
     </figure>
 </div>
 <script>
-    var src = document.getElementById('source');
-    var trg = document.getElementById('target');
-    var prv = document.getElementById('preview');
     function Convert() {
-        let out = WNHtmlToEscape(src.value);
-        trg.value = out;
-        prv.innerHTML = out;
+        let out = WNHtmlToEscape(WNE('source').Element.value);
+        WNE('target').Element.value = out;
+        WNE('preview').Element.innerHTML = out;
     }
 
 </script>

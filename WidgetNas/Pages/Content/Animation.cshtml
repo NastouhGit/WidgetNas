@@ -13,6 +13,7 @@
         <div class="col-12 text-center overflow-hidden">
             <div id="AnimateDiv" class="animate slideInDown">                
                 <h1 class="primary-bkcolor">This is sample header</h1>
+                <p class="secondary-bkcolor">Some text cames here!</p>
             </div>
         </div>
     </div>
@@ -104,9 +105,7 @@
 </figure>
 
 <script>
-    var animatediv = document.getElementById('AnimateDiv');
     function Animate(obj) {
-        animatediv.className = 'animate ' + obj.innerHTML;
-        animatediv.animate(obj.innerHTML);
+        WNE('AnimateDiv').Element.className = 'animate ' + obj.innerHTML;
     }
 </script>

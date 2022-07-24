@@ -229,7 +229,7 @@ async function Post(data, postUrl) {
             referrerPolicy: "origin",
             body: data,
             headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Authorization": WNGetCookie('Token'),
                 "Content-Encoding": "deflate, gzip",
                 "Content-Type": "application/json",
                 "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
@@ -275,7 +275,7 @@ async function Get(data, postUrl) {
             redirect: "manual",
             referrerPolicy: "origin",
             headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Authorization": WNGetCookie('Token'),
                 "Content-Encoding": "deflate, gzip",
                 "Content-Type": "application/json",
                 "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
@@ -315,7 +315,7 @@ async function GetText(postUrl) {
             redirect: "manual",
             referrerPolicy: "origin",
             headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Authorization": WNGetCookie('Token'),
                 "Content-Encoding": "deflate, gzip",
                 "Content-Type": "application/json",
                 "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
@@ -356,7 +356,7 @@ async function GetFile(path, postUrl) {
             redirect: "manual",
             referrerPolicy: "origin",
             headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Authorization": WNGetCookie('Token'),
                 "Content-Encoding": "deflate, gzip",
             }
         })

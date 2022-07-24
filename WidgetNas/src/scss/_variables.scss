@@ -1,4 +1,5 @@
-﻿$breakpoints: (s: 576px,m: 768px,l: 992px,xl: 1200px,xxl: 1400px);
+﻿$breakpoints: (s: 576px,m: 768px,l: 992px,xl: 1200px,xxl: 999999999999px);
+$breakpoints-min: (s: 0,m: 576px,l: 768px,xl: 992px,xxl: 1200px);
 $container-widths: (s: 540px, m: 720px, l: 960px, xl: 1140px, xxl: 1320px);
 
 $grid-columns: 12 !default;

@@ -97,6 +97,27 @@
     align-self: stretch !important;
 }
 
+.flex-fill {
+    flex: 1 1 auto !important;
+}
+
+.flex-row {
+    flex-direction: row !important;
+}
+
+.flex-column {
+    flex-direction: column !important;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse !important;
+}
+
+.flex-justified {
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
 
 .row {
     display: flex;
@@ -131,34 +152,13 @@
 
         .col-#{$i}#{$media} {
             flex: 0 0 auto;
-            width: #{percentage($i / $grid-columns)};
+            width: #{percentage($i / $grid-columns)} !important;
         }
     }
 
     .d-none#{$media} {
         display:none;
     }
-}
-
-.flex-fill {
-    flex: 1 1 auto !important;
-}
-
-.flex-row {
-    flex-direction: row !important;
-}
-
-.flex-column {
-    flex-direction: column !important;
-}
-
-.flex-row-reverse {
-    flex-direction: row-reverse !important;
-}
-
-.flex-justified {
-    flex-basis: 0;
-    flex-grow: 1;
 }
 
 @media (max-width: map-get($breakpoints,'m')) {
