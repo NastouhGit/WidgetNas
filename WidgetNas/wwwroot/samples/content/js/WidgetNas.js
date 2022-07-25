@@ -99,8 +99,16 @@ function SetComponentCompatibility(elem = document) {
         let elem = selectors[i];
         if (elem !== null) {
             let st = getComputedStyle(elem);
-            if (st.direction == 'ltr')
-                elem.setAttribute('dir', 'ltr');
+            if (st.direction == 'ltr') {
+                if (elem.tagName == "INPUT" && (elem.type == 'email')) {
+                    if (getComputedStyle(elem.parentElement).direction == 'ltr')
+                        elem.setAttribute('dir', 'ltr');
+                    else
+                        elem.setAttribute('dir', 'rtl');
+                }
+                else
+                    elem.setAttribute('dir', 'ltr');
+            }
         }
     }
 }

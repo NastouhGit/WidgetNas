@@ -1,4 +1,6 @@
-﻿.group {
+﻿@import "../../_variables.scss";
+
+.group {
     position: relative;
     display: flex;
     flex-wrap: nowrap;
@@ -126,9 +128,17 @@
     & > :last-child,
     & > .dropdown-toggle:nth-last-child(2),
     & > [required]:nth-last-child(2) {
-        border-start-end-radius: calc( var(--border-radius) * 0.8) !important;
-        border-end-end-radius: calc( var(--border-radius) * 0.8) !important;
+        border-start-end-radius: calc( var(--border-radius) * .8) !important;
+        border-end-end-radius: calc( var(--border-radius) * .8) !important;
+
+        &[dir=rtl] {
+            border-start-end-radius: 0 !important;
+            border-end-end-radius: 0 !important;
+            border-start-start-radius: calc( var(--border-radius) * .8) !important;
+            border-end-start-radius: calc( var(--border-radius) * .8) !important;
+        }
     }
+
 
     & > :not(:last-child):not(.dropdown-toggle:nth-last-child(2)):not([required]:nth-last-child(2)):not([required]:nth-last-child(3)) {
         border-inline-end: var(--border-width) solid var(--normal-border) !important;
