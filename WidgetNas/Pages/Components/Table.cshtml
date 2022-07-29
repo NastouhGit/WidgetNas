@@ -1,0 +1,84 @@
+﻿@page
+@model WidgetNas.Pages.Components.TableModel
+@{
+    ViewData["Title"] = "جدول پیشرفته";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    جداول عضو جدایی ناپذیر در نمایش دیتا هستند. برای نمایش آنها میتوانید از <bidi>table</bidi> معمولی استفاده کنید ولی زمانیک میخواهید آنرا پویا کنید، باید
+    ساختار پیشرفته ای را بکار ببرید. ما در این قسمت سعی کردیم بخش بزرگی از استفاده با جدول را بسازیم.
+</p>
+
+<h2>جدول با داده پیش فرض</h2>
+<p>در این مثال شما تمایل دارید فقط جدول شما بدون دریافت اطلاعات از سرور و به صورت دیتای ثابت مدیریت شود.</p>
+<p>برای ساخت جدول پویا دقت کنید، حتما جدول دارای ساختار <bidi>thead</bidi> و <bidi>tbody</bidi> باشد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <table id="table1-ltr" class="hover" wn-type="table">
+            <thead>
+                <tr>
+                    <th sortable>#</th>
+                    <th sortable>First Name</th>
+                    <th sortable>Last Name</th>
+                    <th sortable>Position</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <td>Omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td>Reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                </tr>
+                <tr>
+                    <th>3</th>
+                    <td>Mohammad</td>
+                    <td>Keshavarz</td>
+                    <td>Marketing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">نام خانوادگی</th>
+                    <th scope="col">عنوان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>امید</td>
+                    <td>مریدی</td>
+                    <td>سازنده ویجت نس</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>رضا</td>
+                    <td>رحمانی</td>
+                    <td>برنامه نویس</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>محمد</td>
+                    <td>کشاورز</td>
+                    <td>بازاریابی</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure><code data-on="table1-ltr"></code></figure>

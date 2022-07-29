@@ -5757,6 +5757,42 @@ class wnsticky {
             this.element.classList.remove("sticky-onfly");
     }
 }
+;
+class wntable {
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.Init();
+        }
+    }
+    Init() {
+        this.FindHeader();
+    }
+    FindHeader() {
+        this.headcols = [];
+        this.cols = [];
+        let head = this.element.querySelector('thead');
+        head?.querySelectorAll('th').forEach((x) => {
+            this.headcols.push(x);
+        });
+        if (this.headcols.length == 0)
+            head?.querySelectorAll('td').forEach((x) => {
+                this.headcols.push(x);
+            });
+        this.headcols?.forEach((x) => {
+            let col = { caption: '', datatype: 'string', field: '', format: '', sortable: false };
+            col.caption = x.innerText;
+            if (x.hasAttribute('data-field'))
+                col.field = WNparseString(x.getAttribute('data-field'), '');
+            if (x.hasAttribute('data-type'))
+                col.datatype = WNparseString(x.getAttribute('data-type'), 'string');
+            if (x.hasAttribute('data-format'))
+                col.format = WNparseString(x.getAttribute('data-format'), '');
+            col.sortable = x.hasAttribute('sortable');
+            this.cols.push(col);
+        });
+    }
+}
 class wntime {
     constructor(elem) {
         this.Date = new wnDate();
