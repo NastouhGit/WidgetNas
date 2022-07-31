@@ -1,8 +1,8 @@
 function wnabout() {
     return `
 /*--------------------------------------
- * Widgetnas Version: 1.2.0.2
- * Release Date: 1401-02-24 - 2022-05-14
+ * Widgetnas Version: 1.3.0.0
+ * Release Date: 1401-05-04 - 2022-07-26
  *--------------------------------------*/
 `;
 }
