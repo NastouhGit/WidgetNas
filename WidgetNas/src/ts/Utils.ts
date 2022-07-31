@@ -15,7 +15,7 @@ function WNparseBoolean(value: any, Default?: boolean): boolean {
     return false;
 }
 function WNparseNumber(value: any, Default?: number, culture: wnCultureInfo = WNDefaultCultureInfo): number {
-    if ((value == undefined || value == null) && Default != undefined && Default != null)
+    if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
     value = WNDeNaitveDigit(value, culture);
     return parseInt(value);
@@ -57,6 +57,7 @@ function WNNaitveDigit(number: number | string, culture: wnCultureInfo, convert:
     return ret;
 }
 function WNDeNaitveDigit(value: string, culture: wnCultureInfo = WNDefaultCultureInfo): string {
+    value = value.toString();
     for (var i = 0; i < 10; i++) {
         let r = new RegExp('(' + culture.NumberFormat.NativeDigits[i] + ')', "ig");
         value = value.replace(r, i.toString());
@@ -319,4 +320,52 @@ function WNisJson(item) {
     }
 
     return false;
+}
+
+function WNtoTitleCase(text: string) {
+    let s = text.split(' ');
+    for (var i = 0; i < s.length; i++) {
+        if (s.length > 0)
+            s[i] = s[i][0].toUpperCase() + s[i].substr(1).toLowerCase();
+    }
+    return s.join(' ');
+}
+function WNNumberToString(num: number, culture: wnCultureInfo = WNDefaultCultureInfo): string {
+    let negsign = num < 0 ? culture.NumberFormat.NegativeSign : '';
+    num = WNparseNumber(num.toFixed(culture.NumberFormat.NumberDecimalDigits), 0);
+    var decimal = Math.abs(num) - Math.floor(Math.abs(num))
+    num = num - decimal;
+    let grp = num.toString().split("").reverse().join("").match(new RegExp('.{1,' + culture.NumberFormat.NumberGroupSizes[0] + '}', 'ig'));
+    let ret = negsign;
+    for (var i = grp.length - 1; i > -1; i--)
+        ret += grp[i].split("").reverse().join("") + (i != 0 ? culture.NumberFormat.NumberGroupSeparator : '');
+
+    if (decimal > 0)
+        ret += culture.NumberFormat.NumberDecimalSeparator + decimal.toString();
+    return ret;
+
+}
+function WNStringFormat(text: string | number, format: string, culture: wnCultureInfo = WNDefaultCultureInfo) {
+    let ret: string = text.toString();
+    if (format.includes('{0}'))
+        ret = format.replace('{0}', ret);
+    else if (format.toLowerCase() == 'l' || format.toLowerCase() == 'lowercase')
+        ret = ret.toLowerCase();
+    else if (format.toLowerCase() == 'u' || format.toLowerCase() == 'uppercase')
+        ret = ret.toUpperCase();
+    else if (format.toLowerCase() == 't' || format.toLowerCase() == 'titlecase')
+        ret = WNtoTitleCase(ret);
+    else if (format.toLowerCase() == 'number')
+        ret = WNNumberToString(WNparseNumber(text), culture);
+    else if (format.toLowerCase() == 'date')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toString();
+    else if (format.toLowerCase() == 'longdate')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toLongDateString();
+    else if (format.toLowerCase() == 'shortdate')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toShortDateString();
+    else if (format.toLowerCase() == 'longtime')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toLongTimeString();
+    else if (format.toLowerCase() == 'shorttime')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toShortTimeString();
+    return ret;
 }

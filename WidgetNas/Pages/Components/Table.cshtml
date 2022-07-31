@@ -19,30 +19,34 @@
         <table id="table1-ltr" class="hover" wn-type="table">
             <thead>
                 <tr>
-                    <th sortable>#</th>
-                    <th sortable>First Name</th>
-                    <th sortable>Last Name</th>
-                    <th sortable>Position</th>
+                    <th sortable data-field='id' data-type='number' data-format='number'>#</th>
+                    <th sortable data-field='firstName' data-format='Name is : {0}'>First Name</th>
+                    <th sortable data-field='lastName'>Last Name</th>
+                    <th sortable data-field='position' data-format='t'>Position</th>
+                    <th sortable data-field='date' data-format='date'>Birth Date</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th>1</th>
-                    <td>Omid</td>
+                    <td>omid</td>
                     <td>Moridi</td>
                     <td>WidgetNas Creator</td>
+                    <td>1979-04-06</td>
                 </tr>
                 <tr>
                     <th>2</th>
-                    <td>Reza</td>
+                    <td>reza</td>
                     <td>Rahmani</td>
                     <td>Developer</td>
+                    <td>2000-05-17</td>
                 </tr>
                 <tr>
                     <th>3</th>
                     <td>Mohammad</td>
                     <td>Keshavarz</td>
                     <td>Marketing</td>
+                    <td>2005-02-20</td>
                 </tr>
             </tbody>
         </table>

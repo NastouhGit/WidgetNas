@@ -499,7 +499,7 @@ function WNparseBoolean(value, Default) {
     return false;
 }
 function WNparseNumber(value, Default, culture = WNDefaultCultureInfo) {
-    if ((value == undefined || value == null) && Default != undefined && Default != null)
+    if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
     value = WNDeNaitveDigit(value, culture);
     return parseInt(value);
@@ -540,6 +540,7 @@ function WNNaitveDigit(number, culture, convert) {
     return ret;
 }
 function WNDeNaitveDigit(value, culture = WNDefaultCultureInfo) {
+    value = value.toString();
     for (var i = 0; i < 10; i++) {
         let r = new RegExp('(' + culture.NumberFormat.NativeDigits[i] + ')', "ig");
         value = value.replace(r, i.toString());
@@ -794,6 +795,51 @@ function WNisJson(item) {
         return true;
     }
     return false;
+}
+function WNtoTitleCase(text) {
+    let s = text.split(' ');
+    for (var i = 0; i < s.length; i++) {
+        if (s.length > 0)
+            s[i] = s[i][0].toUpperCase() + s[i].substr(1).toLowerCase();
+    }
+    return s.join(' ');
+}
+function WNNumberToString(num, culture = WNDefaultCultureInfo) {
+    let negsign = num < 0 ? culture.NumberFormat.NegativeSign : '';
+    num = WNparseNumber(num.toFixed(culture.NumberFormat.NumberDecimalDigits), 0);
+    var decimal = Math.abs(num) - Math.floor(Math.abs(num));
+    num = num - decimal;
+    let grp = num.toString().split("").reverse().join("").match(new RegExp('.{1,' + culture.NumberFormat.NumberGroupSizes[0] + '}', 'ig'));
+    let ret = negsign;
+    for (var i = grp.length - 1; i > -1; i--)
+        ret += grp[i].split("").reverse().join("") + (i != 0 ? culture.NumberFormat.NumberGroupSeparator : '');
+    if (decimal > 0)
+        ret += culture.NumberFormat.NumberDecimalSeparator + decimal.toString();
+    return ret;
+}
+function WNStringFormat(text, format, culture = WNDefaultCultureInfo) {
+    let ret = text.toString();
+    if (format.includes('{0}'))
+        ret = format.replace('{0}', ret);
+    else if (format.toLowerCase() == 'l' || format.toLowerCase() == 'lowercase')
+        ret = ret.toLowerCase();
+    else if (format.toLowerCase() == 'u' || format.toLowerCase() == 'uppercase')
+        ret = ret.toUpperCase();
+    else if (format.toLowerCase() == 't' || format.toLowerCase() == 'titlecase')
+        ret = WNtoTitleCase(ret);
+    else if (format.toLowerCase() == 'number')
+        ret = WNNumberToString(WNparseNumber(text), culture);
+    else if (format.toLowerCase() == 'date')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toString();
+    else if (format.toLowerCase() == 'longdate')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toLongDateString();
+    else if (format.toLowerCase() == 'shortdate')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toShortDateString();
+    else if (format.toLowerCase() == 'longtime')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toLongTimeString();
+    else if (format.toLowerCase() == 'shorttime')
+        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toShortTimeString();
+    return ret;
 }
 var WNDefaultNaitveDigit = true;
 var WNDefaultCalendar;
@@ -5767,18 +5813,17 @@ class wntable {
     }
     Init() {
         this.FindHeader();
+        this.ReadStaticData();
+        this.Render();
     }
     FindHeader() {
         this.headcols = [];
         this.cols = [];
         let head = this.element.querySelector('thead');
-        head?.querySelectorAll('th').forEach((x) => {
+        head?.querySelectorAll('td,th').forEach((x) => {
             this.headcols.push(x);
         });
-        if (this.headcols.length == 0)
-            head?.querySelectorAll('td').forEach((x) => {
-                this.headcols.push(x);
-            });
+        let i = 1;
         this.headcols?.forEach((x) => {
             let col = { caption: '', datatype: 'string', field: '', format: '', sortable: false };
             col.caption = x.innerText;
@@ -5789,7 +5834,44 @@ class wntable {
             if (x.hasAttribute('data-format'))
                 col.format = WNparseString(x.getAttribute('data-format'), '');
             col.sortable = x.hasAttribute('sortable');
+            if (col.field == '') {
+                col.field = 'f' + i;
+                i++;
+            }
             this.cols.push(col);
+        });
+    }
+    ReadStaticData() {
+        this.masterdata = [];
+        this.bodytable = this.element.querySelector('tbody');
+        let tr = this.bodytable?.querySelectorAll('tr');
+        tr.forEach((x) => {
+            let cols = x.querySelectorAll('td,th');
+            let r = {};
+            for (var i = 0; i < cols.length; i++) {
+                r[this.cols[i].field] = cols[i].innerHTML;
+            }
+            this.masterdata.push(r);
+        });
+        this.renderata = this.masterdata.map((x) => x);
+    }
+    Render() {
+        if (this.bodytable == null)
+            return;
+        this.bodytable.innerHTML = '';
+        this.renderata.forEach((x) => {
+            let tr = document.createElement('tr');
+            for (var i = 0; i < this.cols.length; i++) {
+                let td = document.createElement('td');
+                let text = x[this.cols[i].field];
+                if (this.cols[i].datatype == 'number')
+                    text = WNparseNumber(text, 0);
+                if (this.cols[i].format != '')
+                    text = WNStringFormat(text, this.cols[i].format);
+                td.innerHTML = text;
+                tr.appendChild(td);
+            }
+            this.bodytable.appendChild(tr);
         });
     }
 }
