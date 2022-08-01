@@ -16,14 +16,14 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <table id="table1-ltr" class="hover" wn-type="table">
+        <table id="table1-ltr" class="tablex hover striped" wn-type="table" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US">
             <thead>
                 <tr>
                     <th sortable data-field='id' data-type='number' data-format='number'>#</th>
-                    <th sortable data-field='firstName' data-format='Name is : {0}'>First Name</th>
+                    <th data-field='firstName' data-format='Name is : {0}'>First Name</th>
                     <th sortable data-field='lastName'>Last Name</th>
                     <th sortable data-field='position' data-format='t'>Position</th>
-                    <th sortable data-field='date' data-format='date'>Birth Date</th>
+                    <th sortable data-field='date' data-type='date' data-format='shortdate'>Birth Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +32,7 @@
                     <td>omid</td>
                     <td>Moridi</td>
                     <td>WidgetNas Creator</td>
-                    <td>1979-04-06</td>
+                    <td>1979-04-04</td>
                 </tr>
                 <tr>
                     <th>2</th>
@@ -53,33 +53,37 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <table>
+        <table id="table1-rtl" class="tablex hover striped" wn-type="table" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">نام</th>
-                    <th scope="col">نام خانوادگی</th>
-                    <th scope="col">عنوان</th>
+                    <th sortable data-field='id' data-type='number' data-format='number'>#</th>
+                    <th data-field='firstName' data-format='نام : {0}'>نام</th>
+                    <th sortable data-field='lastName'>نام خانوادگی</th>
+                    <th sortable data-field='position' data-format='t'>عنوان</th>
+                    <th sortable data-field='date' data-type='date' data-format='shortdate'>تاریخ تولد</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
+                    <th>1</th>
                     <td>امید</td>
                     <td>مریدی</td>
                     <td>سازنده ویجت نس</td>
+                    <td>1979-04-04</td>
                 </tr>
                 <tr>
-                    <th scope="row">2</th>
+                    <th>2</th>
                     <td>رضا</td>
                     <td>رحمانی</td>
                     <td>برنامه نویس</td>
+                    <td>2000-05-17</td>
                 </tr>
                 <tr>
-                    <th scope="row">3</th>
+                    <th>3</th>
                     <td>محمد</td>
                     <td>کشاورز</td>
                     <td>بازاریابی</td>
+                    <td>2005-02-20</td>
                 </tr>
             </tbody>
         </table>
