@@ -5820,6 +5820,7 @@ class wntable {
         if (!this.element.classList.contains('pointer'))
             this.element.classList.add('pointer');
         this.FindHeader();
+        this.FilterHeaderRow();
         this.ReadStaticData();
         this.Render();
     }
@@ -5827,13 +5828,13 @@ class wntable {
         this.headcols = [];
         this.cols = [];
         let head = this.element.querySelector('thead');
-        head?.querySelectorAll('td,th').forEach((x) => {
+        head?.querySelectorAll('tr:first-child td,th').forEach((x) => {
             this.headcols.push(x);
         });
         let i = 1;
         let colindex = 0;
         this.headcols?.forEach((x) => {
-            let col = { caption: '', field: '', datatype: '', sortable: false, format: '' };
+            let col = { index: 0, caption: '', field: '', datatype: '', sortable: false, filterable: false, format: '', class: '' };
             col.caption = x.innerText;
             if (x.hasAttribute('data-field'))
                 col.field = WNparseString(x.getAttribute('data-field'), '');
@@ -5841,7 +5842,9 @@ class wntable {
                 col.datatype = WNparseString(x.getAttribute('data-type'), 'string');
             if (x.hasAttribute('data-format'))
                 col.format = WNparseString(x.getAttribute('data-format'), '');
+            col.class = x.className;
             col.sortable = x.hasAttribute('sortable');
+            col.index = colindex;
             x.setAttribute('index', colindex.toString());
             if (col.sortable) {
                 if (!x.classList.contains('sort'))
@@ -5851,6 +5854,7 @@ class wntable {
                     this.Render();
                 });
             }
+            col.filterable = x.hasAttribute('filterable');
             if (col.field == '') {
                 col.field = 'f' + i;
                 i++;
@@ -5858,6 +5862,30 @@ class wntable {
             colindex++;
             this.cols.push(col);
         });
+    }
+    FilterHeaderRow() {
+        this.filterinput = [];
+        let addfilter = false;
+        let tr = document.createElement('tr');
+        this.cols.forEach((x) => {
+            let td = document.createElement('td');
+            if (x.filterable) {
+                let inp = document.createElement('input');
+                inp.type = 'text';
+                inp.setAttribute('index', x.index.toString());
+                inp.addEventListener('input', (t) => { this.SetFilter(); });
+                td.appendChild(inp);
+                addfilter = true;
+                this.filterinput.push(inp);
+            }
+            else
+                this.filterinput.push(null);
+            tr.appendChild(td);
+        });
+        if (addfilter) {
+            let head = this.element.querySelector('thead');
+            head?.appendChild(tr);
+        }
     }
     ReadStaticData() {
         this.masterdata = [];
@@ -5904,6 +5932,21 @@ class wntable {
                 tr.appendChild(td);
             }
             this.bodytable.appendChild(tr);
+        });
+    }
+    SetFilter() {
+        let rows = this.bodytable.querySelectorAll('tr');
+        rows.forEach((x) => {
+            x.style.display = '';
+            let col = x.querySelectorAll('td');
+            for (var i = 0; i < this.filterinput.length; i++) {
+                if (x.style.display != 'none' && this.filterinput[i] != null && this.filterinput[i].value != '') {
+                    if (!col[i].innerText.toLowerCase().includes(this.filterinput[i].value.toLowerCase())) {
+                        x.style.display = 'none';
+                        break;
+                    }
+                }
+            }
         });
     }
     Sort(colIndex) {
