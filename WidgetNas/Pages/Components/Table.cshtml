@@ -13,6 +13,8 @@
 <h2>جدول با داده پیش فرض</h2>
 <p>در این مثال شما تمایل دارید فقط جدول شما بدون دریافت اطلاعات از سرور و به صورت دیتای ثابت مدیریت شود.</p>
 <p>برای ساخت جدول پویا دقت کنید، حتما جدول دارای ساختار <bidi>thead</bidi> و <bidi>tbody</bidi> باشد.</p>
+<p>برای استفاده از کلاسهای مرتبط با جدول به قسمت <a href="/Content/Table">جدول</a> مراجعه کنید.</p>
+<p>حتما برای استفاده از جدول پویا بایستی خصوصیت wn-type را با مقدار table مقدار دهی کنید.</p>
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
@@ -57,10 +59,10 @@
             <thead>
                 <tr>
                     <th sortable data-field='id' data-type='number' data-format='number'>#</th>
-                    <th data-field='firstName' data-format='نام : {0}'>نام</th>
-                    <th sortable data-field='lastName'>نام خانوادگی</th>
-                    <th sortable data-field='position' data-format='t'>عنوان</th>
-                    <th sortable data-field='date' data-type='date' data-format='shortdate'>تاریخ تولد</th>
+                    <th filterable data-field='firstName' data-format='نام : {0}'>نام</th>
+                    <th filterable sortable data-field='lastName'>نام خانوادگی</th>
+                    <th filterable sortable data-field='position' data-format='t'>عنوان</th>
+                    <th filterable sortable data-field='date' data-type='date' data-format='shortdate'>تاریخ تولد</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,3 +92,166 @@
     </div>
 </div>
 <figure><code data-on="table1-ltr"></code></figure>
+<h3>خصوصیات و قوانین ایجاد جدول</h3>
+<p>برای ساخت جدول پویا بایستی موارد زیر را در نظر داشته باشید.</p>
+<p>
+    <h4>tablex</h4> این کلاس برای معرفی جدول پویا است، میتوانید از این کلاس استفاده کنید یا کلاس مرتبط با آن را بسازید و از کلاس خود استفاده کنید.
+</p>
+<p>
+    <h4>calendar</h4>
+    با تنظیم این خصوصیت فیلدهای تاریخی به تاریخ مد نظر نمایش داده میشوند، عدم استفاده از این خصوصیت منجر
+    به استفاده از مقدار پیش فرض صفحه خواهد شد.
+</p>
+<p>
+    <h4>cultureinfo</h4>
+    با تنظیم این خصوصیت فیلدها  با مقدار فرهنگ  مد نظر نمایش داده میشوند، عدم استفاده از این خصوصیت منجر
+    به استفاده از مقدار پیش فرض صفحه خواهد شد.
+</p>
+<h3>معرفی ستونها</h3>
+<p>برای معرفی ستونها بایستی در تگ <bidi>thead</bidi> ستونهای خود را با خصوصیات مد نظر تنظیم کنید.</p>
+<p>پس از تعریف یک thead بایستی یک تگ tr و سپس ستون ها با استفاده از تگ th یا td استفاده کنید. برای هر td بر حسب نیاز خصوصیات زیر را تنظیم کنید.</p>
+<p>
+    <h4>data-field</h4>
+    این خصوصیت برای تنظیم نام فیلد در لیست دیتای شما میباشد. یا همان نام فیلد.
+</p>
+<p>
+    <h4>data-type</h4>
+    این خصوصیت جنس فیلد را مشخص میکند. این خصوصیت میتوانید یکی از موارد زیر باشد.
+    <ul>
+        <li><bidi>string</bidi> فیلد به صورت رشته ای است، در صورت عدم تنظیم، این مقدار پیش فرض است.</li>
+        <li><bidi>number</bidi> فیلد به صورت عددی است، چه اعشار و چه غیر آن.</li>
+        <li><bidi>date</bidi> فیلد به صورت تاریخ و ساعت است.</li>
+    </ul>
+</p>
+<p>
+    <h4>sortable</h4>
+    اگر میخواهید ستون قابلیت منظم شدن داشته باشند، این خصوصیت مشخص میکند این ستون میتواند بر اساس دیتای آن مرتب شود.
+    <br />
+    اگر مقدار value را وارد کنید بر اساس مقدار آن ستون و اگر مقدار caption را وارد کنید بر اساس متن نمایش داده عملیات صورت میگیرد.
+    مقدار پیش فرض value است.
+</p>
+<p>
+    <h4>filterable</h4>
+    اگر میخواهید ستون قابلیت فیلتر شدن داشته باشند، این خصوصیت مشخص میکند این ستون میتواند بر اساس دیتای آن و مقدار وارد شده در جعبه متن ورودی فیلتر شود.
+    <br />
+    اگر مقدار value را وارد کنید بر اساس مقدار آن ستون و اگر مقدار caption را وارد کنید بر اساس متن نمایش داده عملیات صورت میگیرد.
+    مقدار پیش فرض value است.
+</p>
+<p>
+    <h4></h4>
+</p>
+
+<h2>خواندن اطلاعات از سرور</h2>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <table id="table2-ltr" class="tablex hover striped" wn-type="table" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US">
+            <thead>
+                <tr>
+                    <th sortable data-field='__privatekey' data-type='number'>#</th>
+                    <th filterable sortable data-field='Student name' data-type='string'>Name</th>
+                    <th filterable sortable data-field='Exam name' data-type='string}'>Exam</th>
+                    <th filterable sortable data-field='Exam date' data-type='date' data-format='shortdate'>Date</th>
+                    <th filterable sortable data-field='Exam points' data-type='number'>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        <nav class="pagination justify-content-center s-m" rows='10'>
+                            <button class="first"><i class="fa-solid fa-backward-fast"></i></button>
+                            <button class="previous"><i class="fa-solid fa-backward"></i></button>
+                            <button>1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>4</button>
+                            <button>5</button>
+                            <button>6</button>
+                            <button>7</button>
+                            <button class="next"><i class="fa-solid fa-forward"></i></button>
+                            <button class="last"><i class="fa-solid fa-forward-fast"></i></button>
+                        </nav>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <script>
+            WNE(document).Ready(async () => {
+                await Get(null, '/data/examslist.en.json').then((r) => {
+                    WN['table2-ltr'].setdata(r,  false);
+                }).catch((e) => {
+                    console.log(e);
+                });
+            });
+        </script>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <table id="table2-rtl" class="tablex hover striped" wn-type="table" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR">
+            <thead>
+                <tr>
+                    <th sortable data-field='__privatekey' data-type='number'>#</th>
+                    <th filterable sortable data-field='Student name' data-type='string'>نام</th>
+                    <th filterable sortable data-field='Exam name' data-type='string}'>آزمون</th>
+                    <th filterable sortable data-field='Exam date' data-type='date' data-format='shortdate'>تاریخ</th>
+                    <th filterable sortable data-field='Exam points' data-type='number'>نمره</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        <nav class="pagination justify-content-center s-m" rows='10'>
+                            <button class="first"><i class="fa-solid fa-forward-fast"></i></button>
+                            <button class="previous"><i class="fa-solid fa-forward"></i></button>
+                            <button>1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>4</button>
+                            <button>5</button>
+                            <button>6</button>
+                            <button>7</button>
+                            <button class="next"><i class="fa-solid fa-backward"></i></button>
+                            <button class="last"><i class="fa-solid fa-backward-fast"></i></button>
+                        </nav>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <script>
+            WNE(document).Ready(async () => {
+                await Get(null, '/data/examslist.fa.json').then((r) => {
+                    WN['table2-rtl'].setdata(r, false);
+                }).catch((e) => {
+                    console.log(e);
+                });
+            });
+        </script>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<p>
+    شما با هر روشی که مایل هستید، اطلاعات را از سرور بخوانید، در نهایت بایستی توسط تابع <bidi>setdata</bidi> آنرا به جدول متصل کنید.
+    این تابع دو ورودی دارد، اولی مقدار آرایه ای از رکوردها و ورودی دوم جهت اضافه کردن به انتهای لیست قبلی یا نه قرار دادن همین
+    اطلاعات بعنوان اطلاعات اصلی.
+</p>
+<h2>صفحه بندی</h2>
+<p>اگر دیتا بلند بالایی دارید و لیست شدن آن پشت سر هم آزار دهنده است میتوانید آن را صفحه بندی کنید،
+    بدین منظور برای ساخت شکل نمایش آن از <a href="/Components/Pagination">شماره صفحه</a> استفاده کنید. 
+    سپس قوانین زیر را بر روی آن اعمال کنید.
+</p>
+<ul>
+    <li>در هر قسمت از صفحه که خواستید آنرا قرار دهید ولیکن حتما از کلاس <bidi>pagination</bidi> استفاده کنید.</li>
+    <li>تعداد صفحاتی که در نظر دارید نمایش داده شود را به صورت <bidi>button</bidi> معرفی کنید. تعدادی که قرار دادید، از آن استفاده خواهد شد.</li>
+    <li>اگر میخواهید دکمه ابتدا را داشته باشید، یک دکمه با کلاس <bidi>first</bidi> بسازید.</li>
+    <li>اگر میخواهید دکمه صفحه قبل را داشته باشید، یک دکمه با کلاس <bidi>previous</bidi> بسازید.</li>
+    <li>اگر میخواهید دکمه صفحه بعد را داشته باشید، یک دکمه با کلاس <bidi>next</bidi> بسازید.</li>
+    <li>اگر میخواهید دکمه آخرین صفحه را داشته باشید، یک دکمه با کلاس <bidi>last</bidi> بسازید.</li>
+    <li>هر استایل و هر شکلی که تمایل دارید بسازید و انواع کلاسها را قرار دهید.</li>
+    <li>برای نمایش تعداد ردیف در هر صفحه از خصوصیت <bidi>rows</bidi> استفاده کنید. هر تعداد ردیف را وارد کنید، آن تعداد در هر صفحه نمایش داده خواهد شد.</li>
+</ul>
+<h2>رخدادها</h2>
