@@ -1,8 +1,8 @@
 function wnabout() {
     return `
 /*--------------------------------------
- * Widgetnas Version: 1.2.0.2
- * Release Date: 1401-02-24 - 2022-05-14
+ * Widgetnas Version: 1.3.0.0
+ * Release Date: 1401-05-04 - 2022-07-26
  *--------------------------------------*/
 `;
 }
@@ -18,10 +18,10 @@ function initComponents() {
         WNDefaultCalendar = new wnGregorianCalendar();
         WNDefaultCultureInfo = new wnCultureInfo_en_US();
     }
-    CheckBrowserCompatibility();
-    InitWNBlock(document);
     WNTagEvalScript(document.head);
     WNTagEvalScriptBody();
+    CheckBrowserCompatibility();
+    InitWNBlock(document);
 }
 function CheckBrowserCompatibility() {
     let objAgent = navigator.userAgent;
@@ -99,8 +99,16 @@ function SetComponentCompatibility(elem = document) {
         let elem = selectors[i];
         if (elem !== null) {
             let st = getComputedStyle(elem);
-            if (st.direction == 'ltr')
-                elem.setAttribute('dir', 'ltr');
+            if (st.direction == 'ltr') {
+                if (elem.tagName == "INPUT" && (elem.type == 'email')) {
+                    if (getComputedStyle(elem.parentElement).direction == 'ltr')
+                        elem.setAttribute('dir', 'ltr');
+                    else
+                        elem.setAttribute('dir', 'rtl');
+                }
+                else
+                    elem.setAttribute('dir', 'ltr');
+            }
         }
     }
 }
@@ -229,7 +237,7 @@ async function Post(data, postUrl) {
             referrerPolicy: "origin",
             body: data,
             headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Authorization": WNGetCookie('Token'),
                 "Content-Encoding": "deflate, gzip",
                 "Content-Type": "application/json",
                 "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
@@ -264,7 +272,8 @@ async function Get(data, postUrl) {
         else
             url = '/' + url;
     }
-    url += "?" + encodeURIComponent(JSON.stringify(data));
+    if (data != undefined && data != '')
+        url += "?" + encodeURIComponent(JSON.stringify(data));
     return new Promise(async (resolve, reject) => {
         await fetch(url, {
             method: "get",
@@ -274,7 +283,7 @@ async function Get(data, postUrl) {
             redirect: "manual",
             referrerPolicy: "origin",
             headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Authorization": WNGetCookie('Token'),
                 "Content-Encoding": "deflate, gzip",
                 "Content-Type": "application/json",
                 "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
@@ -283,6 +292,46 @@ async function Get(data, postUrl) {
             .then((response) => {
             try {
                 resolve(response.json());
+            }
+            catch (e) {
+                console.error(e);
+                reject(e);
+            }
+        })
+            .catch((e) => {
+            console.error(e);
+            reject(e);
+        });
+    });
+}
+async function GetText(postUrl) {
+    let url = postUrl;
+    if (url.startsWith('/'))
+        url = url.substr(1);
+    if (!url.toLowerCase().startsWith('http')) {
+        if (WNBaseFetchUri !== undefined)
+            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
+        else
+            url = '/' + url;
+    }
+    return new Promise(async (resolve, reject) => {
+        await fetch(url, {
+            method: "get",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            redirect: "manual",
+            referrerPolicy: "origin",
+            headers: {
+                "Authorization": WNGetCookie('Token'),
+                "Content-Encoding": "deflate, gzip",
+                "Content-Type": "application/json",
+                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
+            }
+        })
+            .then((response) => {
+            try {
+                resolve(response.text());
             }
             catch (e) {
                 console.error(e);
@@ -315,7 +364,7 @@ async function GetFile(path, postUrl) {
             redirect: "manual",
             referrerPolicy: "origin",
             headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
+                "Authorization": WNGetCookie('Token'),
                 "Content-Encoding": "deflate, gzip",
             }
         })
@@ -1769,16 +1818,17 @@ class wndropdown {
         let defaultevent = "click";
         if (this.element.hasAttribute('wn-dropdown-event'))
             defaultevent = this.element.getAttribute('wn-dropdown-event');
-        defaultevent.split(',').forEach((s) => {
-            this.element.addEventListener(s.trim(), (e) => {
-                if (this.CheckOnlyDropDown) {
-                    if ((e.target == this.dropdown))
+        if (defaultevent !== '')
+            defaultevent.split(',').forEach((s) => {
+                this.element.addEventListener(s.trim(), (e) => {
+                    if (this.CheckOnlyDropDown) {
+                        if ((e.target == this.dropdown))
+                            this._Toggle();
+                    }
+                    else
                         this._Toggle();
-                }
-                else
-                    this._Toggle();
+                });
             });
-        });
         if (this.element.hasAttribute('onbeforeshow'))
             this.beforeshow = new Function('t', this.element.getAttribute('onbeforeshow'));
         if (this.element.hasAttribute('onbeforehide'))
@@ -1861,6 +1911,9 @@ class wndropdown {
         this.dropdown.focus();
         if (this.aftershow != null)
             this.aftershow(this);
+    }
+    HideAllDropDowns() {
+        LastDropdownOpened.forEach((x) => { x.classList.remove('show'); });
     }
     SetPosition() {
         let dropdown_cs = getComputedStyle(this.dropdown);
@@ -4881,6 +4934,7 @@ class wnlist {
         });
     }
     get currentvalue() { return this._currentSelect?.getAttribute('wn-list-value'); }
+    get currentcaption() { return this._currentSelect?.innerText; }
     Init() {
         this._listType = this.element.nodeName;
         this.element.classList.add('list');
@@ -4906,11 +4960,12 @@ class wnlist {
     }
     click(e) {
         let node = e.target;
-        if (this._listType == 'TABLE')
+        if (this._listType == 'TABLE') {
             if (node.parentElement.tagName == 'THEAD')
                 return;
-        if (node.tagName == 'TD')
-            node = node.parentElement;
+            if (node.tagName == 'TD')
+                node = node.parentElement;
+        }
         if (this.beforeclick != null)
             if (!this.beforeclick(this, e))
                 return;
@@ -5038,9 +5093,20 @@ class wnlist {
             this._items = [];
             this.refresh();
         }
-        datasource.forEach((x) => {
-            this.addrow(x[displayfield], x[valuefield]);
-        });
+        if (valuefield == '' && displayfield == '') {
+            let keys = Object.keys(datasource);
+            let values = Object.values(datasource);
+            for (var i = 0; i < values.length; i++) {
+                let k = '';
+                if (i >= keys.length)
+                    k = keys[i];
+                this.addrow(values[i], k);
+            }
+        }
+        else
+            datasource.forEach((x) => {
+                this.addrow(x[displayfield], x[valuefield]);
+            });
     }
 }
 class wnmodal {
@@ -5125,6 +5191,125 @@ class wnmodal {
             else
                 WNRemoveClassList(this.element, "show");
         });
+    }
+}
+class wnmultiselect {
+    constructor(elem) {
+        this.max = 0;
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.Init();
+        }
+    }
+    Init() {
+        this.selecteditems = [];
+        this.max = WNparseNumber(this.element.getAttribute('max'), 0);
+        if (this.element.hasAttribute('onselectionchanged'))
+            this.selectionchanged = new Function('t', this.element.getAttribute('onselectionchanged'));
+        if (this.element.hasAttribute('onbeforedeselect'))
+            this.beforedeselect = new Function('t', 'n', 'i', this.element.getAttribute('onbeforedeselect'));
+        if (this.element.hasAttribute('onafterdeselect'))
+            this.afterdeselect = new Function('t', 'i', this.element.getAttribute('onafterdeselect'));
+        this.searchbox = this.element.querySelector('[type=search]');
+        this.selectedarea = this.element.querySelector('.selecteditem');
+        this.dropdownlist = this.element.querySelector('.dropdown');
+        if (this.searchbox == null) {
+            this.searchbox = document.createElement("input");
+            this.searchbox.type = "search";
+        }
+        this.searchbox.autocomplete = 'off';
+        if (this.selectedarea == null) {
+            this.selectedarea = document.createElement("div");
+            this.selectedarea.className = "selecteditem";
+        }
+        if (this.dropdownlist == null) {
+            this.dropdownlist = document.createElement("div");
+            this.dropdownlist.className = "dropdown";
+        }
+        this.element.setAttribute('wn-dropdown-event', '');
+        this.dropdown = new wndropdown(this.element);
+        this.search = new wnsearchlist(this.element);
+        if (this.dropdownlist.hasChildNodes())
+            this.search.listelement = this.dropdownlist.firstElementChild;
+        this.search.filterchanged = async () => {
+            this.dropdown.Show();
+        };
+        this.searchbox.addEventListener('focus', async () => {
+            if (!this.dropdown.element.classList.contains('show')) {
+                this.dropdown.HideAllDropDowns();
+                this.dropdown.Show();
+            }
+        });
+        this.WaitToInitList();
+    }
+    WaitToInitList() {
+        let tim = setInterval(() => {
+            if (WN[this.search.listelement.id] != null) {
+                WN[this.search.listelement.id].selectionchange = (t, n) => this.selectionchange(t, n);
+                clearInterval(tim);
+            }
+        }, 100);
+    }
+    selectionchange(t, n) {
+        let value = this.search.list.currentvalue;
+        let caption = this.search.list.currentcaption;
+        if (value == null)
+            value = '';
+        let item = { value: value, caption: caption };
+        if (this.selecteditems.find((x) => x.value == item.value && x.caption == item.caption) == null) {
+            if (this.max > 0 && this.selecteditems.length >= this.max)
+                return;
+            this.selecteditems.push(item);
+            this.AddSelectedSpan(caption, value);
+            if (this.selectionchanged != null)
+                this.selectionchanged(this);
+        }
+    }
+    AddSelectedSpan(caption, value) {
+        let sp = document.createElement('span');
+        sp.innerHTML = caption;
+        sp.setAttribute('value', value);
+        sp.dir = this.element.dir;
+        sp.addEventListener('click', (t) => {
+            let node = t.target;
+            let item = { value: node.getAttribute('value'), caption: node.innerHTML };
+            this.DeselectByItem(item);
+        });
+        this.selectedarea.appendChild(sp);
+    }
+    DeselectByItem(item) {
+        if (item == null)
+            return;
+        let node;
+        let nodes = this.selectedarea.querySelectorAll("span");
+        nodes.forEach((x) => {
+            if (x.getAttribute('value') == item.value && x.innerHTML == item.caption) {
+                node = x;
+            }
+        });
+        if (this.beforedeselect != null)
+            if (!this.beforedeselect(this, node, item))
+                return;
+        let idx = this.selecteditems.findIndex((x) => x.value == item.value && x.caption == item.caption);
+        if (idx > -1) {
+            this.selecteditems.splice(idx, 1);
+            node.remove();
+            if (this.afterdeselect != null)
+                this.afterdeselect(this, item);
+        }
+    }
+    DeselectByCaption(caption) {
+        let item = this.selecteditems.find((x) => x.caption == caption);
+        this.DeselectByItem(item);
+    }
+    DeselectByValue(value) {
+        let item = this.selecteditems.find((x) => x.value == value);
+        this.DeselectByItem(item);
+    }
+    setdata(datasource) {
+        this.selecteditems = datasource;
+        this.selectedarea.innerHTML = '';
+        this.selecteditems.forEach((x) => { this.AddSelectedSpan(x.caption, x.value); });
     }
 }
 class wnprogress {
@@ -5224,6 +5409,88 @@ class wnscroll {
                 if (this.element.classList.contains(this.toggleclass))
                     this.element.classList.remove(this.toggleclass);
             }
+        }
+    }
+}
+class wnsearchlist {
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.Init();
+        }
+    }
+    Init() {
+        this.searchbox = this.element.querySelector('[type=search]');
+        this.searchbox.autocomplete = 'off';
+        this.listelement = this.searchbox.nextElementSibling;
+        if (this.listelement == null)
+            this.listelement = this.searchbox.previousElementSibling;
+        if (this.listelement == null)
+            return;
+        if (this.element.hasAttribute('display-id'))
+            this.displayelement = document.getElementById(this.element.getAttribute('display-id'));
+        if (this.element.hasAttribute('value-id'))
+            this.valueelement = document.getElementById(this.element.getAttribute('value-id'));
+        this._Url = WNparseString(this.element.getAttribute('url'), this._Url);
+        this.searchbox.addEventListener('input', async (e) => {
+            let v = e.target.value;
+            if (this._Url == null || this._Url == '') {
+                WNFilter(this.listelement.querySelectorAll('tr'), 'contains(' + v + ')');
+                WNFilter(this.listelement.querySelectorAll('li'), 'contains(' + v + ')');
+                if (this.listelement.getAttribute('wn-type') == 'tree') {
+                    this.FixedTreeDisplay();
+                }
+            }
+            else {
+                await Post(WNAddStringQuote(v), this._Url).then((r) => {
+                    if (this.listelement.getAttribute('wn-type') == 'list') {
+                        let l = this.list;
+                        l.setdata(r, WNparseString(this.element.getAttribute('field-display'), ''), WNparseString(this.element.getAttribute('field-value'), ''), false);
+                    }
+                    if (this.listelement.getAttribute('wn-type') == 'tree') {
+                        let fs = WNparseString(this.element.getAttribute('fieldset'), '').split(',');
+                        if (fs.length == 6) {
+                            let l = this.list;
+                            l.setdata(r, fs[0], fs[1], fs[2], fs[3], fs[4], fs[5], false);
+                        }
+                    }
+                }).catch((e) => {
+                    console.log(e);
+                });
+            }
+            if (this.filterchanged != null)
+                this.filterchanged();
+        });
+        this.WaitToInitList();
+    }
+    WaitToInitList() {
+        let tim = setInterval(() => {
+            if (WN[this.listelement.id] != null) {
+                this.list = WN[this.listelement.id];
+                this.list.selectionchange = (t, n) => this.selectionchange(t, n);
+                clearInterval(tim);
+            }
+        }, 100);
+    }
+    FixedTreeDisplay() {
+        let nodes = this.listelement.querySelectorAll('li:not([style*="display:none"]):not([style*="display: none"])');
+        nodes.forEach((x) => {
+            let p = x.parentElement;
+            while (p != this.listelement) {
+                p.style.display = '';
+                p.classList.remove('collapsed');
+                let pp = p.querySelectorAll('[class*="tree-item"]');
+                pp.forEach((xx) => { xx.style.display = ''; });
+                p = p.parentElement;
+            }
+        });
+    }
+    selectionchange(t, n) {
+        if (this.displayelement != null) {
+            this.displayelement.value = this.list.currentcaption;
+        }
+        if (this.valueelement != null) {
+            this.valueelement.value = this.list.currentvalue;
         }
     }
 }
@@ -6094,14 +6361,14 @@ class wntree {
                 html += " wn-tree-value='" + value + "'";
             html += ">";
             if (image != '')
-                html = "<img src='" + image + "' />";
+                html += "<img src='" + image + "' />";
             html += text;
             html += "</div>";
         }
         if (type == 'tree-link' || type == 'link') {
             html = "<a class='tree-link' wn-tree-caption='" + text + "' wn-tree-value='" + value + "' href='" + value + "'>";
             if (image != '')
-                html = "<img src='" + image + "' />";
+                html += "<img src='" + image + "' />";
             html += text;
             html += "</a>";
         }
@@ -6139,7 +6406,23 @@ class wntree {
         ul.appendChild(subli);
         this.checkitemstatus(subli);
         li.classList.add('expandable');
+        this.checkitemstatus(li);
         return subli;
+    }
+    setdata(datasource, idfield, parentfield, typefield, displayfield, valuefield, imagefield, append = false) {
+        if (typeof (datasource) == 'string')
+            return;
+        if (!append) {
+            this.element.innerHTML = '';
+        }
+        this.adddschilds(this.element, datasource, null, idfield, parentfield, typefield, displayfield, valuefield, imagefield);
+    }
+    adddschilds(element, datasource, parentvalue, idfield, parentfield, typefield, displayfield, valuefield, imagefield) {
+        let dp = datasource.filter((x) => { return x[parentfield] == parentvalue; });
+        dp.forEach((x) => {
+            let n = this.addrow(element, x[typefield], x[displayfield], x[valuefield], x[imagefield]);
+            this.adddschilds(n, datasource, x[idfield], idfield, parentfield, typefield, displayfield, valuefield, imagefield);
+        });
     }
 }
 class wnvalidator {

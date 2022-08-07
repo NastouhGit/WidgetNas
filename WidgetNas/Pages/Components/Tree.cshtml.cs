@@ -42,15 +42,12 @@ namespace WidgetNas.Pages.Components
         {
             Keywords = Keywords.ToLower();
             var dp = data.Where(x => x.text.ToLower().Contains(Keywords)).ToList();
-            bool added = false;
-
             for (int i = 0; i < dp.Count; i++)
             {
                 var item = dp[i];
                 if (item.parent != null && dp.FirstOrDefault(x => x.index == item.parent) == null)
                 {
                     dp.Add(data.First(x => x.index == item.parent));
-                    added = true;
                 }
             }
 

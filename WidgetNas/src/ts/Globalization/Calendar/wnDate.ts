@@ -253,7 +253,7 @@
             format = this.CultureInfo.DateTimeFormat.ShortDatePattern;
         else if (format == 'shorttime')
             format = this.CultureInfo.DateTimeFormat.ShortTimePattern;
-        else if (format == 'longdatettime')
+        else if (format == 'longdatettime' || format == 'date' || format == '')
             format = this.CultureInfo.DateTimeFormat.LongDatePattern + ' ' + this.CultureInfo.DateTimeFormat.LongTimePattern;
         else if (format == 'longdate')
             format = this.CultureInfo.DateTimeFormat.LongDatePattern;
