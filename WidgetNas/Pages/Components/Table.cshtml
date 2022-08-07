@@ -156,7 +156,6 @@
                 </tr>
             </thead>
             <tbody>
-                
             </tbody>
             <tfoot>
                 <tr>
@@ -181,7 +180,7 @@
         <script>
             WNE(document).Ready(async () => {
                 await Get(null, '/data/examslist.en.json').then((r) => {
-                    WN['table2-ltr'].setdata(r,  false);
+                    WN['table2-ltr'].setdata(r, false);
                 }).catch((e) => {
                     console.log(e);
                 });
@@ -240,8 +239,9 @@
     اطلاعات بعنوان اطلاعات اصلی.
 </p>
 <h2>صفحه بندی</h2>
-<p>اگر دیتا بلند بالایی دارید و لیست شدن آن پشت سر هم آزار دهنده است میتوانید آن را صفحه بندی کنید،
-    بدین منظور برای ساخت شکل نمایش آن از <a href="/Components/Pagination">شماره صفحه</a> استفاده کنید. 
+<p>
+    اگر دیتا بلند بالایی دارید و لیست شدن آن پشت سر هم آزار دهنده است میتوانید آن را صفحه بندی کنید،
+    بدین منظور برای ساخت شکل نمایش آن از <a href="/Components/Pagination">شماره صفحه</a> استفاده کنید.
     سپس قوانین زیر را بر روی آن اعمال کنید.
 </p>
 <ul>
@@ -255,3 +255,223 @@
     <li>برای نمایش تعداد ردیف در هر صفحه از خصوصیت <bidi>rows</bidi> استفاده کنید. هر تعداد ردیف را وارد کنید، آن تعداد در هر صفحه نمایش داده خواهد شد.</li>
 </ul>
 <h2>رخدادها</h2>
+<p>
+    زمانیکه یک ردیف را انتخاب کردید یا میخواهید عمل مرتب سازی یا فیلتر کردن را انجام دهید، شاید لازم باشد
+    عملیاتی را قبل یا بعد از آن انجام دهید. بدین منظور میتوانید از رخدادهای زیر استفاده کنید.
+</p>
+<p>
+    <h4>beforefilter</h4>
+    قبل از آنکه بخواهد عمل فیلتر کردن رخ دهد این رخداد فراخوانی میشود، اگر مقدار بازگشتی false باشد، عمل فیلتر کردن لغو میشود.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforefilter استفاده کنید.
+    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
+</p>
+<p>
+    <h4>afterfilter</h4>
+    بعد از فیلتر کردن این رخداد اتفاق می افتد.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onafterfilter استفاده کنید.
+    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
+</p>
+<p>
+    <h4>beforesort</h4>
+    قبل از آنکه بخواهد عمل مرتب سازی رخ دهد این رخداد فراخوانی میشود، اگر مقدار بازگشتی false باشد، عمل مرتب کردن لغو میشود.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforesort استفاده کنید.
+    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
+</p>
+<p>
+    <h4>aftersort</h4>
+    بعد از مرتب سازی این رخداد اتفاق می افتد.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onaftersort استفاده کنید.
+    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
+</p>
+<p>
+    <h4>beforepagechange</h4>
+    قبل از آنکه بخواهد عمل تغییر صفحه رخ دهد این رخداد فراخوانی میشود، اگر مقدار بازگشتی false باشد، عمل مرتب کردن لغو میشود.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforepagechange استفاده کنید.
+    پارامترهای آن t,oldpage,newpage است میباشد.
+</p>
+<p>
+    <h4>pagechanged</h4>
+    بعد از تغییر صفحه این رخداد اتفاق می افتد.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onpagechanged استفاده کنید.
+    پارامترهای آن t,oldpage,newpage است میباشد.
+</p>
+<p>
+    <h4>beforeselected</h4>
+    قبل از آنکه یک ردیف انتخاب شود این رخداد رخ میدهد، اگر مقدار بازگشتی false باشد، عمل انتخاب لغو میشود.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforeselected استفاده کنید.
+    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
+    پارامتر دوم newselected است به معنی، انتخاب جدیدی که قرار است انجام شود.
+</p>
+<p>
+    <h4>selectedchanged</h4>
+    بعد از انتخاب ردیف این رخداد اتفاق می افتد.
+    <br />
+    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforeselected استفاده کنید.
+    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
+    پارامتر دوم newselected است به معنی، انتخاب جدیدی که انجام شده است.
+    پارامتر سوم oldselected است به معنی، انتخاب قبلی که انجام شده بوده است.
+</p>
+<h3>دسترسی به انتخاب ها</h3>
+<p>
+    <h4>selecteditem</h4>
+    با مشاهده مقدار این خصوصیت، رکورد اطلاعاتی انتخاب شده به شما برگرداننده میشود.
+</p>
+<p>
+    در نظر داشته باشید، سیستم اطلاعاتی داخلی پس از دریافت اطلاعات بر حسب ستونهای انتخاب شده، هر مقدار ورودی را به یک خصوصیت
+    داخلی که دارای دو خصوصیت caption و value است تبدیل میکند، در خصوصیت caption عبارتی که نمایش داده شده قرار گرفته و در
+    خصوصیت value مقداری که واقعا ارسال شده است قرار میگیرد. بدین منظور برای دسترسی به آن بایستی این خصوصیت ها را نیز در نظر بگیرید.
+</p>
+<p>
+    <h4>selectedrow</h4>
+    این خصوصیت، tr انتخاب شده را برمیگرداند.<br />
+    هر tr دارای یک خصوصیت به اسم index میباشد، که این شماره به ردیف دیتایی در خصوصیت renderdata اشاره میکند. در ادامه به این خصوصیت اشاره میشود.
+</p>
+<p>
+    <h4>data</h4>
+    کلیه اطلاعات ورودی در این خصوصیت ذخیره میشود و تمام نمایش ها بر اساس این دیتای اولیه میباشد.
+</p>
+<p>
+    <h4>renderdata</h4>
+    اگر شما عمل فیلتر کردن یا مرتب سازی را انجام دهید، بر اساس اطلاعات مندرج در خصوصیت data این خصوصیت ساخته شده و در جدول بر این اساس نمایش داده میشود.
+</p>
+<p>
+    <h4><bidi>__privatekey</bidi></h4>
+    در هنگام ساخت خصوصیت data یک فیلد یا ستون به این نام ساخته میشود که یک کلید داخلی است، از شماره 1 تا انتهای رکوردها مقدار دهی میگردد.
+</p>
+<p>
+    <h4>cols</h4>
+    کلیه ستونهای شناسایی شده در این خصوصیت به صورت آرایه از خصوصیات زیر تعیین میشوند.
+    <ul>
+        <li>index: شماره ستون</li>
+        <li>caption: عنوان ستون</li>
+        <li>field: نام فیلد در خصوصیت data</li>
+        <li>datatype: جنس داده</li>
+        <li>sortable: وضعیت مرتب سازی بر اساس caption یا value</li>
+        <li>filterable: وضعیت فیلتر کردن بر اساس caption یا value</li>
+        <li>
+            format: نحوه نمایش و تبدیل مقدار value به caption
+            <ul>
+                <li>text {0} text مقدار در قسمت {0} قرار میگیرد.</li>
+                <li>l یا lowercase کلیه حروف به صورت کوچک نمایش داده شود</li>
+                <li>u یا uppercase کلیه حروف به صورت بزرگ نمایش داده شود</li>
+                <li>t یا titlecase ابتدای هر کلمه به صورت بزرگ نمایش داده شود</li>
+                <li>number نمایش عدد بر اساس فرهنگ نمایش عددی</li>
+                <li>date نمایش تاریخ بر اساس فرهنگ نمایش تاریخ</li>
+                <li>longdate نمایش تاریخ به صورت طولانی و کامل</li>
+                <li>shortdate نمایش تاریخ به صورت کوتاه و فقط تاریخ</li>
+                <li>longtime نمایش ساعت به صورت طولانی و کامل</li>
+                <li>shorttime نمایش ساعت به صورت کوتاه و فقط ساعت</li>
+                <li>بدون مقدار نیز بر اساس پیش فرض برای هر نوع نمایش خودکار انتخاب خواهد شد.</li>
+            </ul>
+        </li>
+        <li>class: نام کلاسهای استفاده شده در آن ستون</li>
+    </ul>
+</p>
+<h2>توابع</h2>
+<p>
+    <h4>Sort</h4>
+    اگر میخواهید به صورت برنامه نویسی یک ستون را مرتب کنید، کافیست این تابع را به همراه شماره ستون آن فراخوانی کنید.
+</p>
+<p>
+    <h4>SetFilter</h4>
+    بر اساس مقادیر وارد شده در جعبه های ورودی فیلتر، دیتای لازم را فیلتر میکند.
+</p>
+<p>برای دسترسی به جعبه متن ها میتوانید از خصوصیت filterinput که آرایه ای به ازای هر ستون است و در آن به جعه ورودی متن اشاره دارد استفاده کنید.</p>
+<p>
+    <h4>refresh</h4>
+    برای نمایش دوباره کلیه ردیف ها از این تابع استفاده میشود.<br />
+    برای مثال بعد از فراخوانی تابع Sort بایستی کل جدول نیز دوباره نمایش داده شود.
+</p>
+<p>
+    <h4>Delete</h4>
+    با استفاده از این تابع، ردیف انتخاب شده، حذف میگردد.
+</p>
+<p>
+    <h4>Select</h4>
+    با استفاده از این تابع، ردیف مورد نظر بر اساس <bidi>__privatekey</bidi> انتخاب میگردد.
+</p>
+<p>
+    <h4>SelectRow</h4>
+    با استفاده از این تابع، ردیف مورد نظر بر اساس شماره آن در جدول انتخاب میگردد. توجه داشته باشید، شماره ردیف از صفر شروع میشود.
+</p>
+<h2>مثال از رخدادها</h2>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <table id="table3-ltr"
+               class="tablex hover striped"
+               wn-type="table"
+               calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+               onbeforefilter='WriteLog("Before Filter"); return true;'
+               onafterfilter='WriteLog("After Filter")'
+               onbeforesort='WriteLog("Before Sort"); return true;'
+               onaftersort='WriteLog("After Sort")'
+               onbeforeselected='WriteLog("Before Select"); return true;'
+               onselectedchanged='WriteLog("Selected Changed")'
+               onbeforepagechange='WriteLog("Before Page Change"); return true;'
+               onpagechanged='WriteLog("Page Changed")'>
+            <thead>
+                <tr>
+                    <th sortable data-field='__privatekey' data-type='number'>#</th>
+                    <th filterable sortable data-field='Student name' data-type='string'>Name</th>
+                    <th filterable sortable data-field='Exam name' data-type='string}'>Exam</th>
+                    <th filterable sortable data-field='Exam date' data-type='date' data-format='shortdate'>Date</th>
+                    <th filterable sortable data-field='Exam points' data-type='number'>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        <nav class="pagination justify-content-center s-m" rows='5'>
+                            <button class="first"><i class="fa-solid fa-backward-fast"></i></button>
+                            <button class="previous"><i class="fa-solid fa-backward"></i></button>
+                            <button>1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>4</button>
+                            <button>5</button>
+                            <button>6</button>
+                            <button>7</button>
+                            <button class="next"><i class="fa-solid fa-forward"></i></button>
+                            <button class="last"><i class="fa-solid fa-forward-fast"></i></button>
+                        </nav>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="">
+            <button class="danger" onclick="WN['table3-ltr'].Delete();">Remove Selected</button><br />
+            <div class="d-flex">
+                <button class="primary" onclick="WN['table3-ltr'].Select(WNE('PID').Element.value);">Select Private Key 2</button><input type="number" id='PID' class="w-30-i" value="2" /><br />
+            </div>
+            <button class="primary" onclick="WN['table3-ltr'].SelectRow(3);">Select Page Row 3 (0-4)</button><br />
+        </div>
+        <script>
+            WNE(document).Ready(async () => {
+                await Get(null, '/data/examslist.en.json').then((r) => {
+                    WN['table3-ltr'].setdata(r, false);
+                }).catch((e) => {
+                    console.log(e);
+                });
+            });
+            function WriteLog(msg) {
+                WNE('EventLog').Element.innerHTML += msg + '<br/>';
+            }
+        </script>
+    </div>
+    <div class="ltr">
+        <h3>Event</h3>
+        <div id='EventLog'>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>

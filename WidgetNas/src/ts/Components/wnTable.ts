@@ -15,6 +15,8 @@ class wntable {
     selectedchanged: any;
     selecteditem: any;
     selectedrow: HTMLTableRowElement;
+    beforepagechange: any;
+    pagechanged: any;
 
     private pagesize = -1;
     private currentPage = 1;
@@ -24,7 +26,7 @@ class wntable {
     private headtable: HTMLTableSectionElement;
     private headcols: HTMLTableCellElement[];
     private bodytable: HTMLTableSectionElement;
-    private filterinput: HTMLInputElement[];
+    filterinput: HTMLInputElement[];
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
@@ -42,16 +44,20 @@ class wntable {
 
         if (this.element.hasAttribute('onbeforefilter'))
             this.beforefilter = new Function('t', this.element.getAttribute('onbeforefilter'));
-        if (this.element.hasAttribute('onbafterfilter'))
+        if (this.element.hasAttribute('onafterfilter'))
             this.afterfilter = new Function('t', this.element.getAttribute('onafterfilter'));
         if (this.element.hasAttribute('onbeforesort'))
             this.beforesort = new Function('t', this.element.getAttribute('onbeforesort'));
-        if (this.element.hasAttribute('onbaftersort'))
+        if (this.element.hasAttribute('onaftersort'))
             this.aftersort = new Function('t', this.element.getAttribute('onaftersort'));
         if (this.element.hasAttribute('onbeforeselected'))
             this.beforeselected = new Function('t,newselected', this.element.getAttribute('onbeforeselected'));
         if (this.element.hasAttribute('onselectedchanged'))
             this.selectedchanged = new Function('t,newselected,oldselected', this.element.getAttribute('onselectedchanged'));
+        if (this.element.hasAttribute('onbeforepagechange'))
+            this.beforepagechange = new Function('t,oldpage,newpage', this.element.getAttribute('onbeforepagechange'));
+        if (this.element.hasAttribute('onpagechanged'))
+            this.pagechanged = new Function('t,oldpage,newpage', this.element.getAttribute('onpagechanged'));
 
         this.FindHeader();
         this.FilterHeaderRow();
@@ -158,33 +164,79 @@ class wntable {
         for (var i = 0; i < btn.length; i++) {
             if (btn[i].classList.contains('first'))
                 btn[i].addEventListener('click', () => {
-                    this.currentPage = 1;
-                    this.refresh();
+                    if (this.currentPage != 1) {
+                        if (this.beforepagechange)
+                            if (!this.beforepagechange(this, this.currentPage, 1))
+                                return;
+                        let old = this.currentPage;
+                        this.currentPage = 1;
+                        this.refresh();
+                        if (this.pagechanged)
+                            this.pagechanged(this, old, this.currentPage)
+                    }
                 });
             else if (btn[i].classList.contains('previous'))
                 btn[i].addEventListener('click', () => {
-                    this.currentPage--;
-                    if (this.currentPage < 1)
-                        this.currentPage = 1;
+                    let cur = this.currentPage;
+                    cur--;
+                    if (cur <= 1) cur = 1;
+                    if (cur == this.currentPage) return;
+
+                    if (this.beforepagechange)
+                        if (!this.beforepagechange(this, this.currentPage, cur))
+                            return;
+                    let old = this.currentPage
+                    this.currentPage = cur;
                     this.refresh();
+                    if (this.pagechanged)
+                        this.pagechanged(this, old, this.currentPage);
                 });
             else if (btn[i].classList.contains('next'))
                 btn[i].addEventListener('click', () => {
-                    this.currentPage++;
-                    if (this.currentPage > this.totalPages)
-                        this.currentPage = this.totalPages;
+                    let cur = this.currentPage;
+                    cur++;
+                    if (cur >= this.totalPages) cur = this.totalPages;
+                    if (cur == this.currentPage) return;
+
+                    if (this.beforepagechange)
+                        if (!this.beforepagechange(this, this.currentPage, cur))
+                            return;
+                    let old = this.currentPage
+                    this.currentPage = cur;
+
                     this.refresh();
+
+                    if (this.pagechanged)
+                        this.pagechanged(this, old, this.currentPage);
                 });
             else if (btn[i].classList.contains('last'))
                 btn[i].addEventListener('click', () => {
-                    this.currentPage = this.totalPages;
-                    this.refresh();
+                    if (this.currentPage != this.totalPages) {
+                        if (this.beforepagechange)
+                            if (!this.beforepagechange(this, this.currentPage, this.totalPages))
+                                return;
+                        let old = this.currentPage;
+                        this.currentPage = this.totalPages;
+                        this.refresh();
+                        if (this.pagechanged)
+                            this.pagechanged(this, old, this.currentPage)
+                    }
                 });
             else {
                 btn[i].style.display = 'none';
                 btn[i].addEventListener('click', (t) => {
-                    this.currentPage = WNparseNumber((t.target as HTMLElement).innerText);
-                    this.refresh();
+                    let cur = WNparseNumber((t.target as HTMLElement).innerText);
+                    if (cur != this.currentPage) {
+                        if (this.beforepagechange)
+                            if (!this.beforepagechange(this, this.currentPage, cur))
+                                return;
+
+                        let old = this.currentPage;
+                        this.currentPage = cur;
+                        this.refresh();
+                        if (this.pagechanged)
+                            this.pagechanged(this, old, this.currentPage)
+                    }
                 });
                 this.paginationButtons.push(btn[i]);
             }
@@ -255,7 +307,7 @@ class wntable {
             r.caption = WNStringFormat(r.value, c.format, this.date.CultureInfo);
         return r;
     }
-    private refresh() {
+    refresh() {
         if (this.bodytable == null) return;
         this.bodytable.innerHTML = '';
         let startrow = 0;
@@ -270,8 +322,10 @@ class wntable {
             let x = this.renderdata[row];
             let tr = document.createElement('tr');
             tr.setAttribute('index', row.toString());
-            if (this.selecteditem!=undefined && x["__privatekey"] == this.selecteditem["__privatekey"])
+            if (this.selecteditem != undefined && x["__privatekey"] == this.selecteditem["__privatekey"]) {
                 tr.classList.add('active');
+                this.selectedrow = tr as HTMLTableRowElement;
+            }
 
             tr.addEventListener('click', (t) => {
                 let tr = (t.target as HTMLElement);
@@ -288,7 +342,7 @@ class wntable {
                 tr.classList.add('active');
                 this.selecteditem = newselected;
                 this.selectedrow = tr as HTMLTableRowElement;
-                
+
                 if (this.selectedchanged) this.selectedchanged(this, newselected, oldselected);
 
             }, false);
@@ -305,17 +359,24 @@ class wntable {
             let old = this.selecteditem;
             this.selecteditem = undefined;
             this.selectedrow = undefined;
-            if (this.selectedchanged) this.selectedchanged(this, undefined, old);
+            if (this.selectedchanged && old != undefined) this.selectedchanged(this, undefined, old);
         }
 
     }
-    private SetFilter() {
+    SetFilter() {
         let filtervalue = [];
         for (var i = 0; i < this.cols.length; i++) {
             if (this.cols[i].filterable != '' && this.filterinput[i].value != '') {
                 filtervalue.push({ field: this.cols[i].field, filterable: this.cols[i].filterable, value: this.filterinput[i].value.toLowerCase() })
             }
         }
+        if (filtervalue.length == 0) {
+            this.renderdata = this.data.map(x => x);
+            return;
+        }
+        if (this.beforefilter != null)
+            if (!this.beforefilter(this))
+                return;
         this.renderdata = [];
         for (var row = 0; row < this.data.length; row++) {
             let x = this.data[row];
@@ -332,6 +393,8 @@ class wntable {
             if (ret)
                 this.renderdata.push(x);
         }
+        if (this.afterfilter != null)
+            this.afterfilter(this);
     }
     Sort(colIndex: number) {
         let sortby = this.cols[colIndex].sortable;
@@ -346,17 +409,17 @@ class wntable {
             desc = false;
 
         let field = this.cols[colIndex].field;
-        this.renderdata.sort((x, y) => {
+        this.renderdata?.sort((x, y) => {
             if (sortby == 'value') {
-                if (x[field].value > y[field].value)
+                if (x[field]?.value > y[field]?.value)
                     return desc ? -1 : 1;
-                else if (x[field].value < y[field].value)
+                else if (x[field]?.value < y[field]?.value)
                     return desc ? 1 : -1;
             }
             else if (sortby == 'caption') {
-                if (x[field].caption > y[field].caption)
+                if (x[field]?.caption > y[field]?.caption)
                     return desc ? -1 : 1;
-                else if (x[field].caption < y[field].caption)
+                else if (x[field]?.caption < y[field]?.caption)
                     return desc ? 1 : -1;
             }
             return 0;
@@ -387,5 +450,42 @@ class wntable {
         });
         this.SetFilter();
         this.refresh();
+    }
+    Delete(): boolean {
+        if (this.selecteditem == null)
+            return false;
+
+        let idx = this.data.indexOf(this.selecteditem);
+        this.data.splice(idx, 1);
+
+        idx = this.renderdata.indexOf(this.selecteditem);
+        this.renderdata.splice(idx, 1);
+
+        this.refresh();
+        return true;
+    }
+    Select(privatekey: number) {
+
+        let idx = this.renderdata.findIndex((x) => x['__privatekey'].value == privatekey)
+        if (idx == -1)
+            return false;
+
+        this.selecteditem = this.renderdata[idx];
+        this.currentPage = Math.ceil((idx+1) / this.pagesize);
+        if (this.currentPage == 0) this.currentPage = 1;
+        this.refresh();
+        return true;
+    }
+    SelectRow(row: number) {
+
+        let r = this.bodytable.querySelectorAll('tr');
+        if (r.length <= row)
+            return false;
+        let index = WNparseNumber(r[row].getAttribute('index'))
+        this.selecteditem = this.renderdata[index];
+
+        this.refresh();
+
+        return true;
     }
 }
