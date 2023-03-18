@@ -35,7 +35,7 @@
       "WidgetNas/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "6.0.6",
-          "Microsoft.TypeScript.MSBuild": "4.7.3",
+          "Microsoft.TypeScript.MSBuild": "4.7.4",
           "Microsoft.AspNetCore.Antiforgery": "6.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "6.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "6.0.0.0",
@@ -526,7 +526,7 @@
         }
       },
       "Microsoft.NETCore.Platforms/2.1.2": {},
-      "Microsoft.TypeScript.MSBuild/4.7.3": {},
+      "Microsoft.TypeScript.MSBuild/4.7.4": {},
       "System.Buffers/4.5.1": {},
       "System.Collections.Immutable/5.0.0": {},
       "System.Memory/4.5.4": {},
@@ -2349,12 +2349,12 @@
       "path": "microsoft.netcore.platforms/2.1.2",
       "hashPath": "microsoft.netcore.platforms.2.1.2.nupkg.sha512"
     },
-    "Microsoft.TypeScript.MSBuild/4.7.3": {
+    "Microsoft.TypeScript.MSBuild/4.7.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-w9zD7oG96E8odrekmrEUTAigW8j6h5xKmrY9xRuVNJ7idHMJ40t/5dFQYF+xKePbhG48dPQ/AJlj5KQjGb0bow==",
-      "path": "microsoft.typescript.msbuild/4.7.3",
-      "hashPath": "microsoft.typescript.msbuild.4.7.3.nupkg.sha512"
+      "sha512": "sha512-upap643q2S+DnJrZ77gT2VtazuvC0ps3IIfArKNQdfaQO2CEQ/3hxS1dmOG6VrtVVyageEIsJKNwcGkQmMUwEQ==",
+      "path": "microsoft.typescript.msbuild/4.7.4",
+      "hashPath": "microsoft.typescript.msbuild.4.7.4.nupkg.sha512"
     },
     "System.Buffers/4.5.1": {
       "type": "package",
