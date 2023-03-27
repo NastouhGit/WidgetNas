@@ -312,11 +312,20 @@ class wntable {
         this.bodytable.innerHTML = '';
         let startrow = 0;
         let maxrow = this.renderdata.length;
-        if (this.pagesize > -1) {
+        if (this.pagesize > -1 && maxrow != 0) {
             startrow = this.pagesize * (this.currentPage - 1);
             maxrow = this.pagesize * this.currentPage;
-            if (maxrow > this.renderdata.length)
+            if (maxrow > this.renderdata.length) {
                 maxrow = this.renderdata.length;
+                if (maxrow <= startrow) {
+                    this.currentPage--;
+                    if (this.currentPage < 1) {
+                        this.currentPage = 1;
+                    }
+                    startrow = this.pagesize * (this.currentPage - 1);
+                    maxrow = this.pagesize * this.currentPage;
+                }
+            }
         }
         for (var row = startrow; row < maxrow; row++) {
             let x = this.renderdata[row];
@@ -384,7 +393,7 @@ class wntable {
 
             for (var i = 0; i < filtervalue.length; i++) {
                 if (filtervalue[i].filterable == 'value')
-                    ret = ret && x[filtervalue[i].field].value.toLowerCase().includes(filtervalue[i].value);
+                    ret = ret && x[filtervalue[i].field].value.toString().toLowerCase().includes(filtervalue[i].value);
                 else if (filtervalue[i].filterable == 'caption')
                     ret = ret && x[filtervalue[i].field].caption.toLowerCase().includes(filtervalue[i].value);
                 if (!ret)
@@ -467,13 +476,25 @@ class wntable {
     Select(privatekey: number) {
 
         let idx = this.renderdata.findIndex((x) => x['__privatekey'].value == privatekey)
+        return this.SelectByIndex(idx);
+    }
+    SelectByColValue(ColName: string, ColValue: string) {
+        let idx = this.renderdata.findIndex((x) => x[ColName].value == ColValue);
+        return this.SelectByIndex(idx);
+    }
+    SelectByIndex(idx: number) {
         if (idx == -1)
             return false;
-
+        let oldselected;
+        if (this.selecteditem != undefined)
+            oldselected = this.renderdata.findIndex((x) => x['__privatekey'].value == this.selecteditem['__privatekey']);
         this.selecteditem = this.renderdata[idx];
-        this.currentPage = Math.ceil((idx+1) / this.pagesize);
-        if (this.currentPage == 0) this.currentPage = 1;
+        this.currentPage = Math.ceil((idx + 1) / this.pagesize);
+        if (this.currentPage == 0)
+            this.currentPage = 1;
         this.refresh();
+        if (this.selectedchanged)
+            this.selectedchanged(this, this.selecteditem, oldselected);
         return true;
     }
     SelectRow(row: number) {

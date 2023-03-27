@@ -16,7 +16,7 @@
     background-clip: padding-box;
     opacity: 0;
     visibility: hidden;
-    transition: $transition,left none,top none,right none, bottom none;
+    transition: $transition;
     box-shadow: var(--box-shadow);
 
     &.show {
@@ -29,7 +29,7 @@
         margin: 0;
         margin-block-start: 0;
         margin-block-end: 0;
-        padding-inline-start: 0;
+        //padding-inline-start: 0;
     }
 
     p {

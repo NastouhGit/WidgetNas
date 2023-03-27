@@ -23,18 +23,22 @@
         window.addEventListener("scroll", () => this.Start(this));
     }
     Start(e: wncounter) {
-        if ((window.scrollY + window.innerHeight - e.element.offsetTop) > 0 && e.countNum < e.countTo) {
+        if (document.readyState == "loading")
+            return;
+        if (
+            (
+                (window.scrollY == 0 && e.element.getBoundingClientRect().bottom < window.innerHeight) ||
+                (e.element.getBoundingClientRect().bottom < window.scrollY - window.innerHeight / 2)
+            ) && e.element.getBoundingClientRect().bottom > 0 && e.countNum < e.countTo) {
             let id = setInterval(() => {
                 e.countNum += e.countStep;
                 if (e.countNum > e.countTo) {
                     e.countNum = e.countTo;
                     clearInterval(id);
                 }
-
                 e.element.innerText = Math.floor(e.countNum).toString();
                 window.requestAnimationFrame(() => { });
-
-            }, e.duration / (e.countTo / e.countStep))
+            }, e.duration / (e.countTo / e.countStep));
         }
     }
 }

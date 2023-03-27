@@ -15,7 +15,7 @@
         });
     }
 
-    get currentvalue() { return this._currentSelect?.getAttribute('wn-list-value'); }
+    get currentvalue() { return this._currentSelect?.getAttribute('value'); }
     get currentcaption() { return this._currentSelect?.innerText; }
 
 
@@ -26,6 +26,7 @@
     //private
     _listType: string = '';
     _items: HTMLElement[] = [];
+    checkbox: boolean = false;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
@@ -51,6 +52,8 @@
             this._items.push(_items[i]);
         }
 
+        if (this.element.hasAttribute('checkbox'))
+            this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
 
         //assign events
         if (this.element.hasAttribute('onbeforeclick'))
@@ -100,10 +103,17 @@
         });
         return selectedNode;
     }
+    elementtoitem(elem: HTMLElement):any {
+        if (elem != null)
+            return { caption: elem.innerText, value: elem.getAttribute('value') };
+        return null;
+    }
+
     findbyvalue(value: string, select: boolean = true): HTMLElement {
         let selectedNode = null;
+        value = value.toLowerCase();
         this._items.forEach((x) => {
-            if (x.getAttribute('value') == value) {
+            if (x.getAttribute('value').toLowerCase() == value) {
                 selectedNode = x;
                 if (select)
                     this.select(selectedNode);
@@ -135,9 +145,12 @@
         else if (this._listType == 'TABLE') {
             elem = document.createElement('tr');
         }
-        elem.innerHTML = text;
         elem.setAttribute('index', this._items.length.toString());
         elem.setAttribute('value', value);
+        if (this.checkbox)
+            elem.innerHTML = `<input type='checkbox' value='${value}'> ${text}</input>`;
+        else
+            elem.innerHTML = text;
         elem.addEventListener('click', (e) => { this.click(e) });
 
         if (this._listType == 'TABLE') {
@@ -158,18 +171,25 @@
     settext(text: string, index: number) {
         let elem = this.element.querySelector(`li[index='${index}']`);
         if (elem != null)
-            elem.innerHTML = text;
+            if (this.checkbox)
+                elem.innerHTML = `<input type='checkbox' value='${elem.getAttribute('value')}'> ${text}</input>`;
+            else
+                elem.innerHTML = text;
     }
     setvalue(text: string, index: number) {
-        let elem = this.element.querySelector(`li[index='${index}']`);
+        let elem = this.element.querySelector(`li[index='${index}']`) as HTMLElement;
         if (elem != null)
-            elem.setAttribute('value', text);
+            if (this.checkbox)
+                elem.innerHTML = `<input type='checkbox' value='${text}'> ${elem.innerText}</input>`;
+        elem.setAttribute('value', text);
     }
     removerow(index: number) {
         if (index < 0 || index >= this._items.length)
             return;
-        this._items[index].remove();
+        this._items.splice(index,1);
+        this._currentSelect = null;
         this.reindex();
+        this.refresh();
     }
     order(desc = false) {
         this._items.sort((x, y) => {
@@ -218,9 +238,30 @@
                 this.addrow(values[i], k);
             }
         }
-        else
-            datasource.forEach((x) => {
-                this.addrow(x[displayfield], x[valuefield]);
-            });
+        else {
+            if (displayfield.includes('{')) {
+                let idx = 1;
+                datasource.forEach((x) => {
+                    let tdisplay = displayfield;
+                    tdisplay = tdisplay.replace('{index}', idx.toString());
+                    this.addrow(tdisplay, x[valuefield]);
+                    idx++;
+                });
+            }
+            else
+                datasource.forEach((x) => {
+                    this.addrow(x[displayfield], x[valuefield]);
+                });
+        }
+    }
+    getcheckedvalue() {
+        let ret = [];
+        this.element.querySelectorAll('input:checked').forEach((f: HTMLInputElement) => { ret.push(f.value); });
+        return ret;
+    }
+    setcheckedvalue(value) {
+        this.element.querySelectorAll('input[type=checkbox]').forEach((f: HTMLInputElement) => {
+            f.checked = value.includes(f.value);
+        });
     }
 }

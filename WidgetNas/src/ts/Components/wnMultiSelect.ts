@@ -85,15 +85,8 @@
 
         if (value == null) value = '';
         let item = { value: value, caption: caption };
-
-        if (this.selecteditems.find((x) => x.value == item.value && x.caption==item.caption) == null) {
-            if (this.max > 0 && this.selecteditems.length >= this.max)
-                return;
-            this.selecteditems.push(item);
-            this.AddSelectedSpan(caption, value);
-            if (this.selectionchanged != null)
-                this.selectionchanged(this);
-        }
+        this.SelectByItem(item);
+        
     }
     AddSelectedSpan(caption, value) {
         let sp = document.createElement('span');
@@ -107,6 +100,24 @@
             this.DeselectByItem(item);
         });
         this.selectedarea.appendChild(sp);
+    }
+    SelectByItem(item) {
+        if (this.selecteditems.find((x) => x.value == item.value && x.caption == item.caption) == null) {
+            if (this.max > 0 && this.selecteditems.length >= this.max)
+                return;
+            this.selecteditems.push(item);
+            this.AddSelectedSpan(item.caption, item.value);
+            if (this.selectionchanged != null)
+                this.selectionchanged(this);
+        }
+    }
+    SelectByCaption(caption) {
+        let item = this.search.list.elementtoitem(this.search.list.findbytext(caption, false, false));
+        this.SelectByItem(item);
+    }
+    SelectByValue(value) {
+        let item = this.search.list.elementtoitem(this.search.list.findbyvalue(value, false));
+        this.SelectByItem(item);
     }
     DeselectByItem(item: { value, caption }) {
         if (item == null) return;
@@ -145,6 +156,24 @@
         this.selecteditems = datasource;
         this.selectedarea.innerHTML = '';
         this.selecteditems.forEach((x) => { this.AddSelectedSpan(x.caption, x.value); })
+    }
+    GetSelectedValues(): string[] {
+        let ret = [];
+        this.selecteditems.forEach((x) => { ret.push(x.value); });
+        return ret;
+    }
+    SetSelectedValues(value) {
+        this.setdata([]);
+        value.forEach((x) => { this.SelectByValue(x); });
+    }
+    GetSelectedCaptions():string[] {
+        let ret = [];
+        this.selecteditems.forEach((x) => { ret.push(x.caption); });
+        return ret;
+    }
+    SetSelectedCaptions(value) {
+        this.setdata([]);
+        value.forEach((x) => { this.SelectByCaption(x); });
     }
 }
 

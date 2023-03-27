@@ -278,6 +278,19 @@
     </code></pre>
 </figure>
 <p>
+    <strong>findLI</strong>
+    <br />
+    اگر بخوهید li حاوی نود انتخاب شده را پیدا کنید از این تابع استفاده کنید<br />
+    پارامترها:<br />
+    <strong>node</strong>: موضوع مورد نظر که از جنس html میباشد.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].findLI(document.getElementById(<span class="ha">'node-id'</span>));
+    </code></pre>
+</figure>
+
+<p>
     <strong>filterbytext</strong>
     <br />
     زمانیکه میخواهید یک سری نود را که حاوی متنی مشخص است را نمایش دهید،
@@ -330,6 +343,68 @@
         WN[<span class="ha">'tree-id'</span>].addrowhtml(document.getElementById(<span class="ha">'node-id'</span>),'&lt;div class='tree-item'&gt;...');
     </code></pre>
 </figure>
+<p>
+    <strong>elementtoitem</strong>
+    <br />
+    گزینه انتخاب شده را به صورت یک متغییر از جنس caption و value با مقدارهای آن گزینه برمیگرداند<br />
+    پارامترها:<br />
+    <strong>elem</strong>: موضوع مورد نظر که از جنس html میباشد. مانند خصوصیت currentselect
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].elementtoitem(WN[<span class="ha">'tree-id'</span>].currentselect);
+    </code></pre>
+</figure>
+<p>
+    <strong>setdata</strong>
+    <br />
+    اگر تمایل دارید درختواره به صورت خودکار ساخته شود، مانند درخواست اطلاعات از سمت سرور یا دریافت اطلاعات از آرایه ای از مقدارها، میتوانید از این تابع استفاده کنید.<br />
+    پارامترها:<br />
+    <strong>datasource</strong>: آرایه ای از اطلاعات که هر ردیف خود شامل متغییرهایی یکسان است.<br />
+    <strong>idfield</strong>: نام فیلد شناسه که در آرایه اطلاعات آن وجود دارد.<br />
+    <strong>parentfield</strong>: فیلدی که مقدار شناسه والد در آن قرار دارد.<br />
+    <strong>typefield</strong>: نوع فیلد را مشخص میکند، مقدار آن link یا item است.<br />
+    <strong>displayfield</strong>: مقداری که باید نمایش داده شود در این فیلد قرار دارد.<br />
+    <strong>valuefield</strong>: مقدار مرتبط با فیلد نمایش داده شده است که در برنامه قابل شناسایی است.<br />
+    <strong>imagefield</strong>: اگر گزینه درخت دارای تصویر است، آدرس تصویر در این فیلد قرار دارد.<br />
+    <strong>append</strong>: آیا تمایل دارید اطلاعات موجود در datasource به اطلاعات جاری درخت اضافه شود یا خیر.<br />
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].setdata(...);
+    </code></pre>
+</figure>
+<p>
+    <strong>خصوصیت currentselect</strong>
+    <br />
+    اگر در درختواره گزینه ای انتخاب شده باشد، نود انتخاب شده در این خصوصیت قابل دسترسی است.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].currentselect;
+    </code></pre>
+</figure>
+<p>
+    <strong>خصوصیت currentcaption فقط خواندنی</strong>
+    <br />
+    اگر در درختواره گزینه ای انتخاب شده باشد، عنوان به معنی caption که در هنگام ایجاد کردن مشخص کردید، باز گردانده میشود. از خصوصیت wn-tree-caption مقدار برگردانده میشود.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].currentcaption;
+    </code></pre>
+</figure>
+<p>
+    <strong>خصوصیت currentvalue فقط خواندنی</strong>
+    <br />
+    اگر در درختواره گزینه ای انتخاب شده باشد، مقدار به معنی value که در هنگام ایجاد کردن مشخص کردید، باز گردانده میشود. از خصوصیت wn-tree-value مقدار برگردانده میشود.
+</p>
+<figure>
+    <pre><code class="html">
+        WN[<span class="ha">'tree-id'</span>].currentvalue;
+    </code></pre>
+</figure>
+
 <p>در مثال زیر با کلیک کردن بر روی هر ردیف  یک item و دو لینک اضافه میشود، لینکها قابلیت گسترش ندارند.</p>
 <div class="example-div justify-content-start">
     <div class="ltr">

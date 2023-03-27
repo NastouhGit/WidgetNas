@@ -11,7 +11,7 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <table>
+        <table id="table1">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -74,42 +74,11 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    <span class="hv">&lt;</span><span class="ht">table</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;</span><span class="ht">thead</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>#<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>First Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Last Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Position<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;/</span><span class="ht">thead</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;</span><span class="ht">tbody</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>1<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Omid<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Moridi<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>WidgetNas Creator<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>2<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Reza<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Rahmani<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Developer<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>3<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> colspan</span><span class="hv">="2</span>"<span class="hv">&gt;</span>Mohammad Keshavarz<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Marketing<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;/</span><span class="ht">tbody</span><span class="hv">&gt;</span>
-    <span class="hv">&lt;/</span><span class="ht">table</span><span class="hv">&gt;</span></code></pre>
-</figure>
+<figure><code data-on="table1"></code></figure>
 <h2>انواع جدول</h2>
 <p>شما میتوانید با استفاده از کلاسهای اصلی تم، رنگبندی جدول را تغییر دهید</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr" id="table2">
         <h3>LTR</h3>
         <table class="primary">
             <thead>
@@ -348,20 +317,12 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    برای جدول
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"primary"</span>&gt;
-    برای ردیف
-    &lt;<span class="ht">tr</span> <span class="ha">class=</span><span class="hv">"primary"</span>&gt;
-    برای ستون
-    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"primary outline"</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table2"></code></figure>
+
 <h2>جدول راه راه</h2>
 <p>برای آنکه هر ردیف از ردیف قبلی قابل تفکیک باشد میتوانید از کلاس زیر استفاده کنید</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr" id="table3">
         <h3>LTR</h3>
         <table class="striped">
             <thead>
@@ -484,16 +445,11 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"striped"</span>&gt;
-    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"primary outline"</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table3"></code></figure>
 <h2>ردیف های حساس به اشاره گر</h2>
 <p>اگر تمایل دارید با حرکت اشاره گر بر روی هر ردیف آن ردیف تحریک شود، از کلاس زیر استفاده کنید.</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr" id="table4">
         <h3>LTR</h3>
         <table class="hover">
             <thead>
@@ -616,16 +572,11 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"hover"</span>&gt;
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"primary striped hover"</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table4"></code></figure>
 <h2>کادر جداول</h2>
 <p>اگر تمایل دارید جدول دارای کادر باشد از کلاس زیر استفاده کنید</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr" id="table5">
         <h3>LTR</h3>
         <table class="bordered primary-border">
             <thead>
@@ -806,16 +757,11 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"bordered"</span>&gt;
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"noborder"</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table5"></code></figure>
 <h2>ارتفاع ردیف متفاوت</h2>
 <p>در برخی مواقع نیاز است که جداول با ارتفاع متفاوتی نمایش داده شوند. شما میتوانید از مقدارهای اندازه xs تا xxxl استفاده کنید.</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr" id="table6">
         <h3>LTR</h3>
         <table class="bordered s">
             <thead>
@@ -996,19 +942,13 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"s"</span>&gt;
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"m"</span>&gt;
-    &lt;<span class="ht">table</span> <span class="ha">class=</span><span class="hv">"l"</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table6"></code></figure>
 <h2>چینش عمودی متن</h2>
 <p>به صورت پیش فرض متن ها از بالا به پایین پر میشوند، در صورتیکه تمایل به تغییر وضعیت چینش دارید از کلاسهای <span class="bidi-override">va-?</span> استفاده کنید.</p>
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <table class="bordered">
+        <table class="bordered" id="table7">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -1049,17 +989,11 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"va-top"</span>&gt;
-    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"va-middle"</span>&gt;
-    &lt;<span class="ht">td</span> <span class="ha">class=</span><span class="hv">"va-bottom"</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table7"></code></figure>
 <h2>جداول تو در تو</h2>
 <p>در برخی مواقع نیاز است یک جدول در جدولی دیگر نمایش داده شود. خصوصیات رنگی جدول والد به جدول زیر مجموعه ارث داده میشود.</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr" id="table8">
         <h3>LTR</h3>
         <table class="striped bordered secondary">
             <thead>
@@ -1294,26 +1228,11 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">table</span>&gt;
-        &lt;<span class="ht">tr</span>&gt;
-            &lt;<span class="ht">td</span>&gt;
-                &lt;<span class="ht">table</span>&gt;
-                    &lt;<span class="ht">tr</span>&gt;
-                        &lt;<span class="ht">td</span>&gt;
-                        &lt;/<span class="ht">td</span>&gt;
-                    &lt;/<span class="ht">tr</span>&gt;
-                &lt;/<span class="ht">table</span>&gt;
-            &lt;/<span class="ht">td</span>&gt;
-        &lt;/<span class="ht">tr</span>&gt;
-    &lt;/<span class="ht">table</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table8"></code></figure>
 <h2>فوتر و عنوان در جدول</h2>
 <p>در برخی مواقع نیاز است یک جدول در جدولی دیگر نمایش داده شود. خصوصیات جدول والد به جدول زیر مجموعه ارث داده نمیشود.</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr" id="table9">
         <h3>LTR</h3>
         <table>
             <caption class="top">List of users caption top</caption>
@@ -1472,53 +1391,13 @@
         </table>
     </div>
 </div>
-<figure>
-    <pre><code class="html">
-    <span class="hv">&lt;</span><span class="ht">table</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;</span><span class="ht">caption</span><span class="ha"> class</span><span class="hv">="top</span>"<span class="hv">&gt;</span>List of users caption top<span class="hv">&lt;/</span><span class="ht">caption</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;</span><span class="ht">thead</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>#<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>First Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Last Name<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Position<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;/</span><span class="ht">thead</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;</span><span class="ht">tbody</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>1<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Omid<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Moridi<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>WidgetNas Creator<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>2<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Reza<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Rahmani<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Developer<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="row</span>"<span class="hv">&gt;</span>3<span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> colspan</span><span class="hv">="2</span>"<span class="hv">&gt;</span>Mohammad Keshavarz<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="hv">&gt;</span>Marketing<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;/</span><span class="ht">tbody</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;</span><span class="ht">tfoot</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;</span><span class="ht">tr</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">th</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span><span class="hv">&lt;/</span><span class="ht">th</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Foot<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Foot<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-                <span class="hv">&lt;</span><span class="ht">td</span><span class="ha"> scope</span><span class="hv">="col</span>"<span class="hv">&gt;</span>Foot<span class="hv">&lt;/</span><span class="ht">td</span><span class="hv">&gt;</span>
-            <span class="hv">&lt;/</span><span class="ht">tr</span><span class="hv">&gt;</span>
-        <span class="hv">&lt;/</span><span class="ht">tfoot</span><span class="hv">&gt;</span>
-    <span class="hv">&lt;/</span><span class="ht">table</span><span class="hv">&gt;</span></code></pre>
-</figure>
+<figure><code data-on="table9"></code></figure>
 <h2>جداول واکنش گرا یا ریسپانسیو</h2>
 <p>برای آنکه جدول در محیطهای مختلف به درستی قابل نمایش باشند، میتواند از خاصیت div با کلاس responsive استفاده نمایید. هر چند که این تکنیک برای هر موضوع دیگری قابل استفاده است.</p>
 <div class="example-div">
     <div class="ltr row">
         <h3>LTR</h3>
-        <div class="responsive">
+        <div class="responsive" id="table10" style="height:150px">
             <table class="bordered">
                 <thead>
                     <tr>
@@ -1617,16 +1496,5 @@
             </table>
         </div>
     </div>
-    <div class="rtl">
-        <h3>RTL</h3>
-
-    </div>
 </div>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"responsive"</span>&gt;
-        &lt;<span class="ht">table</span>&gt;
-        &lt;/<span class="ht">table</span>&gt;
-    &lt;/<span class="ht">div</span>&gt;
-</code></pre>
-</figure>
+<figure><code data-on="table10"></code></figure>

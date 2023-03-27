@@ -115,7 +115,7 @@
 <div class="example-div">
     <div class="row">
         <div class="col-12">
-            <div class="carousel" wn-type="carousel" interval="2000" id="form4">
+            <div class="carousel" wn-type="carousel" interval="5000" id="form4">
                 <div id="sampleslides" class="carousel-slides">
                     <div class="carousel-item active">
                         <img src="~/images/Slides16-9-h-1.png" />
@@ -171,11 +171,13 @@
         </div>
     </div>
     <script>
-        let t = document.querySelectorAll('#sampleeffectlist .list-item');
-        let sampleslides = document.getElementById('sampleslides');
-        for (var i = 0; i < t.length; i++) {
-            t[i].addEventListener('click', function (e) { sampleslides.className = 'carousel-slides ' + e.currentTarget.innerText; });
-        }
+        WNE(document).Ready(()=>{
+            let t = document.querySelectorAll('#sampleeffectlist .list-item');
+            let sampleslides = document.getElementById('sampleslides');
+            for (var i = 0; i < t.length; i++) {
+                t[i].addEventListener('click', function (e) { sampleslides.className = 'carousel-slides ' + e.target.innerText; });
+            }
+        });
     </script>
 </div>
 <h2>نمایش کنترل عقب و جلو</h2>

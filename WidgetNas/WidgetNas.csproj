@@ -1,8 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TypeScriptTarget>ES2021</TypeScriptTarget>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptOutFile>wwwroot/lib/WidgetNas/js/WidgetNas.js</TypeScriptOutFile>
+    <TypeScriptGeneratesDeclarations>True</TypeScriptGeneratesDeclarations>
+    <TypeScriptSourceRoot>src/ts/**/*</TypeScriptSourceRoot>
+    <TypeScriptMapRoot>src/ts/</TypeScriptMapRoot>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TypeScriptTarget>ES2021</TypeScriptTarget>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptOutFile>wwwroot/lib/WidgetNas/js/WidgetNas.js</TypeScriptOutFile>
+    <TypeScriptGeneratesDeclarations>True</TypeScriptGeneratesDeclarations>
+    <TypeScriptSourceRoot>src/ts/**/*</TypeScriptSourceRoot>
+    <TypeScriptMapRoot>src/ts/</TypeScriptMapRoot>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <FileVersion>1.4.3.0</FileVersion>
+    <NeutralLanguage>fa</NeutralLanguage>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>WNLogo128.png</PackageIcon>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,11 +66,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.6" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.7.4">
+    <Content Include="favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.4" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="SharpCompress" Version="0.33.0" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +86,17 @@
     <Folder Include="wwwroot\TempFiles\Image\Home\" />
     <Folder Include="wwwroot\TempFiles\Image\Personal\" />
     <Folder Include="wwwroot\TempFiles\PDF\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Design\WNLogo128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

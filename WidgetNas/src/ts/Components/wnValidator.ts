@@ -33,6 +33,10 @@
         this.element.classList.add('validated');
         return this.element.checkValidity();
     }
+    Clear() {
+        this.element.classList.remove('validated');
+        this.element.noValidate = true;
+    }
     Reset(form: HTMLFormElement) {
         form.classList.remove('validated');
     }

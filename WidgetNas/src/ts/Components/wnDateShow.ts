@@ -25,10 +25,10 @@
         if (this.today && this.format == this.Date.CultureInfo.DateTimeFormat.FullDateTimePattern) {
             this.format = this.Date.CultureInfo.DateTimeFormat.LongDatePattern;
         }
-        if (this.element.hasAttribute('live')) {
+        if (this.element.hasAttribute('interval')) {
             setInterval(() => {
                 this.Date.SetDate(new Date());
-            }, WNparseNumber(this.element.getAttribute('live')));
+            }, WNparseNumber(this.element.getAttribute('interval')));
         }
         if (this.element.localName == 'input')
             this.value = new Date(this.element.value);

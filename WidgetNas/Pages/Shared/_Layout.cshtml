@@ -139,7 +139,8 @@
                             <li><a class="tree-link justify-content-between w-100" href='/Components/SearchList'><span>لیست قابل جستجو</span><span>Search List</span></a></li>
                             <li><a class="tree-link justify-content-between w-100" href='/Components/MultiSelect'><span>انتخاب چندتایی</span><span>Multi Select</span></a></li>
                             <li><a class="tree-link justify-content-between w-100" href='/Components/Table'><span>جدول پیشرفته</span><span>Table</span></a></li>
-                            
+                            <li><a class="tree-link justify-content-between w-100" href='/Components/Captcha'><span>کپچا</span><span>Captcha</span></a></li>
+
                         </ul>
                     </li>
                 </ul>
@@ -163,36 +164,34 @@
         gtag('config', 'G-JRMWGK469E');
     </script>
     <script>
-        WNE(document).Ready(() => {
-            let fig = document.querySelectorAll("code[data-on]");
-            fig.forEach((f) => {
-                let html = '';
-                if (f.getAttribute('data-on') !== '_code') {
-                    html = document.getElementById(f.getAttribute('data-on')).outerHTML;
-                    let l = html.split('\n');
-                    let space = l[l.length - 1].substring(0, l[l.length - 1].indexOf('<'));
-                    for (var i = 0; i < l.length; i++)
-                        l[i] = l[i].replace(space, '');
-                    html = l.join('\n');
-                }
-                else {
-                    html = f.innerHTML;
-                    f.innerHTML = '';
-                }
-                let datamode = "text/html";
-                if (f.hasAttribute('data-mode'))
-                    datamode = f.getAttribute('data-mode');
+        let fig = document.querySelectorAll("code[data-on]");
+        fig.forEach((f) => {
+            let html = '';
+            if (f.getAttribute('data-on') !== '_code') {
+                html = document.getElementById(f.getAttribute('data-on')).outerHTML;
+                let l = html.split('\n');
+                let space = l[l.length - 1].substring(0, l[l.length - 1].indexOf('<'));
+                for (var i = 0; i < l.length; i++)
+                    l[i] = l[i].replace(space, '');
+                html = l.join('\n');
+            }
+            else {
+                html = f.innerHTML;
+                f.innerHTML = '';
+            }
+            let datamode = "text/html";
+            if (f.hasAttribute('data-mode'))
+                datamode = f.getAttribute('data-mode');
 
-                var editor = CodeMirror(f, {
-                    mode: datamode,
-                    value: html,
-                    lineWrapping: true,
-                    lineNumbers: true,
-                    readOnly: true,
-                    matchBrackets: true,
-                });
-
+            var editor = CodeMirror(f, {
+                mode: datamode,
+                value: html,
+                lineWrapping: true,
+                lineNumbers: true,
+                readOnly: true,
+                matchBrackets: true,
             });
+
         });
     </script>
 

@@ -1,7 +1,7 @@
 ﻿function wnabout() {
     return `
 /*--------------------------------------
- * Widgetnas Version: 1.4.0.0
+ * Widgetnas Version: 1.4.3.0
  * Release Date: 1401-05-16 - 2022-08-07
  *--------------------------------------*/
 `}
@@ -30,48 +30,43 @@ function initComponents() {
 
 function CheckBrowserCompatibility() {
     let objAgent = navigator.userAgent;
-    let objbrowserName = navigator.appName;
-    let objfullVersion = '' + parseFloat(navigator.appVersion);
-    let objBrMajorVersion = parseInt(navigator.appVersion, 10);
+    let objbrowserName = '';
+    let objfullVersion = '';
+    let objBrMajorVersion = 0;
     let objOffsetName, objOffsetVersion, ix;
-    // In Chrome
     if ((objOffsetVersion = objAgent.indexOf("Chrome")) != -1) {
         objbrowserName = "Chrome";
         objfullVersion = objAgent.substring(objOffsetVersion + 7);
     }
-    // In Microsoft internet explorer
     else if ((objOffsetVersion = objAgent.indexOf("MSIE")) != -1) {
         objbrowserName = "Microsoft Internet Explorer";
         objfullVersion = objAgent.substring(objOffsetVersion + 5);
     }
-    // In Firefox
     else if ((objOffsetVersion = objAgent.indexOf("Firefox")) != -1) {
         objbrowserName = "Firefox";
+        objfullVersion = objAgent.substring(objOffsetVersion + 8);
     }
-    // In Safari
     else if ((objOffsetVersion = objAgent.indexOf("Safari")) != -1) {
         objbrowserName = "Safari";
         objfullVersion = objAgent.substring(objOffsetVersion + 7);
         if ((objOffsetVersion = objAgent.indexOf("Version")) != -1)
             objfullVersion = objAgent.substring(objOffsetVersion + 8);
     }
-    // For other browser "name/version" is at the end of userAgent
     else if ((objOffsetName = objAgent.lastIndexOf(' ') + 1) < (objOffsetVersion = objAgent.lastIndexOf('/'))) {
         objbrowserName = objAgent.substring(objOffsetName, objOffsetVersion);
         objfullVersion = objAgent.substring(objOffsetVersion + 1);
         if (objbrowserName.toLowerCase() == objbrowserName.toUpperCase()) {
-            objbrowserName = navigator.appName;
+            objbrowserName = 'Netscape';
         }
     }
-    // trimming the fullVersion string at semicolon/space if present
     if ((ix = objfullVersion.indexOf(";")) != -1)
         objfullVersion = objfullVersion.substring(0, ix);
     if ((ix = objfullVersion.indexOf(" ")) != -1)
         objfullVersion = objfullVersion.substring(0, ix);
     objBrMajorVersion = parseInt('' + objfullVersion, 10);
     if (isNaN(objBrMajorVersion)) {
-        objfullVersion = '' + parseFloat(navigator.appVersion);
-        objBrMajorVersion = parseInt(navigator.appVersion, 10);
+        objfullVersion = '1.0';
+        objBrMajorVersion = 0;
     }
     let error = true;
     if (objbrowserName == 'Chrome' && objBrMajorVersion >= 89)
@@ -81,13 +76,13 @@ function CheckBrowserCompatibility() {
     if (error)
         document.body.innerHTML = `<div class='alert warning'>` + WNlang[WNDefaultCultureInfo.TwoLetterISOLanguageName]["common"]["browsererror"] + ' ' + objbrowserName + ':' + objBrMajorVersion + `</div>` + document.body.innerHTML;
 }
-
-function InitWNBlock(elem: HTMLElement | HTMLDocument = document) {
+function InitWNBlock(elem: HTMLElement | Document = document) {
     InitWN(elem);
     SetComponentCompatibility(elem);
     WNTooltipAssign(elem);
+    WNAnimationSetup();
 }
-function InitWN(masterelem: HTMLElement | HTMLDocument = document) {
+function InitWN(masterelem: HTMLElement | Document = document) {
     let selectors: NodeListOf<HTMLDivElement> = masterelem.querySelectorAll("[wn-type]");
     for (var i = 0; i < selectors.length; i++) {
         let elem = selectors[i];
@@ -105,7 +100,7 @@ function InitWN(masterelem: HTMLElement | HTMLDocument = document) {
         }
     }
 }
-function SetComponentCompatibility(elem: HTMLElement | HTMLDocument = document) {
+function SetComponentCompatibility(elem: HTMLElement | Document = document) {
     //Select
     let selectors: NodeListOf<HTMLSelectElement> = elem.querySelectorAll("*");
     for (var i = 0; i < selectors.length; i++) {
@@ -125,7 +120,10 @@ function SetComponentCompatibility(elem: HTMLElement | HTMLDocument = document) 
         }
     }
 }
-function WNTagEvalScriptBody() { WNTagEvalScript(document.body); }
+function WNTagEvalScriptBody() {
+    if (!DisableTagEvalScript)
+        WNTagEvalScript(document.body);
+}
 function WNTagEvalScript(elem: HTMLElement) {
     const regexp = /\$\[([\s\S]*?)\]/img;
     let html = elem.innerHTML;

@@ -79,10 +79,6 @@
         <p>تنظیم مقدار استوریج، در صورتیکه localstorage مقدار true باشد. در لوکال استرویج و در غیر اینصورت در سشن ذخیره میشود.</p>
     </li>
     <li>
-        <h3 class="ltr text-start">WNWaitToLoad(e: HTMLElement, timeout?: number)</h3>
-        <p>منتظر میماند تا موضوع مد نظر به درستی لود شود. این تابع بیشتر برای لود تصاویر است.</p>
-    </li>
-    <li>
         <h3 class="ltr text-start">WNAddStringQuote(value: string)</h3>
         <p>برای ارسال یه رشته به صورت post به سرور، بایستی عبارت متنی در " قرار گیرد، این تابع این علامت را در کنار مقدار قرار میدهد.</p>
     </li>
@@ -168,7 +164,7 @@ WNE(document).Ready(async() =˃ {
     این تابع همانند تابع Post است با این تفاوت روش ارسال اطلاعات به صورت Get میباشد.
 </p>
 <p>
-    <h3>Get</h3>
+    <h3>GetText</h3>
     <bidi>GetText(postUrl: string)</bidi> <br />
     اگر میخواهید یک فایل یا دیتای متنی را دریافت کنید، به صورت Get فراخوانی شده و مقدار برگشتی را نمایش میدهد.
 </p>
@@ -180,7 +176,7 @@ WNE(document).Ready(async() =˃ {
     مقدار بازگشتی به صورت یک موضوع Blob است.
 </p>
 <figure><code data-on="_code">
-await GetFile('Test.png', '/Download').then(async (r) => {
+await GetFile('Test.png', '/Download').then(async (r) =˃ {
     if (r) {
         var a = document.createElement("a");
         a.href = r;
@@ -199,7 +195,7 @@ await GetFile('Test.png', '/Download').then(async (r) => {
     اطلاعات به صورت Form Data و به روش Put برای سرور ارسال میشود. در این حین در اطلاعات فرم ارسالی فیلیدی به اسم destination با مقدار آدرس پارامتر destination به همراه فایلهای ارسالی به کنترلر فرستاده میشود. تا اگر سرور نیاز به این آدرس داشت بتواند از آن استفاده کند.
 </p>
 <figure><code data-on="_code">
-_dragdrop.addEventListener("drop", async (ev) => {
+_dragdrop.addEventListener("drop", async (ev) =˃ {
     ev.preventDefault();
     if (ev.dataTransfer.items) {
         let files = [];
@@ -212,7 +208,7 @@ _dragdrop.addEventListener("drop", async (ev) => {
     }
 });
 async UploadFile(files) {
-    await Upload(files, 'folder', '/Upload').then(async (r) => {
+    await Upload(files, 'folder', '/Upload').then(async (r) =˃ {
         if (r==true) {
             alert("success");
         }

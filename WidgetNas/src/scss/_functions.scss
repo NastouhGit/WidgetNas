@@ -1,4 +1,6 @@
-﻿@mixin disabled-tag($extend: '') {
+﻿@import "_variables.scss";
+
+@mixin disabled-tag($extend: '') {
     fieldset:disabled & #{$extend},
     fieldset[disabled] & #{$extend},
     .ig[disabled] & #{$extend},
@@ -29,7 +31,8 @@
     @content('');
 
     @each $media, $value in $breakpoints-min {
-        @media (min-width: #{$value}) and (max-width:#{map-get($breakpoints,$media)}) {
+        //@media (min-width: #{$value}) and (max-width:#{map-get($breakpoints,$media)}) {
+        @media (max-width:#{map-get($breakpoints,$media)}) {
             @content('-'+$media);
         }
 

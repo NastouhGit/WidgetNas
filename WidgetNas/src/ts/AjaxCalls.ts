@@ -2,7 +2,7 @@
 var WNElements: { [id: string]: WNElement; } = {};
 
 class WNElement {
-    Element: HTMLDocument | HTMLElement;
+    Element: Document | HTMLElement;
     Ready(callBack: any, options: boolean = false): void { this.Element.addEventListener("DOMContentLoaded", callBack, options); }
     Click(callBack: any): void { this.Element.addEventListener("click", callBack); }
     Change(callBack: any): void { this.Element.addEventListener("change", callBack); }
@@ -41,24 +41,26 @@ class WNElement {
     Touchstart(callBack: any): void { this.Element.addEventListener("touchstart", callBack); }
     Wheel(callBack: any): void { this.Element.addEventListener("wheel", callBack); }
 
-    constructor(element: HTMLDocument | HTMLElement) {
+    constructor(element: Document | HTMLElement) {
         this.Element = element;
     }
 }
 
-function WNE(element: HTMLElement | HTMLDocument | string): WNElement {
-    let id = '';
-    let telement: HTMLElement | HTMLDocument;
-    if (typeof (element) == 'string') {
-        if (WNElements[element] != undefined)
-            return WNElements[element];
+function WNEReset() {
+    WNElements = {};
+}
 
-        telement = document.getElementById(element) as HTMLElement;
+function WNE(element: HTMLElement | Document | string): WNElement {
+    let id = '';
+    let telement: HTMLElement | Document;
+    if (typeof (element) == 'string') {
+        if (WNElements[element.toLocaleLowerCase()] != undefined)
+            return WNElements[element.toLocaleLowerCase()];
+
+        telement = document.querySelector(`[id='${element}' i]`) as HTMLElement;
 
         if (telement == null) {
-            let elem = document.getElementsByName(element);
-            if (elem != undefined)
-                telement = elem[0];
+            telement = document.querySelector(`[name='${element}' i]`) as HTMLElement;
         }
 
         if (telement == null)
@@ -66,7 +68,7 @@ function WNE(element: HTMLElement | HTMLDocument | string): WNElement {
 
         if (telement == undefined)
             return null;
-        id = telement.id;
+        id = telement.id.toLocaleLowerCase();
     }
     else if (element == document) {
         telement = element;
@@ -74,19 +76,18 @@ function WNE(element: HTMLElement | HTMLDocument | string): WNElement {
     }
     else {
         telement = element;
-        id = (<HTMLElement>telement).id;
+        id = (<HTMLElement>telement).id.toLocaleLowerCase();
     }
     if (id === '')
-        id = (<any>telement).name;
+        id = (<any>telement).name.toLocaleLowerCase();
     if (id === '')
-        id = element.toString();
+        id = element.toString().toLocaleLowerCase();
 
     if (WNElements[id] == undefined) {
         WNElements[id] = new WNElement(telement);
     }
     return WNElements[id];
 }
-
 
 function GetFormData(Form: HTMLFormElement) {
     let data = new FormData();
@@ -101,44 +102,60 @@ function GetFormData(Form: HTMLFormElement) {
     return JSON.stringify(object);
 }
 
-async function Post(data: any, postUrl: string): Promise<any> {
+function GetRequestInit() {
+    return {
+        method: "post",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        redirect: "manual",
+        referrerPolicy: "origin",
+        headers: {
+            "Content-Encoding": "deflate, gzip",
+            "Content-Type": "application/json",
+            "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
+        }
+    };
+}
 
+function GetPostUrl(postUrl) {
     let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
+    if (!url.startsWith('/') && !url.toLowerCase().startsWith('http')) {
         if (WNBaseFetchUri !== undefined)
             url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
         else
             url = '/' + url;
     }
+    return url;
+}
 
+async function Post(data: any, postUrl: string, init: any = undefined): Promise<any> {
+
+    if (init == undefined)
+        init = GetRequestInit();
+
+    init.method = "post";
+    init.body = data;
 
     return new Promise<any>(async (resolve, reject) => {
-        await fetch(url, {
-            method: "post",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            body: data,
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Content-Type": "application/json",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
-            }
-        })
+        await fetch(GetPostUrl(postUrl), init)
             .then(async (response) => {
                 const res = await response.text();
                 try {
-                    const r = JSON.parse(res);
-                    if (r)
-                        resolve(r);
-                    else
-                        resolve(res);
-
+                    if (response.ok) {
+                        const r = JSON.parse(res);
+                        if (r)
+                            resolve(r);
+                        else
+                            resolve(res);
+                    }
+                    else {
+                        const r = JSON.parse(res);
+                        if (r)
+                            reject(new Error(r?.detail));
+                        else
+                            reject(res);
+                    }
                 } catch (e) {
                     resolve(res);
                 }
@@ -151,139 +168,110 @@ async function Post(data: any, postUrl: string): Promise<any> {
     });
 }
 
-async function Get(data: any, postUrl: string): Promise<any> {
+async function Get(data: any, postUrl: string, init: any = undefined): Promise<any> {
 
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
-    }
+    if (init == undefined)
+        init = GetRequestInit();
 
+    init.method = "get";
+    let url = GetPostUrl(postUrl);
     if (data != undefined && data != '')
         url += "?" + encodeURIComponent(JSON.stringify(data));
 
     return new Promise<any>(async (resolve, reject) => {
-        await fetch(url, {
-            method: "get",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Content-Type": "application/json",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
-            }
-        })
-            .then((response) => {
+        await fetch(url, init)
+            .then(async (response) => {
+                if (response.ok) {
+                    resolve(response.json());
+                }
+                else {
+                    const r = await response.json();
+                    if (r)
+                        reject(new Error(r?.detail));
+                    else
+                        reject(response);
+                }
                 try {
                     resolve(response.json());
-                } catch (e) {
+                }
+                catch (e) {
                     console.error(e);
                     reject(e);
                 }
 
             })
             .catch((e) => {
-                console.error(e); reject(e);
+                console.error(e);
+                reject(e);
             });
     });
 }
-async function GetText(postUrl: string): Promise<any> {
+async function GetText(postUrl: string, init: any = undefined): Promise<any> {
 
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
-    }
+    if (init == undefined)
+        init = GetRequestInit();
+
+    init.method = "get";
 
     return new Promise<any>(async (resolve, reject) => {
-        await fetch(url, {
-            method: "get",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Content-Type": "application/json",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
-            }
-        })
-            .then((response) => {
+        await fetch(GetPostUrl(postUrl), init)
+            .then(async (response) => {
                 try {
-                    resolve(response.text());
-                } catch (e) {
+                    if (response.ok) {
+                        resolve(response.text());
+                    }
+                    else {
+                        const r = await response.json();
+                        if (r)
+                            reject(new Error(r?.detail));
+                        else
+                            reject(response);
+                    }
+                }
+                catch (e) {
                     console.error(e);
                     reject(e);
                 }
-
             })
             .catch((e) => {
-                console.error(e); reject(e);
+                console.error(e);
+                reject(e);
             });
     });
 }
-async function GetFile(path: any, postUrl: string): Promise<any> {
+async function GetFile(path: any, postUrl: string, init: any = undefined): Promise<any> {
 
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
+    if (init == undefined) {
+        init = GetRequestInit();
+        init.headers = {
+            "Content-Encoding": "deflate, gzip",
+        }
     }
+
+    init.method = "get";
+    let url = GetPostUrl(postUrl);
     url += "?" + encodeURIComponent(JSON.stringify(path));
 
     return new Promise<any>(async (resolve, reject) => {
-        await fetch(url, {
-            method: "get",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-            }
-        })
+        await fetch(url, init)
             .then(response => response.blob())
             .then(blob => {
                 const objectURL = URL.createObjectURL(blob);
                 resolve(objectURL);
             })
             .catch((e) => {
-                console.error(e); reject(e);
+                console.error(e);
+                reject(e);
             });
     });
 }
+async function Upload(files: any, destination: string, postUrl: string, init: any = undefined): Promise<any> {
 
-async function Upload(files: any, destination: string, postUrl: string): Promise<any> {
-
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
+    if (init == undefined) {
+        init = GetRequestInit();
     }
+
+    init.method = "put";
 
     const formData = new FormData()
     formData.append('destination', destination);
@@ -293,32 +281,26 @@ async function Upload(files: any, destination: string, postUrl: string): Promise
         for (var i = 0; i < files.length; i++)
             formData.append(files[i].name, files[i]);
 
+    init.body = formData;
+
     return new Promise<any>(async (resolve, reject) => {
-        await fetch(url, {
-            method: "put",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            body: formData,
-            headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
-            }
-        })
+        await fetch(GetPostUrl(postUrl), init)
             .then((response) => {
                 try {
-                    resolve(response.json());
-                } catch (e) {
+                    if (response.ok) {
+                        resolve(response.json());
+                    }
+                    else
+                        reject(response.statusText);
+                }
+                catch (e) {
                     console.error(e);
                     reject(e);
                 }
-
             })
             .catch((e) => {
-                console.error(e); reject(e);
+                console.error(e);
+                reject(e);
             });
     });
 }

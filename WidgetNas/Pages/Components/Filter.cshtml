@@ -20,9 +20,19 @@
 <p>برای حذف فیلتر، این مقدار خالی باشد.</p>
 <p>اگر میخواهید در متن داخل موضوع یافت شده متنی باشد، از عبارت <bidi>contains(...)</bidi> استفاده کنید.</p>
 <div class="example-div" id="exp1">
-    <div class="row col-1">
-        Filter by Text: <input type="text" oninput="WNFilter('#Sample1 div[class*=alert]','contains('+this.value+')');" />
-        Filter by class: <button onclick="WNFilter('#Sample1 div[class*=alert]','');">all</button> <button onclick="WNFilter('#Sample1 div[class*=alert]','[class*=primary]');">primary</button><button onclick="WNFilter('#Sample1 div[class*=alert]','[class*=secondary]');">secondary</button><button onclick="WNFilter('#Sample1 div[class*=alert]','[class*=success]');">success</button>
+    <div class="row m-i-0 w-90">
+        <div class="col-5">
+            Filter by Text: <input type="text" oninput="WNFilter('#Sample1 div[class*=alert]','contains('+this.value+')');" />
+        </div>
+        <div class="col-6">
+            <div class="buttongroup">
+                Filter by class:<br />
+                <button class="" onclick="WNFilter('#Sample1 div[class*=alert]','');">all</button>
+                <button class="primary" onclick="WNFilter('#Sample1 div[class*=alert]','[class*=primary]');">primary</button>
+                <button class="secondary" onclick="WNFilter('#Sample1 div[class*=alert]','[class*=secondary]');">secondary</button>
+                <button class="success" onclick="WNFilter('#Sample1 div[class*=alert]','[class*=success]');">success</button>
+            </div>
+        </div>
     </div>
     <div id="Sample1" class="row col-11">
         <div class="ltr">

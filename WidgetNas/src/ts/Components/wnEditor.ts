@@ -117,6 +117,8 @@
     private _editor_source_textarea: HTMLTextAreaElement;
     private _editor_source_mode: string = 'html';
 
+    private _dark_mode: HTMLInputElement;
+
     private _lang: any;
     rgb2hex(rgb: string): string {
         let ret = '';
@@ -198,6 +200,8 @@
         this._editor_hr = this.element.querySelector('.editor-hr');
 
         this._editor_source = this.element.querySelector('.editor-source');
+        this._dark_mode = this.element.querySelector('.editor-darkmode');
+
 
         this.AddToolBar();
         this.AddContent();
@@ -407,6 +411,14 @@
             grp.appendChild(this._editor_source);
             this._toolbar.appendChild(grp);
         }
+        if (this._dark_mode == null) {
+            this._dark_mode = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
+            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            grp.appendChild(this._dark_mode);
+            grp.appendChild(this.CreateElement('label', 'button editor-darkmode'));
+            this._toolbar.appendChild(grp);
+        }
+
     }
     AddContent() {
         if (this._content != null)
@@ -518,6 +530,16 @@
                 this.RecheckToolbar();
             }
         });
+        this._editor_source_textarea.addEventListener("input", () => {
+            const parser = new DOMParser();
+            const doc3 = parser.parseFromString(this._editor_source_textarea.value, "text/html");
+            this._content.innerHTML = doc3.body.innerHTML;
+            if (this.change != null && this.OldHtml != this.Html) {
+                this.change(this);
+                this.OldHtml = this.Html;
+            }
+        });
+        this._dark_mode?.nextSibling.addEventListener('click', () => { this.SwitchDarkMode(); });
     }
     RecheckToolbar() {
         if (this._editor_bold != undefined) this._editor_bold.checked = this.getCurrentStyle('font-weight') > '500';
@@ -898,7 +920,7 @@
                 let link = this.SetSelectionTag("a") as HTMLLinkElement;
                 link.href = this._insertLinkUrl.value;
                 link.title = this._insertLinkTitle.value;
-                link.target = this._insertLinkTarget.value;
+                link.setAttribute('target',this._insertLinkTarget.value);
                 this._insertLinkDropDown.Hide();
             }
         });
@@ -1523,5 +1545,16 @@
             this._content.classList.remove('hide');
             this._editor_source_mode = 'html';
         }
+        if (this.change != null && this.OldHtml != this.Html) {
+            this.change(this);
+            this.OldHtml = this.Html;
+        }
+    }
+    SwitchDarkMode() {
+        this._dark_mode.checked = !this._dark_mode.checked;
+        if (this._dark_mode.checked)
+            this._content.parentElement.classList.add('dark');
+        else
+            this._content.parentElement.classList.remove('dark');
     }
 }

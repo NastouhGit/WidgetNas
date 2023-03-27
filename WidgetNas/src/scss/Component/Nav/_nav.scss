@@ -94,6 +94,7 @@ nav {
     }
 
     &.nav-tab {
+        display:flex;
         border: none;
         border-block-end: var(--border-width) solid var(--normal-border);
 

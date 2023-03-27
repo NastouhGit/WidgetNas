@@ -1,4 +1,6 @@
-﻿.container {
+﻿@import "../../_variables.scss";
+
+.container {
     width: 90%;
     padding-left: var(--gutter-inline);
     padding-right: var(--gutter-inline);
@@ -6,6 +8,10 @@
     margin-left: auto;
     margin-right: auto;
     margin-inline: auto;
+}
+
+main {
+    width: 99%;
 }
 
 .fluid {

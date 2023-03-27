@@ -468,18 +468,19 @@
 <p>کلیه رنگها درون متغیرهای css در قسمت root تعریف شده اند، شما میتوانید به صورت مستقیم از آنها استفاده کرده و یا برای ساخت دسته رنگ مد نظر، فقط آنها را تغییر دهید. </p>
 <p>نحوه نام گذاری قبلا گفته شده است با این تفاوت که شروع با نام دسته رنگی به جای --current میباشد. یعنی <span class="bidi-override">--primary-normal-color</span> یا <span class="bidi-override">--default-select-back</span></p>
 <p>با استفاده از دو دکمه زیر، توسط جاوا اسکریپت رنگ اصلی متغیر پس زمینه تغییر میکند.</p>
-<button class="primary" onclick="document.documentElement.style.setProperty('--primary-normal-back', 'magenta');">تغییر رنگ پس زمینه اصلی به بنفش</button>
-<button class="primary" onclick="document.documentElement.style.setProperty('--primary-normal-back', 'red');">تغییر رنگ پس زمینه اصلی به قرمز</button>
+<button class="primary" onclick="document.querySelector(':root').style.setProperty('--primary-back', 'magenta');">تغییر رنگ پس زمینه اصلی به بنفش</button>
+<button class="primary" onclick="document.querySelector(':root').style.setProperty('--primary-back', 'red');">تغییر رنگ پس زمینه اصلی به قرمز</button>
 <figure>
     <pre><code class="html">
-    <span class="ha">--primary-normal-back:</span> <span class="hv">red</span>;
+    document.querySelector(':root').style.setProperty('--primary-back', 'magenta');
+    <span class="ha">--primary-back:</span> <span class="hv">red</span>;
 </code></pre>
 </figure>
 <p>در صورت تمایل به ایجاد انواع مختلف تم، میتوانید با تغییر این متغییرها، انواع رنگهای مد نظر خود را داشته باشید.</p>
 <h2 class="m-bs-50e">شید یا گرادیانت</h2>
 <p>اگر نیاز داشتید بر روی موضوع خود، شید داشته باشید میتوانید از کلاس gradients استفاده کنید.</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr w-90-i">
         <h3>LTR</h3>
         <button class="primary">Primary</button>
         <button class="primary gradients">Primary Gradients</button>
@@ -507,67 +508,67 @@
 </p>
 <h3>اسامی رنگها</h3>
 <div class="d-flex row ltr m-50r text-center">
-    <div class="col yellow-400-bkcolor-i">yellow - yellow-400</div>
-    <div class="col yellow-a400-bkcolor-i">yellow a - yellow-a400</div>
-    <div class="col amber-400-bkcolor-i">amber - amber-400</div>
-    <div class="col amber-a400-bkcolor-i">ambera - amber-a400</div>
-    <div class="col orange-400-bkcolor-i">orange - orange-400</div>
-    <div class="col orange-a400-bkcolor-i">orange a - orange-a400</div>
-    <div class="col deep-orange-400-bkcolor-i">deep-orange - deep-orange-400</div>
-    <div class="col deep-orange-a400-bkcolor-i">deep-orange a - deep-orange-a400</div>
+    <div class="col yellow-400-bkcolor-i">yellow-400</div>
+    <div class="col yellow-a400-bkcolor-i">yyellow-a400</div>
+    <div class="col amber-400-bkcolor-i">amber-400</div>
+    <div class="col amber-a400-bkcolor-i">amber-a400</div>
+    <div class="col orange-400-bkcolor-i">orange-400</div>
+    <div class="col orange-a400-bkcolor-i">orange-a400</div>
+    <div class="col deep-orange-400-bkcolor-i">deep-orange-400</div>
+    <div class="col deep-orange-a400-bkcolor-i">deep-orange-a400</div>
 </div>
 <div class="d-flex row ltr m-50r text-center">
-    <div class="col blue-400-bkcolor-i">blue - blue-400</div>
-    <div class="col blue-a400-bkcolor-i">blue a - blue-a400</div>
-    <div class="col blue-grey-400-bkcolor-i">blue-grey - blue-grey-400</div>
-    <div class="col cyan-400-bkcolor-i">cyan - cyan-400</div>
-    <div class="col cyan-a400-bkcolor-i">cyan a - cyan-a400</div>
-    <div class="col indigo-400-bkcolor-i">indigo - indigo-400</div>
-    <div class="col indigo-a400-bkcolor-i">indigo a - indigo-a400</div>
-    <div class="col light-blue-400-bkcolor-i">light-blue - light-blue-400</div>
-    <div class="col light-blue-a400-bkcolor-i">light-blue a - light-blue-a400</div>
+    <div class="col blue-400-bkcolor-i">blue-400</div>
+    <div class="col blue-a400-bkcolor-i">blue-a400</div>
+    <div class="col blue-grey-400-bkcolor-i">blue-grey-400</div>
+    <div class="col cyan-400-bkcolor-i">cyan-400</div>
+    <div class="col cyan-a400-bkcolor-i">cyan-a400</div>
+    <div class="col indigo-400-bkcolor-i">indigo-400</div>
+    <div class="col indigo-a400-bkcolor-i">indigo-a400</div>
+    <div class="col light-blue-400-bkcolor-i">light-blue-400</div>
+    <div class="col light-blue-a400-bkcolor-i">light-blue-a400</div>
 </div>
 <div class="d-flex row ltr m-50r text-center">
-    <div class="col green-400-bkcolor-i">green - green-400</div>
-    <div class="col green-a400-bkcolor-i">green a - green-a400</div>
-    <div class="col light-green-400-bkcolor-i">light-green - light-green-400</div>
-    <div class="col light-green-a400-bkcolor-i">light-green a - light-green-a400</div>
-    <div class="col lime-400-bkcolor-i">lime - lime-400</div>
-    <div class="col lime-a400-bkcolor-i">lime a - lime-a400</div>
-    <div class="col teal-400-bkcolor-i">teal - teal-400</div>
-    <div class="col teal-a400-bkcolor-i">teal a - teal-a400</div>
+    <div class="col green-400-bkcolor-i">green-400</div>
+    <div class="col green-a400-bkcolor-i">green-a400</div>
+    <div class="col light-green-400-bkcolor-i">light-green-400</div>
+    <div class="col light-green-a400-bkcolor-i">light-green-a400</div>
+    <div class="col lime-400-bkcolor-i">lime-400</div>
+    <div class="col lime-a400-bkcolor-i">lime-a400</div>
+    <div class="col teal-400-bkcolor-i">teal-400</div>
+    <div class="col teal-a400-bkcolor-i">teal-a400</div>
 </div>
 <div class="d-flex row ltr m-50r text-center">
-    <div class="col red-400-bkcolor-i">red - red-400</div>
-    <div class="col red-a400-bkcolor-i">red a- red-a400</div>
-    <div class="col pink-400-bkcolor-i">pink - pink-400</div>
-    <div class="col pink-a400-bkcolor-i">pink a - pink-a400</div>
-    <div class="col purple-400-bkcolor-i">purple - purple-400</div>
-    <div class="col purple-a400-bkcolor-i">purple a - purple-a400</div>
-    <div class="col deep-purple-400-bkcolor-i">deep-purple - deep-purple-400</div>
-    <div class="col deep-purple-a400-bkcolor-i">deep-purple a - deep-purple-a400</div>
-    <div class="col brown-400-bkcolor-i">brown - brown-400</div>
+    <div class="col red-400-bkcolor-i">red-400</div>
+    <div class="col red-a400-bkcolor-i">red-a400</div>
+    <div class="col pink-400-bkcolor-i">pink-400</div>
+    <div class="col pink-a400-bkcolor-i">pink-a400</div>
+    <div class="col purple-400-bkcolor-i">purple-400</div>
+    <div class="col purple-a400-bkcolor-i">purple-a400</div>
+    <div class="col deep-purple-400-bkcolor-i">deep-purple-400</div>
+    <div class="col deep-purple-a400-bkcolor-i">deep-purple-a400</div>
+    <div class="col brown-400-bkcolor-i">brown-400</div>
 </div>
 <div class="d-flex row ltr m-50r text-center">
-    <div class="col black-bkcolor-i white-text-i">black - black</div>
-    <div class="col grey-400-bkcolor-i">grey - grey-400</div>
-    <div class="col white-bkcolor-i">white - white</div>
+    <div class="col black-bkcolor-i white-text-i">black</div>
+    <div class="col grey-400-bkcolor-i">grey-400</div>
+    <div class="col white-bkcolor-i">white</div>
 </div>
 <div class="d-flex row ltr m-50r text-center">
-    <div class="col grey-50-bkcolor-i">50</div>
-    <div class="col grey-100-bkcolor-i">100</div>
-    <div class="col grey-200-bkcolor-i">200</div>
-    <div class="col grey-300-bkcolor-i">300</div>
-    <div class="col grey-400-bkcolor-i">400</div>
-    <div class="col grey-500-bkcolor-i">500</div>
-    <div class="col grey-600-bkcolor-i">600</div>
-    <div class="col grey-700-bkcolor-i">700</div>
-    <div class="col grey-800-bkcolor-i">800</div>
-    <div class="col grey-900-bkcolor-i">900</div>
+    <div class="col grey-50-bkcolor-i">grey-50</div>
+    <div class="col grey-100-bkcolor-i">grey-100</div>
+    <div class="col grey-200-bkcolor-i">grey-200</div>
+    <div class="col grey-300-bkcolor-i">grey-300</div>
+    <div class="col grey-400-bkcolor-i">grey-400</div>
+    <div class="col grey-500-bkcolor-i">grey-500</div>
+    <div class="col grey-600-bkcolor-i">grey-600</div>
+    <div class="col grey-700-bkcolor-i">grey-700</div>
+    <div class="col grey-800-bkcolor-i">grey-800</div>
+    <div class="col grey-900-bkcolor-i">grey-900</div>
 </div>
 <div class="d-flex row ltr m-50r text-center">
-    <div class="col blue-a100-bkcolor-i">100</div>
-    <div class="col blue-a200-bkcolor-i">200</div>
-    <div class="col blue-a400-bkcolor-i">400</div>
-    <div class="col blue-a700-bkcolor-i">700</div>
+    <div class="col blue-a100-bkcolor-i">blue-a100</div>
+    <div class="col blue-a200-bkcolor-i">blue-a200</div>
+    <div class="col blue-a400-bkcolor-i">blue-a400</div>
+    <div class="col blue-a700-bkcolor-i">blue-a700</div>
 </div>

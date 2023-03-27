@@ -28,9 +28,19 @@ function WNparseString(value: any, Default?: string): string {
 }
 function WNTrim(value: string, trimstr: string = ' ') {
     while (value.startsWith(trimstr))
-        value = value.substr(trimstr.length);
+        value = value.substring(trimstr.length);
     while (value.endsWith(trimstr))
-        value = value.substr(0, value.lastIndexOf(trimstr));
+        value = value.substring(0, value.lastIndexOf(trimstr));
+    return value;
+}
+function WNTrimStart(value: string, trimstr: string = ' ') {
+    while (value.startsWith(trimstr))
+        value = value.substring(trimstr.length);
+    return value;
+}
+function WNTrimEnd(value: string, trimstr: string = ' ') {
+    while (value.endsWith(trimstr))
+        value = value.substring(0, value.lastIndexOf(trimstr));
     return value;
 }
 function WNLimitRange(value: number, min: number, max: number) {
@@ -256,19 +266,6 @@ function WNSetStorage(key: string, value: string, localstorage: boolean): boolea
 }
 function WNSleep(ms: number) {
     return new Promise(s => setTimeout(s, ms));
-}
-function WNWaitToLoad(e: HTMLElement, timeout: number = 5000) {
-    if (e.nodeName == "IMG") {
-        new Promise(() => {
-            if ((<HTMLImageElement>e).complete) {
-                return null;
-            }
-            (<HTMLImageElement>e).onload = () => null;
-            (<HTMLImageElement>e).onerror = () => null;
-        });
-    }
-    else
-        e.childNodes.forEach(x => WNWaitToLoad(x as HTMLElement, timeout));
 }
 
 function WNAddClassList(elem: HTMLElement, classes: string) {

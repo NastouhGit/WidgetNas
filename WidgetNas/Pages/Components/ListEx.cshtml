@@ -107,14 +107,79 @@
 <figure><code data-on="form1"></code></figure>
 <h2>کنترل لیست با Javascript</h2>
 <p>برای آنکه بتوانید به صورت آنلاین لیست خود را کنترل کنید، مثال زیر را مشاهده کنید.</p>
-<p>برای ایجاد یک رکورد از تابع addrow استفاده کنید.</p>
-<p>برای تغییر متن یک رکورد از تابع settext استفاده کنید.</p>
-<p>برای تغییر مقدار یک رکورد از تابع setvalue استفاده کنید.</p>
-<p>برای ورود رکوردها توسط یک آرایه از تابع setdata استفاده کنید.</p>
-<p>برای حذف یک رکورد از تابع removerow استفاده کنید.</p>
-<p>برای مرتب سازی رکوردها از تابع order استفاده کنید.</p>
-<p>برای جستجوی یک رکورد از تابع findbyvalue و یا findbytext استفاده کنید.</p>
-<p>برای فیلتر رکوردها از تابع filterbytext استفاده کنید.</p>
+<p>
+    <h5>select</h5>
+    این تابع با ورودی node مورد نظر، آنرا انتخاب میکند.<br />
+    <bidi>select(node: HTMLElement)</bidi>
+</p>
+<p>
+    <h5>findbytext و findbyvalue</h5>
+    برای جستجوی یک رکورد از تابع findbyvalue و یا findbytext استفاده کنید. <br />
+    <bidi>findbytext(text: string, contains: boolean = true, select: boolean = true): HTMLElement</bidi><br />
+    <bidi>findbyvalue(value: string, select: boolean = true): HTMLElement</bidi>
+</p>
+<p>
+    <h5>elementtoitem</h5>
+    مقدار نود ورودی را تبدیل به متغییری از نوع caption و value میکند. یعنی مقدار نود در value و عنوان نود در caption<br />
+    <bidi>elementtoitem(elem: HTMLElement):any</bidi>
+</p>
+<p>
+    <h5>filterbytext</h5>
+    برای فیلتر کردن بر اساس عنوان های هر ردیف لیست، از این تابع استفاده میشود.<br />
+    <bidi>filterbytext(text: string, contains: boolean = true)</bidi><br />
+    متن ورودی و پارامتر بعدی مشخص میکند، این متن در بین متون باشد یا نه عینا همین متن فیلتر شود.
+</p>
+<p>
+    <h5>addrow</h5>
+    برای ایجاد یک رکورد از تابع addrow استفاده کنید.<br />
+    <bidi>addrow(text: string, value: string = '')</bidi><br />
+    عنوان و مقدار ردیف را باید وارد کنید.
+</p>
+<p>
+    <h5>settext</h5>
+    برای تغییر متن یک رکورد از تابع settext استفاده کنید.<br />
+    <bidi>settext(text: string, index: number)</bidi><br />
+    پارامتر اول متن مورد نظر و پارامتر بعدی شماره ایندکس ردیف است. مقدار از صفر شروع میشود.
+</p>
+<p>
+    <h5>setvalue</h5>
+    برای تغییر مقدار یک رکورد از تابع setvalue استفاده کنید.<br />
+    <bidi>setvalue(text: string, index: number)</bidi><br />
+    پارامتر اول مقدار مورد نظر و پارامتر بعدی شماره ایندکس ردیف است. مقدار از صفر شروع میشود.
+</p>
+<p>
+    <h5>removerow</h5>
+    برای حذف یک رکورد از تابع removerow استفاده کنید.<br />
+    <bidi>removerow(index: number)</bidi><br />
+     پارامتر آن شماره ایندکس ردیف است. مقدار از صفر شروع میشود.
+</p>
+<p>
+    <h5>order</h5>
+    برای مرتب سازی رکوردها از تابع order استفاده کنید.<br />
+    <bidi>order(desc = false)</bidi><br />
+    پارامتر آن مشخص میکند، مرتب سازی از بزرگ به کوچک باشد یا کوچک به بزرگ. مقدار false یعنی از کوچک به بزرگ.
+</p>
+<p>
+    <h5>reindex</h5>
+    اگر به هر دلیلی ردیف ها را جابجا کردید، برای ایندکس بندی از این تابع استفاده میشود. این یک تابع داخلی است و استفاده از آن جز موارد خاص پیشنهاد نمیشود.<br />
+    <bidi>reindex()</bidi>
+</p>
+<p>
+    <h5>refresh</h5>
+    اگر به هر دلیلی تمایل داشتید دوباره ردیفها ساخته و نمایش داده شود، از این تابع استفاده کنید. این یک تابع داخلی است و استفاده از آن جز موارد خاص پیشنهاد نمیشود.<br />
+    <bidi>refresh()</bidi>
+</p>
+<p>
+    <h5>setdata</h5>
+    برای نسبت دادن یک لیست از مقادیر و عناوین به لیست از این تابع استفاده کنید. برای مثال میخواهید اطلاعات از سمت سرور دریافت و لیست شما پر شود.<br />
+    <bidi>setdata(datasource: any[], displayfield: string, valuefield: string, append: boolean = false)</bidi><br />
+    datasource: لیستی از اطلاعات مد نظر شما برای نمایش است.<br/>
+    displayfield: نام فیلد درون آرایه برای نمایش بعنوان متن یا عنوان در لیست.<br />
+    valuefield: نام فیلد درون آرایه برای تنظیم مقدار در لیست.<br />
+    append: مشخص کننده آن است اطلاعات جدید به لیست اضافه شود یا اطلاعات قبلی حذف و اطلاعات جدید اضافه شود.<br />
+    برای درک بیشتر به مثال زیر توجه کنید.
+</p>
+
 <div class="example-div" id="exam2">
     <div class="row w-100">
         <div class="col-6">
@@ -173,47 +238,77 @@
                     WN['list1'].setdata(o, 'text', 'value', append);
                 }
             </script>
-        </div>
-    </div>
-    <div class="row w-100">
-        <div class="ltr col">
-            <h3>LTR</h3>
-            <ul id="list1" class="list" wn-type="list">
-                <li value="omid">Omid</li>
-                <li value="ali">Ali</li>
-                <li value="reza">Reza</li>
-            </ul>
-        </div>
+            <div class="row w-100">
+                <div class="ltr col">
+                    <h3>LTR</h3>
+                    <ul id="list1" class="list" wn-type="list">
+                        <li value="omid">Omid</li>
+                        <li value="ali">Ali</li>
+                        <li value="reza">Reza</li>
+                    </ul>
+                </div>
 
+            </div>
+
+        </div>
     </div>
 </div>
 <figure><code data-on="exam2"></code></figure>
 
+<h2>خصوصیات</h2>
+<p>اگر تمایل دارید گزینه ها به صورت جعه تیک باشند، خصوصیت <bidi>checkbox</bidi> را با مقدار true پر نمایید. یا این خصوصیت را از طریق جاوا اسکریپت مقدار دهی کنید.</p>
 <p>
-    <h5>selecteditem</h5>
-    تگ انتخاب شده را برمیگرداند. میخواهد این تگ li باشد یا هر چیزی دیگر.
+    <h5>getcheckedvalue</h5>
+    آرایه ای از مقادیر انتخاب شده را برمیگرداند.<br />
+    <bidi>getcheckedvalue()</bidi>
 </p>
 <p>
-    <h5>selectedindex</h5>
-    شماره ایندکس انتخاب شده در لیست را برمیگرداند.
+    <h5>setcheckedvalue</h5>
+    آرایه ای از مقادیر مورد نظر را داده تا آنها را در لیست تی دار کند..<br />
+    <bidi>setcheckedvalue(value)</bidi>
 </p>
-<p>
-    <h5>currentvalue</h5>
-    اگر هر ردیف انتخابی دارای خصوصیت <bidi>wn-list-value</bidi> باشد، مقدار این خصوصیت را در ردیف انتخاب شده برمیگرداند.
-</p>
+
+<p>برای درک بیشتر به مثال زیر توجه کنید.</p>
+
+<div class="example-div" id="exam3">
+    <div class="row w-100">
+        <div class="ltr col">
+            <h3>LTR</h3>
+            <ul id="list2" class="list" wn-type="list" checkbox="true">
+                <li value="m1"><input type="checkbox" value="m1" class=""> Chekbox Manual Item 1</li>
+            </ul>
+            <button class="primary m-bs-100r" onclick="alert(WN['list2'].getcheckedvalue().join())">Get Checked</button>
+            <button class="primary m-bs-100r" onclick="alert(WN['list2'].setcheckedvalue(['m1','a2']).join())">Set Checked m1,a2</button>
+            <button class="primary m-bs-100r" onclick="alert(WN['list2'].setcheckedvalue([]).join())">Clear Checked</button>
+            <script>
+                WNE(document).Ready(() => {
+                    let o = [
+                        { text: 'Chekbox item 1', value: 'a1' },
+                        { text: 'Chekbox item 2', value: 'a2' },
+                        { text: 'Chekbox item 3', value: 'a3' }
+                    ];
+                    WN['list2'].setdata(o, 'text', 'value', true);
+                });
+            </script>
+        </div>
+
+    </div>
+</div>
+<figure><code data-on="exam3"></code></figure>
+
+<h2>رخدادها</h2>
 <p>
     <h5>beforeclick</h5>
-    قبل از کلیک بر روی گزینه لیست، تا رخداد فراخوانده میشود. اگر این رخداد مقدار <bidi>false</bidi> برگرداند، ادامه عملیات کلیک متوقف میشود.
+    قبل از کلیک بر روی گزینه لیست، این رخداد فراخوانده میشود. اگر این رخداد مقدار <bidi>false</bidi> برگرداند، ادامه عملیات کلیک متوقف میشود.<br/>
+    این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onbeforeclick تعریف کنید.
 </p>
 <p>
     <h5>afterclick</h5>
-    بعد از عمل کلیک کردن این رخداد فراخوانی میشود.
+    بعد از عمل کلیک کردن این رخداد فراخوانی میشود.<br />
+    این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onafterclick تعریف کنید.
 </p>
 <p>
     <h5>selectionchange</h5>
-    بعد از انتخاب هر ردیف این رخداد فراخوانی میشود.
+    بعد از انتخاب هر ردیف این رخداد فراخوانی میشود.<br />
+    این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onselectionchange تعریف کنید.
 </p>
-
-
-
-

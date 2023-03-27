@@ -1,4 +1,6 @@
-﻿.d-grid {
+﻿@import "../../_variables.scss";
+
+.d-grid {
     display: grid !important;
     grid-gap: var(--gutter-inline);
 }

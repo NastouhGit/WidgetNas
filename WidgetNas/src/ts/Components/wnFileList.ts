@@ -5,6 +5,8 @@ class wnfilelist {
     selectionchange: any;
     dblclickitem: any;
 
+    private multiselect:boolean = false;
+    private basepath:string = '/';
     private _mode: string = "select";
     private _Url: string = "api/FileList";
 
@@ -808,6 +810,7 @@ class wnfilelist {
         '.f4a',
         '.f4b',
     ];
+
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLFormElement;
@@ -830,6 +833,10 @@ class wnfilelist {
         if (!this.element.classList.contains('filelist'))
             this.element.classList.add('filelist')
         this._mode = this.element.getAttribute('mode').toLowerCase() ?? 'select';
+        this.multiselect = WNparseBoolean(this.element.getAttribute('multiselect'), false);
+        this.basepath = this.element.getAttribute('basepath') ?? '/';
+        if (this.basepath != '' && !this.basepath.endsWith('/'))
+            this.basepath = this.basepath + '/';
 
         this._head = this.element.querySelector('.head') as HTMLDivElement;
         if (this._head == null)
@@ -845,7 +852,7 @@ class wnfilelist {
         this._Url = WNparseString(this.element.getAttribute('url'), this._Url);
         await this.GetFolders("");
         this._foldertree.collapsedall();
-        this._foldertree.expand(this._foldertree.findbyvalue('\\'));
+        this._foldertree.expandtoparent(this._foldertree.findbyvalue('/'));
 
     }
     AddHead() {
@@ -859,8 +866,11 @@ class wnfilelist {
         let refresh = document.createElement('button');
         refresh.title = this._lang["filelist"]["refresh"];
         refresh.className = "refresh";
-        refresh.addEventListener("click", () => {
-            this.GetFolders("");
+        refresh.addEventListener("click", async () => {
+            let s = WNTrimStart(this.GetSelectedFolder(), '/');
+            await this.GetFolders("");
+            this._foldertree.collapsedall();
+            this._foldertree.expandtoparent(this._foldertree.findbyvalue(s));
         });
         toolbar.appendChild(refresh);
 
@@ -900,10 +910,10 @@ class wnfilelist {
                     value = files.files[0];
                 else {
                     value = files.path ?? '';
-                    let f = value.split('\\');
+                    let f = value.split('/');
                     value = f[f.length - 1];
                 }
-                if (value == '' || value == '\\')
+                if (value == '' || value == '/')
                     return;
 
                 let d = new wnconfirm();
@@ -928,7 +938,7 @@ class wnfilelist {
             _Delete.className = "delete";
             _Delete.addEventListener("click", () => {
                 let f = this.GetSelectedItems();
-                if (f.files.length == 0 && f.path == '\\')
+                if (f.files.length == 0 && f.path == '/')
                     return;
 
                 let d = new wnconfirm();
@@ -966,7 +976,7 @@ class wnfilelist {
                 let f = this.GetSelectedItems();
 
                 if (f.files.length > 0)
-                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '\\' + x, '\\')));
+                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '/' + x, '/')));
                 else
                     WNfilelistclipboard.push(f.path);
                 this.ShowMessage("clipboarded", "success");
@@ -982,7 +992,7 @@ class wnfilelist {
                 let f = this.GetSelectedItems();
 
                 if (f.files.length > 0)
-                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '\\' + x, '\\')));
+                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '/' + x, '/')));
                 else
                     WNfilelistclipboard.push(f.path);
                 this.ShowMessage("clipboarded", "success");
@@ -1024,6 +1034,8 @@ class wnfilelist {
             _Compress.title = this._lang["filelist"]["compress"];
             _Compress.className = "compress";
             _Compress.addEventListener("click", () => {
+                if (this.GetSelectedItems().files.length == 0)
+                    return;
                 let d = new wnconfirm();
                 d.title = this._lang["filelist"]["compress"];
                 d.body = `<ig class='floating'><input placeholder='.' class='ltr'/><label>${this._lang["filelist"]["name"]}</label></ig>`;
@@ -1045,7 +1057,7 @@ class wnfilelist {
             _Decompress.className = "decompress";
             _Decompress.addEventListener("click", () => {
                 let f = this.GetSelectedItems();
-                if (f.files.length == 0 && f.path == '\\')
+                if (f.files.length == 0 && f.path == '/')
                     return;
 
                 let d = new wnconfirm();
@@ -1099,6 +1111,8 @@ class wnfilelist {
         this._files.tHead.innerHTML = `<tr><td><input type="checkbox"/></td><td>${this._lang["filelist"]["filename"]}</td><td>${this._lang["filelist"]["ext"]}</td><td>${this._lang["filelist"]["size"]}</td><td>${this._lang["filelist"]["date"]}</td></tr>`;
         this._files.createTBody();
         this._files.tHead.querySelector("input[type=checkbox]").addEventListener("click", (t) => {
+            if (!this.multiselect)
+                return;
             let th = t.target as HTMLInputElement;
             this._files.tBodies[0].querySelectorAll("input[type=checkbox]").forEach((x) => (<HTMLInputElement>x).checked = th.checked);
             if (this.selectionchange != null)
@@ -1111,7 +1125,8 @@ class wnfilelist {
 
         this._dragdrop = document.createElement('div');
         this._dragdrop.className = "dropfile";
-        this._dragdrop.innerHTML = `</button><div class="filearea"><label for='${this.element.id}_UploadInput'>${this._lang["filelist"]["upload"]}</lable><input id='${this.element.id}_UploadInput' class='d-none' type="file" multiple="true" class="s-m opacity-100"/><hr/><div>${this._lang["filelist"]["drophere"]}</div></div>`;
+        this._dragdrop.innerHTML = `</button><div class='filearea'><label for='${this.element.id}_UploadInput'>${this._lang['filelist']['upload']}</lable><input id='${this.element.id}_UploadInput' class='d-none' type='file' multiple='true' class='s-m opacity-100'/><hr/><div>${this._lang['filelist']['drophere']}</div></div>`;
+
         let close = document.createElement('button');
         close.className = "close";
         close.addEventListener("click", () => { this._dragdrop.classList.remove('show') });
@@ -1166,18 +1181,17 @@ class wnfilelist {
 
         this._preloader = document.createElement("div");
         this._preloader.className = 'preloader hide';
-        this._preloader.innerHTML = `
-<div class="loader">
-        <div class="spinner">
-            <div class="p-be-50r">
-                <div class="indicator indicator-effect-grow red-800-cb-i s-xs"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-10 red-500-cb-i s-s"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-20 red-100-cb-i s-m"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-30 red-500-cb-i s-s"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-40 red-800-cb-i s-xs"></div>
-            </div>
+        this._preloader.innerHTML = `<div class="loader">
+    <div class="spinner">
+        <div class="p-be-50r">
+            <div class="indicator indicator-effect-grow red-800-cb-i s-xs"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-10 red-500-cb-i s-s"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-20 red-100-cb-i s-m"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-30 red-500-cb-i s-s"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-40 red-800-cb-i s-xs"></div>
         </div>
     </div>
+</div>
 `;
         this.element.appendChild(this._preloader);
 
@@ -1190,16 +1204,16 @@ class wnfilelist {
         await Post(JSON.stringify(o), this._Url).then((r) => {
             if (path == '') {
                 this._foldertree.element.innerHTML = '';
-                this._foldertree.addrow('', 'item', this._lang["filelist"]["root"], '\\', '');
+                this._foldertree.addrow('', 'item', this._lang["filelist"]["root"], '/', '');
             }
             for (var i = 0; i < r.length; i++) {
-                let it = r[i].split('\\');
+                let it = r[i].split('/');
                 if (it.length == 1) {
-                    this._foldertree.addrow('\\', 'item', r[i], r[i], '');
+                    this._foldertree.addrow('/', 'item', r[i], r[i], '');
                 }
                 else {
                     let v = it.pop();
-                    this._foldertree.addrow(it.join('\\'), 'item', v, r[i], '');
+                    this._foldertree.addrow(it.join('/'), 'item', v, r[i], '');
                 }
             }
         }).catch((e) => {
@@ -1211,7 +1225,7 @@ class wnfilelist {
     async GetFiles(path: string) {
         if (this._foldersAddress != null) {
             let addr = '';
-            path.split('\\').forEach((x) => addr += `<li>${x}</li>`)
+            path.split('/').forEach((x) => addr += `<li>${x}</li>`)
             this._foldersAddress.innerHTML = addr;
         }
         this.PreLoad(true);
@@ -1246,15 +1260,18 @@ class wnfilelist {
                 });
 
                 tr.addEventListener('click', (t) => {
-                    let el = (<HTMLElement>t.target);
-                    if (el.nodeName == 'INPUT')
-                        return;
-
-                    while (el.nodeName != 'TR')
-                        el = el.parentElement;
-                    let checkbox = el.querySelector('input[type=checkbox]') as HTMLInputElement;
-                    if (checkbox != null)
-                        checkbox.checked = !checkbox.checked;
+                    let tr = t.target as HTMLElement;
+                    while (tr.nodeName != 'TR')
+                        tr = tr.parentElement;
+                    let checkbox = tr.querySelector('input[type=checkbox]') as HTMLInputElement;
+                    let checked = checkbox?.checked;
+                    if (!this.multiselect) {
+                        let tbody = tr.parentElement;
+                        while (tbody.nodeName != 'TBODY')
+                            tbody = tbody.parentElement;
+                        tbody.querySelectorAll('input[type=checkbox]').forEach((x : HTMLInputElement) => x.checked = false);
+                    }
+                    checkbox.checked = !checked;
                     if (this.selectionchange != null)
                         this.selectionchange(this);
                 })
@@ -1298,14 +1315,15 @@ class wnfilelist {
 
         let path = this._foldertree.currentvalue ?? '';
 
-        let o = { command: "createfolder", path: path + '\\' + value };
+        let o = { command: "createfolder", path: path + '/' + value };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
             if (r=true) {
                 await this.GetFolders("");
-                path = path + '\\' + value;
-                path = WNTrim(path, '\\');
-                this._foldertree.findbyvalue(path, true);
+                this._foldertree.collapsedall();
+                path = path + '/' + value;
+                path = WNTrim(path, '/');
+                this._foldertree.expandtoparent(this._foldertree.findbyvalue(path, true));
                 this.ShowMessage("foldercreated", "success");
                 ret = true;
             }
@@ -1324,14 +1342,14 @@ class wnfilelist {
 
         let files = this.GetSelectedItems();
 
-        let oldName = (files.path + '\\' + (files.files[0] ?? ''));
-        if (oldName.endsWith('\\'))
+        let oldName = (files.path + '/' + (files.files[0] ?? ''));
+        if (oldName.endsWith('/'))
             oldName = oldName.substr(0, oldName.length - 1);
         let newfileName = oldName;
-        if (newfileName.lastIndexOf('\\') == -1)
+        if (newfileName.lastIndexOf('/') == -1)
             newfileName = value;
         else
-            newfileName = newfileName.substr(0, newfileName.lastIndexOf('\\') + 1) + value;
+            newfileName = newfileName.substr(0, newfileName.lastIndexOf('/') + 1) + value;
 
 
         let o = { command: "rename", source: oldName, destination: newfileName }
@@ -1340,7 +1358,9 @@ class wnfilelist {
             if (r=true) {
                 if (files.path == oldName) {
                     await this.GetFolders('');
-                    this._foldertree.findbyvalue(newfileName, true);
+                    this._foldertree.collapsedall();
+                    newfileName = WNTrimStart(newfileName, '/');
+                    this._foldertree.expandtoparent(this._foldertree.findbyvalue(newfileName, true));
                 }
                 else {
                     this.GetFiles(files.path);
@@ -1362,14 +1382,25 @@ class wnfilelist {
         if (items.length == 0)
             items.push(files.path);
         else
-            for (var i = 0; i < items.length; i++) items[i] = files.path + '\\' + items[i];
+            for (var i = 0; i < items.length; i++) items[i] = files.path + '/' + items[i];
 
         let o = { command: "delete", source: items.join('\n') }
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r=true) {
+            if (r = true) {
                 if (files.path == items[0]) {
+                    let s = this.GetSelectedFolder();
                     await this.GetFolders('');
+                    this._foldertree.collapsedall();
+                    let o = this._foldertree.findbyvalue(s, true);
+                    while (o == null) {
+                        let t = s.split('/');
+                        t.pop();
+                        s = t.join('/');
+                        o = this._foldertree.findbyvalue(s, true);
+                    }
+                    if (o != null)
+                        this._foldertree.expandtoparent(o);
                 }
                 else {
                     this.GetFiles(files.path);
@@ -1401,9 +1432,10 @@ class wnfilelist {
         let o = { command: cmd, source: src.join('\n'), destination: dst }
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r==true) {
+            if (r == true) {
                 await this.GetFolders('');
-                this._foldertree.findbyvalue(dst, true);
+                this._foldertree.collapsedall();
+                this._foldertree.expandtoparent(this._foldertree.findbyvalue(dst, true));
                 this.ShowMessage("pasted", "success");
                 ret = true;
             }
@@ -1477,18 +1509,20 @@ class wnfilelist {
     }
     async Decompress(): Promise<boolean> {
         let files = this.GetSelectedItems();
-        this.PreLoad(true);
         let items = files.files;
         if (items.length == 0)
             return false;
+        this.PreLoad(true);
         for (var i = 0; i < files.files.length; i++)
-            files.files[i] = WNTrim(files.path + '\\' + files.files[i], '\\');
+            files.files[i] = WNTrim(files.path + '/' + files.files[i], '/');
 
         let o = { command: "decompress", source: items.join('\n') }
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
-            if (r==true) {
+            if (r == true) {
                 await this.GetFolders('');
-                this._foldertree.findbyvalue(files.path, true);
+                this._foldertree.collapsedall();
+                files.path = WNTrimStart(files.path, '/');
+                this._foldertree.expandtoparent(this._foldertree.findbyvalue(files.path, true));
                 this.ShowMessage("decompressed", "success");
             }
             else {
@@ -1505,7 +1539,7 @@ class wnfilelist {
         this._toast.show();
     }
     GetSelectedItems() {
-        let path = this._foldertree.currentvalue;
+        let path = this.basepath + this._foldertree.currentvalue;
         let files: string[] = [];
         this._files.tBodies[0].querySelectorAll(':checked').forEach((x: HTMLInputElement) => {
             files.push(x.value);
@@ -1531,8 +1565,24 @@ class wnfilelist {
     GetSelectedFiles(): string[] {
         let ret = [];
         let files = this.GetSelectedItems();
-        files.files.forEach((x) => ret.push(WNTrim(files.path + '\\' + x, '\\')));
+        files.files.forEach((x) => ret.push(WNTrimEnd(files.path + '/' + x, '/')));
         return ret;
+    }
+    async SetSelectedFiles(files:string[]) {
+        if (files.length < 1 || files[0] == '')
+            return;
+        let steps = files[0].split('/');
+        steps.pop();
+        let path = WNTrimStart(steps.join('/'), '/');
+        this._foldertree.expandtoparent(this._foldertree.findbyvalue(path, true));
+        await this.GetFiles(path);
+        for (var i = 0; i < files.length; i++) {
+            steps = files[i].split('/');
+            let file = steps.pop();
+            let elem = this._files.tBodies[0].querySelector(`input[value='${file}']`) as HTMLInputElement;
+            if (elem != null)
+                elem.checked = true;
+        }
     }
     GetSelectedFolder(): string {
         let files = this.GetSelectedItems();

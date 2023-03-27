@@ -109,3 +109,22 @@
         WNE('AnimateDiv').Element.className = 'animate ' + obj.innerHTML;
     }
 </script>
+<h2>شروع انیمیشن در هنگام نمایش</h2>
+<p>در برخی از قسمتهای صفحه ما از انیمیشن استفاده میکنیم، ولی میخواهیم آن وقتی که دیده میشود نمایش داده شود، لذا برای این امر، بایستی از دو کلاس <bidi>animateonscroll</bidi> و <bidi>animateonscrollloop</bidi> استفاده کنیم.</p>
+<p>
+    <h3>animateonscroll</h3>
+    اگر میخواهید فقط یک بار در اولین بازدید این انیمیشن دیده شود از این کلاس استفاده کنید.
+</p>
+<p>
+    <h3>animateonscrollloop</h3>
+    اگر میخواهید هر بار در زمان بازدید این انیمیشن دیده شود از این کلاس استفاده کنید.
+</p>
+<p>در زیر مثال از هر دو کلاس آورده شده است برای مشاهده باید <b>اسکرول</b> کنید.</p>
+<div style="margin-block-end:70vh;"></div>
+<h2>animateonscroll</h2>
+<div class="animate zoomIn animateonscroll" style="width:50%; height:200px; background-color:burlywood; text-align:center;padding-block-start:90px;">فقط در اولین بازدید این انیمیشن را خواهید دید و با بالا و پایین رفتن دیگر تکرار نمیشود.</div>
+
+<div style="margin-block-end:70vh;"></div>
+<h2>animateonscrollloop</h2>
+<div class="animate zoomIn animateonscrollloop" style="width:50%; height:200px; background-color:darkkhaki; text-align:center;padding-block-start:90px;">هر بار که اسکرول کنید این انیمیشن را خواهید دید و برای بررسی اسکرول را بالا و پایین کنید.</div>
+<div style="margin-block-end:110vh;"></div>

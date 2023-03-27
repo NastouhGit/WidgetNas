@@ -432,17 +432,32 @@
             <button class="primary" onclick="tip.hide()">Hide</button>
         </div>
         <div class="m-bs-50r p-100r">
-            <button class="primary" onclick="ShowTip(this,'top')">Show On Bottom</button>
-            <button class="primary" onclick="ShowTip(this,'bottom')">Show On Top</button>
+            <button type="button" class="primary" onclick="ShowTip(this,'top')">Show On Bottom</button>
+            <button type="button" class="primary" onclick="ShowTip(this,'bottom')">Show On Top</button>
         </div>
         <div class="m-bs-50r p-100r">
-            <button class="primary" onclick="ShowTip(this,'end')">Show On End</button>
-            <button class="primary" onclick="ShowTip(this,'start')">Show On Start</button>
+            <button type="button" class="primary" onclick="ShowTip(this,'end')">Show On End</button>
+            <button type="button" class="primary" onclick="ShowTip(this,'start')">Show On Start</button>
         </div>
         <div id="tooltip_js" class="tooltip white">
             <div class="tooltip-header">Header of tip</div>
             <div class="tooltip-body">Some text can be come here!</div>
         </div>
+        <script>
+            let tip;
+            WNE(document).Ready(() => {
+                tip = new wntooltip();
+                tip.delay = 0;
+                tip.target = document.getElementById("tooltip_js");
+            });
+            function ShowTip(elem, pos) {
+                tip.hide();
+                tip.element = elem;
+                tip.tooltipclass = 'tooltip-arrow-' + pos;
+                tip.autoshow();
+                return true;
+            }
+        </script>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
@@ -463,20 +478,12 @@
         </div>
     </div>
     <script>
-        let tip = new wntooltip();
-        tip.delay = 0;
-        tip.target = document.getElementById("tooltip_js");
-
-        let tiprtl = new wntooltip();
-        tiprtl.delay = 0;
-        tiprtl.target = document.getElementById("tooltip_jsRtl");
-
-        function ShowTip(elem, pos) {
-            tip.hide();
-            tip.element = elem;
-            tip.tooltipclass = 'tooltip-arrow-' + pos;
-            tip.autoshow();
-        }
+        let tiprtl;
+        WNE(document).Ready(() => {
+            tiprtl = new wntooltip();
+            tiprtl.delay = 0;
+            tiprtl.target = document.getElementById("tooltip_jsRtl");
+        });
         function ShowTipRtl(elem, pos) {
             tiprtl.hide();
             tiprtl.element = elem;

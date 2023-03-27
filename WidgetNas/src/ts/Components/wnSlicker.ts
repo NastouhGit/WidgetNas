@@ -152,18 +152,37 @@
     CalcSlidesWidth() {
         this._slides.forEach((e, i) => {
             let el = (<HTMLElement>e);
-            WNWaitToLoad(el, 5000);
-            if (this._slidewidth == 'auto')
-                this._slidesWidth[i] = el.clientWidth;
-            else if (this._slidewidth != '')
-                this._slidesWidth[i] = WNValueUnit(WNCalcValue(this._slidewidth, "1px", "*", this.element)).value;
-            else
-                this._slidesWidth[i] = this._width;
+            if (this._slidewidth == 'auto') {
+                let img = e.querySelector('img');
+                if (img != null) {
+                    if (img.complete) {
+                        this._slidesWidth[i] = el.clientWidth;
+                        el.style.width = this._slidesWidth[i] + 'px';
+                        this._totalWidth += this._slidesWidth[i];
+                    }
+                    else {
+                        img.onload = () => {
+                            this.Resize();
+                        };
+                        return;
+                    }
+                }
+            }
+            else {
+                if (this._slidewidth != '')
+                    this._slidesWidth[i] = WNValueUnit(WNCalcValue(this._slidewidth, "1px", "*", this.element)).value;
+                else
+                    this._slidesWidth[i] = this._width;
+                el.style.width = this._slidesWidth[i] + 'px';
+                this._totalWidth += this._slidesWidth[i];
+            }
 
-            el.style.width = this._slidesWidth[i] + 'px';
-            this._totalWidth += this._slidesWidth[i];
         });
 
+    }
+    ImageLoaded(load: boolean) {
+        if (load)
+            this.Resize();
     }
     GetPosition(index: number): number {
         let t = 0;
@@ -174,7 +193,7 @@
             t = t - this._width + this._slidesWidth[index];
 
 
-        if (getComputedStyle(this.element).direction == 'ltr') 
+        if (getComputedStyle(this.element).direction == 'ltr')
             t = t * -1;
 
         return t;
@@ -189,9 +208,9 @@
         let third = this._width / 5;
         let diff = this._position - this._oldposition;
         console.log(diff);
-        if (Math.abs( diff)>10 &&(
+        if (Math.abs(diff) > 10 && (
             (x < third && diff > 0) ||
-            (x > (this._width - third) && diff<0)))
+            (x > (this._width - third) && diff < 0)))
             this.PanEnd();
         else {
             this._oldposition = this._position + x - this._touch_pos;
@@ -204,19 +223,19 @@
         if (this._touch_pos == -1) return;
 
         //if (diff >= this._width / 10) {
-            let direction = (this._position > this._oldposition) ? 1 : -1;
-            if (getComputedStyle(this.element).direction == 'rtl')
-                direction *= -1;
-            let t = 0;
-            for (var i = 1; i < 1000; i++) {
-                t += this._slidesWidth[this._index];
-                if (t > diff) {
-                    this._index += i * direction;
+        let direction = (this._position > this._oldposition) ? 1 : -1;
+        if (getComputedStyle(this.element).direction == 'rtl')
+            direction *= -1;
+        let t = 0;
+        for (var i = 1; i < 1000; i++) {
+            t += this._slidesWidth[this._index];
+            if (t > diff) {
+                this._index += i * direction;
 
-                    break;
-                }
+                break;
             }
-       // }
+        }
+        // }
         this._touch_pos = -1;
         await this.AnimateSlide();
 
@@ -247,11 +266,14 @@
         this.ShowActiveIndicator();
     }
     ShowActiveIndicator() {
+        if (!this._indicators)
+            return;
+
         this._indicators.forEach((x) => x.classList.remove('active'));
 
         let idx = WNmod(this._index, this._itemsCount);
         this.element.querySelector("div[indicator-index='" + idx + "']").classList.add('active');
-        
+
     }
     async Next() {
         this._touch_pos = -1;

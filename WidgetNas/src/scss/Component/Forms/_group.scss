@@ -176,16 +176,17 @@
     }
 }
 
+fieldset,
 .groupcontainer {
     border-radius: var(--border-radius);
     border: var(--border-width) solid var(--normal-border);
     padding-inline: var(--padding-inline);
     padding-block-end: var(--padding-block);
-    padding-block-start: calc(var(--padding-block) + var(--line-height) / 2);
     margin-block-start: var(--line-height);
 
 
-    & h4:first-child {
+    & h4:first-child,
+    & legend {
         margin-block-start: calc(var(--line-height) * -1 - var(--padding-inline));
         background-color: var(--normal-back);
         width: fit-content;

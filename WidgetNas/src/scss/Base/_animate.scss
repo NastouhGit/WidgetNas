@@ -1,18 +1,44 @@
 ﻿.animate-delay-start-10 {animation-delay:0.1s !important;}
+.animate-delay-start-15 {animation-delay:0.15s !important;}
 .animate-delay-start-20 {animation-delay:0.2s !important;}
+.animate-delay-start-25 {animation-delay:0.25s !important;}
 .animate-delay-start-30 {animation-delay:0.3s !important;}
+.animate-delay-start-35 {animation-delay:0.35s !important;}
 .animate-delay-start-40 {animation-delay:0.4s !important;}
+.animate-delay-start-45 {animation-delay:0.45s !important;}
 .animate-delay-start-50 {animation-delay:0.5s !important;}
+.animate-delay-start-55 {animation-delay:0.55s !important;}
 .animate-delay-start-60 {animation-delay:0.6s !important;}
+.animate-delay-start-65 {animation-delay:0.65s !important;}
 .animate-delay-start-70 {animation-delay:0.7s !important;}
+.animate-delay-start-75 {animation-delay:0.75s !important;}
 .animate-delay-start-80 {animation-delay:0.8s !important;}
+.animate-delay-start-85 {animation-delay:0.85s !important;}
 .animate-delay-start-90 {animation-delay:0.9s !important;}
+.animate-delay-start-95 {animation-delay:0.95s !important;}
 .animate-delay-start-100 {animation-delay:1s !important;}
 .animation-duration-10 {animation-duration:0.1s !important;}
+.animation-duration-15 {animation-duration:0.15s !important;}
+.animation-duration-20 {animation-duration:0.20s !important;}
 .animation-duration-25 {animation-duration:0.25s !important;}
+.animation-duration-30 {animation-duration:0.3s !important;}
+.animation-duration-35 {animation-duration:0.35s !important;}
+.animation-duration-40 {animation-duration:0.4s !important;}
+.animation-duration-45 {animation-duration:0.45s !important;}
 .animation-duration-50 {animation-duration:0.5s !important;}
+.animation-duration-55 {animation-duration:0.55s !important;}
+.animation-duration-60 {animation-duration:0.6s !important;}
+.animation-duration-65 {animation-duration:0.65s !important;}
+.animation-duration-70 {animation-duration:0.7s !important;}
+.animation-duration-75 {animation-duration:0.75s !important;}
+.animation-duration-80 {animation-duration:0.8s !important;}
+.animation-duration-85 {animation-duration:0.85s !important;}
+.animation-duration-90 {animation-duration:0.9s !important;}
+.animation-duration-95 {animation-duration:0.95s !important;}
 .animation-duration-100 {animation-duration:1s !important;}
+.animation-duration-125 {animation-duration:1.25s !important;}
 .animation-duration-150 {animation-duration:1.5s !important;}
+.animation-duration-175 {animation-duration:1.75s !important;}
 .animation-duration-200 {animation-duration:2s !important;}
 .animation-duration-250 {animation-duration:2.5s !important;}
 .animation-duration-300 {animation-duration:3s !important;}
@@ -143,8 +169,6 @@
     -webkit-animation-name: flash;
     animation-name: flash;
 }
-
-/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
 
 @-webkit-keyframes pulse {
     0% {
@@ -423,8 +447,6 @@
     -webkit-animation-name: tada;
     animation-name: tada;
 }
-
-/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
 
 @-webkit-keyframes wobble {
     0% {
@@ -1701,7 +1723,7 @@
     }
 }
 
-.animated.flip {
+.flip {
     -webkit-backface-visibility: visible;
     backface-visibility: visible;
     -webkit-animation-name: flip;
@@ -2501,8 +2523,6 @@
     animation-name: hinge;
 }
 
-/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
-
 @-webkit-keyframes rollIn {
     0% {
         opacity: 0;
@@ -2535,8 +2555,6 @@
     -webkit-animation-name: rollIn;
     animation-name: rollIn;
 }
-
-/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
 
 @-webkit-keyframes rollOut {
     0% {
@@ -3241,6 +3259,10 @@
         transform: perspective(1300px) translateZ(0) rotateX(0);
     }
 }
+.fallIn {
+    -webkit-animation-name: fallIn;
+    animation-name: fallIn;
+}
 
 @-webkit-keyframes fallOut {
     from {
@@ -3272,6 +3294,10 @@
         -ms-transform: perspective(1300px) translateZ(600px) rotateX(20deg);
         transform: perspective(1300px) translateZ(600px) rotateX(20deg);
     }
+}
+.fallOut {
+    -webkit-animation-name: fallOut;
+    animation-name: fallOut;
 }
 @-webkit-keyframes hingeIn {
     0% {
@@ -3362,7 +3388,10 @@
         animation-timing-function: ease-in-out;
     }
 }
-
+.hingeIn {
+    -webkit-animation-name: hingeIn;
+    animation-name: hingeIn;
+}
 @-webkit-keyframes hingeOut {
     100% {
         -webkit-transform: translateY(-700px);
@@ -3472,7 +3501,11 @@
         animation-timing-function: ease-in-out;
     }
 }
-@-webkit-keyframes rollIn {
+.hingeOut {
+    -webkit-animation-name: hingeOut;
+    animation-name: hingeOut;
+}
+@-webkit-keyframes rollIn2 {
     0% {
         opacity: 0;
         -webkit-transform: translateX(-100%) rotate(-120deg);
@@ -3486,7 +3519,7 @@
     }
 }
 
-@keyframes rollIn {
+@keyframes rollIn2 {
     0% {
         opacity: 0;
         -webkit-transform: translateX(-100%) rotate(-120deg);
@@ -3501,8 +3534,12 @@
         transform: translateX(0px) rotate(0deg);
     }
 }
+.rollIn2 {
+    -webkit-animation-name: rollIn2;
+    animation-name: rollIn2;
+}
 
-@-webkit-keyframes rollOut {
+@-webkit-keyframes rollOut2 {
     0% {
         opacity: 1;
         -webkit-transform: translateX(0px) rotate(0deg);
@@ -3516,7 +3553,7 @@
     }
 }
 
-@keyframes rollOut {
+@keyframes rollOut2 {
     0% {
         opacity: 1;
         -webkit-transform: translateX(0px) rotate(0deg);
@@ -3531,6 +3568,12 @@
         transform: translateX(100%) rotate(120deg);
     }
 }
+.rollOut2 {
+    -webkit-animation-name: rollOut;
+    animation-name: rollOut;
+}
+
+
 @-webkit-keyframes rollRightIn {
     0% {
         opacity: 0;
@@ -3559,6 +3602,10 @@
         -ms-transform: translateX(0px) rotate(0deg);
         transform: translateX(0px) rotate(0deg);
     }
+}
+.rollRightIn {
+    -webkit-animation-name: rollRightIn;
+    animation-name: rollRightIn;
 }
 
 @-webkit-keyframes rollRightOut {
@@ -3590,6 +3637,11 @@
         transform: translateX(-100%) rotate(-120deg);
     }
 }
+.rollRightOut {
+    -webkit-animation-name: rollRightOut;
+    animation-name: rollRightOut;
+}
+
 @-webkit-keyframes rotate-360deg {
     to {
         transform: rotate(360deg) 
@@ -3601,6 +3653,11 @@
         transform: rotate(360deg) 
     }
 }
+.rotate-360deg {
+    -webkit-animation-name: rotate-360deg;
+    animation-name: rotate-360deg;
+}
+
 @-webkit-keyframes grow {
     0% {
         transform: scale(0);
@@ -3621,4 +3678,8 @@
         opacity: 1;
         transform: none;
     }
+}
+.grow {
+    -webkit-animation-name: grow;
+    animation-name: grow;
 }

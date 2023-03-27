@@ -1,7 +1,7 @@
 function wnabout() {
     return `
 /*--------------------------------------
- * Widgetnas Version: 1.4.0.0
+ * Widgetnas Version: 1.4.3.0
  * Release Date: 1401-05-16 - 2022-08-07
  *--------------------------------------*/
 `;
@@ -25,9 +25,9 @@ function initComponents() {
 }
 function CheckBrowserCompatibility() {
     let objAgent = navigator.userAgent;
-    let objbrowserName = navigator.appName;
-    let objfullVersion = '' + parseFloat(navigator.appVersion);
-    let objBrMajorVersion = parseInt(navigator.appVersion, 10);
+    let objbrowserName = '';
+    let objfullVersion = '';
+    let objBrMajorVersion = 0;
     let objOffsetName, objOffsetVersion, ix;
     if ((objOffsetVersion = objAgent.indexOf("Chrome")) != -1) {
         objbrowserName = "Chrome";
@@ -39,6 +39,7 @@ function CheckBrowserCompatibility() {
     }
     else if ((objOffsetVersion = objAgent.indexOf("Firefox")) != -1) {
         objbrowserName = "Firefox";
+        objfullVersion = objAgent.substring(objOffsetVersion + 8);
     }
     else if ((objOffsetVersion = objAgent.indexOf("Safari")) != -1) {
         objbrowserName = "Safari";
@@ -50,7 +51,7 @@ function CheckBrowserCompatibility() {
         objbrowserName = objAgent.substring(objOffsetName, objOffsetVersion);
         objfullVersion = objAgent.substring(objOffsetVersion + 1);
         if (objbrowserName.toLowerCase() == objbrowserName.toUpperCase()) {
-            objbrowserName = navigator.appName;
+            objbrowserName = 'Netscape';
         }
     }
     if ((ix = objfullVersion.indexOf(";")) != -1)
@@ -59,8 +60,8 @@ function CheckBrowserCompatibility() {
         objfullVersion = objfullVersion.substring(0, ix);
     objBrMajorVersion = parseInt('' + objfullVersion, 10);
     if (isNaN(objBrMajorVersion)) {
-        objfullVersion = '' + parseFloat(navigator.appVersion);
-        objBrMajorVersion = parseInt(navigator.appVersion, 10);
+        objfullVersion = '1.0';
+        objBrMajorVersion = 0;
     }
     let error = true;
     if (objbrowserName == 'Chrome' && objBrMajorVersion >= 89)
@@ -74,6 +75,7 @@ function InitWNBlock(elem = document) {
     InitWN(elem);
     SetComponentCompatibility(elem);
     WNTooltipAssign(elem);
+    WNAnimationSetup();
 }
 function InitWN(masterelem = document) {
     let selectors = masterelem.querySelectorAll("[wn-type]");
@@ -112,7 +114,10 @@ function SetComponentCompatibility(elem = document) {
         }
     }
 }
-function WNTagEvalScriptBody() { WNTagEvalScript(document.body); }
+function WNTagEvalScriptBody() {
+    if (!DisableTagEvalScript)
+        WNTagEvalScript(document.body);
+}
 function WNTagEvalScript(elem) {
     const regexp = /\$\[([\s\S]*?)\]/img;
     let html = elem.innerHTML;
@@ -129,9 +134,6 @@ function WNTagEvalScript(elem) {
 var WNBaseFetchUri;
 var WNElements = {};
 class WNElement {
-    constructor(element) {
-        this.Element = element;
-    }
     Ready(callBack, options = false) { this.Element.addEventListener("DOMContentLoaded", callBack, options); }
     Click(callBack) { this.Element.addEventListener("click", callBack); }
     Change(callBack) { this.Element.addEventListener("change", callBack); }
@@ -169,24 +171,28 @@ class WNElement {
     Touchmove(callBack) { this.Element.addEventListener("touchmove", callBack); }
     Touchstart(callBack) { this.Element.addEventListener("touchstart", callBack); }
     Wheel(callBack) { this.Element.addEventListener("wheel", callBack); }
+    constructor(element) {
+        this.Element = element;
+    }
+}
+function WNEReset() {
+    WNElements = {};
 }
 function WNE(element) {
     let id = '';
     let telement;
     if (typeof (element) == 'string') {
-        if (WNElements[element] != undefined)
-            return WNElements[element];
-        telement = document.getElementById(element);
+        if (WNElements[element.toLocaleLowerCase()] != undefined)
+            return WNElements[element.toLocaleLowerCase()];
+        telement = document.querySelector(`[id='${element}' i]`);
         if (telement == null) {
-            let elem = document.getElementsByName(element);
-            if (elem != undefined)
-                telement = elem[0];
+            telement = document.querySelector(`[name='${element}' i]`);
         }
         if (telement == null)
             telement = document.querySelector(element);
         if (telement == undefined)
             return null;
-        id = telement.id;
+        id = telement.id.toLocaleLowerCase();
     }
     else if (element == document) {
         telement = element;
@@ -194,12 +200,12 @@ function WNE(element) {
     }
     else {
         telement = element;
-        id = telement.id;
+        id = telement.id.toLocaleLowerCase();
     }
     if (id === '')
-        id = telement.name;
+        id = telement.name.toLocaleLowerCase();
     if (id === '')
-        id = element.toString();
+        id = element.toString().toLocaleLowerCase();
     if (WNElements[id] == undefined) {
         WNElements[id] = new WNElement(telement);
     }
@@ -217,40 +223,55 @@ function GetFormData(Form) {
     });
     return JSON.stringify(object);
 }
-async function Post(data, postUrl) {
+function GetRequestInit() {
+    return {
+        method: "post",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        redirect: "manual",
+        referrerPolicy: "origin",
+        headers: {
+            "Content-Encoding": "deflate, gzip",
+            "Content-Type": "application/json",
+            "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
+        }
+    };
+}
+function GetPostUrl(postUrl) {
     let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
+    if (!url.startsWith('/') && !url.toLowerCase().startsWith('http')) {
         if (WNBaseFetchUri !== undefined)
             url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
         else
             url = '/' + url;
     }
+    return url;
+}
+async function Post(data, postUrl, init = undefined) {
+    if (init == undefined)
+        init = GetRequestInit();
+    init.method = "post";
+    init.body = data;
     return new Promise(async (resolve, reject) => {
-        await fetch(url, {
-            method: "post",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            body: data,
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Content-Type": "application/json",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
-            }
-        })
+        await fetch(GetPostUrl(postUrl), init)
             .then(async (response) => {
             const res = await response.text();
             try {
-                const r = JSON.parse(res);
-                if (r)
-                    resolve(r);
-                else
-                    resolve(res);
+                if (response.ok) {
+                    const r = JSON.parse(res);
+                    if (r)
+                        resolve(r);
+                    else
+                        resolve(res);
+                }
+                else {
+                    const r = JSON.parse(res);
+                    if (r)
+                        reject(new Error(r?.detail));
+                    else
+                        reject(res);
+                }
             }
             catch (e) {
                 resolve(res);
@@ -262,34 +283,26 @@ async function Post(data, postUrl) {
         });
     });
 }
-async function Get(data, postUrl) {
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
-    }
+async function Get(data, postUrl, init = undefined) {
+    if (init == undefined)
+        init = GetRequestInit();
+    init.method = "get";
+    let url = GetPostUrl(postUrl);
     if (data != undefined && data != '')
         url += "?" + encodeURIComponent(JSON.stringify(data));
     return new Promise(async (resolve, reject) => {
-        await fetch(url, {
-            method: "get",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Content-Type": "application/json",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
+        await fetch(url, init)
+            .then(async (response) => {
+            if (response.ok) {
+                resolve(response.json());
             }
-        })
-            .then((response) => {
+            else {
+                const r = await response.json();
+                if (r)
+                    reject(new Error(r?.detail));
+                else
+                    reject(response);
+            }
             try {
                 resolve(response.json());
             }
@@ -304,34 +317,24 @@ async function Get(data, postUrl) {
         });
     });
 }
-async function GetText(postUrl) {
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
-    }
+async function GetText(postUrl, init = undefined) {
+    if (init == undefined)
+        init = GetRequestInit();
+    init.method = "get";
     return new Promise(async (resolve, reject) => {
-        await fetch(url, {
-            method: "get",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Content-Type": "application/json",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
-            }
-        })
-            .then((response) => {
+        await fetch(GetPostUrl(postUrl), init)
+            .then(async (response) => {
             try {
-                resolve(response.text());
+                if (response.ok) {
+                    resolve(response.text());
+                }
+                else {
+                    const r = await response.json();
+                    if (r)
+                        reject(new Error(r?.detail));
+                    else
+                        reject(response);
+                }
             }
             catch (e) {
                 console.error(e);
@@ -344,30 +347,18 @@ async function GetText(postUrl) {
         });
     });
 }
-async function GetFile(path, postUrl) {
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
+async function GetFile(path, postUrl, init = undefined) {
+    if (init == undefined) {
+        init = GetRequestInit();
+        init.headers = {
+            "Content-Encoding": "deflate, gzip",
+        };
     }
+    init.method = "get";
+    let url = GetPostUrl(postUrl);
     url += "?" + encodeURIComponent(JSON.stringify(path));
     return new Promise(async (resolve, reject) => {
-        await fetch(url, {
-            method: "get",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            headers: {
-                "Authorization": WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-            }
-        })
+        await fetch(url, init)
             .then(response => response.blob())
             .then(blob => {
             const objectURL = URL.createObjectURL(blob);
@@ -379,16 +370,11 @@ async function GetFile(path, postUrl) {
         });
     });
 }
-async function Upload(files, destination, postUrl) {
-    let url = postUrl;
-    if (url.startsWith('/'))
-        url = url.substr(1);
-    if (!url.toLowerCase().startsWith('http')) {
-        if (WNBaseFetchUri !== undefined)
-            url = WNBaseFetchUri + (!WNBaseFetchUri.endsWith('/') ? '/' : '') + url;
-        else
-            url = '/' + url;
+async function Upload(files, destination, postUrl, init = undefined) {
+    if (init == undefined) {
+        init = GetRequestInit();
     }
+    init.method = "put";
     const formData = new FormData();
     formData.append('destination', destination);
     if (files.length == undefined)
@@ -396,24 +382,16 @@ async function Upload(files, destination, postUrl) {
     else
         for (var i = 0; i < files.length; i++)
             formData.append(files[i].name, files[i]);
+    init.body = formData;
     return new Promise(async (resolve, reject) => {
-        await fetch(url, {
-            method: "put",
-            mode: "cors",
-            cache: "no-cache",
-            credentials: "same-origin",
-            redirect: "manual",
-            referrerPolicy: "origin",
-            body: formData,
-            headers: {
-                "Authorization": "Bearer " + WNGetCookie('Token'),
-                "Content-Encoding": "deflate, gzip",
-                "Accept": "text/html, application/xhtml+xml, application/json, application/xml;q=0.9, image/webp, */*;q=0.8"
-            }
-        })
+        await fetch(GetPostUrl(postUrl), init)
             .then((response) => {
             try {
-                resolve(response.json());
+                if (response.ok) {
+                    resolve(response.json());
+                }
+                else
+                    reject(response.statusText);
             }
             catch (e) {
                 console.error(e);
@@ -511,9 +489,19 @@ function WNparseString(value, Default) {
 }
 function WNTrim(value, trimstr = ' ') {
     while (value.startsWith(trimstr))
-        value = value.substr(trimstr.length);
+        value = value.substring(trimstr.length);
     while (value.endsWith(trimstr))
-        value = value.substr(0, value.lastIndexOf(trimstr));
+        value = value.substring(0, value.lastIndexOf(trimstr));
+    return value;
+}
+function WNTrimStart(value, trimstr = ' ') {
+    while (value.startsWith(trimstr))
+        value = value.substring(trimstr.length);
+    return value;
+}
+function WNTrimEnd(value, trimstr = ' ') {
+    while (value.endsWith(trimstr))
+        value = value.substring(0, value.lastIndexOf(trimstr));
     return value;
 }
 function WNLimitRange(value, min, max) {
@@ -739,19 +727,6 @@ function WNSetStorage(key, value, localstorage) {
 function WNSleep(ms) {
     return new Promise(s => setTimeout(s, ms));
 }
-function WNWaitToLoad(e, timeout = 5000) {
-    if (e.nodeName == "IMG") {
-        new Promise(() => {
-            if (e.complete) {
-                return null;
-            }
-            e.onload = () => null;
-            e.onerror = () => null;
-        });
-    }
-    else
-        e.childNodes.forEach(x => WNWaitToLoad(x, timeout));
-}
 function WNAddClassList(elem, classes) {
     if (classes == '' || elem == null || elem == undefined)
         return;
@@ -848,7 +823,97 @@ var WNDefaultHijriAdjustment = 0;
 var WNDefaultLanguage = 'en';
 var WNlang = {};
 var WN = {};
+var DisableTagEvalScript;
+var _AnimationOnScroll;
+function WNAnimationSetup() {
+    _AnimationOnScroll = document.querySelectorAll(".animateonscroll,.animateonscrollloop");
+    if (_AnimationOnScroll.length > 0) {
+        window.addEventListener("scroll", () => WNAnimationStart());
+        window.addEventListener("resize", () => WNAnimationStart());
+        window.addEventListener("orientationchange", () => WNAnimationStart());
+        WNAnimationStart();
+    }
+}
+function WNGetOffset(el) {
+    let _x = 0;
+    let _y = 0;
+    while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+        _x += el.offsetLeft - (el.tagName != 'BODY' ? el.scrollLeft : 0);
+        _y += el.offsetTop - (el.tagName != 'BODY' ? el.scrollTop : 0);
+        el = el.offsetParent;
+    }
+    return {
+        top: _y,
+        left: _x
+    };
+}
+;
+function WNAnimationStart() {
+    _AnimationOnScroll.forEach((el) => {
+        let pos = WNGetOffset(el);
+        let top = pos.top;
+        let bottom = top + el.offsetHeight;
+        let wtop = window.scrollY;
+        let wbottom = window.scrollY + window.innerHeight;
+        if (top < wbottom && bottom > wtop) {
+            if (el.getAttribute('animateplaystate') == null || el.getAttribute('animateplaystate') == '') {
+                let c = el.className;
+                el.className = '';
+                void el.offsetWidth;
+                el.className = c;
+                el.setAttribute('animateplaystate', 'play');
+            }
+        }
+        else if ((bottom < wtop || top > wbottom)
+            && el.classList.contains('animateonscrollloop')) {
+            el.setAttribute('animateplaystate', '');
+        }
+    });
+}
+var PreLoaderDelayStart = 500;
+var PreLoaderTimeout = 30000;
+var PreLoderId = 'preloader';
+var _PreLoaderWaitCount = 0;
+var _PreLoaderTimeoutTimer;
+function ShowPreLoader(show, _PreLoderId = PreLoderId, _PreLoaderDelayStart = PreLoaderDelayStart, _PreLoaderTimeout = PreLoaderTimeout) {
+    if (show) {
+        _PreLoaderWaitCount++;
+        setTimeout(() => {
+            if (_PreLoaderWaitCount > 0) {
+                document.getElementById(_PreLoderId)?.classList.remove('hide');
+            }
+        }, _PreLoaderDelayStart);
+        if (_PreLoaderTimeoutTimer != 0) {
+            clearTimeout(_PreLoaderTimeoutTimer);
+            _PreLoaderTimeoutTimer = 0;
+        }
+        _PreLoaderTimeoutTimer = setTimeout(() => {
+            _PreLoaderWaitCount = 0;
+            ShowPreLoader(false, _PreLoderId, _PreLoaderDelayStart = PreLoaderDelayStart);
+        }, _PreLoaderTimeout);
+    }
+    else {
+        _PreLoaderWaitCount--;
+        if (_PreLoaderWaitCount <= 0) {
+            document.getElementById(_PreLoderId)?.classList.add('hide');
+            _PreLoaderWaitCount = 0;
+            if (_PreLoaderTimeoutTimer != 0) {
+                clearTimeout(_PreLoaderTimeoutTimer);
+                _PreLoaderTimeoutTimer = 0;
+            }
+        }
+    }
+}
 class wncalendar {
+    get viewcount() { return this._viewcount; }
+    set viewcount(value) {
+        if (value < 1)
+            value = 1;
+        if (value > 10)
+            value = 10;
+        this._viewcount = value;
+        this.refresh();
+    }
     constructor(elem) {
         this.Date = new wnDate();
         this.Date2 = new wnDate();
@@ -867,15 +932,6 @@ class wncalendar {
             this.element = elem;
             this.Init();
         }
-    }
-    get viewcount() { return this._viewcount; }
-    set viewcount(value) {
-        if (value < 1)
-            value = 1;
-        if (value > 10)
-            value = 10;
-        this._viewcount = value;
-        this.refresh();
     }
     Init() {
         if (!this.element.classList.contains('calendar'))
@@ -1380,7 +1436,95 @@ class wncalendar {
         return tDate.ToDateTime().toISOString();
     }
 }
+class wncaptcha {
+    constructor(elem) {
+        this.Length = 4;
+        this.UniqeLetter = true;
+        this.key = '';
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.Init();
+            this.refresh();
+        }
+    }
+    value() { return { Key: this.key, Value: this.input.value }; }
+    Init() {
+        let imagebar = this.element.querySelector(".imagebar");
+        this.image = this.element.querySelector(".image");
+        this.refreshButton = this.element.querySelector(".refresh");
+        this.input = this.element.querySelector("input");
+        if (imagebar == null && this.image == null) {
+            imagebar = document.createElement("div");
+            imagebar.className = "imagebar";
+            this.element.appendChild(imagebar);
+        }
+        if (this.image == null) {
+            this.image = document.createElement("img");
+            this.image.className = "image";
+            imagebar.appendChild(this.image);
+        }
+        if (this.refreshButton == null) {
+            this.refreshButton = document.createElement("button");
+            this.refreshButton.className = "refresh";
+            imagebar.appendChild(this.refreshButton);
+        }
+        if (this.input == null) {
+            this.input = document.createElement("input");
+            this.element.appendChild(this.input);
+        }
+        if (this.element.hasAttribute('url'))
+            this.url = this.element.getAttribute('url') ?? '';
+        this.refreshButton.addEventListener("click", () => this.refresh());
+        this.key = '';
+        this.element.classList.add('hide-valid');
+        this.input.addEventListener("change", async () => await this.validate());
+    }
+    async refresh() {
+        await Post(JSON.stringify({
+            Method: 'Captcha',
+            Width: this.image.width,
+            Height: this.image.height,
+            Length: this.Length,
+            UniqeLetter: this.UniqeLetter
+        }), this.url).then(async (r) => {
+            this.image.src = r.Image;
+            this.key = r.Key;
+            this.input.value = "";
+        }).catch((e) => console.error(e.message));
+    }
+    async validate() {
+        await Post(JSON.stringify({
+            Method: 'Validate',
+            Key: this.key,
+            Value: this.input.value
+        }), this.url).then(async (r) => {
+            if (r.Validate == 'true') {
+                this.input.classList.add('valid');
+                this.element.classList.remove('hide-valid');
+            }
+            else {
+                this.input.classList.remove('valid');
+                this.element.classList.add('hide-valid');
+            }
+        }).catch((e) => console.error(e.message));
+    }
+}
 class wncarousel {
+    get interval() { return this._interval; }
+    set interval(value) { this._interval = value; }
+    get autoplay() { return this._autoplay; }
+    set autoplay(value) { this._autoplay = value; }
+    get hoverpause() { return this._hoverpause; }
+    set hoverpause(value) {
+        this._hoverpause = value;
+        if (this._hoverpause) {
+            this.element.addEventListener("mouseenter", () => { if (this._playState == 'play')
+                this._playState = 'pause'; });
+            this.element.addEventListener("mouseleave", () => { if (this._playState == 'pause')
+                this._playState = 'play'; });
+        }
+    }
+    ;
     constructor(elem) {
         this._interval = 10000;
         this._autoplay = true;
@@ -1399,21 +1543,6 @@ class wncarousel {
             this.Play();
         }
     }
-    get interval() { return this._interval; }
-    set interval(value) { this._interval = value; }
-    get autoplay() { return this._autoplay; }
-    set autoplay(value) { this._autoplay = value; }
-    get hoverpause() { return this._hoverpause; }
-    set hoverpause(value) {
-        this._hoverpause = value;
-        if (this._hoverpause) {
-            this.element.addEventListener("mouseenter", () => { if (this._playState == 'play')
-                this._playState = 'pause'; });
-            this.element.addEventListener("mouseleave", () => { if (this._playState == 'pause')
-                this._playState = 'play'; });
-        }
-    }
-    ;
     Init() {
         this.interval = WNparseNumber(this.element.getAttribute("interval"), 5000);
         this.autoplay = WNparseBoolean(this.element.getAttribute("autoplay"), true);
@@ -1773,7 +1902,10 @@ class wncounter {
         window.addEventListener("scroll", () => this.Start(this));
     }
     Start(e) {
-        if ((window.scrollY + window.innerHeight - e.element.offsetTop) > 0 && e.countNum < e.countTo) {
+        if (document.readyState == "loading")
+            return;
+        if (((window.scrollY == 0 && e.element.getBoundingClientRect().bottom < window.innerHeight) ||
+            (e.element.getBoundingClientRect().bottom < window.scrollY - window.innerHeight / 2)) && e.element.getBoundingClientRect().bottom > 0 && e.countNum < e.countTo) {
             let id = setInterval(() => {
                 e.countNum += e.countStep;
                 if (e.countNum > e.countTo) {
@@ -1809,10 +1941,10 @@ class wndateshow {
         if (this.today && this.format == this.Date.CultureInfo.DateTimeFormat.FullDateTimePattern) {
             this.format = this.Date.CultureInfo.DateTimeFormat.LongDatePattern;
         }
-        if (this.element.hasAttribute('live')) {
+        if (this.element.hasAttribute('interval')) {
             setInterval(() => {
                 this.Date.SetDate(new Date());
-            }, WNparseNumber(this.element.getAttribute('live')));
+            }, WNparseNumber(this.element.getAttribute('interval')));
         }
         if (this.element.localName == 'input')
             this.value = new Date(this.element.value);
@@ -2019,6 +2151,15 @@ class wndropdown {
     }
 }
 class wneditor {
+    rgb2hex(rgb) {
+        let ret = '';
+        rgb = rgb.toLowerCase();
+        if (rgb.includes('rgba'))
+            ret = `#${rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+        else if (rgb.includes('rgb'))
+            ret = `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+        return ret;
+    }
     constructor(elem) {
         this.DefaultFonts = 'Default On Page, Arial, Tahoma, Verdana, Helvetica, Trebuchet MS, Times New Roman, Georgia, Garamond, Courier New, Brush Script MT';
         this.DefaultFontSize = 'X Small:4px, Small:8px, Medium:12px, Normal:16px, Large:20px, X Large:24px,2X Large:32px,3X Large:48px';
@@ -2048,15 +2189,6 @@ class wneditor {
             this.element = elem;
             this.Init();
         }
-    }
-    rgb2hex(rgb) {
-        let ret = '';
-        rgb = rgb.toLowerCase();
-        if (rgb.includes('rgba'))
-            ret = `#${rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
-        else if (rgb.includes('rgb'))
-            ret = `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
-        return ret;
     }
     Init() {
         this._lang = WNlang[WNDefaultLanguage];
@@ -2108,6 +2240,7 @@ class wneditor {
         this._editor_iframe = this.element.querySelector('.editor-iframe');
         this._editor_hr = this.element.querySelector('.editor-hr');
         this._editor_source = this.element.querySelector('.editor-source');
+        this._dark_mode = this.element.querySelector('.editor-darkmode');
         this.AddToolBar();
         this.AddContent();
         this.AssignEvents();
@@ -2280,6 +2413,13 @@ class wneditor {
             grp.appendChild(this._editor_source);
             this._toolbar.appendChild(grp);
         }
+        if (this._dark_mode == null) {
+            this._dark_mode = this.CreateElement('input', '', 'checkbox');
+            let grp = this.CreateElement('div', 'button-group');
+            grp.appendChild(this._dark_mode);
+            grp.appendChild(this.CreateElement('label', 'button editor-darkmode'));
+            this._toolbar.appendChild(grp);
+        }
     }
     AddContent() {
         if (this._content != null)
@@ -2373,6 +2513,16 @@ class wneditor {
                 this.RecheckToolbar();
             }
         });
+        this._editor_source_textarea.addEventListener("input", () => {
+            const parser = new DOMParser();
+            const doc3 = parser.parseFromString(this._editor_source_textarea.value, "text/html");
+            this._content.innerHTML = doc3.body.innerHTML;
+            if (this.change != null && this.OldHtml != this.Html) {
+                this.change(this);
+                this.OldHtml = this.Html;
+            }
+        });
+        this._dark_mode?.nextSibling.addEventListener('click', () => { this.SwitchDarkMode(); });
     }
     RecheckToolbar() {
         if (this._editor_bold != undefined)
@@ -2734,7 +2884,7 @@ class wneditor {
                 let link = this.SetSelectionTag("a");
                 link.href = this._insertLinkUrl.value;
                 link.title = this._insertLinkTitle.value;
-                link.target = this._insertLinkTarget.value;
+                link.setAttribute('target', this._insertLinkTarget.value);
                 this._insertLinkDropDown.Hide();
             }
         });
@@ -3283,11 +3433,24 @@ class wneditor {
             this._content.classList.remove('hide');
             this._editor_source_mode = 'html';
         }
+        if (this.change != null && this.OldHtml != this.Html) {
+            this.change(this);
+            this.OldHtml = this.Html;
+        }
+    }
+    SwitchDarkMode() {
+        this._dark_mode.checked = !this._dark_mode.checked;
+        if (this._dark_mode.checked)
+            this._content.parentElement.classList.add('dark');
+        else
+            this._content.parentElement.classList.remove('dark');
     }
 }
 let WNfilelistclipboard = [];
 class wnfilelist {
     constructor(elem) {
+        this.multiselect = false;
+        this.basepath = '/';
         this._mode = "select";
         this._Url = "api/FileList";
         this._date = new wnDate();
@@ -4091,6 +4254,10 @@ class wnfilelist {
         if (!this.element.classList.contains('filelist'))
             this.element.classList.add('filelist');
         this._mode = this.element.getAttribute('mode').toLowerCase() ?? 'select';
+        this.multiselect = WNparseBoolean(this.element.getAttribute('multiselect'), false);
+        this.basepath = this.element.getAttribute('basepath') ?? '/';
+        if (this.basepath != '' && !this.basepath.endsWith('/'))
+            this.basepath = this.basepath + '/';
         this._head = this.element.querySelector('.head');
         if (this._head == null)
             this.AddHead();
@@ -4102,7 +4269,7 @@ class wnfilelist {
         this._Url = WNparseString(this.element.getAttribute('url'), this._Url);
         await this.GetFolders("");
         this._foldertree.collapsedall();
-        this._foldertree.expand(this._foldertree.findbyvalue('\\'));
+        this._foldertree.expandtoparent(this._foldertree.findbyvalue('/'));
     }
     AddHead() {
         this._head = document.createElement('div');
@@ -4112,8 +4279,11 @@ class wnfilelist {
         let refresh = document.createElement('button');
         refresh.title = this._lang["filelist"]["refresh"];
         refresh.className = "refresh";
-        refresh.addEventListener("click", () => {
-            this.GetFolders("");
+        refresh.addEventListener("click", async () => {
+            let s = WNTrimStart(this.GetSelectedFolder(), '/');
+            await this.GetFolders("");
+            this._foldertree.collapsedall();
+            this._foldertree.expandtoparent(this._foldertree.findbyvalue(s));
         });
         toolbar.appendChild(refresh);
         if (this._mode == 'full') {
@@ -4148,10 +4318,10 @@ class wnfilelist {
                     value = files.files[0];
                 else {
                     value = files.path ?? '';
-                    let f = value.split('\\');
+                    let f = value.split('/');
                     value = f[f.length - 1];
                 }
-                if (value == '' || value == '\\')
+                if (value == '' || value == '/')
                     return;
                 let d = new wnconfirm();
                 d.title = this._lang["filelist"]["rename"];
@@ -4173,7 +4343,7 @@ class wnfilelist {
             _Delete.className = "delete";
             _Delete.addEventListener("click", () => {
                 let f = this.GetSelectedItems();
-                if (f.files.length == 0 && f.path == '\\')
+                if (f.files.length == 0 && f.path == '/')
                     return;
                 let d = new wnconfirm();
                 d.headclass = "danger";
@@ -4204,7 +4374,7 @@ class wnfilelist {
                 WNfilelistclipboard = ['copy'];
                 let f = this.GetSelectedItems();
                 if (f.files.length > 0)
-                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '\\' + x, '\\')));
+                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '/' + x, '/')));
                 else
                     WNfilelistclipboard.push(f.path);
                 this.ShowMessage("clipboarded", "success");
@@ -4217,7 +4387,7 @@ class wnfilelist {
                 WNfilelistclipboard = ['cut'];
                 let f = this.GetSelectedItems();
                 if (f.files.length > 0)
-                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '\\' + x, '\\')));
+                    f.files.forEach((x) => WNfilelistclipboard.push(WNTrim(f.path + '/' + x, '/')));
                 else
                     WNfilelistclipboard.push(f.path);
                 this.ShowMessage("clipboarded", "success");
@@ -4253,6 +4423,8 @@ class wnfilelist {
             _Compress.title = this._lang["filelist"]["compress"];
             _Compress.className = "compress";
             _Compress.addEventListener("click", () => {
+                if (this.GetSelectedItems().files.length == 0)
+                    return;
                 let d = new wnconfirm();
                 d.title = this._lang["filelist"]["compress"];
                 d.body = `<ig class='floating'><input placeholder='.' class='ltr'/><label>${this._lang["filelist"]["name"]}</label></ig>`;
@@ -4273,7 +4445,7 @@ class wnfilelist {
             _Decompress.className = "decompress";
             _Decompress.addEventListener("click", () => {
                 let f = this.GetSelectedItems();
-                if (f.files.length == 0 && f.path == '\\')
+                if (f.files.length == 0 && f.path == '/')
                     return;
                 let d = new wnconfirm();
                 d.headclass = "danger";
@@ -4317,6 +4489,8 @@ class wnfilelist {
         this._files.tHead.innerHTML = `<tr><td><input type="checkbox"/></td><td>${this._lang["filelist"]["filename"]}</td><td>${this._lang["filelist"]["ext"]}</td><td>${this._lang["filelist"]["size"]}</td><td>${this._lang["filelist"]["date"]}</td></tr>`;
         this._files.createTBody();
         this._files.tHead.querySelector("input[type=checkbox]").addEventListener("click", (t) => {
+            if (!this.multiselect)
+                return;
             let th = t.target;
             this._files.tBodies[0].querySelectorAll("input[type=checkbox]").forEach((x) => x.checked = th.checked);
             if (this.selectionchange != null)
@@ -4326,7 +4500,7 @@ class wnfilelist {
         this._body.appendChild(this._divfiles);
         this._dragdrop = document.createElement('div');
         this._dragdrop.className = "dropfile";
-        this._dragdrop.innerHTML = `</button><div class="filearea"><label for='${this.element.id}_UploadInput'>${this._lang["filelist"]["upload"]}</lable><input id='${this.element.id}_UploadInput' class='d-none' type="file" multiple="true" class="s-m opacity-100"/><hr/><div>${this._lang["filelist"]["drophere"]}</div></div>`;
+        this._dragdrop.innerHTML = `</button><div class='filearea'><label for='${this.element.id}_UploadInput'>${this._lang['filelist']['upload']}</lable><input id='${this.element.id}_UploadInput' class='d-none' type='file' multiple='true' class='s-m opacity-100'/><hr/><div>${this._lang['filelist']['drophere']}</div></div>`;
         let close = document.createElement('button');
         close.className = "close";
         close.addEventListener("click", () => { this._dragdrop.classList.remove('show'); });
@@ -4370,18 +4544,17 @@ class wnfilelist {
         this._toast = new wntoast(this._toastdiv);
         this._preloader = document.createElement("div");
         this._preloader.className = 'preloader hide';
-        this._preloader.innerHTML = `
-<div class="loader">
-        <div class="spinner">
-            <div class="p-be-50r">
-                <div class="indicator indicator-effect-grow red-800-cb-i s-xs"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-10 red-500-cb-i s-s"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-20 red-100-cb-i s-m"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-30 red-500-cb-i s-s"></div>
-                <div class="indicator indicator-effect-grow animate-delay-start-40 red-800-cb-i s-xs"></div>
-            </div>
+        this._preloader.innerHTML = `<div class="loader">
+    <div class="spinner">
+        <div class="p-be-50r">
+            <div class="indicator indicator-effect-grow red-800-cb-i s-xs"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-10 red-500-cb-i s-s"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-20 red-100-cb-i s-m"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-30 red-500-cb-i s-s"></div>
+            <div class="indicator indicator-effect-grow animate-delay-start-40 red-800-cb-i s-xs"></div>
         </div>
     </div>
+</div>
 `;
         this.element.appendChild(this._preloader);
     }
@@ -4391,16 +4564,16 @@ class wnfilelist {
         await Post(JSON.stringify(o), this._Url).then((r) => {
             if (path == '') {
                 this._foldertree.element.innerHTML = '';
-                this._foldertree.addrow('', 'item', this._lang["filelist"]["root"], '\\', '');
+                this._foldertree.addrow('', 'item', this._lang["filelist"]["root"], '/', '');
             }
             for (var i = 0; i < r.length; i++) {
-                let it = r[i].split('\\');
+                let it = r[i].split('/');
                 if (it.length == 1) {
-                    this._foldertree.addrow('\\', 'item', r[i], r[i], '');
+                    this._foldertree.addrow('/', 'item', r[i], r[i], '');
                 }
                 else {
                     let v = it.pop();
-                    this._foldertree.addrow(it.join('\\'), 'item', v, r[i], '');
+                    this._foldertree.addrow(it.join('/'), 'item', v, r[i], '');
                 }
             }
         }).catch((e) => {
@@ -4412,7 +4585,7 @@ class wnfilelist {
     async GetFiles(path) {
         if (this._foldersAddress != null) {
             let addr = '';
-            path.split('\\').forEach((x) => addr += `<li>${x}</li>`);
+            path.split('/').forEach((x) => addr += `<li>${x}</li>`);
             this._foldersAddress.innerHTML = addr;
         }
         this.PreLoad(true);
@@ -4445,14 +4618,18 @@ class wnfilelist {
                         this.selectionchange(this);
                 });
                 tr.addEventListener('click', (t) => {
-                    let el = t.target;
-                    if (el.nodeName == 'INPUT')
-                        return;
-                    while (el.nodeName != 'TR')
-                        el = el.parentElement;
-                    let checkbox = el.querySelector('input[type=checkbox]');
-                    if (checkbox != null)
-                        checkbox.checked = !checkbox.checked;
+                    let tr = t.target;
+                    while (tr.nodeName != 'TR')
+                        tr = tr.parentElement;
+                    let checkbox = tr.querySelector('input[type=checkbox]');
+                    let checked = checkbox?.checked;
+                    if (!this.multiselect) {
+                        let tbody = tr.parentElement;
+                        while (tbody.nodeName != 'TBODY')
+                            tbody = tbody.parentElement;
+                        tbody.querySelectorAll('input[type=checkbox]').forEach((x) => x.checked = false);
+                    }
+                    checkbox.checked = !checked;
                     if (this.selectionchange != null)
                         this.selectionchange(this);
                 });
@@ -4485,14 +4662,15 @@ class wnfilelist {
             return false;
         this.PreLoad(true);
         let path = this._foldertree.currentvalue ?? '';
-        let o = { command: "createfolder", path: path + '\\' + value };
+        let o = { command: "createfolder", path: path + '/' + value };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
             if (r = true) {
                 await this.GetFolders("");
-                path = path + '\\' + value;
-                path = WNTrim(path, '\\');
-                this._foldertree.findbyvalue(path, true);
+                this._foldertree.collapsedall();
+                path = path + '/' + value;
+                path = WNTrim(path, '/');
+                this._foldertree.expandtoparent(this._foldertree.findbyvalue(path, true));
                 this.ShowMessage("foldercreated", "success");
                 ret = true;
             }
@@ -4509,21 +4687,23 @@ class wnfilelist {
             return false;
         this.PreLoad(true);
         let files = this.GetSelectedItems();
-        let oldName = (files.path + '\\' + (files.files[0] ?? ''));
-        if (oldName.endsWith('\\'))
+        let oldName = (files.path + '/' + (files.files[0] ?? ''));
+        if (oldName.endsWith('/'))
             oldName = oldName.substr(0, oldName.length - 1);
         let newfileName = oldName;
-        if (newfileName.lastIndexOf('\\') == -1)
+        if (newfileName.lastIndexOf('/') == -1)
             newfileName = value;
         else
-            newfileName = newfileName.substr(0, newfileName.lastIndexOf('\\') + 1) + value;
+            newfileName = newfileName.substr(0, newfileName.lastIndexOf('/') + 1) + value;
         let o = { command: "rename", source: oldName, destination: newfileName };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
             if (r = true) {
                 if (files.path == oldName) {
                     await this.GetFolders('');
-                    this._foldertree.findbyvalue(newfileName, true);
+                    this._foldertree.collapsedall();
+                    newfileName = WNTrimStart(newfileName, '/');
+                    this._foldertree.expandtoparent(this._foldertree.findbyvalue(newfileName, true));
                 }
                 else {
                     this.GetFiles(files.path);
@@ -4546,13 +4726,24 @@ class wnfilelist {
             items.push(files.path);
         else
             for (var i = 0; i < items.length; i++)
-                items[i] = files.path + '\\' + items[i];
+                items[i] = files.path + '/' + items[i];
         let o = { command: "delete", source: items.join('\n') };
         let ret = false;
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
             if (r = true) {
                 if (files.path == items[0]) {
+                    let s = this.GetSelectedFolder();
                     await this.GetFolders('');
+                    this._foldertree.collapsedall();
+                    let o = this._foldertree.findbyvalue(s, true);
+                    while (o == null) {
+                        let t = s.split('/');
+                        t.pop();
+                        s = t.join('/');
+                        o = this._foldertree.findbyvalue(s, true);
+                    }
+                    if (o != null)
+                        this._foldertree.expandtoparent(o);
                 }
                 else {
                     this.GetFiles(files.path);
@@ -4583,7 +4774,8 @@ class wnfilelist {
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
             if (r == true) {
                 await this.GetFolders('');
-                this._foldertree.findbyvalue(dst, true);
+                this._foldertree.collapsedall();
+                this._foldertree.expandtoparent(this._foldertree.findbyvalue(dst, true));
                 this.ShowMessage("pasted", "success");
                 ret = true;
             }
@@ -4653,17 +4845,19 @@ class wnfilelist {
     }
     async Decompress() {
         let files = this.GetSelectedItems();
-        this.PreLoad(true);
         let items = files.files;
         if (items.length == 0)
             return false;
+        this.PreLoad(true);
         for (var i = 0; i < files.files.length; i++)
-            files.files[i] = WNTrim(files.path + '\\' + files.files[i], '\\');
+            files.files[i] = WNTrim(files.path + '/' + files.files[i], '/');
         let o = { command: "decompress", source: items.join('\n') };
         await Post(JSON.stringify(o), this._Url).then(async (r) => {
             if (r == true) {
                 await this.GetFolders('');
-                this._foldertree.findbyvalue(files.path, true);
+                this._foldertree.collapsedall();
+                files.path = WNTrimStart(files.path, '/');
+                this._foldertree.expandtoparent(this._foldertree.findbyvalue(files.path, true));
                 this.ShowMessage("decompressed", "success");
             }
             else {
@@ -4680,7 +4874,7 @@ class wnfilelist {
         this._toast.show();
     }
     GetSelectedItems() {
-        let path = this._foldertree.currentvalue;
+        let path = this.basepath + this._foldertree.currentvalue;
         let files = [];
         this._files.tBodies[0].querySelectorAll(':checked').forEach((x) => {
             files.push(x.value);
@@ -4703,8 +4897,24 @@ class wnfilelist {
     GetSelectedFiles() {
         let ret = [];
         let files = this.GetSelectedItems();
-        files.files.forEach((x) => ret.push(WNTrim(files.path + '\\' + x, '\\')));
+        files.files.forEach((x) => ret.push(WNTrimEnd(files.path + '/' + x, '/')));
         return ret;
+    }
+    async SetSelectedFiles(files) {
+        if (files.length < 1 || files[0] == '')
+            return;
+        let steps = files[0].split('/');
+        steps.pop();
+        let path = WNTrimStart(steps.join('/'), '/');
+        this._foldertree.expandtoparent(this._foldertree.findbyvalue(path, true));
+        await this.GetFiles(path);
+        for (var i = 0; i < files.length; i++) {
+            steps = files[i].split('/');
+            let file = steps.pop();
+            let elem = this._files.tBodies[0].querySelector(`input[value='${file}']`);
+            if (elem != null)
+                elem.checked = true;
+        }
     }
     GetSelectedFolder() {
         let files = this.GetSelectedItems();
@@ -4959,15 +5169,6 @@ class wnlightbox {
     }
 }
 class wnlist {
-    constructor(elem) {
-        this._currentSelect = null;
-        this._listType = '';
-        this._items = [];
-        if (elem !== undefined && elem !== null) {
-            this.element = elem;
-            this.Init();
-        }
-    }
     get selecteditem() { return this._currentSelect; }
     set selecteditem(value) { this.select(value); }
     get selectedindex() { return WNparseNumber(this._currentSelect?.getAttribute('index'), -1); }
@@ -4979,8 +5180,18 @@ class wnlist {
             }
         });
     }
-    get currentvalue() { return this._currentSelect?.getAttribute('wn-list-value'); }
+    get currentvalue() { return this._currentSelect?.getAttribute('value'); }
     get currentcaption() { return this._currentSelect?.innerText; }
+    constructor(elem) {
+        this._currentSelect = null;
+        this._listType = '';
+        this._items = [];
+        this.checkbox = false;
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.Init();
+        }
+    }
     Init() {
         this._listType = this.element.nodeName;
         this.element.classList.add('list');
@@ -4997,6 +5208,8 @@ class wnlist {
             _items[i].addEventListener('click', (e) => { this.click(e); });
             this._items.push(_items[i]);
         }
+        if (this.element.hasAttribute('checkbox'))
+            this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
         if (this.element.hasAttribute('onbeforeclick'))
             this.beforeclick = new Function('t', 'e', this.element.getAttribute('onbeforeclick'));
         if (this.element.hasAttribute('onafterclick'))
@@ -5040,10 +5253,16 @@ class wnlist {
         });
         return selectedNode;
     }
+    elementtoitem(elem) {
+        if (elem != null)
+            return { caption: elem.innerText, value: elem.getAttribute('value') };
+        return null;
+    }
     findbyvalue(value, select = true) {
         let selectedNode = null;
+        value = value.toLowerCase();
         this._items.forEach((x) => {
-            if (x.getAttribute('value') == value) {
+            if (x.getAttribute('value').toLowerCase() == value) {
                 selectedNode = x;
                 if (select)
                     this.select(selectedNode);
@@ -5073,9 +5292,12 @@ class wnlist {
         else if (this._listType == 'TABLE') {
             elem = document.createElement('tr');
         }
-        elem.innerHTML = text;
         elem.setAttribute('index', this._items.length.toString());
         elem.setAttribute('value', value);
+        if (this.checkbox)
+            elem.innerHTML = `<input type='checkbox' value='${value}'> ${text}</input>`;
+        else
+            elem.innerHTML = text;
         elem.addEventListener('click', (e) => { this.click(e); });
         if (this._listType == 'TABLE') {
             let tbody = this.element.querySelector('tbody');
@@ -5092,18 +5314,25 @@ class wnlist {
     settext(text, index) {
         let elem = this.element.querySelector(`li[index='${index}']`);
         if (elem != null)
-            elem.innerHTML = text;
+            if (this.checkbox)
+                elem.innerHTML = `<input type='checkbox' value='${elem.getAttribute('value')}'> ${text}</input>`;
+            else
+                elem.innerHTML = text;
     }
     setvalue(text, index) {
         let elem = this.element.querySelector(`li[index='${index}']`);
         if (elem != null)
-            elem.setAttribute('value', text);
+            if (this.checkbox)
+                elem.innerHTML = `<input type='checkbox' value='${text}'> ${elem.innerText}</input>`;
+        elem.setAttribute('value', text);
     }
     removerow(index) {
         if (index < 0 || index >= this._items.length)
             return;
-        this._items[index].remove();
+        this._items.splice(index, 1);
+        this._currentSelect = null;
         this.reindex();
+        this.refresh();
     }
     order(desc = false) {
         this._items.sort((x, y) => {
@@ -5149,13 +5378,40 @@ class wnlist {
                 this.addrow(values[i], k);
             }
         }
-        else
-            datasource.forEach((x) => {
-                this.addrow(x[displayfield], x[valuefield]);
-            });
+        else {
+            if (displayfield.includes('{')) {
+                let idx = 1;
+                datasource.forEach((x) => {
+                    let tdisplay = displayfield;
+                    tdisplay = tdisplay.replace('{index}', idx.toString());
+                    this.addrow(tdisplay, x[valuefield]);
+                    idx++;
+                });
+            }
+            else
+                datasource.forEach((x) => {
+                    this.addrow(x[displayfield], x[valuefield]);
+                });
+        }
+    }
+    getcheckedvalue() {
+        let ret = [];
+        this.element.querySelectorAll('input:checked').forEach((f) => { ret.push(f.value); });
+        return ret;
+    }
+    setcheckedvalue(value) {
+        this.element.querySelectorAll('input[type=checkbox]').forEach((f) => {
+            f.checked = value.includes(f.value);
+        });
     }
 }
 class wnmodal {
+    get backclose() { return this._backClose; }
+    set backclose(value) { this._backClose = value; }
+    get showclass() { return this._showclass; }
+    set showclass(value) { this._showclass = value; }
+    get hideclass() { return this._hideclass; }
+    set hideclass(value) { this._hideclass = value; }
     constructor(elem) {
         this._backClose = true;
         this._showclass = "";
@@ -5167,12 +5423,6 @@ class wnmodal {
             this.Init();
         }
     }
-    get backclose() { return this._backClose; }
-    set backclose(value) { this._backClose = value; }
-    get showclass() { return this._showclass; }
-    set showclass(value) { this._showclass = value; }
-    get hideclass() { return this._hideclass; }
-    set hideclass(value) { this._hideclass = value; }
     Init() {
         let elem = this.element.querySelectorAll('[close-parent]');
         for (var i = 0; i < elem.length; i++)
@@ -5302,14 +5552,7 @@ class wnmultiselect {
         if (value == null)
             value = '';
         let item = { value: value, caption: caption };
-        if (this.selecteditems.find((x) => x.value == item.value && x.caption == item.caption) == null) {
-            if (this.max > 0 && this.selecteditems.length >= this.max)
-                return;
-            this.selecteditems.push(item);
-            this.AddSelectedSpan(caption, value);
-            if (this.selectionchanged != null)
-                this.selectionchanged(this);
-        }
+        this.SelectByItem(item);
     }
     AddSelectedSpan(caption, value) {
         let sp = document.createElement('span');
@@ -5322,6 +5565,24 @@ class wnmultiselect {
             this.DeselectByItem(item);
         });
         this.selectedarea.appendChild(sp);
+    }
+    SelectByItem(item) {
+        if (this.selecteditems.find((x) => x.value == item.value && x.caption == item.caption) == null) {
+            if (this.max > 0 && this.selecteditems.length >= this.max)
+                return;
+            this.selecteditems.push(item);
+            this.AddSelectedSpan(item.caption, item.value);
+            if (this.selectionchanged != null)
+                this.selectionchanged(this);
+        }
+    }
+    SelectByCaption(caption) {
+        let item = this.search.list.elementtoitem(this.search.list.findbytext(caption, false, false));
+        this.SelectByItem(item);
+    }
+    SelectByValue(value) {
+        let item = this.search.list.elementtoitem(this.search.list.findbyvalue(value, false));
+        this.SelectByItem(item);
     }
     DeselectByItem(item) {
         if (item == null)
@@ -5356,6 +5617,24 @@ class wnmultiselect {
         this.selecteditems = datasource;
         this.selectedarea.innerHTML = '';
         this.selecteditems.forEach((x) => { this.AddSelectedSpan(x.caption, x.value); });
+    }
+    GetSelectedValues() {
+        let ret = [];
+        this.selecteditems.forEach((x) => { ret.push(x.value); });
+        return ret;
+    }
+    SetSelectedValues(value) {
+        this.setdata([]);
+        value.forEach((x) => { this.SelectByValue(x); });
+    }
+    GetSelectedCaptions() {
+        let ret = [];
+        this.selecteditems.forEach((x) => { ret.push(x.caption); });
+        return ret;
+    }
+    SetSelectedCaptions(value) {
+        this.setdata([]);
+        value.forEach((x) => { this.SelectByCaption(x); });
     }
 }
 class wnprogress {
@@ -5541,6 +5820,29 @@ class wnsearchlist {
     }
 }
 class wnslicker {
+    get interval() { return this._interval; }
+    set interval(value) { this._interval = value; }
+    get autoplay() { return this._autoplay; }
+    set autoplay(value) { this._autoplay = value; }
+    get hoverpause() { return this._hoverpause; }
+    set hoverpause(value) {
+        this._hoverpause = value;
+        if (this._hoverpause) {
+            this.element.addEventListener("mouseenter", () => { if (this._playState == 'play')
+                this._playState = 'pause'; });
+            this.element.addEventListener("mouseleave", () => { if (this._autoplay)
+                this._playState = 'play'; });
+        }
+    }
+    ;
+    get slidewidth() { return this._slidewidth; }
+    set slidewidth(value) { this._slidewidth = value.toLowerCase(); }
+    get itemshow() { return this._itemshow; }
+    set itemshow(value) { this._itemshow = value; }
+    get itemalign() { return this._itemalign; }
+    set itemalign(value) { this._itemalign = value.toLowerCase(); }
+    get loop() { return this._loop; }
+    set loop(value) { this._loop = value; }
     constructor(elem) {
         this._interval = 20000;
         this._autoplay = false;
@@ -5568,29 +5870,6 @@ class wnslicker {
             }, this.interval);
         }
     }
-    get interval() { return this._interval; }
-    set interval(value) { this._interval = value; }
-    get autoplay() { return this._autoplay; }
-    set autoplay(value) { this._autoplay = value; }
-    get hoverpause() { return this._hoverpause; }
-    set hoverpause(value) {
-        this._hoverpause = value;
-        if (this._hoverpause) {
-            this.element.addEventListener("mouseenter", () => { if (this._playState == 'play')
-                this._playState = 'pause'; });
-            this.element.addEventListener("mouseleave", () => { if (this._autoplay)
-                this._playState = 'play'; });
-        }
-    }
-    ;
-    get slidewidth() { return this._slidewidth; }
-    set slidewidth(value) { this._slidewidth = value.toLowerCase(); }
-    get itemshow() { return this._itemshow; }
-    set itemshow(value) { this._itemshow = value; }
-    get itemalign() { return this._itemalign; }
-    set itemalign(value) { this._itemalign = value.toLowerCase(); }
-    get loop() { return this._loop; }
-    set loop(value) { this._loop = value; }
     Init() {
         this.interval = WNparseNumber(this.element.getAttribute("interval"), 20000);
         this.autoplay = WNparseBoolean(this.element.getAttribute("autoplay"), false);
@@ -5668,16 +5947,35 @@ class wnslicker {
     CalcSlidesWidth() {
         this._slides.forEach((e, i) => {
             let el = e;
-            WNWaitToLoad(el, 5000);
-            if (this._slidewidth == 'auto')
-                this._slidesWidth[i] = el.clientWidth;
-            else if (this._slidewidth != '')
-                this._slidesWidth[i] = WNValueUnit(WNCalcValue(this._slidewidth, "1px", "*", this.element)).value;
-            else
-                this._slidesWidth[i] = this._width;
-            el.style.width = this._slidesWidth[i] + 'px';
-            this._totalWidth += this._slidesWidth[i];
+            if (this._slidewidth == 'auto') {
+                let img = e.querySelector('img');
+                if (img != null) {
+                    if (img.complete) {
+                        this._slidesWidth[i] = el.clientWidth;
+                        el.style.width = this._slidesWidth[i] + 'px';
+                        this._totalWidth += this._slidesWidth[i];
+                    }
+                    else {
+                        img.onload = () => {
+                            this.Resize();
+                        };
+                        return;
+                    }
+                }
+            }
+            else {
+                if (this._slidewidth != '')
+                    this._slidesWidth[i] = WNValueUnit(WNCalcValue(this._slidewidth, "1px", "*", this.element)).value;
+                else
+                    this._slidesWidth[i] = this._width;
+                el.style.width = this._slidesWidth[i] + 'px';
+                this._totalWidth += this._slidesWidth[i];
+            }
         });
+    }
+    ImageLoaded(load) {
+        if (load)
+            this.Resize();
     }
     GetPosition(index) {
         let t = 0;
@@ -5752,6 +6050,8 @@ class wnslicker {
         this.ShowActiveIndicator();
     }
     ShowActiveIndicator() {
+        if (!this._indicators)
+            return;
         this._indicators.forEach((x) => x.classList.remove('active'));
         let idx = WNmod(this._index, this._itemsCount);
         this.element.querySelector("div[indicator-index='" + idx + "']").classList.add('active');
@@ -5774,6 +6074,8 @@ class wnslicker {
     }
 }
 class wnsticky {
+    get position() { return this._position; }
+    set position(value) { this._position = value; }
     constructor(elem) {
         this._position = 'top';
         if (elem !== undefined && elem !== null) {
@@ -5782,8 +6084,6 @@ class wnsticky {
             this.CheckSticky();
         }
     }
-    get position() { return this._position; }
-    set position(value) { this._position = value; }
     Init() {
         if (this.element.classList.contains('sticky-top'))
             this._position = 'top';
@@ -6077,11 +6377,20 @@ class wntable {
         this.bodytable.innerHTML = '';
         let startrow = 0;
         let maxrow = this.renderdata.length;
-        if (this.pagesize > -1) {
+        if (this.pagesize > -1 && maxrow != 0) {
             startrow = this.pagesize * (this.currentPage - 1);
             maxrow = this.pagesize * this.currentPage;
-            if (maxrow > this.renderdata.length)
+            if (maxrow > this.renderdata.length) {
                 maxrow = this.renderdata.length;
+                if (maxrow <= startrow) {
+                    this.currentPage--;
+                    if (this.currentPage < 1) {
+                        this.currentPage = 1;
+                    }
+                    startrow = this.pagesize * (this.currentPage - 1);
+                    maxrow = this.pagesize * this.currentPage;
+                }
+            }
         }
         for (var row = startrow; row < maxrow; row++) {
             let x = this.renderdata[row];
@@ -6145,7 +6454,7 @@ class wntable {
             let ret = true;
             for (var i = 0; i < filtervalue.length; i++) {
                 if (filtervalue[i].filterable == 'value')
-                    ret = ret && x[filtervalue[i].field].value.toLowerCase().includes(filtervalue[i].value);
+                    ret = ret && x[filtervalue[i].field].value.toString().toLowerCase().includes(filtervalue[i].value);
                 else if (filtervalue[i].filterable == 'caption')
                     ret = ret && x[filtervalue[i].field].caption.toLowerCase().includes(filtervalue[i].value);
                 if (!ret)
@@ -6220,13 +6529,25 @@ class wntable {
     }
     Select(privatekey) {
         let idx = this.renderdata.findIndex((x) => x['__privatekey'].value == privatekey);
+        return this.SelectByIndex(idx);
+    }
+    SelectByColValue(ColName, ColValue) {
+        let idx = this.renderdata.findIndex((x) => x[ColName].value == ColValue);
+        return this.SelectByIndex(idx);
+    }
+    SelectByIndex(idx) {
         if (idx == -1)
             return false;
+        let oldselected;
+        if (this.selecteditem != undefined)
+            oldselected = this.renderdata.findIndex((x) => x['__privatekey'].value == this.selecteditem['__privatekey']);
         this.selecteditem = this.renderdata[idx];
         this.currentPage = Math.ceil((idx + 1) / this.pagesize);
         if (this.currentPage == 0)
             this.currentPage = 1;
         this.refresh();
+        if (this.selectedchanged)
+            this.selectedchanged(this, this.selecteditem, oldselected);
         return true;
     }
     SelectRow(row) {
@@ -6461,6 +6782,8 @@ class wntime {
     }
 }
 class wntoast {
+    get timeout() { return this._timeout; }
+    set timeout(value) { this._timeout = value; }
     constructor(elem) {
         this._timeout = 0;
         if (elem !== undefined && elem !== null) {
@@ -6468,8 +6791,6 @@ class wntoast {
             this.Init();
         }
     }
-    get timeout() { return this._timeout; }
-    set timeout(value) { this._timeout = value; }
     Init() {
         let elem = this.element.querySelectorAll('[close-parent]');
         for (var i = 0; i < elem.length; i++)
@@ -6501,15 +6822,6 @@ class wntoast {
     }
 }
 class wntooltip {
-    constructor(elem) {
-        this._delay = 500;
-        this._hideafter = 3000;
-        this._classes = '';
-        if (elem !== undefined && elem !== null) {
-            this.element = elem;
-            this.Init();
-        }
-    }
     get delay() { return this._delay; }
     set delay(value) { this._delay = value; }
     get hideafter() { return this._hideafter; }
@@ -6522,6 +6834,15 @@ class wntooltip {
     set events(value) { this._events = value; this.SetEvents(); }
     get lostevents() { return this._lostevents; }
     set lostevents(value) { this._lostevents = value; this.SetEvents(); }
+    constructor(elem) {
+        this._delay = 500;
+        this._hideafter = 3000;
+        this._classes = '';
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.Init();
+        }
+    }
     Init() {
         let text = this.element.getAttribute('wn-tooltip');
         this._target = document.getElementById(text);
@@ -6627,6 +6948,12 @@ function WNTooltipAssign(elem = document) {
     }
 }
 class wntree {
+    get currentselect() { return this._currentSelect; }
+    set currentselect(value) { this._currentSelect = value; }
+    get currentvalue() { return this._currentSelect?.getAttribute('wn-tree-value'); }
+    get currentcaption() { return this._currentSelect?.getAttribute('wn-tree-caption'); }
+    get treeexpanditem() { return this._treeexpanditem; }
+    set treeexpanditem(value) { this._treeexpanditem = value; }
     constructor(elem) {
         this._currentSelect = null;
         this._treeexpanditem = false;
@@ -6636,12 +6963,6 @@ class wntree {
             this.Init();
         }
     }
-    get currentselect() { return this._currentSelect; }
-    set currentselect(value) { this._currentSelect = value; }
-    get currentvalue() { return this._currentSelect?.getAttribute('wn-tree-value'); }
-    get currentcaption() { return this._currentSelect?.getAttribute('wn-tree-caption'); }
-    get treeexpanditem() { return this._treeexpanditem; }
-    set treeexpanditem(value) { this._treeexpanditem = value; }
     Init() {
         this._treeexpanditem = this.element.classList.contains('tree-expand-item');
         let items = this.element.querySelectorAll('li');
@@ -6718,8 +7039,15 @@ class wntree {
                 ((node.dir == 'ltr' && e.offsetX < parseInt(getComputedStyle(node).paddingInlineStart)) ||
                     (node.clientWidth - e.offsetX < parseInt(getComputedStyle(node).paddingInlineStart)))) {
                 this.toggle(node);
-                event.stopPropagation();
+                e.stopPropagation();
             }
+        }
+        else {
+            let tnode = node.querySelector('.tree-item');
+            if (tnode == null)
+                tnode = node.querySelector('.tree-link');
+            if (tnode != null)
+                this.select(tnode);
         }
         if (this.afterclick != null)
             this.afterclick(this, e);
@@ -6727,8 +7055,7 @@ class wntree {
     select(node) {
         if (node == this._currentSelect)
             return;
-        if (this._currentSelect != null)
-            this._currentSelect.classList.remove('active');
+        this.element.querySelectorAll('[class*=active]').forEach(x => x.classList.remove('active'));
         node.classList.add('active');
         this._currentSelect = node;
         if (this.selectionchange != null)
@@ -6791,9 +7118,9 @@ class wntree {
         let selectedNode = null;
         let n = null;
         if (contains)
-            n = this.element.querySelector('[wn-tree-caption*="' + text + '"]');
+            n = this.element.querySelector('[wn-tree-caption*="' + text + '" i]');
         else
-            n = this.element.querySelector('[wn-tree-caption="' + text + '"]');
+            n = this.element.querySelector('[wn-tree-caption="' + text + '" i]');
         selectedNode = n;
         if (select)
             this.select(selectedNode);
@@ -6801,13 +7128,18 @@ class wntree {
     }
     findbyvalue(value, select = false) {
         let selectedNode = null;
-        let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\', '\\\\') + '"]');
+        let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\', '\\\\') + '" i]');
         selectedNode = n;
         if (select) {
             this._currentSelect = null;
             this.select(selectedNode);
         }
         return selectedNode;
+    }
+    elementtoitem(elem) {
+        if (elem != null)
+            return { caption: elem.getAttribute('wn-tree-caption'), value: elem.getAttribute('wn-tree-value') };
+        return null;
     }
     filterbytext(text, contains = true) {
         let selectedNode = Array();
@@ -6937,6 +7269,10 @@ class wnvalidator {
         wnValidator_onvalidationcheck(this.element.children, event);
         this.element.classList.add('validated');
         return this.element.checkValidity();
+    }
+    Clear() {
+        this.element.classList.remove('validated');
+        this.element.noValidate = true;
     }
     Reset(form) {
         form.classList.remove('validated');

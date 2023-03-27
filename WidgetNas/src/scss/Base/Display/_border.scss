@@ -8,20 +8,24 @@
 .border-inline {
     border-inline: var(--border-width) solid var(--normal-border) !important;
 }
+.no-border,
 .noborder {
     border-width: 0 !important;
 }
 
+.no-border-is,
 .noborder-is {
     border-inline-start: none !important;
 }
+.no-border-ie,
 .noborder-ie {
     border-inline-end: none !important;
 }
+.no-border-bs,
 .noborder-bs {
     border-block-start: none !important;
 }
-
+.no-border-be,
 .noborder-be {
     border-block-end: none !important;
 }

@@ -313,3 +313,97 @@
     </div>
 </div>
 <figure><code data-on="form8"></code></figure>
+<h2>محفظه گروهی</h2>
+<p>
+    در بسیاری از موارد نیاز است، گروهی از ورودهای مرتبط به هم را در یک قاب قرار دهیم، بدین منظور بایست از کلاس <bidi>groupcontainer</bidi>
+    به عنوان فریم گروه و از تگ <bidi>h4</bidi> برای عنوان گروه استفاده کنید. توجه داشته باشید اولین تگ h4 است که برای عنوان استفاده میشود و تگهای بعدی برای مصارف دیگر است.
+    به مثال زیر توجه فرمایید.
+</p>
+<div class="example-div">
+    <div class="ltr" style="overflow:auto">
+        <h3>LTR</h3>
+        <form id="form12">
+            <div class="groupcontainer">
+                <h4>Group Title</h4>
+                <h4>Second Heading 4</h4>
+                <div class="row">
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_firstname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_firstname_ltr'>First Name</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_lastname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_lastname_ltr'>Last Name</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="">
+                            <div>
+                                <input id='form_sample1_sex_o10_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o10_ltr'>Male</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_sex_o11_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o11_ltr'>Female</label>
+                            </div>
+                        </ig>
+                    </div>
+                </div>
+                <button class="danger" type="submit">Send</button>
+                <button class="warning" type="reset">Reset</button>
+            </div>
+            <fieldset>
+                <legend>Group Title</legend>
+                <h4>Second Heading 4</h4>
+                <p>This is some text to demonstrated fieldset and legend</p>
+            </fieldset>
+        </form>
+    </div>
+    <div class="rtl" style="overflow:auto">
+        <h3>RTL</h3>
+        <form>
+            <div class="groupcontainer">
+                <h4>عنوان گروه</h4>
+                <h4>دومین هدینگ 4</h4>
+                <div class="row">
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_firstname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_firstname_ltr'>نام</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="floating">
+                            <input id='form_sample1_lastname_ltr' type="text" placeholder="." />
+                            <label for='form_sample1_lastname_ltr'>نام خانوادگی</label>
+                        </ig>
+                    </div>
+                    <div class="col-4">
+                        <ig class="">
+                            <div>
+                                <input id='form_sample1_sex_o10_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o10_ltr'>مرد</label>
+                            </div>
+                            <div>
+                                <input id='form_sample1_sex_o11_ltr' name='form_sample1_sex_ltr' type="radio" />
+                                <label for='form_sample1_sex_o11_ltr'>زن</label>
+                            </div>
+                        </ig>
+                    </div>
+                </div>
+                <button class="danger" type="submit">ارسال</button>
+                <button class="warning" type="reset">ریست</button>
+            </div>
+            <fieldset>
+                <legend>عنوان گروه</legend>
+                <h4>دومین عنوان گروه</h4>
+                <p>این یک متن برای نمایش استفاده از تگ های fieldset و legend است.</p>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<figure><code data-on="form12"></code></figure>

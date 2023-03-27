@@ -112,8 +112,15 @@
 
             ) {
                 this.toggle(node);
-                event.stopPropagation();
+                e.stopPropagation();
             }
+        }
+        else {
+            let tnode = node.querySelector('.tree-item') as HTMLElement;
+            if (tnode == null)
+                tnode = node.querySelector('.tree-link') as HTMLElement;
+            if (tnode != null)
+                this.select(tnode);
         }
         if (this.afterclick != null) this.afterclick(this, e);
     }
@@ -121,11 +128,12 @@
     select(node: HTMLElement) {
         if (node == this._currentSelect)
             return;
-        if (this._currentSelect != null)
-            this._currentSelect.classList.remove('active');
+        this.element.querySelectorAll('[class*=active]').forEach(x => x.classList.remove('active'));
         node.classList.add('active');
         this._currentSelect = node;
-        if (this.selectionchange != null) this.selectionchange(this, node);
+        if (this.selectionchange != null)
+            this.selectionchange(this, node);
+
     }
     toggle(node: HTMLElement) {
         node = this.findLI(node);
@@ -178,9 +186,9 @@
         let selectedNode = null;
         let n: HTMLElement = null;
         if (contains)
-            n = this.element.querySelector('[wn-tree-caption*="' + text + '"]') as HTMLElement;
+            n = this.element.querySelector('[wn-tree-caption*="' + text + '" i]');
         else
-            n = this.element.querySelector('[wn-tree-caption="' + text + '"]') as HTMLElement;
+            n = this.element.querySelector('[wn-tree-caption="' + text + '" i]');
         selectedNode = n;
         if (select)
             this.select(selectedNode);
@@ -188,7 +196,7 @@
     }
     findbyvalue(value: string, select: boolean = false): HTMLElement {
         let selectedNode = null;
-        let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\', '\\\\') + '"]') as HTMLElement
+        let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\', '\\\\') + '" i]');
         selectedNode = n;
         if (select) {
             this._currentSelect = null;
@@ -196,6 +204,11 @@
         }
         return selectedNode;
 
+    }
+    elementtoitem(elem: HTMLElement) {
+        if (elem != null)
+            return { caption: elem.getAttribute('wn-tree-caption'), value: elem.getAttribute('wn-tree-value') };
+        return null;
     }
     filterbytext(text: string, contains: boolean = true) {
         let selectedNode = Array<HTMLElement>();
@@ -286,8 +299,8 @@
         if (!append) {
             this.element.innerHTML = '';
         }
-        
-        this.adddschilds(this.element, datasource, null, idfield,parentfield, typefield, displayfield, valuefield, imagefield);
+
+        this.adddschilds(this.element, datasource, null, idfield, parentfield, typefield, displayfield, valuefield, imagefield);
 
     }
     adddschilds(element: HTMLElement, datasource: any[], parentvalue: string, idfield: string, parentfield: string, typefield: string, displayfield: string, valuefield: string, imagefield: string) {

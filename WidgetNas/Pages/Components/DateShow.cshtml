@@ -19,38 +19,38 @@
         <div id="form1">
             <ig class="group">
                 <label>Today Default</label>
-                <input readonly wn-type="dateshow" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" value="@ViewData["CurrentDate"]">
             </ig>
             <h2>Calendar</h2>
             <ig class="group">
                 <label>Gregorian Calendar</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>Persian Calendar</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>Hijri Calendar</label>
-                <input readonly wn-type="dateshow" calendar="wnHijriCalendar" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnHijriCalendar" value="@ViewData["CurrentDate"]">
             </ig>
             <h2>Culture Info</h2>
             <ig class="group">
                 <label>en_US</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>fa_IR</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" value="@ViewData["CurrentDate"]">
             </ig>
             <h2>Format</h2>
             <ig class="group">
                 <label>MM-dd-yyy</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" format="MM-dd-yyyy" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" format="MM-dd-yyyy" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>yyyy/MM/dd</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" format="yyyy/MM/dd" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" format="yyyy/MM/dd" value="@ViewData["CurrentDate"]">
             </ig>
         </div>
     </div>
@@ -59,38 +59,38 @@
         <div>
             <ig class="group">
                 <label>امروز پیش فرض</label>
-                <input readonly wn-type="dateshow" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" value="@ViewData["CurrentDate"]">
             </ig>
             <h2>تقویم ها</h2>
             <ig class="group">
                 <label>تقویم میلادی</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>تقویم پارسی</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>تقویم هجری قمری</label>
-                <input readonly wn-type="dateshow" calendar="wnHijriCalendar" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnHijriCalendar" value="@ViewData["CurrentDate"]">
             </ig>
             <h2>اطلاعات فرهنگ</h2>
             <ig class="group">
                 <label>en_US</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>fa_IR</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" value="@ViewData["CurrentDate"]">
             </ig>
             <h2>فورمت</h2>
             <ig class="group">
                 <label>MM-dd-yyy</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" format="MM-dd-yyyy" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" format="MM-dd-yyyy" value="@ViewData["CurrentDate"]">
             </ig>
             <ig class="group">
                 <label>yyyy/MM/dd</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" format="yyyy/MM/dd" value="@DateTime.Now">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" format="yyyy/MM/dd" value="@ViewData["CurrentDate"]">
             </ig>
         </div>
     </div>
@@ -117,7 +117,7 @@
         <div id="form2">
             <ig class="group">
                 <label>پیش فرض</label>
-                <input readonly id="date1_ltr" wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" value="@DateTime.Now">
+                <input readonly id="date1_ltr" wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" value="@ViewData["CurrentDate"]">
                 <button class="primary" onclick="WN['date1_ltr'].Date.AddDays(1);">Next</button>
             </ig>
         </div>
@@ -127,7 +127,7 @@
         <div>
             <ig class="group">
                 <label>پیش فرض</label>
-                <input readonly id="date1_rtl" wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" value="@DateTime.Now">
+                <input readonly id="date1_rtl" wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" value="@ViewData["CurrentDate"]">
                 <button class="primary" onclick="WN['date1_rtl'].Date.AddDays(1);">بعدی</button>
             </ig>
         </div>
@@ -157,18 +157,18 @@
 </div>
 <figure><code data-on="form3"></code></figure>
 <h2>تاریخ زنده</h2>
-<p>اگر میخواهید تاریخ و ساعت به صورت زنده بر اساس زمان کلاینت تغییر کند، خصوصیت <bidi>live = '1000'</bidi> را وارد کنید، این عدد نشانگر زمان بروز رسانی به میلی ثانیه است.</p>
+<p>اگر میخواهید تاریخ و ساعت به صورت زنده بر اساس زمان کلاینت تغییر کند، خصوصیت <bidi>interval = '1000'</bidi> را وارد کنید، این عدد نشانگر زمان بروز رسانی به میلی ثانیه است.</p>
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
         <div id="form4">
             <ig class="group">
                 <label>Live Time</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" live="1000">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" interval="1000">
             </ig>
             <ig class="group">
                 <label>Live Date</label>
-                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" format="MM-dd-yyyy" live="1000">
+                <input readonly wn-type="dateshow" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" format="MM-dd-yyyy" interval="1000">
             </ig>
         </div>
     </div>
@@ -177,11 +177,11 @@
         <div>
             <ig class="group">
                 <label>ساعت زنده</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" live="1000">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" interval="1000">
             </ig>
             <ig class="group">
                 <label>تاریخ زنده</label>
-                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" format="yyyy/MM/dd" live="1000">
+                <input readonly wn-type="dateshow" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR" format="yyyy/MM/dd" interval="1000">
             </ig>
         </div>
     </div>

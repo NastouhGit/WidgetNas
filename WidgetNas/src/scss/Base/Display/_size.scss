@@ -1,9 +1,5 @@
-﻿@import "../../_functions.scss";
-@import "../../_variables.scss";
-
-$size-values-5-100: (5, 10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100);
-$size-values-em: (10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,275,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000);
-$sizes: ( 'xs':0.4,'s':0.6,'m':0.8,'n':1,'l':1.2, 'xl':1.4, 'xxl':1.6,'xxxl':2);
+﻿@import "../../_variables.scss";
+@import "../../_functions.scss";
 
 @mixin size($names,$name-ext, $attr-ext,$scale, $sizes,$important: true) {
     @each $name,$attr in $names {
@@ -35,101 +31,119 @@ $sizes: ( 'xs':0.4,'s':0.6,'m':0.8,'n':1,'l':1.2, 'xl':1.4, 'xxl':1.6,'xxxl':2);
 }
 
 
-    @mixin size_name($names,$media, $sizes) {
-        @each $value in $sizes {
-            @each $name,$attr in $names {
-                .#{$name}#{$media}-#{$value} {
-                    #{$attr}: #{$value};
-                }
-
-                    .#{$name}#{$media}-#{$value}-i {
-                        #{$attr}: #{$value} !important;
-                    }
+@mixin size_name($names,$media, $sizes) {
+    @each $value in $sizes {
+        @each $name,$attr in $names {
+            .#{$name}#{$media}-#{$value} {
+                #{$attr}: #{$value};
             }
+
+                .#{$name}#{$media}-#{$value}-i {
+                    #{$attr}: #{$value} !important;
+                }
         }
     }
+}
 
 
 
-    $auto-inherit: (0,auto,inherit,unset);
-    $auto-none-inherit: (0,auto,none,inherit,unset);
-    $padding: ('p':'padding','p-left':'padding-left','p-right':'padding-right','p-top':'padding-top','p-bottom':'padding-bottom','p-b':'padding-block','p-i':'padding-inline','p-bs':'padding-block-start','p-be':'padding-block-end','p-is':'padding-inline-start','p-ie':'padding-inline-end');
-    $padding-h: ('p-top':'padding-top','p-bottom':'padding-bottom','p-b':'padding-block','p-bs':'padding-block-start','p-be':'padding-block-end');
-    $padding-w: ('p-left':'padding-left','p-right':'padding-right','p-i':'padding-inline','p-is':'padding-inline-start','p-ie':'padding-inline-end');
+$auto-inherit: (0,auto,inherit,unset);
+$auto-none-inherit: (0,auto,none,inherit,unset);
+$padding: ('p':'padding','p-left':'padding-left','p-right':'padding-right','p-top':'padding-top','p-bottom':'padding-bottom','p-b':'padding-block','p-i':'padding-inline','p-bs':'padding-block-start','p-be':'padding-block-end','p-is':'padding-inline-start','p-ie':'padding-inline-end');
+$padding-h: ('p-top':'padding-top','p-bottom':'padding-bottom','p-b':'padding-block','p-bs':'padding-block-start','p-be':'padding-block-end');
+$padding-w: ('p-left':'padding-left','p-right':'padding-right','p-i':'padding-inline','p-is':'padding-inline-start','p-ie':'padding-inline-end');
 
-    $margin: ('m':'margin','m-left':'margin-left','m-right':'margin-right','m-top':'margin-top','m-bottom':'margin-bottom','m-b':'margin-block','m-i':'margin-inline','m-bs':'margin-block-start','m-be':'margin-block-end','m-is':'margin-inline-start','m-ie':'margin-inline-end');
-    $margin-h: ('m-top':'margin-top','m-bottom':'margin-bottom','m-b':'margin-block','m-bs':'margin-block-start','m-be':'margin-block-end');
-    $margin-w: ('m-left':'margin-left','m-right':'margin-right','m-i':'margin-inline','m-is':'margin-inline-start','m-ie':'margin-inline-end');
+$margin: ('m':'margin','m-left':'margin-left','m-right':'margin-right','m-top':'margin-top','m-bottom':'margin-bottom','m-b':'margin-block','m-i':'margin-inline','m-bs':'margin-block-start','m-be':'margin-block-end','m-is':'margin-inline-start','m-ie':'margin-inline-end');
+$margin-h: ('m-top':'margin-top','m-bottom':'margin-bottom','m-b':'margin-block','m-bs':'margin-block-start','m-be':'margin-block-end');
+$margin-w: ('m-left':'margin-left','m-right':'margin-right','m-i':'margin-inline','m-is':'margin-inline-start','m-ie':'margin-inline-end');
 
-    $height: ('h':'height','h-min':'min-height','h-max':'max-height');
-    $width: ('w':'width','w-min':'min-width','w-max':'max-width');
-    $l-height: ('lh':'line-height');
+$height: ('h':'height','h-min':'min-height','h-max':'max-height');
+$width: ('w':'width','w-min':'min-width','w-max':'max-width');
+$l-height: ('lh':'line-height');
 
-    @include media() using ($media) {
-        @include size($padding,''+$media,'',1,(0));
-        @include size($padding,'x'+$media,'px',1,$size-values-5-100);
-        @include size($padding,'p'+$media,'%',1,$size-values-5-100);
-        @include size($padding,'r'+$media,'rem',0.01,$size-values-em);
-        @include size($padding,'e'+$media,'em',0.01,$size-values-em);
-        @include size($padding-w,'vw'+$media,'vw',1,$size-values-5-100);
-        @include size($padding-h,'vh'+$media,'vh',1,$size-values-5-100);
+@include media() using ($media) {
+    @include size($padding,''+$media,'',1,(0));
+    @include size($padding,'x'+$media,'px',1,$size-values-5-100);
+    @include size($padding,'p'+$media,'%',1,$size-values-5-100);
+    @include size($padding,'r'+$media,'rem',0.01,$size-values-em);
+    @include size($padding,'e'+$media,'em',0.01,$size-values-em);
+    @include size($padding-w,'vw'+$media,'vw',1,$size-values-5-100);
+    @include size($padding-h,'vh'+$media,'vh',1,$size-values-5-100);
 
-        @include size($margin,''+$media,'',1,(0));
-        @include size($margin,'x'+$media,'px',1,$size-values-5-100);
-        @include size($margin,'p'+$media,'%',1,$size-values-5-100);
-        @include size($margin,'r'+$media,'rem',0.01,$size-values-em);
-        @include size($margin,'e'+$media,'em',0.01,$size-values-em);
-        @include size($margin-w,'vw'+$media,'vw',1,$size-values-5-100);
-        @include size($margin-h,'vh'+$media,'vh',1,$size-values-5-100);
-        @include size_name($margin,$media,$auto-inherit);
+    @include size($margin,''+$media,'',1,(0));
+    @include size($margin,'x'+$media,'px',1,$size-values-5-100);
+    @include size($margin,'p'+$media,'%',1,$size-values-5-100);
+    @include size($margin,'r'+$media,'rem',0.01,$size-values-em);
+    @include size($margin,'e'+$media,'em',0.01,$size-values-em);
+    @include size($margin-w,'vw'+$media,'vw',1,$size-values-5-100);
+    @include size($margin-h,'vh'+$media,'vh',1,$size-values-5-100);
+    @include size_name($margin,$media,$auto-inherit);
 
-        @include size($height,''+$media,'',1,(0));
-        @include size($height,'x'+$media,'px',1,$size-values-5-100);
-        @include size($height,''+$media,'%',1,$size-values-5-100);
-        @include size($height,'r'+$media,'rem',0.01,$size-values-em);
-        @include size($height,'e'+$media,'em',0.01,$size-values-em);
-        @include size($height,'vh'+$media,'vh',1,$size-values-5-100);
-        @include size_name($height,$media,$auto-none-inherit);
+    @include size($height,''+$media,'',1,(0));
+    @include size($height,'x'+$media,'px',1,$size-values-5-100);
+    @include size($height,''+$media,'%',1,$size-values-5-100);
+    @include size($height,'r'+$media,'rem',0.01,$size-values-em);
+    @include size($height,'e'+$media,'em',0.01,$size-values-em);
+    @include size($height,'vh'+$media,'vh',1,$size-values-5-100);
+    @include size_name($height,$media,$auto-none-inherit);
 
-        @include size($width,''+$media,'',1,(0));
-        @include size($width,'x'+$media,'px',1,$size-values-5-100);
-        @include size($width,''+$media,'%',1,$size-values-5-100);
-        @include size($width,'r'+$media,'rem',0.01,$size-values-em);
-        @include size($width,'e'+$media,'em',0.01,$size-values-em);
-        @include size($width,'vw'+$media,'vw',1,$size-values-5-100);
-        @include size_name($width,$media,$auto-none-inherit);
-    }
+    @include size($width,''+$media,'',1,(0));
+    @include size($width,'x'+$media,'px',1,$size-values-5-100);
+    @include size($width,''+$media,'%',1,$size-values-5-100);
+    @include size($width,'r'+$media,'rem',0.01,$size-values-em);
+    @include size($width,'e'+$media,'em',0.01,$size-values-em);
+    @include size($width,'vw'+$media,'vw',1,$size-values-5-100);
+    @include size_name($width,$media,$auto-none-inherit);
 
-
-    .w-max {
+    .w-max#{$media} {
         width: max-content !important;
-        width: -moz-min-content !important;
+        width: -moz-max-content !important;
     }
 
-    .w-min {
+    .w-min#{$media} {
         width: min-content !important;
         width: -moz-min-content !important;
     }
 
-    .w-fill {
+    .w-fill#{$media} {
         width: -webkit-fill-available !important;
         width: -moz-available !important;
     }
+}
 
-    @include size($l-height,'','',1,(0));
-    @include size($l-height,'x','px',1,$size-values-5-100);
-    @include size($l-height,'p','%',1,$size-values-5-100);
-    @include size($l-height,'r','rem',0.01,$size-values-em);
-    @include size($l-height,'e','em',0.01,$size-values-em);
+@include size($l-height,'','',1,(0));
+@include size($l-height,'x','px',1,$size-values-5-100);
+@include size($l-height,'p','%',1,$size-values-5-100);
+@include size($l-height,'r','rem',0.01,$size-values-em);
+@include size($l-height,'e','em',0.01,$size-values-em);
 
-    @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'','',0,(0),false);
-    @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'x','px',1,$size-values-5-100,false);
-    @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'r','rem',0.01,$size-values-em,false);
-    @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'e','em',0.01,$size-values-em,false);
+@include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'','',0,(0),false);
+@include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'x','px',1,$size-values-5-100,false);
+@include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'r','rem',0.01,$size-values-em,false);
+@include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'e','em',0.01,$size-values-em,false);
 
 
-    @each $name,$value in $sizes {
-        .s-#{$name} {
+@each $name,$value in $sizes {
+    .s-#{$name} {
+        --scale-factor: #{$value};
+        --gutter-inline: #{$gutter-inline * $value};
+        --gutter-block: #{$gutter-block * $value};
+        --padding-inline: #{$padding-inline * $value};
+        --padding-inline2: #{$padding-inline * $value * 2};
+        --padding-block: #{$padding-block * $value};
+        --padding-block2: #{$padding-block * $value * 2};
+        --margin-block: #{$margin-block * $value};
+        --margin-inline: #{$margin-inline * $value};
+        --border-width: #{$border-width * $value};
+        --border-radius: #{$border-radius * $value};
+        --font-size: #{$font-size * $value};
+        --line-height: #{$line-height * $value};
+        --button-shadow-width: #{$button-shadow-width * $value};
+        --input-shadow-width: #{$input-shadow-width * $value};
+        --box-shadow: 0 0 #{$input-shadow-width* $value} #{$input-shadow-width* $value} rgba(0,0,0,0.1);
+    }
+
+        .s-#{$name}-set {
             --scale-factor: #{$value};
             --gutter-inline: #{$gutter-inline * $value};
             --gutter-block: #{$gutter-block * $value};
@@ -146,30 +160,11 @@ $sizes: ( 'xs':0.4,'s':0.6,'m':0.8,'n':1,'l':1.2, 'xl':1.4, 'xxl':1.6,'xxxl':2);
             --button-shadow-width: #{$button-shadow-width * $value};
             --input-shadow-width: #{$input-shadow-width * $value};
             --box-shadow: 0 0 #{$input-shadow-width* $value} #{$input-shadow-width* $value} rgba(0,0,0,0.1);
+            padding-inline: #{$padding-inline * $value};
+            padding-block: #{$padding-block * $value};
+            margin-block: #{$margin-block * $value};
+            margin-inline: #{$margin-inline * $value};
+            font-size: #{$font-size * $value};
+            line-height: #{$line-height * $value};
         }
-
-            .s-#{$name}-set {
-                --scale-factor: #{$value};
-                --gutter-inline: #{$gutter-inline * $value};
-                --gutter-block: #{$gutter-block * $value};
-                --padding-inline: #{$padding-inline * $value};
-                --padding-inline2: #{$padding-inline * $value * 2};
-                --padding-block: #{$padding-block * $value};
-                --padding-block2: #{$padding-block * $value * 2};
-                --margin-block: #{$margin-block * $value};
-                --margin-inline: #{$margin-inline * $value};
-                --border-width: #{$border-width * $value};
-                --border-radius: #{$border-radius * $value};
-                --font-size: #{$font-size * $value};
-                --line-height: #{$line-height * $value};
-                --button-shadow-width: #{$button-shadow-width * $value};
-                --input-shadow-width: #{$input-shadow-width * $value};
-                --box-shadow: 0 0 #{$input-shadow-width* $value} #{$input-shadow-width* $value} rgba(0,0,0,0.1);
-                padding-inline: #{$padding-inline * $value};
-                padding-block: #{$padding-block * $value};
-                margin-block: #{$margin-block * $value};
-                margin-inline: #{$margin-inline * $value};
-                font-size: #{$font-size * $value};
-                line-height: #{$line-height * $value};
-            }
-    }
+}

@@ -1,4 +1,6 @@
-﻿*,
+﻿@import "../_variables.scss";
+
+*,
 *::before,
 *::after {
     box-sizing: border-box;
@@ -49,7 +51,8 @@ address {
 
 ol,
 ul {
-    padding-inline-start: calc(var(--padding-inline)*2);
+    //padding-inline-start: calc(var(--padding-inline)*2);
+    padding-inline-start:0;
 }
 
 ol,
@@ -250,7 +253,6 @@ body {
 .rtl {
     direction: rtl;
     unicode-bidi: embed;
-    font-variant-numeric: diagonal-fractions;
 }
 
 .ltr {
