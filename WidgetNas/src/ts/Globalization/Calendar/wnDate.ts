@@ -1,4 +1,4 @@
-﻿class wnDate {
+﻿class WNDate implements IWNDate {
     private _Year: number;
     private _Month: number;
     private _Day: number;
@@ -8,13 +8,13 @@
     private _Millisecond: number;
     private _DayOfWeek: number;
 
-    DateChanged?: { (): void; }
+    public dateChanged: (t: IWNDate) => {};
 
-    private GregorianCalnedar: wnCalendar = new wnGregorianCalendar();
+    private GregorianCalnedar: IWNCalendar = new WNGregorianCalendar();
 
-    CultureInfo: wnCultureInfo;
-    Calendar: wnCalendar;
-    constructor(lCultureInfo?: wnCultureInfo | wnDate, lCalendar?: wnCalendar, lDate?: Date) {
+    public cultureInfo: IWNCultureInfo ;
+    public calendar: IWNCalendar;
+    constructor(lCultureInfo?: IWNCultureInfo  | IWNDate, lCalendar?: IWNCalendar, lDate?: Date) {
         this._Year = 0;
         this._Month = 0;
         this._Day = 0;
@@ -23,86 +23,86 @@
         this._Second = 0;
         this._Millisecond = 0;
         this._DayOfWeek = 0;
-        this.DateChanged = undefined;
+        this.dateChanged = undefined;
 
-        if (lCultureInfo != undefined && (lCultureInfo as wnDate).Calendar != undefined) {
-            let Template = lCultureInfo as wnDate;
-            this.CultureInfo = Template.CultureInfo;
-            this.Calendar = Template.Calendar;
-            this.SetDateNumber(Template.ToNumber());
+        if (lCultureInfo != undefined && (lCultureInfo as IWNDate).calendar != undefined) {
+            let Template = lCultureInfo as IWNDate;
+            this.cultureInfo = Template.cultureInfo;
+            this.calendar = Template.calendar;
+            this.setDateNumber(Template.toNumber());
         }
         else {
             if (!lCultureInfo)
-                lCultureInfo = WNDefaultCultureInfo || new wnCultureInfo_en_US();
+                lCultureInfo = wnConfig.cultureInfo; // wnConfig.cultureInfo || new WNCultureInfo_en_US();
 
             if (!lCalendar)
-                lCalendar = WNDefaultCalendar || new wnGregorianCalendar();
+                lCalendar = wnConfig.calendar; // wnConfig.calendar || new WNGregorianCalendar();
 
-            this.CultureInfo = lCultureInfo as wnCultureInfo;
-            this.Calendar = lCalendar;
+            this.cultureInfo = lCultureInfo as IWNCultureInfo;
+            this.calendar = lCalendar;
             if (lDate != null)
-                this.SetDate(lDate);
+                this.setDate(lDate);
         }
     }
-    AddDays(value: number) { this._Day += value; this.FixedDate(); }
-    AddHours(value: number) { this._Hour += value; this.FixedDate(); }
-    AddMilliseconds(value: number) { this._Millisecond += value; this.FixedDate(); }
-    AddMinutes(value: number) { this._Minute += value; this.FixedDate(); }
-    AddMonths(value: number) { this._Month += value; this.FixedDate(); }
-    AddSeconds(value: number) { this._Second += value; this.FixedDate(); }
-    AddYears(value: number) { this._Year += value; this.FixedDate(); }
-    AddWeeks(value: number) { this.AddDays(value * 7); this.FixedDate(); }
+    public addDays(value: number): void { this._Day += value; this.fixedDate(); }
+    public addHours(value: number): void { this._Hour += value; this.fixedDate(); }
+    public addMilliseconds(value: number): void { this._Millisecond += value; this.fixedDate(); }
+    public addMinutes(value: number): void { this._Minute += value; this.fixedDate(); }
+    public addMonths(value: number): void { this._Month += value; this.fixedDate(); }
+    public addSeconds(value: number): void { this._Second += value; this.fixedDate(); }
+    public addYears(value: number): void { this._Year += value; this.fixedDate(); }
+    public addWeeks(value: number): void { this.addDays(value * 7); this.fixedDate(); }
 
-    set Year(value: number) { this._Year = value; this.FixedDate(); }
-    get Year() { return this._Year }
-    set Month(value: number) { this._Month = value; this.FixedDate(); }
-    get Month() { return this._Month }
-    set Day(value: number) { this._Day = value; this.FixedDate(); }
-    get Day() { return this._Day }
+    public set year(value: number) { this._Year = value; this.fixedDate(); }
+    public get year() { return this._Year }
+    public set month(value: number) { this._Month = value; this.fixedDate(); }
+    public get month() { return this._Month }
+    public set day(value: number) { this._Day = value; this.fixedDate(); }
+    public get day() { return this._Day }
 
-    set Hour(value: number) { this._Hour = value; this.FixedDate(); }
-    get Hour() { return this._Hour }
-    set Minute(value: number) { this._Minute = value; this.FixedDate(); }
-    get Minute() { return this._Minute }
-    set Second(value: number) { this._Second = value; this.FixedDate(); }
-    get Second() { return this._Second }
-    set Milliseconds(value: number) { this._Millisecond = value; this.FixedDate(); }
-    get Milliseconds() { return this._Millisecond }
+    public set hour(value: number) { this._Hour = value; this.fixedDate(); }
+    public get hour() { return this._Hour }
+    public set minute(value: number) { this._Minute = value; this.fixedDate(); }
+    public get minute() { return this._Minute }
+    public set second(value: number) { this._Second = value; this.fixedDate(); }
+    public get second() { return this._Second }
+    public set milliseconds(value: number) { this._Millisecond = value; this.fixedDate(); }
+    public get milliseconds() { return this._Millisecond }
 
-    get DayOfWeek() { return this._DayOfWeek; }
+    public get dayOfWeek() { return this._DayOfWeek; }
 
-    get DayOfYear() { return this.Calendar.GetDayOfYear(this._Year, this._Month, this._Day); }
-    get DaysInMonth() { return this.Calendar.GetDaysInMonth(this._Year, this._Month); }
-    get DaysInYear() { return this.Calendar.GetDaysInYear(this._Year); }
-    get IsLeapYear() { return this.Calendar.IsLeapYear(this._Year); }
-    get LeapMonth() { return this.Calendar.LeapMonth; }
-    get MonthsInYear() { return this.Calendar.MonthsInYear; }
-    get IsLeapMonth() { return this.Calendar.IsLeapMonth(this._Year, this._Month); }
-    get IsLeapDay() { return this.Calendar.IsLeapDay(this._Year, this._Month, this._Day); }
-    get WeekOfYear() { return this.Calendar.GetWeekOfYear(this._Year, this._Month, this._Day); }
+    public get dayOfYear() { return this.calendar.getDayOfYear(this._Year, this._Month, this._Day); }
+    public get daysInMonth() { return this.calendar.getDaysInMonth(this._Year, this._Month); }
+    public get daysInYear() { return this.calendar.getDaysInYear(this._Year); }
+    public get isLeapYear() { return this.calendar.isLeapYear(this._Year); }
+    public get leapMonth() { return this.calendar.leapMonth; }
+    public get monthsInYear() { return this.calendar.monthsInYear; }
+    public get isLeapMonth() { return this.calendar.isLeapMonth(this._Year, this._Month); }
+    public get isLeapDay() { return this.calendar.isLeapDay(this._Year, this._Month, this._Day); }
+    public get weekOfYear() { return this.calendar.getWeekOfYear(this._Year, this._Month, this._Day); }
 
-    SetDate(date: Date) {
+    public setDate(date: Date) {
         if (date == undefined || isNaN(date.getTime())) {
-            this.SetDateNumber(undefined);
+            this.setDateNumber(undefined);
             return;
         }
 
         //Date Month Start From Zero
-        let days = this.GregorianCalnedar.GetDaysFromBase(date.getFullYear(), date.getMonth() + 1, date.getDate());
-        let ret = this.Calendar.GetYearMontDayFromDays(days);
+        let days = this.GregorianCalnedar.getDaysFromBase(date.getFullYear(), date.getMonth() + 1, date.getDate());
+        let ret = this.calendar.getYearMontDayFromDays(days);
 
-        this._Year = ret.Year;
-        this._Month = ret.Month;
-        this._Day = ret.Day;
+        this._Year = ret.year;
+        this._Month = ret.month;
+        this._Day = ret.day;
         this._Hour = date.getHours();
         this._Minute = date.getMinutes();
         this._Second = date.getSeconds();
         this._Millisecond = date.getMilliseconds();
-        this._DayOfWeek = this.Calendar.GetDayOfWeek(this._Year, this._Month, this._Day);
+        this._DayOfWeek = this.calendar.getDayOfWeek(this._Year, this._Month, this._Day);
 
-        if (this.DateChanged != undefined) this.DateChanged();
+        this.dateChanged?.(this);
     }
-    SetDateYMD(Year: number, Month: number, Day: number, Hour: number = 0, Minute: number = 0, Second: number = 0, Millisecond: number = 0) {
+    public setDateYMD(Year: number, Month: number, Day: number, Hour: number = 0, Minute: number = 0, Second: number = 0, Millisecond: number = 0) {
         this._Year = Year;
         this._Month = Month;
         this._Day = Day;
@@ -110,9 +110,9 @@
         this._Minute = Minute;
         this._Second = Second;
         this._Millisecond = Millisecond;
-        this.FixedDate();
+        this.fixedDate();
     }
-    SetYMD(Year: number, Month: number, Day: number, Hour: number = 0, Minute: number = 0, Second: number = 0, Millisecond: number = 0) {
+    public setYMD(Year: number, Month: number, Day: number, Hour: number = 0, Minute: number = 0, Second: number = 0, Millisecond: number = 0) {
         this._Year = Year;
         this._Month = Month;
         this._Day = Day;
@@ -122,7 +122,7 @@
         this._Millisecond = Millisecond;
         //Do not raise event and fixed date
     }
-    SetDateNumber(jd: number) {
+    public setDateNumber(jd: number) {
         if (jd === undefined) {
             this._Year = 0;
             this._Month = 0;
@@ -132,13 +132,13 @@
             this._Second = 0;
             this._Millisecond = 0;
             this._DayOfWeek = 0;
-            if (this.DateChanged != undefined) this.DateChanged();
+            this.dateChanged?.(this);
             return;
         }
-        let ret = this.Calendar.GetYearMontDayFromDays(jd);
-        this._Year = ret.Year;
-        this._Month = ret.Month;
-        this._Day = ret.Day;
+        let ret = this.calendar.getYearMontDayFromDays(jd);
+        this._Year = ret.year;
+        this._Month = ret.month;
+        this._Day = ret.day;
         jd -= 0.5; /* Astronomical to civil */
         let ij = (jd - Math.floor(jd)) * 1000000000;
         this._Hour = Math.floor(ij / 3600000);
@@ -147,12 +147,12 @@
         ij = ij % 60000;
         this._Second = Math.floor(ij / 1000);
         this._Millisecond = Math.round(ij % 1000);
-        this._DayOfWeek = this.Calendar.GetDayOfWeek(this._Year, this._Month, this._Day);
-        if (this.DateChanged != undefined) this.DateChanged();
+        this._DayOfWeek = this.calendar.getDayOfWeek(this._Year, this._Month, this._Day);
+        this.dateChanged?.(this);
     }
-    SetDateString(s: string) {
+    public setDateString(s: string) {
         if (s == undefined) {
-            this.SetDateNumber(undefined);
+            this.setDateNumber(undefined);
             return;
         }
         let Year = 0;
@@ -166,7 +166,7 @@
         s = decodeURIComponent(s).trim();
         let d = s.match(/(\d+)/ig);
         if (d != null) {
-            if (d.length < 4 && s.indexOf(this.CultureInfo.DateTimeFormat.TimeSeparator) > -1) {
+            if (d.length < 4 && s.indexOf(this.cultureInfo.DateTimeFormat.timeSeparator) > -1) {
                 if (d.length>0)
                     Hour = parseInt(d[0]);
                 if (d.length > 1)
@@ -191,74 +191,74 @@
                     Millisecond = parseInt(d[6]);
                 }
             }
-            if (s.indexOf(this.CultureInfo.DateTimeFormat.PMDesignator) > -1 && Hour < 13)
+            if (s.indexOf(this.cultureInfo.DateTimeFormat.pmDesignator) > -1 && Hour < 13)
                 Hour += 12;
         }
         if (Day > 31 && Year < Day) {
             [Year, Day] = [Day, Year];
         }
-        this.SetDateYMD(Year, Month, Day, Hour, Minute, Second, Millisecond);
+        this.setDateYMD(Year, Month, Day, Hour, Minute, Second, Millisecond);
     }
-    Set(value: wnDate) {
-        if (this.Calendar == value.Calendar) {
-            this.SetDateYMD(value.Year, value.Month, value.Day, value.Hour, value.Minute, value.Second, value.Milliseconds);
+    public set(value: IWNDate) {
+        if (this.calendar == value.calendar) {
+            this.setDateYMD(value.year, value.month, value.day, value.hour, value.minute, value.second, value.milliseconds);
         }
         else
-            this.SetDateNumber(value.ToNumber());
+            this.setDateNumber(value.toNumber());
     }
-    set Value(value: any) {
+    public set value(value: any) {
         if (value == undefined)
-            this.SetDateNumber(undefined);
+            this.setDateNumber(undefined);
         else if (typeof (value) == 'number')
-            this.SetDateNumber(value);
+            this.setDateNumber(value);
         else if (typeof (value) == 'object' && value.getDate != undefined)
-            this.SetDate(value);
-        else if (typeof (value) == 'object' && value.ToNumber != undefined)
-            this.Set(value);
+            this.setDate(value);
+        else if (typeof (value) == 'object' && value.toNumber != undefined)
+            this.set(value);
         else if (typeof (value) == 'string')
-            this.SetDateString(value);
+            this.setDateString(value);
     }
-    get Value(): any {
-        return this.ToNumber();
+    public get value(): any {
+        return this.toNumber();
     }
 
-    ToDateTime(): Date {
-        if (this.Year == 0 && this.Month == 0 && this.Day == 0 && this.Hour == 0 && this.Minute == 0 && this.Second == 0 && this.Milliseconds == 0) return undefined;
-        let days = this.Calendar.GetDaysFromBase(this._Year, this._Month, this._Day);
-        let ret = this.GregorianCalnedar.GetYearMontDayFromDays(days);
-        return new Date(ret.Year, ret.Month - 1, ret.Day, this._Hour, this._Minute, this._Second, this._Millisecond);
+    public toDateTime(): Date {
+        if (this.year == 0 && this.month == 0 && this.day == 0 && this.hour == 0 && this.minute == 0 && this.second == 0 && this.milliseconds == 0) return null;
+        let days = this.calendar.getDaysFromBase(this._Year, this._Month, this._Day);
+        let ret = this.GregorianCalnedar.getYearMontDayFromDays(days);
+        return new Date(ret.year, ret.month - 1, ret.day, this._Hour, this._Minute, this._Second, this._Millisecond);
     }
-    ToNumber(): number {
-        if (this.Year == 0 && this.Month == 0 && this.Day == 0 && this.Hour == 0 && this.Minute == 0 && this.Second == 0 && this.Milliseconds == 0) return undefined;
-        let ret = this.Calendar.GetDaysFromBase(this._Year, this._Month, this._Day);
-        ret += (this._Millisecond + this._Second * 1000 + this.Minute * 60000 + this.Hour * 3600000) / 1000000000;
+    public toNumber(): number {
+        if (this.year == 0 && this.month == 0 && this.day == 0 && this.hour == 0 && this.minute == 0 && this.second == 0 && this.milliseconds == 0) return null;
+        let ret = this.calendar.getDaysFromBase(this._Year, this._Month, this._Day);
+        ret += (this._Millisecond + this._Second * 1000 + this.minute * 60000 + this.hour * 3600000) / 1000000000;
 
         return ret;
     }
-    ToNumberDate(): number {
-        if (this.Year == 0 && this.Month == 0 && this.Day == 0) return undefined;
-        return this.Calendar.GetDaysFromBase(this._Year, this._Month, this._Day);
+    public toNumberDate(): number {
+        if (this.year == 0 && this.month == 0 && this.day == 0) return undefined;
+        return this.calendar.getDaysFromBase(this._Year, this._Month, this._Day);
     }
-    ToNumberYMD(Year: number, Month: number, Day: number): number {
-        if (this.Year == 0 && this.Month == 0 && this.Day == 0) return undefined;
-        let ret = this.Calendar.GetDaysFromBase(Year, Month, Day);
+    public toNumberYMD(Year: number, Month: number, Day: number): number {
+        if (this.year == 0 && this.month == 0 && this.day == 0) return undefined;
+        let ret = this.calendar.getDaysFromBase(Year, Month, Day);
         return ret;
     }
-    toString(format: string = this.CultureInfo.DateTimeFormat.FullDateTimePattern, naitvedigit: boolean = WNDefaultNaitveDigit) {
-        if (this.Year == 0 && this.Month == 0 && this.Day == 0 && this.Hour == 0 && this.Minute == 0 && this.Second == 0 && this.Milliseconds == 0)
+    public toString(format: string = this.cultureInfo.DateTimeFormat.fullDateTimePattern, nativeDigit: boolean = wnConfig.nativeDigit) {
+        if (this.year == 0 && this.month == 0 && this.day == 0 && this.hour == 0 && this.minute == 0 && this.second == 0 && this.milliseconds == 0)
             return '';
         if (format == 'shortdatetime')
-            format = this.CultureInfo.DateTimeFormat.ShortDatePattern + ' ' + this.CultureInfo.DateTimeFormat.ShortTimePattern;
+            format = this.cultureInfo.DateTimeFormat.shortDatePattern + ' ' + this.cultureInfo.DateTimeFormat.shortTimePattern;
         else if (format == 'shortdate')
-            format = this.CultureInfo.DateTimeFormat.ShortDatePattern;
+            format = this.cultureInfo.DateTimeFormat.shortDatePattern;
         else if (format == 'shorttime')
-            format = this.CultureInfo.DateTimeFormat.ShortTimePattern;
+            format = this.cultureInfo.DateTimeFormat.shortTimePattern;
         else if (format == 'longdatettime' || format == 'date' || format == '')
-            format = this.CultureInfo.DateTimeFormat.LongDatePattern + ' ' + this.CultureInfo.DateTimeFormat.LongTimePattern;
+            format = this.cultureInfo.DateTimeFormat.longDatePattern + ' ' + this.cultureInfo.DateTimeFormat.longTimePattern;
         else if (format == 'longdate')
-            format = this.CultureInfo.DateTimeFormat.LongDatePattern;
+            format = this.cultureInfo.DateTimeFormat.longDatePattern;
         else if (format == 'longtime')
-            format = this.CultureInfo.DateTimeFormat.LongTimePattern;
+            format = this.cultureInfo.DateTimeFormat.longTimePattern;
 
         let ret = format;
         ret = ret.replace(/yyyy/g, '{u1}');
@@ -300,16 +300,16 @@
         ret = ret.replace(/{y2}/g, (this._Year % 100).toString());
         ret = ret.replace(/{y1}/g, this._Year.toString());
 
-        ret = ret.replace(/{M4}/g, (this.CultureInfo.DateTimeFormat.MonthNames[this.Calendar.constructor.name] || this.CultureInfo.DateTimeFormat.MonthNames[0])[this._Month - 1]);
-        ret = ret.replace(/{M3}/g, (this.CultureInfo.DateTimeFormat.AbbreviatedMonthNames[this.Calendar.constructor.name] || this.CultureInfo.DateTimeFormat.AbbreviatedMonthNames[0])[this._Month - 1]);
+        ret = ret.replace(/{M4}/g, (this.cultureInfo.DateTimeFormat.monthNames[this.calendar.localeName] || this.cultureInfo.DateTimeFormat.monthNames[0])[this._Month - 1]);
+        ret = ret.replace(/{M3}/g, (this.cultureInfo.DateTimeFormat.abbreviatedMonthNames[this.calendar.localeName] || this.cultureInfo.DateTimeFormat.abbreviatedMonthNames[0])[this._Month - 1]);
         if (this._Month < 10)
             ret = ret.replace(/{M2}/g, '0' + this._Month.toString());
         else
             ret = ret.replace(/{M2}/g, this._Month.toString());
         ret = ret.replace(/{M1}/g, this._Month.toString());
 
-        ret = ret.replace(/{d4}/g, this.CultureInfo.DateTimeFormat.DayNames[this._DayOfWeek]);
-        ret = ret.replace(/{d3}/g, this.CultureInfo.DateTimeFormat.AbbreviatedDayNames[this._DayOfWeek]);
+        ret = ret.replace(/{d4}/g, this.cultureInfo.DateTimeFormat.dayNames[this._DayOfWeek]);
+        ret = ret.replace(/{d3}/g, this.cultureInfo.DateTimeFormat.abbreviatedDayNames[this._DayOfWeek]);
         if (this._Day < 10)
             ret = ret.replace(/{d2}/g, '0' + this._Day);
         else
@@ -343,35 +343,35 @@
         ret = ret.replace(/{f}/g, this._Millisecond.toString());
 
         if (this._Hour > 11)
-            ret = ret.replace(/{tt}/g, this.CultureInfo.DateTimeFormat.PMDesignator);
+            ret = ret.replace(/{tt}/g, this.cultureInfo.DateTimeFormat.pmDesignator);
         else
-            ret = ret.replace(/{tt}/g, this.CultureInfo.DateTimeFormat.AMDesignator);
+            ret = ret.replace(/{tt}/g, this.cultureInfo.DateTimeFormat.amDesignator);
 
-        ret = WNNaitveDigit(ret, this.CultureInfo, naitvedigit);
+        ret = WNnativeDigit(ret, this.cultureInfo, nativeDigit);
         return ret;
     }
-    toLongDateString(naitvedigit: boolean = WNDefaultNaitveDigit) { return this.toString(this.CultureInfo.DateTimeFormat.LongDatePattern, naitvedigit); }
-    toShortDateString(naitvedigit: boolean = WNDefaultNaitveDigit) { return this.toString(this.CultureInfo.DateTimeFormat.ShortDatePattern, naitvedigit); }
-    toLongTimeString(naitvedigit: boolean = WNDefaultNaitveDigit) { return this.toString(this.CultureInfo.DateTimeFormat.LongTimePattern, naitvedigit); }
-    toShortTimeString(naitvedigit: boolean = WNDefaultNaitveDigit) { return this.toString(this.CultureInfo.DateTimeFormat.ShortTimePattern, naitvedigit); }
-    Convert(value: any, format: string = this.CultureInfo.DateTimeFormat.FullDateTimePattern, naitvedigit: boolean = WNDefaultNaitveDigit): string { this.Value = value; return this.toString(format, naitvedigit); }
-    FixedDate() {
-        if (this.Year == 0 && this.Month == 0 && this.Day == 0 && this.Hour == 0 && this.Minute == 0 && this.Second == 0 && this.Milliseconds == 0)
+    public toLongDateString(nativeDigit: boolean = wnConfig.nativeDigit) { return this.toString(this.cultureInfo.DateTimeFormat.longDatePattern, nativeDigit); }
+    public toShortDateString(nativeDigit: boolean = wnConfig.nativeDigit) { return this.toString(this.cultureInfo.DateTimeFormat.shortDatePattern, nativeDigit); }
+    public toLongTimeString(nativeDigit: boolean = wnConfig.nativeDigit) { return this.toString(this.cultureInfo.DateTimeFormat.longTimePattern, nativeDigit); }
+    public toShortTimeString(nativeDigit: boolean = wnConfig.nativeDigit) { return this.toString(this.cultureInfo.DateTimeFormat.shortTimePattern, nativeDigit); }
+    public convert(value: any, format: string = this.cultureInfo.DateTimeFormat.fullDateTimePattern, nativeDigit: boolean = wnConfig.nativeDigit): string { this.value = value; return this.toString(format, nativeDigit); }
+    private fixedDate(): void {
+        if (this.year == 0 && this.month == 0 && this.day == 0 && this.hour == 0 && this.minute == 0 && this.second == 0 && this.milliseconds == 0)
             return;
-        [this._Millisecond, this._Second] = this.LimitToRange(0, 999, this._Millisecond, this._Second);
-        [this._Second, this._Minute] = this.LimitToRange(0, 59, this._Second, this._Minute);
-        [this._Minute, this._Hour] = this.LimitToRange(0, 59, this._Minute, this._Hour);
-        [this._Hour, this._Day] = this.LimitToRange(0, 23, this._Hour, this._Day);
+        [this._Millisecond, this._Second] = this.limitToRange(0, 999, this._Millisecond, this._Second);
+        [this._Second, this._Minute] = this.limitToRange(0, 59, this._Second, this._Minute);
+        [this._Minute, this._Hour] = this.limitToRange(0, 59, this._Minute, this._Hour);
+        [this._Hour, this._Day] = this.limitToRange(0, 23, this._Hour, this._Day);
 
         for (var i = 0; i < 2; i++) {
-            [this._Month, this._Year] = this.LimitToRange(1, this.Calendar.MonthsInYear, this._Month, this._Year);
-            [this._Day, this._Month] = this.LimitToRange(1, this.Calendar.GetDaysInMonth(this._Year, this._Month), this._Day, this._Month);
+            [this._Month, this._Year] = this.limitToRange(1, this.calendar.monthsInYear, this._Month, this._Year);
+            [this._Day, this._Month] = this.limitToRange(1, this.calendar.getDaysInMonth(this._Year, this._Month), this._Day, this._Month);
         }
 
-        this._DayOfWeek = this.Calendar.GetDayOfWeek(this._Year, this._Month, this._Day);
-        if (this.DateChanged != undefined) this.DateChanged();
+        this._DayOfWeek = this.calendar.getDayOfWeek(this._Year, this._Month, this._Day);
+        this.dateChanged?.(this);
     }
-    private LimitToRange(Min: number, Max: number, Value: number, NextValue: number): [number, number] {
+    private limitToRange(Min: number, Max: number, Value: number, NextValue: number): [number, number] {
         let Range = Max - Min + 1;
         let mod = ((Value - Min) % Range) + Min;
         if (mod < Min) mod += Max;
@@ -379,40 +379,40 @@
         return [mod, NextValue + div];
     }
 
-    LessThan(rhs: wnDate) {
-        return this.ToNumberDate() < rhs.ToNumberDate();
+    public lessThan(rhs: IWNDate) {
+        return this.toNumberDate() < rhs.toNumberDate();
     }
-    LessThanEqual(rhs: wnDate) {
-        return this.ToNumberDate() <= rhs.ToNumberDate();
+    public lessThanEqual(rhs: IWNDate) {
+        return this.toNumberDate() <= rhs.toNumberDate();
     }
-    GreaterThan(rhs: wnDate) {
-        return this.ToNumberDate() > rhs.ToNumberDate();
+    public greaterThan(rhs: IWNDate) {
+        return this.toNumberDate() > rhs.toNumberDate();
     }
-    GreaterThanEqual(rhs: wnDate) {
-        return this.ToNumberDate() >= rhs.ToNumberDate();
+    public greaterThanEqual(rhs: IWNDate) {
+        return this.toNumberDate() >= rhs.toNumberDate();
     }
-    Equal(rhs: wnDate) {
-        return this.ToNumberDate() === rhs.ToNumberDate();
+    public equal(rhs: IWNDate) {
+        return this.toNumberDate() === rhs.toNumberDate();
     }
-    NotEqual(rhs: wnDate) {
-        return this.ToNumberDate() !== rhs.ToNumberDate();
+    public notEqual(rhs: IWNDate) {
+        return this.toNumberDate() !== rhs.toNumberDate();
     }
-    LessThanExact(rhs: wnDate) {
-        return this.ToNumber() < rhs.ToNumber();
+    public lessThanExact(rhs: IWNDate) {
+        return this.toNumber() < rhs.toNumber();
     }
-    LessThanEqualExact(rhs: wnDate) {
-        return this.ToNumber() <= rhs.ToNumber();
+    public lessThanEqualExact(rhs: IWNDate) {
+        return this.toNumber() <= rhs.toNumber();
     }
-    GreaterThanExact(rhs: wnDate) {
-        return this.ToNumber() > rhs.ToNumber();
+    public greaterThanExact(rhs: IWNDate) {
+        return this.toNumber() > rhs.toNumber();
     }
-    GreaterThanEqualExact(rhs: wnDate) {
-        return this.ToNumber() >= rhs.ToNumber();
+    public greaterThanEqualExact(rhs: IWNDate) {
+        return this.toNumber() >= rhs.toNumber();
     }
-    EqualExact(rhs: wnDate) {
-        return this.ToNumber() === rhs.ToNumber();
+    public equalExact(rhs: IWNDate) {
+        return this.toNumber() === rhs.toNumber();
     }
-    NotEqualExact(rhs: wnDate) {
-        return this.ToNumber() !== rhs.ToNumber();
+    public notEqualExact(rhs: IWNDate) {
+        return this.toNumber() !== rhs.toNumber();
     }
 }

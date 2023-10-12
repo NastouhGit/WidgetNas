@@ -1,0 +1,215 @@
+﻿@import "../../_variables.scss";
+
+$label-transform: scale(0.8) translateY(calc(-1 * (var(--padding-block) + 1.2em)));
+$border-block-end: calc(var(--border-width) * 2) solid;
+
+.floatingline {
+    position: relative;
+    padding-block-start: 0.5em;
+
+    ig {
+
+        & + label {
+            top: calc(var(--padding-block) + 1em);
+            transform: #{$label-transform};
+        }
+    }
+
+    input,
+    textarea,
+    select {
+        border: none !important;
+        border-block-end: #{$border-block-end} var(--normal-border) !important;
+        border-radius: 0 !important;
+        margin-block-start: var(--margin-block);
+        margin-inline-end: var(--margin-inline);
+        background-color: transparent !important;
+        padding-block-end: 0 !important;
+        padding-block-start: calc(var(--padding-block) * 2) !important;
+
+        &::-moz-placeholder {
+            color: transparent;
+        }
+
+        &::-webkit-input-placeholder {
+            color: transparent;
+        }
+
+        &::placeholder {
+            color: transparent;
+        }
+
+
+        &:hover {
+            background-color: transparent !important;
+        }
+
+        &:focus {
+            outline: 0 !important;
+            border-block-end: #{$border-block-end} var(--active-back) !important;
+            box-shadow: none !important;
+            background-color: transparent !important;
+        }
+
+            &:not(:placeholder-shown) + label,
+            &:focus + label {
+                transform: #{$label-transform};
+            }
+    }
+
+    input {
+        &[type=checkbox] {
+            border: #{$border-block-end} var(--normal-border) !important;
+            border-radius: var(--border-radius) !important;
+            position: static;
+        }
+
+        &[type=radio] {
+            border: #{$border-block-end} var(--normal-border) !important;
+            border-radius: 50% !important;
+        }
+
+        &[type=radio],
+        &[type=checkbox] {
+            &:focus + label {
+                border-block-end: #{$border-block-end} var(--active-back) !important;
+            }
+
+            & + label {
+                position: static;
+                padding-inline-start: 2em !important;
+                margin-inline-start: -1.8em !important;
+                margin-block-start: calc(var(--padding-block) - 0.1em);
+                margin-block-end: calc(var(--margin-block) /2);
+                transform: none;
+                border-block-end: #{$border-block-end} var(--normal-border) !important;
+                pointer-events: auto;
+            }
+        }
+    }
+
+    label {
+        position: absolute;
+        top: calc(var(--padding-block) + 1em);
+        right: 0;
+        left: auto;
+        pointer-events: none;
+        transition: $transition;
+
+        &[dir=ltr] {
+            right: auto;
+            left: 0;
+        }
+    }
+}
+
+.validated {
+
+    &:not(.hide-valid) {
+        .floatingline {
+
+            .dropdownarrow {
+                &.valid,
+                &:valid {
+                    border: none !important;
+                    border-block-end: #{$border-block-end} var(--valid-border) !important;
+                    background-image: var(--arrow-down-image) !important;
+                    background-size: 0.8em !important;
+                }
+            }
+
+            input:not([type=radio]):not([type=checkbox]):not(.dropdownarrow),
+            textarea {
+                &.valid,
+                &:valid {
+                    border: none !important;
+                    border-block-end: #{$border-block-end} var(--valid-border) !important;
+                    background-image: none !important;
+                }
+            }
+
+            input[type=radio],
+            input[type=checkbox] {
+                &.valid + label,
+                &:valid + label {
+                    border-block-end: #{$border-block-end} var(--valid-border) !important;
+                }
+            }
+
+            select {
+                &.valid,
+                &:valid {
+                    border: none !important;
+                    border-block-end: #{$border-block-end} var(--valid-border) !important;
+                    background-image: var(--arrow-down-image);
+                }
+            }
+        }
+
+        & *:valid ~ .valid-feedback,
+        & .valid ~ .valid-feedback,
+        & *:valid ~ .valid-tooltip,
+        & .valid ~ .valid-tooltip {
+            display: block;
+            visibility: visible;
+            margin-block-start: -0.2em;
+            font-size: 0.8em;
+        }
+    }
+
+    &:not(.hide-invalid) {
+        .floatingline {
+
+            .dropdownarrow {
+                &.invalid,
+                &:invalid {
+                    border: none !important;
+                    border-block-end: #{$border-block-end} var(--invalid-border) !important;
+                    background-image: var(--arrow-down-image) !important;
+                    background-size: 0.8em !important;
+                }
+            }
+
+            input:not([type=radio]):not([type=checkbox]):not(.dropdownarrow),
+            textarea {
+                &.invalid,
+                &:invalid {
+                    border: none !important;
+                    border-block-end: #{$border-block-end} var(--invalid-border) !important;
+                    background-image: none !important;
+                }
+            }
+
+            input[type=radio],
+            input[type=checkbox] {
+                border: #{$border-block-end} var(--normal-border) !important;
+
+                &.invalid + label,
+                &:invalid + label {
+                    border-block-end: #{$border-block-end} var(--invalid-border) !important;
+                    color: var(--normal-color) !important;
+                    padding-inline-end: 0;
+                    background-image: none;
+                }
+            }
+
+            select {
+                &.invalid,
+                &:invalid {
+                    border: none !important;
+                    border-block-end: #{$border-block-end} var(--invalid-border) !important;
+                    background-image: var(--arrow-down-image);
+                }
+            }
+        }
+
+
+        & *:invalid ~ .invalid-feedback,
+        & .invalid ~ .invalid-feedback {
+            display: block;
+            visibility: visible;
+            margin-block-start: -0.2em;
+            font-size: 0.8em;
+        }
+    }
+}

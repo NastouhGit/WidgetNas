@@ -75,27 +75,27 @@
 <figure><code data-on="form1"></code></figure>
 <h2>قلمهای پیش فرض</h2>
 <p>
-    اگر میخواهید قلم های پیش فرض را تغییر دهید از خصوصیت <bidi>DefaultFonts</bidi> و سپس مقداری مانند زیر دهید.<br />
+    اگر میخواهید قلم های پیش فرض را تغییر دهید از خصوصیت <bidi>defaultFonts</bidi> و سپس مقداری مانند زیر دهید.<br />
     'Default On Page, Arial, Tahoma'
 </p>
 <h2>اندازه قلمهای پیش فرض</h2>
 <p>
-    اگر میخواهید اندازه قلم های پیش فرض را تغییر دهید از خصوصیت <bidi>DefaultFontSize</bidi> و سپس مقداری مانند زیر دهید.<br />
+    اگر میخواهید اندازه قلم های پیش فرض را تغییر دهید از خصوصیت <bidi>defaultFontsize</bidi> و سپس مقداری مانند زیر دهید.<br />
     'X Small:4px, Small:8px, Medium:12px, Normal:16px, Large:20px, X Large:24px,2X Large:32px,3X Large:48px'
 </p>
 <h2>تگ های پیش فرض</h2>
 <p>
-    اگر میخواهید تگ های پیش فرض را تغییر دهید از خصوصیت <bidi>DefaultTags</bidi> و سپس مقداری مانند زیر دهید.<br />
+    اگر میخواهید تگ های پیش فرض را تغییر دهید از خصوصیت <bidi>defaultTags</bidi> و سپس مقداری مانند زیر دهید.<br />
     'Paragraph:p,Heading 1:h1,Heading 2:h2,Heading 3:h3,Heading 4:h4,Heading 5:h5,Heading 6:h6,Preformat:pre'
 </p>
 <h2>پالت رنگ</h2>
 <p>
-    اگر میخواهید پالت رنگ را تغییر دهید از خصوصیت <bidi>DefaultColorPicker</bidi> و سپس مقداری مانند زیر دهید.<br />
+    اگر میخواهید پالت رنگ را تغییر دهید از خصوصیت <bidi>dfaultColorPicker</bidi> و سپس مقداری مانند زیر دهید.<br />
     '#000000,#333333,#555555'
 </p>
 <h2>جدا کننده پاراگراف</h2>
 <p>
-    اگر میخواهید جدا کننده پاراگراف را تغییر دهید از خصوصیت <bidi>ParagraphSeparator</bidi> و سپس مقداری مانند زیر دهید.<br />
+    اگر میخواهید جدا کننده پاراگراف را تغییر دهید از خصوصیت <bidi>paragraphSeparator</bidi> و سپس مقداری مانند زیر دهید.<br />
     'p'<br />
     'div'
 </p>
@@ -106,12 +106,26 @@
 <figure>
     <pre><code class="html">
     &lt;<span class="ht">script</span>&gt;
-        alert(WN[<span class="hv">"editor1"</span>].Html);
+        alert(WN(<span class="hv">"editor1"</span>].Html);
     &lt;/<span class="ht">script</span>&gt;
 
 
     &lt;<span class="ht">script</span>&gt;
-        WN[<span class="hv">"editor1"</span>].Html='&lt;p&gt;Hello!&lt;/p&gt;';
+        WN(<span class="hv">"editor1"</span>].Html='&lt;p&gt;Hello!&lt;/p&gt;';
     &lt;/<span class="ht">script</span>&gt;
 </code></pre>
 </figure>
+
+<h2>Dark Mode</h2>
+<p>اگر میخواهید ادیتور در محیط تاریک باز شود، خصوصیت <bidi>dark-mode</bidi> را با مقدار true تنظیم کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="edit4" wn-type="editor" mode="full" dark-mode="true"></div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="editor" mode="full" dark-mode="true"></div>
+    </div>
+</div>
+<figure><code data-on="edit4"></code></figure>

@@ -1,14 +1,16 @@
-﻿MultiSelect, .MultiSelect {
+﻿multiselect, .multiselect {
     display: flex;
     padding: calc(var(--border-radius) / 5);
-    align-items: center;
+    align-items: stretch;
 
     label {
         white-space: nowrap;
+        align-self: center;
     }
 
     input[type=search] {
-        width:auto !important;
+        width: auto !important;
+        height: auto !important;
     }
 
     &.floating, &.group {
@@ -36,8 +38,8 @@
             padding-inline: var(--padding-inline);
             padding-inline-end: calc(var(--padding-inline) * 2);
             cursor: pointer !important;
-            background-color: var(--select-back);
-            color: var(--select-color);
+            background-color: var(--normal-back);
+            color: var(--normal-color);
             user-select: none;
             position: relative;
             display: inline-block;
@@ -65,16 +67,46 @@
 
     &.floating {
         input {
-            border: none !important;
+            border-block: none !important;
+            border-inline-start: none !important;
             border-radius: 0 !important;
+        }
+    }
+
+    &.floatingline {
+        border-block-end: calc(var(--border-width) * 2) solid var(--normal-border) !important;
+
+        &:has(input:focus),
+        &:has(.dropdown.show) {
+            border-block-end: calc(var(--border-width) * 2) solid var(--active-back) !important;
+        }
+
+        .selecteditem {
+            margin-block-end: calc(var(--border-width)*3);
+        }
+
+        input {
+            border-block-end: none !important;
+        }
+
+        label {
+            top: calc(var(--padding-block) + 0.3em);
         }
     }
 
     &.group {
         align-items: stretch;
 
+        label {
+            align-self: stretch;
+        }
+
         &:nth-last-child(1) {
             border-inline-end: none !important;
         }
+    }
+
+    .dropdown {
+        user-select: none;
     }
 }

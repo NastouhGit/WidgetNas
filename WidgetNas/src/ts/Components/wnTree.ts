@@ -1,314 +1,421 @@
-﻿class wntree {
-    element: HTMLFormElement;
+﻿class WNTree implements IWNTree {
+    public readonly nameType: string = 'WNTree';
+    public element: HTMLUListElement;
+    public dataSource: WNTreeNode[];
+    public selectedItem: WNTreeNode;
 
-    private _currentSelect: HTMLElement = null;
-    get currentselect() { return this._currentSelect; }
-    set currentselect(value: HTMLElement) { this._currentSelect = value; }
+    public beforeClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
+    public afterClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
+    public selectionChanged: (t: IWNTree, node: WNTreeNode) => void;
+    public beforeCollapsed: (t: IWNTree, node: WNTreeNode) => void;
+    public afterCollapsed: (t: IWNTree, node: WNTreeNode) => void;
+    public beforeExpand: (t: IWNTree, node: WNTreeNode) => void;
+    public afterExpand: (t: IWNTree, node: WNTreeNode) => void;
+    public beforeToggle: (t: IWNTree, node: WNTreeNode) => void;
+    public afterToggle: (t: IWNTree, node: WNTreeNode) => void;
 
-    get currentvalue() { return this._currentSelect?.getAttribute('wn-tree-value'); }
-    get currentcaption() { return this._currentSelect?.getAttribute('wn-tree-caption'); }
-
-    private _treeexpanditem = false;
-    get treeexpanditem() { return this._treeexpanditem; }
-    set treeexpanditem(value: boolean) { this._treeexpanditem = value; }
-
-
-    beforeclick: any;
-    afterclick: any;
-    selectionchange: any;
-    beforecollapse: any;
-    aftercollapse: any;
-    beforeexpand: any;
-    afterexpand: any;
-    beforetoggle: any;
-    aftertoggle: any;
     //private
-    private lastClickID = '';
+    //private lastClickID = '';
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
-            this.element = elem as HTMLFormElement;
+            this.element = elem as HTMLUListElement;
             this.Init();
         }
     }
     private Init() {
-        this._treeexpanditem = this.element.classList.contains('tree-expand-item');
-        let items = this.element.querySelectorAll('li');
-        for (var i = 0; i < items.length; i++) {
-            this.checkitemstatus(items[i]);
-        }
+        this.selectedItem = null;
+        this.initDataSource();
+        this.initItems();
+
         if (this.element.classList.contains('collapsed-all'))
-            this.collapsedall();
+            this.collapsedAll();
 
         //assign events
         if (this.element.hasAttribute('onbeforeclick'))
-            this.beforeclick = new Function('t', 'e', this.element.getAttribute('onbeforeclick'));
+            this.beforeClick = WNGenerateFunction(this.element.getAttribute('onbeforeclick'), 't,n,e');
         if (this.element.hasAttribute('onafterclick'))
-            this.afterclick = new Function('t', 'e', this.element.getAttribute('onafterclick'));
-        if (this.element.hasAttribute('onselectionchange'))
-            this.selectionchange = new Function('t', 'n', this.element.getAttribute('onselectionchange'));
-        if (this.element.hasAttribute('onbeforecollapse'))
-            this.beforecollapse = new Function('t', 'n', this.element.getAttribute('onbeforecollapse'));
-        if (this.element.hasAttribute('onaftercollapse'))
-            this.aftercollapse = new Function('t', 'n', this.element.getAttribute('onaftercollapse'));
+            this.afterClick = WNGenerateFunction(this.element.getAttribute('onafterclick'), 't,n,e');
+        if (this.element.hasAttribute('onselectionchanged'))
+            this.selectionChanged = WNGenerateFunction(this.element.getAttribute('onselectionchanged'), 't,n');
+        if (this.element.hasAttribute('onbeforecollapsed'))
+            this.beforeCollapsed = WNGenerateFunction(this.element.getAttribute('onbeforecollapsed'), 't,n');
+        if (this.element.hasAttribute('onaftercollapsed'))
+            this.afterCollapsed = WNGenerateFunction(this.element.getAttribute('onaftercollapsed'), 't,n');
         if (this.element.hasAttribute('onbeforeexpand'))
-            this.beforeexpand = new Function('t', 'n', this.element.getAttribute('onbeforeexpand'));
+            this.beforeExpand = WNGenerateFunction(this.element.getAttribute('onbeforeexpand'), 't,n');
         if (this.element.hasAttribute('onafterexpand'))
-            this.afterexpand = new Function('t', 'n', this.element.getAttribute('onafterexpand'));
+            this.afterExpand = WNGenerateFunction(this.element.getAttribute('onafterexpand'), 't,n');
         if (this.element.hasAttribute('onbeforetoggle'))
-            this.beforetoggle = new Function('t', 'n', this.element.getAttribute('onbeforetoggle'));
+            this.beforeToggle = WNGenerateFunction(this.element.getAttribute('onbeforetoggle'), 't,n');
         if (this.element.hasAttribute('onaftertoggle'))
-            this.aftertoggle = new Function('t', 'n', this.element.getAttribute('onaftertoggle'));
+            this.afterToggle = WNGenerateFunction(this.element.getAttribute('onaftertoggle'), 't,n');
     }
-    private checkitemstatus(node: HTMLElement) {
-        node.addEventListener('click', (e) => {
-            this.click(e);
-        }, false);
-        if (node.querySelector('ul') != null) {
-            node.classList.add('expandable');
+    private initDataSource(parentNode?: WNTreeNode, parent: HTMLOListElement | HTMLUListElement = undefined) {
+        if (parent == undefined) {
+            parent = this.element;
+            this.dataSource = [];
         }
-        else {
-            node.classList.remove('expandable');
-        }
-        let treeitem = node.querySelector('.tree-item, .tree-link') as HTMLElement;
-        if (treeitem != null) {
-            //Set default caption & value for searching and filtering
-            if (!treeitem.hasAttribute('wn-tree-caption'))
-                treeitem.setAttribute('wn-tree-caption', treeitem.innerText);
-            if (!treeitem.hasAttribute('wn-tree-value')) {
-                if (treeitem.localName == 'a')
-                    treeitem.setAttribute('wn-tree-value', treeitem.getAttribute('href'));
-                else
-                    treeitem.setAttribute('wn-tree-value', treeitem.innerText);
-            }
+        for (var i = 0; i < parent.children.length; i++) {
+            let itemelement = parent.children[i].querySelector('item') as HTMLElement;
+            let image = itemelement.querySelector('img')?.getAttribute('src') ?? itemelement.querySelector('i')?.outerHTML ?? '';
+            let link = itemelement.querySelector('a')?.getAttribute('href') ?? '';
+            let item: WNTreeNode = {
+                id: (parentNode?.id ?? 0) * 10000 + i + 1,
+                text: itemelement.textContent,
+                html: itemelement.innerHTML,
+                value: itemelement.getAttribute('value'),
+                link: link,
+                image: image,
+                liElement: itemelement.parentElement as HTMLLIElement,
+                element: itemelement,
+                parentNode: parentNode,
+                children: []
+            };
+            itemelement.setAttribute('item-id', item.id.toString());
 
-            if (!this._treeexpanditem && treeitem.classList.contains('tree-item'))
-                treeitem.addEventListener('click', (e) => {
-                    this.select(e.target as HTMLElement);
-                }, true);
+            if (parentNode == null)
+                this.dataSource.push(item);
+            else
+                parentNode.children.push(item);
 
-            if (treeitem.classList.contains('active'))
-                this._currentSelect = treeitem;
-        }
-    }
-    findLI(node: HTMLElement): HTMLElement {
-        while (node.localName != 'li') node = node.parentElement;
-        return node;
-    }
-    click(e: MouseEvent) {
-        let ClickID = '' + e.clientX + e.clientY;
-        if (ClickID == this.lastClickID)
-            return;
-        this.lastClickID = ClickID;
-
-        if (this.beforeclick != null) this.beforeclick(this, e);
-        let node = e.target as HTMLElement;
-        if (!node.classList.contains('tree-link')) {
-        }
-        node = this.findLI(node);
-        if (node.classList.contains('expandable')) {
-            if ((this._treeexpanditem) ||
-                ((node.dir == 'ltr' && e.offsetX < parseInt(getComputedStyle(node).paddingInlineStart)) ||
-                    (node.clientWidth - e.offsetX < parseInt(getComputedStyle(node).paddingInlineStart)))
-
-            ) {
-                this.toggle(node);
-                e.stopPropagation();
+            let ul = itemelement.parentElement.querySelector('ul') ?? parent.children[i].querySelector('ol');
+            if (ul != null) {
+                this.initDataSource(item, ul);
             }
         }
+    }
+    private initItem(node: WNTreeNode): void {
+        //Add Click and DblClick for Li
+        node.liElement.removeEventListener("click", (e) => { this.click(node, e); });
+        node.liElement.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
+        node.liElement.addEventListener("click", (e) => { this.click(node, e); }, false);
+        node.liElement.addEventListener("dblclick", (e) => { this.dblclick(node, e); }, false);
+
+        //Checks if the node has children, adds or removes the expandable class.
+        if (this.element.classList.contains('tree-expand-item'))
+            node.liElement.classList.remove('expandable');
         else {
-            let tnode = node.querySelector('.tree-item') as HTMLElement;
-            if (tnode == null)
-                tnode = node.querySelector('.tree-link') as HTMLElement;
-            if (tnode != null)
-                this.select(tnode);
+            if (node.children.length > 0)
+                node.liElement.classList.add('expandable');
+            else
+                node.liElement.classList.remove('expandable');
+
+            node.parentNode?.liElement.classList.add('expandable');
         }
-        if (this.afterclick != null) this.afterclick(this, e);
+        //Check Selected Node
+        if (node.element.classList.contains('active'))
+            this.selectedItem = node;
     }
+    private initItems(parentNode?: WNTreeNode[]): void {
+        if (parentNode == undefined) {
+            parentNode = this.dataSource;
+        }
+        for (var i = 0; i < parentNode.length; i++) {
+            let node = parentNode[i];
+            this.initItem(node);
 
-    select(node: HTMLElement) {
-        if (node == this._currentSelect)
-            return;
-        this.element.querySelectorAll('[class*=active]').forEach(x => x.classList.remove('active'));
-        node.classList.add('active');
-        this._currentSelect = node;
-        if (this.selectionchange != null)
-            this.selectionchange(this, node);
+            if (node.children.length > 0)
+                this.initItems(node.children);
 
-    }
-    toggle(node: HTMLElement) {
-        node = this.findLI(node);
-        if (this.beforetoggle != null) this.beforetoggle(this, node);
-        node.classList.toggle('collapsed');
-        if (this.aftertoggle != null) this.aftertoggle(this, node);
-    }
-    collapse(node: HTMLElement) {
-        node = this.findLI(node);
-        if (node.classList.contains('collapsed'))
-            return;
-        if (this.beforecollapse != null) this.beforecollapse(this, node);
-        node.classList.add('collapsed');
-        if (this.aftercollapse != null) this.aftercollapse(this, node);
-    }
-    expand(node: HTMLElement) {
-        node = this.findLI(node);
-        if (!node.classList.contains('collapsed'))
-            return;
-        if (this.beforeexpand != null) this.beforeexpand(this, node);
-        node.classList.remove('collapsed');
-        if (this.afterexpand != null) this.afterexpand(this, node);
-    }
-    expandtoparent(node: HTMLElement) {
-        node = this.findLI(node);
-        this.expand(node);
-        while (node != null) {
-            node = node.parentElement;
-            if (node.classList.contains('tree'))
-                break;
-            node = this.findLI(node);
-            this.expand(node);
         }
     }
-    collapsewithchild(node: HTMLElement) {
-        node = this.findLI(node);
-        this.collapse(node);
-        let items = node.querySelectorAll('.expandable');
-        items.forEach((itm) => { itm.classList.add('collapsed'); });
-    }
-    collapsedall() {
-        let items = this.element.querySelectorAll('.expandable');
-        items.forEach((itm) => { itm.classList.add('collapsed'); });
-    }
-    expandall() {
-        let items = this.element.querySelectorAll('.collapsed');
-        items.forEach((itm) => { itm.classList.remove('collapsed'); });
-    }
-    findbytext(text: string, contains: boolean = true, select: boolean = false): HTMLElement {
-        let selectedNode = null;
-        let n: HTMLElement = null;
-        if (contains)
-            n = this.element.querySelector('[wn-tree-caption*="' + text + '" i]');
+
+    private lastNodeClick: WNTreeNode;
+    private lastNodeTime: number = 0;
+    private click(node: WNTreeNode, e: MouseEvent): void {
+        e.stopPropagation();
+        if (navigator.maxTouchPoints > 0) {
+            if (this.lastNodeClick == node && (Date.now() - this.lastNodeTime) < 400) {
+                this.dblclick(node, e);
+                return;
+            }
+            this.lastNodeTime = Date.now();
+            this.lastNodeClick = node;
+        }
+        this.beforeClick?.(this, node, e);
+
+
+        if (node.children.length > 0) {
+            if (this.selectedItem != node)
+                this.select(node);
+            else
+                if ((node.liElement.dir == 'ltr' && e.offsetX < parseInt(getComputedStyle(node.liElement).paddingInlineStart) * 1.1) ||
+                    ((node.liElement.clientWidth - e.offsetX) < parseInt(getComputedStyle(node.liElement).paddingInlineStart) * 1.1))
+                    this.toggle(node);
+
+        }
         else
-            n = this.element.querySelector('[wn-tree-caption="' + text + '" i]');
-        selectedNode = n;
-        if (select)
-            this.select(selectedNode);
-        return selectedNode;
+            this.select(node);
+
+        this.afterClick?.(this, node, e);
     }
-    findbyvalue(value: string, select: boolean = false): HTMLElement {
-        let selectedNode = null;
-        let n = this.element.querySelector('[wn-tree-value="' + value.replaceAll('\\', '\\\\') + '" i]');
-        selectedNode = n;
-        if (select) {
-            this._currentSelect = null;
-            this.select(selectedNode);
+    private dblclick(node: WNTreeNode, e: MouseEvent): void {
+        e.stopPropagation();
+        if (node.children.length == 0) return;
+        this.toggle(node);
+    }
+
+    public select(node: WNTreeNode): void {
+        if (node.element.hasAttribute('disabled') || node.element.classList.contains('disabled'))
+            return;
+        if (node == this.selectedItem) return;
+        this.element.querySelectorAll('.active').forEach(x => x.classList.remove('active'));
+        node.element.classList.add('active');
+        this.selectedItem = node;
+        this.expandToParent(node);
+        this.selectionChanged?.(this, node);
+    }
+    public toggle(node: WNTreeNode): void {
+        if (this.element.classList.contains('tree-expand-item')) return;
+        this.beforeToggle?.(this, node);
+
+        if (node.liElement.classList.contains('collapsed'))
+            this.expand(node);
+        else
+            this.collapse(node);
+
+        this.afterToggle?.(this, node);
+    }
+    public collapse(node: WNTreeNode): void {
+        if (this.element.classList.contains('tree-expand-item')) return;
+        this.beforeCollapsed?.(this, node);
+
+        node.liElement.classList.add('collapsed');
+
+        this.afterCollapsed?.(this, node);
+    }
+    public collapseWithChild(node: WNTreeNode): void {
+        this.collapse(node);
+        for (var i = 0; i < node.children.length; i++) {
+            this.collapseWithChild(node.children[i]);
         }
-        return selectedNode;
+    }
+    public collapsedAll(): void {
+        for (var i = 0; i < this.dataSource.length; i++) {
+            this.collapseWithChild(this.dataSource[i]);
+        }
+    }
+    public expand(node: WNTreeNode): void {
+        if (this.element.classList.contains('tree-expand-item')) return;
+        this.beforeExpand?.(this, node);
+
+        node.liElement.classList.remove('collapsed');
+
+        this.afterExpand?.(this, node);
 
     }
-    elementtoitem(elem: HTMLElement) {
-        if (elem != null)
-            return { caption: elem.getAttribute('wn-tree-caption'), value: elem.getAttribute('wn-tree-value') };
+    public expandToParent(node: WNTreeNode): void {
+        let tNode = node;
+        while (tNode != null) {
+            this.expand(tNode);
+            tNode = tNode.parentNode;
+        }
+    }
+    public expandChilds(node: WNTreeNode): void {
+        this.expand(node);
+        for (var i = 0; i < node.children.length; i++) {
+            this.expandChilds(node.children[i]);
+        }
+    }
+    public expandAll(): void {
+        for (var i = 0; i < this.dataSource.length; i++) {
+            this.expandChilds(this.dataSource[i]);
+        }
+    }
+
+    public findByText(text: string, contains: boolean = false, select: boolean = false): WNTreeNode[] {
+        let find = WNFindTreeArray(this.dataSource, "text", '', text, contains, true, "children") as WNTreeNode[];
+        if (select && find.length > 0)
+            this.select(find[0]);
+        return find;
+    }
+    public findByValue(value: string, select?: boolean): WNTreeNode {
+        let find = WNFindTreeArray(this.dataSource, "value", '', value, false, false, "children") as WNTreeNode[];
+        if (find.length > 0) {
+            if (select)
+                this.select(find[0]);
+            return find[0];
+        }
         return null;
     }
-    filterbytext(text: string, contains: boolean = true) {
-        let selectedNode = Array<HTMLElement>();
-        text = text.toLowerCase();
-        let treeitem = this.element.querySelectorAll('.tree-item, .tree-link');
+    public findByTextOrValue(text: string, contains: boolean = false, select: boolean = false): WNTreeNode[] {
+        let find = WNFindTreeArray(this.dataSource, "text", "value", text, contains, true, "children") as WNTreeNode[];
+        if (select && find.length > 0)
+            this.select(find[0]);
+        return find;
+    }
 
-        for (var i = 0; i < treeitem.length; i++) {
-            let s = treeitem[i].getAttribute('wn-tree-caption').toLowerCase();
-            if ((contains && s.includes(text)) || (s == text)) {
-                let node = treeitem[i] as HTMLElement;
-                node = this.findLI(node);
-                while (node != null) {
-                    if (node.classList.contains('tree'))
-                        break;
-                    if (node.localName == 'li')
-                        selectedNode.push(node);
-                    node = node.parentElement;
+    public filterByText(text: string, contains?: boolean): void {
+        if (text == '') {
+            this.element.querySelectorAll('li').forEach(x => x.classList.remove('hide'));
+            return;
+        }
+        let find = this.findByText(text, contains, false);
+        this.element.querySelectorAll('li').forEach(x => x.classList.add('hide'));
+        if (find.length > 0) {
+            for (var i = 0; i < find.length; i++) {
+                let tnode = find[i];
+                while (tnode != null) {
+                    tnode.liElement.classList.remove('hide');
+                    tnode = tnode.parentNode;
                 }
             }
         }
-        treeitem = this.element.querySelectorAll('li');
-        for (var i = 0; i < treeitem.length; i++) {
-            if (selectedNode.includes(treeitem[i] as HTMLElement))
-                treeitem[i].classList.remove('hide');
-            else
-                treeitem[i].classList.add('hide');
-        }
     }
-    addrow(node: HTMLElement | string, type: string, text: string, value: string = '', image: string = '') {
-        let html = '';
-        if (type == 'tree-item' || type == 'item') {
-            html = "<div class='tree-item'";
-            if (value != '')
-                html += " wn-tree-value='" + value + "'";
-            html += ">";
-            if (image != '')
-                html += "<img src='" + image + "' />";
-            html += text;
-            html += "</div>";
-        }
-        if (type == 'tree-link' || type == 'link') {
-            html = "<a class='tree-link' wn-tree-caption='" + text + "' wn-tree-value='" + value + "' href='" + value + "'>";
-            if (image != '')
-                html += "<img src='" + image + "' />";
-            html += text;
-            html += "</a>";
-        }
-        return this.addrowhtml(node, html);
-    }
-    addrowhtml(node: HTMLElement | string, html: string) {
-        let li: HTMLElement;
-        let ul: HTMLUListElement;
-        if (typeof (node) == 'string') {
-            if (node == '')
-                node = this.element;
-            else {
-                node = this.findbyvalue(node, false);
-                node = this.findLI(node);
+
+    public addToDataSource(parent: WNTreeNode, text: string, link: string, value: string, image: string): WNTreeNode {
+        try {
+
+            let item: WNTreeNode = {
+                id: 0,
+                html: text,
+                link: link,
+                value: value,
+                image: image,
+                children: [],
+                element: null,
+                liElement: null,
+                parentNode: parent,
+                text: WNHtmlToText(text)
+
+            };
+
+            let elem = this.treeNodeToHtmlElement(item);
+            item.element = elem;
+
+            let ul = this.element as HTMLElement;
+            let samePlace: WNTreeNode[];
+            if (parent) {
+                if (parent.children.length == 0) {
+                    ul = document.createElement('ul');
+                    parent.liElement.appendChild(ul);
+                }
+                else {
+                    ul = parent.children[0].liElement.parentElement;
+                    while (ul.tagName != 'UL')
+                        ul = ul.parentElement;
+                }
+
+                parent.children.push(item);
+                samePlace = parent.children;
             }
+            else {
+                this.dataSource.push(item);
+                samePlace = this.dataSource;
+            }
+            item.id = (item.parentNode?.id ?? 0) * 10000
+            for (var i = 0; i < samePlace.length; i++) {
+                if (item.id < samePlace[i].id)
+                    item.id = samePlace[i].id;
+            }
+            item.id++;
+
+            item.element.setAttribute('item-id', item.id.toString());
+
+            item.liElement = document.createElement('li');
+            item.liElement.dir = this.element.dir;
+            item.liElement.appendChild(item.element);
+            ul.appendChild(item.liElement);
+            this.initItem(item);
+            return item;
+        } catch (e) {
+            console.error(e);
         }
-        if (node.localName != 'ul') {
-            li = this.findLI(node);
-            ul = li.querySelector('ul') as HTMLUListElement;
-        }
-        else {
-            li = node;
-            ul = node as HTMLUListElement;
-        }
-        if (ul == null) {
-            ul = document.createElement('ul');
-            if (li.dir == 'ltr')
-                ul.setAttribute('dir', 'ltr');
-            li.appendChild(ul);
-        }
-        let subli = document.createElement('li');
-        if (li.dir == 'ltr')
-            subli.setAttribute('dir', 'ltr');
-        subli.innerHTML = html;
-        ul.appendChild(subli);
-        this.checkitemstatus(subli);
-        li.classList.add('expandable');
-        this.checkitemstatus(li);
-        return subli;
+        return null;
     }
-    setdata(datasource: any[], idfield: string, parentfield: string, typefield: string, displayfield: string, valuefield: string, imagefield: string, append: boolean = false) {
-        if (typeof (datasource) == 'string')
-            return;
-        if (!append) {
+
+    private treeNodeToHtmlElement(node: WNTreeNode): HTMLElement {
+        let item = document.createElement('item');
+        let tItem = item;
+        if (node.link && node.link != '') {
+            let link = document.createElement('a');
+            link.href = node.link;
+            item.appendChild(link);
+            tItem = link;
+        }
+        if (node.image && node.image != '') {
+            if (node.image.trim().startsWith('<'))
+                tItem.innerHTML += node.image;
+            else
+                tItem.innerHTML += `<img src="${node.image}"/>`;
+        }
+        tItem.innerHTML += node.html == '' ? node.text : node.html;
+        node.text = WNHtmlToText(item.innerHTML);
+        return item;
+    }
+    public removeFromDataSource(node: WNTreeNode): boolean {
+        try {
+            node.liElement.remove();
+            let list = this.dataSource;
+            if (node.parentNode.children.length > 0)
+                list = node.parentNode.children;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].id == node.id) {
+                    list.splice(i, 1);
+                    break;
+                }
+            }
+            if (node.parentNode)
+                this.initItem(node.parentNode);
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
+        return true;
+    }
+    public updateNodeElement(node: WNTreeNode): void {
+        node.element.innerHTML = this.treeNodeToHtmlElement(node).innerHTML;
+    }
+
+    public setDataSourceByParentId(parentNode: WNTreeNode, dataSource: any[], idFieldName: string, parentFieldName: string, parentRootValue: any = null, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void {
+        if (!append)
+            this.clearChilds(parentNode);
+
+        this.convertParentId(parentNode, parentRootValue, dataSource, idFieldName, parentFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
+
+    }
+    private convertParentId(parentNode: WNTreeNode, parentValue: any, dataSource: any[], idFieldName: string, parentFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string): void {
+        let subItem = dataSource.filter(x => x[parentFieldName] == parentValue);
+
+        for (var i = 0; i < subItem.length; i++) {
+            let item = subItem[i];
+            let node = this.addToDataSource(parentNode, item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            this.convertParentId(node, node.value, dataSource, idFieldName, parentFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
+        }
+    }
+    public setDataSourceByItem(parentNode: WNTreeNode, dataSource: any[], itemFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void {
+        if (!append)
+            this.clearChilds(parentNode);
+        this.convertByItem(parentNode, dataSource, itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
+    }
+    private convertByItem(parentNode: WNTreeNode, dataSource: any[], itemFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string): void {
+        for (var i = 0; i < dataSource.length; i++) {
+            let item = dataSource[i];
+            let node = this.addToDataSource(parentNode, item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            if (item[itemFieldName] && item[itemFieldName].length > 0)
+                this.convertByItem(node, item[itemFieldName], itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
+        }
+    }
+    public setDataSource(parentNode: WNTreeNode = null, dataSource: WNTreeNode[], append?: boolean): void {
+        if (!append)
+            this.clearChilds(parentNode);
+
+        this.convertDataSource(parentNode, dataSource);
+    }
+    private clearChilds(parentNode: WNTreeNode) {
+        if (parentNode == null) {
+            this.dataSource = [];
             this.element.innerHTML = '';
         }
-
-        this.adddschilds(this.element, datasource, null, idfield, parentfield, typefield, displayfield, valuefield, imagefield);
-
+        else
+            while (parentNode.children.length > 0) this.removeFromDataSource(parentNode.children[0]);
     }
-    adddschilds(element: HTMLElement, datasource: any[], parentvalue: string, idfield: string, parentfield: string, typefield: string, displayfield: string, valuefield: string, imagefield: string) {
-        let dp = datasource.filter((x) => { return x[parentfield] == parentvalue });
-        dp.forEach((x) => {
-            let n = this.addrow(element, x[typefield], x[displayfield], x[valuefield], x[imagefield]);
-            this.adddschilds(n, datasource, x[idfield], idfield, parentfield, typefield, displayfield, valuefield, imagefield);
-        });
+    private convertDataSource(parentNode: WNTreeNode, dataSource: any[]): void {
+        for (var i = 0; i < dataSource.length; i++) {
+            let item = dataSource[i];
+            let node = this.addToDataSource(parentNode, item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
+            if (item['children'] && item['children'].length > 0)
+                this.convertDataSource(node, item['children']);
+        }
     }
-
 }

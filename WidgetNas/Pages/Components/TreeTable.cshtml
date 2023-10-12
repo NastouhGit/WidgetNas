@@ -1,0 +1,217 @@
+﻿@page
+@model WidgetNas.Pages.Components.TreeTableModel
+@{
+    ViewData["Title"] = "درخت و جدول Tree Table";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>گاهی از مواقع نیاز است، از درختواره کنار گزینه ای را انتخاب کنیم و در جلوی آن دیتایی را در جدول مشاهده کنیم. به همین منظور چنین گزینه ای ایجاد شده است.</p>
+<p>برای ایجاد، بایستی از خصوصیات درختواره و جدول استفاده شود، با این تفاوت که مقدار wn-type نباید قرار گیرد، سیستم به طور خودکار آنها را راه اندازی میکند.</p>
+<p>اینکه چیدمان نمایش چگونه باشد، بر اساس طراحی شما قابل تغییر است. فقط بایستی کلاس tree برای درختواره و موضوع table برای مدیریت جدول وجود داشته باشد.</p>
+<h2>نمایش ساده</h2>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+
+        <div id="treetable1" class="treetable h-2000r" wn-type="TreeTable" onselectionchanged="selectionChanged()">
+            <ul class="tree w-30">
+                <li>
+                    <item>Exams</item>
+                    <ul>
+                        <li><item>Biology</item></li>
+                        <li><item>Chemistry</item></li>
+                        <li><item>Mathematics</item></li>
+                    </ul>
+                </li>
+                <li>
+                    <item>Points</item>
+                    <ul>
+                        <li><item>0 - 50</item></li>
+                        <li><item>50 - 75</item></li>
+                        <li><item>more than 75</item></li>
+                    </ul>
+                </li>
+            </ul>
+            <table class="tablex hover striped w-70" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US">
+                <thead>
+                    <tr>
+                        <th filterable sortable data-field='Student name' data-type='string'>Name</th>
+                        <th filterable sortable data-field='Exam name' data-type='string'>Exam</th>
+                        <th filterable sortable data-field='Exam points' data-type='number'>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <nav class="pagination justify-content-center s-m" page-size='3'>
+                                <button class="first"><i class="fa-solid fa-backward-fast"></i></button>
+                                <button class="previous"><i class="fa-solid fa-backward"></i></button>
+                                <button>1</button>
+                                <button>2</button>
+                                <button>3</button>
+                                <button>4</button>
+                                <button>5</button>
+                                <button>6</button>
+                                <button>7</button>
+                                <button class="next"><i class="fa-solid fa-forward"></i></button>
+                                <button class="last"><i class="fa-solid fa-forward-fast"></i></button>
+                            </nav>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+        <script>
+            var data;
+            WN(document).ready(async () => {
+                await Get(null, '/data/examslist.en.json').then((r) => {
+                    data = r;
+                }).catch((e) => {
+                    console.log(e);
+                });
+            });
+            function selectionChanged() {
+                let v = WN('treetable1').wn.tree.selectedItem.text;
+                if (WN('treetable1').wn.tree.selectedItem.parentNode.text == 'Exams') {
+                    let r = data.filter(x => x['Exam name'] == v);
+                    WN('treetable1').wn.table.setDataSource(r, false);
+                }
+                else if (WN('treetable1').wn.tree.selectedItem.parentNode.text == 'Points') { 
+                    let r;
+                    if (v=='0 - 50')
+                        r = data.filter(x => x['Exam points'] < 50);
+                    else if (v == '50 - 75')
+                        r = data.filter(x => x['Exam points'] >= 50 && x['Exam points'] < 75);
+                    else 
+                        r = data.filter(x => x['Exam points'] >= 75);
+                    WN('treetable1').wn.table.setDataSource(r, false);
+                }
+
+            }
+        </script>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>جاوا اسکریپت</h2>
+<p>
+    <strong>tree</strong><br />
+    این خصوصیت به موضوع درختواره راه اندازی شده در این موضوع اشاره دارد. برای مدیریت آن میتوانید به <a href="/Components/Tree">درختواره</a> مراجعه کنید.
+    <br /><bidi>tree: IWNTree</bidi>
+</p>
+<p>
+    <strong>table</strong><br />
+    این خصوصیت به موضوع جدول راه اندازی شده در این موضوع اشاره دارد. برای مدیریت آن میتوانید به <a href="/Components/Table">جدول پیشرفته</a> مراجعه کنید.
+    <br /><bidi>table: IWNTable</bidi>
+</p>
+<p>
+    <strong>selectionChanged</strong><br />
+    <strong>onselectionchanged</strong><br />
+    زمانیکه در درخت گزینه ای انتخاب میشود این رخداد فراخوانی میگردد. در این رخداد میتوانید اطلاعات مرتبط با جدول را تنظیم کنید.<br />
+    دقت کنید، اگر به صورت دستی رخداد مشابه را در درختواره تنظیم کرده باشید این رخداد از کار می افتد.
+    <br /><bidi>selectionChanged: (t: IWNTree, node: WNTreeNode) => void</bidi>
+</p>
+<p>
+    <strong>tableSelectionChanged</strong><br />
+    <strong>ontableselectionchanged</strong><br />
+    زمانیکه یک ردیف در جدول انتخاب شود، این رخداد فراخوانی میشود.
+    <br /><bidi>tableSelectionChanged: (t: IWNTable, oldNode: WNTableNode, newNode: WNTableNode) => void</bidi>
+</p>
+<p>
+    <strong></strong><br />
+
+    <br /><bidi></bidi>
+</p>
+<h2>لیست بازشو</h2>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <ig class="floating">
+            <input id="form2_input_ltr" type="text" placeholder="." class="dropdownarrow" wn-type="dropdown">
+            <div class="dropdown align-fit">
+                <div id="treetable2" class="treetable h-2000r" wn-type="TreeTable"
+                     onselectionchanged="selectionChanged2(t,n);" 
+                     ontableselectionchanged="TableChanged2(t,oldNode,newNode);">
+                    <ul class="tree w-30">
+                        <li>
+                            <item>Exams</item>
+                            <ul>
+                                <li><item>Biology</item></li>
+                                <li><item>Chemistry</item></li>
+                                <li><item>Mathematics</item></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <item>Points</item>
+                            <ul>
+                                <li><item>0 - 50</item></li>
+                                <li><item>50 - 75</item></li>
+                                <li><item>more than 75</item></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <table class="tablex hover striped w-70" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US">
+                        <thead>
+                            <tr>
+                                <th filterable sortable data-field='Student name' data-type='string'>Name</th>
+                                <th filterable sortable data-field='Exam name' data-type='string'>Exam</th>
+                                <th filterable sortable data-field='Exam points' data-type='number'>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <nav class="pagination justify-content-center s-m" page-size='3'>
+                                        <button class="first"><i class="fa-solid fa-backward-fast"></i></button>
+                                        <button class="previous"><i class="fa-solid fa-backward"></i></button>
+                                        <button>1</button>
+                                        <button>2</button>
+                                        <button>3</button>
+                                        <button>4</button>
+                                        <button>5</button>
+                                        <button>6</button>
+                                        <button>7</button>
+                                        <button class="next"><i class="fa-solid fa-forward"></i></button>
+                                        <button class="last"><i class="fa-solid fa-forward-fast"></i></button>
+                                    </nav>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+            <label for="">Student</label>
+        </ig>
+
+        <script>
+            function selectionChanged2(t,n) {
+                let v = n.text;
+                if (n.parentNode.text == 'Exams') {
+                    let r = data.filter(x => x['Exam name'] == v);
+                    WN('treetable2').wn.table.setDataSource(r, false);
+                }
+                else if (n.parentNode.text == 'Points') {
+                    let r;
+                    if (v == '0 - 50')
+                        r = data.filter(x => x['Exam points'] < 50);
+                    else if (v == '50 - 75')
+                        r = data.filter(x => x['Exam points'] >= 50 && x['Exam points'] < 75);
+                    else
+                        r = data.filter(x => x['Exam points'] >= 75);
+                    WN('treetable2').wn.table.setDataSource(r, false);
+                }
+
+            }
+            function TableChanged2(t, oldNode,newNode ) {
+                WN('form2_input_ltr').inputElement.value = newNode.fields['Student name'].value;
+                WN('form2_input_ltr').wn.hide();
+            }
+        </script>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>

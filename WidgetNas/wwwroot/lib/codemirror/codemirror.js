@@ -968,7 +968,7 @@
   function isLine(doc, l) {return l >= doc.first && l < doc.first + doc.size}
 
   function lineNumberFor(options, i) {
-    return String(options.lineNumberFormatter(i + options.firstLineNumber))
+    return String(options.linenumberFormatter(i + options.firstLineNumber))
   }
 
   // A Pos instance represents a position within the text.
@@ -7801,7 +7801,7 @@
       updateGutters(cm);
     }, true);
     option("firstLineNumber", 1, updateGutters, true);
-    option("lineNumberFormatter", function (integer) { return integer; }, updateGutters, true);
+    option("linenumberFormatter", function (integer) { return integer; }, updateGutters, true);
     option("showCursorWhenSelecting", false, updateSelection, true);
 
     option("resetSelectionOnContextMenu", true);

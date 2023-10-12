@@ -29,10 +29,8 @@ namespace WidgetNas.Pages.Components
                         c.Width = int.Parse(Model["Width"].ToString());
                         c.Height = int.Parse(Model["Height"].ToString());
                     }
-                if (Model.ContainsKey("Length") && int.Parse(Model["Length"].ToString()) > 4)
-                    c.Length = int.Parse(Model["Length"].ToString());
-                if (Model.ContainsKey("UniqeLetter"))
-                    c.UniqeLetter = bool.Parse(Model["UniqeLetter"].ToString());
+                c.Length = 4;
+                c.UniqueLetter = true;
 
                 c.GenerateValue();
                 c.Draw();

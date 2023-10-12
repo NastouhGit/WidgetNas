@@ -4,14 +4,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width:13rem;
+    width: 13rem;
+
     .time-result {
-        font-size: 2em;
+        font-size: 1.6em;
+        padding-block-start: 0 !important;
+        padding-block-end: 0 !important;
+        line-height: normal;
         text-align: center;
-        background-color:transparent !important;
+        background-color: transparent !important;
         padding: var(--padding-inline);
-        margin: var(--margin-inline);
-        height: 2em;
+        min-height: 1.8em;
     }
 
     .time-input {

@@ -12,10 +12,8 @@
 <h2>نمایش ساده</h2>
 <p>
     برای نمایش ساده درختواره بایستی از لیست های ul استفاده کنید، سپس کلاس <bidi>tree</bidi> را نسبت داده و برای هر گزینه یک <bidi>li</bidi> قرار دهید.<br />
-    حال شما دو نوع گزینه دارید، یکی به صورت لینک که از کلاس <bidi>tree-link</bidi> و یکی گزینه عادی که از کلاس <bidi>tree-item</bidi> استفاده میکند.<br />
-    اگر میخواهید با کلیک کردن بر روی آن به آدرس خاصی برود، از تگ <bidi>a</bidi> و کلاس <bidi>tree-link</bidi> استفاده کنید، سپس در خصوصیت href مقدار مورد نظر را وارد کنید.<br />
-    اگر میخواهید، با کلیک کردن بر روی موضوع مورد نظر آن انتخاب شود، یک تگ مثلا <bidi>div</bidi> از کلاس <bidi>tree-item</bidi> ایجاد کرده و درون آن متن مورد نظر خود را بنویسید.<br />
-    برای درج یک آیکون برای موضوع مورد نظر، در div یا a ساخته شده یک تصویر به اندازه مناسب قرار دهید.
+    برای تعریف هر ردیف بایستی تگی به اسم <bidi>item</bidi> ساخته و دیتای مرتبط با آن ردیف را در آن قرار دهید. اگر قرار است با کلیک کردن به صفحه ای انتقال یابید از تگ a و در غیر اینصورت متن را مستقیم یا درون label قرار دهید.<br />
+    برای درج آیکون میتوانید از تگ img و یا i استفاده کنید.
 </p>
 <p>برای ساخت درختواره از لیستهای تو در تو استفاده کنید، یعنی از یک ul دیگر داخل li مورد نظر.</p>
 <div class="example-div">
@@ -23,143 +21,136 @@
         <h3>LTR</h3>
         <ul class="tree" wn-type="tree" id="form1">
             <li>
-                <div class="tree-item active">Level 1 Item 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />Level 2 Item 1</div></li>
-                    <li><a href="#" class="tree-link">Level 2 Link 1</a></li>
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 1</a></item></li>
                     <li>
-                        <div class="tree-item">Level 2 Item 2</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">Level 3 Item 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 1</item></li>
                             <li>
-                                <div class="tree-item">Level 3 Item 2</div>
+                                <item><img src="~/images/tools32.png" />Level 3 Item 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">Level 4 Link 1</a></li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">Level 4 Item 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 4 Item 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">Level 5 Link 1</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 2</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 3</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>Some Text</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1" /><label for="check1">Some Checked</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('b')">B</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">Level 3 Item 3</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Item 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <ul class="tree" wn-type="tree">
             <li>
-                <div class="tree-item active">سطح 1 گزینه 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />سطح 2 گزینه 1</div></li>
-                    <li><a href="#" class="tree-link">سطح 2 لینک 1</a></li>
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
                     <li>
-                        <div class="tree-item">سطح 2 گزینه 2</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">سطح 3 گزینه 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 1</item></li>
                             <li>
-                                <div class="tree-item">سطح 3 گزینه 2</div>
+                                <item><img src="~/images/tools32.png" />سطح 3 گزینه 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 1</a></li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">سطح 4 گزینه 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 4 گزینه 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 1</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 2</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 3</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>عبارتی</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1_rtl" /><label for="check1_rtl">تیک کنید</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('ب')">ب</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 3</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
     </div>
 </div>
 <figure><code data-on="form1"></code></figure>
 <h2>انتخاب شده</h2>
-<p>اگر میخواهید یک ردیف از پیش انتخاب شود، از کلاس <bidi>active</bidi> بعد از کلاس <bidi>tree-item</bidi> استفاده کنید.</p>
+<p>اگر میخواهید یک ردیف از پیش انتخاب شود، از کلاس <bidi>active</bidi> به تگ item اضافه کنید. دقت کنید، هر درخت فقط یک گزینه فعال میتواند داشته باشد.</p>
 <figure>
     <pre><code class="html">
    &lt;<span class="ht">ul</span> <span class="ha">class=</span><span class="hv">"tree"</span> <span class="ha">wn-type=</span><span class="hv">"tree"</span>&gt;
         &lt;<span class="ht">li</span>&gt;
-            &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"tree-item active"</span>&gt;item&lt;/<span class="ht">div</span>&gt;
+            &lt;<span class="ht">item</span> <span class="ha">class=</span><span class="hv">"active"</span>&gt;item&lt;/<span class="ht">item</span>&gt;
         &lt;/<span class="ht">li</span>&gt;
     &lt;/<span class="ht">ul</span>&gt;
     </code></pre>
 </figure>
 <h2>غیر فعال</h2>
-<p>اگر میخواهید یک ردیف غیر فعال نمایش داده شود، از کلاس یا خصوصیت <bidi>disabled</bidi> استفاده کنید.</p>
+<p>اگر میخواهید یک ردیف غیر فعال نمایش داده شود، از کلاس یا خصوصیت <bidi>disabled</bidi> برای تگ item استفاده کنید.</p>
 <figure>
     <pre><code class="html">
     &lt;<span class="ht">ul</span> <span class="ha">class=</span><span class="hv">"tree"</span> <span class="ha">wn-type=</span><span class="hv">"tree"</span>&gt;
         &lt;<span class="ht">li</span>&gt;
-            &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"tree-item disabled"</span>&gt;item&lt;/<span class="ht">div</span>&gt;
-        &lt;/<span class="ht">li</span>&gt;
-        &lt;<span class="ht">li</span>&gt;
-            &lt;<span class="ht">a</span> <span class="ha">class=</span><span class="hv">"tree-link"</span> <span class="ha">href=</span><span class="hv">"#"</span> <span class="ha">disabled</span>&gt;link&lt;/<span class="ht">a</span>&gt;
+            &lt;<span class="ht">item</span> <span class="ha">class=</span><span class="hv">"disabled"</span>&gt;item&lt;/<span class="ht">item</span>&gt;
         &lt;/<span class="ht">li</span>&gt;
     &lt;/<span class="ht">ul</span>&gt;
     </code></pre>
 </figure>
-<h2>خصوصیت متن و مقدار</h2>
-<p>برای آنکه در فیلتر گذاری بتوانید به راحتی این عمل را انجام دهید، بهتر است دو خصوصیت <bidi>wn-tree-caption</bidi> برای متن و <bidi>wn-tree-value</bidi> را برای مقدار، تعیین کنید.
-    هر چند اگر این مقادیر را خود وارد نکنید، سیستم به طور خودکار، بر اساس نوع محتوی، آنها را خواهد ساخت.</p>
-<figure>
-    <pre><code class="html">
-    &lt;<span class="ht">ul</span> <span class="ha">class=</span><span class="hv">"tree"</span> <span class="ha">wn-type=</span><span class="hv">"tree"</span>&gt;
-        &lt;<span class="ht">li</span>&gt;
-            &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"tree-item"</span> <span class="ha">wn-tree-caption=</span><span class="hv">"item"</span> <span class="ha">wn-tree-value=</span><span class="hv">"a1"</span>&gt;item&lt;/<span class="ht">div</span>&gt;
-        &lt;/<span class="ht">li</span>&gt;
-    &lt;/<span class="ht">ul</span>&gt;
-    </code></pre>
-</figure>
+
 <h2>عدم نمایش hover</h2>
-<p>اگر میخواهید با حرکت نمایشگر مویس بر روی هر ردیف، آن برجسته نشود، از کلاس <bidi>tree-nohover</bidi> استفاده کنید. این کلاس را بعد از کلاس tree قرار دهید.</p>
+<p>اگر میخواهید با حرکت نمایشگر مویس بر روی هر ردیف، آن ردیف برجسته نشود، از کلاس <bidi>tree-nohover</bidi> استفاده کنید. این کلاس را بعد از کلاس tree قرار دهید.</p>
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
         <ul class="tree tree-nohover" wn-type="tree">
-            <li><div class="tree-item">Level 1 Item 1</div></li>
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</item></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <ul class="tree tree-nohover" wn-type="tree">
-            <li><div class="tree-item">سطح 1 گزینه 1</div></li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</item></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
+
     </div>
 </div>
 <figure>
@@ -178,82 +169,88 @@
         <h3>LTR</h3>
         <ul class="tree tree-expand-item" wn-type="tree">
             <li>
-                <div class="tree-item">Level 1 Item 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />Level 2 Item 1</div></li>
-                    <li><a href="#" class="tree-link">Level 2 Link 1</a></li>
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 1</a></item></li>
                     <li>
-                        <div class="tree-item">Level 2 Item 2</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">Level 3 Item 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 1</item></li>
                             <li>
-                                <div class="tree-item">Level 3 Item 2</div>
+                                <item><img src="~/images/tools32.png" />Level 3 Item 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">Level 4 Link 1</a></li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">Level 4 Item 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 4 Item 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">Level 5 Link 1</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 2</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 3</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>Some Text</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1" /><label for="check1">Some Checked</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('b')">B</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">Level 3 Item 3</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Item 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <ul class="tree tree-expand-item" wn-type="tree">
             <li>
-                <div class="tree-item">سطح 1 گزینه 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />سطح 2 گزینه 1</div></li>
-                    <li><a href="#" class="tree-link">سطح 2 لینک 1</a></li>
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
                     <li>
-                        <div class="tree-item">سطح 2 گزینه 2</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">سطح 3 گزینه 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 1</item></li>
                             <li>
-                                <div class="tree-item">سطح 3 گزینه 2</div>
+                                <item><img src="~/images/tools32.png" />سطح 3 گزینه 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 1</a></li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">سطح 4 گزینه 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 4 گزینه 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 1</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 2</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 3</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>عبارتی</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1_rtl" /><label for="check1_rtl">تیک کنید</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('ب')">ب</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 3</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
     </div>
 </div>
@@ -269,84 +266,90 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
+        <ul class="tree tree-arrow" wn-type="tree">
             <li>
-                <div class="tree-item">Level 1 Item 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />Level 2 Item 1</div></li>
-                    <li><a href="#" class="tree-link">Level 2 Link 1</a></li>
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 1</a></item></li>
                     <li>
-                        <div class="tree-item">Level 2 Item 2</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">Level 3 Item 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 1</item></li>
                             <li>
-                                <div class="tree-item">Level 3 Item 2</div>
+                                <item><img src="~/images/tools32.png" />Level 3 Item 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">Level 4 Link 1</a></li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">Level 4 Item 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 4 Item 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">Level 5 Link 1</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 2</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 3</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>Some Text</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1" /><label for="check1">Some Checked</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('b')">B</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">Level 3 Item 3</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Item 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
+        <ul class="tree tree-arrow" wn-type="tree">
             <li>
-                <div class="tree-item">سطح 1 گزینه 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />سطح 2 گزینه 1</div></li>
-                    <li><a href="#" class="tree-link">سطح 2 لینک 1</a></li>
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
                     <li>
-                        <div class="tree-item">سطح 2 گزینه 2</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">سطح 3 گزینه 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 1</item></li>
                             <li>
-                                <div class="tree-item">سطح 3 گزینه 2</div>
+                                <item><img src="~/images/tools32.png" />سطح 3 گزینه 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 1</a></li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">سطح 4 گزینه 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 4 گزینه 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 1</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 2</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 3</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>عبارتی</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1_rtl" /><label for="check1_rtl">تیک کنید</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('ب')">ب</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 3</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
     </div>
 </div>
@@ -365,84 +368,90 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
-            <li class="collapsed">
-                <div class="tree-item">Level 1 Item 1</div>
+        <ul class="tree" wn-type="tree">
+            <li>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />Level 2 Item 1</div></li>
-                    <li><a href="#" class="tree-link">Level 2 Link 1</a></li>
-                    <li>
-                        <div class="tree-item">Level 2 Item 2</div>
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 1</a></item></li>
+                    <li class="collapsed">
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">Level 3 Item 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 1</item></li>
                             <li>
-                                <div class="tree-item">Level 3 Item 2</div>
+                                <item><img src="~/images/tools32.png" />Level 3 Item 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">Level 4 Link 1</a></li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">Level 4 Item 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 4 Item 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">Level 5 Link 1</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 2</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 3</a></li>
-                                            <li><a class="tree-link" href="#">Level 5 Link 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>Some Text</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1" /><label for="check1">Some Checked</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('b')">B</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">Level 3 Item 3</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Item 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
-            <li class="collapsed">
-                <div class="tree-item">سطح 1 گزینه 1</div>
+        <ul class="tree" wn-type="tree">
+            <li>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />سطح 2 گزینه 1</div></li>
-                    <li><a href="#" class="tree-link">سطح 2 لینک 1</a></li>
-                    <li>
-                        <div class="tree-item">سطح 2 گزینه 2</div>
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
+                    <li class="collapsed">
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item>
                         <ul>
-                            <li><a class="tree-item" href="#">سطح 3 گزینه 1</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 1</item></li>
                             <li>
-                                <div class="tree-item">سطح 3 گزینه 2</div>
+                                <item><img src="~/images/tools32.png" />سطح 3 گزینه 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 1</a></li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 2</a></item></li>
                                     <li>
-                                        <div class="tree-item">سطح 4 گزینه 1</div>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 4 گزینه 1</item>
                                         <ul>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 1</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 2</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 3</a></li>
-                                            <li><a class="tree-link" href="#">سطح 5 لینک 4</a></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>عبارتی</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1_rtl" /><label for="check1_rtl">تیک کنید</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('ب')">ب</button></item></li>
                                         </ul>
                                     </li>
-                                    <li><a class="tree-link" href="#">سطح 4 لینک 3</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 3</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
     </div>
 </div>
@@ -451,7 +460,7 @@
     &lt;<span class="ht">ul</span> <span class="ha">class=</span><span class="hv">"tree"</span> <span class="ha">wn-type=</span><span class="hv">"tree"</span>&gt;
         ...
         &lt;<span class="ht">li</span> <span class="ha">class=</span><span class="hv">"collapsed"</span>&gt;
-            &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"tree-item"</span>&gt;item&lt;/<span class="ht">div</span>&gt;
+            ...
         &lt;/<span class="ht">li</span>&gt;
 
     &lt;/<span class="ht">ul</span>&gt;
@@ -462,88 +471,94 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <ul class="tree tree-expand-item tree-arrow collapsed-all" wn-type="tree">
+        <ul class="tree collapsed-all" wn-type="tree">
             <li>
-                <div class="tree-item">Level 1 Item 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</item>
                 <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />Level 2 Item 1</div></li>
-                    <li><a href="#" class="tree-link">Level 2 Link 1</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
-                </ul>
-            </li>
-            <li>
-                <div class="tree-item">Level 1 Item 2</div>
-                <ul>
-                    <li><a class="tree-item" href="#">Level 2 Item 1</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Item 2</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Item 3</a></li>
-                </ul>
-            </li>
-            <li>
-                <div class="tree-item">Level 1 Item 3</div>
-                <ul>
-                    <li><a class="tree-link" href="#">Level 2 Link 1</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 1</a></item></li>
                     <li>
-                        <div class="tree-item">Level 2 Item 1</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 2</item>
                         <ul>
-                            <li><a class="tree-link" href="#">Level 3 Link 1</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Link 2</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Link 3</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Link 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 1</item></li>
+                            <li>
+                                <item><img src="~/images/tools32.png" />Level 3 Item 2</item>
+                                <ul>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 2</a></item></li>
+                                    <li>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 4 Item 1</item>
+                                        <ul>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>Some Text</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1" /><label for="check1">Some Checked</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('b')">B</button></item></li>
+                                        </ul>
+                                    </li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 3</a></item></li>
+                                </ul>
+                            </li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">Level 2 Link 3</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                 </ul>
             </li>
-
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <ul class="tree tree-expand-item tree-arrow collapsed-all" wn-type="tree">
-            <li class="collapsed">
-                <div class="tree-item">سطح 1 گزینه 1</div>
-                <ul>
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />سطح 2 گزینه 1</div></li>
-                    <li><a href="#" class="tree-link">سطح 2 لینک 1</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
-                </ul>
-            </li>
+        <ul class="tree collapsed-all" wn-type="tree">
             <li>
-                <div class="tree-item">سطح 1 گزینه 2</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</item>
                 <ul>
-                    <li><a class="tree-item" href="#">سطح 2 گزینه 1</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 گزینه 2</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 گزینه 3</a></li>
-                </ul>
-            </li>
-            <li>
-                <div class="tree-item">سطح 1 گزینه 3</div>
-                <ul>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 1</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
                     <li>
-                        <div class="tree-item">سطح 2 گزینه 1</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item>
                         <ul>
-                            <li><a class="tree-link" href="#">سطح 3 لینک 1</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 لینک 2</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 لینک 3</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 لینک 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 1</item></li>
+                            <li>
+                                <item><img src="~/images/tools32.png" />سطح 3 گزینه 2</item>
+                                <ul>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 2</a></item></li>
+                                    <li>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 4 گزینه 1</item>
+                                        <ul>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>عبارتی</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1_rtl" /><label for="check1_rtl">تیک کنید</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('ب')">ب</button></item></li>
+                                        </ul>
+                                    </li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 3</a></item></li>
+                                </ul>
+                            </li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 3</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
     </div>
 </div>
+
 <figure>
     <pre><code class="html">
     &lt;<span class="ht">ul</span> <span class="ha">class=</span><span class="hv">"tree collapsed-all"</span> <span class="ha">wn-type=</span><span class="hv">"tree"</span>&gt;
@@ -553,89 +568,91 @@
 </figure>
 <h2>زیر مجموعه افقی</h2>
 <p>ممکن است تمایل داشته باشید، یک زیر مجموعه به صورت افقی نمایش داده شود. بدین منظور کلاس <bidi>tree-list-horizontal</bidi> را به ul مدنظر اضافه کنید.</p>
-<p>اگر میخواهید اجزای یک زیر مجموعه تمامی فضا را پر کند، ابتدا بایست به li والد کلاس <bidi>w-100</bidi> و سپس همین کلاس را به ul مد نظر اضافه کنید.</p>
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <ul class="tree tree-expand-item tree-arrow" wn-type="tree" id="form2">
+        <ul class="tree" wn-type="tree" id="form2">
             <li>
-                <div class="tree-item">Level 1 Item 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</item>
                 <ul class="tree-list-horizontal primary">
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />Level 2 Item 1</div></li>
-                    <li><a href="#" class="tree-link">Level 2 Link 1</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 1</a></item></li>
+                    <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 2</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                 </ul>
             </li>
             <li class="w-100">
-                <div class="tree-item">Level 1 Item 2</div>
-                <ul class="tree-list-horizontal secondary w-100">
-                    <li><a class="tree-item" href="#">Level 2 Item 1</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Item 2</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Item 3</a></li>
+                <item class="w-100"><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 2</item>
+                <ul class="tree-list-horizontal secondary">
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 2</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
+                    <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 3</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 3</a></item></li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">Level 1 Item 3</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 3</item>
                 <ul class="tree-list-horizontal third">
-                    <li><a class="tree-link" href="#">Level 2 Link 1</a></li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><img src="~/images/tools16.png" />Level 2 Item 2</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                     <li>
-                        <div class="tree-item">Level 2 Item 1</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 3</item>
                         <ul class="tree-list-horizontal info s-m">
-                            <li><a class="tree-link" href="#">Level 3 Link 1</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Link 2</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Link 3</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Link 4</a></li>
+                            <li><item><img src="~/images/tools16.png" />Level 3 Item 1</item></li>
+                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 3 Link 1</a></item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 2</item></li>
+                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 3 Link 2</a></item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">Level 2 Link 3</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 3</a></item></li>
                 </ul>
             </li>
-
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
+        <ul class="tree" wn-type="tree">
             <li>
-                <div class="tree-item">سطح 1 گزینه 1</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</item>
                 <ul class="tree-list-horizontal primary">
-                    <li><div class="tree-item"><img src="~/images/tools16.png" />سطح 2 گزینه 1</div></li>
-                    <li><a href="#" class="tree-link">سطح 2 لینک 1</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
+                    <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
             <li class="w-100">
-                <div class="tree-item">سطح 1 گزینه 2</div>
-                <ul class="tree-list-horizontal secondary w-100">
-                    <li><a class="tree-item" href="#">سطح 2 گزینه 1</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 گزینه 2</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 گزینه 3</a></li>
+                <item class="w-100"><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 2</item>
+                <ul class="tree-list-horizontal secondary">
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
+                    <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">سطح 1 گزینه 3</div>
+                <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 3</item>
                 <ul class="tree-list-horizontal third">
-                    <li><a class="tree-link" href="#">سطح 2 لینک 1</a></li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><img src="~/images/tools16.png" />سطح 2 گزینه 1</item></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></item></li>
                     <li>
-                        <div class="tree-item">سطح 2 گزینه 1</div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item>
                         <ul class="tree-list-horizontal info s-m">
-                            <li><a class="tree-link" href="#">سطح 3 لینک 1</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 لینک 2</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 لینک 3</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 لینک 4</a></li>
+                            <li><item><img src="~/images/tools16.png" />سطح 3 گزینه 1</item></li>
+                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 3 پیوند 1</a></item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 2</item></li>
+                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 3 پیوند 2</a></item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 3</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
     </div>
 </div>
@@ -650,58 +667,92 @@
         <h3>LTR</h3>
         <ul class="tree tree-fill" wn-type="tree" id="form3">
             <li>
-                <div class="tree-item justify-content-between">Level 1 Item 1<span class="badge primary s-l badge-capsule">12</span></div>
+                <item><div><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Item 1</div><div class="badge primary s-l badge-capsule">12</div></item>
                 <ul>
-                    <li><div class="tree-item justify-content-between"><div><img src="~/images/tools16.png" />Level 2 Item 1</div><span class="badge primary s-l badge-capsule">12</span></div></li>
-                    <li><a href="#" class="tree-link justify-content-between">Level 2 Link 1<span class="badge primary s-l badge-capsule">12</span></a></li>
+                    <li><item><div><img src="~/images/tools16.png" />Level 2 Item 1</div><div class="badge primary s-l badge-capsule">10</div></item></li>
+                    <li><item><div><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 1</a></div><div class="badge badge-star animation swing animation-duration-300 animation-iteration-count-infinite">5</div></item></li>
                     <li>
-                        <div class="tree-item justify-content-between">Level 2 Item 2<span class="badge primary s-l badge-capsule">12</span></div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 2 Item 2</item>
                         <ul>
-                            <li><a class="tree-item justify-content-between" href="#">Level 3 Item 1<span class="badge primary s-l badge-capsule">12</span></a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 1</item></li>
                             <li>
-                                <div class="tree-item">Level 3 Item 2</div>
+                                <item><img src="~/images/tools32.png" />Level 3 Item 2</item>
                                 <ul>
-                                    <li><a class="tree-link" href="#">Level 4 Link 1</a></li>
-                                    <li><a class="tree-link" href="#">Level 4 Link 2</a></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 2</a></item></li>
+                                    <li>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 4 Item 1</item>
+                                        <ul>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 5 Link 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>Some Text</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1" /><label for="check1">Some Checked</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('b')">B</button></item></li>
+                                        </ul>
+                                    </li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 4 Link 3</a></item></li>
                                 </ul>
                             </li>
-                            <li><a class="tree-link" href="#">Level 3 Item 3</a></li>
-                            <li><a class="tree-link" href="#">Level 3 Item 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>Level 3 Item 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">Level 2 Link 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>Level 2 Link 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">Level 1 Link 1</a></li>
-            <li><a class="tree-link" href="#" disabled>Level 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">Level 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Link 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>Level 1 Disabled 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>Level 1 Disabled 2</a></item></li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <ul class="tree tree-fill" wn-type="tree">
             <li>
-                <div class="tree-item justify-content-between">سطح 1 گزینه 1<span class="badge primary s-l badge-capsule">12</span></div>
+                <item><div><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 گزینه 1</div><div class="badge primary s-l badge-capsule">12</div></item>
                 <ul>
-                    <li><div class="tree-item justify-content-between"><div><img src="~/images/tools16.png" />سطح 2 گزینه 1</div><span class="badge primary s-l badge-capsule">12</span></div></li>
-                    <li><a href="#" class="tree-link justify-content-between">سطح 2 لینک 1<span class="badge primary s-l badge-capsule">12</span></a></li>
+                    <li><item><div><img src="~/images/tools16.png" />سطح 2 گزینه 1</div><div class="badge primary s-l badge-capsule">10</div></item></li>
+                    <li><item><div><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 1</a></div><div class="badge badge-star animation swing animation-duration-300 animation-iteration-count-infinite">5</div></item></li>
                     <li>
-                        <div class="tree-item justify-content-between">سطح 2 گزینه 2<span class="badge primary s-l badge-capsule">12</span></div>
+                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 2 گزینه 2</item>
                         <ul>
-                            <li><a class="tree-item justify-content-between" href="#">سطح 3 گزینه 1<span class="badge primary s-l badge-capsule">12</span></a></li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 3</a></li>
-                            <li><a class="tree-link" href="#">سطح 3 گزینه 4</a></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 1</item></li>
+                            <li>
+                                <item><img src="~/images/tools32.png" />سطح 3 گزینه 2</item>
+                                <ul>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 1</a></item></li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 2</a></item></li>
+                                    <li>
+                                        <item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 4 گزینه 1</item>
+                                        <ul>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 1</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 2</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 3</a></item></li>
+                                            <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 5 پیوند 4</a></item></li>
+                                            <li><item><i class="fa-solid fa-pen-to-square"></i><ig class="floating"><input type="text" /><label>عبارتی</label></ig></item></li>
+                                            <li><item><i class="fa-solid fa-user-pen"></i><input type="checkbox" id="check1_rtl" /><label for="check1_rtl">تیک کنید</label></item></li>
+                                            <li><item><button onclick="alert('a')"><i class="fa-solid fa-newspaper"></i></button><button onclick="alert('ب')">ب</button></item></li>
+                                        </ul>
+                                    </li>
+                                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 4 پیوند 3</a></item></li>
+                                </ul>
+                            </li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 3</item></li>
+                            <li><item><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 3 گزینه 4</item></li>
                         </ul>
                     </li>
-                    <li><a class="tree-link" href="#">سطح 2 لینک 2</a></li>
+                    <li><item><a href="#"><i class="fa-solid fa-link"></i>سطح 2 پیوند 2</a></item></li>
                 </ul>
             </li>
-            <li><a class="tree-link" href="#">سطح 1 لینک 1</a></li>
-            <li><a class="tree-link" href="#" disabled>سطح 1 Disabled 1</a></li>
-            <li><a class="tree-link disabled" href="#">سطح 1 Disabled 2</a></li>
+            <li><item class="active"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 پیوند 1</a></item></li>
+            <li><item disabled><i class="fa-sharp fa-solid fa-circle-check"></i>سطح 1 غیر فعال 1</item></li>
+            <li><item class="disabled"><a href="#"><i class="fa-solid fa-link"></i>سطح 1 غیر فعال 2</a></item></li>
         </ul>
     </div>
 </div>
+
 <figure><code data-on="form3"></code></figure>
 
 <div class="example-div">
@@ -709,57 +760,65 @@
         <h3>LTR</h3>
         <ul class="tree tree-fill" wn-type="tree" id="form4">
             <li>
-                <div class="tree-item justify-content-between">
-                    <div class="m-is-100r m-ie-auto">
-                        <div class="fw-bold">Subject</div>
-                        Short description.
-                    </div>
-                    <span class="badge primary s-l badge-capsule">12</span>
-                </div>
-                <ul>
-                    <li>
-                        <div class="tree-item justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="~/images/tools16.png" />
-                                <div class="m-is-100r m-ie-auto">
-
-                                    <div class="fw-bold">Subject</div>
-                                    Short description.
-                                </div>
-                            </div>
-                            <span class="badge primary s-l badge-capsule">12</span>
+                <item>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-sharp fa-solid fa-circle-check"></i>
+                        <div>
+                            <strong>Subject</strong><br />
+                            Some detail
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="badge primary s-l badge-capsule">12</div>
+                </item>
+            </li>
+            <li>
+                <item>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-sharp fa-solid fa-circle-check"></i>
+                        <div>
+                            <strong>Subject 2</strong><br />
+                            Some detail
+                        </div>
+                    </div>
+                </item>
+            </li>
+            <li>
+                <item>
+                    <strong>Subject 3</strong>: Some detail
+                </item>
             </li>
         </ul>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <ul class="tree tree-fill" wn-type="tree">
+        <ul class="tree tree-fill" wn-type="tree" >
             <li>
-                <div class="tree-item justify-content-between">
-                    <div class="m-is-100r m-ie-auto">
-                        <div class="fw-bold">عنوان</div>
-                        توضیحی کوتاه
-                    </div>
-                    <span class="badge primary s-l badge-capsule">12</span>
-                </div>
-                <ul>
-                    <li>
-                        <div class="tree-item justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img src="~/images/tools16.png" />
-                                <div class="m-is-100r m-ie-auto">
-
-                                    <div class="fw-bold">عنوان</div>
-                                    توضیحی کوتاه
-                                </div>
-                            </div>
-                            <span class="badge primary s-l badge-capsule">12</span>
+                <item>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-sharp fa-solid fa-circle-check"></i>
+                        <div>
+                            <strong>عنوان</strong><br />
+                            مطلبی برای زیر عنوان
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="badge primary s-l badge-capsule">12</div>
+                </item>
+            </li>
+            <li>
+                <item>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-sharp fa-solid fa-circle-check"></i>
+                        <div>
+                            <strong>عنوان 2</strong><br />
+                            شرحی خاص
+                        </div>
+                    </div>
+                </item>
+            </li>
+            <li>
+                <item>
+                    <strong>عنوان 3</strong>: در ادامه شرح آن
+                </item>
             </li>
         </ul>
     </div>
@@ -773,93 +832,93 @@
         <h3>LTR</h3>
         <ul class="tree tree-expand-item tree-arrow" wn-type="tree" id="form5">
             <li>
-                <div class="tree-item">Checkbox</div>
+                <item>Checkbox</item>
                 <ul>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="checkbox">
                             Checkbox 1
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="checkbox">
                             Checkbox 2
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="checkbox">
                             Checkbox 3
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input class="switch" type="checkbox">
                             Switch 1
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input class="switch" type="checkbox">
                             Switch 2
-                        </label>
+                        </item>
                     </li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">Radio</div>
+                <item>Radio</item>
                 <ul>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="radio" name="tree-radio_ltr">
                             Radio 1
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="radio" name="tree-radio_ltr">
                             Radio 2
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="radio" name="tree-radio_ltr">
                             Radio 3
-                        </label>
+                        </item>
                     </li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">Input</div>
+                <item>Input</item>
                 <ul>
                     <li>
-                        <ig class="tree-item">
+                        <item class="ig">
                             <label for="input1_ltr">Text</label>
                             <input id="input1_ltr" class="p-b-10r-i">
-                        </ig>
+                        </item>
                     </li>
                     <li>
-                        <ig class="tree-item">
+                        <item class="ig">
                             <label for="select1_ltr">Dropdown</label>
                             <select id="select1_ltr" class="p-b-10r-i">
                                 <option>Item 1</option>
                                 <option>Item 2</option>
                                 <option>Item 3</option>
                             </select>
-                        </ig>
+                        </item>
                     </li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">Buttons</div>
+                <item>Buttons</item>
                 <ul>
                     <li>
-                        <ig class="tree-item button-group">
+                        <item class="ig button-group">
                             <button class="primary">First</button>
                             <button class="secondary">Second</button>
                             <button class="third">Third</button>
-                        </ig>
+                        </item>
                     </li>
                 </ul>
             </li>
@@ -869,93 +928,93 @@
         <h3>RTL</h3>
         <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
             <li>
-                <div class="tree-item">چک باکس</div>
+                <item>چک باکس</item>
                 <ul>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="checkbox">
                             چک 1
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="checkbox">
                             چک 2
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="checkbox">
                             چک 3
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input class="switch" type="checkbox">
                             سوئیچ 1
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input class="switch" type="checkbox">
                             سوئیچ 2
-                        </label>
+                        </item>
                     </li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">رادیو</div>
+                <item>رادیو</item>
                 <ul>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="radio" name="tree-radio_rtl">
                             رادیو 1
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="radio" name="tree-radio_rtl">
                             رادیو 2
-                        </label>
+                        </item>
                     </li>
                     <li>
-                        <label class="tree-item">
+                        <item>
                             <input type="radio" name="tree-radio_rtl">
                             رادیو 3
-                        </label>
+                        </item>
                     </li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">ورودی</div>
+                <item>ورودی</item>
                 <ul>
                     <li>
-                        <ig class="tree-item">
+                        <item class="ig">
                             <label for="input1_rtl">متن</label>
                             <input id="input1_rtl" class="p-b-10r-i">
-                        </ig>
+                        </item>
                     </li>
                     <li>
-                        <ig class="tree-item">
+                        <item class="ig">
                             <label for="select1_rtl">بازشو</label>
                             <select id="select1_rtl" class="p-b-10r-i">
                                 <option>گزینه 1</option>
                                 <option>گزینه 2</option>
                                 <option>گزینه 3</option>
                             </select>
-                        </ig>
+                        </item>
                     </li>
                 </ul>
             </li>
             <li>
-                <div class="tree-item">دکمه</div>
+                <item>دکمه</item>
                 <ul>
                     <li>
-                        <ig class="tree-item button-group">
+                        <item class="ig button-group">
                             <button class="primary">اولی</button>
                             <button class="secondary">دومی</button>
                             <button class="third">سومی</button>
-                        </ig>
+                        </item>
                     </li>
                 </ul>
             </li>
@@ -968,29 +1027,7 @@
 <p>به دلیل ازیاد حجم صفحه، از آوردن مثال خود داری شده است.</p>
 
 <h2>جاوا اسکریپت</h2>
-<h3>بارگذاری اطلاعات</h3>
-<p>همیشه درختواره مقدارش از پیش تعیین شده نیست، در بسیاری از مواقع این اطلاعات توسط سرویس از سرور گرفته شده و بایستی آن مقدار دهی شود.<br />
-    بدین منظور از تابع <bidi>setdata</bidi> استفاده باید کنید.
-    </p>
-<div class="example-div">
-    <div class="ltr" id="form6">
-        <ul id="tree1" class="tree tree-expand-item tree-arrow" wn-type="tree" >
-        </ul>
-        <script>
-            WNE(document).Ready(async() => { 
-                await Post(null, '/Components/Tree').then((r) => {
-                    WN['tree1'].setdata(r, 'index', 'parent', 'type', 'text', 'value', 'image',false);
-                }).catch((e) => {
-                    console.log(e);
-                });
-            });
-        </script>
-    </div>
-</div>
-<figure><code data-on="form6"></code></figure>
-<p>در مثال بالا مقادیر به صورت آرایه ای از موضوعات از سرور درخواست شده است. پس از آن
-    مشخص میکند، نام خصوصیت ایندکس، والد، نوع گزینه در درختواره، متن، مقدار و تصویر در چه خصوصیاتی ذخیره شده اند.
-    پس از آن بر اساس این اطلاعات، هر ردیف بر اساس والد یا فرزند را برای درخت ایجاد میکند.
+<p>قطعا در طول برنامه نویسی شما نیاز پیدا میکنید تا توسط توابع جاوا اسکریپت اقدام به کنترل درخت یا مقدار دهی آن کنید.
+    بدین منظور به صفحه مرتبط که در زیر لینک آن است مراجعه فرمایید.
 </p>
-
 <a href="/Components/TreeScript" class="button secondary s-xl">نمایش مستندات در صفحه مربوطه</a>

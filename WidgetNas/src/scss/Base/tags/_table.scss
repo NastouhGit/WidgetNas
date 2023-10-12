@@ -1,4 +1,5 @@
 ﻿@import "../../_variables.scss";
+$TDBackImagePaddingInLine: 0.8;
 
 table {
     caption-side: bottom;
@@ -14,6 +15,11 @@ table {
         transition: $transition;
         box-shadow: inset 0 0 0 9999px var(--normal-back);
         color: var(--normal-color);
+        vertical-align: middle;
+
+        &.hide {
+            visibility: collapse;
+        }
     }
 
 
@@ -156,6 +162,110 @@ table {
                     margin: 0 !important;
                 }
             }
+        }
+    }
+
+    .grouprow {
+        color: var(--focus-color);
+        --normal-back: var(--focus-back) !important;
+        --table-td-expand: var(--minus-image);
+
+        &:nth-of-type(odd) {
+            --normal-back: var(--focus-back) !important;
+        }
+
+        &[dir=ltr] {
+            background-position-x: left;
+        }
+
+        &.collapsed {
+            --table-td-expand: var(--plus-image) !important;
+        }
+    }
+
+    .groupcol {
+        box-shadow: none !important;
+        background-repeat: no-repeat;
+        background-size: 0.7em;
+        background-position-y: center;
+        padding-inline-end: 0 !important;
+        background-image: var(--table-td-expand);
+        background-position-x: calc(100% - var(--padding-start) + 0.8em);
+        padding-inline-start: var(--padding-start) !important;
+
+        &[dir=ltr] {
+            background-position-x: calc( var(--padding-start) - 0.3em);
+        }
+    }
+
+    .group-0 {
+        --padding-start: #{$TDBackImagePaddingInLine * 1}em;
+    }
+
+    .group-1 {
+        --padding-start: #{$TDBackImagePaddingInLine * 2}em;
+    }
+
+    .group-2 {
+        --padding-start: #{$TDBackImagePaddingInLine * 3}em;
+    }
+
+    .group-3 {
+        --padding-start: #{$TDBackImagePaddingInLine * 4}em;
+    }
+
+    .group-4 {
+        --padding-start: #{$TDBackImagePaddingInLine * 5}em;
+    }
+
+    .group-5 {
+        --padding-start: #{$TDBackImagePaddingInLine * 6}em;
+    }
+
+    .group-6 {
+        --padding-start: #{$TDBackImagePaddingInLine * 7}em;
+    }
+
+    .group-7 {
+        --padding-start: #{$TDBackImagePaddingInLine * 8}em;
+    }
+
+    .group-8 {
+        --padding-start: #{$TDBackImagePaddingInLine * 9}em;
+    }
+
+    .group-9 {
+        --padding-start: #{$TDBackImagePaddingInLine * 10}em;
+    }
+
+
+    tr[class*='group'] {
+        td:first-child {
+            padding-inline-start: var(--padding-start) !important;
+        }
+    }
+
+    .aggregate {
+        background-color: var(--info-back);
+        color: var(--info-color);
+
+        &, td {
+            box-shadow: none;
+        }
+    }
+}
+.responsive {
+    table {
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: $zindex-sticky;
+        }
+
+        tfoot {
+            position: sticky;
+            bottom: 0;
+            z-index: $zindex-sticky;
         }
     }
 }

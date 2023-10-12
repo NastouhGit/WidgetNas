@@ -1,178 +1,343 @@
-﻿interface tablecoldata { index: number, caption: string, field: string, datatype: string, sortable: string, filterable: string, format: string, class: string };
+﻿class WNTable implements IWNTable {
+    public readonly nameType: string = 'WNTable';
+    public element: HTMLTableElement;
 
-class wntable {
-    element: HTMLTableElement;
+    public cols: WNTableCol[];
+    private _dataSource: WNTableNode[];
+    private _renderData: WNTableNode[];
+    public get dataSource(): WNTableNode[] {
+        return this._dataSource;
+    }
+    public set dataSource(value: WNTableNode[]) {
+        this._dataSource = value;
+        if (this._sortby.length > 0)
+            this.resort();
+        else
+            this.sort(-1);
 
-    cols: tablecoldata[]
-    data: any[];
-    renderdata: any[];
-    date: wnDate = new wnDate();
-    beforefilter: any;
-    afterfilter: any;
-    beforesort: any;
-    aftersort: any;
-    beforeselected: any;
-    selectedchanged: any;
-    selecteditem: any;
-    selectedrow: HTMLTableRowElement;
-    beforepagechange: any;
-    pagechanged: any;
+        this.setFilter();
+    }
 
-    private pagesize = -1;
-    private currentPage = 1;
-    private totalPages = 1;
-    private paginationButtons: HTMLButtonElement[];
+    private _currentPage: number = 1;
+    public get currentPage(): number { return this._currentPage };
+    public set currentPage(value: number) {
+        if (this.beforePageChange && !this.beforePageChange(this, this.currentPage, value))
+            return;
+        let old = this._currentPage;
+        this._currentPage = value;
+        this.element.querySelectorAll('[page-index]').forEach((x: HTMLElement) => x.style.display = 'none');
+        let t = (<HTMLElement>this.element.querySelector(`[page-index='${this._currentPage}']`));
+        if (t) t.style.display = '';
+        this.setPaginationElements();
+        this.afterPageChange?.(this, old, this.currentPage)
+    };
+    private date: IWNDate = new WNDate();
+    private pageSize: number = 0;
 
-    private headtable: HTMLTableSectionElement;
-    private headcols: HTMLTableCellElement[];
-    private bodytable: HTMLTableSectionElement;
-    filterinput: HTMLInputElement[];
+    public beforeFilter: (t: IWNTable) => boolean;
+    public afterFilter: (t: IWNTable) => void;
+    public beforeSort: (t: IWNTable) => boolean;
+    public afterSort: (t: IWNTable) => void;
+    public beforeSelected: (t: IWNTable, oldNode: WNTableNode, newNode: WNTableNode) => boolean;
+    public selectionChanged: (t: IWNTable, oldNode: WNTableNode, newNode: WNTableNode) => void;
+    public beforePageChange: (t: IWNTable, oldPage: number, newPage: number) => boolean;
+    public afterPageChange: (t: IWNTable, oldPage: number, newPage: number) => void;
+    public command: (t: IWNTable, command: string, node: WNTableNode) => void;
+
+    private _selectedItem: WNTableNode;
+    public get selectedItem(): WNTableNode {
+        return this._selectedItem;
+    }
+    public set selectedItem(value: WNTableNode) {
+        if (this._selectedItem == value) return;
+        if (this.beforeSelected && !this.beforeSelected?.(this, this._selectedItem, value)) return;
+
+        this.bodyTable.querySelectorAll('tr.active').forEach((x) => x.classList.remove('active'));
+        value.rowElement?.classList.add('active');
+        this.selectionChanged(this, this._selectedItem, value);
+        this._selectedItem = value;
+    }
+
+    private _groups: string[] = [];
+    public get groups(): string[] { return this._groups; }
+    public set groups(value: string[]) {
+        this._groups = value;
+        this.setFilter();
+    }
+
+    private _totalPages = 1;
+    private _paginationElement: HTMLElement;
+    private _paginationButtons: HTMLButtonElement[];
+
+    private headTable: HTMLTableSectionElement;
+    private bodyTable: HTMLTableSectionElement;
+
+    private _pageAddedd: number = 0;
+    private _rowAddedd: number = 0;
+    private _lastBodyTable: HTMLTableSectionElement;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLTableElement;
-            this.Init();
+            this.init();
         }
     }
-    private Init() {
-        if (this.element.hasAttribute("cultureinfo"))
-            this.date.CultureInfo = Function('return new ' + this.element.getAttribute('cultureinfo') + '()')() as wnCultureInfo;
-        if (this.element.hasAttribute("calendar"))
-            this.date.Calendar = Function('return new ' + this.element.getAttribute('calendar') + '()')() as wnCalendar;
-        if (!this.element.classList.contains('pointer'))
-            this.element.classList.add('pointer');
+    private init() {
+        if (this.element.hasAttribute("cultureinfo")) this.date.cultureInfo = WNCultureInfoFunction(this.element.getAttribute('cultureinfo'));
+        if (this.element.hasAttribute("calendar")) this.date.calendar = WNCalendarFunction(this.element.getAttribute('calendar'));
+        if (!this.element.classList.contains('pointer')) this.element.classList.add('pointer');
 
-        if (this.element.hasAttribute('onbeforefilter'))
-            this.beforefilter = new Function('t', this.element.getAttribute('onbeforefilter'));
-        if (this.element.hasAttribute('onafterfilter'))
-            this.afterfilter = new Function('t', this.element.getAttribute('onafterfilter'));
-        if (this.element.hasAttribute('onbeforesort'))
-            this.beforesort = new Function('t', this.element.getAttribute('onbeforesort'));
-        if (this.element.hasAttribute('onaftersort'))
-            this.aftersort = new Function('t', this.element.getAttribute('onaftersort'));
-        if (this.element.hasAttribute('onbeforeselected'))
-            this.beforeselected = new Function('t,newselected', this.element.getAttribute('onbeforeselected'));
-        if (this.element.hasAttribute('onselectedchanged'))
-            this.selectedchanged = new Function('t,newselected,oldselected', this.element.getAttribute('onselectedchanged'));
-        if (this.element.hasAttribute('onbeforepagechange'))
-            this.beforepagechange = new Function('t,oldpage,newpage', this.element.getAttribute('onbeforepagechange'));
-        if (this.element.hasAttribute('onpagechanged'))
-            this.pagechanged = new Function('t,oldpage,newpage', this.element.getAttribute('onpagechanged'));
+        if (this.element.hasAttribute('onbeforefilter')) this.beforeFilter = WNGenerateFunction(this.element.getAttribute('onbeforefilter'), 't');
+        if (this.element.hasAttribute('onafterfilter')) this.afterFilter = WNGenerateFunction(this.element.getAttribute('onafterfilter'), 't');
+        if (this.element.hasAttribute('onbeforesort')) this.beforeSort = WNGenerateFunction(this.element.getAttribute('onbeforesort'), 't');
+        if (this.element.hasAttribute('onaftersort')) this.afterSort = WNGenerateFunction(this.element.getAttribute('onaftersort'), 't');
 
+        if (this.element.hasAttribute('onbeforeselected')) this.beforeSelected = WNGenerateFunction(this.element.getAttribute('onbeforeselected'), 't,oldNode,newNode');
+        if (this.element.hasAttribute('onselectionchanged')) this.selectionChanged = WNGenerateFunction(this.element.getAttribute('onselectionchanged'), 't,oldNode,newNode');
+
+        if (this.element.hasAttribute('onbeforepagechange')) this.beforePageChange = WNGenerateFunction(this.element.getAttribute('onbeforepagechange'), 't,oldPage,newPage');
+        if (this.element.hasAttribute('onafterpagechange')) this.afterPageChange = WNGenerateFunction(this.element.getAttribute('onafterpagechange'), 't,oldPage,newPage');
+
+        if (this.element.hasAttribute('oncommand')) this.command = WNGenerateFunction(this.element.getAttribute('oncommand'), 't,command,node');
+        if (this.element.hasAttribute('groups')) this._groups = this.element.getAttribute('groups').split(',');
         this.FindHeader();
         this.FilterHeaderRow();
-        this.ReadStaticData();
-        this.Pagination();
-        this.SetFilter();
-        this.refresh();
+        this.initDataSource();
+        this.pagination();
+        this.setFilter();
     }
     //Parse thead area
     private FindHeader() {
-        this.headcols = [];
         this.cols = [];
 
-        this.headtable = this.element.querySelector('thead');
-        this.headtable?.querySelectorAll('tr:first-child td,th').forEach((x) => {
-            this.headcols.push(x as HTMLTableCellElement)
-        });
-        let i = 1;
         let colindex = 0;
-        this.headcols?.forEach((x) => {
-            let col: tablecoldata = { index: 0, caption: '', field: '', datatype: '', sortable: '', filterable: '', format: '', class: '' };
-            col.caption = x.innerText;
-            if (x.hasAttribute('data-field')) col.field = WNparseString(x.getAttribute('data-field'), '');
-            if (x.hasAttribute('data-type')) col.datatype = WNparseString(x.getAttribute('data-type'), 'string');
-            if (x.hasAttribute('data-format')) col.format = WNparseString(x.getAttribute('data-format'), '');
-            col.class = x.className;
-            col.sortable = WNparseString(x.getAttribute('sortable'), 'value').toLowerCase();
-            col.index = colindex;
-            x.setAttribute('index', colindex.toString());
-            if (col.sortable != '') {
-                if (!x.classList.contains('sort'))
-                    x.classList.add('sort');
+        let fieldcount = 1;
 
-                x.addEventListener('click', (t) => {
-                    this.Sort(WNparseNumber((t.target as HTMLElement).getAttribute('index')));
-                    this.refresh();
+        this.headTable = this.element.querySelector('thead');
+        this.headTable?.querySelectorAll('tr:first-child td,th').forEach((x) => {
+            let tcol: WNTableCol = {
+                index: colindex,
+                caption: x.textContent,
+                class: x.className,
+                datatype: WNparseString(x.getAttribute('data-type'), 'string'),
+                field: WNparseString(x.getAttribute('data-field'), ''),
+                filterable: x.hasAttribute('filterable') ?
+                    (WNparseString(x.getAttribute('filterable'), WNTableTextValue.value) == WNTableTextValue.value ? WNTableTextValue.value : WNTableTextValue.text)
+                    : WNTableTextValue.none,
+                sortable: x.hasAttribute('sortable') ?
+                    (WNparseString(x.getAttribute('sortable'), WNTableTextValue.value) == WNTableTextValue.value ? WNTableTextValue.value : WNTableTextValue.text)
+                    : WNTableTextValue.none,
+                format: WNparseString(x.getAttribute('data-format'), ''),
+                elementInHeader: x as HTMLTableCellElement,
+                elementFilter: null,
+                commandElement: [],
+                condition: x.hasAttribute('condition') ? WNGenerateFunction(x.getAttribute('condition'), 't,node,value,text') : null,
+                aggregate: WNparseString(x.getAttribute('aggregate'), '').toLowerCase()
+
+            };
+            tcol.elementInHeader.setAttribute('index', colindex.toString());
+
+            if (tcol.sortable != WNTableTextValue.none)
+                tcol.elementInHeader.classList.add('sort');
+            tcol.elementInHeader.addEventListener('click', (t) => {
+                if (this.beforeSort != null && !this.beforeSort(this))
+                    return;
+
+                this.sort(WNparseNumber((t.target as HTMLElement).getAttribute('index')));
+                this.afterSort?.(this);
+
+                this.refresh();
+            });
+            if (tcol.field == '') {
+                tcol.field = 'f' + fieldcount;
+                fieldcount++;
+            }
+
+            if (tcol.elementInHeader.hasAttribute('command')) {
+                tcol.elementInHeader.querySelectorAll('button').forEach((x: HTMLButtonElement) => {
+                    tcol.commandElement.push(x.cloneNode(true) as HTMLButtonElement);
+                    x.remove();
                 });
+                tcol.elementInHeader.innerHTML = tcol.elementInHeader.textContent.trim();
 
             }
-            col.filterable = WNparseString(x.getAttribute('filterable'), 'value').toLowerCase();
-            if (col.field == '') {
-                col.field = 'f' + i;
-                i++;
-            }
+            this.cols.push(tcol);
             colindex++;
-            this.cols.push(col);
         });
     }
 
     //Add filter input at header row
     private FilterHeaderRow() {
-        this.filterinput = [];
         let addfilter = false;
         let tr = document.createElement('tr');
         this.cols.forEach((x) => {
             let td = document.createElement('td');
-            if (x.filterable != '') {
+            if (x.filterable != WNTableTextValue.none) {
                 let inp = document.createElement('input');
-                inp.type = 'text';
+                inp.type = 'search';
                 inp.setAttribute('index', x.index.toString())
-                inp.addEventListener('input', (t) => { this.SetFilter(); this.refresh(); })
+                inp.addEventListener('input', () => { this.setFilter(); })
                 td.appendChild(inp);
                 addfilter = true;
-                this.filterinput.push(inp);
+                x.elementFilter = inp;
             }
-            else
-                this.filterinput.push(null);
             tr.appendChild(td);
         });
+
         if (addfilter) {
-            this.headtable?.appendChild(tr);
+            this.headTable?.appendChild(tr);
         }
     }
-
-    private ReadStaticData() {
-        let rows = [];
-        this.bodytable = this.element.querySelector('tbody') as HTMLTableSectionElement;
-        if (this.bodytable == null) {
-            this.bodytable = document.createElement('tbody');
-            this.element.appendChild(this.bodytable);
+    private initDataSource() {
+        this.bodyTable = this.element.querySelector('tbody') as HTMLTableSectionElement;
+        if (!this.bodyTable) {
+            this.bodyTable = document.createElement('tbody');
+            this.element.appendChild(this.bodyTable);
         }
-        let tr = this.bodytable?.querySelectorAll('tr');
+        let tr = this.bodyTable.querySelectorAll('tr');
+        this._dataSource = [];
         tr.forEach((x: HTMLTableRowElement) => {
             let cols = x.querySelectorAll('td,th');
-            let r = {};
+            let r: { [id: string]: WNTableFieldValue } = {};
             for (var i = 0; i < cols.length; i++) {
-                r[this.cols[i].field] = cols[i].innerHTML;
+                r[this.cols[i].field] = this.fixedData(cols[i].innerHTML, this.cols[i])
             }
-            rows.push(r);
+            this.addToDataSource(r);
         });
-        this.setdata(rows, false);
     }
-    private Pagination() {
-        let paginationElement = this.element.querySelector('.pagination');
-        if (paginationElement == null)
-            return;
-        let btn = paginationElement.querySelectorAll('button');
-        if (btn == null)
+    public addToDataSource(r: any): WNTableNode {
+        let pId = 0;
+        if (!this._dataSource) this._dataSource = [];
+        this._dataSource.forEach((x) => { pId = x.privateId > pId ? x.privateId : pId });
+        pId++;
+        let ret: WNTableNode = {
+            privateId: pId,
+            rowElement: null,
+            fields: r
+        }
+        this._dataSource.push(ret);
+        return ret;
+    }
+    public removeFromDataSource(r: WNTableNode): boolean {
+        try {
+            let forceRefresh: boolean = r.rowElement != null;
+            r.rowElement?.remove();
+            let list = this.dataSource;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].privateId == r.privateId) {
+                    list.splice(i, 1);
+                    break;
+                }
+            }
+            if (forceRefresh) this.refresh();
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
+        return true;
+    }
+    public updateNodeElement(r: WNTableNode): void {
+        if (r.rowElement) {
+            this.resort();
+            this.refresh();
+        }
+    }
+    public setDataSource(dataSource: any, append?: boolean): void {
+        if (append == null || !append)
+            this._dataSource = [];
+        dataSource.forEach((x) => {
+            let keys = Object.keys(x);
+            let r: { [id: string]: WNTableFieldValue } = {};
+            keys.forEach((y) => {
+                let col = this.cols.find(z => z.field == y);
+                if (col)
+                    r[y] = this.fixedData(x[y], col);
+                else
+                    r[y] = { text: x[y], value: x[y] };
+            });
+            this.addToDataSource(r);
+
+        });
+        this.setFilter();
+
+    }
+
+    private _sortby: { field, field2, desc }[] = [];
+    private resort() {
+        if (this._sortby.length == 0) return;
+
+        this._renderData?.sort((x, y) => {
+            for (var i = 0; i < this._sortby.length; i++) {
+                let s = this._sortby[i];
+                let v1;
+                let v2;
+                if (x.fields[s.field])
+                    v1 = x.fields[s.field][s.field2];
+                else if (x[s.field])
+                    v1 = x[s.field];
+                else
+                    v1 = '';
+
+                if (y.fields[s.field])
+                    v2 = y.fields[s.field][s.field2];
+                else if (y[s.field])
+                    v2 = y[s.field];
+                else
+                    v2 = '';
+
+                let cmp = v1 == v2;
+                if (!cmp) {
+                    cmp = v1 > v2;
+                    return (cmp ? -1 : 1) * (s.desc ? 1 : -1);
+                }
+            }
+            return 0;
+        });
+    }
+    private sort(colIndex: number): void {
+        if (colIndex > -1 && this.cols[colIndex].sortable != WNTableTextValue.none)
+            this._sortby = [];
+        else if (colIndex == -1)
+            this._sortby = [];
+        else
             return;
 
-        if (paginationElement.hasAttribute('rows'))
-            this.pagesize = WNparseNumber(paginationElement.getAttribute('rows'), -1);
-        this.paginationButtons = [];
+        if (this.groups.length > 0) {
+            this.groups.forEach(x => {
+                let c = x.split(':');
+                this._sortby.push({ field: c[0].trim(), field2: c[1]?.trim() ?? 'value', desc: false });
+            })
+        }
+        let desc = false;
+        if (colIndex > -1 && this.cols[colIndex].sortable != WNTableTextValue.none) {
+            if (this.cols[colIndex].elementInHeader.classList.contains('asc'))
+                desc = true;
+            this._sortby.push({ field: this.cols[colIndex].field, field2: this.cols[colIndex].sortable, desc: desc });
+        }
+
+        this.resort();
+
+        this.cols.forEach((x) => x.elementInHeader.classList.remove('desc', 'asc'));
+        if (colIndex > -1)
+            this.cols[colIndex].elementInHeader.classList.add(desc ? 'desc' : 'asc');
+
+    }
+
+    private pagination() {
+        this._paginationElement = this.element.querySelector('.pagination');
+        if (this._paginationElement == null) return;
+        let btn = this._paginationElement.querySelectorAll('button');
+        if (!btn) return;
+
+        if (this._paginationElement.hasAttribute('page-size')) this.pageSize = WNparseNumber(this._paginationElement.getAttribute('page-size'), this.pageSize);
+
+        this._paginationButtons = [];
         for (var i = 0; i < btn.length; i++) {
             if (btn[i].classList.contains('first'))
                 btn[i].addEventListener('click', () => {
                     if (this.currentPage != 1) {
-                        if (this.beforepagechange)
-                            if (!this.beforepagechange(this, this.currentPage, 1))
-                                return;
-                        let old = this.currentPage;
                         this.currentPage = 1;
                         this.refresh();
-                        if (this.pagechanged)
-                            this.pagechanged(this, old, this.currentPage)
                     }
                 });
             else if (btn[i].classList.contains('previous'))
@@ -182,44 +347,22 @@ class wntable {
                     if (cur <= 1) cur = 1;
                     if (cur == this.currentPage) return;
 
-                    if (this.beforepagechange)
-                        if (!this.beforepagechange(this, this.currentPage, cur))
-                            return;
-                    let old = this.currentPage
                     this.currentPage = cur;
-                    this.refresh();
-                    if (this.pagechanged)
-                        this.pagechanged(this, old, this.currentPage);
                 });
             else if (btn[i].classList.contains('next'))
                 btn[i].addEventListener('click', () => {
                     let cur = this.currentPage;
                     cur++;
-                    if (cur >= this.totalPages) cur = this.totalPages;
+                    if (cur >= this._totalPages) cur = this._totalPages;
                     if (cur == this.currentPage) return;
 
-                    if (this.beforepagechange)
-                        if (!this.beforepagechange(this, this.currentPage, cur))
-                            return;
-                    let old = this.currentPage
                     this.currentPage = cur;
 
-                    this.refresh();
-
-                    if (this.pagechanged)
-                        this.pagechanged(this, old, this.currentPage);
                 });
             else if (btn[i].classList.contains('last'))
                 btn[i].addEventListener('click', () => {
-                    if (this.currentPage != this.totalPages) {
-                        if (this.beforepagechange)
-                            if (!this.beforepagechange(this, this.currentPage, this.totalPages))
-                                return;
-                        let old = this.currentPage;
-                        this.currentPage = this.totalPages;
-                        this.refresh();
-                        if (this.pagechanged)
-                            this.pagechanged(this, old, this.currentPage)
+                    if (this.currentPage != this._totalPages) {
+                        this.currentPage = this._totalPages;
                     }
                 });
             else {
@@ -227,43 +370,36 @@ class wntable {
                 btn[i].addEventListener('click', (t) => {
                     let cur = WNparseNumber((t.target as HTMLElement).innerText);
                     if (cur != this.currentPage) {
-                        if (this.beforepagechange)
-                            if (!this.beforepagechange(this, this.currentPage, cur))
-                                return;
-
-                        let old = this.currentPage;
                         this.currentPage = cur;
-                        this.refresh();
-                        if (this.pagechanged)
-                            this.pagechanged(this, old, this.currentPage)
                     }
                 });
-                this.paginationButtons.push(btn[i]);
+                this._paginationButtons.push(btn[i]);
             }
         }
 
 
     }
-    private SetPaginationElements() {
-        if (this.pagesize > 0) {
-            this.paginationButtons.forEach((x) => x.style.display = 'none');
+    private setPaginationElements() {
+        if (this.pageSize > 0) {
+            if (this._paginationElement) this._paginationElement.style.display = ''
+            this._paginationButtons.forEach((x) => x.style.display = 'none');
 
-            let maxPages = this.paginationButtons.length;
+            let maxPages = this._paginationButtons.length;
 
-            this.totalPages = Math.ceil(this.renderdata.length / this.pagesize);
-            if (this.totalPages < 1) this.totalPages = 1;
+            this._totalPages = Math.ceil(this._renderData.length / this.pageSize);
+            if (this._totalPages < 1) this._totalPages = 1;
 
 
             if (this.currentPage < 1)
                 this.currentPage = 1
-            else if (this.currentPage > this.totalPages)
-                this.currentPage = this.totalPages
+            else if (this.currentPage > this._totalPages)
+                this.currentPage = this._totalPages
 
             let startPage: number, endPage: number;
-            if (this.totalPages <= maxPages) {
+            if (this._totalPages <= maxPages) {
                 // total pages less than max so show all pages
                 startPage = 1;
-                endPage = this.totalPages;
+                endPage = this._totalPages;
             } else {
                 // total pages more than max so calculate start and end pages
                 let maxPagesBeforeCurrentPage = Math.floor(maxPages / 2);
@@ -272,10 +408,10 @@ class wntable {
                     // current page near the start
                     startPage = 1;
                     endPage = maxPages;
-                } else if (this.currentPage + maxPagesAfterCurrentPage >= this.totalPages) {
+                } else if (this.currentPage + maxPagesAfterCurrentPage >= this._totalPages) {
                     // current page near the end
-                    startPage = this.totalPages - maxPages + 1;
-                    endPage = this.totalPages;
+                    startPage = this._totalPages - maxPages + 1;
+                    endPage = this._totalPages;
                 } else {
                     // current page somewhere in the middle
                     startPage = this.currentPage - maxPagesBeforeCurrentPage;
@@ -283,230 +419,282 @@ class wntable {
                 }
             }
             for (var i = startPage; i <= endPage; i++) {
-                this.paginationButtons[i - startPage].innerText = (i).toString();
-                this.paginationButtons[i - startPage].style.display = '';
+                this._paginationButtons[i - startPage].innerText = (i).toString();
+                this._paginationButtons[i - startPage].style.display = '';
                 if (i == this.currentPage)
-                    this.paginationButtons[i - startPage].classList.add('pagination-active');
+                    this._paginationButtons[i - startPage].classList.add('pagination-active');
                 else
-                    this.paginationButtons[i - startPage].classList.remove('pagination-active');
+                    this._paginationButtons[i - startPage].classList.remove('pagination-active');
 
             }
         }
+        else
+            if (this._paginationElement) this._paginationElement.style.display = 'none';
     }
-    private fixedData(r, c): any {
-        if (c.datatype == 'number') {
-            r.value = WNparseNumber(r.value, 0);
-            r.caption = r.value.toString();
+    private fixedData(value: any, col: WNTableCol): WNTableFieldValue {
+        let r: WNTableFieldValue = {
+            text: value,
+            value: value
         }
-        if (c.datatype == 'date') {
-            r.value = new Date(r.value);
-            this.date.SetDate(r.value);
-            r.caption = this.date.toString(c.format);
+        try {
+            if (col.datatype == 'number') {
+                r.value = WNparseNumber(r.value, 0);
+                r.text = r.value.toString();
+            }
+            if (col.datatype == 'date') {
+                r.value = new Date(r.value);
+                this.date.setDate(r.value);
+                r.text = this.date.toString(col.format);
+            }
+            else if (col.format != '') //Check other type format
+                r.text = WNStringFormat(r.value, col.format, this.date.cultureInfo);
+        } catch (e) {
+            console.error(e);
         }
-        else if (c.format != '') //Check other type format
-            r.caption = WNStringFormat(r.value, c.format, this.date.CultureInfo);
         return r;
     }
-    refresh() {
-        if (this.bodytable == null) return;
-        this.bodytable.innerHTML = '';
-        let startrow = 0;
-        let maxrow = this.renderdata.length;
-        if (this.pagesize > -1 && maxrow != 0) {
-            startrow = this.pagesize * (this.currentPage - 1);
-            maxrow = this.pagesize * this.currentPage;
-            if (maxrow > this.renderdata.length) {
-                maxrow = this.renderdata.length;
-                if (maxrow <= startrow) {
-                    this.currentPage--;
-                    if (this.currentPage < 1) {
-                        this.currentPage = 1;
-                    }
-                    startrow = this.pagesize * (this.currentPage - 1);
-                    maxrow = this.pagesize * this.currentPage;
-                }
+    private _fieldGroup: { f1, f2 }[] = [];
+    private refresh() {
+        if (!this.bodyTable) return;
+        this.bodyTable.innerHTML = '';
+        this.element.querySelectorAll('tbody').forEach(x => {
+            if (x != this.bodyTable) x.remove();
+        });
+        this.bodyTable.setAttribute('page-index', '1');
+
+        this._renderData.forEach(x => x.rowElement = null);
+        let haveAggregate = this.cols.find(x => x.aggregate != '') != null;
+
+        this._pageAddedd = 1;
+        this._rowAddedd = 0;
+        this._lastBodyTable = this.bodyTable;
+
+        if (this.groups.length > 0) {
+            this._fieldGroup = [];
+            this.pageSize = 0;
+            for (var i = 0; i < this.groups.length; i++) {
+                this._fieldGroup.push({ f1: this.groups[i].split(':')[0].trim(), f2: this.groups[i].split(':')[1]?.trim() ?? 'value' });
             }
+            this.addTableRows(this._renderData, '', 0, haveAggregate);
         }
-        for (var row = startrow; row < maxrow; row++) {
-            let x = this.renderdata[row];
-            let tr = document.createElement('tr');
-            tr.setAttribute('index', row.toString());
-            if (this.selecteditem != undefined && x["__privatekey"] == this.selecteditem["__privatekey"]) {
-                tr.classList.add('active');
-                this.selectedrow = tr as HTMLTableRowElement;
-            }
-
-            tr.addEventListener('click', (t) => {
-                let tr = (t.target as HTMLElement);
-                while (tr.tagName == 'TD')
-                    tr = tr.parentElement;
-
-                let rowidx = WNparseNumber(tr.getAttribute('index'), -1);
-                let newselected = this.renderdata[rowidx];
-                let oldselected = this.selecteditem;
-                if (this.beforeselected) if (!this.beforeselected(this, newselected)) return;
-
-                this.bodytable.querySelectorAll('tr').forEach((x) => x.classList.remove('active'));
-
-                tr.classList.add('active');
-                this.selecteditem = newselected;
-                this.selectedrow = tr as HTMLTableRowElement;
-
-                if (this.selectedchanged) this.selectedchanged(this, newselected, oldselected);
-
-            }, false);
-
-            for (var i = 0; i < this.cols.length; i++) {
-                let td = document.createElement('td');
-                td.innerHTML = x[this.cols[i].field].caption;
-                tr.appendChild(td);
-            }
-            this.bodytable.appendChild(tr);
-        };
-        this.SetPaginationElements();
-        if (this.bodytable.querySelector('tr.active') == null) {
-            let old = this.selecteditem;
-            this.selecteditem = undefined;
-            this.selectedrow = undefined;
-            if (this.selectedchanged && old != undefined) this.selectedchanged(this, undefined, old);
+        else {
+            this.addTableRows(this._renderData, '', 0, haveAggregate);
         }
+        this.setPaginationElements();
+        if (this.bodyTable.querySelector('tr.active') == null) {
+            this.selectedItem = null;
+        }
+        this.currentPage = 1;
 
     }
-    SetFilter() {
+
+    private addTableRows(ds: WNTableNode[], parentId: string, indent: number, haveAggregate: boolean): any {
+        let aggregate = new Array<Number[]>(this.cols.length);
+        for (var i = 0; i < this.cols.length; i++) aggregate[i] = [];
+
+        for (var row = 0; row < ds.length; row++) {
+            let x = ds[row];
+
+            //Group Check!
+            if (this.groups.length > indent) {
+                let lastGroup = x.fields[this._fieldGroup[indent].f1][this._fieldGroup[indent].f2];
+                let filtervalue = [{ field: this._fieldGroup[indent].f1, filterable: this._fieldGroup[indent].f2, value: lastGroup }];
+
+                let tr = document.createElement('tr');
+                tr.className = 'grouprow';
+
+                let td = document.createElement('td');
+                td.colSpan = this.cols.length;
+                td.className = 'groupcol group-' + indent.toString();
+                td.innerHTML = lastGroup;
+                tr.setAttribute('private-id', indent + '_' + x.privateId);
+                tr.setAttribute('parent-id', parentId);
+
+                tr.addEventListener('click', (e) => {
+                    let tr = e.target as HTMLElement;
+                    while (tr.tagName != 'TR')
+                        tr = tr.parentElement;
+                    tr.classList.toggle('collapsed');
+                    this.hideByParent(tr.classList.contains('collapsed'), tr.getAttribute('private-id'))
+                });
+                tr.appendChild(td);
+                this._lastBodyTable.appendChild(tr);
+
+                let ds1 = this.filter(ds, filtervalue);
+                let ag1 = this.addTableRows(ds1, indent + '_' + x.privateId, indent + 1, haveAggregate);
+                row += ds1.length - 1;
+                for (var i = 0; i < aggregate.length; i++) {
+                    ag1[i].forEach(x => aggregate[i].push(x));
+                }
+            }
+            else {
+                let tr = document.createElement('tr');
+                tr.setAttribute('private-id', x.privateId.toString());
+                tr.setAttribute('parent-id', parentId);
+                if (x.privateId == this.selectedItem?.privateId) {
+                    tr.classList.add('active');
+                }
+                if (this.groups.length > 0)
+                    tr.className = 'group-' + indent.toString();
+
+                tr.addEventListener('click', (t) => {
+                    let tr = (t.target as HTMLElement);
+                    while (tr.tagName == 'TD')
+                        tr = tr.parentElement;
+
+                    let rowidx = WNparseNumber(tr.getAttribute('private-id'), -1);
+                    let newselected = this._renderData.filter(x => x.privateId == rowidx)[0] ?? null;
+                    this.selectedItem = newselected;
+                }, false);
+
+                //Add cols
+                for (var i = 0; i < this.cols.length; i++) {
+                    let td = document.createElement('td');
+                    if (x.fields[this.cols[i].field] != null)
+                        td.innerHTML = x.fields[this.cols[i].field].text;
+                    else if (x[this.cols[i].field] != null)
+                        td.innerHTML = x[this.cols[i].field];
+                    else
+                        td.innerHTML = '';
+                    //Add data for aggregate row
+                    if (this.cols[i].aggregate != '') {
+                        aggregate[i].push(x.fields[this.cols[i].field].value);
+                    }
+                    //Add Command Col
+                    if (this.cols[i].commandElement.length > 0) {
+                        this.cols[i].commandElement.forEach(xx => {
+                            let cmd = xx.cloneNode(true);
+                            let command = xx.getAttribute('command')
+                            if (command && command != '') {
+                                cmd.addEventListener('click', (e) => {
+                                    this.command?.(this, command, x);
+                                    e.stopPropagation();
+                                });
+                                td.appendChild(cmd);
+                            }
+                        });
+                    }
+                    //Check td condition
+                    try {
+                        this.cols[i].condition?.(td, x, x.fields[this.cols[i].field].value, x.fields[this.cols[i].field].text);
+
+                    } catch (e) {
+                        console.error(e);
+                    }
+                    tr.appendChild(td);
+                }
+                x.rowElement = tr;
+                if (this.pageSize > 0 && this._rowAddedd >= this.pageSize) {
+                    this._pageAddedd++;
+                    this._rowAddedd = 0;
+                    let tb = document.createElement('tbody');
+                    this._lastBodyTable.after(tb);
+                    this._lastBodyTable = tb;
+                    this._lastBodyTable.setAttribute('page-index', this._pageAddedd.toString());
+                }
+                this._lastBodyTable.appendChild(tr);
+                this._rowAddedd++;
+            }
+        };
+
+
+        if (haveAggregate) {
+            this.addAggregateRow(aggregate, parentId, indent);
+            this._rowAddedd++;
+        }
+        return aggregate;
+    }
+    private hideByParent(hide: boolean, privateId: string) {
+        let elems = this.element.querySelectorAll('tr[parent-id="' + privateId + '"]');
+        elems.forEach((x: HTMLElement) => {
+            if (hide) {
+                if (x.style.display != 'none') {
+                    x.style.display = 'none';
+                    if (x.hasAttribute('private-id'))
+                        this.hideByParent(hide, x.getAttribute('private-id'));
+                }
+            }
+            else {
+                x.style.display = '';
+                if (x.hasAttribute('private-id') && !x.classList.contains('collapsed'))
+                    this.hideByParent(hide, x.getAttribute('private-id'));
+            }
+        });
+    }
+    private addAggregateRow(aggregate, parentId: string, indent: number) {
+        let tr = document.createElement('tr');
+        tr.className = 'aggregate';
+        tr.setAttribute('parent-id', parentId);
+        if (this.groups.length > 0)
+            tr.className += ' group-' + indent.toString();
+
+        for (var i = 0; i < this.cols.length; i++) {
+            let td = document.createElement('td');
+            if (this.cols[i].aggregate != '' && aggregate[i] && aggregate[i].length > 0) {
+                let value = 0;
+                if (this.cols[i].aggregate == 'sum')
+                    aggregate[i]?.forEach(x => value += x);
+                else if (this.cols[i].aggregate == 'avg') {
+                    aggregate[i]?.forEach(x => value += x);
+                    value = value / aggregate[i].length;
+                }
+                else if (this.cols[i].aggregate == 'count')
+                    value = aggregate[i].length;
+                else if (this.cols[i].aggregate == 'max')
+                    value = Math.max(aggregate[i]);
+                else if (this.cols[i].aggregate == 'min')
+                    value = Math.min(aggregate[i]);
+
+                td.innerHTML = this.fixedData(value, this.cols[i]).text;
+            }
+            tr.appendChild(td);
+        }
+        this._lastBodyTable.appendChild(tr);
+    }
+    private setFilter() {
         let filtervalue = [];
         for (var i = 0; i < this.cols.length; i++) {
-            if (this.cols[i].filterable != '' && this.filterinput[i].value != '') {
-                filtervalue.push({ field: this.cols[i].field, filterable: this.cols[i].filterable, value: this.filterinput[i].value.toLowerCase() })
+            let x = this.cols[i];
+            if (x.filterable != WNTableTextValue.none && x.elementFilter != null && x.elementFilter?.value != '') {
+                filtervalue.push({ field: x.field, filterable: x.filterable, value: x.elementFilter.value.toLowerCase() });
             }
         }
         if (filtervalue.length == 0) {
-            this.renderdata = this.data.map(x => x);
+            this._renderData = this.dataSource.map(x => x);
+            if (this._sortby.length > 0)
+                this.resort();
+            else
+                this.sort(-1);
+            this.refresh();
             return;
         }
-        if (this.beforefilter != null)
-            if (!this.beforefilter(this))
-                return;
-        this.renderdata = [];
-        for (var row = 0; row < this.data.length; row++) {
-            let x = this.data[row];
+        if (this.beforeFilter && !!this.beforeFilter?.(this))
+            return;
+
+        this._renderData = this.filter(this.dataSource, filtervalue);
+
+        if (this._sortby.length > 0)
+            this.resort();
+        else
+            this.sort(-1);
+
+        this.afterFilter?.(this);
+        this.refresh();
+    }
+    private filter(ds: WNTableNode[], filtervalue: { field: string, filterable: string, value: any }[]): WNTableNode[] {
+        let retArray: WNTableNode[] = [];
+        for (var row = 0; row < ds.length; row++) {
+            let x = ds[row];
             let ret = true;
 
             for (var i = 0; i < filtervalue.length; i++) {
-                if (filtervalue[i].filterable == 'value')
-                    ret = ret && x[filtervalue[i].field].value.toString().toLowerCase().includes(filtervalue[i].value);
-                else if (filtervalue[i].filterable == 'caption')
-                    ret = ret && x[filtervalue[i].field].caption.toLowerCase().includes(filtervalue[i].value);
+                ret = ret && WNDenativeDigit(x.fields[filtervalue[i].field][filtervalue[i].filterable].toString().toLowerCase()).includes(filtervalue[i].value);
                 if (!ret)
                     break;
             }
             if (ret)
-                this.renderdata.push(x);
+                retArray.push(x);
         }
-        if (this.afterfilter != null)
-            this.afterfilter(this);
-    }
-    Sort(colIndex: number) {
-        let sortby = this.cols[colIndex].sortable;
-        if (sortby == '') return;
-
-        if (this.beforesort != null)
-            if (!this.beforesort(this))
-                return;
-
-        let desc = !this.headcols[colIndex].classList.contains('desc');
-        if (!(this.headcols[colIndex].classList.contains('desc') || this.headcols[colIndex].classList.contains('asc')))
-            desc = false;
-
-        let field = this.cols[colIndex].field;
-        this.renderdata?.sort((x, y) => {
-            if (sortby == 'value') {
-                if (x[field]?.value > y[field]?.value)
-                    return desc ? -1 : 1;
-                else if (x[field]?.value < y[field]?.value)
-                    return desc ? 1 : -1;
-            }
-            else if (sortby == 'caption') {
-                if (x[field]?.caption > y[field]?.caption)
-                    return desc ? -1 : 1;
-                else if (x[field]?.caption < y[field]?.caption)
-                    return desc ? 1 : -1;
-            }
-            return 0;
-        });
-
-        this.headcols.forEach((x) => x.classList.remove('desc', 'asc'));
-        this.headcols[colIndex].classList.add(desc ? 'desc' : 'asc');
-
-        if (this.aftersort != null)
-            this.aftersort(this);
-    }
-    setdata(r: any, append: boolean) {
-        if (append == false)
-            this.data = [];
-        let privatekey = 1;
-        this.data = r.map((x) => {
-            let k = {};
-            k['__privatekey'] = { caption: privatekey, value: privatekey };
-            for (var i = 0; i < this.cols.length; i++) {
-                if (this.cols[i].field != '__privatekey') {
-                    let v = { caption: x[this.cols[i].field], value: x[this.cols[i].field] };
-                    v = this.fixedData(v, this.cols[i]);
-                    k[this.cols[i].field] = v;
-                }
-            }
-            privatekey++;
-            return k;
-        });
-        this.SetFilter();
-        this.refresh();
-    }
-    Delete(): boolean {
-        if (this.selecteditem == null)
-            return false;
-
-        let idx = this.data.indexOf(this.selecteditem);
-        this.data.splice(idx, 1);
-
-        idx = this.renderdata.indexOf(this.selecteditem);
-        this.renderdata.splice(idx, 1);
-
-        this.refresh();
-        return true;
-    }
-    Select(privatekey: number) {
-
-        let idx = this.renderdata.findIndex((x) => x['__privatekey'].value == privatekey)
-        return this.SelectByIndex(idx);
-    }
-    SelectByColValue(ColName: string, ColValue: string) {
-        let idx = this.renderdata.findIndex((x) => x[ColName].value == ColValue);
-        return this.SelectByIndex(idx);
-    }
-    SelectByIndex(idx: number) {
-        if (idx == -1)
-            return false;
-        let oldselected;
-        if (this.selecteditem != undefined)
-            oldselected = this.renderdata.findIndex((x) => x['__privatekey'].value == this.selecteditem['__privatekey']);
-        this.selecteditem = this.renderdata[idx];
-        this.currentPage = Math.ceil((idx + 1) / this.pagesize);
-        if (this.currentPage == 0)
-            this.currentPage = 1;
-        this.refresh();
-        if (this.selectedchanged)
-            this.selectedchanged(this, this.selecteditem, oldselected);
-        return true;
-    }
-    SelectRow(row: number) {
-
-        let r = this.bodytable.querySelectorAll('tr');
-        if (r.length <= row)
-            return false;
-        let index = WNparseNumber(r[row].getAttribute('index'))
-        this.selecteditem = this.renderdata[index];
-
-        this.refresh();
-
-        return true;
+        return retArray;
     }
 }

@@ -1,31 +1,15 @@
-﻿function wnabout() {
-    return `
-/*--------------------------------------
- * Widgetnas Version: 1.4.3.0
- * Release Date: 1401-05-16 - 2022-08-07
- *--------------------------------------*/
-`}
+﻿if (!wnConfig)
+    wnConfig = new WNConfig();
 
 document.addEventListener("DOMContentLoaded", initComponents, true);
 
 function initComponents() {
-    WNDefaultLanguage = document.documentElement.lang;
-    if (document.documentElement.lang.indexOf('fa') > -1 || window.navigator.languages.indexOf('fa') > -1) {
-        WNDefaultCalendar = new wnPersianCalendar();
-        WNDefaultCultureInfo = new wnCultureInfo_fa_IR();
-        WNDefaultLanguage = 'fa';
-    }
-    else {
-        WNDefaultCalendar = new wnGregorianCalendar();
-        WNDefaultCultureInfo = new wnCultureInfo_en_US();
-    }
 
-    WNTagEvalScript(document.head);
-    WNTagEvalScriptBody();
 
     CheckBrowserCompatibility();
-
+    WNSetViewSize();
     InitWNBlock(document);
+
 }
 
 function CheckBrowserCompatibility() {
@@ -74,29 +58,45 @@ function CheckBrowserCompatibility() {
     else if (objbrowserName == 'Firefox' && objBrMajorVersion >= 5)
         error = false;
     if (error)
-        document.body.innerHTML = `<div class='alert warning'>` + WNlang[WNDefaultCultureInfo.TwoLetterISOLanguageName]["common"]["browsererror"] + ' ' + objbrowserName + ':' + objBrMajorVersion + `</div>` + document.body.innerHTML;
+        document.body.innerHTML = `<div class='alert warning'>` + wnConfig.language["common"]["browsererror"] + ' ' + objbrowserName + ':' + objBrMajorVersion + `</div>` + document.body.innerHTML;
 }
 function InitWNBlock(elem: HTMLElement | Document = document) {
     InitWN(elem);
     SetComponentCompatibility(elem);
-    WNTooltipAssign(elem);
+    WNTooltipAssign(elem as HTMLElement);
     WNAnimationSetup();
 }
 function InitWN(masterelem: HTMLElement | Document = document) {
-    let selectors: NodeListOf<HTMLDivElement> = masterelem.querySelectorAll("[wn-type]");
+    //let selectors: NodeListOf<HTMLDivElement> = masterelem.querySelectorAll("[wn-type]");
+    let selectors: NodeListOf<HTMLElement> = masterelem.querySelectorAll("*");
+    let idIndex = 1;
     for (var i = 0; i < selectors.length; i++) {
         let elem = selectors[i];
         if (elem !== null) {
             let type = elem.getAttribute("wn-type");
+            let id = type;
+            if (id == null)
+                id = elem.tagName.toLowerCase() + '-';
+            else
+                id = 'wn-' + id;
             if (!elem.hasAttribute('id') || elem.getAttribute('is') == '') {
-                elem.id = 'wn-' + type + (Object.keys(WN).length + 1).toString();
+                elem.id = id + (idIndex).toString();
                 elem.setAttribute('id', elem.id);
+                idIndex++;
             }
             try {
-                WN[elem.id] = null;
-                WN[elem.id] = new Function('elem', 'return new wn' + type + '(elem)')(elem);
+                if (type != null) {
+
+                    let welem = WN(elem);
+                    if (welem.wn == null) {
+                        let wn = new Function('elem', 'return new WN' + type[0].toUpperCase() + type.substring(1) + '(elem)')(elem);
+                        welem.wn = wn;
+                    }
+                    else
+                        console.error('Duplicated WNElement ID! ' + elem.id + ' ' + type)
+                }
             }
-            catch { }
+            catch (e) { console.error(e); }
         }
     }
 }
@@ -120,21 +120,3 @@ function SetComponentCompatibility(elem: HTMLElement | Document = document) {
         }
     }
 }
-function WNTagEvalScriptBody() {
-    if (!DisableTagEvalScript)
-        WNTagEvalScript(document.body);
-}
-function WNTagEvalScript(elem: HTMLElement) {
-    const regexp = /\$\[([\s\S]*?)\]/img;
-    let html = elem.innerHTML;
-    let v = html.matchAll(regexp);
-    for (const m of v) {
-        try {
-            html = html.replace(m[0], eval(m[1]));
-        } catch (e) {
-
-        }
-    }
-    elem.innerHTML = html;
-}
-

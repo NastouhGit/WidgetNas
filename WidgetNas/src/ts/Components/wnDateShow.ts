@@ -1,50 +1,51 @@
-﻿class wndateshow {
-    element: HTMLFormElement;
-    format = '';
-    today = false;
-    Date: wnDate = new wnDate();
+﻿class WNDateShow implements IWNDateShow {
+    public readonly nameType: string = 'WNDateShow';
+    public element: HTMLElement;
+    public format = '';
+    public today = false;
+    public date: IWNDate = new WNDate();
 
     private _value: Date;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLFormElement;
-            this.Init();
+            this.init();
         }
     }
-    private Init() {
+    private init() {
         if (this.element.hasAttribute('calendar'))
-            this.Date.Calendar = Function('return new ' + this.element.getAttribute('calendar') + '()')() as wnCalendar;
+            this.date.calendar = WNCalendarFunction( this.element.getAttribute('calendar') );
         if (this.element.hasAttribute('cultureinfo'))
-            this.Date.CultureInfo = Function('return new ' + this.element.getAttribute('cultureinfo') + '()')() as wnCultureInfo;
-        this.format = this.Date.CultureInfo.DateTimeFormat.FullDateTimePattern;
+            this.date.cultureInfo = WNCultureInfoFunction( this.element.getAttribute('cultureinfo') );
+        this.format = this.date.cultureInfo.DateTimeFormat.fullDateTimePattern;
         if (this.element.hasAttribute('format'))
             this.format = this.element.getAttribute('format');
         if (this.element.hasAttribute('today'))
             this.today = WNparseBoolean(this.element.getAttribute('today'), false);
-        if (this.today && this.format == this.Date.CultureInfo.DateTimeFormat.FullDateTimePattern) {
-            this.format = this.Date.CultureInfo.DateTimeFormat.LongDatePattern;
+        if (this.today && this.format == this.date.cultureInfo.DateTimeFormat.fullDateTimePattern) {
+            this.format = this.date.cultureInfo.DateTimeFormat.longDatePattern;
         }
         if (this.element.hasAttribute('interval')) {
             setInterval(() => {
-                this.Date.SetDate(new Date());
+                this.date.setDate(new Date());
             }, WNparseNumber(this.element.getAttribute('interval')));
         }
         if (this.element.localName == 'input')
-            this.value = new Date(this.element.value);
+            this.value = new Date((this.element as HTMLInputElement).value);
         else
             this.value = new Date(this.element.innerText);
-        //this.Date.SetDate(this._value);
-        this.Date.DateChanged = () => { this.refresh(); };
+        //this.date.setDate(this._value);
+        this.date.dateChanged = () => { this.refresh(); };
     }
     get value() { return this._value; }
-    set value(value: Date) { this._value = value; this.Date.SetDate(this._value); this.refresh(); }
+    set value(value: Date) { this._value = value; this.date.setDate(this._value); this.refresh(); }
     refresh() {
         if (this.today)
-            this.Date.SetDate(new Date());
-        let disp = this.Date.toString(this.format);
+            this.date.setDate(new Date());
+        let disp = this.date.toString(this.format);
         if (this.element.localName == 'input') {
-            this.element.value = disp;
+            (<HTMLInputElement>this.element).value = disp;
         }
         else
             this.element.innerHTML = disp;

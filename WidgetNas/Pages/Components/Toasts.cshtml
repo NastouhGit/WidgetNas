@@ -42,7 +42,7 @@
 <figure><code data-on="form1"></code></figure>
 <h2>نمایش</h2>
 <p>
-    برای نمایش تست ها، کافیست <bidi>WN['toast1'].show()</bidi> را فراخوانی کنید، آن در مکانی که هست نمایش داده میشود و اگر خصوصیت <bidi>timeout</bidi> را مقداری بیش از 0 دهید
+    برای نمایش تست ها، کافیست <bidi>WN('toast1'].show()</bidi> را فراخوانی کنید، آن در مکانی که هست نمایش داده میشود و اگر خصوصیت <bidi>timeout</bidi> را مقداری بیش از 0 دهید
     بعد سپری شده آن مقدار میلی ثانیه به طور خودکار محو میشود.
 </p>
 <p>
@@ -122,7 +122,7 @@
                 let c = document.getElementById(id);
                 c.className = 'toast-container ' + classes;
                 let t = c.querySelectorAll('.toast');
-                t.forEach((e) => { WN[e.id].show() });
+                t.forEach((e) => { WN(e.id).wn.show() });
             }
         </script>
     </div>
@@ -170,12 +170,37 @@
     </div>
 </div>
 <figure><code data-on="form2"></code></figure>
-<h2>فراخوانی اسکریپت قبل از مخفی کردن</h2>
+<h2>جاوا اسکریپت</h2>
 <p>
-    اگر میخواهید، قبل از مخفی شدن اعلان، عملیاتی را انجام دهید، میتوانید، آن عملیات را در خصوصیت <bidi>onbeforehide</bidi> معرفی کنید،
-    اگر مقدار برگشتی true باشد، مودال مخفی میشود و اگر false باشد، مودال بسته نمیشود.
+برای مدیریت نمایش یا عدم نمایش میتوانید از توابع آن استفاده کنید که در زیر به آنها اشاره شده است.</p>
+<p>
+    <strong>timeout</strong><br />
+    میزان زمان برای مخفی کردن را مشخص میکند
 </p>
-<p>اگر میخواهید تابع خود را به صورت جاوا اسکریپت نسبت دهید، به <bidi>WN[id].beforehide = ()=>{return true}</bidi> نسبت دهید.</p>
+<p>
+    <strong>show</strong><br />
+    این تابع، جهت نمایش استفاده میشود.
+    <br />
+    <bidi>show(): void</bidi>
+</p>
+<p>
+    <strong>toggle</strong><br/>
+    این تابع جهت سوئیچ کردن بین نمایش یا مخفی کردن استفاده میشود.
+    <br />
+    <bidi>toggle(): void</bidi>
+</p>
+<p>
+    <strong>hide</strong><br/>
+    این تابع جهت مخفی کردن مورد استفاده قرار میگیرد.
+    <br />
+    <bidi>hide(): void</bidi>
+</p>
+<p>
+    <strong>beforeHide</strong><br />
+    قبل از مخفی کردن، این رخداد فراخوانی میشود، اگر این تابع مقدار false را برگرداند، عملیات مخفی کردن لغو میشود.
+    <br />
+    <bidi>beforeHide: (t: IWNToast) => boolean | Promise<boolean></bidi>
+</p>
 <figure>
     <pre><code class="html">
     &lt;<span class="ht">div</span> <span class="ha">class=</span><span class="hv">"toast"</span> <span class="ha">id=</span><span class="hv">"toast1"</span> <span class="ha">onbeforehide=</span><span class="hv">"return ..."</span>&gt;
@@ -365,28 +390,3 @@
     </div>
 </div>
 <figure><code data-on="form5"></code></figure>
-<h2>فراخوانی با جاوا اسکریپت</h2>
-<p>
-    اگر میخواهید با جاوا اسکریپت کنترل را به عهده بگیرید، میتوانید از گزینه های زیر استفاده کنید.
-</p>
-<p>
-    <strong>timeout</strong><br />
-    زمان مخفی کردن خودکار اعلان به میلی ثانیه. صفر به معنی عدم بستن خودکار است.<bidi>WN[id].timeout=3000</bidi>
-</p>
-<p>
-    <strong>beforehide</strong><br />
-    نسبت دادن یک تابع جهت بررسی قبل از مخفی کردن اعلان.
-</p>
-<p>
-    <strong>show</strong><br />
-    نمایش اعلان. <bidi>WN[id].show()</bidi>
-</p>
-<p>
-    <strong>hide</strong><br />
-    مخفی کردن اعلان. <bidi>WN[id].hide()</bidi>
-</p>
-<p>
-    <strong>toggle</strong><br />
-    سوئیچ کردن بین نمایش و عدم نمایش اعلان. <bidi>WN[id].toggle()</bidi>
-</p>
-

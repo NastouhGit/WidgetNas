@@ -325,7 +325,7 @@
             <input wn-tooltip="tooltip2_ltr" wn-tooltip-hideafter="0" wn-tooltip-nolost />
             <div id="tooltip2_ltr" class="tooltip tooltip-arrow-bottom info">
                 <div class="tooltip-header">
-                    <button wn-type="closebutton" class="close" target="#tooltip2_ltr" remove-class="show"></button>
+                    <button wn-type="closeButton" class="close" target="#tooltip2_ltr" remove-class="show"></button>
                     Fill form
                 </div>
                 <div class="tooltip-body s-m">
@@ -356,7 +356,7 @@
             <input wn-tooltip="tooltip2_rtl" wn-tooltip-hideafter="0" wn-tooltip-nolost />
             <div id="tooltip2_rtl" class="tooltip tooltip-arrow-bottom info">
                 <div class="tooltip-header">
-                    <button wn-type="closebutton" class="close" target="#tooltip2_rtl" remove-class="show"></button>
+                    <button wn-type="closeButton" class="close" target="#tooltip2_rtl" remove-class="show"></button>
                     فرم را پر کنید
                 </div>
                 <div class="tooltip-body s-m">
@@ -445,7 +445,7 @@
         </div>
         <script>
             let tip;
-            WNE(document).Ready(() => {
+            WN(document).Ready(() => {
                 tip = new wntooltip();
                 tip.delay = 0;
                 tip.target = document.getElementById("tooltip_js");
@@ -479,7 +479,7 @@
     </div>
     <script>
         let tiprtl;
-        WNE(document).Ready(() => {
+        WN(document).Ready(() => {
             tiprtl = new wntooltip();
             tiprtl.delay = 0;
             tiprtl.target = document.getElementById("tooltip_jsRtl");

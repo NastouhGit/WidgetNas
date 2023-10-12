@@ -17,7 +17,7 @@ namespace WidgetNas.Pages.Components
         public string Image { get; set; }
         public string ValidChars { get; set; } = "123456789QWERTYUPASDFGHKZXCVBNMqeruadghb";
 
-        public bool UniqeLetter { get; set; } = true;
+        public bool UniqueLetter { get; set; } = true;
         public bool IgnoreCase { get; set; } = true;
         public int Length { get; set; } = 4;
 
@@ -125,7 +125,7 @@ namespace WidgetNas.Pages.Components
             {
                 int idx = r.Next(0, chars.Length - 1);
                 s += chars[idx];
-                if (UniqeLetter)
+                if (UniqueLetter)
                     chars = chars.Replace(chars[idx].ToString(), "");
             }
             Value = s;

@@ -23,9 +23,9 @@
 </div>
 <script>
     function Convert() {
-        let out = WNHtmlToEscape(WNE('source').Element.value);
-        WNE('target').Element.value = out;
-        WNE('preview').Element.innerHTML = out;
+        let out = WNHtmlToEscape(WN('source').inputElement.value);
+        WN('target').inputElement.value = out;
+        WN('preview').htmlElement.innerHTML = out;
     }
 
 </script>

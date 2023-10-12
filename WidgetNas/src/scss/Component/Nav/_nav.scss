@@ -266,13 +266,16 @@ nav {
     color: var(--normal-color);
 
     .tab-pan {
-        display: none;
+        transition: $transition;
         opacity: 0;
-        transition: transition;
+        height: 0;
+        overflow: hidden;
 
         &.show {
-            display: block;
+            transition: $transition;
             opacity: 1;
+            height: unset;
+            overflow: unset;
         }
     }
 

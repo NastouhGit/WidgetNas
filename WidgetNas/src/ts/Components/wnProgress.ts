@@ -1,5 +1,6 @@
-﻿class wnprogress {
-    element: HTMLElement;
+﻿class WNProgress implements IWNProgress {
+    public readonly nameType: string = 'WNProgress';
+    public element: HTMLElement;
     //private
     private _bar: NodeListOf<HTMLDivElement>;
     private _caption: HTMLDivElement;
@@ -9,10 +10,10 @@
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
-            this.Render();
+            this.render();
         }
     }
-    Render() {
+    private render() {
         if (!this.element.classList.contains('progress'))
             this.element.classList.add('progress');
         if (this.element.children.length == 0)
@@ -35,7 +36,7 @@
             }
         }
     }
-    ShowProgress() {
+    private showProgress() {
         let percent = (this._value - this._min) / (this._max - this._min) * 100;
         if (percent > 100) percent = 100;
         if (this._caption != null) {
@@ -55,10 +56,10 @@
             percent -= max;
         }
     }
-    set value(value: number) { this._value = value; this.ShowProgress() }
-    get value() { return this._value }
-    set min(value: number) { this._min = value; this.ShowProgress() }
-    get min() { return this._min }
-    set max(value: number) { this._max = value; this.ShowProgress() }
-    get max() { return this._max }
+    public set value(value: number) { this._value = value; this.showProgress() }
+    public get value() { return this._value }
+    public set min(value: number) { this._min = value; this.showProgress() }
+    public get min() { return this._min }
+    public set max(value: number) { this._max = value; this.showProgress() }
+    public get max() { return this._max }
 }

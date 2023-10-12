@@ -1,36 +1,39 @@
-﻿class wnJulianCalendar implements wnCalendar {
-    LeapMonth: number = 2;
-    MonthsInYear: number = 12;
-    constructor() {
+﻿class WNJulianCalendar implements IWNCalendar {
+    readonly localeName: string = "julian";
+    readonly leapMonth: number = 2;
+    readonly monthsInYear: number = 12;
+
+    ["constructor"](): IWNCalendar {
+        return this as IWNCalendar;
     }
-    GetDayOfWeek(Year: number, Month: number, Day: number): number {
-        return WNmod(Math.floor((this.GetDaysFromBase(Year, Month, Day) + 1.5)), 7);
+    getDayOfWeek(Year: number, Month: number, Day: number): number {
+        return WNmod(Math.floor((this.getDaysFromBase(Year, Month, Day) + 1.5)), 7);
     }
-    GetDayOfYear(Year: number, Month: number, Day: number): number {
-        return this.GetDaysFromBase(Year, Month, Day) - this.GetDaysFromBase(Year, 1, 1);
+    getDayOfYear(Year: number, Month: number, Day: number): number {
+        return this.getDaysFromBase(Year, Month, Day) - this.getDaysFromBase(Year, 1, 1);
     }
-    GetDaysInMonth(Year: number, Month: number): number {
-        return this.GetMonthsDays(this.IsLeapYear(Year))[Month - 1];
+    getDaysInMonth(Year: number, Month: number): number {
+        return this.getMonthsDays(this.isLeapYear(Year))[Month - 1];
     }
-    GetDaysInYear(Year: number): number { return this.IsLeapYear(Year) ? 366 : 365; }
-    GetWeekOfYear(Year: number, Month: number, Day: number): number {
-        let FirstWeekDay = this.GetDayOfWeek(Year, 1, 1);
-        let dayDiff = this.GetDayOfYear(Year, Month, Day);
+    getDaysInYear(Year: number): number { return this.isLeapYear(Year) ? 366 : 365; }
+    getWeekOfYear(Year: number, Month: number, Day: number): number {
+        let FirstWeekDay = this.getDayOfWeek(Year, 1, 1);
+        let dayDiff = this.getDayOfYear(Year, Month, Day);
         dayDiff += FirstWeekDay;
         let weekNr = Math.ceil(dayDiff / 7);
         return weekNr;
     }
-    IsLeapDay(Year: number, Month: number, Day: number): boolean {
-        return this.IsLeapMonth(Year, Month) && Day === 29;
+    isLeapDay(Year: number, Month: number, Day: number): boolean {
+        return this.isLeapMonth(Year, Month) && Day === 29;
     }
-    IsLeapMonth(Year: number, Month: number): boolean { return this.IsLeapYear(Year) && Month === this.LeapMonth; }
-    IsLeapYear(Year: number): boolean {
+    isLeapMonth(Year: number, Month: number): boolean { return this.isLeapYear(Year) && Month === this.leapMonth; }
+    isLeapYear(Year: number): boolean {
         return WNmod(Year, 4) == ((Year > 0) ? 0 : 3)
     }
-    GetMonthsDays(mLeapYear: boolean) {
+    getMonthsDays(mLeapYear: boolean) {
         return [31, mLeapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 0];
     }
-    GetDaysFromBase(Year: number, Month: number, Day: number): number {
+    getDaysFromBase(Year: number, Month: number, Day: number): number {
         /* Adjust negative common era years to the zero-based notation we use.  */
 
         if (Year < 1) {
@@ -48,7 +51,7 @@
             Math.floor((30.6001 * (Month + 1))) +
             Day) - 1524.5);
     }
-    GetYearMontDayFromDays(jd: number): { Year: number, Month: number, Day: number } {
+    getYearMontDayFromDays(jd: number): { year: number, month: number, day: number } {
         let a, b, c, d, e, year, month, day;
 
         jd += 0.5;
@@ -70,6 +73,6 @@
             year--;
         }
 
-        return { Year: year, Month: month, Day: day };
+        return { year: year, month: month, day: day };
     }
 }

@@ -1,8 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+
+<html lang="fa">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+
     <title>@ViewData["Title"] - WidgetNas</title>
     <meta name="description" content="@ViewData["Description"]" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
@@ -30,7 +33,6 @@
                 <nav class="m-ie-auto">
                     <a class="nav-item" href="~/Start/Download">دریافت</a>
                     <a class="nav-item" href="~/Start/Samples">مثالها</a>
-                    @*<a class="nav-item" href="#">تم ها</a>*@
                 </nav>
                 <div class="gcse-search"></div>
             </div>
@@ -41,105 +43,108 @@
             <div class="navside light" id="sidenavbar1">
                 <ul class="tree tree-expand-item w-100" wn-type="tree">
                     <li>
-                        <div class="tree-item fw-bold">شروع کنیم</div>
+                        <div class="fw-bold">شروع کنیم</div>
                         <ul>
-                            <li><a class="tree-link" href='/Start/Introduction'>مقدمات</a></li>
-                            <li><a class="tree-link" href='/Start/Download'>دریافت</a></li>
-                            <li><a class="tree-link" href='/Start/Devices'>مرورگر و دستگاه ها</a></li>
-                            <li><a class="tree-link" href='/Start/JavaScript'>جاوا اسکریپت</a></li>
-                            <li><a class="tree-link" href='/Start/LtrRtl'>جهت های محتوا</a></li>
+                            <li><item><a href='/Start/Introduction'>مقدمات</a></item></li>
+                            <li><item><a href='/Start/Download'>دریافت</a></item></li>
+                            <li><item><a href='/Start/Devices'>مرورگر و دستگاه ها</a></item></li>
+                            <li><item><a href='/Start/LtrRtl'>جهت های محتوا</a></item></li>
+                            <li><item><a href='/Start/JavaScript'>راه اندازی جاوا اسکریپت</a></item></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="tree-item fw-bold">چیدمان</div>
+                        <div class="fw-bold">چیدمان</div>
                         <ul>
-                            <li><a class="tree-link" href='/Layout/Breakpoint'>نقاط شکست</a></li>
-                            <li><a class="tree-link" href='/Layout/Container'>نگهدارنده ها</a></li>
-                            <li><a class="tree-link" href='/Layout/Grid'>سیستم توری</a></li>
-                            <li><a class="tree-link" href='/Layout/Zindex'>اولویت های نمایشی</a></li>
+                            <li><item><a href='/Layout/Breakpoint'>نقاط شکست</a></item></li>
+                            <li><item><a href='/Layout/Container'>نگهدارنده ها</a></item></li>
+                            <li><item><a href='/Layout/Grid'>سیستم توری</a></item></li>
+                            <li><item><a href='/Layout/Zindex'>اولویت های نمایشی</a></item></li>
+                            <li><item><a href='/Layout/ViewSize'>اندازه صفحه نمایش</a></item></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="tree-item fw-bold">محتوا</div>
+                        <div class="fw-bold">محتوا</div>
                         <ul>
-                            <li><a class="tree-link" href='/Content/Normalization'>عادی سازی</a></li>
-                            <li><a class="tree-link" href='/Content/Theme'>دسته رنگها</a></li>
-                            <li><a class="tree-link" href='/Content/Typography'>فنون چاپ</a></li>
-                            <li><a class="tree-link" href='/Content/Size'>اندازه ها و فاصله ها</a></li>
-                            <li><a class="tree-link" href='/Content/Image'>تصاویر</a></li>
-                            <li><a class="tree-link" href='/Content/Table'>جداول</a></li>
-                            <li><a class="tree-link" href='/Content/Figure'>اشکال</a></li>
-                            <li><a class="tree-link" href='/Content/Animation'>انیمیشن</a></li>
-                            <li><a class="tree-link" href='/Content/PreEditor'>تبدیل کد به نویسه</a></li>
+                            <li><item><a href='/Content/Normalization'>عادی سازی</a></item></li>
+                            <li><item><a href='/Content/Theme'>دسته رنگها</a></item></li>
+                            <li><item><a href='/Content/Typography'>فنون چاپ</a></item></li>
+                            <li><item><a href='/Content/Size'>اندازه ها و فاصله ها</a></item></li>
+                            <li><item><a href='/Content/Image'>تصاویر</a></item></li>
+                            <li><item><a href='/Content/Table'>جداول</a></item></li>
+                            <li><item><a href='/Content/Figure'>اشکال</a></item></li>
+                            <li><item><a href='/Content/Animation'>انیمیشن</a></item></li>
+                            <li><item><a href='/Content/PreEditor'>تبدیل کد به نویسه</a></item></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="tree-item fw-bold">توابع</div>
+                        <div class="fw-bold">توابع</div>
                         <ul>
-                            <li><a class="tree-link" href='/Functions/JSVar'>جاوا اسکریپت خطی</a></li>
+                            <li><item><a href='/Functions/JSVar'>جاوا اسکریپت خطی</a></item></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="tree-item fw-bold">فرمها</div>
+                        <div class="fw-bold">فرمها</div>
                         <ul>
-                            <li><a class="tree-link" href='/Forms/controls'>کنترل ها</a></li>
-                            <li><a class="tree-link" href='/Forms/Select'>انتخاب ها</a></li>
-                            <li><a class="tree-link" href='/Forms/Checks'>انتخاب های چک و تیک</a></li>
-                            <li><a class="tree-link" href='/Forms/Range'>محدوده</a></li>
-                            <li><a class="tree-link" href='/Forms/Group'>ورودی های گروهی</a></li>
-                            <li><a class="tree-link" href='/Forms/Floating'>برچسبهای شناور</a></li>
-                            <li><a class="tree-link" href='/Forms/Layout'>چیدمان</a></li>
-                            <li><a class="tree-link" href='/Forms/Validation'>اعتبار سنجی</a></li>
+                            <li><item><a href='/Forms/controls'>کنترل ها</a></item></li>
+                            <li><item><a href='/Forms/Select'>انتخاب ها</a></item></li>
+                            <li><item><a href='/Forms/Checks'>انتخاب های چک و تیک</a></item></li>
+                            <li><item><a href='/Forms/Range'>محدوده</a></item></li>
+                            <li><item><a href='/Forms/Group'>ورودی های گروهی</a></item></li>
+                            <li><item><a href='/Forms/Floating'>برچسبهای شناور</a></item></li>
+                            <li><item><a href='/Forms/FloatingLine'>برچسبهای شناور خطی</a></item></li>
+                            <li><item><a href='/Forms/Layout'>چیدمان</a></item></li>
+                            <li><item><a href='/Forms/Validation'>اعتبار سنجی</a></item></li>
                         </ul>
                     </li>
                     <li class="w-100">
-                        <div class="tree-item fw-bold">عناصر</div>
+                        <div class="fw-bold">عناصر</div>
                         <ul class="w-100 p-ie-100r">
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Accordion'><span>آکاردئون</span><span>Accordion</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Alerts'><span>هشدارها</span><span>Alerts</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Badges'><span>نشان ها</span><span>Badge</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Breadcrumb'><span>تکه ها</span><span>Breadcrumb</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Buttons'><span>دکمه ها</span><span>Buttons</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/ButtonGroup'><span>دکمه های گروهی</span><span>Button group</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Cards'><span>کارتها</span><span>Card</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Carousel'><span>چرخنده های نمایشی</span><span>Carousel</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Slicker'><span>چرخنده نرم خطی</span><span>Slicker</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Collapse'><span>جمع شونده ها</span><span>Collapse</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Dropdowns'><span>کشویی ها</span><span>Dropdowns</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Indicators'><span>نشانگر</span><span>Indicators</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/PreLoader'><span>انتظار تا تکمیل بارگذاری</span><span>PreLoader</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/List'><span>لیست ها</span><span>List</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Modal'><span>مودال</span><span>Modal</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Confirm'><span>تاییده</span><span>Confirm</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Navs'><span>ناوگان و برگه ها</span><span>Navs & tabs</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Navbar'><span>نوار</span><span>Navbar</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Navside'><span>نوار کناری</span><span>Navside</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Offcanvas'><span>پرده مخفی</span><span>Offcanvas</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Pagination'><span>شماره صفحه</span><span>Pagination</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Toasts'><span>اعلان پنجره ای</span><span>Toasts</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Progress'><span>پیشرفت</span><span>Progress</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Tooltips'><span>نکته</span><span>Tooltips</span></a></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Accordion'><span>آکاردئون</span><span>Accordion</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Alerts'><span>هشدارها</span><span>Alerts</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Badges'><span>نشان ها</span><span>Badge</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Breadcrumb'><span>تکه ها</span><span>Breadcrumb</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Buttons'><span>دکمه ها</span><span>Buttons</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/ButtonGroup'><span>دکمه های گروهی</span><span>Button group</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Cards'><span>کارتها</span><span>Card</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Carousel'><span>چرخنده های نمایشی</span><span>Carousel</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Slicker'><span>چرخنده نرم خطی</span><span>Slicker</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Collapse'><span>جمع شونده ها</span><span>Collapse</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Dropdowns'><span>کشویی ها</span><span>Dropdowns</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Indicators'><span>نشانگر</span><span>Indicators</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/PreLoader'><span>انتظار تا تکمیل بارگذاری</span><span>PreLoader</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/List'><span>لیست ها</span><span>List</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Modal'><span>مودال</span><span>Modal</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Confirm'><span>تاییده</span><span>Confirm</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Navs'><span>ناوگان و برگه ها</span><span>Navs & tabs</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Navbar'><span>نوار</span><span>Navbar</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Navside'><span>نوار کناری</span><span>Navside</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Offcanvas'><span>پرده مخفی</span><span>Offcanvas</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Pagination'><span>شماره صفحه</span><span>Pagination</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Toasts'><span>اعلان پنجره ای</span><span>Toasts</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Progress'><span>پیشرفت</span><span>Progress</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Tooltips'><span>نکته</span><span>Tooltips</span></a></item></li>
                         </ul>
                     </li>
                     <li class="w-100">
-                        <div class="tree-item fw-bold">پیشرفته</div>
+                        <div class="fw-bold">پیشرفته</div>
                         <ul class="w-100 p-ie-100r">
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Tree'><span>درختواره</span><span>Tree</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/DateJS'><span>اسکریپت تاریخ</span><span>Date Script</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/DateShow'><span>نمایش تاریخ</span><span>Date Show</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Calendar'><span>تقویم</span><span>Calendar</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Time'><span>زمان</span><span>Time</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Editor'><span>ویرایشگر متن</span><span>Text Editor</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Counter'><span>شمارنده</span><span>Counter</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Scroll'><span>وضعیت اسکرول</span><span>Scroll</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Filter'><span>فیلتر</span><span>Filter</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Lightbox'><span>جعبه نمایش</span><span>Lightbox</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/FileList'><span>انتخاب فایل</span><span>File List</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/ListEx'><span>لیست پیشرفته</span><span>List</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/SearchList'><span>لیست قابل جستجو</span><span>Search List</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/MultiSelect'><span>انتخاب چندتایی</span><span>Multi Select</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Table'><span>جدول پیشرفته</span><span>Table</span></a></li>
-                            <li><a class="tree-link justify-content-between w-100" href='/Components/Captcha'><span>کپچا</span><span>Captcha</span></a></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Tree'><span>درختواره</span><span>Tree</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/DateJS'><span>اسکریپت تاریخ</span><span>Date Script</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/DateShow'><span>نمایش تاریخ</span><span>Date Show</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Calendar'><span>تقویم</span><span>Calendar</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Time'><span>زمان</span><span>Time</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Editor'><span>ویرایشگر متن</span><span>Text Editor</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Counter'><span>شمارنده</span><span>Counter</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Scroll'><span>وضعیت اسکرول</span><span>Scroll</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Filter'><span>فیلتر</span><span>Filter</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Lightbox'><span>جعبه نمایش</span><span>Lightbox</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/FileList'><span>انتخاب فایل</span><span>File List</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/ListEx'><span>لیست پیشرفته</span><span>List</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/SearchList'><span>لیست قابل جستجو</span><span>Search List</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/MultiSelect'><span>انتخاب چندتایی</span><span>Multi Select</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Table'><span>جدول پیشرفته</span><span>Table</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/Captcha'><span>کپچا</span><span>Captcha</span></a></item></li>
+                            <li><item class="w-100"><a class="d-flex justify-content-between w-100" href='/Components/TreeTable'><span>درختواره جدول</span><span>Tree Table</span></a></item></li>
 
                         </ul>
                     </li>

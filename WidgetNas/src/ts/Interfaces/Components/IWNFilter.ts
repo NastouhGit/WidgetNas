@@ -1,0 +1,2 @@
+﻿interface IWNFilter extends IWNComponent {
+}

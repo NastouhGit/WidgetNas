@@ -15,17 +15,22 @@
     Restful درخواست اطلاعات میکند. در انتهای سند، نمونه کد سرویس دهنده قرار داده خواهد شد که بایستی برای مدیریت بهتر، آنرا تکمیل کرد.
 </p>
 <p>
-    برای ایجاد لیست فایلها در سمت کلاینت یک div با خصوصیت <bidi>wn-type="filelist"</bidi> نیاز است. خصوصیات بیشتری نیز وجود دارد که به نحوه مدیریت آن کمک میکند.
+    برای ایجاد لیست فایلها در سمت کلاینت یک div با خصوصیت <bidi>wn-type="FileList"</bidi> نیاز است. خصوصیات بیشتری نیز وجود دارد که به نحوه مدیریت آن کمک میکند.
 </p>
-<p><b>mode</b>: نوع نمایش و میزان سطح دسترسی سمت کلاینت را مشخص میکند، مقدار full و select فایل تنظیم است. <br />
+<p>
+    <b>mode</b>: نوع نمایش و میزان سطح دسترسی سمت کلاینت را مشخص میکند، مقدار full و select فایل تنظیم است. <br />
     در مقدار select فقط انتخاب فایل و فهرست امکان پذیر است و لیکن با انتخاب گزینه full شما میتوانید مدیریت فهرستها و فایلها را داشته باشید.
-    </p>
+</p>
+<p>
+    <b>multiSelect</b>: اگر میخواهید امکان انتخاب چند فایل را داشته باشد، این خصوصیت را true کنید. برای مقدار دهی خطی از خصوصیت multi-select استفاده کنید.
+</p>
+
 <p><b>calendar</b>: نوع تقویم تاریخی را برای نمایش تاریخ مشخص میکند.</p>
 <p><b>cultureinfo</b>: نوع فرهنگ تقویم را برای نمایش تاریخ مشخص میکند.</p>
-<p><b>url</b>: این خصوصیت آدرس کنترلر را مشخص میکند. مقدار پیش فرض <bidi>api/FileList</bidi> است.</p>
+<p><b>url</b>: این خصوصیت آدرس کنترلر را مشخص میکند. توجه داشته باشید باید سمت سرور فقط با ساختار مشابه سرویس دهی انجام شود.</p>
 <h3>رخدادها</h3>
-<p><b>selectionchange</b>: اگر فهرست یا انتخاب فایلی تغییر کرد، این رخداد فراخوانی میشود.</p>
-<p><b>dblclickitem</b>: در صورتیکه روی یک نام فایل دوبار کلیک شود، این رخداد فراخوانی میشود. در نظر داشته باشید این رخداد با رخداد dblclick متفاوت است.</p>
+<p><b>selectionChanged</b>: اگر فهرست یا انتخاب فایلی تغییر کرد، این رخداد فراخوانی میشود. برای مقدار دهی خطی از خصوصیت onselectionchanged استفاده کنید. </p>
+<p><b>dblClick</b>: در صورتیکه روی یک نام فایل دوبار کلیک شود، این رخداد فراخوانی میشود. در نظر داشته باشید این رخداد با رخداد dblclick متفاوت است. برای مقدار دهی خطی از خصوصیت ondblclick استفاده کنید.</p>
 
 <div class="alert callout-start danger">
     توجه داشته باشید، در مثالهای زیر، به دلیل عدم مجوز تغییر نام یا ارسال فایل، این گزینه ها بسته است.
@@ -33,14 +38,12 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <div id="file1_ltr" wn-type="filelist" mode="full" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" url="api/FileList">
-
+        <div id="file1_ltr" wn-type="FileList" mode="full" multi-select="true" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US" url="/api/FileList">
         </div>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <div id="file1_rtl" wn-type="filelist" mode="full">
-
+        <div id="file1_rtl" wn-type="FileList" mode="full" url="/api/FileList">
         </div>
 
     </div>
@@ -53,19 +56,19 @@
     <div class="ltr" id="form2">
         <h3>LTR</h3>
         <div id="file2_out_ltr" class="bordered h-200r"></div>
-        <div id="file2_ltr" wn-type="filelist" mode="select" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" 
-             onselectionchange="WNE('file2_out_ltr').Element.innerHTML = this.GetSelectedFiles(); WNE('file2_out_ltr').Element.style.color = 'red';"
-             ondblclickitem="WNE('file2_out_ltr').Element.innerHTML = this.GetSelectedFiles(); WNE('file2_out_ltr').Element.style.color = 'blue';"
-             >
+        <div id="file2_ltr" wn-type="FileList" mode="select" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
+             onselectionchanged="WN('file2_out_ltr').element.innerHTML = this.selectedFiles; WN('file2_out_ltr').element.style.color = 'red';"
+             ondblclick="WN('file2_out_ltr').element.innerHTML = this.selectedFiles; WN('file2_out_ltr').element.style.color = 'blue';"
+             url="/api/FileList">
         </div>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <div id="file2_out_rtl" class="bordered h-200r"></div>
-        <div id="file2_rtl" wn-type="filelist" mode="select"
-             onselectionchange="WNE('file2_out_rtl').Element.innerHTML = this.GetSelectedFiles(); WNE('file2_out_rtl').Element.style.color = 'red';"
-             ondblclickitem="WNE('file2_out_rtl').Element.innerHTML = this.GetSelectedFiles(); WNE('file2_out_rtl').Element.style.color = 'blue';"
-             >
+        <div id="file2_rtl" wn-type="FileList" mode="select"
+             onselectionchanged="WN('file2_out_rtl').element.innerHTML = this.selectedFiles; WN('file2_out_rtl').element.style.color = 'red';"
+             ondblclick="WN('file2_out_rtl').element.innerHTML = this.selectedFiles; WN('file2_out_rtl').element.style.color = 'blue';"
+             url="/api/FileList">
         </div>
     </div>
 </div>
@@ -77,7 +80,7 @@
 <div class="example-div">
     <div class="ltr" id="form3">
         <h3>LTR</h3>
-        <button class="primary" onclick="WN['modal_ltr'].show()">Browse</button>
+        <button class="primary" onclick="WN('modal_ltr').wn.show()">Browse</button>
         <div id="file3_out_ltr" class="bordered h-200r m-bs-100r"></div>
         <div id="modal_ltr" class="modal" wn-type="modal">
             <div class="modal-dialog">
@@ -86,7 +89,7 @@
                     <button class="close" close-parent></button>
                 </div>
                 <div class="modal-body">
-                    <div id="file3_ltr" wn-type="filelist" mode="select" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US" ondblclickitem="Select('file3_ltr')">
+                    <div id="file3_ltr" wn-type="FileList" mode="select" style="height:50vh" ondblclick="Select('file3_ltr');" url="/api/FileList">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -95,427 +98,15 @@
                 </div>
             </div>
         </div>
-    <script>
-    function Select(id) {
-        WNE('file3_out_ltr').Element.innerHTML = WN[id].GetSelectedFiles();
-        WN['modal_ltr'].hide();
-    }
-    </script>
+        <script>
+            function Select(id) {
+                WN('file3_out_ltr').element.innerHTML = WN(id).wn.selectedFiles;
+                WN('modal_ltr').wn.hide();
+            }
+        </script>
     </div>
 </div>
 
 <figure><code data-on="form3"></code></figure>
 <h2>نمونه کنترلر Restful</h2>
-<figure><code data-on="_code">
- [RoutePrefix("api/filelist")]
-    public class FileListController : ApiController
-    {
-        private string BasePath = HttpContext.Current.Server.MapPath("~/TempFiles");
-
-        [Route("commands")]
-        [HttpPost]
-        public object Post(Dictionary<string, string> cmd)
-        {
-            try
-            {
-                if (cmd.ContainsKey("command"))
-                    if (cmd["command"].Equals("getfolders", StringComparison.OrdinalIgnoreCase))
-                        return GetFolders(cmd["path"]);
-                    else if (cmd["command"].Equals("getfiles", StringComparison.OrdinalIgnoreCase))
-                        return GetFiles(cmd["path"]);
-                    else if (cmd["command"].Equals("createfolder", StringComparison.OrdinalIgnoreCase))
-                        return CreateFolder(cmd["path"]);
-                    else if (cmd["command"].Equals("rename", StringComparison.OrdinalIgnoreCase))
-                        return Rename(cmd["source"], cmd["destination"]);
-                    else if (cmd["command"].Equals("delete", StringComparison.OrdinalIgnoreCase))
-                        return Delete(cmd["source"]);
-                    else if (cmd["command"].Equals("copy", StringComparison.OrdinalIgnoreCase))
-                        return CopyMove(cmd["source"], cmd["destination"], true);
-                    else if (cmd["command"].Equals("move", StringComparison.OrdinalIgnoreCase))
-                        return CopyMove(cmd["source"], cmd["destination"], false);
-                    else if (cmd["command"].Equals("compress", StringComparison.OrdinalIgnoreCase))
-                        return Compress(cmd["source"], cmd["destination"]);
-                    else if (cmd["command"].Equals("decompress", StringComparison.OrdinalIgnoreCase))
-                        return Decompress(cmd["source"]);
-
-            }
-            catch (Exception)
-            {
-            }
-            return null;
-        }
-
-        [Route("commands")]
-        [HttpPut]
-        public bool Put()
-        {
-            if (HttpContext.Current.Request.Files.Count > 0)
-            {
-                var destination = (HttpContext.Current.Request.Form["destination"] ?? "").Trim('\\');
-                return Upload(destination, HttpContext.Current.Request.Files);
-            }
-            return false;
-        }
-
-        [Route("commands")]
-        [HttpGet]
-        public void Get()
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            var cmd = HttpUtility.UrlDecode(HttpContext.Current.Request.Url.Query).Substring(1).Trim('"');
-
-            try
-            {
-
-                var data = Path.Combine(BasePath, cmd);
-                HttpContext.Current.Response.ContentType = "application/octet-stream";
-                HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + new FileInfo(data).Name);
-                HttpContext.Current.Response.WriteFile(data);
-                HttpContext.Current.Response.Flush();
-            }
-            catch (Exception)
-            {
-            }
-        }
-
-        private string[] GetFolders(string path)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            path = path.Trim('\\');
-            try
-            {
-                var d = Directory.GetDirectories(Path.Combine(BasePath, path ?? ""), "*.*", SearchOption.AllDirectories);
-                for (int i = 0; i < d.Length; i++)
-                    d[i] = d[i].Substring(BasePath.Length + 1);
-                return d.OrderBy(x => x).ToArray();
-
-            }
-            catch (Exception)
-            {
-            }
-            return null;
-        }
-        private object GetFiles(string path)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            try
-            {
-                path = path.Trim('\\');
-                var d = Directory.GetFiles(Path.Combine(BasePath, path ?? ""));
-                List<SendFileInfo> ret = new List<SendFileInfo>();
-                for (int i = 0; i < d.Length; i++)
-                {
-                    FileInfo f = new FileInfo(d[i]);
-                    ret.Add(new SendFileInfo()
-                    {
-                        filename = f.Name,
-                        ext = f.Extension,
-                        date = f.LastWriteTime.ToUniversalTime().ToString(),
-                        size = GetSize(f.Length)
-                    });
-                }
-                return ret;
-
-            }
-            catch (Exception)
-            {
-            }
-            return null;
-        }
-
-        private string GetSize(long length)
-        {
-            if (length <= 1024)
-                return length.ToString() + "B";
-            else if (length <= 1024 * 1024)
-                return (length / 1024).ToString() + "KB";
-            else if (length <= 1024 * 1024 * 1024)
-                return (length / 1024 / 1024 ).ToString() + "MB";
-            else if (length <= 1024L * 1024 * 1024 * 1024)
-                return (length / 1024 / 1024 / 1024 ).ToString() + "GB";
-            return length.ToString();
-        }
-
-        private class SendFileInfo
-        {
-            public string filename { get; set; }
-            public string ext { get; set; }
-            public string size { get; set; }
-            public string date { get; set; }
-        }
-
-        private bool CreateFolder(string path)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            path = Path.Combine(BasePath, path.Trim().Trim('\\').Trim());
-            if (Directory.Exists(path))
-                return false;
-            try
-            {
-                Directory.CreateDirectory(path);
-                return true;
-            }
-            catch (Exception)
-            {
-            }
-            return false;
-        }
-        private bool Rename(string source, string destination)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            source = source.Replace("\r", "");
-            destination = destination.Replace("\r", "");
-            var src = source.Split('\n');
-            var dst = destination.Split('\n');
-            bool HaveError = false;
-            for (int i = 0; i < src.Length; i++)
-            {
-                src[i] = Path.Combine(BasePath, src[i]);
-                dst[i] = Path.Combine(BasePath, dst[i]);
-                try
-                {
-                    if (Directory.Exists(src[i]))
-                    {
-                        Directory.Move(src[i], dst[i]);
-                    }
-                    else if (File.Exists(src[i]))
-                    {
-                        File.Move(src[i], dst[i]);
-                    }
-                }
-                catch (Exception)
-                {
-                    HaveError = true;
-                }
-            }
-            return !HaveError;
-        }
-        private bool CopyMove(string source, string destination, bool Copy)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            source = source.Replace("\r", "");
-            var src = source.Split('\n');
-            var dst = Path.Combine(BasePath, destination.Trim('\\'));
-            bool ret = true;
-            for (int i = 0; i < src.Length; i++)
-            {
-                src[i] = Path.Combine(BasePath, src[i]);
-                try
-                {
-                    if (Directory.Exists(src[i]))
-                    {
-                        var dir = new DirectoryInfo(src[i]);
-                        ret |= CopyMoveDirectory(src[i], Path.Combine(dst, dir.Name), Copy);
-                        if (!Copy)
-                        {
-                            if (Directory.GetFiles(dir.FullName).Length == 0 && Directory.GetDirectories(dir.FullName).Length == 0)
-                                Directory.Delete(dir.FullName);
-                        }
-                    }
-                    else if (File.Exists(src[i]))
-                    {
-                        var f = new FileInfo(src[i]);
-                        if (Copy)
-                            File.Copy(src[i], Path.Combine(dst, f.Name), true);
-                        else
-                            File.Move(src[i], Path.Combine(dst, f.Name));
-                    }
-                }
-                catch (Exception)
-                {
-                    ret = false;
-                }
-            }
-            return ret;
-        }
-        private bool CopyMoveDirectory(string sourceDir, string destinationDir, bool Copy)
-        {
-            var dir = new DirectoryInfo(sourceDir);
-
-            if (!dir.Exists)
-                return false;
-
-            try
-            {
-                DirectoryInfo[] dirs = dir.GetDirectories();
-
-                Directory.CreateDirectory(destinationDir);
-
-                foreach (FileInfo file in dir.GetFiles())
-                {
-                    string targetFilePath = Path.Combine(destinationDir, file.Name);
-                    if (Copy)
-                        file.CopyTo(targetFilePath, true);
-                    else
-                    {
-                        if (File.Exists(targetFilePath)) File.Delete(targetFilePath);
-                        file.MoveTo(targetFilePath);
-                    }
-                }
-
-                foreach (DirectoryInfo subDir in dirs)
-                {
-                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
-                    if (!CopyMoveDirectory(subDir.FullName, newDestinationDir, Copy))
-                        return false;
-                    if (!Copy)
-                    {
-                        if (Directory.GetFiles(subDir.FullName).Length == 0 && Directory.GetDirectories(subDir.FullName).Length == 0)
-                            Directory.Delete(subDir.FullName);
-                    }
-                }
-
-
-
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
-        }
-        private bool Delete(string source)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            source = source.Replace("\r", "");
-            var src = source.Split('\n');
-            bool HaveError = false;
-            for (int i = 0; i < src.Length; i++)
-            {
-                src[i] = Path.Combine(BasePath, src[i]);
-                try
-                {
-                    if (Directory.Exists(src[i]))
-                    {
-                        Directory.Delete(src[i], true);
-                    }
-                    else if (File.Exists(src[i]))
-                    {
-                        File.Delete(src[i]);
-                    }
-                }
-                catch (Exception)
-                {
-                    HaveError = true;
-                }
-            }
-            return !HaveError;
-        }
-        private bool Upload(string Destination, HttpFileCollection Files)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            var path = Path.Combine(BasePath, Destination);
-            bool ret = true;
-            for (int i = 0; i < Files.Count; i++)
-            {
-                try
-                {
-                    var file = Files[i];
-                    file.SaveAs(Path.Combine(path, file.FileName));
-                }
-                catch (Exception)
-                {
-                    ret = false;
-                }
-            }
-            return ret;
-        }
-        private bool Compress(string source, string destination)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            try
-            {
-                if (!destination.ToLower().EndsWith(".zip"))
-                    destination += ".zip";
-                destination = Path.Combine(BasePath, destination);
-                if (File.Exists(destination))
-                    File.Delete(destination);
-
-                source = source.Replace("\r", "");
-                var src = source.Split('\n');
-
-                using (FileStream zipToOpen = new FileStream(destination, FileMode.OpenOrCreate))
-                {
-                    using (ZipArchive archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update))
-                    {
-                        for (int i = 0; i < src.Length; i++)
-                        {
-                            src[i] = Path.Combine(BasePath, src[i]);
-                            FileInfo fileToCompress = new FileInfo(src[i]);
-
-                            ZipArchiveEntry readmeEntry = archive.CreateEntry(fileToCompress.Name);
-
-                            using (var s = fileToCompress.OpenRead())
-                            using (var o = readmeEntry.Open())
-                            {
-                                s.CopyTo(o);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        private bool Decompress(string source)
-        {
-            //--------------------------
-            //Check User Access Control
-            //--------------------------
-
-            try
-            {
-                source = source.Replace("\r", "");
-                var src = source.Split('\n');
-
-                for (int i = 0; i < src.Length; i++)
-                {
-                    src[i] = Path.Combine(BasePath, src[i]);
-                    if (File.Exists(src[i]))
-                    {
-                        string destination = new FileInfo(src[i]).DirectoryName;
-                        using (ZipArchive archive = ZipFile.Open(src[i], ZipArchiveMode.Update))
-                            archive.ExtractToDirectory(destination);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
-    }    
-</code></figure>
+<p>برای مشاهده نمونه کنترلر به زبان <bidi>C#</bidi> به فایل مندرج در <bidi>Pages\Component\FileListController.cs</bidi> مراجعه کنید. </p>

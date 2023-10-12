@@ -17,6 +17,7 @@
             overflow-anchor: none;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;
             text-align: start;
+            margin-inline: 0;
 
             &.collapsed {
                 border-bottom-width: 0;
@@ -69,9 +70,7 @@
             border: solid var(--normal-border);
             border-width: 0 var(--border-width);
             font-size: var(--font-size);
-            margin-inline-start: var(--margin-inline);
-            margin-inline-end: calc(-1 * var(--margin-inline));
-            margin-block-end: calc(-1 * var(--margin-block));
+            margin-inline: 0;
         }
 
         &:last-of-type .accordion-body {
@@ -84,6 +83,7 @@
             .accordion-header {
                 border: none;
                 border-block-end: var(--border-width) solid var(--normal-border);
+                margin-block: var(--margin-block);
             }
 
             &:first-of-type .accordion-header {
@@ -130,4 +130,6 @@
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both;
     }
+
+   
 }

@@ -5,10 +5,14 @@
 @import "border";
 @import "container";
 
+:root {
+    --view-width: 100vw;
+}
 
 .d-inline-block {
-    display:inline-block !important;
+    display: inline-block !important;
 }
+
 .d-block {
     display: block !important;
 }
@@ -16,8 +20,9 @@
 .d-inline {
     display: inline !important;
 }
+
 .d-none-i {
-    display:none !important;
+    display: none !important;
 }
 
 .visually-hidden,
@@ -52,20 +57,67 @@
 .shadow-none {
     box-shadow: none !important;
 }
-.overflow-auto {overflow:auto !important; }
-.overflow-hidden {overflow: hidden !important;}
-.overflow-scroll {overflow: scroll !important;}
-.overflow-visible {overflow: visible !important;}
-.overflow-x-auto {overflow-x:auto !important;}
-.overflow-x-hidden {overflow-x: hidden !important;}
-.overflow-x-scroll {overflow-x: scroll !important;}
-.overflow-x-visible {overflow-x: visible !important;}
-.overflow-y-auto {overflow-y:auto !important;}
-.overflow-y-hidden {overflow-y: hidden !important;}
-.overflow-y-scroll {overflow-y: scroll !important;}
-.overflow-y-visible {overflow-y: visible !important;}
 
-.userselect-none { user-select: none !important;}
-.userselect-all { user-select: all !important;}
-.userselect-contain { user-select: contain !important;}
-.userselect-text { user-select: text !important;}
+.overflow-auto {
+    overflow: auto !important;
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+.overflow-scroll {
+    overflow: scroll !important;
+}
+
+.overflow-visible {
+    overflow: visible !important;
+}
+
+.overflow-x-auto {
+    overflow-x: auto !important;
+}
+
+.overflow-x-hidden {
+    overflow-x: hidden !important;
+}
+
+.overflow-x-scroll {
+    overflow-x: scroll !important;
+}
+
+.overflow-x-visible {
+    overflow-x: visible !important;
+}
+
+.overflow-y-auto {
+    overflow-y: auto !important;
+}
+
+.overflow-y-hidden {
+    overflow-y: hidden !important;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll !important;
+}
+
+.overflow-y-visible {
+    overflow-y: visible !important;
+}
+
+.userselect-none {
+    user-select: none !important;
+}
+
+.userselect-all {
+    user-select: all !important;
+}
+
+.userselect-contain {
+    user-select: contain !important;
+}
+
+.userselect-text {
+    user-select: text !important;
+}

@@ -70,8 +70,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.4" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.0.2">
+    <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.9" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -80,6 +81,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\lib\WidgetNas\css\" />
+    <Folder Include="wwwroot\lib\WidgetNas\js\" />
     <Folder Include="wwwroot\TempFiles\Image\Company\Year 2020\" />
     <Folder Include="wwwroot\TempFiles\Image\Company\Year 2021\" />
     <Folder Include="wwwroot\TempFiles\Image\Company\Year 2022\" />

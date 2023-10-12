@@ -12,7 +12,7 @@
 
 <div class="preloader hide" id="preloader">
     <div class="loader">
-        <button class="primary" onclick="ShowPreLoader(false)">مخفی 1 بار</button>
+        <button class="primary" onclick="wnShowPreLoader(false)">مخفی 1 بار</button>
         <div class="spinner">
             <div class="p-be-50r">
                 <div class="indicator indicator-effect-grow red-800-cb-i s-xs"></div>
@@ -32,26 +32,26 @@
 <h2>توابع</h2>
 <p>برای آنکه بتوانید به صورت خودکار صفحه انتظار برای بارگذاری را فعال و یا محو کنید، میتوانید از توابع و متغییرهای زیر استفاده کنید.</p>
 <p>
-    <h3>PreLoaderDelayStart</h3> اگر بعد از این مقدار میلی ثانیه، تابع مخفی کردن صدا زده نشد، صحه نمایش داده شود. این برای جلوگیری از نمایش و مخفی کردن مداوم صفحه است. که ممکن است برای کاربر آزار دهنده باشد. مقدار پیش فرض 500 میلی ثانیه است.
+    <h3>WNPreLoaderDelayStart</h3> اگر بعد از این مقدار میلی ثانیه، تابع مخفی کردن صدا زده شود، صفحه انتظار نمایش داده نمیشود. این برای جلوگیری از نمایش و مخفی کردن مداوم صفحه است. که ممکن است برای کاربر آزار دهنده باشد. مقدار پیش فرض 500 میلی ثانیه است.
 </p>
 <p>
-    <h3>PreLoaderTimeout</h3>اگر به هر دلیلی، صفحه مخفی نشد، بعد از این مقدار میلی ثانیه، صفحه را میبندد. مقدار پیش فرض 30000 میلی ثانیه یا 30 ثانیه است.
+    <h3>WNPreLoaderTimeout</h3>اگر به هر دلیلی، صفحه مخفی نشد، بعد از این مقدار میلی ثانیه، صفحه را میبندد. مقدار پیش فرض 30000 میلی ثانیه یا 30 ثانیه است.
 </p>
 <p>
-    <h3>PreLoderId</h3>id صفحه نمایش انتظار است. مقدار پیش فرض preloader میباشد.
+    <h3>WNPreLoderId</h3>id صفحه نمایش انتظار است. مقدار پیش فرض preloader میباشد.
 </p>
 <p>
-    <h3>ShowPreLoader</h3>با فرخوانی این تابع میتوانید مشخص کنید صفحه نمایش داده شود یا خیر.<br />
-    <h4>ShowPreLoader(true)</h4>
+    <h3>wnShowPreLoader</h3>با فرخوانی این تابع میتوانید مشخص کنید صفحه نمایش داده شود یا خیر.<br />
+    <h4>wnShowPreLoader(true)</h4>
     برای نمایش صفحه استفاده میشود، این تابع به صورت خودکار بدنبال id با مقداری preloader میگردد و اگر پیدا کرد، آنرا نمایش میدهد.<br />
-    <h4>ShowPreLoader(false)</h4>برای مخفی کردن صفحه استفاده میشود، این تابع به صورت خودکار بدنبال id با مقداری preloader میگردد و اگر پیدا کرد، آنرا مخفی میدهد.<br /><br />
-    <h4>ShowPreLoader(false,'preloader')</h4>اگر مقدار پیش فرض id صفحه انتظار غیر از preloader بود، بایستی id آنرا مشخص کنید.<br />
-    <h4>ShowPreLoader(false,'preloader')</h4>اگر مقدار پیش فرض id صفحه انتظار غیر از preloader بود، بایستی id آنرا مشخص کنید.<br />
-    <h4>ShowPreLoader(false,'preloader',500)</h4>مقدار متفاوتی برای PreLoaderDelayStart استفاده کنید.<br />
-    <h4>ShowPreLoader(false,'preloader',500,30000)</h4>مقدار متفاوتی برای PreLoaderTimeout استفاده کنید.<br />
+    <h4>wnShowPreLoader(false)</h4>برای مخفی کردن صفحه استفاده میشود، این تابع به صورت خودکار بدنبال id با مقداری preloader میگردد و اگر پیدا کرد، آنرا مخفی میدهد.<br /><br />
+    <h4>wnShowPreLoader(false,'preloader')</h4>اگر مقدار پیش فرض id صفحه انتظار غیر از preloader بود، بایستی id آنرا مشخص کنید.<br />
+    <h4>wnShowPreLoader(false,'preloader')</h4>اگر مقدار پیش فرض id صفحه انتظار غیر از preloader بود، بایستی id آنرا مشخص کنید.<br />
+    <h4>wnShowPreLoader(false,'preloader',500)</h4>مقدار متفاوتی برای WNPreLoaderDelayStart استفاده کنید.<br />
+    <h4>wnShowPreLoader(false,'preloader',500,30000)</h4>مقدار متفاوتی برای WNPreLoaderTimeout استفاده کنید.<br />
 </p>
 <div class="example-div" id="sample1">
-    <button class="primary" onclick="ShowPreLoader(true)">نمایش 1 بار</button>
-    <button class="primary" onclick="ShowPreLoader(true);ShowPreLoader(true);ShowPreLoader(true);">نمایش 3 بار</button>
+    <button class="primary" onclick="wnShowPreLoader(true)">نمایش 1 بار</button>
+    <button class="primary" onclick="wnShowPreLoader(true);wnShowPreLoader(true);wnShowPreLoader(true);">نمایش 3 بار</button>
 </div>
 <figure><code data-on="sample1"></code></figure>

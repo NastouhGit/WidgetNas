@@ -117,7 +117,7 @@ $l-height: ('lh':'line-height');
 @include size($l-height,'r','rem',0.01,$size-values-em);
 @include size($l-height,'e','em',0.01,$size-values-em);
 
-@include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'','',0,(0),false);
+@include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'','px',0,(0),false);
 @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'x','px',1,$size-values-5-100,false);
 @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'r','rem',0.01,$size-values-em,false);
 @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'e','em',0.01,$size-values-em,false);

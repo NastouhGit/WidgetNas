@@ -24,6 +24,7 @@ input[type=radio] {
     }
 
     & + label {
+        position:relative;
         padding-block: var(--padding-block);
         color: var(--normal-childcolor);
         user-select: none;

@@ -22,10 +22,22 @@
         .address {
             margin-block: 0;
             padding-inline-start: 0.2em;
+            width: auto;
+            line-height: 1em;
+
+            li {
+                padding-inline-start: 0;
+                padding-inline-end: 0;
+
+                &:after {
+                    padding-inline-start:0;
+                }
+            }
         }
 
         .toolbar {
             border-inline-end: var(--border-width) solid var(--normal-border);
+            width: auto;
 
             .button-group {
                 margin-inline-end: 0.5em !important;

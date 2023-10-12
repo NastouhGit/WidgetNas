@@ -1,34 +1,45 @@
-﻿var PreLoaderDelayStart= 500;
-var PreLoaderTimeout= 30000;
-var PreLoderId= 'preloader';
-var _PreLoaderWaitCount= 0;
-var _PreLoaderTimeoutTimer: any;
-function ShowPreLoader(show: boolean, _PreLoderId = PreLoderId, _PreLoaderDelayStart = PreLoaderDelayStart, _PreLoaderTimeout = PreLoaderTimeout) {
+﻿var WNPreLoaderDelayStart = 500;
+var WNPreLoaderTimeout = 30000;
+var WNPreLoderId = 'preloader';
+var _PreLoaderWaitCount = 0;
+var _WNPreLoaderTimeoutTimer: any;
+function wnStopPreLoaderTimeout() {
+    if (_WNPreLoaderTimeoutTimer != 0) {
+        clearTimeout(_WNPreLoaderTimeoutTimer);
+        _WNPreLoaderTimeoutTimer = 0;
+    }
+}
+
+function wnShowPreLoaderTimeout(show: boolean, _WNPreLoaderTimeout: number = WNPreLoaderTimeout, _WNPreLoaderDelayStart: number = 0, _WNPreLoderId: string = WNPreLoderId) {
+    wnShowPreLoader(show, _WNPreLoderId, _WNPreLoaderDelayStart, _WNPreLoaderTimeout);
+}
+function showPreLoaderDelay(show: boolean, _WNPreLoaderDelayStart: number = 0, _WNPreLoaderTimeout: number = WNPreLoaderTimeout, _WNPreLoderId: string = WNPreLoderId) {
+    wnShowPreLoader(show, _WNPreLoderId, _WNPreLoaderDelayStart, _WNPreLoaderTimeout);
+}
+function wnShowPreLoader(show: boolean, _WNPreLoderId: string = WNPreLoderId, _WNPreLoaderDelayStart: number = WNPreLoaderDelayStart, _WNPreLoaderTimeout: number = WNPreLoaderTimeout) {
     if (show) {
         _PreLoaderWaitCount++;
         setTimeout(() => {
             if (_PreLoaderWaitCount > 0) {
-                document.getElementById(_PreLoderId)?.classList.remove('hide');
+                document.getElementById(_WNPreLoderId)?.classList.remove('hide');
             }
-        }, _PreLoaderDelayStart);
-        if (_PreLoaderTimeoutTimer != 0) {
-            clearTimeout(_PreLoaderTimeoutTimer);
-            _PreLoaderTimeoutTimer = 0;
+        }, _WNPreLoaderDelayStart);
+
+        wnStopPreLoaderTimeout();
+
+        if (_WNPreLoaderTimeout != 0) {
+            _WNPreLoaderTimeoutTimer = setTimeout(() => {
+                _PreLoaderWaitCount = 0;
+                wnShowPreLoader(false, _WNPreLoderId, _WNPreLoaderDelayStart = WNPreLoaderDelayStart)
+            }, _WNPreLoaderTimeout)
         }
-        _PreLoaderTimeoutTimer = setTimeout(() => {
-            _PreLoaderWaitCount = 0;
-            ShowPreLoader(false, _PreLoderId , _PreLoaderDelayStart = PreLoaderDelayStart)
-        }, _PreLoaderTimeout)
     }
     else {
         _PreLoaderWaitCount--;
         if (_PreLoaderWaitCount <= 0) {
-            document.getElementById(_PreLoderId)?.classList.add('hide');
+            document.getElementById(_WNPreLoderId)?.classList.add('hide');
             _PreLoaderWaitCount = 0;
-            if (_PreLoaderTimeoutTimer != 0) {
-                clearTimeout(_PreLoaderTimeoutTimer);
-                _PreLoaderTimeoutTimer = 0;
-            }
+            wnStopPreLoaderTimeout();
         }
     }
 }

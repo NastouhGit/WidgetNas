@@ -1,10 +1,17 @@
-﻿$lightcolor: #ffffff;
+﻿@import "_defaultvariable.scss";
+
+$lightcolor: #ffffff;
 $darkcolor: #000000;
 
 
 @mixin color-att($att,$value) {
-    --#{$att}: #{$value};
+    #{$att}: #{$value};
 }
+@mixin themecolorback($theme,$color,$value) {
+        #{$theme}-color: #{$color};
+        #{$theme}-back: #{$value};
+}
+
 @function ImageUrl($source, $color) {
     $source: str-replace($source,'currentColor',str-replace(#{$color},'#','%23'));
     @return url($source);
@@ -13,9 +20,10 @@ $darkcolor: #000000;
     $color: $darkcolor;
     $darken: 3;
     $border-scale: 4;
-    $second-scale: 1.1;
+    $second-scale: -2;
     $select-scale: 2;
     $active-scale: 3;
+    $active-hover-scale: 7;
     $icon-scale: 5;
     $focus-scale: 1.5;
     $hover-scale: 4;
@@ -30,98 +38,106 @@ $darkcolor: #000000;
         @else {
             $darken: -1 * $darken;
         }
-        --checkbox-image:var(--#{$theme}-checkbox-image);
-        --indeterminate-image:var(--#{$theme}-indeterminate-image);
-        --radio-image:var(--#{$theme}-radio-image);
-        --arrow-down-image:var(--#{$theme}-arrow-down-image);
-        --arrow-up-image:var(--#{$theme}-arrow-up-image);
-        --arrow-left-image:var(--#{$theme}-arrow-left-image);
-        --arrow-right-image:var(--#{$theme}-arrow-right-image);
-        --bar-image:var(--#{$theme}-bar-image);
-        --plus-image:var(--#{$theme}-plus-image);
-        --minus-image:var(--#{$theme}-minus-image);
-        --double-down-image:var(--#{$theme}-double-down-image);
-        --double-up-image:var(--#{$theme}-double-up-image);
-        --double-left-image:var(--#{$theme}-double-left-image);
-        --double-right-image:var(--#{$theme}-double-right-image);
+
+        --checkbox-image: var(--#{$theme}-checkbox-image);
+        --indeterminate-image: var(--#{$theme}-indeterminate-image);
+        --radio-image: var(--#{$theme}-radio-image);
+        --arrow-down-image: var(--#{$theme}-arrow-down-image);
+        --arrow-up-image: var(--#{$theme}-arrow-up-image);
+        --arrow-left-image: var(--#{$theme}-arrow-left-image);
+        --arrow-right-image: var(--#{$theme}-arrow-right-image);
+        --bar-image: var(--#{$theme}-bar-image);
+        --plus-image: var(--#{$theme}-plus-image);
+        --minus-image: var(--#{$theme}-minus-image);
+        --double-down-image: var(--#{$theme}-double-down-image);
+        --double-up-image: var(--#{$theme}-double-up-image);
+        --double-left-image: var(--#{$theme}-double-left-image);
+        --double-right-image: var(--#{$theme}-double-right-image);
 
 
-        @include color-att('normal-text',$value);
-        @include color-att('normal-color',$color);
-        @include color-att('normal-back',$value);
-        @include color-att('normal-border',adjust-color($value,$lightness:$darken*$border-scale));
-        @include color-att('normal-shadow',adjust-color($value,$alpha:-0.75));
-        @include color-att('normal-childcolor',$childcolor);
-        @include color-att('second-color',$color);
-        @include color-att('second-back',adjust-color($value,$lightness:$darken*$second-scale));
-        @include color-att('second-border',adjust-color($value,$lightness:$darken*($second-scale+$border-scale)));
-        @include color-att('second-shadow',adjust-color(adjust-color($value,$lightness:$darken*$second-scale),$alpha:-0.75));
-        @include color-att('second-childcolor',$childcolor);
-        @include color-att('select-color',$color);
-        @include color-att('select-back',adjust-color($value,$lightness:$darken*$select-scale));
-        @include color-att('select-border',adjust-color($value,$lightness:$darken*($select-scale+$border-scale)));
-        @include color-att('select-shadow',adjust-color($value,$lightness:$darken*$select-scale,$alpha:-0.75));
-        @include color-att('select-childcolor',$childcolor);
-        @include color-att('active-color',$color);
-        @include color-att('active-back',adjust-color($value,$lightness:$darken*$active-scale));
-        @include color-att('active-border',adjust-color($value,$lightness:$darken*($active-scale+$border-scale)));
-        @include color-att('active-shadow',adjust-color($value,$lightness:$darken*$active-scale,$alpha:-0.75));
-        @include color-att('active-childcolor',$childcolor);
-        @include color-att('focus-color',$color);
-        @include color-att('focus-back',adjust-color($value,$lightness:$darken*$focus-scale));
-        @include color-att('focus-border',adjust-color($value,$lightness:$darken*($focus-scale+$border-scale)));
-        @include color-att('focus-shadow',adjust-color($value,$lightness:$darken*$focus-scale,$alpha:-0.75));
-        @include color-att('focus-childcolor',$childcolor);
-        @include color-att('hover-color',$color);
-        @include color-att('hover-back',adjust-color($value,$lightness:$darken*$hover-scale));
-        @include color-att('hover-border',adjust-color($value,$lightness:$darken*($hover-scale+$border-scale)));
-        @include color-att('hover-shadow',adjust-color($value,$lightness:$darken*$hover-scale,$alpha:-0.75));
-        @include color-att('hover-childcolor',$childcolor);
-        @include color-att('disable-color',adjust-color($value, $saturation: -20%,$lightness:-30%));
-        @include color-att('disable-back',adjust-color($value, $saturation: -20%,$lightness:20%));
-        @include color-att('disable-border',adjust-color($value, $saturation: -20%,$lightness:$darken*$border-scale));
-        @include color-att('disable-shadow',adjust-color($value,$alpha:-0.75,$lightness:$darken));
-        @include color-att('disable-childcolor',$childcolor);
-        @include color-att('readonly-color',$color);
-        @include color-att('readonly-back',adjust-color($value, $saturation: -30%));
-        @include color-att('readonly-border',transparent);
-        @include color-att('readonly-shadow',transparent);
-        @include color-att('readonly-childcolor',$childcolor);
+        @include color-att('--normal-text',$value);
+        @include color-att('--normal-color',$color);
+        @include color-att('--normal-back',$value);
+        @include color-att('--normal-border',adjust-color($value,$lightness:$darken*$border-scale));
+        @include color-att('--normal-shadow',adjust-color($value,$alpha:-0.75));
+        @include color-att('--normal-childcolor',$childcolor);
+        @include color-att('--second-color',$color);
+        @include color-att('--second-back',adjust-color($value,$lightness:$darken*$second-scale));
+        @include color-att('--second-border',adjust-color($value,$lightness:$darken*($second-scale+$border-scale)));
+        @include color-att('--second-shadow',adjust-color(adjust-color($value,$lightness:$darken*$second-scale),$alpha:-0.75));
+        @include color-att('--second-childcolor',$childcolor);
+        @include color-att('--select-color',$color);
+        @include color-att('--select-back',adjust-color($value,$lightness:$darken*$select-scale));
+        @include color-att('--select-border',adjust-color($value,$lightness:$darken*($select-scale+$border-scale)));
+        @include color-att('--select-shadow',adjust-color($value,$lightness:$darken*$select-scale,$alpha:-0.75));
+        @include color-att('--select-childcolor',$childcolor);
+        @include color-att('--active-color',$color);
+        @include color-att('--active-back',adjust-color($value,$lightness:$darken*$active-hover-scale));
+        @include color-att('--active-border',adjust-color($value,$lightness:$darken*($active-hover-scale+$border-scale)));
+        @include color-att('--active-shadow',adjust-color($value,$lightness:$darken*$active-hover-scale,$alpha:-0.75));
+        @include color-att('--active-childcolor',$childcolor);
+        @include color-att('--activehover-color',$color);
+        @include color-att('--activehover-back',adjust-color($value,$lightness:$darken*$active-hover-scale));
+        @include color-att('--activehover-border',adjust-color($value,$lightness:$darken*($active-hover-scale+$border-scale)));
+        @include color-att('--activehover-shadow',adjust-color($value,$lightness:$darken*$active-hover-scale,$alpha:-0.75));
+        @include color-att('--activehover-childcolor',$childcolor);
+        @include color-att('--focus-color',$color);
+        @include color-att('--focus-back',adjust-color($value,$lightness:$darken*$focus-scale));
+        @include color-att('--focus-border',adjust-color($value,$lightness:$darken*($focus-scale+$border-scale)));
+        @include color-att('--focus-shadow',adjust-color($value,$lightness:$darken*$focus-scale,$alpha:-0.75));
+        @include color-att('--focus-childcolor',$childcolor);
+        @include color-att('--hover-color',$color);
+        @include color-att('--hover-back',adjust-color($value,$lightness:$darken*$hover-scale));
+        @include color-att('--hover-border',adjust-color($value,$lightness:$darken*($hover-scale+$border-scale)));
+        @include color-att('--hover-shadow',adjust-color($value,$lightness:$darken*$hover-scale,$alpha:-0.75));
+        @include color-att('--hover-childcolor',$childcolor);
+        @include color-att('--disable-color',adjust-color($value, $saturation: -20%,$lightness:-30%));
+        @include color-att('--disable-back',adjust-color($value, $saturation: -20%,$lightness:20%));
+        @include color-att('--disable-border',adjust-color($value, $saturation: -20%,$lightness:$darken*$border-scale));
+        @include color-att('--disable-shadow',adjust-color($value,$alpha:-0.75,$lightness:$darken));
+        @include color-att('--disable-childcolor',$childcolor);
+        @include color-att('--readonly-color',$color);
+        @include color-att('--readonly-back',adjust-color($value, $saturation: -30%));
+        @include color-att('--readonly-border',transparent);
+        @include color-att('--readonly-shadow',transparent);
+        @include color-att('--readonly-childcolor',$childcolor);
     }
 
 
         .#{$theme}.outline {
-            --checkbox-image:var(--#{$theme}-outline-checkbox-image);
-            --indeterminate-image:var(--#{$theme}-outline-indeterminate-image);
-            --radio-image:var(--#{$theme}-outline-radio-image);
-            --arrow-down-image:var(--#{$theme}-outline-arrow-down-image);
-            --arrow-up-image:var(--#{$theme}-outline-arrow-up-image);
-            --arrow-left-image:var(--#{$theme}-outline-arrow-left-image);
-            --arrow-right-image:var(--#{$theme}-outline-arrow-right-image);
-            --bar-image:var(--#{$theme}-outline-bar-image);
-            --plus-image:var(--#{$theme}-outline-plus-image);
-            --minus-image:var(--#{$theme}-outline-minus-image);
-            --double-down-image:var(--#{$theme}-outline-double-down-image);
-            --double-up-image:var(--#{$theme}-outline-double-up-image);
-            --double-left-image:var(--#{$theme}-outline-double-left-image);
-            --double-right-image:var(--#{$theme}-outline-double-right-image);
+            --checkbox-image: var(--#{$theme}-outline-checkbox-image);
+            --indeterminate-image: var(--#{$theme}-outline-indeterminate-image);
+            --radio-image: var(--#{$theme}-outline-radio-image);
+            --arrow-down-image: var(--#{$theme}-outline-arrow-down-image);
+            --arrow-up-image: var(--#{$theme}-outline-arrow-up-image);
+            --arrow-left-image: var(--#{$theme}-outline-arrow-left-image);
+            --arrow-right-image: var(--#{$theme}-outline-arrow-right-image);
+            --bar-image: var(--#{$theme}-outline-bar-image);
+            --plus-image: var(--#{$theme}-outline-plus-image);
+            --minus-image: var(--#{$theme}-outline-minus-image);
+            --double-down-image: var(--#{$theme}-outline-double-down-image);
+            --double-up-image: var(--#{$theme}-outline-double-up-image);
+            --double-left-image: var(--#{$theme}-outline-double-left-image);
+            --double-right-image: var(--#{$theme}-outline-double-right-image);
 
-            @include color-att('normal-color',$value);
-            @include color-att('normal-back',transparent);
-            @include color-att('second-color',adjust-color($value,$lightness:$darken*$second-scale));
-            @include color-att('second-back',transparent);
-            @include color-att('select-color',adjust-color($value,$lightness:$darken*$select-scale));
-            @include color-att('select-back',transparent);
-            @include color-att('active-color',$color);
-            @include color-att('active-back',adjust-color($value,$lightness:$darken*$active-scale));
-            @include color-att('focus-color',adjust-color($value,$lightness:$darken*$focus-scale));
-            @include color-att('focus-back',transparent);
-            @include color-att('hover-color',$color);
-            @include color-att('hover-back',adjust-color($value,$lightness:$darken*$hover-scale));
-            @include color-att('disable-color',adjust-color($value, $saturation: -20%,$lightness:20%));
-            @include color-att('disable-back',transparent);
-            @include color-att('readonly-color',adjust-color($value, $saturation: -30%));
-            @include color-att('readonly-back',transparent);
+            @include color-att('--normal-color',$value);
+            @include color-att('--normal-back',transparent);
+            @include color-att('--second-color',adjust-color($value,$lightness:$darken*$second-scale));
+            @include color-att('--second-back',transparent);
+            @include color-att('--select-color',adjust-color($value,$lightness:$darken*$select-scale));
+            @include color-att('--select-back',transparent);
+            @include color-att('--active-color',$color);
+            @include color-att('--active-back',adjust-color($value,$lightness:$darken*$active-scale));
+            @include color-att('--activehover-color',$color);
+            @include color-att('--activehover-back',adjust-color($value,$lightness:$darken*$active-hover-scale));
+            @include color-att('--focus-color',adjust-color($value,$lightness:$darken*$focus-scale));
+            @include color-att('--focus-back',transparent);
+            @include color-att('--hover-color',$color);
+            @include color-att('--hover-back',adjust-color($value,$lightness:$darken*$hover-scale));
+            @include color-att('--disable-color',adjust-color($value, $saturation: -20%,$lightness:20%));
+            @include color-att('--disable-back',transparent);
+            @include color-att('--readonly-color',adjust-color($value, $saturation: -30%));
+            @include color-att('--readonly-back',transparent);
         }
 
         .#{$theme}-color {
@@ -137,39 +153,38 @@ $darkcolor: #000000;
             color: var(--#{$theme}-back) !important;
         }
 
-        
-    :root {
-        --#{$theme}-color: #{$color};
-        --#{$theme}-back: #{$value};
-        
-        @include color-att('#{$theme}-checkbox-image',ImageUrl($image-check,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-indeterminate-image',ImageUrl($image-question,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-radio-image',ImageUrl($image-circle,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-arrow-down-image',ImageUrl($image-arrow-down,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-arrow-up-image',ImageUrl($image-arrow-up,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-arrow-left-image',ImageUrl($image-arrow-left,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-arrow-right-image',ImageUrl($image-arrow-right,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-bar-image',ImageUrl($image-bar,adjust-color($color,$alpha:-0.20)));
-        @include color-att('#{$theme}-plus-image',ImageUrl($image-plus,adjust-color($color,$alpha:-0.20)));
-        @include color-att('#{$theme}-minus-image',ImageUrl($image-minus,adjust-color($color,$alpha:-0.20)));
-        @include color-att('#{$theme}-double-down-image',ImageUrl($image-double-down,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-double-up-image',ImageUrl($image-double-up,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-double-left-image',ImageUrl($image-double-left,adjust-color($color,$alpha:-0.25)));
-        @include color-att('#{$theme}-double-right-image',ImageUrl($image-double-right,adjust-color($color,$alpha:-0.25)));
 
-        @include color-att('#{$theme}-outline-checkbox-image',ImageUrl($image-check,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-indeterminate-image',ImageUrl($image-question,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-radio-image',ImageUrl($image-circle,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-arrow-down-image',ImageUrl($image-arrow-down,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-arrow-up-image',ImageUrl($image-arrow-up,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-arrow-left-image',ImageUrl($image-arrow-left,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-arrow-right-image',ImageUrl($image-arrow-right,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-bar-image',ImageUrl($image-bar,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-plus-image',ImageUrl($image-plus,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-minus-image',ImageUrl($image-minus,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-double-down-image',ImageUrl($image-double-down,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-double-up-image',ImageUrl($image-double-up,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-double-left-image',ImageUrl($image-double-left,adjust-color($value,$alpha:-0.20)));
-        @include color-att('#{$theme}-outline-double-right-image',ImageUrl($image-double-right,adjust-color($value,$alpha:-0.20)));
+    :root {
+        @include themecolorback('--#{$theme}',$color,$value);
+
+        @include color-att('--#{$theme}-checkbox-image',ImageUrl($image-check,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-indeterminate-image',ImageUrl($image-question,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-radio-image',ImageUrl($image-circle,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-arrow-down-image',ImageUrl($image-arrow-down,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-arrow-up-image',ImageUrl($image-arrow-up,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-arrow-left-image',ImageUrl($image-arrow-left,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-arrow-right-image',ImageUrl($image-arrow-right,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-bar-image',ImageUrl($image-bar,adjust-color($color,$alpha:-0.20)));
+        @include color-att('--#{$theme}-plus-image',ImageUrl($image-plus,adjust-color($color,$alpha:-0.20)));
+        @include color-att('--#{$theme}-minus-image',ImageUrl($image-minus,adjust-color($color,$alpha:-0.20)));
+        @include color-att('--#{$theme}-double-down-image',ImageUrl($image-double-down,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-double-up-image',ImageUrl($image-double-up,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-double-left-image',ImageUrl($image-double-left,adjust-color($color,$alpha:-0.25)));
+        @include color-att('--#{$theme}-double-right-image',ImageUrl($image-double-right,adjust-color($color,$alpha:-0.25)));
+
+        @include color-att('--#{$theme}-outline-checkbox-image',ImageUrl($image-check,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-indeterminate-image',ImageUrl($image-question,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-radio-image',ImageUrl($image-circle,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-arrow-down-image',ImageUrl($image-arrow-down,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-arrow-up-image',ImageUrl($image-arrow-up,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-arrow-left-image',ImageUrl($image-arrow-left,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-arrow-right-image',ImageUrl($image-arrow-right,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-bar-image',ImageUrl($image-bar,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-plus-image',ImageUrl($image-plus,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-minus-image',ImageUrl($image-minus,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-double-down-image',ImageUrl($image-double-down,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-double-up-image',ImageUrl($image-double-up,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-double-left-image',ImageUrl($image-double-left,adjust-color($value,$alpha:-0.20)));
+        @include color-att('--#{$theme}-outline-double-right-image',ImageUrl($image-double-right,adjust-color($value,$alpha:-0.20)));
     }
 }

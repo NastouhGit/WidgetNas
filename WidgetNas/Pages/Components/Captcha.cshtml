@@ -116,7 +116,7 @@
                 <label>Captcha</label>
                 <div class="tooltip tooltip-arrow-bottom" style="width:200px" id="captcha1_ltr">
                     <div class="tooltip-header">
-                        <button wn-type="closebutton" class="close" target="#captcha1_ltr" remove-class="show"></button>
+                        <button wn-type="CloseButton" class="close" target="#captcha1_ltr" remove-class="show"></button>
                         Captcha
                     </div>
                     <div class="tooltip-body s-m">
@@ -138,7 +138,7 @@
                 <label>کپچا</label>
                 <div class="tooltip tooltip-arrow-bottom" style="width:200px" id="captcha1_rtl">
                     <div class="tooltip-header">
-                        <button wn-type="closebutton" class="close" target="#captcha1_rtl" remove-class="show"></button>
+                        <button wn-type="closeButton" class="close" target="#captcha1_rtl" remove-class="show"></button>
                         کپچا
                     </div>
                     <div class="tooltip-body s-m">
@@ -153,140 +153,8 @@
     </div>
 </div>
 <figure><code data-on="form5"></code></figure>
-<h2>کلاس ساخت کپچا</h2>
-<figure>
-    <code data-on="_code">
-        public class Captcha
-        {
-        private string Value = "";
-        public string Key { get; set; }
-        public string Image { get; set; }
-        public string ValidChars { get; set; } = "123456789QWERTYUPASDFGHKZXCVBNMqeruadghb";
-
-        public bool UniqeLetter { get; set; } = true;
-        public int Length { get; set; } = 4;
-
-        public int Width { get; set; } = 150;
-        public int Height { get; set; } = 50;
-        public Captcha()
-        {
-        }
-
-        public void Draw()
-        {
-        Bitmap b = new Bitmap(Width, Height, PixelFormat.Format24bppRgb);
-        using (Graphics g = Graphics.FromImage(b))
-        {
-        g.Clear(Color.White);
-        g.SmoothingMode = SmoothingMode.AntiAlias;
-        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-        int step = 10;
-        for (int i = -step; i < b.Width; i += step)
-        g.DrawLine(Pens.LightGray, new Point(i + step, 0), new Point(i, b.Height));
-        for (int i = -step; i < b.Height; i += step)
-        g.DrawLine(Pens.LightGray, new Point(0, i + step), new Point(b.Width, i));
-
-        g.DrawRectangle(Pens.Gray, 0, 0, b.Width - 1, b.Height - 1);
-        StringFormat sf = new StringFormat();
-        sf.Alignment = StringAlignment.Center;
-        sf.LineAlignment = StringAlignment.Center;
-        Point pt = new Point(b.Width / 2, b.Height / 2);
-        GraphicsPath gp2 = new GraphicsPath();
-        gp2.FillMode = FillMode.Alternate;
-        gp2.AddString(Value, FontFamily.GenericSansSerif, (int)FontStyle.Bold, (int)(Height * 0.70), pt, sf);
-
-        int warp = 20;
-        PointF[] destPts = { new PointF(warp, 0), new PointF(Width + warp, 0), new PointF(-warp, Height), new PointF(Width - warp, Height) };
-        gp2.Warp(destPts, new Rectangle(0, 0, Width, Height));
-
-        g.DrawPath(new Pen(Color.FromArgb(130, 0x67, 0x83, 0x2c), 2), gp2);
-
-
-        for (int i = -step; i < b.Width; i += step)
-        g.DrawLine(Pens.LightBlue, new Point(i - step, 0), new Point(i, b.Height));
-        for (int i = -step; i < b.Height; i += step)
-        g.DrawLine(Pens.LightBlue, new Point(0, i - step), new Point(b.Width, i));
-
-        g.DrawRectangle(Pens.LightGray, new Rectangle(0, 0, Width - 1, Height - 1));
-
-        g.Flush();
-        }
-        MemoryStream ms = new MemoryStream();
-        b.Save(ms, ImageFormat.Png);
-        b.Dispose();
-        ms.Seek(0, SeekOrigin.Begin);
-        var ar = new byte[ms.Length];
-        ms.Read(ar, 0, ar.Length);
-        ms.Dispose();
-        Image = "data:image/png;base64," + Convert.ToBase64String(ar);
-        }
-
-        public bool Validate(string key, string value)
-        {
-        if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value)) return false;
-        value = HashString(value.ToUpper());
-        return key== value;
-        }
-        public void GenerateValue()
-        {
-        string s = "";
-        string chars = ValidChars;
-        Random r = new Random();
-        for (int i = 0; i < Length; i++)
-        {
-        int idx = r.Next(0, chars.Length - 1);
-        s += chars[idx];
-        if (UniqeLetter)
-        chars = chars.Replace(chars[idx].ToString(), "");
-        }
-        Value = s;
-        Key = HashString(s.ToUpper());
-        }
-
-        private string HashString(string input)
-        {
-        MD5 md5Hasher = MD5.Create();
-        byte[] data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(input));
-        return BitConverter.ToString(data).Replace("-", "");
-        }
-
-        }
-    </code>
-</figure>
-<h2>نمونه کنترلر</h2>
-<figure>
-    <pre><code class="html">
-public Dictionary<span class="hv">&lt;</span><span class="ht">string,</span> <span class="ht">string</span><span class="hv">&gt;</span> GetCaptcha([FromBody] Dictionary<span class="hv">&lt;</span><span class="ht">string,</span> object<span class="hv">&gt;</span> Model)
-{
-    Dictionary<span class="hv">&lt;</span><span class="ht">string,</span> string<span class="hv">&gt;</span> Ret=new Dictionary<span class="hv">&lt;</span><span class="ht">string,</span> string<span class="hv">&gt;</span>();
-    var c = new Captcha();
-    if (Model[</span>"Method</span>"].ToString() == </span>"Captcha</span>")
-    {
-        if (Model.ContainsKey(</span>"Width</span>") && Model.ContainsKey(</span>"Height</span>"))
-            if (int.Parse(Model[</span>"Width</span>"].ToString()) <span class="hv">&gt;</span> 0 && int.Parse(Model[</span>"Height</span>"].ToString()) <span class="hv">&gt;</span> 0)
-            {
-                c.Width = int.Parse(Model[</span>"Width</span>"].ToString());
-                c.Height = int.Parse(Model[</span>"Height</span>"].ToString());
-            }
-        if (Model.ContainsKey(</span>"Length</span>") && int.Parse(Model[</span>"Length</span>"].ToString()) <span class="hv">&gt;</span> 4)
-            c.Length = int.Parse(Model[</span>"Length</span>"].ToString());
-        if (Model.ContainsKey(</span>"UniqeLetter</span>"))
-            c.UniqeLetter = bool.Parse(Model[</span>"UniqeLetter</span>"].ToString());
-
-        c.GenerateValue();
-        c.Draw();
-
-        Ret.Add(</span>"Image</span>", c.Image);
-        Ret.Add(</span>"Key</span>", c.Key);
-    }
-    else if (Model[</span>"Method</span>"].ToString() == </span>"Validate</span>")
-    {
-        Ret.Add(</span>"Validate</span>", c.Validate(Model[</span>"Key</span>"].ToString(), Model[</span>"Value</span>"].ToString()) ? </span>"true</span>" : </span>"false</span>");
-    }
-    return Ret;
-}
-</code></pre>
-</figure>
-
+<h2>کد های پس زمینه</h2>
+<p>برای مشاهده کدهای پس زمینه و ساخت تصویر کپچا میتوانید به سورس برنامه به آدرس <bidi>Pages/Components/Captcha.cs</bidi> و <bidi>Pages/Components/CaptchaController.cs</bidi> مراجعه کنید.</p> 
+<p>
+    دقت کنید برای ساخت تصویر شما از هر کلاس کتابخانه ای که مد نظر است میتوانید استفاده کنید و فقط در اینجا یک مثال به صورت ساده زده شده است.
+</p>

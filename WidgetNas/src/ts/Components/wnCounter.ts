@@ -1,17 +1,18 @@
-﻿class wncounter {
-    element: HTMLElement;
+﻿class WNCounter implements IWNCounter {
+    public readonly nameType: string = 'WNCounter';
+    public element: HTMLElement;
 
-    countTo: number = 0;
-    countNum: number = 0;
-    countStep: number = 1;
-    duration: number = 1000;
+    public countTo: number = 0;
+    public countNum: number = 0;
+    public countStep: number = 1;
+    public duration: number = 1000;
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLFormElement;
-            this.Render();
+            this.render();
         }
     }
-    Render() {
+    private render() {
         if (this.element.hasAttribute('count'))
             this.countTo = WNparseNumber(this.element.getAttribute('count'));
         this.countNum = WNparseNumber(this.element.innerText, 0);
@@ -19,10 +20,10 @@
         if (this.element.hasAttribute('duration'))
             this.duration = WNparseNumber(this.element.getAttribute('duration'), 1000);
         this.countStep = (this.countTo - this.countNum) / this.duration;
-        this.Start(this);
-        window.addEventListener("scroll", () => this.Start(this));
+        this.start(this);
+        window.addEventListener("scroll", () => this.start(this));
     }
-    Start(e: wncounter) {
+    private start(e: WNCounter) {
         if (document.readyState == "loading")
             return;
         if (

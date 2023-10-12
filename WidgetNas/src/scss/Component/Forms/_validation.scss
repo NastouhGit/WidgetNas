@@ -1,4 +1,5 @@
-﻿.validated {
+﻿@import "../../_variables.scss";
+.validated {
 
     &:not(.hide-valid) {
         input,

@@ -1,7 +1,7 @@
 ﻿@import "../../_variables.scss";
+@import "../../_functions.scss";
 
 .container {
-    width: 90%;
     padding-left: var(--gutter-inline);
     padding-right: var(--gutter-inline);
     padding-inline: var(--gutter-inline);
@@ -18,11 +18,29 @@ main {
     max-width: 100%;
 }
 
-@each $name, $value in $breakpoints {
-    @media (min-width: #{$value}) {
-        .container {
-            max-width: map-get($container-widths,$name);
-        }
+
+@include media() using ($media) {
+    .container {
+        width: 90%;
+    }
+
+    .container-s#{$media} {
+        width: 99%;
+    }
+
+    .container-m#{$media} {
+        width: 95%;
+    }
+
+    .container-l#{$media} {
+        width: 90%;
+    }
+
+    .container-xl#{$media} {
+        width: 85%;
+    }
+
+    .container-xxl#{$media} {
+        width: 80%;
     }
 }
-

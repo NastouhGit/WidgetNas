@@ -1,7 +1,18 @@
 ﻿@import "../../_variables.scss";
+
 [lightbox] > * {
-    display:none;
+    display: none;
 }
+
+.lightboxbutton {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+}
+
 .lightbox {
     position: fixed;
     top: 0;
@@ -82,7 +93,7 @@
             padding: 2rem;
             padding-inline: 10rem;
             --font-size: 2rem;
-            color: var(--active-color);
+            color: var(--dark-color);
         }
     }
 
@@ -139,6 +150,7 @@
         background-image: var(--arrow-left-image);
     }
 }
+
 @media (max-width: map-get($breakpoints,'s')) {
     .lightbox {
         .button-next, .button-previous {
@@ -152,7 +164,6 @@
                 padding: 1rem;
                 padding-inline: 1rem;
                 --font-size: 1rem;
-                color: var(--active-color);
             }
         }
     }

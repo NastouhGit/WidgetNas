@@ -1,7 +1,6 @@
-﻿class wncaptcha {
-    element: HTMLElement;
-    Length = 4;
-    UniqeLetter = true;
+﻿class WNCaptcha implements IWNCaptcha {
+    public readonly nameType: string = 'WNCaptcha';
+    public element: HTMLElement;
 
     private image: HTMLImageElement;
     private refreshButton: HTMLButtonElement;
@@ -11,18 +10,18 @@
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLElement;
-            this.Init();
+            this.init();
             this.refresh();
         }
     }
-    value() { return { Key: this.key, Value: this.input.value } }
+    public get value(): { key: string, value: string } { return { key: this.key ?? '', value: this.input.value ?? '' } }
 
-    private Init() {
+    private init() {
         let imagebar = this.element.querySelector(".imagebar");
         this.image = this.element.querySelector(".image");
         this.refreshButton = this.element.querySelector(".refresh");
         this.input = this.element.querySelector("input");
-        if (imagebar == null && this.image==null) {
+        if (imagebar == null && this.image == null) {
             imagebar = document.createElement("div");
             imagebar.className = "imagebar";
             this.element.appendChild(imagebar);
@@ -49,36 +48,41 @@
         this.element.classList.add('hide-valid');
 
         this.input.addEventListener("change", async () => await this.validate());
+        this.input.addEventListener("", async () => await this.validate());
     }
-    async refresh() {
+    public async refresh() {
         await Post(JSON.stringify({
             Method: 'Captcha',
             Width: this.image.width,
-            Height: this.image.height,
-            Length: this.Length,
-            UniqeLetter: this.UniqeLetter
+            Height: this.image.height
         }), this.url).then(async (r) => {
             this.image.src = r.Image;
             this.key = r.Key;
             this.input.value = "";
         }).catch((e) => console.error(e.message));
     }
-    async validate() {
+    public async validate(): Promise<boolean> {
+        let ret = false;
         await Post(JSON.stringify({
             Method: 'Validate',
-            Key: this.key,
+            Key: this.key ?? '',
             Value: this.input.value
         }), this.url).then(async (r) => {
             if (r.Validate == 'true') {
                 this.input.classList.add('valid');
                 this.element.classList.remove('hide-valid');
+                this.input.classList.remove('invalid');
+                ret = true;
             }
             else {
                 this.input.classList.remove('valid');
                 this.element.classList.add('hide-valid');
+                this.input.classList.add('invalid');
+                await this.refresh();
             }
 
         }).catch((e) => console.error(e.message));
+        return ret;
     }
 
 }

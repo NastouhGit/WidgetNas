@@ -10,13 +10,14 @@ using System.Linq;
 using System.Web;
 using SharpCompress.Readers;
 using SharpCompress.Common;
+using System.Net;
 
 namespace WidgetNas.Pages.Components
 {
     [Route("api/[controller]")]
     public class FileListController : Controller
     {
-        private string BasePath;
+        private readonly string BasePath;
         public FileListController(IWebHostEnvironment webHostEnvironment)
         {
             string contentRootPath = webHostEnvironment.ContentRootPath;
@@ -33,11 +34,11 @@ namespace WidgetNas.Pages.Components
             try
             {
                 if (cmd.ContainsKey("command"))
-                    if (cmd["command"].Equals("getfolders", StringComparison.OrdinalIgnoreCase))
+                    if (cmd["command"].Equals("getFolders", StringComparison.OrdinalIgnoreCase))
                         return GetFolders(cmd["path"]);
-                    else if (cmd["command"].Equals("getfiles", StringComparison.OrdinalIgnoreCase))
+                    else if (cmd["command"].Equals("getFiles", StringComparison.OrdinalIgnoreCase))
                         return GetFiles(cmd["path"]);
-                    else if (cmd["command"].Equals("createfolder", StringComparison.OrdinalIgnoreCase))
+                    else if (cmd["command"].Equals("createFolder", StringComparison.OrdinalIgnoreCase))
                         return CreateFolder(cmd["path"]);
                     else if (cmd["command"].Equals("rename", StringComparison.OrdinalIgnoreCase))
                         return Rename(cmd["source"], cmd["destination"]);
@@ -48,7 +49,7 @@ namespace WidgetNas.Pages.Components
                     else if (cmd["command"].Equals("move", StringComparison.OrdinalIgnoreCase))
                         return CopyMove(cmd["source"], cmd["destination"], false);
                     else if (cmd["command"].Equals("compress", StringComparison.OrdinalIgnoreCase))
-                        return Compress(cmd["sourcepath"], cmd["source"], cmd["destination"]);
+                        return Compress(cmd["sourcePath"], cmd["source"], cmd["destination"]);
                     else if (cmd["command"].Equals("decompress", StringComparison.OrdinalIgnoreCase))
                         return Decompress(cmd["source"]);
 
@@ -65,9 +66,8 @@ namespace WidgetNas.Pages.Components
             
             if (formData.Files.Count > 0)
             {
-                var destination = "";
                 formData.TryGetValue("destination", out StringValues t);
-                destination = t[0].Replace('/', '\\').Trim('\\');
+                string destination = t[0].Replace('/', '\\').Trim('\\');
                 return Upload(destination, HttpContext.Request.Form.Files);
             }
             return false;
@@ -80,16 +80,16 @@ namespace WidgetNas.Pages.Components
             //Check User Access Control
             //--------------------------
 
-            var cmd = HttpUtility.UrlDecode(HttpContext.Request.QueryString.ToString()).Substring(1).Trim('"').Replace('/', '\\').Trim('\\');
+            var cmd = HttpUtility.UrlDecode(HttpContext.Request.QueryString.ToString())[1..].Trim('"').Replace('/', '\\').Trim('\\');
 
             try
             {
 
                 var data = Path.Combine(BasePath, cmd);
                 HttpContext.Response.ContentType = "application/octet-stream";
-                HttpContext.Response.Headers.Add("Content-Disposition", "attachment;filename=" + new FileInfo(data).Name);
-                using (var fs = new FileStream(data, FileMode.Open))
-                    fs.CopyToAsync(HttpContext.Response.Body).Wait();
+                HttpContext.Response.Headers.Add("Content-Disposition", "attachment;filename=" + WebUtility.UrlEncode(new FileInfo(data).Name));
+                using var fs = new FileStream(data, FileMode.Open);
+                fs.CopyToAsync(HttpContext.Response.Body).Wait();
 
 
 
@@ -110,7 +110,7 @@ namespace WidgetNas.Pages.Components
             {
                 var d = Directory.GetDirectories(Path.Combine(BasePath, path ?? ""), "*.*", SearchOption.AllDirectories);
                 for (int i = 0; i < d.Length; i++)
-                    d[i] = d[i].Substring(BasePath.Length + 1).Replace("\\", "/");
+                    d[i] = d[i][(BasePath.Length + 1)..].Replace("\\", "/");
                 return d.OrderBy(x => x).ToArray();
 
             }
@@ -129,16 +129,16 @@ namespace WidgetNas.Pages.Components
             {
                 path = path.Replace("/", "\\").Trim('\\');
                 var d = Directory.GetFiles(Path.Combine(BasePath, path ?? ""));
-                List<SendFileInfo> ret = new List<SendFileInfo>();
+                List<SendFileInfo> ret = new();
                 for (int i = 0; i < d.Length; i++)
                 {
-                    FileInfo f = new FileInfo(d[i]);
+                    FileInfo f = new(d[i]);
                     ret.Add(new SendFileInfo()
                     {
-                        filename = f.Name,
-                        ext = f.Extension,
-                        date = f.LastWriteTime.ToUniversalTime().ToString(),
-                        size = GetSize(f.Length)
+                        FileName = f.Name,
+                        Ext = f.Extension,
+                        Date = f.LastWriteTime.ToUniversalTime().ToString(),
+                        Size = GetSize(f.Length)
                     });
                 }
                 return ret;
@@ -150,7 +150,7 @@ namespace WidgetNas.Pages.Components
             return null;
         }
 
-        private string GetSize(long length)
+        private static string GetSize(long length)
         {
             if (length <= 1024)
                 return length.ToString() + "B";
@@ -344,8 +344,8 @@ namespace WidgetNas.Pages.Components
             {
                 try
                 {
-                    using (var f = System.IO.File.OpenWrite(Path.Combine(path, Files[i].FileName)))
-                        Files[i].CopyTo(f);
+                    using var f = System.IO.File.OpenWrite(Path.Combine(path, Files[i].FileName));
+                    Files[i].CopyTo(f);
 
 
                 }
@@ -375,24 +375,18 @@ namespace WidgetNas.Pages.Components
                 source = source.Replace("\r", "");
                 var src = source.Split('\n');
 
-                using (FileStream zipToOpen = new FileStream(destination, FileMode.OpenOrCreate))
+                using FileStream zipToOpen = new(destination, FileMode.OpenOrCreate);
+                using ZipArchive archive = new(zipToOpen, System.IO.Compression.ZipArchiveMode.Update);
+                for (int i = 0; i < src.Length; i++)
                 {
-                    using (ZipArchive archive = new ZipArchive(zipToOpen, System.IO.Compression.ZipArchiveMode.Update))
-                    {
-                        for (int i = 0; i < src.Length; i++)
-                        {
-                            src[i] = Path.Combine(BasePath, path, src[i]);
-                            FileInfo fileToCompress = new FileInfo(src[i]);
+                    src[i] = Path.Combine(BasePath, path, src[i]);
+                    FileInfo fileToCompress = new(src[i]);
 
-                            ZipArchiveEntry readmeEntry = archive.CreateEntry(fileToCompress.Name);
+                    ZipArchiveEntry readmeEntry = archive.CreateEntry(fileToCompress.Name);
 
-                            using (var s = fileToCompress.OpenRead())
-                            using (var o = readmeEntry.Open())
-                            {
-                                s.CopyTo(o);
-                            }
-                        }
-                    }
+                    using var s = fileToCompress.OpenRead();
+                    using var o = readmeEntry.Open();
+                    s.CopyTo(o);
                 }
             }
             catch (Exception)
@@ -417,20 +411,18 @@ namespace WidgetNas.Pages.Components
                 {
                     src[i] = Path.Combine(BasePath, src[i].Trim('\\'));
 
-                    using (Stream stream = System.IO.File.OpenRead(src[i]))
-                    using (var reader = ReaderFactory.Open(stream))
+                    using Stream stream = System.IO.File.OpenRead(src[i]);
+                    using var reader = ReaderFactory.Open(stream);
+                    while (reader.MoveToNextEntry())
                     {
-                        while (reader.MoveToNextEntry())
+                        if (!reader.Entry.IsDirectory)
                         {
-                            if (!reader.Entry.IsDirectory)
+                            string destination = new FileInfo(src[i]).DirectoryName;
+                            reader.WriteEntryToDirectory(destination, new ExtractionOptions()
                             {
-                                string destination = new FileInfo(src[i]).DirectoryName;
-                                reader.WriteEntryToDirectory(destination, new ExtractionOptions()
-                                {
-                                    ExtractFullPath = true,
-                                    Overwrite = true
-                                });
-                            }
+                                ExtractFullPath = true,
+                                Overwrite = true
+                            });
                         }
                     }
 
@@ -445,10 +437,10 @@ namespace WidgetNas.Pages.Components
         }
         private class SendFileInfo
         {
-            public string filename { get; set; }
-            public string ext { get; set; }
-            public string size { get; set; }
-            public string date { get; set; }
+            public string FileName { get; set; }
+            public string Ext { get; set; }
+            public string Size { get; set; }
+            public string Date { get; set; }
         }
     }
 }

@@ -1,29 +1,34 @@
-﻿class wncollapse {
-    element: HTMLFormElement;
-    beforecollapse: any;
-    aftercollapse: any;
+﻿class WNCollapse implements IWNCollapse {
+    public readonly nameType: string = 'WNCollapse';
+    public element: HTMLFormElement;
+    public target: string='';
+    public remove: string='';
+    public targetMode: targetModeEnum = 'toggle';
+
+    public beforecollapse: (t) => boolean;
+    public aftercollapse: (t) => void;
+
     //private
-    private _target = '';
-    private _remove_control = '';
-    private _target_mode = 'toggle';
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLFormElement;
-            this.Init();
+            this.init();
         }
     }
-    private Init() {
+    private init() {
         //reset old one
         this.element.removeEventListener("click", () => { this.collapse(); });
 
         if (this.element.hasAttribute('target'))
-            this._target = this.element.getAttribute('target');
+            this.target = this.element.getAttribute('target');
         if (this.element.hasAttribute('remove'))
-            this._remove_control = this.element.getAttribute('remove');
+            this.remove = this.element.getAttribute('remove');
         if (this.element.hasAttribute('target-mode')) {
-            this._target_mode = this.element.getAttribute('target-mode').toLowerCase();
-            if (this._target_mode != 'toggle' && this._target_mode != 'show' && this._target_mode != 'hide')
-                this._target_mode = 'toggle';
+            switch (this.element.getAttribute('target-mode').toLowerCase()) {
+                case "show": this.targetMode = "show"; break;
+                case "hide": this.targetMode = "hide"; break;
+                default: this.targetMode = "toggle"; break;
+            }
         }
         if (this.element.hasAttribute('beforecollapse'))
             this.beforecollapse = WNGenerateFunction(this.element.getAttribute('beforecollapse'));
@@ -32,12 +37,12 @@
 
         this.element.addEventListener("click", () => { this.collapse(); });
     }
-    collapse() {
-        if (this.beforecollapse)
-            this.beforecollapse();
+    public collapse() {
+        if (this.beforecollapse && !this.beforecollapse?.(this))
+            return;
 
-        this.HideControls(this._remove_control);
-        let TargetNodes = WNGetNodesList(this._target, document, this.element);
+        this.HideControls(this.remove);
+        let TargetNodes = WNGetNodesList(this.target, document, this.element);
         let countshow = 0;
         let counthide = 0;
         for (var i = 0; i < TargetNodes.length; i++) {
@@ -47,8 +52,8 @@
                 counthide++;
         }
 
-        let mode = this._target_mode;
-        if (this._target_mode == 'toggle') {
+        let mode = this.targetMode;
+        if (this.targetMode == "toggle") {
             if (countshow > counthide) {
                 mode = 'hide';
             }
@@ -72,7 +77,7 @@
             else if (mode == 'hide') {
                 if (TargetNodes[i].classList.contains('show')) {
                     TargetNodes[i].classList.add('collapsing');
-                    if (getComputedStyle(TargetNodes[i]).animationName !='none' ) {
+                    if (getComputedStyle(TargetNodes[i]).animationName != 'none') {
                         TargetNodes[i].addEventListener('animationend', (e) => {
                             (<HTMLElement>e.currentTarget).classList.remove('show');
                             (<HTMLElement>e.currentTarget).classList.remove('collapsing');
@@ -85,8 +90,8 @@
                 }
             }
         }
-        if (this.aftercollapse)
-            this.aftercollapse();
+
+        this.aftercollapse?.(this);
 
     }
 
@@ -97,12 +102,4 @@
             elems[i].classList.add('collapsed');
         }
     }
-    set target(value: string) { this._target = value; }
-    get target() { return this._target; }
-
-    set remove(value: string) { this._remove_control = value; }
-    get remove() { return this._remove_control; }
-
-    set targetmode(value: string) { this._target_mode = value; }
-    get targetmode() { return this._target_mode; }
 }

@@ -1,0 +1,577 @@
+﻿@page
+@model WidgetNas.Pages.Forms.FloatingLineModel
+@{
+    ViewData["Title"] = "برچسبهای شناور خطی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>برای نمایش برچسب و ورودی، نوع دیگری نیز طراحی شده است که با قرار گرفتن فوکوس بر روی موضوع ورودی، برچسب کم اهمیت تر شده و به صورت کوچکتر نمایش داده میشود.</p>
+<p>توجه داشته باشید در این روش، بر خلاف روشهای قبل، برچسب باید بعد از ورودی قرار گیرد، تا شناسایی شود.</p>
+<p>همچنین باید حتما مقدار placeholder یه مقدار غیر خالی داشته باشد، زیرا بر اساس نمایش آن، وضعیت نمایش برچسب را تغییر میدهد، بدانید که عبارت درون placeholder نمایش داده نمیشود.</p>
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form1">
+            <ig class="floatingline">
+                <input type="text" placeholder=".">
+                <label>Full Name</label>
+            </ig>
+            <ig class="floatingline">
+                <input type="password" placeholder=".">
+                <label>Password</label>
+            </ig>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="floatingline">
+                <input type="text" value="" placeholder=".">
+                <label>نام کامل</label>
+            </ig>
+            <ig class="floatingline">
+                <input type="password" value="" placeholder=".">
+                <label>رمز عبور</label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>ورودی دارای مقدار</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form2">
+            <ig class="floatingline">
+                <input type="text" value="Nastouh" placeholder=".">
+                <label>Full Name</label>
+            </ig>
+
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="floatingline">
+                <input type="text" value="نستوه" placeholder=".">
+                <label>نام کامل</label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>متن چند خطی</h2>
+<p>برای اندازه کردن ارتفاع چند خطی از خصوصیت rows استفاده نکنید، برای تنظیم ارتفاع خصوصیت height را مقدار دهی کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form3">
+            <ig class="floatingline">
+                <textarea placeholder="."></textarea>
+                <label>Some Text</label>
+            </ig>
+            <ig class="floatingline">
+                <textarea style="height:7rem;" placeholder="."></textarea>
+                <label>7 rem height</label>
+            </ig>
+
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="floatingline">
+                <textarea placeholder="."></textarea>
+                <label>چند خط متن</label>
+            </ig>
+            <ig class="floatingline">
+                <textarea style="height:7rem;" placeholder="."></textarea>
+                <label>ارتفاع 7 rem</label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>انتخاب</h2>
+<div class="example-div">
+    <div class="ltr" style="min-width:7rem">
+        <h3>LTR</h3>
+        <form id="form4">
+            <ig class="floatingline">
+                <select>
+                    <option selected>Item 1</option>
+                    <option>Item 2</option>
+                    <option>Item 3</option>
+                </select>
+                <label>Select</label>
+            </ig>
+
+        </form>
+    </div>
+    <div class="rtl" style="min-width:7rem">
+        <h3>RTL</h3>
+        <form>
+            <ig class="floatingline">
+                <select>
+                    <option selected>گزینه 1</option>
+                    <option>گزینه 2</option>
+                    <option>گزینه 3</option>
+                </select>
+                <label>انتخاب کنید</label>
+            </ig>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>چک باکس و رادیو</h2>
+<div class="example-div">
+    <div class="ltr" style="min-width:7rem">
+        <h3>LTR</h3>
+        <ig class="floatingline">
+            <input id="chk1_ltr" type="checkbox" />
+            <label for="chk1_ltr">Checkbox 1</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="chk2_ltr" type="checkbox" />
+            <label for="chk2_ltr">Checkbox 2</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="chk3_ltr" type="checkbox" />
+            <label for="chk3_ltr">Inline Checkbox 3</label>
+            <input id="chk4_ltr" type="checkbox" />
+            <label for="chk4_ltr">Inline Checkbox 4</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="rdo1_ltr" name="radio1" type="radio" />
+            <label for="rdo1_ltr">Radio 1</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="rdo2_ltr" name="radio1" type="radio" />
+            <label for="rdo2_ltr">Radio 2</label>
+            <input id="rdo3_ltr" name="radio1" type="radio" />
+            <label for="rdo3_ltr">Radio 3</label>
+        </ig>
+        <div class="d-flex">
+            <ig class="floatingline w-30">
+                <input type="text" placeholder="." />
+                <label>Text</label>
+            </ig>
+            <ig class="floatingline">
+                <input id="chk5_ltr" type="checkbox" />
+                <label for="chk5_ltr">Inline Checkbox 5</label>
+                <input id="rdo4_ltr" name="radio1" type="radio" />
+                <label for="rdo4_ltr">Radio 4</label>
+                <input id="rdo5_ltr" name="radio1" type="radio" />
+                <label for="rdo5_ltr">Radio 5</label>
+            </ig>
+        </div>
+    </div>
+    <div class="rtl" style="min-width:7rem">
+        <h3>RTL</h3>
+        <ig class="floatingline">
+            <input id="chk1_rtl" type="checkbox" />
+            <label for="chk1_rtl">چک 1</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="chk2_rtl" type="checkbox" />
+            <label for="chk2_rtl">چک 2</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="chk3_rtl" type="checkbox" />
+            <label for="chk3_rtl">چک خطی 3</label>
+            <input id="chk4_rtl" type="checkbox" />
+            <label for="chk4_rtl">چک خطی 4</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="rdo1_rtl" name="radio1" type="radio" />
+            <label for="rdo1_rtl">رادیو 1</label>
+        </ig>
+        <ig class="floatingline">
+            <input id="rdo2_rtl" name="radio1" type="radio" />
+            <label for="rdo2_rtl">رادیو 2</label>
+            <input id="rdo3_rtl" name="radio1" type="radio" />
+            <label for="rdo3_rtl">رادیو 3</label>
+        </ig>
+        <div class="d-flex">
+            <ig class="floatingline w-30">
+                <input type="text" placeholder="." />
+                <label>متن</label>
+            </ig>
+            <ig class="floatingline">
+                <input id="chk5_rtl" type="checkbox" />
+                <label for="chk5_rtl">چک خطی 5</label>
+                <input id="rdo4_rtl" name="radio1" type="radio" />
+                <label for="rdo4_rtl">رادیو 4</label>
+                <input id="rdo5_rtl" name="radio1" type="radio" />
+                <label for="rdo5_rtl">رادیو 5</label>
+            </ig>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>غیر فعال و فقط خواندنی</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <form id="form5">
+            <ig class="floatingline">
+                <input type="text" value="Nastouh" disabled placeholder=".">
+                <label>Input disabled</label>
+            </ig>
+            <ig class="floatingline" disabled>
+                <input type="text" value="Nastouh" placeholder=".">
+                <label>ig disabled</label>
+            </ig>
+            <ig class="floatingline">
+                <select disabled>
+                    <option selected>Item 1</option>
+                    <option>Item 2</option>
+                    <option>Item 3</option>
+                </select>
+                <label>Select disabled</label>
+            </ig>
+            <ig class="floatingline" disabled>
+                <select>
+                    <option selected>Item 1</option>
+                    <option>Item 2</option>
+                    <option>Item 3</option>
+                </select>
+                <label>ig disabled</label>
+            </ig>
+            <ig class="floatingline">
+                <input type="text" value="Nastouh" readonly placeholder=".">
+                <label>Input readonly</label>
+            </ig>
+            <ig class="floatingline" readonly placeholder=".">
+                <input type="text" value="Nastouh">
+                <label>ig readonly</label>
+            </ig>
+            <ig class="floatingline">
+                <select readonly>
+                    <option selected>Item 1</option>
+                    <option>Item 2</option>
+                    <option>Item 3</option>
+                </select>
+                <label>Select readonly</label>
+            </ig>
+            <ig class="floatingline" readonly>
+                <select>
+                    <option selected>Item 1</option>
+                    <option>Item 2</option>
+                    <option>Item 3</option>
+                </select>
+                <label>ig readonly</label>
+            </ig>
+
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form>
+            <ig class="floatingline">
+                <input type="text" value="Nastouh" disabled placeholder=".">
+                <label>ورودی غیر فعال</label>
+            </ig>
+            <ig class="floatingline" disabled>
+                <input type="text" value="Nastouh">
+                <label>گروه ورودی غیر فعال</label>
+            </ig>
+            <ig class="floatingline">
+                <select disabled>
+                    <option selected>گزینه 1</option>
+                    <option>گزینه 2</option>
+                    <option>گزینه 3</option>
+                </select>
+                <label>انتخاب غیر فعال</label>
+            </ig>
+            <ig class="floatingline" disabled>
+                <select>
+                    <option selected>گزینه 1</option>
+                    <option>گزینه 2</option>
+                    <option>گزینه 3</option>
+                </select>
+                <label>گروه ورودی غیر فعال</label>
+            </ig>
+            <ig class="floatingline">
+                <input type="text" value="Nastouh" readonly placeholder=".">
+                <label>ورودی فقط خواندنی</label>
+            </ig>
+            <ig class="floatingline" readonly>
+                <input type="text" value="Nastouh" placeholder=".">
+                <label>گروه ورودی فقط خواندنی</label>
+            </ig>
+            <ig class="floatingline">
+                <select readonly>
+                    <option selected>گزینه 1</option>
+                    <option>گزینه 2</option>
+                    <option>گزینه 3</option>
+                </select>
+                <label>انتخاب فقط خواندنی</label>
+            </ig>
+            <ig class="floatingline" readonly>
+                <select>
+                    <option selected>گزینه 1</option>
+                    <option>گزینه 2</option>
+                    <option>گزینه 3</option>
+                </select>
+                <label>گروه ورودی فقط خواندنی</label>
+            </ig>
+
+        </form>
+    </div>
+</div>
+<figure><code data-on="form5"></code></figure>
+<h2>نمونه فرم</h2>
+<p>برای مشاهده آنکه اجزا در یک فرم ورود اطلاعات چگونه نمایش داده میشود، به مثال زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr w-75">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate id="form6">
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_firstname_ltr' type="text" placeholder="." required />
+                        <label for='form_sample1_firstname_ltr'>First Name</label>
+                        <div class="valid-feedback">
+                            Ok!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_lastname_ltr' type="text" placeholder="." required />
+                        <label for='form_sample1_lastname_ltr'>Last Name</label>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <ig>
+                            <input id='form_sample1_sex_o2_ltr' name='form_sample1_sex_ltr' type="radio" required />
+                            <label for='form_sample1_sex_o2_ltr'>Male</label>
+                            <input id='form_sample1_sex_o3_ltr' name='form_sample1_sex_ltr' type="radio" required />
+                            <label for='form_sample1_sex_o3_ltr'>Female</label>
+                            <div class="invalid-feedback">
+                                Please check it!
+                            </div>
+                        </ig>
+                        <label>Sex</label>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <select id='form_sample1_state_ltr' required>
+                            <option hidden disabled selected value=""></option>
+                            <option value="1">Tehran</option>
+                            <option value="2">Markazi</option>
+                            <option value="3">Fars</option>
+                        </select>
+                        <label for='form_sample1_state_ltr'>State</label>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_city_ltr' type="text" placeholder="." required />
+                        <label for='form_sample1_city_ltr'>City</label>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="floatingline">
+                        <input id='form_sample1_zip_ltr' type="text" inputmode="numeric" placeholder="." />
+                        <label for='form_sample1_zip_ltr'>Zip</label>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ig class="floatingline">
+                        <textarea id='form_sample1_address_ltr' placeholder="." required></textarea>
+                        <label for='form_sample1_address_ltr'>Address</label>
+                        <div class="invalid-feedback">
+                            Please check it!
+                        </div>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_age_ltr' type="number" min="18" max="90" placeholder="." required />
+                        <label for='form_sample1_age_ltr'>Age</label>
+                        <div class="invalid-feedback">
+                            Value must be between 18 and 90!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <ig>
+                            <input id='form_sample1_task1_ltr' type="checkbox" placeholder="." />
+                            <label for='form_sample1_task1_ltr'>Task 1</label>
+                            <input id='form_sample1_task2_ltr' type="checkbox" placeholder="." />
+                            <label for='form_sample1_task2_ltr'>Task 2</label>
+                        </ig>
+                        <label>Tasks</label>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="floatingline">
+                        <input id='form_sample1_range_ltr' type="range" placeholder="." />
+                        <label for='form_sample1_range_ltr'>Range</label>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input placeholder="." class="dropdownarrow" required />
+                        <label >Dropdown</label>
+                    </ig>
+                </div>
+            </div>
+            <button class="danger" type="submit">Send</button>
+            <button class="warning" type="reset">Reset</button>
+        </form>
+    </div>
+    <div class="rtl w-75">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_firstname_rtl' type="text" placeholder="." required />
+                        <label for='form_sample1_firstname_rtl'>نام</label>
+                        <div class="valid-feedback">
+                            خوب است!
+                        </div>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_lastname_rtl' type="text" placeholder="." required />
+                        <label for='form_sample1_lastname_rtl'>نام خانوادگی</label>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <ig>
+                            <ig>
+                                <input id='form_sample1_sex_o2_rtl' name='form_sample1_sex_rtl' type="radio" required placeholder="." />
+                                <label for='form_sample1_sex_o2_rtl'>مرد</label>
+                                <input id='form_sample1_sex_o3_rtl' name='form_sample1_sex_rtl' type="radio" required placeholder="." />
+                                <label for='form_sample1_sex_o3_rtl'>زن</label>
+                                <div class="invalid-feedback">
+                                    بررسی کنید!
+                                </div>
+                            </ig>
+                        </ig>
+                        <label>جنسیت</label>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <select id='form_sample1_state_rtl' required>
+                            <option hidden disabled selected value=""></option>
+                            <option value="1">تهران</option>
+                            <option value="2">مرکزی</option>
+                            <option value="3">فارس</option>
+                        </select>
+                        <label for='form_sample1_state_rtl'>استان</label>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_city_rtl' type="text" placeholder="." required />
+                        <label for='form_sample1_city_rtl'>شهر</label>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="floatingline">
+                        <input id='form_sample1_zip_rtl' type="text" inputmode="numeric" placeholder="." />
+                        <label for='form_sample1_zip_rtl'>کدپستی</label>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ig class="floatingline">
+                        <textarea id='form_sample1_address_rtl' placeholder="." required></textarea>
+                        <label for='form_sample1_address_rtl'>آدرس</label>
+                        <div class="invalid-feedback">
+                            بررسی کنید!
+                        </div>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input id='form_sample1_age_rtl' type="number" min="18" max="90" placeholder="." required />
+                        <label for='form_sample1_age_rtl'>سن</label>
+                        <div class="invalid-feedback">
+                            بایستی بین 18 و 90 باشد.
+                        </div>
+                    </ig>
+                </div>
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <ig>
+                            <ig>
+                                <input id='form_sample1_task1_rtl' type="checkbox" placeholder="." />
+                                <label for='form_sample1_task1_rtl'>وظیفه 1</label>
+                                <input id='form_sample1_task2_rtl' type="checkbox" placeholder="." />
+                                <label for='form_sample1_task2_rtl'>وظیفه 2</label>
+                            </ig>
+                        </ig>
+                        <label>وظایف</label>
+                    </ig>
+                </div>
+                <div class="col">
+                    <ig class="floatingline">
+                        <input id='form_sample1_range_rtl' type="range" placeholder="." />
+                        <label for='form_sample1_range_rtl'>محدوده</label>
+                    </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <ig class="floatingline">
+                        <input placeholder="." class="dropdownarrow" required />
+                        <label>دکمه بازشو</label>
+                    </ig>
+                </div>
+            </div>
+            <button class="danger" type="submit">ارسال</button>
+            <button class="warning" type="reset">پاک</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>

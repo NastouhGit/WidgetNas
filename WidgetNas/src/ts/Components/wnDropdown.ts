@@ -1,18 +1,16 @@
-﻿let DropdownClickHandled = false;
-let WindowClickHandled = false;
-let LastDropdownOpened: HTMLElement[] = [];
-//let LastDropdownClicked = null;
+﻿class WNDropdown implements IWNDropdown {
+    public readonly nameType: string = 'WNDropdown';
+    static WNWindowClickHandled = false;
+    static WNLastDropdownOpened: HTMLElement[] = [];
 
-class wndropdown {
-    element: HTMLElement;
-    dropdown: HTMLElement;
-    CheckOnlyDropDown = false;
+    public element: HTMLElement;
+    public dropdown: HTMLElement;
+    public checkOnlyDropDown = false;
 
-    beforeshow: any;
-    aftershow: any;
-    beforehide: any;
-    afterhide: any;
-    //Private variables
+    public beforeShow: (t) => {};
+    public afterShow: (t) => {};
+    public beforeHide: (t) => {};
+    public afterHide: (t) => {};
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -26,16 +24,17 @@ class wndropdown {
                         this.dropdown = this.element.nextElementSibling as HTMLElement;
                 }
             }
-            this.Render();
+            this.render();
         }
     }
-    Render() {
-        if (!DropdownClickHandled) {
-            window.addEventListener("click", (e) => this.WindowClick(e));
-            window.addEventListener("scroll", (e) => this.WindowClick(e));
-            window.addEventListener("resize", (e) => this.WindowClick(e));
-            DropdownClickHandled = true;
-        }
+    private render() {
+        window.removeEventListener("click", (e) => this.windowClick(e));
+        window.removeEventListener("scroll", (e) => this.windowClick(e));
+        window.removeEventListener("resize", (e) => this.windowClick(e));
+        window.addEventListener("click", (e) => this.windowClick(e));
+        window.addEventListener("scroll", (e) => this.windowClick(e));
+        window.addEventListener("resize", (e) => this.windowClick(e));
+
         let defaultevent = "click";
         if (this.element.hasAttribute('wn-dropdown-event'))
             defaultevent = this.element.getAttribute('wn-dropdown-event');
@@ -43,27 +42,27 @@ class wndropdown {
         if (defaultevent !== '')
             defaultevent.split(',').forEach((s) => {
                 this.element.addEventListener(s.trim(), (e) => {
-                    if (this.CheckOnlyDropDown) {
+                    if (this.checkOnlyDropDown) {
                         if ((e.target == this.dropdown))
-                            this._Toggle();
+                            this.toggle();
                     }
                     else
-                        this._Toggle();
+                        this.toggle();
                 });
             });
         if (this.element.hasAttribute('onbeforeshow'))
-            this.beforeshow = new Function('t', this.element.getAttribute('onbeforeshow'));
+            this.beforeShow = WNGenerateFunction(this.element.getAttribute('onbeforeshow'), 't');
         if (this.element.hasAttribute('onbeforehide'))
-            this.beforehide = new Function('t', this.element.getAttribute('onbeforehide'));
+            this.beforeHide = WNGenerateFunction(this.element.getAttribute('onbeforehide'), 't');
         if (this.element.hasAttribute('onaftershow'))
-            this.aftershow = new Function('t', this.element.getAttribute('onbaftershow'));
+            this.afterShow = WNGenerateFunction(this.element.getAttribute('onbaftershow'), 't');
         if (this.element.hasAttribute('onafterhide'))
-            this.afterhide = new Function('t', this.element.getAttribute('onafterhide'));
+            this.afterHide = WNGenerateFunction(this.element.getAttribute('onafterhide'), 't');
 
     }
-    WindowClick(event): void {
-        if (WindowClickHandled || LastDropdownOpened == null) {
-            WindowClickHandled = false;
+    private windowClick(event): void {
+        if (WNDropdown.WNWindowClickHandled || WNDropdown.WNLastDropdownOpened == null) {
+            WNDropdown.WNWindowClickHandled = false;
             return;
         }
         let doHide = false;
@@ -73,73 +72,63 @@ class wndropdown {
             doHide = true;
 
         if (doHide) {
-            while (LastDropdownOpened.length > 0) {
-                let obj = LastDropdownOpened.pop() as HTMLElement;
+            while (WNDropdown.WNLastDropdownOpened.length > 0) {
+                let obj = WNDropdown.WNLastDropdownOpened.pop() as HTMLElement;
                 obj.classList.remove("show");
             }
-            //LastDropdownOpened = null;
-            //LastDropdownClicked = null;
         }
     }
-    Toggle(): void {
-        WindowClickHandled = true;
-        this._Toggle();
-    }
-    private _Toggle(): void {
+
+    public toggle(): void {
+        WNDropdown.WNWindowClickHandled = true;
         if (this.dropdown.classList.contains('single') && this.dropdown.classList.contains('show')) {
             this.dropdown.classList.remove("show");
             return;
         }
         let hide = true;
-        for (var i = 0; i < LastDropdownOpened.length; i++) {
-            if (WNContainElement(this.element, LastDropdownOpened[i])) {
+        for (var i = 0; i < WNDropdown.WNLastDropdownOpened.length; i++) {
+            if (WNContainElement(this.element, WNDropdown.WNLastDropdownOpened[i])) {
                 hide = false;
                 break;
             }
         }
         if (hide)
-            this._Hide();
+            this.hide();
 
         if (!this.dropdown.classList.contains("show"))
-            this._Show();
+            this.show();
         else
-            this._Hide();
+            this.hide();
     }
-    Hide(): void {
-        this._Hide();
-    }
-    private _Hide(): void {
-        WindowClickHandled = true;
+
+    public hide(): void {
+        WNDropdown.WNWindowClickHandled = true;
         if (this.dropdown.classList.contains('single') && this.dropdown.classList.contains('show')) {
             this.dropdown.classList.remove("show");
             return;
         }
-        if (this.beforehide != null) this.beforehide(this);
-        while (LastDropdownOpened.length > 0) {
-            let obj = LastDropdownOpened.pop() as HTMLElement;
+        this.beforeHide?.(this);
+        while (WNDropdown.WNLastDropdownOpened.length > 0) {
+            let obj = WNDropdown.WNLastDropdownOpened.pop() as HTMLElement;
             obj.classList.remove("show");
         }
-        if (this.afterhide != null) this.afterhide(this);
+        this.afterHide?.(this);
     }
-    Show(): void {
-        this._Show();
-    }
-    private _Show(): void {
-        WindowClickHandled = true;
-        this.SetPosition();
-        if (this.beforeshow != null) this.beforeshow(this);
+
+    public show(): void {
+        WNDropdown.WNWindowClickHandled = true;
+        this.setPosition();
+        this.beforeShow?.(this);
 
         this.dropdown.classList.add("show");
         if (!this.dropdown.classList.contains('single')) {
-            LastDropdownOpened.push(this.dropdown);
+            WNDropdown.WNLastDropdownOpened.push(this.dropdown);
         }
-        this.dropdown.focus();
-        if (this.aftershow != null) this.aftershow(this);
+        //this.dropdown.focus();
+        this.afterShow?.(this);
     }
-    HideAllDropDowns() {
-        LastDropdownOpened.forEach((x) => { x.classList.remove('show'); });
-    }
-    SetPosition(): void {
+
+    public setPosition(): void {
 
         let dropdown_cs = getComputedStyle(this.dropdown);
         let dropdown_pos = this.dropdown.getBoundingClientRect();
@@ -203,5 +192,9 @@ class wndropdown {
             this.dropdown.style.width = width + "px";
         else
             this.dropdown.style.width = '';
+    }
+
+    public hideAllDropDowns(): void {
+        WNDropdown.WNLastDropdownOpened.forEach((x) => { x.classList.remove('show'); });
     }
 }

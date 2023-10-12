@@ -104,6 +104,11 @@ $label-transform: scale(0.85) translateY(-0.9em);
         transition: $transition;
     }
 
+    input [type=radio] ~ label,
+    input[type=checkbox] ~ label {
+        pointer-events: auto;
+    }
+
     > ig {
         border: var(--border-width) solid var(--normal-border);
         border-radius: var(--border-radius);
@@ -128,6 +133,19 @@ $label-transform: scale(0.85) translateY(-0.9em);
         & ~ label {
             opacity: 0.65;
             transform: $label-transform;
+        }
+    }
+
+    &.checkbox, ig.checkbox {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        label {
+            transform: none;
+            opacity: 1;
+            position: relative;
+            padding-block: 0 !important;
         }
     }
 

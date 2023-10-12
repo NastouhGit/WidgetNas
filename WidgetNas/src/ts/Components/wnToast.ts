@@ -1,12 +1,10 @@
-﻿class wntoast {
-    element: HTMLElement;
+﻿class WNToast implements IWNToast {
+    public readonly nameType: string = 'WNToast';
+    public element: HTMLElement;
 
+    public timeout: number = 0;
     private _timeouthandle: any;
-    private _timeout = 0;
-    get timeout() { return this._timeout }
-    set timeout(value: number) { this._timeout = value; }
-
-    beforehide: any;
+    beforeHide: (t: IWNToast) => boolean | Promise<boolean>;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
@@ -18,17 +16,17 @@
         let elem = this.element.querySelectorAll('[close-parent]');
         for (var i = 0; i < elem.length; i++) elem[i].addEventListener('click', () => { this.hide() });
         if (this.element.hasAttribute('timeout'))
-            this._timeout = WNparseNumber(this.element.getAttribute('timeout'), 0);
+            this.timeout = WNparseNumber(this.element.getAttribute('timeout'), 0);
 
         //check after hide event
         if (this.element.hasAttribute('onbeforehide'))
-            this.beforehide = new Function(this.element.getAttribute('onbeforehide'));
+            this.beforeHide = WNGenerateFunction(this.element.getAttribute('onbeforehide'), 't');
     }
-    show() {
+    public show(): void {
         clearTimeout(this._timeouthandle);
         this.element.classList.add('show');
-        if (this._timeout > 0) {
-            this._timeouthandle = setTimeout(() => { this.hide() }, this._timeout);
+        if (this.timeout > 0) {
+            this._timeouthandle = setTimeout(() => { this.hide() }, this.timeout);
         }
     }
     toggle() {
@@ -39,9 +37,8 @@
     }
     hide() {
         clearTimeout(this._timeouthandle);
-        if (this.beforehide != null)
-            if (!this.beforehide())
-                return;
+        if (this.beforeHide && !this.beforeHide(this))
+            return;
         this.element.classList.remove('show');
     }
 }

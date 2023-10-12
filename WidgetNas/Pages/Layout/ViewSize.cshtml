@@ -1,0 +1,35 @@
+﻿@page
+@model WidgetNas.Pages.Layout.ViewSizeModel
+@{
+    ViewData["Title"] = "اندازه صفحه نمایش";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    برخی مواقع میخواهیم اندازه دقیق صفحه نمایش را داشته باشیم. این اندازه ها در زمانیکه بر روی موبایل یا دسکتاپ هستید متفاوت است. همچنین زمانیکه اسکرول نمایان میشود متفاوت تر میشود.
+    هر چند در دستورات css پارامترهایی را برای این موضوع قرار داده اند ولیکن در مرورگرها این پارامترها به درستی عمل نمیکنند.<br /> برای آنکه متوجه منظور ما شوید به مثال زیر توجه کنید.
+</p>
+<div id="sample1" style="
+    direction:ltr;
+    position: fixed;
+    left: 0;
+    bottom: 10px;">
+    <div style="width:100%;background-color:red" onclick="this.innerText=getComputedStyle(this).width">100% Click to see in Pixel</div>
+    <div style="width:100vw;background-color:yellow" onclick="this.innerText=getComputedStyle(this).width">100vw Click to see in Pixel</div>
+    <div style="width:var(--view-width);background-color:green" onclick="this.innerText=getComputedStyle(this).width">--view-width Click to see in Pixel</div>
+</div>
+<p>در ظاهر اندازه ها مانند هم هستند. ولی دقت کنید در گزینه اول و دوم تفاوت در اندازه است برای دیدن اندازه دقیق روی هر گزینه کلیک کنید تا به پیکسل نمایش داده شود.</p>
+<p>دلیل وجود اسکرول بار است.</p>
+<button class="primary" onclick="document.body.style.overflow='hidden';WNSetViewSize();">عدم نمایش اسکرول</button>
+<button class="primary" onclick="document.body.style.overflow='auto';WNSetViewSize();">نمایش اسکرول</button>
+<p>در مثال زیر به نسبت اندازه ها دقت کنید.</p>
+<div id="sample1" style="direction:ltr; width:50%">
+    <div style="height:calc(100% * 0.05) ;background-color:red">height:calc(100% * 0.05)</div>
+    <div style="height:calc(100vw * 0.05);background-color:yellow">height:calc(100vw * 0.05)</div>
+    <div style="height:calc(var(--view-width) * 0.05);background-color:green">height:calc(var(--view-width) * 0.05)</div>
+</div>
+<p>توجه داشته باشید اگر هر زمان تغییراتی در اندازه پنجره رخ دهد، مقدار دوباره محاسبه میشود. فقط اگر به صورت دستی شما
+    خصوصیت overflow را تغییر دادید بایستی دوباره اندازه را محاسبه کنید، برای این منظور کافیست تابع WNSetViewSize را فراخوانی کنید. این تابع علاوه بر محاسبه و تنظیم آن در متغییر css 
+    مقدار اندازه را نیز برمیگرداند. 
+</p>
+<p style="margin-block-end:150px"></p>

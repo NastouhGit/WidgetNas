@@ -1,267 +1,411 @@
-﻿class wnlist {
-    element: HTMLElement;
+﻿class WNList implements IWNList {
+    public readonly nameType: string = 'WNList';
+    public element: HTMLElement;
+    public dataSource: WNListNode[];
 
-    private _currentSelect: HTMLElement = null;
-    get selecteditem() { return this._currentSelect; }
-    set selecteditem(value: HTMLElement) { this.select(value); }
+    public checkbox: boolean = false;
 
-    get selectedindex() { return WNparseNumber(this._currentSelect?.getAttribute('index'), -1); }
-    set selectedindex(value: number) {
-        this._items.forEach((x) => {
-            if (WNparseNumber(x.getAttribute('index')) == value) {
-                this.select(x);
-                return;
-            }
-        });
-    }
-
-    get currentvalue() { return this._currentSelect?.getAttribute('value'); }
-    get currentcaption() { return this._currentSelect?.innerText; }
-
-
-
-    beforeclick: any;
-    afterclick: any;
-    selectionchange: any;
-    //private
-    _listType: string = '';
-    _items: HTMLElement[] = [];
-    checkbox: boolean = false;
+    public beforeClick: (t: IWNList, node: WNListNode, e: MouseEvent) => boolean;
+    public afterClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
+    public dblClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
+    public selectionChanged: (t: IWNList, node: WNListNode) => void;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
-            this.element = elem as HTMLFormElement;
-            this.Init();
+            this.element = elem as HTMLElement;
+            this.init();
         }
     }
-    private Init() {
-        this._listType = this.element.nodeName;
-        this.element.classList.add('list');
-        this.element.classList.add('list-hover');
-
-        let _items;
-        if (this._listType == 'UL')
-            _items = this.element.querySelectorAll('li');
-        else if (this._listType == 'DIV')
-            _items = this.element.querySelectorAll('.list-item');
-        else if (this._listType == 'TABLE')
-            _items = this.element.querySelectorAll('tr');
-        for (var i = 0; i < _items.length; i++) {
-            _items[i].setAttribute('index', i.toString());
-            _items[i].addEventListener('click', (e) => { this.click(e) })
-            this._items.push(_items[i]);
-        }
-
+    private init() {
         if (this.element.hasAttribute('checkbox'))
             this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
 
+        this.element.classList.add('list');
+        this.element.classList.add('list-hover');
+
+
+
+
         //assign events
         if (this.element.hasAttribute('onbeforeclick'))
-            this.beforeclick = new Function('t', 'e', this.element.getAttribute('onbeforeclick'));
+            this.beforeClick = WNGenerateFunction(this.element.getAttribute('onbeforeclick'), 't,n,e');
         if (this.element.hasAttribute('onafterclick'))
-            this.afterclick = new Function('t', 'e', this.element.getAttribute('onafterclick'));
-        if (this.element.hasAttribute('onselectionchange'))
-            this.selectionchange = new Function('t', 'n', this.element.getAttribute('onselectionchange'));
-    }
-
-    click(e: MouseEvent): void {
-        let node = e.target as HTMLElement;
-        if (this._listType == 'TABLE') {
-            if (node.parentElement.tagName == 'THEAD')
-                return;
-            if (node.tagName == 'TD')
-                node = node.parentElement;
+            this.afterClick = WNGenerateFunction(this.element.getAttribute('onafterclick'), 't,n,e');
+        if (this.element.hasAttribute('onselectionchanged'))
+            this.selectionChanged = WNGenerateFunction(this.element.getAttribute('onselectionchanged'), 't,n');
+        if (this.element.hasAttribute('ondblclick')) {
+            this.dblClick = WNGenerateFunction(this.element.getAttribute('ondblclick'), 't,n,e');
+            this.element.ondblclick = null;
         }
-        if (this.beforeclick != null)
-            if (!this.beforeclick(this, e))
-                return;
-        this.select(node);
-        if (this.afterclick != null) this.afterclick(this, e);
-    }
+        this.selectedItem = null;
+        this.initDataSource();
+        this.initItems();
 
-    select(node: HTMLElement) {
-        if (node == this._currentSelect)
+    }
+    private initDataSource() {
+        this.dataSource = [];
+        let items;
+        if (this.element.tagName == 'UL')
+            items = this.element.querySelectorAll('li');
+        else if (this.element.tagName == 'TABLE') {
+            let tbody = this.element.querySelector('tbody') as HTMLElement;
+            if (!tbody)
+                tbody = this.element;
+            items = tbody.querySelectorAll('tr');
+        }
+        else if (this.element.tagName == 'DIV')
+            items = this.element.querySelectorAll('div');
+        else
             return;
 
-        this.element.querySelectorAll('.list-active').forEach((x) => x.classList.remove('list-active'));
-        node.classList.add('list-active');
 
-        this._currentSelect = node;
-        if (this.selectionchange != null) this.selectionchange(this, node);
+        for (var i = 0; i < items.length; i++) {
+            let itemelement = items[i] as HTMLElement;
+            let image = itemelement.querySelector('img')?.getAttribute('src') ?? itemelement.querySelector('i')?.outerHTML ?? '';
+            let link = itemelement.querySelector('a')?.getAttribute('href') ?? '';
+            let item: WNListNode = {
+                id: i + 1,
+                index: i + 1,
+                text: itemelement.textContent,
+                html: itemelement.innerHTML,
+                value: itemelement.getAttribute('value') ?? itemelement.textContent,
+                link: link,
+                image: image,
+                element: itemelement
+            };
+            this.dataSource.push(item);
+            itemelement.setAttribute('item-id', item.id.toString());
+        }
     }
 
+    private initItem(node: WNListNode): void {
+        //Add Click and DblClick for Li
+        node.element.removeEventListener("click", (e) => { this.click(node, e); });
+        node.element.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
+        node.element.addEventListener("click", (e) => { this.click(node, e); }, false);
+        node.element.addEventListener("dblclick", (e) => { this.dblclick(node, e); }, false);
 
-    findbytext(text: string, contains: boolean = true, select: boolean = true): HTMLElement {
-        let selectedNode = null;
-        this._items.forEach((x) => {
-            if (x.innerText == text || (x.innerText.includes(text) && contains)) {
-                selectedNode = x;
-                if (select)
-                    this.select(selectedNode);
-                return selectedNode;
+        //Check Selected Node
+        if (node.element.classList.contains('active'))
+            this.selectedItem = node;
+    }
+    private initItems(): void {
+        for (var i = 0; i < this.dataSource.length; i++) {
+            let node = this.dataSource[i];
+            this.initItem(node);
+        }
+    }
+
+    private lastNodeClick: WNListNode;
+    private lastNodeTime: number = 0;
+
+    private click(node: WNListNode, e: MouseEvent): void {
+        e.stopPropagation();
+        if (navigator.maxTouchPoints > 0) {
+            if (this.lastNodeClick == node && (Date.now() - this.lastNodeTime) < 400) {
+                this.dblclick(node, e);
+                return;
             }
-        });
-        return selectedNode;
+            this.lastNodeTime = Date.now();
+            this.lastNodeClick = node;
+        }
+        if (this.beforeClick && !this.beforeClick(this, node, e))
+            return;
+
+        this.select(node);
+
+        this.afterClick?.(this, node, e);
     }
-    elementtoitem(elem: HTMLElement):any {
-        if (elem != null)
-            return { caption: elem.innerText, value: elem.getAttribute('value') };
+
+    private dblclick(node: WNListNode, e: MouseEvent): void {
+        e.stopPropagation();
+        this.select(node);
+        this.dblClick?.(this, node, e);
+    }
+
+
+    private _selectedItem: WNListNode = null;
+    public get selectedItem(): WNListNode { return this._selectedItem };
+    public set selectedItem(value: WNListNode) { this.select(value); };
+
+    public get selectedValue(): string { return this._selectedItem?.value; };
+    public set selectedValue(value: string) {
+        this.findByValue(value, true);
+    };
+
+    public get selectedIndex(): number { return this.selectedItem?.index ?? -1 };
+    public set selectedIndex(value: number) {
+        let f = this.dataSource.find(x => x.index == value);
+        if (f) this.select(f);
+    };
+
+    public get checkedItems(): WNListNode[] {
+        let ret: WNListNode[] = [];
+        for (var i = 0; i < this.dataSource.length; i++) {
+            let inp = this.dataSource[i].element.querySelector('input[type=checkbox]') as HTMLInputElement;
+            if (inp.checked)
+                ret.push(this.dataSource[i]);
+        }
+        return ret;
+    };
+    public set checkedItems(value: WNListNode[]) {
+        this.checkedClear();
+
+        for (var i = 0; i < value.length; i++) {
+            let inp = value[i].element.querySelector('input[type=checkbox]') as HTMLInputElement;
+            if (inp)
+                inp.checked = true;
+        }
+    };
+
+    public get checkedValues(): string[] {
+        let ret: string[] = [];
+        let checked = this.checkedItems;
+        for (var i = 0; i < checked.length; i++) ret.push(checked[i].value)
+        return ret;
+    };
+    public set checkedValues(value: string[]) {
+        let checked: WNListNode[] = [];
+        for (var i = 0; i < value.length; i++) {
+            let f = this.dataSource.find(x => x.value == value[i]);
+            if (f) checked.push(f);
+
+        }
+        this.checkedItems = checked;
+    };
+
+    public select(node: WNListNode): void {
+        if (node == this.selectedItem) return;
+        if (node == null) {
+            this.element.querySelectorAll('.active').forEach(x => x.classList.remove('active'));
+            this._selectedItem = null;
+            return;
+        }
+        if (node.element.hasAttribute('disabled') || node.element.classList.contains('disabled'))
+            return;
+        this.element.querySelectorAll('.active').forEach(x => x.classList.remove('active'));
+        //list-active
+        node.element.classList.add('active');
+        this._selectedItem = node;
+        this.selectionChanged?.(this, node);
+    }
+
+    public findByText(text: string, contains?: boolean, select?: boolean): WNListNode[] {
+        if (contains) text = text.toLowerCase();
+        let find = this.dataSource.filter(x => contains ? x.text.toLowerCase().includes(text.toLowerCase()) : x.text == text);
+        if (select && find.length > 0)
+            this.select(find[0]);
+        return find;
+    }
+    public findByValue(value: string, select?: boolean): WNListNode {
+        let find = this.dataSource.find(x => x.value == value);
+        if (select && find)
+            this.select(find);
+        return find;
+    }
+    public findByTextOrValue(text: string, contains?: boolean, select?: boolean): WNListNode[] {
+        let find = this.dataSource.filter(x => (contains ? x.text.includes(text) : x.text == text) || x.value == text);
+        if (select && find.length > 0)
+            this.select(find[0]);
+        return find;
+    }
+    public filterByText(text: string, contains?: boolean): void {
+        if (text == '') {
+            this.element.querySelectorAll('li,tr,.list-item').forEach(x => x.classList.remove('hide', 'first-child', 'last-child'));
+            return;
+        }
+        let find = this.findByText(text, contains, false);
+        this.element.querySelectorAll('li,tr,.list-item').forEach(x => x.classList.add('hide'));
+        if (find.length > 0) {
+            for (var i = 0; i < find.length; i++) {
+                let tnode = find[i];
+                tnode.element.classList.remove('hide');
+            }
+            find[0].element.classList.add('first-child');
+            find[find.length - 1].element.classList.add('last-child');
+        }
+
+    }
+
+
+    //DataSource Managment
+    public addToDataSource(text: string, link: string, value: string, image: string): WNListNode {
+        try {
+
+            let item: WNListNode = {
+                id: 0,
+                index: 0,
+                html: text,
+                link: link,
+                value: value??text,
+                image: image,
+                element: null,
+                text: ''
+            };
+            this.dataSource.forEach((x) => { item.id = x.id > item.id ? x.id : item.id });
+            item.id++;
+            item.index = item.id;
+
+            let elem = this.nodeToHtmlElement(item);
+
+            item.text = elem.textContent;
+            item.element = elem;
+
+            this.initItem(item);
+            this.element.appendChild(item.element);
+            this.dataSource.push(item);
+            return item;
+        } catch (e) {
+            console.error(e);
+        }
         return null;
     }
+    private nodeToHtmlElement(node: WNListNode): HTMLElement {
+        let item: HTMLElement;
+        if (this.element.tagName == 'UL')
+            item = document.createElement('li');
+        else if (this.element.tagName == 'TABLE')
+            item = document.createElement('TR');
+        else if (this.element.tagName == 'DIV')
+            item = document.createElement('div');
 
-    findbyvalue(value: string, select: boolean = true): HTMLElement {
-        let selectedNode = null;
-        value = value.toLowerCase();
-        this._items.forEach((x) => {
-            if (x.getAttribute('value').toLowerCase() == value) {
-                selectedNode = x;
-                if (select)
-                    this.select(selectedNode);
-                return selectedNode;
+        let tItem = item;
+        if (this.checkbox) {
+            let ttItem = tItem;
+            if (this.element.tagName == 'TABLE') {
+                let td = document.createElement('td');
+                tItem.appendChild(td);
+                ttItem = td;
             }
-        });
-        return selectedNode;
+            let inp = document.createElement('input');
+            inp.type = 'checkbox';
+            inp.className = 'item-check';
+            inp.id = this.element.id + '_' + node.id;
+            ttItem.appendChild(inp);
+        }
 
-    }
-    filterbytext(text: string, contains: boolean = true) {
-        text = text.toLowerCase();
+        if (this.element.tagName == 'TABLE') {
+            let td = document.createElement('td');
+            item.appendChild(td);
+            tItem = td;
 
-        for (var i = 0; i < this._items.length; i++) {
-            let s = this._items[i].innerText.toLowerCase();
-            if ((contains && s.includes(text)) || (s == text))
-                this._items[i].classList.remove('d-none');
+        }
+        if (this.checkbox) {
+            let label = document.createElement('label');
+            label.setAttribute('for', this.element.id + '_' + node.id);
+            tItem.appendChild(label);
+            tItem = label;
+        }
+
+        if (node.link && node.link != '') {
+            let link = document.createElement('a');
+            link.href = node.link;
+            tItem.appendChild(link);
+            tItem = link;
+        }
+        if (node.image && node.image != '') {
+            if (node.image.trim().startsWith('<'))
+                tItem.innerHTML += node.image;
             else
-                this._items[i].classList.add('d-none');
+                tItem.innerHTML += `<img src="${node.image}"/>`;
+        }
+        tItem.innerHTML += node.html == '' ? node.text : node.html;
+        tItem.setAttribute('item-id', item.id.toString());
+        node.text = tItem.textContent;
+        node.element = item;
+        return item;
+    }
+    public removeFromDataSource(node: WNListNode): boolean {
+        try {
+            node.element.removeEventListener("click", (e) => { this.click(node, e); });
+            node.element.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
+            node.element.remove();
+            let list = this.dataSource;
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].id == node.id) {
+                    list.splice(i, 1);
+                    break;
+                }
+            }
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
+        return true;
+    }
+    public updateNodeElement(node: WNListNode): void {
+        node.element.innerHTML = this.nodeToHtmlElement(node).innerHTML;
+    }
+    public setDataSourceByItem(dataSource: any[], displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void {
+        if (!append)
+            this.clearDataSource();
+
+        for (var i = 0; i < dataSource.length; i++) {
+            let item = dataSource[i];
+            this.addToDataSource(item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
         }
     }
-    addrow(text: string, value: string = '') {
-        let elem: HTMLElement;
-        if (this._listType == 'UL')
-            elem = document.createElement('li');
-        else if (this._listType == 'DIV') {
-            elem = document.createElement('div');
-            elem.classList.add('');
+
+    public setDataSource(dataSource: WNListNode[], append?: boolean): void {
+        if (!append)
+            this.clearDataSource();
+
+        for (var i = 0; i < dataSource.length; i++) {
+            let item = dataSource[i];
+            this.addToDataSource(item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
         }
-        else if (this._listType == 'TABLE') {
-            elem = document.createElement('tr');
-        }
-        elem.setAttribute('index', this._items.length.toString());
-        elem.setAttribute('value', value);
-        if (this.checkbox)
-            elem.innerHTML = `<input type='checkbox' value='${value}'> ${text}</input>`;
-        else
-            elem.innerHTML = text;
-        elem.addEventListener('click', (e) => { this.click(e) });
-
-        if (this._listType == 'TABLE') {
-            let tbody = this.element.querySelector('tbody');
-            if (tbody == null)
-                this.element.appendChild(elem);
-            else
-                tbody.appendChild(elem);
-        }
-        else
-            this.element.appendChild(elem);
-
-
-        this._items.push(elem);
-
-        return elem;
     }
-    settext(text: string, index: number) {
-        let elem = this.element.querySelector(`li[index='${index}']`);
-        if (elem != null)
-            if (this.checkbox)
-                elem.innerHTML = `<input type='checkbox' value='${elem.getAttribute('value')}'> ${text}</input>`;
-            else
-                elem.innerHTML = text;
+
+    private clearDataSource() {
+        while (this.dataSource.length > 0) this.removeFromDataSource(this.dataSource[0]);
     }
-    setvalue(text: string, index: number) {
-        let elem = this.element.querySelector(`li[index='${index}']`) as HTMLElement;
-        if (elem != null)
-            if (this.checkbox)
-                elem.innerHTML = `<input type='checkbox' value='${text}'> ${elem.innerText}</input>`;
-        elem.setAttribute('value', text);
-    }
-    removerow(index: number) {
-        if (index < 0 || index >= this._items.length)
-            return;
-        this._items.splice(index,1);
-        this._currentSelect = null;
-        this.reindex();
-        this.refresh();
-    }
-    order(desc = false) {
-        this._items.sort((x, y) => {
-            if (x.innerText > y.innerText)
+
+    public orderDataSourceByText(desc: boolean = false): void {
+        this.dataSource.sort((x, y) => {
+            if (x.text > y.text)
                 return desc ? -1 : 1;
-            else if (x.innerText < y.innerText)
+            else if (x.text < y.text)
                 return desc ? 1 : -1;
             return 0;
         });
         this.reindex();
-        this.refresh();
+        this.redraw();
     }
-    reindex() {
-        for (var i = 0; i < this._items.length; i++) {
-            this._items[i].setAttribute('index', i.toString());
-        }
+    public orderDataSourceByValue(desc: boolean = false): void {
+        this.dataSource.sort((x, y) => {
+            if (x.value > y.value)
+                return desc ? -1 : 1;
+            else if (x.value < y.value)
+                return desc ? 1 : -1;
+            return 0;
+        });
+        this.reindex();
+        this.redraw();
     }
-    refresh() {
-        let tbody = this.element.querySelector('tbody') as HTMLElement;
-        if (this._listType == 'TABLE') {
-            if (tbody == null)
-                tbody = this.element;
-        }
-        else
-            tbody = this.element;
-
-        tbody.innerHTML = '';
-
-        for (var i = 0; i < this._items.length; i++) {
-            tbody.appendChild(this._items[i]);
-        }
-    }
-
-    setdata(datasource: any[], displayfield: string, valuefield: string, append: boolean = false) {
-        if (!append) {
-            this._items = [];
-            this.refresh();
-        }
-        if (valuefield == '' && displayfield == '') {
-            let keys = Object.keys(datasource);
-            let values = Object.values(datasource);
-            for (var i = 0; i < values.length; i++) {
-                let k = '';
-                if (i >= keys.length)
-                    k = keys[i];
-                this.addrow(values[i], k);
-            }
-        }
-        else {
-            if (displayfield.includes('{')) {
-                let idx = 1;
-                datasource.forEach((x) => {
-                    let tdisplay = displayfield;
-                    tdisplay = tdisplay.replace('{index}', idx.toString());
-                    this.addrow(tdisplay, x[valuefield]);
-                    idx++;
-                });
-            }
-            else
-                datasource.forEach((x) => {
-                    this.addrow(x[displayfield], x[valuefield]);
-                });
-        }
-    }
-    getcheckedvalue() {
-        let ret = [];
-        this.element.querySelectorAll('input:checked').forEach((f: HTMLInputElement) => { ret.push(f.value); });
-        return ret;
-    }
-    setcheckedvalue(value) {
-        this.element.querySelectorAll('input[type=checkbox]').forEach((f: HTMLInputElement) => {
-            f.checked = value.includes(f.value);
+    private redraw() {
+        this.element.innerHTML = '';
+        this.dataSource.forEach((item) => {
+            let elem = this.nodeToHtmlElement(item);
+            item.element = elem;
+            this.element.appendChild(elem);
+            this.initItem(item);
         });
     }
+    private reindex() {
+        for (var i = 0; i < this.dataSource.length; i++)
+            this.dataSource[i].index = i + 1;
+    }
+
+
+    public checkedClear(): void {
+        this.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.checked = false);
+    }
+    public checkedAll(): void {
+        this.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.checked = true);
+    }
+    public checkedInvert(): void {
+        this.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.checked = !x.checked);
+    }
+
+
 }

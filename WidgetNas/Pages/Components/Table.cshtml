@@ -16,16 +16,24 @@
 <p>برای استفاده از کلاسهای مرتبط با جدول به قسمت <a href="/Content/Table">جدول</a> مراجعه کنید.</p>
 <p>حتما برای استفاده از جدول پویا بایستی خصوصیت wn-type را با مقدار table مقدار دهی کنید.</p>
 <div class="example-div">
-    <div class="ltr">
+    <div class="ltr w-90-i">
         <h3>LTR</h3>
-        <table id="table1-ltr" class="tablex hover striped" wn-type="table" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US">
+        <table id="table1-ltr" class="tablex hover striped" wn-type="table" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
+               oncommand="alert(command +':'+ node.privateId)">
             <thead>
                 <tr>
                     <th sortable data-field='id' data-type='number' data-format='number' style="width:3rem">#</th>
                     <th filterable data-field='firstName' data-format='Name is : {0}'>First Name</th>
                     <th filterable sortable data-field='lastName'>Last Name</th>
                     <th filterable sortable data-field='position' data-format='t'>Position</th>
-                    <th filterable sortable data-field='date' data-type='date' data-format='shortdate'>Birth Date</th>
+                    <th filterable sortable="value" data-field='date' data-type='date' data-format='shortdate'
+                        condition="t.className=value.getFullYear()==2005?'secondary':''">Birth Date</th>
+                    <th condition="t.innerText=node.fields['date'].value.getFullYear()">Condition</th>
+                    <th command>
+                        Commands
+                        <button command="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="m-is-50r" command="delete"><i class="fa-solid fa-trash"></i></button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +43,8 @@
                     <td>Moridi</td>
                     <td>WidgetNas Creator</td>
                     <td>1979-04-04</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th>2</th>
@@ -42,6 +52,8 @@
                     <td>Rahmani</td>
                     <td>Developer</td>
                     <td>2000-05-17</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th>3</th>
@@ -49,20 +61,30 @@
                     <td>Keshavarz</td>
                     <td>Marketing</td>
                     <td>2005-02-20</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="rtl">
+    <div class="rtl w-90-i">
         <h3>RTL</h3>
-        <table id="table1-rtl" class="tablex hover striped" wn-type="table" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR">
+        <table id="table1-rtl" class="tablex hover striped" wn-type="table" calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR"
+               oncommand="alert(command +':'+ node.privateId)">
             <thead>
                 <tr>
                     <th sortable data-field='id' data-type='number' data-format='number'>#</th>
                     <th filterable data-field='firstName' data-format='نام : {0}'>نام</th>
                     <th filterable sortable data-field='lastName'>نام خانوادگی</th>
                     <th filterable sortable data-field='position' data-format='t'>عنوان</th>
-                    <th filterable sortable data-field='date' data-type='date' data-format='shortdate'>تاریخ تولد</th>
+                    <th filterable sortable="value" data-field='date' data-type='date' data-format='shortdate'
+                        condition="t.className=value.getFullYear()==2005?'secondary':''">تاریخ تولد</th>
+                    <th condition="t.innerText=node.fields['date'].value.getFullYear()">شرطها</th>
+                    <th command>
+                        دستورات
+                        <button command="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="m-is-50r" command="delete"><i class="fa-solid fa-trash"></i></button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -72,6 +94,8 @@
                     <td>مریدی</td>
                     <td>سازنده ویجت نس</td>
                     <td>1979-04-04</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th>2</th>
@@ -79,6 +103,8 @@
                     <td>رحمانی</td>
                     <td>برنامه نویس</td>
                     <td>2000-05-17</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th>3</th>
@@ -86,6 +112,8 @@
                     <td>کشاورز</td>
                     <td>بازاریابی</td>
                     <td>2005-02-20</td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
@@ -124,35 +152,213 @@
     </ul>
 </p>
 <p>
+    <h4>data-format</h4>
+    اگر میخواهید بر اساس قوانین خاص برای نمایش مقدار استفاده کنید، آنرا در این خصوصیت مشخص کنید.
+    برای مثال برای فیلدهای تاریخی عبارت shortdate یا longdate یا yyyy/MM/dd یا برای اعداد 0 یا 0.00 یا هر فرمت دیگر طبق استاندارد استفاده کنید.
+</p>
+<p>
     <h4>sortable</h4>
     اگر میخواهید ستون قابلیت منظم شدن داشته باشند، این خصوصیت مشخص میکند این ستون میتواند بر اساس دیتای آن مرتب شود.
     <br />
-    اگر مقدار value را وارد کنید بر اساس مقدار آن ستون و اگر مقدار caption را وارد کنید بر اساس متن نمایش داده عملیات صورت میگیرد.
-    مقدار پیش فرض value است.
+    اگر مقدار value را وارد کنید بر اساس مقدار آن ستون و اگر مقدار text را وارد کنید بر اساس متن نمایش داده عملیات صورت میگیرد.
+    مقدار پیش فرض value است.<br />
+    در فیلدهایی مانند تاریخ که در دو فرهنگ متفاوت قابل نمایش هستند این گزینه بسیار مهم است. یعنی اگر بر اساس value باشد
+    بر اساس تاریخ مرتب میشود ولی اگر بر اساس text باشد، مرتب سازی بر اساس اصول متن و تاریخ تبدیل شده منظم میشود.
 </p>
 <p>
     <h4>filterable</h4>
     اگر میخواهید ستون قابلیت فیلتر شدن داشته باشند، این خصوصیت مشخص میکند این ستون میتواند بر اساس دیتای آن و مقدار وارد شده در جعبه متن ورودی فیلتر شود.
     <br />
-    اگر مقدار value را وارد کنید بر اساس مقدار آن ستون و اگر مقدار caption را وارد کنید بر اساس متن نمایش داده عملیات صورت میگیرد.
+    اگر مقدار value را وارد کنید بر اساس مقدار آن ستون و اگر مقدار text را وارد کنید بر اساس متن نمایش داده عملیات صورت میگیرد.
     مقدار پیش فرض value است.
 </p>
 <p>
-    <h4></h4>
+    <h4>condition</h4>
+    هر شرط و شروطی که میخواهید در موقع نمایش اطلاعات بررسی شود، به صورت یک تابع جاوا اسکریپت قابل برنامه ریزی است.
+    برای مثال میخواهید، خانه هایی که اعداد منفی را دارند را قرمز کنید، شما میتوانید با استفاده از این رخداد، آنها را تنظیم کنید.
+    <br /><bidi>condition: (t: HTMLTableCellElement, node: WNTableNode, value: any, text: string) => void</bidi>
+    در پارمترهای این رخداد t به td ساخته شده اشاره دارد و مقدار node به ردیف اطلاعاتی که در آن است.
+    مقدار value و text به مقادیر متناظر آن در آن سلول اشاره میکند.
 </p>
-
+<p>
+    <h4>command</h4>
+    اگر میخواهید به ازای هر ردیف ستونی داشته باشید که یکسری دکمه برای عملیاتهای خاص داشته باشد، این خصوصیت را در ردیف هدر مشخص کنید.
+    سپس در بدنه آن هر متنی نوشته شده باشد را عنوان انتخاب کرده و هر المنت button که تعریف شده  باشد را بعنوان یک کلید برای هر ردیف دیتا نمایش میدهد.
+    زمانیکه آن کلید کلیک شود، یک رخداد به نام command فراخوانی میشود. که در قسمت رخدادها توضیح داده میشود. <br />
+    هر دکمه دارای یک خصوصیت command است که مقداری در آن میتوانید وارد کنید، تا زمانیکه رخداد command فراخوانی میشود، این عبارت در آن قابل دسترس باشد.
+</p>
 <h2>خواندن اطلاعات از سرور</h2>
+<p>
+    برای خواندن اطلاعات از سرور ابتدا ساختار جدول را تعیین کنید، سپس به هر روشی که شده دیتا مد نظر را از سرور خوانده و
+    توسط تابع setDataSource آنها را مقدار دهی کنید.
+</p>
+<p>
+    <h4>setDataSource</h4>
+    ارسال آرایه از اطلاعات که طبق ستونهای مندرج است. این دیتا در خصوصیت dataSource که از نوع WNTableNode است ذخیره میگردد.
+    <br /><bidi>setDataSource(dataSource: any, append?: boolean): void</bidi>
+    <br />پارامتر append مشخص میکند، دیتا به آخر اضافه شود یا نه کل دیتا جدید است. این خصوصیت برای لود جداول lazy کار آمد است.
+</p>
+<p>
+    <h4>WNTableNode</h4>
+    هر ردیف دیتا در این ساختار در حافظه قرار میگیرد.
+    <br />
+    <bidi>
+        privateId: number,<br />
+        rowElement: HTMLTableRowElement,<br />
+        fields: { [id: string]: WNTableFieldValue }
+    </bidi>
+    <br />
+    privateId: به ازای هر ردیف یک کد یکتا از 1 الی... میگیرد.<br />
+    rowElement: هر زمان در جدول یک tr ساخته شود، آن را به آن رکورد متصل میکند<br />
+    fields: لیست مقداری است که توسط شما به ازای هر رکود وارد شده است. با این تفاوت که آن فیلد خود دو خصوصیت value و text دارد.
+    در خصوصیت value مقدار واقعی ذخیره شده و در خصوصیت text مقداری که برای نمایش آماده سازی میشود، نمایش داده میشود.
+</p>
+<p>
+    <h4>removeFromDataSource</h4>
+    برای حذف یک رکورد در dataSource از این تابع استفاده کنید.
+    <br /><bidi>removeFromDataSource(r: WNTableNode): boolean</bidi>
+</p>
+<p>
+    <h4>updateNodeElement</h4>
+    برای بروز کردن دیتای یک رکورد از این تابع استفاده کنید.
+    <br /><bidi>updateNodeElement(r: WNTableNode): void </bidi>
+</p>
+<p>
+    <h4>addToDataSource</h4>
+    اگر میخواهید یک ردیف دیتا به dataSource اضافه کنید از این تابع استفاده کنید. دقت کنید ورودی فقط باید دیتای خام شما طبق جدول باشد.
+    <br /><bidi>addToDataSource(r: any): WNTableNode</bidi>
+</p>
+<p>
+    <h4>sort</h4>
+    اگر میخواهید عمل مرتب شدن بر اساس ستون خاص باشد، از این تابع استفاده کنید.
+    <br /><bidi>sort(colIndex: number): void</bidi>
+</p>
+<h2>خصوصیات</h2>
+<p>
+    <h4>cols</h4>
+    آرایه ای از تمام ستونهای تحلیل شده میباشد.
+    <br /><bidi>cols: WNTableCol[]</bidi>
+    <br />
+    ساختار آن عبارت است از:
+    <br />
+    <bidi>
+        index: number,<br />
+        caption: string,<br />
+        field: string,<br />
+        datatype: string,<br />
+        sortable: WNTableTextValue,<br />
+        filterable: WNTableTextValue,<br />
+        format: string,<br />
+        class: string,<br />
+        elementInHeader: HTMLTableCellElement<br />
+        elementFilter: HTMLInputElement<br />
+        commandElement: HTMLButtonElement[],<br />
+        condition: (t: HTMLTableCellElement, node: WNTableNode, value: any, text: string) => void
+    </bidi>
+    <br />
+    index: شماره ستون است<br />
+    caption: عنوان ستون است<br />
+    field: نام فیلد دیتای آن است<br />
+    datatype: نوع فیلد دیتای آن است<br />
+    sortable: قابلیت مرتب سازی دارد یا نه و بر چه اساس است<br />
+    filterable: قابلیت فیلتر کردن دارد یا نه و بر چه اساس است<br />
+    format: فرمت نمایش داده چه شکل میباشد<br />
+    class: چه کلاس هایی را باید به ستون اضافه کند<br />
+    elementInHeader: المنت آن در هدر است<br />
+    elementFilter: اگر فیلتر دارد به المنت ورودی آن اشاره دارد<br />
+    commandElement: اگر از نوع ستون دستوری است، لیست کلیدهای الگو را معین میکند<br />
+    condition: رخدادی برای فرخوانی در هنگام هر شرط را تعیین میکند
+</p>
+<p>
+    <h4>dataSource</h4>
+    لیستی از دیتای ورودی با ساختار مرتبط را دارد.
+    <br /><bidi>dataSource: WNTableNode[]</bidi>
+</p>
+<p>
+    <h4>currentPage</h4>
+    اگر از خاصیت صفحه بندی استفاده کردید، شماره صفحه انتخاب شده را مشخص میکند.
+    <br /><bidi>currentPage: number</bidi>
+</p>
+<p>
+    <h4>selectedItem</h4>
+    زمانیکه بر روی هر ردیف جدول کلیک کنید، آن ردیف انتخاب شده و در این خصوصیت مشخص میشود.
+    <br /><bidi>selectedItem: WNTableNode</bidi>
+</p>
+<h2>رخدادها</h2>
+<p>
+    <h4>beforeFilter</h4>
+    قبل از عملیات فیلتر کردن داده ها صدا زده شده و اگر مقدار false برگرداند عمل لغو میشود.
+    <br /><bidi>beforeFilter: (t: IWNTable) => boolean</bidi>
+</p>
+<p>
+    <h4>afterFilter</h4>
+    بعد از فیلتر کردن صدا زده میشود.
+    <br /><bidi>afterFilter: (t: IWNTable) => void</bidi>
+</p>
+<p>
+    <h4>beforeSort</h4>
+    قبل از عملیات مرتب سازی داده ها صدا زده شده و اگر مقدار false برگرداند عمل لغو میشود.
+    <br /><bidi>beforeSort: (t: IWNTable) => boolean</bidi>
+</p>
+<p>
+    <h4>afterSort</h4>
+    بعد از مرتب سازی صدا زده میشود.
+    <br /><bidi>afterSort: (t: IWNTable) => void</bidi>
+</p>
+<p>
+    <h4>beforeSelected</h4>
+    قبل از انتخاب ردیف صدا زده شده و اگر مقدار false برگرداند عمل لغو میشود.
+    <br /><bidi>beforeSelected: (t: IWNTable, oldNode: WNTableNode, newNode: WNTableNode) => boolean</bidi>
+</p>
+<p>
+    <h4>selectionChanged</h4>
+    بعد از آنکه ردیفی انتخاب شد صدا زده میشود.
+    <br /><bidi>selectionChanged: (t: IWNTable, oldNode: WNTableNode, newNode: WNTableNode) => void</bidi>
+</p>
+<p>
+    <h4>beforePageChange</h4>
+    قبل از انتخاب صفحه جدید صدا زده شده و اگر مقدار false برگرداند عمل لغو میشود.
+    <br /><bidi>beforePageChange: (t: IWNTable, oldPage: number, newPage: number) => boolean</bidi>
+</p>
+<p>
+    <h4>afterPageChange</h4>
+    بعد از تغییر صفحه صدا زده میشود.
+    <br /><bidi>afterPageChange: (t: IWNTable, oldpage: number, newpage: number) => void</bidi>
+</p>
+<p>
+    <h4>command</h4>
+    زمانیکه بر روی یک دکمه دستوری که در بالاتر نحوه ساخت آن گفته شد کلیک شود، این رخداد فراخوانده میشود.<br />
+    در پارامتر command دستوری که در آن دکمه مشخص کردید ارسال میگردد و همین طور ردیف مرتب با آن در node.<br />
+    به همین منظور شما به راحتی میتوانید هر ردیف جدول را هر آنگونه که میخواهید مدیریت کنید. برای مثال حذف، ویرایش، یا حتی محتوی بیشتری از آن نمایش دهید.
+    <br /><bidi>command: (t: IWNTable, command:string,node: WNTableNode) => void</bidi>
+</p>
+<p>
+    <h4></h4>
+    <br /><bidi></bidi>
+</p>
+<p>
+    <h4></h4>
+    <br /><bidi></bidi>
+</p>
+<p>
+    <h4></h4>
+    <br /><bidi></bidi>
+</p>
+<p>
+    <h4></h4>
+    <br /><bidi></bidi>
+</p>
 <div class="example-div">
     <div class="ltr" id="form1">
         <h3>LTR</h3>
-        <table id="table2-ltr" class="tablex hover striped" wn-type="table" calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US">
+        <table id="table2-ltr" class="tablex hover striped" wn-type="table" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US">
             <thead>
                 <tr>
-                    <th sortable data-field='__privatekey' data-type='number'>#</th>
+                    <th sortable data-field='privateId' data-type='number'>#</th>
                     <th filterable sortable data-field='Student name' data-type='string'>Name</th>
-                    <th filterable sortable data-field='Exam name' data-type='string}'>Exam</th>
+                    <th filterable sortable data-field='Exam name' data-type='string'>Exam</th>
                     <th filterable sortable data-field='Exam date' data-type='date' data-format='shortdate'>Date</th>
-                    <th filterable sortable data-field='Exam points' data-type='number'>Points</th>
+                    <th filterable sortable data-field='Exam points' data-type='number' aggregate="avg">Points</th>
                 </tr>
             </thead>
             <tbody>
@@ -160,7 +366,7 @@
             <tfoot>
                 <tr>
                     <td colspan="5">
-                        <nav class="pagination justify-content-center s-m" rows='10'>
+                        <nav class="pagination justify-content-center s-m" page-size='10'>
                             <button class="first"><i class="fa-solid fa-backward-fast"></i></button>
                             <button class="previous"><i class="fa-solid fa-backward"></i></button>
                             <button>1</button>
@@ -178,9 +384,9 @@
             </tfoot>
         </table>
         <script>
-            WNE(document).Ready(async () => {
+            WN(document).ready(async () => {
                 await Get(null, '/data/examslist.en.json').then((r) => {
-                    WN['table2-ltr'].setdata(r, false);
+                    WN('table2-ltr').wn.setDataSource(r, false);
                 }).catch((e) => {
                     console.log(e);
                 });
@@ -189,14 +395,14 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <table id="table2-rtl" class="tablex hover striped" wn-type="table" calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR">
+        <table id="table2-rtl" class="tablex hover striped" wn-type="table" calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR">
             <thead>
                 <tr>
-                    <th sortable data-field='__privatekey' data-type='number'>#</th>
+                    <th sortable data-field='privateId' data-type='number'>#</th>
                     <th filterable sortable data-field='Student name' data-type='string'>نام</th>
-                    <th filterable sortable data-field='Exam name' data-type='string}'>آزمون</th>
+                    <th filterable sortable data-field='Exam name' data-type='string'>آزمون</th>
                     <th filterable sortable data-field='Exam date' data-type='date' data-format='shortdate'>تاریخ</th>
-                    <th filterable sortable data-field='Exam points' data-type='number'>نمره</th>
+                    <th filterable sortable data-field='Exam points' data-type='number' aggregate="avg">نمره</th>
                 </tr>
             </thead>
             <tbody>
@@ -204,7 +410,7 @@
             <tfoot>
                 <tr>
                     <td colspan="5">
-                        <nav class="pagination justify-content-center s-m" rows='10'>
+                        <nav class="pagination justify-content-center s-m" page-size='10'>
                             <button class="first"><i class="fa-solid fa-forward-fast"></i></button>
                             <button class="previous"><i class="fa-solid fa-forward"></i></button>
                             <button>1</button>
@@ -222,9 +428,9 @@
             </tfoot>
         </table>
         <script>
-            WNE(document).Ready(async () => {
+            WN(document).ready(async () => {
                 await Get(null, '/data/examslist.fa.json').then((r) => {
-                    WN['table2-rtl'].setdata(r, false);
+                    WN('table2-rtl').wn.setDataSource(r, false);
                 }).catch((e) => {
                     console.log(e);
                 });
@@ -233,11 +439,6 @@
     </div>
 </div>
 <figure><code data-on="form1"></code></figure>
-<p>
-    شما با هر روشی که مایل هستید، اطلاعات را از سرور بخوانید، در نهایت بایستی توسط تابع <bidi>setdata</bidi> آنرا به جدول متصل کنید.
-    این تابع دو ورودی دارد، اولی مقدار آرایه ای از رکوردها و ورودی دوم جهت اضافه کردن به انتهای لیست قبلی یا نه قرار دادن همین
-    اطلاعات بعنوان اطلاعات اصلی.
-</p>
 <h2>صفحه بندی</h2>
 <p>
     اگر دیتا بلند بالایی دارید و لیست شدن آن پشت سر هم آزار دهنده است میتوانید آن را صفحه بندی کنید،
@@ -252,178 +453,37 @@
     <li>اگر میخواهید دکمه صفحه بعد را داشته باشید، یک دکمه با کلاس <bidi>next</bidi> بسازید.</li>
     <li>اگر میخواهید دکمه آخرین صفحه را داشته باشید، یک دکمه با کلاس <bidi>last</bidi> بسازید.</li>
     <li>هر استایل و هر شکلی که تمایل دارید بسازید و انواع کلاسها را قرار دهید.</li>
-    <li>برای نمایش تعداد ردیف در هر صفحه از خصوصیت <bidi>rows</bidi> استفاده کنید. هر تعداد ردیف را وارد کنید، آن تعداد در هر صفحه نمایش داده خواهد شد.</li>
+    <li>برای نمایش تعداد ردیف در هر صفحه از خصوصیت <bidi>page-seize</bidi> استفاده کنید. هر تعداد ردیف را وارد کنید، آن تعداد در هر صفحه نمایش داده خواهد شد.</li>
 </ul>
-<h2>رخدادها</h2>
-<p>
-    زمانیکه یک ردیف را انتخاب کردید یا میخواهید عمل مرتب سازی یا فیلتر کردن را انجام دهید، شاید لازم باشد
-    عملیاتی را قبل یا بعد از آن انجام دهید. بدین منظور میتوانید از رخدادهای زیر استفاده کنید.
-</p>
-<p>
-    <h4>beforefilter</h4>
-    قبل از آنکه بخواهد عمل فیلتر کردن رخ دهد این رخداد فراخوانی میشود، اگر مقدار بازگشتی false باشد، عمل فیلتر کردن لغو میشود.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforefilter استفاده کنید.
-    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
-</p>
-<p>
-    <h4>afterfilter</h4>
-    بعد از فیلتر کردن این رخداد اتفاق می افتد.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onafterfilter استفاده کنید.
-    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
-</p>
-<p>
-    <h4>beforesort</h4>
-    قبل از آنکه بخواهد عمل مرتب سازی رخ دهد این رخداد فراخوانی میشود، اگر مقدار بازگشتی false باشد، عمل مرتب کردن لغو میشود.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforesort استفاده کنید.
-    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
-</p>
-<p>
-    <h4>aftersort</h4>
-    بعد از مرتب سازی این رخداد اتفاق می افتد.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onaftersort استفاده کنید.
-    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
-</p>
-<p>
-    <h4>beforepagechange</h4>
-    قبل از آنکه بخواهد عمل تغییر صفحه رخ دهد این رخداد فراخوانی میشود، اگر مقدار بازگشتی false باشد، عمل مرتب کردن لغو میشود.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforepagechange استفاده کنید.
-    پارامترهای آن t,oldpage,newpage است میباشد.
-</p>
-<p>
-    <h4>pagechanged</h4>
-    بعد از تغییر صفحه این رخداد اتفاق می افتد.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onpagechanged استفاده کنید.
-    پارامترهای آن t,oldpage,newpage است میباشد.
-</p>
-<p>
-    <h4>beforeselected</h4>
-    قبل از آنکه یک ردیف انتخاب شود این رخداد رخ میدهد، اگر مقدار بازگشتی false باشد، عمل انتخاب لغو میشود.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforeselected استفاده کنید.
-    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
-    پارامتر دوم newselected است به معنی، انتخاب جدیدی که قرار است انجام شود.
-</p>
-<p>
-    <h4>selectedchanged</h4>
-    بعد از انتخاب ردیف این رخداد اتفاق می افتد.
-    <br />
-    اگر میخواهید به صورت برخط این رخداد را مقدار دهی کنید از خصوصیت onbeforeselected استفاده کنید.
-    پارامترهای آن t که به معنی موضوع درخواست کننده است میباشد.
-    پارامتر دوم newselected است به معنی، انتخاب جدیدی که انجام شده است.
-    پارامتر سوم oldselected است به معنی، انتخاب قبلی که انجام شده بوده است.
-</p>
-<h3>دسترسی به انتخاب ها</h3>
-<p>
-    <h4>selecteditem</h4>
-    با مشاهده مقدار این خصوصیت، رکورد اطلاعاتی انتخاب شده به شما برگرداننده میشود.
-</p>
-<p>
-    در نظر داشته باشید، سیستم اطلاعاتی داخلی پس از دریافت اطلاعات بر حسب ستونهای انتخاب شده، هر مقدار ورودی را به یک خصوصیت
-    داخلی که دارای دو خصوصیت caption و value است تبدیل میکند، در خصوصیت caption عبارتی که نمایش داده شده قرار گرفته و در
-    خصوصیت value مقداری که واقعا ارسال شده است قرار میگیرد. بدین منظور برای دسترسی به آن بایستی این خصوصیت ها را نیز در نظر بگیرید.
-</p>
-<p>
-    <h4>selectedrow</h4>
-    این خصوصیت، tr انتخاب شده را برمیگرداند.<br />
-    هر tr دارای یک خصوصیت به اسم index میباشد، که این شماره به ردیف دیتایی در خصوصیت renderdata اشاره میکند. در ادامه به این خصوصیت اشاره میشود.
-</p>
-<p>
-    <h4>data</h4>
-    کلیه اطلاعات ورودی در این خصوصیت ذخیره میشود و تمام نمایش ها بر اساس این دیتای اولیه میباشد.
-</p>
-<p>
-    <h4>renderdata</h4>
-    اگر شما عمل فیلتر کردن یا مرتب سازی را انجام دهید، بر اساس اطلاعات مندرج در خصوصیت data این خصوصیت ساخته شده و در جدول بر این اساس نمایش داده میشود.
-</p>
-<p>
-    <h4><bidi>__privatekey</bidi></h4>
-    در هنگام ساخت خصوصیت data یک فیلد یا ستون به این نام ساخته میشود که یک کلید داخلی است، از شماره 1 تا انتهای رکوردها مقدار دهی میگردد.
-</p>
-<p>
-    <h4>cols</h4>
-    کلیه ستونهای شناسایی شده در این خصوصیت به صورت آرایه از خصوصیات زیر تعیین میشوند.
-    <ul>
-        <li>index: شماره ستون</li>
-        <li>caption: عنوان ستون</li>
-        <li>field: نام فیلد در خصوصیت data</li>
-        <li>datatype: جنس داده</li>
-        <li>sortable: وضعیت مرتب سازی بر اساس caption یا value</li>
-        <li>filterable: وضعیت فیلتر کردن بر اساس caption یا value</li>
-        <li>
-            format: نحوه نمایش و تبدیل مقدار value به caption
-            <ul>
-                <li>text {0} text مقدار در قسمت {0} قرار میگیرد.</li>
-                <li>l یا lowercase کلیه حروف به صورت کوچک نمایش داده شود</li>
-                <li>u یا uppercase کلیه حروف به صورت بزرگ نمایش داده شود</li>
-                <li>t یا titlecase ابتدای هر کلمه به صورت بزرگ نمایش داده شود</li>
-                <li>number نمایش عدد بر اساس فرهنگ نمایش عددی</li>
-                <li>date نمایش تاریخ بر اساس فرهنگ نمایش تاریخ</li>
-                <li>longdate نمایش تاریخ به صورت طولانی و کامل</li>
-                <li>shortdate نمایش تاریخ به صورت کوتاه و فقط تاریخ</li>
-                <li>longtime نمایش ساعت به صورت طولانی و کامل</li>
-                <li>shorttime نمایش ساعت به صورت کوتاه و فقط ساعت</li>
-                <li>بدون مقدار نیز بر اساس پیش فرض برای هر نوع نمایش خودکار انتخاب خواهد شد.</li>
-            </ul>
-        </li>
-        <li>class: نام کلاسهای استفاده شده در آن ستون</li>
-    </ul>
-</p>
-<h2>توابع</h2>
-<p>
-    <h4>Sort</h4>
-    اگر میخواهید به صورت برنامه نویسی یک ستون را مرتب کنید، کافیست این تابع را به همراه شماره ستون آن فراخوانی کنید.
-</p>
-<p>
-    <h4>SetFilter</h4>
-    بر اساس مقادیر وارد شده در جعبه های ورودی فیلتر، دیتای لازم را فیلتر میکند.
-</p>
-<p>برای دسترسی به جعبه متن ها میتوانید از خصوصیت filterinput که آرایه ای به ازای هر ستون است و در آن به جعه ورودی متن اشاره دارد استفاده کنید.</p>
-<p>
-    <h4>refresh</h4>
-    برای نمایش دوباره کلیه ردیف ها از این تابع استفاده میشود.<br />
-    برای مثال بعد از فراخوانی تابع Sort بایستی کل جدول نیز دوباره نمایش داده شود.
-</p>
-<p>
-    <h4>Delete</h4>
-    با استفاده از این تابع، ردیف انتخاب شده، حذف میگردد.
-</p>
-<p>
-    <h4>Select</h4>
-    با استفاده از این تابع، ردیف مورد نظر بر اساس <bidi>__privatekey</bidi> انتخاب میگردد.
-</p>
-<p>
-    <h4>SelectRow</h4>
-    با استفاده از این تابع، ردیف مورد نظر بر اساس شماره آن در جدول انتخاب میگردد. توجه داشته باشید، شماره ردیف از صفر شروع میشود.
-</p>
+
 <h2>مثال از رخدادها</h2>
 <div class="example-div">
-    <div class="ltr" id="form2">
-        <h3>LTR</h3>
+    <div class="ltr w-90-i" id="form2">
         <table id="table3-ltr"
                class="tablex hover striped"
                wn-type="table"
-               calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+               calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
                onbeforefilter='WriteLog("Before Filter"); return true;'
                onafterfilter='WriteLog("After Filter")'
                onbeforesort='WriteLog("Before Sort"); return true;'
                onaftersort='WriteLog("After Sort")'
                onbeforeselected='WriteLog("Before Select"); return true;'
-               onselectedchanged='WriteLog("Selected Changed")'
+               onselectionchanged='WriteLog("Selected Changed")'
                onbeforepagechange='WriteLog("Before Page Change"); return true;'
-               onpagechanged='WriteLog("Page Changed")'>
+               onafterpagechange='WriteLog("Page Changed")'
+               oncommand='WriteLog("Command " + command + " id: " + node.privateId)'>
             <thead>
                 <tr>
-                    <th sortable data-field='__privatekey' data-type='number'>#</th>
+                    <th sortable data-field='privateId' data-type='number'>#</th>
                     <th filterable sortable data-field='Student name' data-type='string'>Name</th>
-                    <th filterable sortable data-field='Exam name' data-type='string}'>Exam</th>
+                    <th filterable sortable data-field='Exam name' data-type='string'>Exam</th>
                     <th filterable sortable data-field='Exam date' data-type='date' data-format='shortdate'>Date</th>
                     <th filterable sortable data-field='Exam points' data-type='number'>Points</th>
+                    <th command>
+                        <button command="view"><i class="fa-regular fa-eye"></i></button>
+                        <button command="edit" class="m-is-50r"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button command="delete" class="m-is-50r"><i class="fa-solid fa-trash"></i></button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -431,7 +491,7 @@
             <tfoot>
                 <tr>
                     <td colspan="5">
-                        <nav class="pagination justify-content-center s-m" rows='5'>
+                        <nav class="pagination justify-content-center s-m" page-size='5'>
                             <button class="first"><i class="fa-solid fa-backward-fast"></i></button>
                             <button class="previous"><i class="fa-solid fa-backward"></i></button>
                             <button>1</button>
@@ -448,23 +508,17 @@
                 </tr>
             </tfoot>
         </table>
-        <div class="">
-            <button class="danger" onclick="WN['table3-ltr'].Delete();">Remove Selected</button><br />
-            <div class="d-flex">
-                <button class="primary" onclick="WN['table3-ltr'].Select(WNE('PID').Element.value);">Select Private Key 2</button><input type="number" id='PID' class="w-30-i" value="2" /><br />
-            </div>
-            <button class="primary" onclick="WN['table3-ltr'].SelectRow(3);">Select Page Row 3 (0-4)</button><br />
-        </div>
+
         <script>
-            WNE(document).Ready(async () => {
+            WN(document).ready(async () => {
                 await Get(null, '/data/examslist.en.json').then((r) => {
-                    WN['table3-ltr'].setdata(r, false);
+                    WN('table3-ltr').wn.setDataSource(r, false);
                 }).catch((e) => {
                     console.log(e);
                 });
             });
             function WriteLog(msg) {
-                WNE('EventLog').Element.innerHTML += msg + '<br/>';
+                WN('EventLog').element.innerHTML = msg + '<br/>' + WN('EventLog').element.innerHTML;
             }
         </script>
     </div>
@@ -475,3 +529,89 @@
     </div>
 </div>
 <figure><code data-on="form2"></code></figure>
+<h2>گروه بندی و سر جمع</h2>
+<p>بعضی از مواقع نیاز داریم جدول را بر اساس یک گروه بندی خاص به نمایش بگذاریم. این جدول با پشتیبانی از 10 گروه بندی که از 0 تا 9
+    مقدار دهی میشود، قابلیت نمایش را دارد، اگر تعداد بیشتری گروه بندی خواستید بایستی در فایل css خصوصیات group-10 و به بعد را تعریف کنید.
+</p>
+<p>برای گروه بندی، بایستی اسم فیلدهای موجود در دیتاسورس خود را با جدا ساز , در خصوصیت groups وارد کنید. یا توسط جاوا اسکریپت این خصوصیت را مقدار دهی کنید. که آرایه ای از نام فیلدها است.</p>
+<p>اگر میخواهید در گروه بندی یا به صورت کلی سرجمع داشته باشید بایستی زمانیکه در هدر به تعریف کردن مشخصات ستون مشغول هستید خصوصیت 
+    aggregate را نیز مقدار دهی کنید.<br />
+    sum: به معنی جمع ستون<br />
+    avg: به معنی میانگین ستون<br />
+    count: به معنی تعداد در ستون<br />
+    max: به معنی بیشترین مقدار در ستون<br />
+    min: به معنی کمترین مقدار در ستون<br />
+
+</p>
+<div class="example-div">
+    <div class="rtl w-90-i" id="form3">
+        <div class="responsive h-50vh">
+            <table id="table4-rtl"
+                   class="tablex hover striped"
+                   wn-type="table"
+                   calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR"
+                   groups="Col1,Col2:text,Col3,Col4,Col5">
+                <thead>
+                    <tr>
+                        <th filterable sortable data-field='Col6' data-type='number' aggregate="sum">عدد 1</th>
+                        <th filterable sortable data-field='Col7' data-type='number' aggregate="avg">عدد 2</th>
+                        <th filterable sortable data-field='Col8' data-type='number'>عدد 3</th>
+                        <th command>
+                            <button command="view"><i class="fa-regular fa-eye"></i></button>
+                            <button command="edit" class="m-is-50r"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button command="delete" class="m-is-50r"><i class="fa-solid fa-trash"></i></button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <nav class="pagination justify-content-center s-m" page-size='5'>
+                                <button class="first"><i class="fa-solid fa-backward-fast"></i></button>
+                                <button class="previous"><i class="fa-solid fa-backward"></i></button>
+                                <button>1</button>
+                                <button>2</button>
+                                <button>3</button>
+                                <button>4</button>
+                                <button>5</button>
+                                <button>6</button>
+                                <button>7</button>
+                                <button class="next"><i class="fa-solid fa-forward"></i></button>
+                                <button class="last"><i class="fa-solid fa-forward-fast"></i></button>
+                            </nav>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <button onclick="AppendData()">اطلاعات بیشتر</button>
+        <script>
+            WN(document).ready(async () => {
+                AppendData();
+            });
+            function AppendData() {
+                let r = [];
+                for (i = 0; i < 10; i++) {
+                    let t = {
+                        Col1: 'اطلاعات ' + (Math.floor(Math.random() * 2) + 1),
+                        Col2: 'بخش ' + (Math.floor(Math.random() * 2) + 1),
+                        Col3: 'قسمت ' + (Math.floor(Math.random() * 2) + 1),
+                        Col4: 'ناحیه ' + (Math.floor(Math.random() * 2) + 1),
+                        Col5: 'طبقه ' + (Math.floor(Math.random() * 2) + 1),
+                        Col6: Math.floor(Math.random() * 300),
+                        Col7: Math.floor(Math.random() * 600),
+                        Col8: Math.floor(Math.random() * 900)
+                    }
+                    r.push(t);
+                }
+                WN('table4-rtl').wn.setDataSource(r, true);
+            }
+        </script>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+<h2>ریسپانسیو کردن جدول</h2>
+<p>برای ریسپانسیو کردن جدول باید کل جدول را در یک div قرار داد و به آن div کلاس responsive را اضافه کرد و هر اندازه ای که مد نظر است به آن داد.</p>
+<p>جدول در زمان ریسپانسیو شدن، عنوان و پانوشت به صورت چسبان همیشه نمایش داده میشود.</p>

@@ -1,49 +1,46 @@
-﻿class wncarousel {
-    element: HTMLElement;
+﻿class WNCarousel  implements IWNCarousel{
+    public readonly nameType: string = 'WNCarousel';
+    public element: HTMLElement;
 
-    _interval: number = 10000;
-    get interval() { return this._interval; }
-    set interval(value: number) { this._interval = value; }
+    public interval: number = 10000;
 
-    _autoplay: boolean = true;
-    get autoplay() { return this._autoplay; }
-    set autoplay(value: boolean) { this._autoplay = value; }
+    public autoPlay: boolean = true;
 
-    _playState: string = 'ready';
-    _hoverpause: boolean = true;
-    get hoverpause() { return this._hoverpause; }
-    set hoverpause(value: boolean) {
-        this._hoverpause = value;
-        if (this._hoverpause) {
+    private _playState: string = 'ready';
+    private _hoverPause: boolean = true;
+    public get hoverPause() { return this._hoverPause; }
+    public set hoverPause(value: boolean) {
+        this._hoverPause = value;
+        if (this._hoverPause) {
             this.element.addEventListener("mouseenter", () => { if (this._playState == 'play') this._playState = 'pause'; })
             this.element.addEventListener("mouseleave", () => { if (this._playState == 'pause') this._playState = 'play'; })
         }
     };
 
-    _items: HTMLElement[];
-    _indicators: HTMLElement[];
-    _oldindex = -1;
-    _index = 0;
-    _transitionDelay = 600;
-    _durationHandle: any;
-    _effectHandle: any;
-    _touch_x: number = 0;
-    NextButton: HTMLButtonElement;
-    PreviousButton: HTMLButtonElement;
+    private _items: HTMLElement[];
+    private _indicators: HTMLElement[];
+    private _oldindex = -1;
+    private _index = 0;
+    private _transitionDelay = 600;
+    private _durationHandle: any;
+    private _effectHandle: any;
+    private _touch_x: number = 0;
+    private nextButton: HTMLButtonElement;
+    private previousButton: HTMLButtonElement;
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLElement;
-            this.Init();
+            this.init();
         }
-        if (this.autoplay) {
+        if (this.autoPlay) {
             this._playState = 'play';
-            this.Play();
+            this.play();
         }
     }
-    Init() {
+    private init() {
         this.interval = WNparseNumber(this.element.getAttribute("interval"), 5000);
-        this.autoplay = WNparseBoolean(this.element.getAttribute("autoplay"), true);
-        this.hoverpause = WNparseBoolean(this.element.getAttribute("hoverpause"), true);
+        this.autoPlay = WNparseBoolean(this.element.getAttribute("autoplay"), true);
+        this.hoverPause = WNparseBoolean(this.element.getAttribute("hoverpause"), true);
         this._items = WNGetNodesList(".carousel-item", this.element);
 
         //find first active item, if not found index is 0
@@ -62,25 +59,25 @@
             this._transitionDelay = parseFloat(t.substring(0, t.length - 1)) * 1000;
 
         //Find Next & Previous Button
-        this.NextButton = this.element.querySelector('.carousel-next') as HTMLButtonElement;
-        this.NextButton?.addEventListener('click', () => { this.Next(); })
-        this.PreviousButton = this.element.querySelector('.carousel-previous') as HTMLButtonElement;
-        this.PreviousButton?.addEventListener('click', () => { this.Previous(); })
+        this.nextButton = this.element.querySelector('.carousel-next') as HTMLButtonElement;
+        this.nextButton?.addEventListener('click', () => { this.next(); })
+        this.previousButton = this.element.querySelector('.carousel-previous') as HTMLButtonElement;
+        this.previousButton?.addEventListener('click', () => { this.previous(); })
 
         this.element.addEventListener("touchstart", (e) => { this._touch_x = e.touches[0].clientX; })
         this.element.addEventListener("touchend", (e) => {
             if (this._touch_x > e.changedTouches[0].clientX)
-                this.Previous();
+                this.previous();
             if (this._touch_x < e.changedTouches[0].clientX)
-                this.Next();
+                this.next();
 
         });
         this.element.addEventListener("mousedown", (e) => { this._touch_x = e.clientX; })
         this.element.addEventListener("mouseup", (e) => {
             if (this._touch_x > e.clientX)
-                this.Previous();
+                this.previous();
             if (this._touch_x < e.clientX)
-                this.Next();
+                this.next();
 
         })
 
@@ -95,30 +92,30 @@
                 }
             }
             this._indicators = WNGetNodesList(".indicator-item", indicators);
-            this._indicators.forEach((e) => { e.addEventListener('click', () => { this.ShowSlide(e); }) });
+            this._indicators.forEach((e) => { e.addEventListener('click', () => { this.showSlide(e); }) });
             let t = this._index;
             this._index = -1;
-            this.ShowSlide(this._indicators[t]);
+            this.showSlide(this._indicators[t]);
         }
     }
-    Play() {
+    private play() {
         window.clearTimeout(this._durationHandle);
         let interval = this.interval;
         if (this._playState == 'pause') {
-            this.Clear();
+            this.clear();
             this._items[this._index].classList.add('active');
         }
         else
-            interval = this.Show();
+            interval = this.show();
 
         if (this._playState != 'ready')
             this._durationHandle = window.setTimeout(() => {
                 if (this._playState == 'play')
-                    this.AddIndex(1);
-                this.Play();
+                    this.addIndex(1);
+                this.play();
             }, interval);
     }
-    Show(): number {
+    private show(): number {
         let oldElement = null;
         if (this._oldindex != -1) {
             oldElement = this._items[this._oldindex];
@@ -145,7 +142,7 @@
 
         return WNparseNumber(nextElement.getAttribute("interval"), this.interval);
     }
-    Clear() {
+    private clear() {
         window.clearTimeout(this._effectHandle);
         window.clearTimeout(this._durationHandle);
 
@@ -157,19 +154,19 @@
                 this._indicators[i].classList.remove('active');
         }
     }
-    Next() {
-        this.AddIndex(1);
-        if (this.autoplay) this._playState = 'play';
-        this.Clear();
-        this.Play();
+    private next(): void {
+        this.addIndex(1);
+        if (this.autoPlay) this._playState = 'play';
+        this.clear();
+        this.play();
     }
-    Previous() {
-        this.AddIndex(-1);
-        if (this.autoplay) this._playState = 'play';
-        this.Clear();
-        this.Play();
+    private previous(): void {
+        this.addIndex(-1);
+        if (this.autoPlay) this._playState = 'play';
+        this.clear();
+        this.play();
     }
-    AddIndex(skip: number) {
+    private addIndex(skip: number): void {
         this._oldindex = this._index;
         this._index += skip;
         if (this._index >= this._items.length)
@@ -177,15 +174,15 @@
         if (this._index < 0)
             this._index = this._items.length - 1;
     }
-    ShowSlide(element) {
+    private showSlide(element): void {
         let index = WNparseNumber(element.getAttribute('indicator-index'), 0);
         if (this._index == index)
             return;
         this._oldindex = this._index;
         this._index = index;
 
-        if (this.autoplay) this._playState = 'play';
-        this.Clear();
-        this.Play();
+        if (this.autoPlay) this._playState = 'play';
+        this.clear();
+        this.play();
     }
 }

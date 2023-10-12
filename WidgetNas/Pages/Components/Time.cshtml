@@ -17,14 +17,14 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <div id="time1" wn-type="time" class="time bordered" style="width:17rem"
-             cultureinfo="wnCultureInfo_en_US">
+        <div id="time1" wn-type="Time" class="time bordered" style="width:17rem"
+             cultureinfo="WNCultureInfo_en_US">
         </div>
 </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <div wn-type="time" class="time bordered" style="width:17rem"
-             cultureinfo="wnCultureInfo_fa_IR">
+        <div wn-type="Time" class="time bordered" style="width:17rem"
+             cultureinfo="WNCultureInfo_fa_IR">
         </div>
     </div>
 </div>
@@ -34,18 +34,18 @@
     <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">="time</span>"<span class="ha"> class</span><span class="hv">="time</span>"<span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
 </code></pre>
 </figure>
-<p>در بالا ساده ترین نوع زمان نمایش داده شده است، نوع فرهنگ از مقادیر پیش فرض و متغییر های <bidi>WNDefaultCultureInfo</bidi> گرفته میشود.</p>
+<p>در بالا ساده ترین نوع زمان نمایش داده شده است، نوع فرهنگ از مقادیر پیش فرض و متغییر های <bidi>wnConfig.cultureInfo</bidi> گرفته میشود.</p>
 <p>اگر میخواهید، نوع فرهنگ را به صورت دستی برای تقویم خود تعیین کنید بایستی در ادامه خصوصیات زیر را اضافه کنید.</p>
 <figure>
     <pre><code class="html">
     <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">="time</span>"<span class="ha"> class</span><span class="hv">="time</span>"
-        <span class="ha"> cultureinfo</span><span class="hv">="wnCultureInfo_en_US</span>"<span class="hv">&gt;</span>
+        <span class="ha"> cultureinfo</span><span class="hv">="WNCultureInfo_en_US</span>"<span class="hv">&gt;</span>
     <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
 </code></pre>
 </figure>
 <p>در خصوصیت <bidi>cultureinfo</bidi> نام یکی از کلاسهای از پیش تعیین شده و یا شخصی سازی شده خود را وارد کنید.</p>
 <p>اگر نمیدانید، چه کلاسهایی پیاده سازی شده است، کافیست برای اطلاع بیشتر <a href="DateJS">اینجا</a> را مطالعه کنید.</p>
-<p>اعداد قابلیت نمایش به صورت محلی را دارند، مقدار پیش فرض از <bidi>WNDefaultNaitveDigit</bidi> گرفته میشود، ولیکن شما میتوانید با تعیین خصوصیت <bidi>naitvedigit = 'true'</bidi> یا <bidi>naitvedigit = 'false'</bidi> این تبدیل را کنترل کنید.</p>
+<p>اعداد قابلیت نمایش به صورت محلی را دارند، مقدار پیش فرض از <bidi>WNDefaultNativeDigit</bidi> گرفته میشود، ولیکن شما میتوانید با تعیین خصوصیت <bidi>nativeDigit = 'true'</bidi> یا <bidi>nativeDigit = 'false'</bidi> این تبدیل را کنترل کنید.</p>
 <h2>دسترسی به زمان انتخاب شده</h2>
 <p>تا به اینجا به نحوه نمایش زمان اشاره شده است، حال باید ببینیم چطور میتوانیم به زمان انتخاب شده میتوان دسترسی داشت.</p>
 <p>
@@ -53,7 +53,7 @@
     <bidi>Date</bidi> تاریخ و زمان است، اگر در هنگام ورودی، مقدار تاریخ دار نیز باشد، فقط مقدارهای ساعت را تغییر میدهد و تاریخ بدون استفاده است.
 </p>
 <figure><code data-on="_code" data-mode="javascript">
-    alert(WN['time-id'].Date.toString());
+    alert(WN('time-id').wn.Date.toString());
 </code></figure>
 <p>
     دسترسی داشتن به زمان امکان خوبی است ولی معمولا اضافه کردن کدهای تکراری به صفحه و مدیریت توسط جاوا اسکریپت آنچنان دلچسب نیست.
@@ -65,18 +65,18 @@
     <div class="ltr" id="form1">
         <h3>LTR</h3>
         <input id="date1_ltr" type="text" style="width:17rem" />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time" style="width:17rem"
-             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
              value-id="date1_ltr">
         </div>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <input id="date1_rtl" type="text" style="width:17rem" />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time" style="width:17rem"
-             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR"
              value-id="date1_rtl"></div>
     </div>
 </div>
@@ -93,9 +93,9 @@
         <h3>LTR</h3>
         <input id="date2_d_ltr" type="text" style="width:17rem" />
         <input id="date2_ltr" type="text" style="width:17rem" disabled />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time" style="width:17rem"
-             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+             calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
              value-id="date2_ltr"
              display-id="date2_d_ltr">
         </div>
@@ -104,9 +104,9 @@
         <h3>RTL</h3>
         <input id="date2_d_rtl" type="text" style="width:17rem" />
         <input id="date2_rtl" type="text" style="width:17rem" disabled />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time" style="width:17rem"
-             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+             calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR"
              value-id="date2_rtl"
              display-id="date2_d_rtl"></div>
     </div>
@@ -117,9 +117,9 @@
     <div class="ltr" id="form3">
         <h3>LTR</h3>
         <input id="date3_d_ltr" type="text" />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time"  style="width:17rem"
-             cultureinfo="wnCultureInfo_en_US"
+             cultureinfo="WNCultureInfo_en_US"
              display-id="date3_d_ltr"
              display-format="HH:mm:ss"
              >
@@ -128,9 +128,9 @@
     <div class="rtl">
         <h3>RTL</h3>
         <input id="date3_d_rtl" type="text" />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time"  style="width:17rem"
-             cultureinfo="wnCultureInfo_fa_IR"
+             cultureinfo="WNCultureInfo_fa_IR"
              display-id="date3_d_rtl"
              display-format="HH:mm:ss"
              >
@@ -147,9 +147,9 @@
     <div class="ltr" id="form4">
         <h3>LTR</h3>
         <input id="date4_d_ltr" type="text" />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time"  style="width:17rem"
-             cultureinfo="wnCultureInfo_en_US"
+             cultureinfo="WNCultureInfo_en_US"
              display-id="date4_d_ltr"
              display-format="HH:mm:ss"
              input-format="hms"
@@ -159,9 +159,9 @@
     <div class="rtl">
         <h3>RTL</h3>
         <input id="date4_d_rtl" type="text" />
-        <div wn-type="time"
+        <div wn-type="Time"
              class="time"  style="width:17rem"
-             cultureinfo="wnCultureInfo_fa_IR"
+             cultureinfo="WNCultureInfo_fa_IR"
              display-id="date4_d_rtl"
              display-format="HH:mm:ss"
              input-format="hms"
@@ -182,9 +182,9 @@
             <input id="inputdate1_h_ltr" type="hidden" />
             <button class="dropdown-toggle" wn-type="dropdown"></button>
             <div class="dropdown align-end p-0-i">
-                <div wn-type="time"
+                <div wn-type="Time"
                      class="time"
-                     cultureinfo="wnCultureInfo_en_US"
+                     cultureinfo="WNCultureInfo_en_US"
                      display-id="inputdate1_ltr"
                      value-id="inputdate1_h_ltr">
                 </div>
@@ -196,9 +196,9 @@
             <input id="inputdate2_h_ltr" type="hidden" />
             <button class="dropdown-toggle" wn-type="dropdown"></button>
             <div class="dropdown align-end p-0-i">
-                <div wn-type="time"
+                <div wn-type="Time"
                      class="time"
-                     cultureinfo="wnCultureInfo_en_US"
+                     cultureinfo="WNCultureInfo_en_US"
                      display-id="inputdate2_ltr"
                      value-id="inputdate2_h_ltr"
                      >
@@ -210,9 +210,9 @@
             <input id="inputdate3_h_ltr" type="hidden" />
             <button class="dropdown-toggle" wn-type="dropdown"></button>
             <div class="dropdown align-end p-0-i">
-                <div wn-type="time"
+                <div wn-type="Time"
                      class="time"
-                     cultureinfo="wnCultureInfo_en_US"
+                     cultureinfo="WNCultureInfo_en_US"
                      display-id="inputdate3_ltr"
                      value-id="inputdate3_h_ltr"
                      >
@@ -228,18 +228,18 @@
             <div class="dropdown align-end p-0-i" style="width:30rem">
                 <div class="row">
                     <div class="col">
-                        <div wn-type="time"
+                        <div wn-type="Time"
                              class="time"
-                             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                             calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
                              display-id="inputdate4_ltr"
                              value-id="inputdate4_h_ltr"
                              display-format="MM-dd-yyyy hh:mm tt">
                         </div>
                     </div>
                     <div class="col">
-                        <div wn-type="calendar"
+                        <div wn-type="MonthCalendar"
                              class="calendar"
-                             calendar="wnGregorianCalendar" cultureinfo="wnCultureInfo_en_US"
+                             calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
                              display-id="inputdate4_ltr"
                              value-id="inputdate4_h_ltr"
                              display-format="MM-dd-yyyy hh:mm tt">
@@ -257,9 +257,9 @@
             <input id="inputdate1_h_rtl" type="hidden" />
             <button class="dropdown-toggle" wn-type="dropdown"></button>
             <div class="dropdown align-end p-0-i">
-                <div wn-type="time"
+                <div wn-type="Time"
                      class="time"
-                     cultureinfo="wnCultureInfo_fa_IR"
+                     cultureinfo="WNCultureInfo_fa_IR"
                      display-id="inputdate1_rtl"
                      value-id="inputdate1_h_rtl">
                 </div>
@@ -271,9 +271,9 @@
             <input id="inputdate2_h_rtl" type="hidden" />
             <button class="dropdown-toggle" wn-type="dropdown"></button>
             <div class="dropdown align-end p-0-i">
-                <div wn-type="time"
+                <div wn-type="Time"
                      class="time"
-                     cultureinfo="wnCultureInfo_fa_IR"
+                     cultureinfo="WNCultureInfo_fa_IR"
                      display-id="inputdate2_rtl"
                      value-id="inputdate2_h_rtl">
                 </div>
@@ -284,9 +284,9 @@
             <input id="inputdate3_h_rtl" type="hidden" />
             <button class="dropdown-toggle" wn-type="dropdown"></button>
             <div class="dropdown align-end p-0-i">
-                <div wn-type="time"
+                <div wn-type="Time"
                      class="time"
-                     cultureinfo="wnCultureInfo_fa_IR"
+                     cultureinfo="WNCultureInfo_fa_IR"
                      display-id="inputdate3_rtl"
                      value-id="inputdate3_h_rtl">
                 </div>
@@ -301,18 +301,18 @@
             <div class="dropdown align-end p-0-i" style="width:30rem">
                 <div class="row">
                     <div class="col">
-                        <div wn-type="time"
+                        <div wn-type="Time"
                              class="time"
-                             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                             calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR"
                              display-id="inputdate4_rtl"
                              value-id="inputdate4_h_rtl"
                              display-format="yyyy/MM/dd hh:mm tt">
                         </div>
                     </div>
                     <div class="col">
-                        <div wn-type="calendar"
+                        <div wn-type="MonthCalendar"
                              class="calendar"
-                             calendar="wnPersianCalendar" cultureinfo="wnCultureInfo_fa_IR"
+                             calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR"
                              display-id="inputdate4_rtl"
                              value-id="inputdate4_h_rtl"
                              display-format="yyyy/MM/dd hh:mm tt">

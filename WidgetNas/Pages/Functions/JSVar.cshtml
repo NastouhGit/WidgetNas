@@ -1,95 +1,282 @@
 ﻿@page
 @model WidgetNas.Pages.Functions.JSVarModel
 @{
-    ViewData["Title"] = "جاوا اسکریپت خطی";
+    ViewData["Title"] = "توابع جاوا اسکریپت";
     ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
 }
 <h1>@ViewData["Title"]</h1>
+<p>برای سرویس دهی موضوعات ویجت نس از زبان جاوا اسکریپت استفاده شده است، این مجموعه کامپوننت ها توسط typescript و بدون استفاده از هیچ لایبری اضافی مانند jquery استفاده شده است.</p>
+<p>شما برای استفاده از این کامپوننت نیازی به اضافه کردن هیچ کتابخانه اضافی ندارید و همچنین سعی شده است سربارهای اضافی نیز حذف گردد.</p>
+<h1>توابع</h1>
+<p>قطعا شما نیز میتوانید از توابع نوشته شده برای اعمال اسکریپتی خود استفاده کنید، برخی از این توابع در زیر نام برده خواهد شد و به مرور زمان مستندات آن تکمیل خواهد گردید.</p>
+<ul class="list">
+    <li>
+        <h3 class="ltr text-start">WNmod(a: number, b: number)</h3>
+        <p>مقدار باقیمانده دو پارامتر خود را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNparseBoolean(value: any, Default?: boolean)</h3>
+        <p>مقدار ورودی را بررسی و در صورت bool بودن، مقدار آنرا برمیگرداند، در غیر اینصورت مقدار پیش فرض انتخاب شده را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNparseNumber(value: any, Default?: number, culture: wnCultureInfo = wnConfig.cultureInfo)</h3>
+        <p>مقدار عددی ورودی را بررسی میکند، اگر عدد بود، مقدار آن و در غیر اینصورت مقدار پیش فرض را برمیگرداند. اگر اعداد به صورت اعداد محلی بودند، ابتدا اعداد را تبدیل و سپس صحت مقداری را بررسی میکند.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNparseString(value: any, Default?: string)</h3>
+        <p>مقدار رشته ای را بررسی کرده و در صورت عدم وجود مقدار رشته ای مانند null مقدار پیش فرض را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNLimitRange(value: number, min: number, max: number)</h3>
+        <p>اگر مقدار بین حداقل و حداکثر بود، مقدار خود و در غیر اینصورت مقدار حداقل یا حداکثر را برمیگرداند.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNParentHaveClass(child: HTMLElement, parentClassName: string)</h3>
+        <p>بررسی میکند، آیا کلاسی در تگهای والد موضوع مورد نظر استفاده شده است یا خیر.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNnativeDigit(number: number | string, culture: wnCultureInfo, convert: boolean)</h3>
+        <p>اعداد درون یک رشته یا عدد را به صورت اعداد محلی تبدیل میکند، برای مثال عدد 1 را ۱ نمایش میدهد.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNDenativeDigit(value: string, culture: wnCultureInfo = wnConfig.cultureInfo)</h3>
+        <p>اعداد محلی را به اعداد سیستمی تبدیل میکند، برعکس تابع WNnativeDigit</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNGetNodesList(list: string, parent: any = document, thiselemnt: HTMLElement = null)</h3>
+        <p>لیست تگهایی که با قوانین سلکتورها قابل شناسایی هستند را برمیگرداند، قوانین را میتوانید در پارامتر list و به صورت , جداکننده استفاده کنید.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNCalcValue(value1: string, value2: string, sign: string, elem: HTMLElement = null, min: number = Number.MIN_VALUE, max: number = Number.MAX_VALUE)</h3>
+        <p>محاسبه 4 عمل اصلی در واحدهای مختلف نمایشی که نسبت به المت انتخاب شده محاسبه میگردد، برای مثال تبدیل px و em یا rem</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNContainElement(elem: HTMLElement, findin: HTMLElement)</h3>
+        <p>بررسی میکند، یک المت داخل یک المت دیگر است یا خیر.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNHtmlToEscape(src:string)</h3>
+        <p>تبدیل تگهای html به تگهای قابل نمایش در pre</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNValueUnit(value: string): { value: number, unit: string }</h3>
+        <p>دریافت مقدار عددی و واحد یک رشته مانند 10px</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNGetCookie(cname: string)</h3>
+        <p>دریافت مقدار کوکی</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNSetCookie(cname: string, cvalue: string, exdays: number)</h3>
+        <p>ثبت مقدار کوکی، اگر مقدار تاریخ انقضا صفر باشد، آنرا تنظیم نمیکند.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNGetStorage(key: string)</h3>
+        <p>دریافت مقدار از استوریج سشن، اگر نبود، از استوریج لوکال</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNSetStorage(key: string, value: string, localstorage: boolean)</h3>
+        <p>تنظیم مقدار استوریج، در صورتیکه localstorage مقدار true باشد. در لوکال استرویج و در غیر اینصورت در سشن ذخیره میشود.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WNAddStringQuote(value: string)</h3>
+        <p>برای ارسال یه رشته به صورت post به سرور، بایستی عبارت متنی در " قرار گیرد، این تابع این علامت را در کنار مقدار قرار میدهد.</p>
+    </li>
+    <li>
+        <h3 class="ltr text-start">WN(element: HTMLElement | HTMLDocument | string): WNElement</h3>
+        <p>
+            اگر میخواهید یکسری توابع یا خصوصیات یک موضوعی را تغییر دهید، از این تابع استفاده کنید.
+        </p>
+        <p class="ltr text-start">
+            Element: HTMLElement | HTMLDocument | any;<br />
+            Ready(callBack: any, options?: boolean);<br />
+            Click(callBack: any);<br />
+            Change(callBack: any);<br />
+            Input(callBack: any);<br />
+            Focus(callBack: any);<br />
+            FocusIn(callBack: any);<br />
+            FocusOut(callBack: any);<br />
+            Resize(callBack: any);<br />
+            Scroll(callBack: any);<br />
+            Select(callBack: any);<br />
+            ContextMenu(callBack: any);<br />
+            Copy(callBack: any);<br />
+            Cut(callBack: any);<br />
+            Paste(callBack: any);<br />
+            DBLClick(callBack: any);<br />
+            Drag(callBack: any);<br />
+            Dragend(callBack: any);<br />
+            Dragenter(callBack: any);<br />
+            Dragleave(callBack: any);<br />
+            Dragover(callBack: any);<br />
+            Dragstart(callBack: any);<br />
+            Drop(callBack: any);<br />
+            Keydown(callBack: any);<br />
+            Keypress(callBack: any);<br />
+            Keyup(callBack: any);<br />
+            Mousedown(callBack: any);<br />
+            Mouseenter(callBack: any);<br />
+            Mouseleave(callBack: any);<br />
+            Mousemove(callBack: any);<br />
+            Mouseover(callBack: any);<br />
+            Mouseout(callBack: any);<br />
+            Mouseup(callBack: any);<br />
+            Touchcancel(callBack: any);<br />
+            Touchend(callBack: any);<br />
+            Touchmove(callBack: any);<br />
+            Touchstart(callBack: any);<br />
+            Wheel(callBack: any);<br />
+        </p>
+        <p>برای مثال میخواهید وقتی روی موضعی با ID یا نام <bidi>'d1'</bidi> کلیک شد یک پیام نشان دهید از مثال زیر استفاده کنید.</p>
+        <p class="ltr text-start">
+            WN('d1').Click(()=>{alert('some');});
+        </p>
+    </li>
+
+</ul>
+<h2>ارسال و دریافت اطلاعات با سرور</h2>
+<p>برای آنکه شما بتوانید به سرور ارسال اطلاعات داشته باشید میتوانید از توابع زیر استفاده کنید.</p>
 <p>
-    گاهی اوقات نیاز داریم، مقدار یک متغییر جاوا اسکریپتی و یا یک محاسبه را در بین متون html قرار دهیم. برای این منظور ابتدا بایستی آن متغییر را در بین اسکریپت تعریف کنید.
-    سپس نام آن متغییر را در بین علامت گفته شده قرار دهید. <bidi>$[var_name]</bidi>
+    <h3>WNBaseFetchUri</h3>
+    اگر آدرس سرور وب سرویس شما با آدرس سرویس دهنده شما متفاوت است، میتوانید یکبار این متغییر را مقدار دهی کنید، تا در زمانیکه آدرس سرور
+    به هر دلیلی تغییر کرد فقط با تغییر این متغییر، کلیه ارسال و دریافت به آن سرور منتقل شود.<br />
+    برای مثال سایت شما به آدرس a.com است ولی سرویس دهنده دیتای شما به آدرس data.a.com است. بدین منظور بایستی مقدار متغییر را قبل از فراخوانی توابع ارسال اطلاعات مقدار دهی کنید. <br />
+    <bidi>WNBaseFetchUri='https://data.a.com/api/v1';</bidi>
 </p>
-<p>اگر میخواهید به صورت خودکار تمام توابع در قسمت body اجرا نشوند، متغییر <bidi>DisableTagEvalScript</bidi> را برابر مقدار true کنید. مقدار پیش فرض false است.</p>
-<div class="alert warning callout-start">کدهای زیر به دلیل تغییر خودکار دارای کاراکترهای مخفی میباشند. لذا از کپی کردن آن خودداری کنید.</div>
-<div class="example-div">
-    <div>
-        <p>Name: $[name]</p>
-        <p>Inline Script: $[name+ ' Moridi']</p>
+<p>
+    <h3>Post</h3>
+    <bidi>Post(data: any, postUrl: string)</bidi> <br />
+    برای پست اطلاعات به سرور از این تابع استفاده کنید. پارامتر اول دیتای شما به صورت فرم یا دیتای مستقیم یا جیسون میباشد.<br />
+    پارامتر بعدی، آدرس کنترلر دریافت کننده به صورت نسبی با مقدار متغییر WNBaseFetchUri است.
+</p>
+<figure>
+    <code data-on="_code">
+        WN(document).Ready(async() =˃ {
+        await Post(null, '/Components/Tree').then((r) =˃ {
+        alert(r);
+        }).catch((e) =˃ {
+        console.log(e);
+        });
+        });
+    </code>
+</figure>
+<p>
+    <h3>Get</h3>
+    <bidi>Get(data: any, postUrl: string)</bidi> <br />
+    این تابع همانند تابع Post است با این تفاوت روش ارسال اطلاعات به صورت Get میباشد.
+</p>
+<p>
+    <h3>GetText</h3>
+    <bidi>GetText(postUrl: string)</bidi> <br />
+    اگر میخواهید یک فایل یا دیتای متنی را دریافت کنید، به صورت Get فراخوانی شده و مقدار برگشتی را نمایش میدهد.
+</p>
+<p>
+    <h3>GetFile</h3>
+    <bidi>GetFile(path: any, postUrl: string)</bidi> <br />
+    برای دانلود یک فایل از سرور توسط کنترلر میتوانید از این تابع استفاده کنید. در قسمت پارامتر path میتوانید آدرسی که کنترلر میشناسد را وارد کرده و در قسمت url اسم کنترلر خود را بنویسید.<br />
+    نحوه فراخوانی به صورت Get میباشد.<br />
+    مقدار بازگشتی به صورت یک موضوع Blob است.
+</p>
+<figure>
+    <code data-on="_code">
+        await GetFile('Test.png', '/Download').then(async (r) =˃ {
+        if (r) {
+        var a = document.createElement("a");
+        a.href = r;
+        a.download = filesName.files[i];
+        a.click();
+        window.URL.revokeObjectURL(r);
+        }
+        });
+    </code>
+</figure>
+<p>
+    <h3>Upload</h3>
+    <bidi>Upload(files: any, destination: string, postUrl: string)</bidi> <br />
+    زمانیکه میخواهید یک فایل را برای سرور توسط کنترلر ارسال کنید، از این تابع استفاده کنید.<br />
+    نحوه فراخوانی به صورت Put میباشد.<br />
+    نحوه کار بدین صورت است که اطلاعات فایل مد نظر در پارامتر files و سپس آدرس فهرست مد نظر برای آپلود و سپس آدرس کنترلر آورده میشود.<br />
+    اطلاعات به صورت Form Data و به روش Put برای سرور ارسال میشود. در این حین در اطلاعات فرم ارسالی فیلیدی به اسم destination با مقدار آدرس پارامتر destination به همراه فایلهای ارسالی به کنترلر فرستاده میشود. تا اگر سرور نیاز به این آدرس داشت بتواند از آن استفاده کند.
+</p>
+<figure>
+    <code data-on="_code">
+        _dragdrop.addEventListener("drop", async (ev) =˃ {
+        ev.preventDefault();
+        if (ev.dataTransfer.items) {
+        let files = [];
+        for (var i = 0; i < ev.dataTransfer.items.length; i++)
+        if (ev.dataTransfer.items[i].kind === 'file')
+        files.push(ev.dataTransfer.items[i].getAsFile());
+        await this.UploadFile(files);
+        } else {
+        await this.UploadFile(ev.dataTransfer.files[i]);
+        }
+        });
+        async UploadFile(files) {
+        await Upload(files, 'folder', '/Upload').then(async (r) =˃ {
+        if (r==true) {
+        alert("success");
+        }
+        else {
+        alert("error");
+        }
+        });
+        }
+    </code>
+</figure>
+<p>
+    <h3>GetFormData</h3>
+    <bidi>GetFormData(Form: HTMLFormElement)</bidi> <br />
+    اگر شما یک فرم ورودی دارید و میخواهید اطلاعات آن فرم را به سرور توسط یکی از توابع بالا ارسال کنید، میتوانید از این تابع برای ساهت موضوع ارسالی کمک بگیرید. <br />
+    این تابع با گرفتن اسم فرم، اجزای اطلاعاتی را شناسایی میکند و سپس آنها را تبدیل به جیسون میکند.
+</p>
+<h1>متغییرها</h1>
+<p>برخی متغییرها در سیستم از کارآیی بالایی برخوردار هستند که به مهمترین آنها در زیر اشاره میکنیم.</p>
+<p>
+    <h3>WN</h3>
+    این آرایه به کلیه موضوعات ساخته شده از نوع ویجت نس اشاره دارد. یعنی اگر میخواهید یکی از خصوصیات، توابع، رخدادهای هر موضوع ویجتنس ساخته شده را تغییر دهید
+    بایستی از این آرایه استفاده کنید.<br />
+    بدین صورت که ID موضوع مورد نظر را به این آرایه بدید و آن موضوع را دریافت کنید.
+</p>
+<figure>
+    <code data-on="_code">
+        alert(WN('tree1'].selectedItem);
+    </code>
+</figure>
+<p>
+    <h3>WNLanguage</h3>
+    این آرایه نیز بر اساس زبان انتخاب شده، لیستی از کلیدها و پیامهای آنها را برمیگرداند.
+</p>
+<figure>
+    <code data-on="_code">
+        alert(WNLanguage["en"]["filelist"]["newfolder"]);
 
-        <script>
-            let name = 'Omid';
-        </script>
-    </div>
-</div>
-<figure>
-    <code data-on="_code">
-        <p>Name: $[name‍]</p>
-        <p>Inline Script: $[name‍ + ' Moridi']</p>
+        WNLanguage['en'] = {
+        'common': {
+        'browsererror': 'Please use a new browser with proper w3 support. Chrome version 89 and above or FireFox version 55 and above.',
+        'close': 'Close',
+        'ok': 'Ok',
+        'cancel': 'Cancel',
 
-        <script>
-            let name = 'Omid';
-        </script>
+        },...
     </code>
 </figure>
-<h2>تغییر کلاس</h2>
-<p>از این روش نیز برای تغییر کلاس و یا رشته کلاسها نیز استفاده خواهد شد.</p>
-<div class="example-div">
-    <div class="$[localAlert]">
-        This is sample text.
-        <style>
-            .localAlert {
-                background-color: yellow;
-            }
-        </style>
-        <script>
-            let localAlert = 'localAlert';
-        </script>
-    </div>
-</div>
-<figure>
-    <code data-on="_code">
-        <div class="$[localAlert‍]">
-            This is sample text.
-            <style>
-                .localAlert‍ {
-                    background-color: yellow;
-                }
-            </style>
-            <script>
-                let localAlert = 'localAlert';
-            </script>
-        </div>
-    </code>
-</figure>
-<h2>تغییر استایل</h2>
-<p>از این روش نیز برای تغییر استایل نیز استفاده خواهد شد.</p>
-<div class="example-div">
-    <div style="$[localStyle]">
-        This is sample text.
-        <script>
-            let localStyle = 'background-color:yellow;';
-        </script>
-    </div>
-</div>
-<figure>
-    <code data-on="_code">
-        <div style="$[localStyle‍]">
-            This is sample text.
-            <script>
-                let localStyle = 'background-color:yellow;';
-            </script>
-        </div>
-    </code>
-</figure>
-<h2>اعمال تغییرات به صورت دستی</h2>
-<p>اگر خصوصیتی یا متن html را به صورت دستی تغییر دادید میتوانید برای فراخوانی دوباره آن از تابع <bidi>WNTagEvalScriptBody</bidi> استفاده نمایید.</p>
-<div class="example-div" id="ss1">
-    <div id="s1">
-        <p>Name: $[name]</p>
-    </div>
-    <div class="w-100">
-        <button class="primary" onclick="document.getElementById('s1').innerHTML = '<p>Name: $['+'name]</p>';">Reset</button>
-        <button class="secondary" onclick="WNTagEvalScriptBody()">Run</button>
-    </div>
-</div>
-<figure><code data-on="ss1"></code></figure>
+<p>
+    <h3>wnConfig.calendar</h3>
+    با تنظیم این متغییر تقویم پیش فرض برای محاسبات تاریخی مشخص میشود. نوع تقویم wnCalendar است.<br />
+    <bidi>wnConfig.calendar = new WNPersianCalendar();</bidi>
+</p>
+<p>
+    <h3>wnConfig.cultureInfo</h3>
+    با تنظیم این متغییر فرهنگ پیش فرض برای محاسبات تاریخی مشخص میشود. نوع فرهنگ wnCultureInfo است.<br />
+    <bidi>wnConfig.cultureInfo = new WNCultureInfo_fa_IR();</bidi>
+</p>
+<p>
+    <h3>WNDefaultLanguage</h3>
+    زبان پیش فرض انتخاب شده برای استفاده از فرهنگ و ... است<br />
+    <bidi>WNDefaultLanguage = 'fa';</bidi>
+</p>
+<p>
+    <h3>WNDefaultHijriAdjustment</h3>
+    در محاسبات تاریخ هجری قمری برخی اوقات محاسبات با واقعیت 1 الی 2 روز متفاوت است، در این متغییر، آن تعداد روز مغایرت را وارد کنید.<br />
+</p>

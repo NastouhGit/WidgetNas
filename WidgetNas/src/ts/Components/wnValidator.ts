@@ -1,21 +1,23 @@
-﻿class wnvalidator {
-    element: HTMLFormElement;
-
-    constructor(elem: HTMLElement) {
-        if (elem !== undefined && elem !== null) {
-            this.element = elem as HTMLFormElement;
-            this.Render();
+﻿class WNValidator implements IWNValidator {
+    public readonly nameType: string = 'WNValidator';
+    public element: HTMLFormElement;
+    
+    constructor(element: HTMLElement) {
+        if (element !== undefined && element !== null) {
+            this.element = element as HTMLFormElement;
+            this.init();
         }
     }
-    Render() {
-        this.element.addEventListener('submit', (event)=> {
-            this.Validate(<HTMLFormElement>event.srcElement, event);
+    //Setting properties, internal variables and primitive events
+    private init() {
+        this.element.addEventListener('submit', (event) => {
+            this.validate(<HTMLFormElement>event.target, event);
         });
         this.element.addEventListener('reset', (event)=> {
-            this.Reset(<HTMLFormElement>event.srcElement);
+            this.reset();
         });
     }
-    Validate(form: HTMLFormElement, event): boolean {
+    private validate(form: HTMLFormElement, event: Event): boolean {
         if (form == undefined || form == null)
             form = this.element;
 
@@ -28,20 +30,19 @@
         form.classList.add('validated');
         return form.checkValidity();
     }
-    IsValid(): boolean {
-        wnValidator_onvalidationcheck(this.element.children, event);
+    //Check all the entries to check whether the information is correct or not.
+    public isValid(): boolean {
+        wnValidator_onvalidationcheck(this.element.children, null);
         this.element.classList.add('validated');
         return this.element.checkValidity();
     }
-    Clear() {
+    //The previous validation messages are deleted and the system returns to the initial state.
+    public reset(): void {
         this.element.classList.remove('validated');
         this.element.noValidate = true;
     }
-    Reset(form: HTMLFormElement) {
-        form.classList.remove('validated');
-    }
 }
-function wnValidator_onvalidationcheck(children: HTMLCollection, event) {
+async function wnValidator_onvalidationcheck(children: HTMLCollection, event: Event) {
     for (var i = 0; i < children.length; i++) {
         let x = children.item(i);
         let elems = x.querySelectorAll('[norequired]');

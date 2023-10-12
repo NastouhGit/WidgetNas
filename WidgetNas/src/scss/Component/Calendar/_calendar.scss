@@ -1,5 +1,5 @@
 ﻿.calendar {
-    min-width: 10rem;
+    min-width: 14em !important;
     border-radius: var(--border-radius);
 
     .comment {
@@ -92,6 +92,8 @@
         }
 
         .calendar-month {
+            width: 100%;
+
             .calendar-weekname {
                 display: grid;
                 grid-template-columns: repeat(7, 1fr);
@@ -116,8 +118,8 @@
                     font-size: 0.8em;
                     text-align: center;
                     vertical-align: middle;
-                    background-color: var(--select-back);
-                    color: var(--select-color);
+                    background-color: var(--info-back);
+                    color: var(--info-color);
                     writing-mode: vertical-lr;
                     border-block-end: var(--border-width) solid var(--normal-border);
                     border-inline-start: var(--border-width) solid var(--normal-border);
@@ -143,8 +145,8 @@
                     border-block-start: var(--border-width) solid var(--normal-border);
                     border-start-end-radius: var(--border-radius);
                     border-end-end-radius: var(--border-radius);
-                    background-color: var(--select-back);
-                    color: var(--select-color);
+                    background-color: var(--info-back);
+                    color: var(--info-color);
                     min-width: 1.5em;
                     text-align: center;
 
@@ -169,8 +171,8 @@
                         padding-block: 0;
                         border: none;
                         text-align: center;
-                        padding-inline-end: 0.5em;
-                        padding-inline-start: var(--margin-inline);
+                        padding-inline-end: 0; //0.5em;
+                        padding-inline-start: 0; // var(--margin-inline);
                         border-radius: 0;
 
                         &:focus {
@@ -215,20 +217,20 @@
                         &.sel-start {
                             border-start-start-radius: 50%;
                             border-end-start-radius: 50%;
-                            background-color: var(--info-back);
-                            color: var(--info-color);
+                            background-color: var(--select-back);
+                            color: var(--select-color);
                         }
 
                         &.sel {
-                            background-color: var(--info-back);
-                            color: var(--info-color);
+                            background-color: var(--select-back);
+                            color: var(--select-color);
                         }
 
                         &.sel-end {
                             border-start-end-radius: 50%;
                             border-end-end-radius: 50%;
-                            background-color: var(--info-back);
-                            color: var(--info-color);
+                            background-color: var(--select-back);
+                            color: var(--select-color);
                         }
 
                         &[wn-tooltip]:after {
@@ -268,6 +270,10 @@
 
                 &:focus {
                     box-shadow: none;
+                }
+
+                &.button-active:focus {
+                    background-color: var(--active-back);
                 }
             }
         }

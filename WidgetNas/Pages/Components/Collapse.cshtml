@@ -18,7 +18,7 @@
 <p>جمع شونده ها یکسری توابع جاوا اسکریپ هستند تا شما بتوانید از نظر نمایشی، موضوعاتی را بسته یا باز کنید.</p>
 
 <h2>نحوه استفاده</h2>
-<p>برای استفاده بایستی <bidi>wn-type='collapse'</bidi> قرار گیرد. سپس مقادیر پیش فرض تنظیم شود.</p>
+<p>برای استفاده بایستی <bidi>wn-type='Collapse'</bidi> قرار گیرد. سپس مقادیر پیش فرض تنظیم شود.</p>
 <p>
     <h6>خصوصیت <bidi>target</bidi></h6>
     این خصلت مشخص میکند، چه موضوع یا موضوعاتی باید انتخاب شوند. برای مثال
@@ -30,7 +30,7 @@
     <h6>خصوصیت <bidi>remove</bidi></h6>
     اگر میخواهید، قبل از اعمال تغییرات توسط خصوصیت target عملیاتهای قبلی بر روی موضوعات از بین برود، اسامی موضوعات مد نظر را
     در خصوصیت <bidi>remove</bidi> اعلام کنید. نحوه نام گذاری و مشخص کردن همانند خصوصیت target است.<br />
-    تمام موضوعاتی که در این خصلت وجود دارد، کلاس show حذف و کلاس collapsed به آن اضافه میشود.
+    تمام موضوعاتی که در این خصلت وجود دارد، کلاس show حذف و کلاس Collapsed به آن اضافه میشود.
 </p>
 <p>
     <h6>خصوصیت <bidi>target-mode</bidi></h6>
@@ -62,14 +62,14 @@
 
 <div id="exp1" class="example-div" style="display:block;direction:inherit">
     <div>
-        <button wn-type="collapse" target="#collapse1" target-mode="show">نمایش اطلاع</button>
-        <button wn-type="collapse" target="#collapse2" target-mode="show">نمایش اخطار</button>
-        <button wn-type="collapse" target="#collapse1, #collapse2" target-mode="show">نمایش هر دو</button>
-        <button wn-type="collapse" target="#collapse1, #collapse2" target-mode="hide">مخفی هر دو</button>
+        <button wn-type="Collapse" target="#Collapse1" target-mode="show">نمایش اطلاع</button>
+        <button wn-type="Collapse" target="#Collapse2" target-mode="show">نمایش اخطار</button>
+        <button wn-type="Collapse" target="#Collapse1, #Collapse2" target-mode="show">نمایش هر دو</button>
+        <button wn-type="Collapse" target="#Collapse1, #Collapse2" target-mode="hide">مخفی هر دو</button>
     </div>
     <div class="m-bs-100r">
-        <div id="collapse1" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
-        <div id="collapse2" class="alert danger">این یک پیام هشدار است از نوع اخطار</div>
+        <div id="Collapse1" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="Collapse2" class="alert danger">این یک پیام هشدار است از نوع اخطار</div>
     </div>
 </div>
 <figure><code data-on="exp1"></code></figure>
@@ -81,51 +81,51 @@
 </p>
 <div id="exp2" class="example-div" style="display:block;direction:inherit">
     <div>
-        <button wn-type="collapse" target="#collapse3" target-mode="hide">مخفی اطلاع</button>
-        <button wn-type="collapse" target="#collapse4" target-mode="hide">مخفی اخطار</button>
-        <button wn-type="collapse" target="#collapse3, #collapse4" target-mode="hide">مخفی هر دو</button>
-        <button wn-type="collapse" target="#collapse3, #collapse4" target-mode="show">نمایش هر دو</button>
+        <button wn-type="Collapse" target="#Collapse3" target-mode="hide">مخفی اطلاع</button>
+        <button wn-type="Collapse" target="#Collapse4" target-mode="hide">مخفی اخطار</button>
+        <button wn-type="Collapse" target="#Collapse3, #Collapse4" target-mode="hide">مخفی هر دو</button>
+        <button wn-type="Collapse" target="#Collapse3, #Collapse4" target-mode="show">نمایش هر دو</button>
     </div>
     <div class="m-bs-100r">
-        <div id="collapse3" class="alert info show">این یک پیام هشدار است از نوع اطلاع</div>
-        <div id="collapse4" class="alert danger show">این یک پیام هشدار است از نوع اخطار</div>
+        <div id="Collapse3" class="alert info show">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="Collapse4" class="alert danger show">این یک پیام هشدار است از نوع اخطار</div>
     </div>
 </div>
 <figure><code data-on="exp2"></code></figure>
 <h2>سوئیچ بین هم</h2>
 <div id="exp3" class="example-div" style="display:block;direction:inherit">
     <div class="m-bs-50r">
-        <button wn-type="collapse" target="#collapse5">نمایش یا مخفی اطلاع</button>
-        <button wn-type="collapse" target="#collapse6">نمایش یا مخفی اخطار</button>
-        <button wn-type="collapse" target="#collapse5, #collapse6">نمایش یا مخفی هر دو</button>
+        <button wn-type="Collapse" target="#Collapse5">نمایش یا مخفی اطلاع</button>
+        <button wn-type="Collapse" target="#Collapse6">نمایش یا مخفی اخطار</button>
+        <button wn-type="Collapse" target="#Collapse5, #Collapse6">نمایش یا مخفی هر دو</button>
     </div>
     <div class="m-bs-100r">
-        <div id="collapse5" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
-        <div id="collapse6" class="alert danger ">این یک پیام هشدار است از نوع اخطار</div>
+        <div id="Collapse5" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="Collapse6" class="alert danger ">این یک پیام هشدار است از نوع اخطار</div>
     </div>
 </div>
 <figure><code data-on="exp3"></code></figure>
 <h2>حذف وضعیت</h2>
 <p>
     در حذف همه، از خصوصیت <bidi>remove</bidi> استفاده شده است، یعنی قبل از اعمال تغییرات بر روی <bidi>target</bidi> تمام موضوعاتی
-    که در خصوصیت remove معرفی شده، ابتدا کلاس <bidi>show</bidi> حذف و سپس کلاس <bidi>collapsed</bidi> به آن اضافه شود.
+    که در خصوصیت remove معرفی شده، ابتدا کلاس <bidi>show</bidi> حذف و سپس کلاس <bidi>Collapsed</bidi> به آن اضافه شود.
 </p>
 <p>
     با استفاده از این خصوصیت و نسبت دادن آن به موضوعات معرفی شده، شما قادر خواهید بود، بر روی دکمه درخواست کننده و موضوعات زیر مجموعه
     تعریف های متفاوتی داشته باشید. برای مثال <a href="~/Components/Accordion">آکاردئون</a> یک مثال خوب از این نوع استفاده است.
 </p>
-<p>در مثال زیر، تمامی موضوعاتی که زیر مجموعه container1 هستند که از جنس کلاس collapse هستند، عملیات حذف اعمال میگردد.</p>
+<p>در مثال زیر، تمامی موضوعاتی که زیر مجموعه container1 هستند که از جنس کلاس Collapse هستند، عملیات حذف اعمال میگردد.</p>
 <div id="exp4" class="example-div" style="display:block;direction:inherit">
     <div class="m-bs-50r">
-        <button wn-type="collapse" target="#collapse7" target-mode="show" remove="#collapse-container-1>.alert">نمایش یا مخفی اطلاع</button>
-        <button wn-type="collapse" target="#collapse8" target-mode="show" remove="#collapse-container-1>.alert">نمایش یا مخفی اخطار</button>
-        <button wn-type="collapse" target="#collapse9" target-mode="show" remove="#collapse-container-1>.alert">نمایش یا مخفی هشدار</button>
-        <button wn-type="collapse" target="#collapse-container-1>.alert" target-mode="show">نمایش همه</button>
+        <button wn-type="Collapse" target="#Collapse7" target-mode="show" remove="#Collapse-container-1>.alert">نمایش یا مخفی اطلاع</button>
+        <button wn-type="Collapse" target="#Collapse8" target-mode="show" remove="#Collapse-container-1>.alert">نمایش یا مخفی اخطار</button>
+        <button wn-type="Collapse" target="#Collapse9" target-mode="show" remove="#Collapse-container-1>.alert">نمایش یا مخفی هشدار</button>
+        <button wn-type="Collapse" target="#Collapse-container-1>.alert" target-mode="show">نمایش همه</button>
     </div>
-    <div id="collapse-container-1" class="m-bs-100r">
-        <div id="collapse7" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
-        <div id="collapse8" class="alert danger">این یک پیام هشدار است از نوع اخطار</div>
-        <div id="collapse9" class="alert warning">این یک پیام هشدار است از نوع هشدار</div>
+    <div id="Collapse-container-1" class="m-bs-100r">
+        <div id="Collapse7" class="alert info">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="Collapse8" class="alert danger">این یک پیام هشدار است از نوع اخطار</div>
+        <div id="Collapse9" class="alert warning">این یک پیام هشدار است از نوع هشدار</div>
     </div>
 </div>
 <figure><code data-on="exp4"></code></figure>
@@ -151,27 +151,27 @@
     <h6>تنظیمات دستی</h6>
     اگر شما از روش معرفی توسط <bidi>wn-type</bidi> استفاده کردید، هر زمان بخواهید میتوانید تغییرات را توسط جاوا اسکریپت انجام دهید.<br />
     برای دسترسی به کلاس جاوایی، بایستی اسم دکمه را داشته باشید و با فراخوانی آن از آرایه WN تنظیمات را طبق دستورات بالا انجام دهید.<br />
-    <bidi>WN['button1'].collapse();</bidi>
+    <bidi>WN('button1').wn.collapse();</bidi>
 </p>
 <div id="exp5" class="example-div" style="display:block;direction:inherit">
     <div class="m-bs-50r">
-        <button onclick="toggle('#collapse10')">نمایش اطلاع</button>
-        <button onclick="toggle('#collapse11')">نمایش اخطار</button>
-        <button onclick="toggle('#collapse12')">نمایش هشدار</button>
+        <button onclick="toggle('#Collapse10')">نمایش اطلاع</button>
+        <button onclick="toggle('#Collapse11')">نمایش اخطار</button>
+        <button onclick="toggle('#Collapse12')">نمایش هشدار</button>
     </div>
-    <div id="collapse-container-1" class="m-bs-100r">
-        <div id="collapse10" class="alert info collapse">این یک پیام هشدار است از نوع اطلاع</div>
-        <div id="collapse11" class="alert danger collapse">این یک پیام هشدار است از نوع اخطار</div>
-        <div id="collapse12" class="alert warning collapse">این یک پیام هشدار است از نوع هشدار</div>
+    <div id="Collapse-container-1" class="m-bs-100r">
+        <div id="Collapse10" class="alert info Collapse">این یک پیام هشدار است از نوع اطلاع</div>
+        <div id="Collapse11" class="alert danger Collapse">این یک پیام هشدار است از نوع اخطار</div>
+        <div id="Collapse12" class="alert warning Collapse">این یک پیام هشدار است از نوع هشدار</div>
     </div>
     <script>
-        var collapse = new wncollapse();
-        collapse.remove = '#collapse-container-1>.alert';
-        collapse.targetmode = 'show';
+        var Collapse = new WNCollapse();
+        Collapse.remove = '#Collapse-container-1>.alert';
+        Collapse.targetmode = 'show';
 
         function toggle(e) {
-            collapse.target = e;
-            collapse.collapse();
+            Collapse.target = e;
+            Collapse.collapse();
         }
     </script>
 </div>

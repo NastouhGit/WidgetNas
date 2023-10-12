@@ -22,15 +22,15 @@
             <li>Item 5</li>
         </ul>
         <h4>div</h4>
-        <div wn-type="list">
+         <div wn-type="list">
             <div class="list-item">Item 1</div>
             <div class="list-item">Item 2</div>
             <div class="list-item">Item 3</div>
             <div class="list-item">Item 4</div>
             <div class="list-item">Item 5</div>
-        </div>
+        </div> 
         <h4>Table</h4>
-        <table wn-type="list">
+         <table wn-type="list">
             <thead>
                 <tr>
                     <td>Col 1</td>
@@ -55,9 +55,9 @@
                     <td>V 3-3</td>
                 </tr>
             </tbody>
-        </table>
+        </table> 
     </div>
-    <div class="rtl">
+     <div class="rtl">
         <h3>RTL</h3>
         <h4>ul</h4>
         <ul wn-type="list">
@@ -102,81 +102,170 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> 
 </div>
 <figure><code data-on="form1"></code></figure>
-<h2>کنترل لیست با Javascript</h2>
+ <h2>کنترل لیست با Javascript</h2>
 <p>برای آنکه بتوانید به صورت آنلاین لیست خود را کنترل کنید، مثال زیر را مشاهده کنید.</p>
+<p>برای شروع باید بدانید، همه اطلاعات در یک دیتا سورس داخلی ذخیره میشود، چه از ابتدا دارای مقدار باشد، 
+    چه بعدا به آن اضافه شود، این خصوصیت <bidi>dataSource</bidi> نام دارد که آرایه ای از جنس <bidi>WNListNode</bidi> است.
+</p>
+<p>
+    <h5>WNListNode</h5>
+    این نوع دارای خصوصیات زیر است.
+    <ul class="ltr">
+        <li>id: number</li>
+        <li>index:number</li>
+        <li>text: string</li>
+        <li>html: string</li>
+        <li>link: string</li>
+        <li>value: string</li>
+        <li>image: string</li>
+        <li>element: HTMLElement</li>
+    </ul>
+    مقادیر id، index و element به صورت خودکار مقدار دهی میشوند.<br>
+    مقدار text هر متنی که در ردیف باشد انتخاب خواهد شد.<br>
+    مقدار value به خصوصیت value در آن ردیف مراجعه کرده و هر آنچه که مشخص شده باشد را انتخاب میکند.<br>
+    مقدار link اگر در ردیف از لینک استفاده شده باشد، آنرا انتخاب میکند.<br>
+    مقدار image اگر در ردیف از img یا i استفاده شده باشد، آنرا انتخاب میکند.<br>
+</p>
+<p>
+    <h5>selectedItem</h5>
+    این خصوصیت به گزینه انتخاب شده اشاره دارد، مقدار null یعنی هیچ گزینه ای انتخاب نشده است.<br />
+    <bidi>selectedItem: WNListNode</bidi>
+</p>
+<p>
+    <h5>selectedIndex</h5>
+    این خصوصیت به شماره ایندکس گزینه انتخاب شده اشاره دارد، مقدار -1 یعنی هیچ گزینه ای انتخاب نشده است.<br />
+    <bidi>selectedIndex: number</bidi>
+</p>
+<p>
+    <h5>selectedValue</h5>
+    این خصوصیت به مقدار گزینه انتخاب شده اشاره دارد، مقدار null یعنی هیچ گزینه ای انتخاب نشده است.<br />
+    <bidi>selectedValue: string</bidi>
+</p>
+<p>
+    <h5>checkedItems</h5>
+    در صورتیکه خصوصیت checkbox فعال باشد، هر ردیفی که تیک خورده باشد را به صورت آرایه ای جنس WNListNode برمیگرداند.<br />
+    <bidi>checkedItems: WNListNode[]</bidi>
+</p>
+<p>
+    <h5>checkedValues</h5>
+    در صورتیکه خصوصیت checkbox فعال باشد، هر ردیفی که تیک خورده باشد مقادیر value آنها را به صورت آرایه ای برمیگرداند.<br />
+    <bidi>checkedValues: string[]</bidi>
+</p>
+<p>
+    <h5>checkbox</h5>
+    در صورتیکه این خصوصیت فعال شود یعنی مقدار true بگیرد، هر ردیف قابلیت تیک خوردن را به خود میگیرد.<br />
+    شما میتوانید این مقدار را با دستور خطی و خصوصیت checkbox تعیین کنید.<br />
+    <bidi>checkbox: boolean</bidi>
+</p>
+
+<p>
+    <h5>checkedClear</h5>
+    تمامی گزینه هایی که تیکدار شدند از حالت تیک در می آورد.<br />
+    <bidi>checkedClear():void</bidi>
+</p>
+<p>
+    <h5>checkedAll</h5>
+    تمامی گزینه هایی که تیکدار نشدند را به حالت تیک دار در می آورد.<br />
+    <bidi>checkedAll():void</bidi>
+</p>
+<p>
+    <h5>checkedInvert</h5>
+    هر گزینه که تیک دارد را برداشته و هر گزینه که تیک ندارد را تیک دار میکند. یعنی وضعیت تیک ها را بلعکس میکند.<br />
+    <bidi>checkedInvert():void</bidi>
+</p>
 <p>
     <h5>select</h5>
     این تابع با ورودی node مورد نظر، آنرا انتخاب میکند.<br />
-    <bidi>select(node: HTMLElement)</bidi>
+    <bidi>select(node: WNListNode): void</bidi>
 </p>
 <p>
-    <h5>findbytext و findbyvalue</h5>
-    برای جستجوی یک رکورد از تابع findbyvalue و یا findbytext استفاده کنید. <br />
-    <bidi>findbytext(text: string, contains: boolean = true, select: boolean = true): HTMLElement</bidi><br />
-    <bidi>findbyvalue(value: string, select: boolean = true): HTMLElement</bidi>
+    <h5>findByText</h5>
+    اگر میخواهید همه نودهایی که متن خاصی در آنها است را پیدا کنید از تابع استفاده کنید.<br />
+    <bidi>findByText(text: string, contains?: boolean, select?: boolean): WNListNode[]</bidi><br />
+    مقدار مد نظر را text، عبارت شامل باشد یا نه عینا در متن باشد را با contains و اگر میخواهید اولین گزینه پیدا شده را انتخاب کند از select استفاده کنید.
 </p>
 <p>
-    <h5>elementtoitem</h5>
-    مقدار نود ورودی را تبدیل به متغییری از نوع caption و value میکند. یعنی مقدار نود در value و عنوان نود در caption<br />
-    <bidi>elementtoitem(elem: HTMLElement):any</bidi>
+    <h5>findByValue</h5>
+    اگر میخواهید دقیقا نودی که مقدار خاصی در آن است را پیدا کنید از تابع استفاده کنید.<br />
+    <bidi>findByValue(value: string, select?: boolean): WNListNode</bidi><br />
+    مقدار مد نظر را در value،و اگر میخواهید مقدار پیدا شده انتخاب شود از select استفاده کنید.
 </p>
 <p>
-    <h5>filterbytext</h5>
+    <h5>findByTextOrValue</h5>
+    اگر میخواهید همه نودهایی که متن خاصی در آنها است یا مقدار خاصی دارند را پیدا کنید از تابع استفاده کنید.
+    <bidi>findByTextOrValue(text: string, contains?: boolean, select?: boolean): WNListNode[]</bidi><br />
+    مقدار مد نظر را text، عبارت شامل باشد یا نه عینا در متن باشد را با contains و اگر میخواهید اولین گزینه پیدا شده را انتخاب کند از select استفاده کنید.
+</p>
+
+<p>
+    <h5>filterByText</h5>
     برای فیلتر کردن بر اساس عنوان های هر ردیف لیست، از این تابع استفاده میشود.<br />
-    <bidi>filterbytext(text: string, contains: boolean = true)</bidi><br />
+    <bidi>filterByText(text: string, contains?: boolean): void</bidi><br />
     متن ورودی و پارامتر بعدی مشخص میکند، این متن در بین متون باشد یا نه عینا همین متن فیلتر شود.
 </p>
 <p>
-    <h5>addrow</h5>
-    برای ایجاد یک رکورد از تابع addrow استفاده کنید.<br />
-    <bidi>addrow(text: string, value: string = '')</bidi><br />
-    عنوان و مقدار ردیف را باید وارد کنید.
+    <strong>setDataSourceByItem</strong><br />
+    در نرم افزارهایی که دیتا را مستقیم از دیتابیس میخوانند، ساختار دیتایی متفاوت از ساختار WNListNode است، لذا توسط این تابع میتوانید مشخصات مد نظر را تعیین کنید و گزینه ها را به لیست اضافه کنید..
+    <br />
+    پارامترها:<br />
+    <strong>dataSource</strong>: آرایه ای از دیتای مد نظر<br />
+    <strong>displayFieldName</strong>: نام فیلدی که حاوی محتوی html برای نمایش است<br />
+    <strong>valueFieldName</strong>: نام فیلد مقداری که بعد از انتخاب به هر ردیف نسبت داده میشود.<br />
+    <strong>linkFieldName</strong>: نام فیلدی که آدرس لینک در آن است.<br />
+    <strong>imageFieldName</strong>: نام فیلدی که آدرس تصویر یا html مرتبط با تصویر در آن است.<br />
+    <strong>append</strong>: آیا دیتای جدید به دیتای کنونی اضافه شود یا خیر.<br />
 </p>
 <p>
-    <h5>settext</h5>
-    برای تغییر متن یک رکورد از تابع settext استفاده کنید.<br />
-    <bidi>settext(text: string, index: number)</bidi><br />
-    پارامتر اول متن مورد نظر و پارامتر بعدی شماره ایندکس ردیف است. مقدار از صفر شروع میشود.
+    <strong>setDataSource</strong><br />
+    اگر ساختار دیتای شما بر اساس نوع WNListNode است از این تابع استفاده کنید.
+    <br />
+    پارامترها:<br />
+    <strong>dataSource</strong>: آرایه ای از دیتای مد نظر<br />
+    <strong>append</strong>: آیا دیتای جدید به دیتای کنونی اضافه شود یا خیر.<br />
 </p>
 <p>
-    <h5>setvalue</h5>
-    برای تغییر مقدار یک رکورد از تابع setvalue استفاده کنید.<br />
-    <bidi>setvalue(text: string, index: number)</bidi><br />
-    پارامتر اول مقدار مورد نظر و پارامتر بعدی شماره ایندکس ردیف است. مقدار از صفر شروع میشود.
+    <strong>addToDataSource</strong><br />
+    اگر میخواهید گزینه ای به دیتا سورس خود اضافه کنید از این تابع استفاده کنید.
+    <br />
+    پارامترها:<br />
+    <strong>text</strong>: متن یا html برای نمایش<br />
+    <strong>link</strong>: آدرس لینک برای باز شدن آن صفحه<br />
+    <strong>value</strong>: مقدار هر ردیف<br />
+    <strong>image</strong>: آدرس تصویر یا تگ i<br />
 </p>
 <p>
-    <h5>removerow</h5>
-    برای حذف یک رکورد از تابع removerow استفاده کنید.<br />
-    <bidi>removerow(index: number)</bidi><br />
-     پارامتر آن شماره ایندکس ردیف است. مقدار از صفر شروع میشود.
+    <strong>removeFromDataSource</strong><br />
+    برای حذف یک ردیف از دیتا سورس از این تابع استفاده کنید.
+    <br />
+    پارامترها:<br />
+    <strong>node</strong>: نود مد نظر را مشخص کنید.<br />
 </p>
 <p>
-    <h5>order</h5>
-    برای مرتب سازی رکوردها از تابع order استفاده کنید.<br />
-    <bidi>order(desc = false)</bidi><br />
-    پارامتر آن مشخص میکند، مرتب سازی از بزرگ به کوچک باشد یا کوچک به بزرگ. مقدار false یعنی از کوچک به بزرگ.
+    <strong>updateNodeElement</strong><br />
+    برای به روز رسانی دیتای یک نود بعد از تغییرات از این تابع استفاده کنید.
+    <br />
+    پارامترها:<br />
+    <strong>node</strong>: نود مد نظر را مشخص کنید.<br />
 </p>
 <p>
-    <h5>reindex</h5>
-    اگر به هر دلیلی ردیف ها را جابجا کردید، برای ایندکس بندی از این تابع استفاده میشود. این یک تابع داخلی است و استفاده از آن جز موارد خاص پیشنهاد نمیشود.<br />
-    <bidi>reindex()</bidi>
+    <strong>orderDataSourceByText</strong><br />
+    اگر میخواهید دیتا سورس بر اساس متن آنها مرتب شود از این تابع استفاده کنید.
+    <br />
+    پارامترها:<br />
+    <strong>desc</strong>: آیا از بزرگ به کوچک مرتب کند یا خیر<br />
 </p>
 <p>
-    <h5>refresh</h5>
-    اگر به هر دلیلی تمایل داشتید دوباره ردیفها ساخته و نمایش داده شود، از این تابع استفاده کنید. این یک تابع داخلی است و استفاده از آن جز موارد خاص پیشنهاد نمیشود.<br />
-    <bidi>refresh()</bidi>
+    <strong>orderDataSourceByValue</strong><br />
+    اگر میخواهید دیتا سورس بر اساس مقدار آنها مرتب شود از این تابع استفاده کنید.
+    <br />
+    پارامترها:<br />
+    <strong>desc</strong>: آیا از بزرگ به کوچک مرتب کند یا خیر<br />
 </p>
+
 <p>
-    <h5>setdata</h5>
-    برای نسبت دادن یک لیست از مقادیر و عناوین به لیست از این تابع استفاده کنید. برای مثال میخواهید اطلاعات از سمت سرور دریافت و لیست شما پر شود.<br />
-    <bidi>setdata(datasource: any[], displayfield: string, valuefield: string, append: boolean = false)</bidi><br />
-    datasource: لیستی از اطلاعات مد نظر شما برای نمایش است.<br/>
-    displayfield: نام فیلد درون آرایه برای نمایش بعنوان متن یا عنوان در لیست.<br />
-    valuefield: نام فیلد درون آرایه برای تنظیم مقدار در لیست.<br />
-    append: مشخص کننده آن است اطلاعات جدید به لیست اضافه شود یا اطلاعات قبلی حذف و اطلاعات جدید اضافه شود.<br />
     برای درک بیشتر به مثال زیر توجه کنید.
 </p>
 
@@ -190,11 +279,11 @@
             </ig>
             <ig class="button-group">
                 <button onclick="DeleteItem()">Delete Selected Item</button>
-                <button onclick="WN['list1'].order()">Order by Text</button>
-                <button onclick="WN['list1'].order(true)">Order Desc</button>
+                <button onclick="WN('list1').wn.orderDataSourceByText()">Order by Text</button>
+                <button onclick="WN('list1').wn.orderDataSourceByText(true)">Order Desc</button>
                 <button onclick="Import(false)">Import Data</button>
                 <button onclick="Import(true)">Append Data</button>
-                <button onclick="WN['list1'].settext('Changed!',2)">Change Index 2 Text</button>
+                <button onclick="ChangeText2();">Change Index 2 Text</button>
             </ig>
             <ig class="group">
                 <label for="Filter1">Text</label>
@@ -209,24 +298,24 @@
             </ig>
             <script>
                 function InsertItem() {
-                    let value = document.getElementById('Insert1')?.value;
+                    let value = WN('Insert1').inputElement.value;
                     if (value != '') {
-                        WN['list1'].addrow(value, value);
+                        WN('list1').wn.addToDataSource(value, '',value,'');
                     }
                 }
                 function DeleteItem() {
-                    WN['list1'].removerow(WN['list1'].selectedindex);
+                    WN('list1').wn.removeFromDataSource(WN('list1').wn.selectedItem);
                 }
                 function FilterItem() {
-                    let value = document.getElementById('Filter1')?.value;
-                    WN['list1'].filterbytext(value, true);
+                    let value = WN('Filter1').inputElement.value;
+                    WN('list1').wn.filterByText(value, true);
                 }
                 function FindItem(findvalue) {
                     let value = document.getElementById('Find1')?.value;
                     if (findvalue)
-                        WN['list1'].findbyvalue(value);
+                        WN('list1').wn.findByValue(value, true);
                     else
-                        WN['list1'].findbytext(value, true);
+                        WN('list1').wn.findByText(value, true,true);
                 }
                 function Import(append) {
                     let o = [
@@ -235,13 +324,18 @@
                         { text: 'item 3', value: 'a3' },
                         { text: 'item 4', value: 'a4' },
                     ];
-                    WN['list1'].setdata(o, 'text', 'value', append);
+                    WN('list1').wn.setDataSourceByItem(o, 'text', 'value','','', append);
+                }
+                function ChangeText2() { 
+                    let item = WN('list1').wn.dataSource[2];
+                    item.html = 'Changed!';
+                    WN('list1').wn.updateNodeElement(item);
                 }
             </script>
             <div class="row w-100">
                 <div class="ltr col">
                     <h3>LTR</h3>
-                    <ul id="list1" class="list" wn-type="list">
+                    <ul id="list1" class="list" wn-type="List">
                         <li value="omid">Omid</li>
                         <li value="ali">Ali</li>
                         <li value="reza">Reza</li>
@@ -255,18 +349,9 @@
 </div>
 <figure><code data-on="exam2"></code></figure>
 
-<h2>خصوصیات</h2>
+<h2>تیک دار کردن و انتخاب</h2>
 <p>اگر تمایل دارید گزینه ها به صورت جعه تیک باشند، خصوصیت <bidi>checkbox</bidi> را با مقدار true پر نمایید. یا این خصوصیت را از طریق جاوا اسکریپت مقدار دهی کنید.</p>
-<p>
-    <h5>getcheckedvalue</h5>
-    آرایه ای از مقادیر انتخاب شده را برمیگرداند.<br />
-    <bidi>getcheckedvalue()</bidi>
-</p>
-<p>
-    <h5>setcheckedvalue</h5>
-    آرایه ای از مقادیر مورد نظر را داده تا آنها را در لیست تی دار کند..<br />
-    <bidi>setcheckedvalue(value)</bidi>
-</p>
+
 
 <p>برای درک بیشتر به مثال زیر توجه کنید.</p>
 
@@ -275,19 +360,21 @@
         <div class="ltr col">
             <h3>LTR</h3>
             <ul id="list2" class="list" wn-type="list" checkbox="true">
-                <li value="m1"><input type="checkbox" value="m1" class=""> Chekbox Manual Item 1</li>
+                <li value="m1"><input id="list2_m1" type="checkbox" value="m1" class="item-check" /><label for="list2_m1">Checkbox Manual Item 1</label></li>
             </ul>
-            <button class="primary m-bs-100r" onclick="alert(WN['list2'].getcheckedvalue().join())">Get Checked</button>
-            <button class="primary m-bs-100r" onclick="alert(WN['list2'].setcheckedvalue(['m1','a2']).join())">Set Checked m1,a2</button>
-            <button class="primary m-bs-100r" onclick="alert(WN['list2'].setcheckedvalue([]).join())">Clear Checked</button>
+            <button class="primary m-bs-100r" onclick="alert(WN('list2').wn.checkedValues.join())">Get Checked</button>
+            <button class="primary m-bs-100r" onclick="WN('list2').wn.checkedValues=['m1','a2']">Set Checked m1,a2</button>
+            <button class="primary m-bs-100r" onclick="WN('list2').wn.checkedClear()">Clear Checked</button>
+            <button class="primary m-bs-100r" onclick="WN('list2').wn.checkedAll()">Checked All</button>
+            <button class="primary m-bs-100r" onclick="WN('list2').wn.checkedInvert()">Invert Checked</button>
             <script>
-                WNE(document).Ready(() => {
+                WN(document).ready(() => {
                     let o = [
-                        { text: 'Chekbox item 1', value: 'a1' },
-                        { text: 'Chekbox item 2', value: 'a2' },
+                        { text: 'Chekbox item 1', value: 'a1', image:'/images/tools16.png' },
+                        { text: 'Chekbox item 2', value: 'a2', image:'<i class="fa-sharp fa-solid fa-circle-check"></i>' },
                         { text: 'Chekbox item 3', value: 'a3' }
                     ];
-                    WN['list2'].setdata(o, 'text', 'value', true);
+                    WN('list2').wn.setDataSourceByItem(o, 'text', 'value', '', 'image', true);
                 });
             </script>
         </div>
@@ -298,17 +385,17 @@
 
 <h2>رخدادها</h2>
 <p>
-    <h5>beforeclick</h5>
+    <h5>beforeClick</h5>
     قبل از کلیک بر روی گزینه لیست، این رخداد فراخوانده میشود. اگر این رخداد مقدار <bidi>false</bidi> برگرداند، ادامه عملیات کلیک متوقف میشود.<br/>
     این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onbeforeclick تعریف کنید.
 </p>
 <p>
-    <h5>afterclick</h5>
+    <h5>afterClick</h5>
     بعد از عمل کلیک کردن این رخداد فراخوانی میشود.<br />
     این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onafterclick تعریف کنید.
 </p>
 <p>
-    <h5>selectionchange</h5>
+    <h5>selectionChanged</h5>
     بعد از انتخاب هر ردیف این رخداد فراخوانی میشود.<br />
-    این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onselectionchange تعریف کنید.
+    این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onselectionchanged تعریف کنید.
 </p>

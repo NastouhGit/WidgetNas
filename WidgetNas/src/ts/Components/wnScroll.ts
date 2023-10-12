@@ -1,44 +1,45 @@
-﻿class wnscroll {
-    element: HTMLElement;
+﻿class WNScroll implements IWNScroll {
+    public readonly nameType: string = 'WNScroll';
+    public element: HTMLElement;
 
-    value: number = 0;
-    addclass = '';
-    removeclass = '';
-    toggleclass = '';
+    public value: number = 0;
+    public addClass = '';
+    public removeClass = '';
+    public toggleClass = '';
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLFormElement;
-            this.Render();
+            this.render();
         }
     }
-    Render() {
+    private render() {
         if (this.element.hasAttribute('scroll-value'))
             this.value = WNparseNumber(this.element.getAttribute('scroll-value'), 50);
         if (this.element.hasAttribute('add-class'))
-            this.addclass = WNparseString(this.element.getAttribute('add-class'), '');
+            this.addClass = WNparseString(this.element.getAttribute('add-class'), '');
         if (this.element.hasAttribute('remove-class'))
-            this.removeclass = WNparseString(this.element.getAttribute('remove-class'), '');
+            this.removeClass = WNparseString(this.element.getAttribute('remove-class'), '');
         if (this.element.hasAttribute('toggle-class'))
-            this.toggleclass = WNparseString(this.element.getAttribute('toggle-class'), '');
+            this.toggleClass = WNparseString(this.element.getAttribute('toggle-class'), '');
 
-        this.Start();
-        window.addEventListener("scroll", () => this.Start());
+        this.start();
+        window.addEventListener("scroll", () => this.start());
     }
-    Start() {
+    private start() {
         if (window.scrollY >= this.value) {
-            if (this.toggleclass != '') {
-                if (!this.element.classList.contains(this.toggleclass))
-                    this.element.classList.add(this.toggleclass);
+            if (this.toggleClass != '') {
+                if (!this.element.classList.contains(this.toggleClass))
+                    this.element.classList.add(this.toggleClass);
             }
-            if (this.addclass != '')
-                this.element.classList.add(this.addclass);
-            if (this.removeclass != '')
-                this.element.classList.remove(this.removeclass);
+            if (this.addClass != '')
+                this.element.classList.add(this.addClass);
+            if (this.removeClass != '')
+                this.element.classList.remove(this.removeClass);
         }
         else {
-            if (this.toggleclass != '') {
-                if (this.element.classList.contains(this.toggleclass))
-                    this.element.classList.remove(this.toggleclass);
+            if (this.toggleClass != '') {
+                if (this.element.classList.contains(this.toggleClass))
+                    this.element.classList.remove(this.toggleClass);
             }
         }
     }

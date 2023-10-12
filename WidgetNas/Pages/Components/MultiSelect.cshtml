@@ -13,79 +13,105 @@
 <h4>نمایش لیست</h4>
 <p>برای استفاده از انتخاب چند تایی از مثال زیر استفاده کنید.</p>
 <p>خصوصیت <bidi>max</bidi>: با تنظیم این خصوصیت، تعداد حداکثر انتخاب مجاز را میتوانید مشخص کنید. در صورتیکه مقدار صفر را مشخص کنید، بدون محدودیت قابل انتخاب است. </p>
+<p>خصوصیت <bidi>min-length</bidi> مشخص کننده تعداد حداقل کاراکتر برای شروع جستجو است. مقدار پیش فرض 1 می باشد.</p>
 <div class="example-div">
     <div class="ltr" id="form1">
         <h3>LTR</h3>
-        <div class="MultiSelect" wn-type="multiselect" max="2">
+        <div class="multiselect" wn-type="MultiSelect" max="2">
             <label>Selected</label>
             <input type="search">
             <div class="selecteditem rows"></div>
             <div class="dropdown">
                 <ul wn-type="list">
-                    <li>First Name</li>
-                    <li>Last Name</li>
-                    <li>Company</li>
-                    <li>Address</li>
-                    <li>City</li>
-                    <li>Country</li>
-                    <li>State/Province</li>
-                    <li>ZIP/Postal Code</li>
-                    <li>Phone 1</li>
-                    <li>Phone 2</li>
-                    <li>Email</li>
-                    <li>Web</li>
+                    <li value='FirstName'>First Name</li>
+                    <li value='LastName'>Last Name</li>
+                    <li value='Company'>Company</li>
+                    <li value='Address'>Address</li>
+                    <li value='City'>City</li>
+                    <li value='Country'>Country</li>
+                    <li value='State'>State/Province</li>
+                    <li value='ZIP'>ZIP/Postal Code</li>
+                    <li value='Phone1'>Phone 1</li>
+                    <li value='Phone2'>Phone 2</li>
+                    <li value='Email'>Email</li>
+                    <li value='Web'>Web</li>
                 </ul>
             </div>
         </div>
         <hr class="m-b-100r" />
-        <div class="MultiSelect floating" wn-type="multiselect">
+        <div class="multiselect floating" wn-type="MultiSelect">
             <input type="search" placeholder=".">
             <label>Selected</label>
             <div class="selecteditem"></div>
             <div class="dropdown">
                 <ul wn-type="list">
-                    <li>First Name</li>
-                    <li>Last Name</li>
-                    <li>Company</li>
-                    <li>Address</li>
-                    <li>City</li>
-                    <li>Country</li>
-                    <li>State/Province</li>
-                    <li>ZIP/Postal Code</li>
-                    <li>Phone 1</li>
-                    <li>Phone 2</li>
-                    <li>Email</li>
-                    <li>Web</li>
+                    <li value='FirstName'>First Name</li>
+                    <li value='LastName'>Last Name</li>
+                    <li value='Company'>Company</li>
+                    <li value='Address'>Address</li>
+                    <li value='City'>City</li>
+                    <li value='Country'>Country</li>
+                    <li value='State'>State/Province</li>
+                    <li value='ZIP'>ZIP/Postal Code</li>
+                    <li value='Phone1'>Phone 1</li>
+                    <li value='Phone2'>Phone 2</li>
+                    <li value='Email'>Email</li>
+                    <li value='Web'>Web</li>
                 </ul>
             </div>
         </div>
         <hr class="m-b-100r" />
-        <div class="MultiSelect group" wn-type="multiselect">
+        <div class="multiselect group" wn-type="MultiSelect">
             <label>Selected</label>
             <input type="search">
             <div class="selecteditem"></div>
 
             <div class="dropdown">
                 <ul wn-type="list">
-                    <li>First Name</li>
-                    <li>Last Name</li>
-                    <li>Company</li>
-                    <li>Address</li>
-                    <li>City</li>
-                    <li>Country</li>
-                    <li>State/Province</li>
-                    <li>ZIP/Postal Code</li>
-                    <li>Phone 1</li>
-                    <li>Phone 2</li>
-                    <li>Email</li>
-                    <li>Web</li>
+                    <li value='FirstName'>First Name</li>
+                    <li value='LastName'>Last Name</li>
+                    <li value='Company'>Company</li>
+                    <li value='Address'>Address</li>
+                    <li value='City'>City</li>
+                    <li value='Country'>Country</li>
+                    <li value='State'>State/Province</li>
+                    <li value='ZIP'>ZIP/Postal Code</li>
+                    <li value='Phone1'>Phone 1</li>
+                    <li value='Phone2'>Phone 2</li>
+                    <li value='Email'>Email</li>
+                    <li value='Web'>Web</li>
+
+                </ul>
+            </div>
+        </div>
+        <hr class="m-b-100r" />
+        <div class="multiselect floatingline" wn-type="MultiSelect">
+            <input type="search" placeholder=".">
+            <label>Selected</label>
+            <div class="selecteditem"></div>
+
+            <div class="dropdown">
+                <ul wn-type="list">
+                    <li value='FirstName'>First Name</li>
+                    <li value='LastName'>Last Name</li>
+                    <li value='Company'>Company</li>
+                    <li value='Address'>Address</li>
+                    <li value='City'>City</li>
+                    <li value='Country'>Country</li>
+                    <li value='State'>State/Province</li>
+                    <li value='ZIP'>ZIP/Postal Code</li>
+                    <li value='Phone1'>Phone 1</li>
+                    <li value='Phone2'>Phone 2</li>
+                    <li value='Email'>Email</li>
+                    <li value='Web'>Web</li>
+
                 </ul>
             </div>
         </div>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <div class="MultiSelect" wn-type="multiselect" max="2">
+        <div class="multiselect" wn-type="MultiSelect" max="2">
             <label>انتخاب شده</label>
             <input type="search">
             <div class="selecteditem"></div>
@@ -109,7 +135,7 @@
         </div>
         <hr class="m-b-100r" />
 
-        <div class="MultiSelect floating" wn-type="multiselect">
+        <div class="multiselect floating" wn-type="MultiSelect">
             <input type="search" placeholder=".">
             <label>انتخاب شده</label>
             <div class="selecteditem"></div>
@@ -131,11 +157,34 @@
             </div>
         </div>
         <hr class="m-b-100r" />
-        <div class="MultiSelect group" wn-type="multiselect">
+        <div class="multiselect group" wn-type="MultiSelect">
             <label>انتخاب شده</label>
             <input type="search">
             <div class="selecteditem"></div>
 
+            <div class="dropdown">
+                <ul wn-type="list">
+                    <li>نام</li>
+                    <li>نام خانوادگی</li>
+                    <li>شرکت</li>
+                    <li>آدرس</li>
+                    <li>شهر</li>
+                    <li>کشور</li>
+                    <li>استان</li>
+                    <li>کد پستی</li>
+                    <li>تلفن 1</li>
+                    <li>تلفن 2</li>
+                    <li>پست الکترونیک</li>
+                    <li>آدرس وب</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="m-b-100r" />
+
+        <div class="multiselect floatingline" wn-type="MultiSelect">
+            <input type="search" placeholder=".">
+            <label>انتخاب شده</label>
+            <div class="selecteditem"></div>
             <div class="dropdown">
                 <ul wn-type="list">
                     <li>نام</li>
@@ -158,96 +207,86 @@
 <figure><code data-on="form1"></code></figure>
 <h4>توابع جاوا اسکریپت</h4>
 <p>
-    <h5>selecteditems</h5>
-    با استفاده از این خصوصیت میتوانید لیست موضوعات انتخاب شده را در قالب یک آرایه با دو خصوصیت <bidi>value</bidi> و <bidi>caption</bidi> دریافت کنید.
+    <h5>selectedItems</h5>
+    با استفاده از این خصوصیت میتوانید لیست موضوعات انتخاب شده را در قالب یک آرایه از نوع <bidi>WNListNode</bidi> یا <bidi>WNTreeNode</bidi> را دریافت کنید.
+    <br /><bidi>selectedItems: WNGeneralNode[]</bidi>
 </p>
 <p>
-    <h5>selectionchanged</h5>
-    اگر میخواهید بعد از هر انتخاب تابعی اجرا شود از این رخداد استفاده کنید.
-    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onselectionchanged</bidi> بنویسید.
-    <br />پارامترهای این رخداد عبارتند از t:this
+    <h5>selectedValue</h5>
+    با استفاده از این خصوصیت میتوانید مقدار لیست موضوعات انتخاب شده را در قالب یک آرایه از نوع <bidi>string</bidi> را دریافت کنید.
+    <br /><bidi>selectedValue: string[]</bidi>
 </p>
 <p>
     <h5>max</h5>
-    تعداد حداکثر انتخاب را مخشص میکند. مقدار 0 به معنی انتخاب به صورت نامحدود است.
+    تعداد حداکثر انتخاب را مشخص میکند. مقدار 0 به معنی انتخاب به صورت نامحدود است.
 </p>
 <p>
     <h5>search</h5>
-    این خصوصیت از جنس <a href="/Components/SearchList">wnsearchlist</a> است. برای مشاهده خصوصیات آن به صفحه مرتبط مراجعه شود.
+    این خصوصیت از جنس <a href="/Components/SearchList">WNSearchList</a> است. برای مشاهده خصوصیات آن به صفحه مرتبط مراجعه شود.
+</p>
+<h5>رخداد ها</h5>
+<p>
+    <h5>selectionChanged</h5>
+    اگر میخواهید بعد از هر انتخاب تابعی اجرا شود از این رخداد استفاده کنید.
+    <br /><bidi>selectionChanged: (t: IWNMultiSelect, node: WNTreeNode | WNListNode) => void</bidi>
 </p>
 <p>
-    <h5>setdata</h5>
-    این تابع با ورودی لیست موارد انتخاب شده طبق استاندارد selecteditems میباشد. بعد از فراخوانی این تابع گزینه های مد نظر به حالت انتخاب در می آید.
-    <figure style="direction:ltr">
-        <code>
-            setdata([{value:'a',caption:'aa'},{value:'b',caption:'bb'}])
-        </code>
-    </figure>
+    <h5>beforeDeselect</h5>
+    اگر کاربر مقداری را انتخاب کرده بود و میخواست از حالت انتخاب در آورد، این رخداد قبل از حذف کردن آن اجرا میشود
+    اگر این تابع مقدار false برگرداند، عملیات عدم انتخاب لغو میشود.
+    <br /><bidi>beforeDeselect: (t: IWNMultiSelect, node: WNGeneralNode) => Promise<boolean> | boolean</bidi>
 </p>
 <p>
-    <h5>beforedeselect</h5>
-    اگر میخواهید قبل از هر برگشت انتخاب تابعی اجرا شود و اگر مقدار false برگرداند، عمل عدم انتخاب اعمال نگردد از این رخداد استفاده کنید.
-    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onbeforedeselect</bidi> بنویسید.<br />
-    پارامترهای این رخداد عبارتند از t:this, n:node, i:item
+    <h5>afterDeselect</h5>
+    بعد از آنکه عمل عدم انتخاب انجام شد، این رخداد فراخوانی میشود.
+    <br /><bidi>afterDeselect: (t: IWNMultiSelect, node: WNGeneralNode) => void</bidi>
 </p>
 <p>
-    <h5>afterdeselect</h5>
-    پس از آنکه عمل عدم انتخاب به درستی انجام شد، این رخداد صدا زده میشود.
-    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onafterdeselect</bidi> بنویسید.
-    <br />پارامترهای این رخداد عبارتند از t:this, i:item
+    <h5>beforeFilterChanged</h5>
+    قبل از اینکه فیلتر عملیات فیلتر کردن را آغاز کند این رخداد فراخوانی میشود. اگر این تابع مقدار false برگرداند، عملیات فیلتر کردن لغو میشود.<br />
+    برای مثال شما میخواهید به صورت پویا دیتای فیلتر کردن را از سرور بگیرید، در این رخداد دیتای جدید را خوانده و به لیست خود نسبت میدهد.
+    سپس این تابع را با مقدار false برمیگردانید تا ادامه عملیات متوقف شود.<br />
+    این تابع را با خصوصیت خطی onbeforefilterchanged نیز میتوانید مقدار دهی کنید.
 </p>
+
+
+
 
 <h4>مثال پویا</h4>
 <div class="example-div">
     <div class="ltr w-95-i" id="form2">
-        <div id="m1" class="MultiSelect floating" wn-type="multiselect">
+        <div id="m1" class="multiselect floating" wn-type="MultiSelect">
             <input type="search" placeholder=".">
             <label>Selected</label>
             <div class="selecteditem"></div>
             <div class="dropdown">
                 <ul wn-type="list">
-                    <li wn-list-value="FirstName">First Name</li>
-                    <li wn-list-value="LastName">Last Name</li>
-                    <li wn-list-value="Company">Company</li>
-                    <li wn-list-value="Address">Address</li>
-                    <li wn-list-value="City">City</li>
-                    <li wn-list-value="Country">Country</li>
-                    <li wn-list-value="State">State/Province</li>
-                    <li wn-list-value="ZIP">ZIP/Postal Code</li>
-                    <li wn-list-value="Phone1">Phone 1</li>
-                    <li wn-list-value="Phone2">Phone 2</li>
-                    <li wn-list-value="Email">Email</li>
-                    <li wn-list-value="Web">Web</li>
+                    <li value="FirstName">First Name</li>
+                    <li value="LastName">Last Name</li>
+                    <li value="Company">Company</li>
+                    <li value="Address">Address</li>
+                    <li value="City">City</li>
+                    <li value="Country">Country</li>
+                    <li value="State">State/Province</li>
+                    <li value="ZIP">ZIP/Postal Code</li>
+                    <li value="Phone1">Phone 1</li>
+                    <li value="Phone2">Phone 2</li>
+                    <li value="Email">Email</li>
+                    <li value="Web">Web</li>
                 </ul>
             </div>
         </div>
         <div class="d-flex">
             <input type="text" id="insList" />
             <button onclick="AddToList()">Insert to List</button>
-            <button onclick="Deselect(true)">Deselect By Caption</button>
-            <button onclick="Deselect(false)">Deselect By Value</button>
-            <button onclick="SelectDefault()">Default Select</button>
-            <button onclick="GetSelected()">Get Selected</button>
+            <button onclick="WN('m1').wn.selectedValue=['FirstName', 'City'];">Default Select</button>
+            <button onclick="alert(WN('m1').wn.selectedValue)">Get Selected</button>
             <div id="result1"></div>
         </div>
         <script>
             function AddToList() {
                 let v = document.getElementById('insList').value;
-                WN['m1'].search.list.addrow(v, v);
-            }
-            function Deselect(bycaption) { 
-                let v = document.getElementById('insList').value;
-                if (bycaption==true)
-                    WN['m1'].DeselectByCaption(v);
-                else
-                    WN['m1'].DeselectByValue(v);
-            }
-            function SelectDefault() {
-                WN['m1'].setdata([{ value:'FirstName', caption:'First Name' }, { value:'City', caption:'City' }]);
-            }
-            function GetSelected() { 
-                let o = 
-                WN['m1'].selecteditems;
+                WN('m1').wn.search.list.addToDataSource(v, '', v, '');
             }
         </script>
     </div>
@@ -255,15 +294,14 @@
 <figure><code data-on="form2"></code></figure>
 <h4>دریافت اطلاعات از سرور</h4>
 <p>
-    برای دریافت اطلاعات از روی سرور، کافیست آدرس سرور را در خصوصیت url قرار دهید.
-    اگر سرور لیست را به صورت دیکشنری برمیگرداند نیاز به تنظیم خصوصیات جلوتر نیست ولی اگر آرایه ای از موضوعات برمیگرداند،
-    باید مشخص کنید کدام فیلد مقدار است و کدام عنوان. <br />
-    خصوصیت <bidi>field-display</bidi> برای مشخص کردن نام فیلد نمایشی در آرایه است.<br />
-    خصوصیت <bidi>field-value</bidi> برای مشخص کردن نام فیلد مقداری در آرایه است.<br />
+    برای دریافت اطلاعات از سرور، رخداد onbeforefilterchanged در قسمت خصوصیات تگ و یا رخداد beforeFilterChanged را مقدار دهی کنید. تا زمانیکه
+    عبارتی تایپ میشود، این تابع فراخوانی شود.<br />
+    سپس بر اساس، موارد مندرج در مثال زیر و مشخصات این رخداد، اقدام به پر کردن لیست خود کنید.
 </p>
+
 <div class="example-div">
     <div class="ltr w-95-i" id="form3">
-        <div id="m2" class="MultiSelect floating" wn-type="multiselect" url="/components/SearchList">
+        <div id="m2" class="multiselect floating" wn-type="MultiSelect" onbeforefilterchanged="return MultiSelectGetData(text)">
             <input type="search" placeholder=".">
             <label>Select From List</label>
             <div class="selecteditem"></div>
@@ -272,20 +310,40 @@
                 </ul>
             </div>
         </div>
+        <script>
+            async function MultiSelectGetData(text) {
+                let ret = false;
+                await Post(WNAddStringQuote(text), '/components/SearchList').then((r) => {
+                    WN('m2').wn.search.list.setDataSourceByItem(r, 'name', 'value', '', '', false);
+                    ret = true;
+                });
+                return ret;
+            }
+        </script>
     </div>
 </div>
 <figure><code data-on="form3"></code></figure>
 <div class="example-div">
     <div class="ltr w-95-i" id="form4">
-        <div id="m3" class="MultiSelect floating" wn-type="multiselect" url="/components/Tree?handler=Filter" fieldset="index,parent,type,text,value,image">
+        <div id="m3" class="multiselect floating" wn-type="MultiSelect" onbeforefilterchanged="return MultiSelectGetDataTree(text)">
             <input type="search" placeholder=".">
             <label>Select From Tree</label>
             <div class="selecteditem"></div>
-            <div class="dropdown">
+            <div class="dropdown w-2500r">
                 <ul class="tree tree-arrow m-50r-i p-50-i" wn-type="tree">
                 </ul>
             </div>
         </div>
+        <script>
+            async function MultiSelectGetDataTree(text) {
+                let ret = false;
+                await Post(WNAddStringQuote(text), '/components/Tree?handler=Filter').then((r) => {
+                    WN('m3').wn.search.list.setDataSourceByItem(null, r, 'children', 'html', 'value', 'link', 'image', false);
+                    ret = true;
+                });
+                return ret;
+            }
+        </script>
     </div>
 </div>
 <figure><code data-on="form4"></code></figure>

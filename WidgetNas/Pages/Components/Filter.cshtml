@@ -7,8 +7,8 @@
 <h1>@ViewData["Title"]</h1>
 <p>اگر میخواهید بر روی لیست یا مجموعه ای از موضوعات بر اساس موارد زیر فیلتر داشته باشید، از گزینه فیلتر استفاده کنید.</p>
 
-<h2>تابع WNFilter</h2>
-<p>تابع <bidi>WNFilter</bidi> دارای دو ورودی است به نام های <bidi>selectors</bidi> و <bidi>filterby</bidi> در زیر نحوه عملکرد هر کدام را توضیح میدهیم.</p>
+<h2>تابع WNFilter.filter</h2>
+<p>تابع <bidi>WNFilter.f</bidi> دارای دو ورودی است به نام های <bidi>selectors</bidi> و <bidi>filterby</bidi> در زیر نحوه عملکرد هر کدام را توضیح میدهیم.</p>
 <h3>selectors</h3>
 <p>
     این پارامتر مشخص میکند در کل سند صفحه، چه موضوعاتی را برای فیلتر کردن انتخاب کند، قوانین قابل استفاده دقیقا با قوانین سلکتورها یکی است
@@ -22,15 +22,15 @@
 <div class="example-div" id="exp1">
     <div class="row m-i-0 w-90">
         <div class="col-5">
-            Filter by Text: <input type="text" oninput="WNFilter('#Sample1 div[class*=alert]','contains('+this.value+')');" />
+            Filter by Text: <input type="text" oninput="WNFilter.filter('#Sample1 div[class*=alert]','contains('+this.value+')');" />
         </div>
         <div class="col-6">
             <div class="buttongroup">
                 Filter by class:<br />
-                <button class="" onclick="WNFilter('#Sample1 div[class*=alert]','');">all</button>
-                <button class="primary" onclick="WNFilter('#Sample1 div[class*=alert]','[class*=primary]');">primary</button>
-                <button class="secondary" onclick="WNFilter('#Sample1 div[class*=alert]','[class*=secondary]');">secondary</button>
-                <button class="success" onclick="WNFilter('#Sample1 div[class*=alert]','[class*=success]');">success</button>
+                <button class="" onclick="WNFilter.filter('#Sample1 div[class*=alert]','');">all</button>
+                <button class="primary" onclick="WNFilter.filter('#Sample1 div[class*=alert]','[class*=primary]');">primary</button>
+                <button class="secondary" onclick="WNFilter.filter('#Sample1 div[class*=alert]','[class*=secondary]');">secondary</button>
+                <button class="success" onclick="WNFilter.filter('#Sample1 div[class*=alert]','[class*=success]');">success</button>
             </div>
         </div>
     </div>
@@ -97,13 +97,13 @@
     <div class="row">
         <div class="col-5">
             <div class="button-group d-flex">
-                <button class="success" onclick="WNFilter('#Sample2 div[class*=col]','');">All</button>
-                <button class="primary" onclick="WNFilter('#Sample2 div[class*=col]','[category=book]');">Book</button>
-                <button class="primary" onclick="WNFilter('#Sample2 div[class*=col]','[category=folder]');">Folder</button>
+                <button class="success" onclick="WNFilter.filter('#Sample2 div[class*=col]','');">All</button>
+                <button class="primary" onclick="WNFilter.filter('#Sample2 div[class*=col]','[category=book]');">Book</button>
+                <button class="primary" onclick="WNFilter.filter('#Sample2 div[class*=col]','[category=folder]');">Folder</button>
             </div>
             <ig class="group">
                 <label>Search:</label>
-                <input type="text" oninput="WNFilter('#Sample2 div[class*=col]','contains('+this.value+')');" />
+                <input type="text" oninput="WNFilter.filter('#Sample2 div[class*=col]','contains('+this.value+')');" />
             </ig>
         </div>
     </div>

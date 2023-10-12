@@ -1,4 +1,5 @@
 ﻿@import "../../_variables.scss";
+
 .list {
     display: flex;
     flex-direction: column;
@@ -19,18 +20,25 @@
         border: var(--border-width) solid var(--normal-border);
         border-block-end: none;
         border-radius: 0;
+        display: flex;
+        align-items: center;
+        transition: $transition, border-block-end 0s;
 
+        &.first-child,
         &:first-child {
             border-start-start-radius: var(--border-radius);
             border-start-end-radius: var(--border-radius);
         }
 
+        &.last-child,
         &:last-child {
             border-end-start-radius: var(--border-radius);
             border-end-end-radius: var(--border-radius);
             border-block-end: var(--border-width) solid var(--normal-border);
         }
 
+
+        &.active,
         &.list-active {
             z-index: 2;
             color: var(--active-color);
@@ -50,6 +58,19 @@
         &[disabled] {
             color: var(--disable-color) !important;
             pointer-events: none;
+        }
+
+        input[type=checkbox] + label,
+        input[type=radio] + label {
+            margin-inline-start: 0.25rem;
+        }
+
+        &.hide {
+            display: none;
+        }
+
+        img,i {
+            margin-inline-end: 0.25rem;
         }
     }
 
@@ -73,6 +94,7 @@
             }
         }
 
+        .active,
         .list-active {
             &:hover {
                 color: var(--select-color);
@@ -107,7 +129,7 @@ table {
                 border-start-end-radius: 0;
             }
 
-
+            .active,
             .list-active {
                 background-color: var(--active-back);
                 box-shadow: inset 0 0 0 9999px var(--active-back);
@@ -139,6 +161,7 @@ table {
                 }
             }
 
+            .active,
             .list-active {
                 &:hover {
                     color: var(--select-color);
@@ -148,6 +171,7 @@ table {
         }
     }
 }
+
 .list {
     a, button {
         background-color: transparent;
@@ -167,7 +191,7 @@ table {
         border-radius: 0;
         border: none;
 
-        & .list-item, li,tr {
+        & .list-item, li, tr {
             border: none;
             border-block-end-style: solid;
             border-block-end-width: var(--border-width);
@@ -204,7 +228,7 @@ table {
         flex-direction: row;
         border-radius: 0;
 
-        tr,li, .list-item {
+        tr, li, .list-item {
             border: var(--border-width) solid var(--normal-border);
             border-inline-end: none;
             padding-block: var(--padding-block);

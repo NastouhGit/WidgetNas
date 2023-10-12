@@ -1,18 +1,19 @@
-﻿class wnfilter {
-    element: HTMLElement;
-    buttons: NodeListOf<Element>;
+﻿class WNFilter implements IWNFilter {
+    public readonly nameType: string = 'WNFilter';
+    public element: HTMLElement;
+    private buttons: NodeListOf<Element>;
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
-            this.Init();
+            this.init();
         }
     }
-    private Init() {
+    private init() {
         this.buttons = this.element.querySelectorAll('[filter-value]');
         this.buttons.forEach((t) => {
             if (t.nodeName == 'INPUT' && (<HTMLInputElement>t).type == "text") {
                 t.addEventListener("input", () => {
-                    WNFilter(this.element.querySelectorAll("[filter-category]"), 'contains(' + (<HTMLInputElement>t).value + ')');
+                    WNFilter.filter(this.element.querySelectorAll("[filter-category]"), 'contains(' + (<HTMLInputElement>t).value + ')');
                 });
             }
             if (t.nodeName == 'INPUT' && (<HTMLInputElement>t).type == "checkbox") {
@@ -23,7 +24,7 @@
             }
             else {
                 t.addEventListener("click", (e) => {
-                    WNFilter(this.element.querySelectorAll("[filter-category]"), '[filter-category*=' + (<HTMLInputElement>e.target).getAttribute('filter-value') + ']');
+                    WNFilter.filter(this.element.querySelectorAll("[filter-category]"), '[filter-category*=' + (<HTMLInputElement>e.target).getAttribute('filter-value') + ']');
                 });
             }
         });
@@ -38,11 +39,10 @@
         if (condition.length > 0)
             condition = condition.substring(0, condition.length - 1);
 
-        WNFilter(this.element.querySelectorAll("[filter-category]"), condition);
+        WNFilter.filter(this.element.querySelectorAll("[filter-category]"), condition);
     }
-}
 
-function WNFilter(selectors: string | NodeListOf<Element>, filterby: string) {
+    static filter(selectors: string | NodeListOf<Element>, filterby: string):void {
     let list;
     if (typeof (selectors) == "string")
         list = document.querySelectorAll(selectors);
@@ -68,3 +68,5 @@ function WNFilter(selectors: string | NodeListOf<Element>, filterby: string) {
             e.getAnimations().forEach(x => x.play());
         });
 }
+}
+

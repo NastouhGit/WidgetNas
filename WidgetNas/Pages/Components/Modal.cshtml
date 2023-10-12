@@ -84,8 +84,8 @@
                     <p>Modal body text goes here.</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="secondary" close-parent>Close</button>
                     <button class="primary">Save changes</button>
+                    <button class="secondary" close-parent>Close</button>
                 </div>
             </div>
         </div>
@@ -103,8 +103,8 @@
                     <p>متن بدنه مدال در این قسمت می آید.</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="secondary" close-parent>بستن</button>
                     <button class="primary">ذخیره تغییرات</button>
+                    <button class="secondary" close-parent>بستن</button>
                 </div>
             </div>
         </div>
@@ -200,7 +200,7 @@
     اگر مقدار برگشتی true باشد، مودال مخفی میشود و اگر false باشد، مودال بسته نمیشود.
 </p>
 <p>از این خصوصیت برای گرفتن تایید، بررسی فرم قبل از بستن و موارد این چنینی استفاده میشود.</p>
-<p>اگر میخواهید تابع خود را به صورت جاوا اسکریپت نسبت دهید، به <bidi>WN[id].beforehide = ()=>{}</bidi> نسبت دهید.</p>
+<p>اگر میخواهید تابع خود را به صورت جاوا اسکریپت نسبت دهید، به <bidi>WN(id].beforehide = ()=>{}</bidi> نسبت دهید.</p>
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
@@ -223,24 +223,36 @@
     اگر میخواهید با جاوا اسکریپت کنترل را به عهده بگیرید، میتوانید از گزینه های زیر استفاده کنید.
 </p>
 <p>
-    <strong>backclose</strong><br />
+    <strong>backClose</strong><br />
     بستن یا عدم بستن با کلیک بر روی غیر از دیالوگ. مقدار به صورت true یا false باید باشد.
 </p>
 <p>
-    <strong>beforehide</strong><br />
-    نسبت دادن یک تابع جهت بررسی قبل از مخفی کردن مودال.
+    <strong>beforeHide</strong><br />
+    نسبت دادن یک تابع جهت بررسی قبل از مخفی کردن مودال. مقدار برگشتی true یا false جهت ادامه کار.
+</p>
+<p>
+    <strong>afterHide</strong><br />
+    نسبت دادن یک تابع جهت بررسی بعد از مخفی کردن مودال.
+</p>
+<p>
+    <strong>beforeShow</strong><br />
+    نسبت دادن یک تابع جهت بررسی قبل از نمایش مودال. مقدار برگشتی true یا false جهت ادامه کار.
+</p>
+<p>
+    <strong>afterShow</strong><br />
+    نسبت دادن یک تابع جهت بررسی بعد از نمایش مودال.
 </p>
 <p>
     <strong>show</strong><br />
-    نمایش مودال. <bidi>WN[id].show()</bidi>
+    نمایش مودال. <bidi>WN(id).wn.show()</bidi>
 </p>
 <p>
     <strong>hide</strong><br />
-    مخفی کردن مودال. <bidi>WN[id].hide()</bidi>
+    مخفی کردن مودال. <bidi>WN(id].hide()</bidi>
 </p>
 <p>
     <strong>toggle</strong><br />
-    سوئیچ کردن بین نمایش و عدم نمایش مودال. <bidi>WN[id].toggle()</bidi>
+    سوئیچ کردن بین نمایش و عدم نمایش مودال. <bidi>WN(id].toggle()</bidi>
 </p>
 <p>
     درست است که در ظاهر با اضافه شدن کلاس <bidi>show</bidi> به مودال، عمل نمایش انجام میشود، ولی در پس زمینه توابع و دستورات جاوایی برای کنترل اجرا میگردد.
@@ -349,7 +361,7 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <button class="secondary" onclick="WN['modal2_ltr'].show()">Show</button>
+        <button class="secondary" onclick="WN('modal2_ltr').wn.show()">Show</button>
         <div class="modal darkback modal-block-start" tabindex="-1" id="modal2_ltr" wn-type="modal">
             <div class="modal-dialog">
                 <div class="modal-header">
@@ -368,7 +380,7 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <button class="secondary" onclick="WN['modal2_rtl'].show()">نمایش</button>
+        <button class="secondary" onclick="WN('modal2_rtl').wn.show()">نمایش</button>
         <div class="modal darkback modal-block-start" tabindex="-1" id="modal2_rtl" wn-type="modal">
             <div class="modal-dialog">
                 <div class="modal-header">
@@ -399,7 +411,7 @@
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <button class="secondary" onclick="WN['modal3_ltr'].show()">Show</button>
+        <button class="secondary" onclick="WN('modal3_ltr').wn.show()">Show</button>
         <div class="modal darkback" tabindex="-1" id="modal3_ltr" wn-type="modal">
             <div class="modal-dialog">
                 <div class="modal-header">
@@ -448,7 +460,7 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <button class="secondary" onclick="WN['modal3_rtl'].show()">نمایش</button>
+        <button class="secondary" onclick="WN('modal3_rtl').wn.show()">نمایش</button>
         <div class="modal darkback" tabindex="-1" id="modal3_rtl" wn-type="modal">
             <div class="modal-dialog">
                 <div class="modal-header">
@@ -543,13 +555,13 @@
 
 <h2>نمایش انیمشین</h2>
 <p>
-    اگر تمایل دارید در هنگام نمایش یا مخفی کردن مودال، افکت نمایشی یا کلاسهایی خاص اضافه شود، از خصوصیتهای <bidi>showclass</bidi> و <bidi>hideclass</bidi> استفاده کنید.
+    اگر تمایل دارید در هنگام نمایش یا مخفی کردن مودال، افکت نمایشی یا کلاسهایی خاص اضافه شود، از خصوصیتهای <bidi>show-class</bidi> و <bidi>hide-class</bidi> استفاده کنید.
 </p>
 <div class="example-div">
     <div class="ltr">
         <h3>LTR</h3>
-        <button class="secondary" onclick="WN['modal4_ltr'].show()">Show</button>
-        <div class="modal darkback" tabindex="-1" id="modal4_ltr" wn-type="modal" showclass="animation zoomIn" hideclass="animation zoomOut">
+        <button class="secondary" onclick="WN('modal4_ltr').wn.show()">Show</button>
+        <div class="modal darkback" tabindex="-1" id="modal4_ltr" wn-type="modal" show-class="animation zoomIn" hide-class="animation zoomOut">
             <div class="modal-dialog">
                 <div class="modal-header error">
                     <h5 class="modal-title">Modal title</h5>
@@ -574,8 +586,8 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <button class="secondary" onclick="WN['modal4_rtl'].show()">نمایش</button>
-        <div class="modal" tabindex="-1" id="modal4_rtl" wn-type="modal" showclass="animate zoomIn" hideclass="animate zoomOut">
+        <button class="secondary" onclick="WN('modal4_rtl').wn.show()">نمایش</button>
+        <div class="modal" tabindex="-1" id="modal4_rtl" wn-type="modal" show-class="animate zoomIn" hide-class="animate zoomOut">
             <div class="modal-dialog">
                 <div class="modal-header error">
                     <h5 class="modal-title">عنوان مدال</h5>
@@ -600,18 +612,18 @@
 <figure><code data-on="modal4_ltr"></code></figure>
 
 <script>
-    function showmodal(id, modelclass, dialogclass, backclose, beforehide) {
+    function showmodal(id, modelclass, dialogclass, backClose, beforehide) {
         let modal = document.getElementById(id);
         modal.className = 'modal ' + modelclass;
         if (beforehide !== '')
-            WN[id].beforehide = new Function(beforehide);
+            WN(id).wn.beforeHide = new Function(beforehide);
         else
-            WN[id].beforehide = null;
-        WN[id].backclose = backclose;
+            WN(id).wn.beforeHide = null;
+        WN(id).wn.backClose = backClose;
 
         let dialog = modal.querySelector(".modal-dialog");
         dialog.className = 'modal-dialog ' + dialogclass;
 
-        WN[id].show();
+        WN(id).wn.show();
     }
 </script>

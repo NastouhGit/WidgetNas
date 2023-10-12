@@ -237,8 +237,8 @@
     &lt;/<span class="ht">div</span>&gt;
 
     &lt;<span class="ht">script</span>&gt;
-        WN[<span class="ht">'progress1'</span>].min=0;
-        WN[<span class="ht">'progress1'</span>].max=1000;
+        WN(<span class="ht">'progress1'</span>).wn.min=0;
+        WN(<span class="ht">'progress1'</span>).wn.max=1000;
     &lt;/<span class="ht">script</span>&gt;
 </code></pre>
 </figure>
@@ -258,7 +258,7 @@
     &lt;/<span class="ht">div</span>&gt;
 
     &lt;<span class="ht">script</span>&gt;
-        WN[<span class="ht">'progress1'</span>].value=500;
+        WN(<span class="ht">'progress1'</span>).wn.value=500;
     &lt;/<span class="ht">script</span>&gt;
 </code></pre>
 </figure>
@@ -284,7 +284,7 @@
     &lt;/<span class="ht">div</span>&gt;
 
     &lt;<span class="ht">script</span>&gt;
-        WN[<span class="ht">'progress1'</span>].value=500;
+        WN(<span class="ht">'progress1'</span>).wn.value=500;
     &lt;/<span class="ht">script</span>&gt;
 </code></pre>
 </figure>
@@ -294,10 +294,10 @@
             <div class="progress-bar"></div>
         </div>
         <div class="m-bs-50r">
-            <button onclick="WN['progress1_ltr'].value=25">25%</button>
-            <button onclick="WN['progress1_ltr'].value=50">50%</button>
-            <button onclick="WN['progress1_ltr'].value=75">75%</button>
-            <button onclick="WN['progress1_ltr'].value=100">100%</button>
+            <button onclick="WN('progress1_ltr').wn.value=25">25%</button>
+            <button onclick="WN('progress1_ltr').wn.value=50">50%</button>
+            <button onclick="WN('progress1_ltr').wn.value=75">75%</button>
+            <button onclick="WN('progress1_ltr').wn.value=100">100%</button>
         </div>
         <div id="progress2_ltr" wn-type="progress" class="progress m-bs-100r" min="0" max="1000">
             <div class="progress-bar progress-striped progress-animated error-color" max="30"></div>
@@ -306,10 +306,10 @@
             <div class="progress-caption"></div>
         </div>
         <div class="m-bs-50r">
-            <button onclick="WN['progress2_ltr'].value=250">250</button>
-            <button onclick="WN['progress2_ltr'].value=500">500</button>
-            <button onclick="WN['progress2_ltr'].value=750">750</button>
-            <button onclick="WN['progress2_ltr'].value=1000">1000</button>
+            <button onclick="WN('progress2_ltr').wn.value=250">250</button>
+            <button onclick="WN('progress2_ltr').wn.value=500">500</button>
+            <button onclick="WN('progress2_ltr').wn.value=750">750</button>
+            <button onclick="WN('progress2_ltr').wn.value=1000">1000</button>
         </div>
     </div>
 </div>

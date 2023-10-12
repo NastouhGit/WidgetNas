@@ -14,38 +14,70 @@
     <button class="primary" onclick="modalconfirm(true)">Confirm with close button</button>
     <button class="primary m-is-100r" onclick="modalconfirm(false)">Confirm without close button</button>
     <script>
-        function modalconfirm(closebutton) {
-            let confirm = new wnconfirm();
-            confirm.modalclass = "ltr";
+        function modalconfirm(closeButton) {
+            let confirm = new WNConfirm();
+            confirm.modalClass = "ltr";
             confirm.title = "Confirm Title";
-            confirm.headclass = "warning";
+            confirm.headClass = "warning";
             confirm.body = "<p>This is sample paragraph with <b>html</b> attribute</p><p><input/></p>";
-            confirm.bodyclass = "";
-            confirm.footerclass = "";
-            confirm.closebutton = closebutton;
+            confirm.bodyClass = "";
+            confirm.footerClass = "";
+            confirm.closeButton = closeButton;
             confirm.buttons = [
                 { caption: 'Ok', class: 'success', click: () => { alert('You select OK button.'); } },
                 { caption: 'Cancel', class: 'danger', click: () => { alert('You select Cancel button.'); } },
             ]
-            showclass = "animation zoomIn";  //this value is defualt
+            showClass = "animation zoomIn";  //this value is defualt
             confirm.show();
         }
     </script>
 </div>
 
 <figure><code data-on="from1"></code></figure>
+<h2>باز شدن در المنت خاص</h2>
+<div class="example-div" id="from2">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button onclick="modalconfirm2('LTR',this.parentElement)">Show</button>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button onclick="modalconfirm2('RTL',this.parentElement)">نمایش</button>
+    </div>
+    <script>
+        function modalconfirm2(title,parent) {
+            let confirm = new WNConfirm();
+            confirm.title = title+" : Confirm Title";
+            confirm.headClass = "warning";
+            confirm.body = "<p>This is sample paragraph with <b>html</b> attribute</p><p><input/></p>";
+            confirm.parentElement = parent;
+            confirm.buttons = [
+                { caption: 'Ok', class: 'success' },
+                { caption: 'Cancel', class: 'danger' }
+            ];
+            confirm.show();
+        }
+    </script>
+</div>
+<figure><code data-on="from2"></code></figure>
 
 <h2>خصوصیات</h2>
-<p><bidi>modalclass</bidi>: اگر میخواهید برای نمایش مودال کلاسهایی را تنظیم کنید، آنها را در این خصوصیت بنویسید.</p>
-<p><bidi>showclass</bidi>: زمانیکه مودال نمایش داده میشود، این کلاسها نسبت داده شوند، اغلب برای انیمیشن استفاده میشود، برای اطلاع بیشتر به قست مودال مراجعه کنید.</p>
-<p><bidi>headclass</bidi>: کلاس مرتبط با هدر مودال است، اگر میخواهید هد دارای رنگ خصوصیت خاصی باشد، کلاسهای مرتبط را نسبت دهید.</p>
 <p><bidi>title</bidi>: عنوان مودال است.</p>
-<p><bidi>closebutton</bidi>: اگر نمیخواهید دکمه بستن در هدر باشد، این خصوصیت را false کنید. زیرا مقدار پیش فرض true است.</p>
-<p><bidi>bodyclass</bidi>: اگر میخواهید بدنه مودال دارای خصوصیت خاصی باشد، آنها را در این خصوصیت مشخص کنید.</p>
-<p><bidi>body</bidi>: هر آنچه که تمایل دارید در بدنه نمایش داده شود، به صورت html وارد کنید.</p>
-<p><bidi>footerclass</bidi>: اگر میخواهید قسمت پایین مودال که دکمه ها نمایش داده میشوند، دارای خصوصیت خاصی باشد، آنها را در این خصوصیت مشخص کنید.</p>
+<p><bidi>body</bidi>: هر آنچه که تمایل دارید در بدنه نمایش داده شود، به صورت html وارد کنید. اگر یک المنت به آن دهید، محتوی بیرونی آنرا به صورت html درج میکند.</p>
+<p><bidi>closeButton</bidi>: اگر نمیخواهید دکمه بستن در هدر باشد، این خصوصیت را false کنید. زیرا مقدار پیش فرض true است.</p>
+<p>
+    <bidi>parentElement</bidi>: مقدار پیش فرض body است، یعنی زمانیکه ساختار مودال قرار است ایجاد شود، در انتهای بدنه ایجاد میشود.
+    ولیکن برخی مواقع میخواهید از ساختار المنت جاری نشات بگیرد که میتوانید آن المنت را اضافه کنید.
+</p>
+
+<p><bidi>modalClass</bidi>: اگر میخواهید برای نمایش مودال کلاسهایی را تنظیم کنید، آنها را در این خصوصیت بنویسید.</p>
+<p><bidi>headClass</bidi>: کلاس مرتبط با هدر مودال است، اگر میخواهید هد دارای رنگ خصوصیت خاصی باشد، کلاسهای مرتبط را نسبت دهید.</p>
+<p><bidi>bodyClass</bidi>: اگر میخواهید بدنه مودال دارای خصوصیت خاصی باشد، آنها را در این خصوصیت مشخص کنید.</p>
+<p><bidi>footerClass</bidi>: اگر میخواهید قسمت پایین مودال که دکمه ها نمایش داده میشوند، دارای خصوصیت خاصی باشد، آنها را در این خصوصیت مشخص کنید.</p>
+<p><bidi>showClass</bidi>: زمانیکه مودال نمایش داده میشود، این کلاسها نسبت داده شوند، اغلب برای انیمیشن استفاده میشود، برای اطلاع بیشتر به قست مودال مراجعه کنید.</p>
 <h3>buttons</h3>
 <p>برای نمایش دکمه های زیر شما میتوانید آرایه ای از خصوصیات اشاره شده، نسبت دهید تا آن دکمه ها ایجاد شوند. برای هر دکمه باید خصوصیات زیر را تنظیم کنید.</p>
 <p><bidi>caption</bidi>: عنوان دکمه.</p>
 <p><bidi>class</bidi>: کلاسهای مرتبط با هر دکمه.</p>
-<p><bidi>click</bidi>: یک تابع که بعد از کلیک شدن، آن فراخوانی شود.</p>
+<p><bidi>click</bidi>: یک تابع که بعد از کلیک شدن، آن فراخوانی شود. اگر مقدار بازگشتی تابع true باشد، پنجره بسته میشود.</p>
+

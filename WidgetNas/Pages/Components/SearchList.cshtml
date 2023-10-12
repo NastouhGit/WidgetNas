@@ -14,7 +14,7 @@
 <div class="example-div">
     <div class="ltr" id="form1">
         <h3>LTR</h3>
-        <div class="SearchList" wn-type="searchlist">
+        <div class="searchlist" wn-type="SearchList">
             <input type="search" placeholder="Type for search" />
             <ul wn-type="list">
                 <li>First Name</li>
@@ -32,7 +32,7 @@
             </ul>
         </div>
         <hr class="m-b-100r" />
-        <div class="SearchList" wn-type="searchlist">
+        <div class="searchlist" wn-type="SearchList">
             <ul wn-type="list">
                 <li>First Name</li>
                 <li>Last Name</li>
@@ -52,7 +52,7 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <div class="SearchList" wn-type="searchlist">
+        <div class="searchlist" wn-type="SearchList">
             <input type="search" placeholder="برای جستجو بنویسید" />
             <ul wn-type="list">
                 <li>نام</li>
@@ -70,7 +70,7 @@
             </ul>
         </div>
         <hr class="m-b-100r" />
-        <div class="SearchList" wn-type="searchlist">
+        <div class="searchlist" wn-type="SearchList">
             <ul wn-type="list">
                 <li>نام</li>
                 <li>نام خانوادگی</li>
@@ -89,44 +89,45 @@
         </div>
     </div>
 </div>
+
 <figure><code data-on="form1"></code></figure>
 <h4>نمایش درختواره</h4>
 <div class="example-div">
     <div class="ltr" id="form1">
         <h3>LTR</h3>
-        <div class="SearchList" wn-type="searchlist">
+        <div class="searchlist" wn-type="SearchList">
             <input type="search" placeholder="Type for search" />
             <ul class="tree" wn-type="tree">
                 <li>
-                    <div class="tree-item">Personal Info</div>
+                    <item>Personal Info</item>
                     <ul>
                         <li>
-                            <div class="tree-item">Name</div>
+                            <item>Name</item>
                             <ul>
-                                <li><div class="tree-item">First Name</div></li>
-                                <li><div class="tree-item">Last Name</div></li>
+                                <li><item>First Name</item></li>
+                                <li><item>Last Name</item></li>
                             </ul>
                         </li>
                         <li>
-                            <div class="tree-item">Address</div>
+                            <item>Address</item>
                             <ul>
-                                <li><div class="tree-item">Address</div></li>
-                                <li><div class="tree-item">City</div></li>
-                                <li><div class="tree-item">Country</div></li>
-                                <li><div class="tree-item">State/Province</div></li>
-                                <li><div class="tree-item">ZIP/Postal Code</div></li>
+                                <li><item>Address</item></li>
+                                <li><item>City</item></li>
+                                <li><item>Country</item></li>
+                                <li><item>State/Province</item></li>
+                                <li><item>ZIP/Postal Code</item></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <div class="tree-item">Job Info</div>
+                    <item>Job Info</item>
                     <ul>
-                        <li><div class="tree-item">Company</div></li>
-                        <li><div class="tree-item">Phone 1</div></li>
-                        <li><div class="tree-item">Phone 2</div></li>
-                        <li><div class="tree-item">Email</div></li>
-                        <li><div class="tree-item">Web</div></li>
+                        <li><item>Company</item></li>
+                        <li><item>Phone 1</item></li>
+                        <li><item>Phone 2</item></li>
+                        <li><item>Email</item></li>
+                        <li><item>Web</item></li>
                     </ul>
                 </li>
             </ul>
@@ -134,39 +135,39 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <div class="SearchList" wn-type="searchlist">
+        <div class="searchlist" wn-type="SearchList">
             <input type="search" placeholder="Type for search" />
             <ul class="tree" wn-type="tree">
                 <li>
-                    <div class="tree-item">اطلاعات شخصی</div>
+                    <item>اطلاعات شخصی</item>
                     <ul>
                         <li>
-                            <div class="tree-item">نام</div>
+                            <item>نام</item>
                             <ul>
-                                <li><div class="tree-item">نام</div></li>
-                                <li><div class="tree-item">نام خانوادگی</div></li>
+                                <li><item>نام</item></li>
+                                <li><item>نام خانوادگی</item></li>
                             </ul>
                         </li>
                         <li>
-                            <div class="tree-item">آدرس</div>
+                            <item>آدرس</item>
                             <ul>
-                                <li><div class="tree-item">آدرس</div></li>
-                                <li><div class="tree-item">شهر</div></li>
-                                <li><div class="tree-item">کشور</div></li>
-                                <li><div class="tree-item">استان</div></li>
-                                <li><div class="tree-item">کدپستی</div></li>
+                                <li><item>آدرس</item></li>
+                                <li><item>شهر</item></li>
+                                <li><item>کشور</item></li>
+                                <li><item>استان</item></li>
+                                <li><item>کدپستی</item></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <div class="tree-item">اطلاعات شغلی</div>
+                    <item>اطلاعات شغلی</item>
                     <ul>
-                        <li><div class="tree-item">شرکت</div></li>
-                        <li><div class="tree-item">تلفن 1</div></li>
-                        <li><div class="tree-item">تلفن 2</div></li>
-                        <li><div class="tree-item">پست الکترونیک</div></li>
-                        <li><div class="tree-item">وب</div></li>
+                        <li><item>شرکت</item></li>
+                        <li><item>تلفن 1</item></li>
+                        <li><item>تلفن 2</item></li>
+                        <li><item>پست الکترونیک</item></li>
+                        <li><item>وب</item></li>
                     </ul>
                 </li>
             </ul>
@@ -180,60 +181,60 @@
     <div class="ltr" id="form2">
         <h3>LTR</h3>
         <input id="display1-ltr" type="text" readonly placeholder="Selected Text" />
-        <input id="value1-ltr"type="text" readonly placeholder="Selected Value" />
-        <div class="SearchList" wn-type="searchlist" display-id="display1-ltr" value-id="value1-ltr">
+        <input id="value1-ltr" type="text" readonly placeholder="Selected Value" />
+        <div class="searchlist" wn-type="SearchList" display-id="display1-ltr" value-id="value1-ltr">
             <input type="search" placeholder="Type for search" />
             <ul wn-type="list">
-                <li wn-list-value="FirstName" >First Name</li>
-                <li wn-list-value="LastName">Last Name</li>
-                <li wn-list-value="Company">Company</li>
-                <li wn-list-value="Address">Address</li>
-                <li wn-list-value="City">City</li>
-                <li wn-list-value="Country">Country</li>
-                <li wn-list-value="State">State/Province</li>
-                <li wn-list-value="PostalCode">ZIP/Postal Code</li>
-                <li wn-list-value="Phone1">Phone 1</li>
-                <li wn-list-value="Phone2">Phone 2</li>
-                <li wn-list-value="Email">Email</li>
-                <li wn-list-value="Web">Web</li>
+                <li value="FirstName">First Name</li>
+                <li value="LastName">Last Name</li>
+                <li value="Company">Company</li>
+                <li value="Address">Address</li>
+                <li value="City">City</li>
+                <li value="Country">Country</li>
+                <li value="State">State/Province</li>
+                <li value="PostalCode">ZIP/Postal Code</li>
+                <li value="Phone1">Phone 1</li>
+                <li value="Phone2">Phone 2</li>
+                <li value="Email">Email</li>
+                <li value="Web">Web</li>
             </ul>
         </div>
         <hr class="m-b-100r" />
         <input id="display2-ltr" type="text" readonly placeholder="Selected Text" />
-        <input id="value2-ltr"type="text" readonly placeholder="Selected Value" />
-        <div class="SearchList" wn-type="searchlist" display-id="display2-ltr" value-id="value2-ltr">
+        <input id="value2-ltr" type="text" readonly placeholder="Selected Value" />
+        <div class="searchlist" wn-type="SearchList" display-id="display2-ltr" value-id="value2-ltr">
             <input type="search" placeholder="Type for search" />
             <ul class="tree" wn-type="tree">
                 <li>
-                    <div class="tree-item"><img src="~/images/WNLogo16.png" />Personal Info</div>
+                    <item>Personal Info</item>
                     <ul>
                         <li>
-                            <div class="tree-item"><img src="~/images/WNLogo16.png" />Name</div>
+                            <item>Name</item>
                             <ul>
-                                <li><div class="tree-item" wn-tree-value="FirstName"><img src="~/images/tools16.png" />First Name</div></li>
-                                <li><div class="tree-item" wn-tree-value="LastName"><img src="~/images/tools16.png" />Last Name</div></li>
+                                <li><item value='FirstName'>First Name</item></li>
+                                <li><item value='LastName'>Last Name</item></li>
                             </ul>
                         </li>
                         <li>
-                            <div class="tree-item"><img src="~/images/WNLogo16.png" />Address</div>
+                            <item>Address</item>
                             <ul>
-                                <li><div class="tree-item" wn-tree-value="Address"><img src="~/images/tools16.png" />Address</div></li>
-                                <li><div class="tree-item" wn-tree-value="City"><img src="~/images/tools16.png" />City</div></li>
-                                <li><div class="tree-item" wn-tree-value="Country"><img src="~/images/tools16.png" />Country</div></li>
-                                <li><div class="tree-item" wn-tree-value="State"><img src="~/images/tools16.png" />State/Province</div></li>
-                                <li><div class="tree-item" wn-tree-value="PostalCode"><img src="~/images/tools16.png" />ZIP/Postal Code</div></li>
+                                <li><item value='Address'>Address</item></li>
+                                <li><item value='City'>City</item></li>
+                                <li><item value='Country'>Country</item></li>
+                                <li><item value='State'>State/Province</item></li>
+                                <li><item value='ZIP'>ZIP/Postal Code</item></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <div class="tree-item"><img src="~/images/WNLogo16.png" />Job Info</div>
+                    <item>Job Info</item>
                     <ul>
-                        <li><div class="tree-item" wn-tree-value="Company"><img src="~/images/tools16.png" />Company</div></li>
-                        <li><div class="tree-item" wn-tree-value="Phone1"><img src="~/images/tools16.png" />Phone 1</div></li>
-                        <li><div class="tree-item" wn-tree-value="Phone2"><img src="~/images/tools16.png" />Phone 2</div></li>
-                        <li><div class="tree-item" wn-tree-value="Email"><img src="~/images/tools16.png" />Email</div></li>
-                        <li><div class="tree-item" wn-tree-value="Web"><img src="~/images/tools16.png" />Web</div></li>
+                        <li><item value='Company'>Company</item></li>
+                        <li><item value='Phone1'>Phone 1</item></li>
+                        <li><item value='Phone2'>Phone 2</item></li>
+                        <li><item value='Email'>Email</item></li>
+                        <li><item value='Web'>Web</item></li>
                     </ul>
                 </li>
             </ul>
@@ -244,59 +245,59 @@
         <h3>RTL</h3>
         <input id="display1-rtl" type="text" readonly placeholder="عنوان انتخاب شده" />
         <input id="value1-rtl" type="text" readonly placeholder="مقدار انتخاب شده" />
-        <div class="SearchList" wn-type="searchlist" display-id="display1-rtl" value-id="value1-rtl">
+        <div class="searchlist" wn-type="SearchList" display-id="display1-rtl" value-id="value1-rtl">
             <input type="search" placeholder="برای جستجو بنویسید" />
             <ul wn-type="list">
-                <li wn-list-value="FirstName">نام</li>
-                <li wn-list-value="LastName">نام خانوادگی</li>
-                <li wn-list-value="Company">شرکت</li>
-                <li wn-list-value="Address">آدرس</li>
-                <li wn-list-value="City">شهر</li>
-                <li wn-list-value="Country">کشور</li>
-                <li wn-list-value="State">استان</li>
-                <li wn-list-value="PostalCode">کد پستی</li>
-                <li wn-list-value="Phone1">تلفن 1</li>
-                <li wn-list-value="Phone2">تلفن 2</li>
-                <li wn-list-value="Email">پست الکترونیک</li>
-                <li wn-list-value="Web">آدرس وب</li>
+                <li value="FirstName">نام</li>
+                <li value="LastName">نام خانوادگی</li>
+                <li value="Company">شرکت</li>
+                <li value="Address">آدرس</li>
+                <li value="City">شهر</li>
+                <li value="Country">کشور</li>
+                <li value="State">استان</li>
+                <li value="PostalCode">کد پستی</li>
+                <li value="Phone1">تلفن 1</li>
+                <li value="Phone2">تلفن 2</li>
+                <li value="Email">پست الکترونیک</li>
+                <li value="Web">آدرس وب</li>
             </ul>
         </div>
         <hr class="m-b-100r" />
         <input id="display2-rtl" type="text" readonly placeholder="عنوان انتخاب شده" />
         <input id="value2-rtl" type="text" readonly placeholder="مقدار انتخاب شده" />
-        <div class="SearchList" wn-type="searchlist" display-id="display2-rtl" value-id="value2-rtl">
+        <div class="searchlist" wn-type="SearchList" display-id="display2-rtl" value-id="value2-rtl">
             <input type="search" placeholder="Type for search" />
             <ul class="tree" wn-type="tree">
                 <li>
-                    <div class="tree-item"><img src="~/images/WNLogo16.png" />اطلاعات شخصی</div>
+                    <item>اطلاعات شخصی</item>
                     <ul>
                         <li>
-                            <div class="tree-item"><img src="~/images/WNLogo16.png" />نام</div>
+                            <item>نام</item>
                             <ul>
-                                <li><div class="tree-item" wn-tree-value="FirstName"><img src="~/images/tools16.png" />نام</div></li>
-                                <li><div class="tree-item" wn-tree-value="LastName"><img src="~/images/tools16.png" />نام خانوادگی</div></li>
+                                <li><item value='FirstName'>نام</item></li>
+                                <li><item value='LastName'>نام خانوادگی</item></li>
                             </ul>
                         </li>
                         <li>
-                            <div class="tree-item"><img src="~/images/WNLogo16.png" />آدرس</div>
+                            <item>آدرس</item>
                             <ul>
-                                <li><div class="tree-item" wn-tree-value="Address"><img src="~/images/tools16.png" />آدرس</div></li>
-                                <li><div class="tree-item" wn-tree-value="City"><img src="~/images/tools16.png" />شهر</div></li>
-                                <li><div class="tree-item" wn-tree-value="Country"><img src="~/images/tools16.png" />کشور</div></li>
-                                <li><div class="tree-item" wn-tree-value="State"><img src="~/images/tools16.png" />استان</div></li>
-                                <li><div class="tree-item" wn-tree-value="PostalCode"><img src="~/images/tools16.png" />کدپستی</div></li>
+                                <li><item value='Address'>آدرس</item></li>
+                                <li><item value='City'>شهر</item></li>
+                                <li><item value='Country'>کشور</item></li>
+                                <li><item value='State'>استان</item></li>
+                                <li><item value='ZIP'>کدپستی</item></li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <div class="tree-item"><img src="~/images/WNLogo16.png" />اطلاعات شغلی</div>
+                    <item>اطلاعات شغلی</item>
                     <ul>
-                        <li><div class="tree-item" wn-tree-value="Company"><img src="~/images/tools16.png" />شرکت</div></li>
-                        <li><div class="tree-item" wn-tree-value="Phone1"><img src="~/images/tools16.png" />تلفن 1</div></li>
-                        <li><div class="tree-item" wn-tree-value="Phone2"><img src="~/images/tools16.png" />تلفن 2</div></li>
-                        <li><div class="tree-item" wn-tree-value="Email"><img src="~/images/tools16.png" />پست الکترونیک</div></li>
-                        <li><div class="tree-item" wn-tree-value="Web"><img src="~/images/tools16.png" />وب</div></li>
+                        <li><item value='Company'>شرکت</item></li>
+                        <li><item value='Phone1'>تلفن 1</item></li>
+                        <li><item value='Phone2'>تلفن 2</item></li>
+                        <li><item value='Email'>پست الکترونیک</item></li>
+                        <li><item value='Web'>وب</item></li>
                     </ul>
                 </li>
             </ul>
@@ -304,178 +305,134 @@
     </div>
 </div>
 <figure><code data-on="form2"></code></figure>
-<h4>توابع جاوا اسکریپت</h4>
-
+<h4>خصوصیات</h4>
 <p>
-    <h5>selecteditems</h5>
-    با استفاده از این خصوصیت میتوانید لیست موضوعات انتخاب شده را در قالب یک آرایه با دو خصوصیت <bidi>value</bidi> و <bidi>caption</bidi> دریافت کنید.
+    <h5>search-id</h5>
+    بطور خودکار اولین input که از نوع search باشد انتخاب میشود، ولیکن اگر تمایل دارید نوعی دیگر برای ورودی جستجو
+    انتخاب شود، ID آنرا وارد کنید.
 </p>
 <p>
-    <h5>GetSelectedValues</h5>
-    لیستی از مقدارهای انتخاب شده را برمیگرداند.
+    <h5>list-id</h5>
+    اگر لیست مد نظر دقیقا پس از ورودی جستجو نیست، میتوانید ID آنرا در این خصوصیت معرفی کنید.
 </p>
 <p>
-    <h5>SetSelectedValues</h5>
-    بر اساس لیستی از مقدارها، انتخاب میشوند.
+    <h5>display-id</h5>
+    اگر میخواهید بعد از انتخاب گزینه ای در لیست عنوان آنرا در المنتی نمایش دهید، ID آنرا بنویسید.
 </p>
 <p>
-    <h5>GetSelectedCaptions</h5>
-    لیستی از متن انتخاب شده را برمیگرداند.
+    <h5>value-id</h5>
+    اگر میخواهید بعد از انتخاب گزینه ای در لیست مقدار آنرا در المنتی نمایش دهید، ID آنرا بنویسید.
 </p>
 <p>
-    <h5>SetSelectedCaptions</h5>
-    بر اساس لیستی از متنها، انتخاب میشوند.
-</p>
-<p>
-    <h5>SelectByItem</h5>
-    بر اساس گزینه item انتخاب میشود.
-</p>
-<p>
-    <h5>SelectByCaption</h5>
-    براساس متن انتخاب میشود.
-</p>
-<p>
-    <h5>SelectByValue</h5>
-    براساس مقدار انتخاب میشود.
-</p>
-<p>
-    <h5>DeselectByItem</h5>
-    بر اساس گزینه item از حالت انتخاب بیرون می آید.
-</p>
-<p>
-    <h5>DeselectByCaption</h5>
-    براساس متن از حالت انتخاب بیرون می آید.
-</p>
-<p>
-    <h5>DeselectByValue</h5>
-    براساس مقدار از حالت انتخاب بیرون می آید.
+    <h5>min-length</h5>
+    اگر میخواهید بعد از ورودی حداقل تعدادی کاراکتر عملیات فیلتر کردن انجام شود، آن تعداد را مشخص کنید.
 </p>
 
+<h4>توابع و خصوصیات جاوا اسکریپت</h4>
 <p>
-    <h5>selectionchanged</h5>
-    اگر میخواهید بعد از هر انتخاب تابعی اجرا شود از این رخداد استفاده کنید.
-    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onselectionchanged</bidi> بنویسید.
-    <br />پارامترهای این رخداد عبارتند از t:this
+    <h5>list</h5>
+    با توجه به استفاده شما، این موضوع اشاره به کلاس لیست یا درختواره دارد. که از طریق آن میتوانید عملیاتهای مختلف را انجام دهید.
+    برای مثال، دیتا بدید، یا تیک بزنید و یا گزینه ای حذف و ... کنید.
 </p>
 <p>
-    <h5>max</h5>
-    تعداد حداکثر انتخاب را مخشص میکند. مقدار 0 به معنی انتخاب به صورت نامحدود است.
+    <h5>listElement</h5>
+    دقیقا به المنت لیست اشاره داره و میتونید تگ های html یا ... را مقدار دهی کنید.
 </p>
 <p>
-    <h5>search</h5>
-    این خصوصیت از جنس <a href="/Components/SearchList">wnsearchlist</a> است. برای مشاهده خصوصیات آن به صفحه مرتبط مراجعه شود.
+    <h5>minLength</h5>
+    برابر خصوصیت min-length است.
+</p>
+<h4>رخدادها</h4>
+<p>
+    <h5>beforeFilterChanged</h5>
+    قبل از اینکه فیلتر عملیات فیلتر کردن را آغاز کند این رخداد فراخوانی میشود. اگر این تابع مقدار false برگرداند، عملیات فیلتر کردن لغو میشود.<br />
+    برای مثال شما میخواهید به صورت پویا دیتای فیلتر کردن را از سرور بگیرید، در این رخداد دیتای جدید را خوانده و به لیست خود نسبت میدهد.
+    سپس این تابع را با مقدار false برمیگردانید تا ادامه عملیات متوقف شود.<br />
+    این تابع را با خصوصیت خطی onbeforefilterchanged نیز میتوانید مقدار دهی کنید.
 </p>
 <p>
-    <h5>setdata</h5>
-    این تابع با ورودی لیست موارد انتخاب شده طبق استاندارد selecteditems میباشد. بعد از فراخوانی این تابع گزینه های مد نظر به حالت انتخاب در می آید.
-    <figure style="direction:ltr">
-        <code>
-            setdata([{value:'a',caption:'aa'},{value:'b',caption:'bb'}])
-        </code>
-    </figure>
+    <h5>afterFilterChanged</h5>
+    بعد از آنکه عملیات فیلتر کردن تمام شد، این رخداد فراخوانی میشود.<br />
+    این تابع را با خصوصیت خطی onafterfilterchanged نیز میتوانید مقدار دهی کنید.
 </p>
 <p>
-    <h5>beforedeselect</h5>
-    اگر میخواهید قبل از هر برگشت انتخاب تابعی اجرا شود و اگر مقدار false برگرداند، عمل عدم انتخاب اعمال نگردد از این رخداد استفاده کنید.
-    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onbeforedeselect</bidi> بنویسید.<br />
-    پارامترهای این رخداد عبارتند از t:this, n:node, i:item
+    <h5>selectionChanged</h5>
+    زمانیکه انتخاب در لیست تغییر کرد این رخداد فراخوانی میشود.<br />
+    این تابع را با خصوصیت خطی onselectionchanged نیز میتوانید مقدار دهی کنید.
 </p>
-<p>
-    <h5>afterdeselect</h5>
-    پس از آنکه عمل عدم انتخاب به درستی انجام شد، این رخداد صدا زده میشود.
-    همچنین میتوانید رخداد مورد نظر را به صورت تگ html در خصوصیت <bidi>onafterdeselect</bidi> بنویسید.
-    <br />پارامترهای این رخداد عبارتند از t:this, i:item
-</p>
-
 <h4>مثال پویا</h4>
+<p>برای مدیریت لیست یا درختواره خود، به مثالهای مرتبط با آنها در صفحات خود در <a href="/Components/Tree">درختواره</a> و <a href="/Components/ListEx">لیست</a> مراجعه نمایید. </p>
+<p>در زیر یک مثال ساده از نحوه استفاده از لیست آورده شده است</p>
 <div class="example-div">
-    <div class="ltr w-95-i" id="form2">
-        <div id="m1" class="MultiSelect floating" wn-type="multiselect">
-            <input type="search" placeholder=".">
-            <label>Selected</label>
-            <div class="selecteditem"></div>
-            <div class="dropdown">
-                <ul wn-type="list">
-                    <li wn-list-value="FirstName">First Name</li>
-                    <li wn-list-value="LastName">Last Name</li>
-                    <li wn-list-value="Company">Company</li>
-                    <li wn-list-value="Address">Address</li>
-                    <li wn-list-value="City">City</li>
-                    <li wn-list-value="Country">Country</li>
-                    <li wn-list-value="State">State/Province</li>
-                    <li wn-list-value="ZIP">ZIP/Postal Code</li>
-                    <li wn-list-value="Phone1">Phone 1</li>
-                    <li wn-list-value="Phone2">Phone 2</li>
-                    <li wn-list-value="Email">Email</li>
-                    <li wn-list-value="Web">Web</li>
-                </ul>
-            </div>
+    <div class="ltr w-95-i" id="form3">
+        <div id="m1" class="searchlist" wn-type="SearchList">
+            <input type="search" placeholder="Type for search" />
+            <ul wn-type="list">
+                <li value="FirstName">First Name</li>
+                <li value="LastName">Last Name</li>
+                <li value="Company">Company</li>
+                <li value="Address">Address</li>
+                <li value="City">City</li>
+                <li value="Country">Country</li>
+                <li value="State">State/Province</li>
+                <li value="PostalCode">ZIP/Postal Code</li>
+                <li value="Phone1">Phone 1</li>
+                <li value="Phone2">Phone 2</li>
+                <li value="Email">Email</li>
+                <li value="Web">Web</li>
+            </ul>
         </div>
         <div class="d-flex">
             <input type="text" id="insList" />
             <button onclick="AddToList()">Insert to List</button>
-            <button onclick="Deselect(true)">Deselect By Caption</button>
-            <button onclick="Deselect(false)">Deselect By Value</button>
-            <button onclick="SelectDefault()">Default Select</button>
-            <button onclick="GetSelected()">Get Selected</button>
-            <div id="result1"></div>
+            <button onclick="WN('m1').wn.list.selectedValue = 'Company'">Select Company</button>
+            <button onclick="alert( WN('m1').wn.list.selectedValue)">Selected Value</button>
         </div>
         <script>
             function AddToList() {
                 let v = document.getElementById('insList').value;
-                WN['m1'].search.list.addrow(v, v);
-            }
-            function Deselect(bycaption) {
-                let v = document.getElementById('insList').value;
-                if (bycaption == true)
-                    WN['m1'].DeselectByCaption(v);
-                else
-                    WN['m1'].DeselectByValue(v);
-            }
-            function SelectDefault() {
-                WN['m1'].setdata([{ value: 'FirstName', caption: 'First Name' }, { value: 'City', caption: 'City' }]);
-            }
-            function GetSelected() {
-                let o =
-                    WN['m1'].selecteditems;
+                WN('m1').wn.list.addToDataSource(v, '', v, '');
             }
         </script>
     </div>
 </div>
-<figure><code data-on="form2"></code></figure>
+<figure><code data-on="form3"></code></figure>
 <h4>دریافت اطلاعات از سرور</h4>
 <p>
-    برای دریافت اطلاعات از روی سرور، کافیست آدرس سرور را در خصوصیت url قرار دهید.
-    اگر سرور لیست را به صورت دیکشنری برمیگرداند نیاز به تنظیم خصوصیات جلوتر نیست ولی اگر آرایه ای از موضوعات برمیگرداند،
-    باید مشخص کنید کدام فیلد مقدار است و کدام عنوان. <br />
-    خصوصیت <bidi>field-display</bidi> برای مشخص کردن نام فیلد نمایشی در آرایه است.<br />
-    خصوصیت <bidi>field-value</bidi> برای مشخص کردن نام فیلد مقداری در آرایه است.<br />
+    برای دریافت اطلاعات از سرور، رخداد onbeforefilterchanged در قسمت خصوصیات تگ و یا رخداد beforeFilterChanged را مقدار دهی کنید. تا زمانیکه
+    عبارتی تایپ میشود، این تابع فراخوانی شود.<br />
+    سپس بر اساس، موارد مندرج در مثال زیر و مشخصات این رخداد، اقدام به پر کردن لیست خود کنید.
 </p>
 <div class="example-div">
-    <div class="ltr w-95-i" id="form3">
-        <div id="m2" class="MultiSelect floating" wn-type="multiselect" url="/components/SearchList">
-            <input type="search" placeholder=".">
-            <label>Select From List</label>
-            <div class="selecteditem"></div>
-            <div class="dropdown">
-                <ul wn-type="list">
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<figure><code data-on="form3"></code></figure>
-<div class="example-div">
     <div class="ltr w-95-i" id="form4">
-        <div id="m3" class="MultiSelect floating" wn-type="multiselect" url="/components/Tree?handler=Filter" fieldset="index,parent,type,text,value,image">
-            <input type="search" placeholder=".">
-            <label>Select From Tree</label>
-            <div class="selecteditem"></div>
-            <div class="dropdown">
-                <ul class="tree tree-expand-item tree-arrow" wn-type="tree">
-                </ul>
-            </div>
+        <div id="m2" class="searchlist" wn-type="SearchList">
+            <input type="search" placeholder="Type for search" />
+            <ul wn-type="list">
+            </ul>
         </div>
+        <div class="d-flex">
+            <button onclick="AddToList()">Get Data From List</button>
+            <button onclick="AddToListServer()">Get Data From Server</button>
+        </div>
+        <script>
+            function AddToList() {
+                let o = [
+                    { text: 'First Name', value: 'FirstName' },
+                    { text: 'Last Name', value: 'LastName' },
+                    { text: 'Company', value: 'Company' },
+                    { text: 'Address', value: 'Address' }
+                ];
+
+                WN('m2').wn.list.setDataSourceByItem(o, 'text', 'value', '', '', false);
+            }
+            async function AddToListServer() {
+                await Post(null, '/Components/Tree').then((r) => {
+                    WN('m2').wn.list.setDataSourceByItem(r, 'html', 'value', '', '', false);
+                }).catch((e) => {
+                    alert(e);
+                });
+            }
+        </script>
     </div>
 </div>
 <figure><code data-on="form4"></code></figure>

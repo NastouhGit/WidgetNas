@@ -14,15 +14,31 @@
         flex-shrink: 0;
         width: 100%;
         max-width: 100%;
-        margin-inline-end: calc(var(--gutter-inline) / 2);
-        margin-inline-start: calc(var(--gutter-inline) / 2);
-        margin-block-start: calc(var(--gutter-block) / 2);
-        margin-block-end: calc(var(--gutter-block) / 2);
     }
 }
 
 .col {
     flex: 1 0 0%;
+}
+.col,
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+    margin-inline-end: var(--gutter-inline);
+    margin-block-end: var(--gutter-block);
+
+    &:last-child {
+        margin-inline-end:0;
+    }
 }
 
 .row-col-auto > *,
@@ -31,16 +47,21 @@
     width: auto;
 }
 
-@include media() using ($media) {
+
+@include mediaminmax() using ($media) {
     @for $i from 1 through $grid-columns {
         .row-col-#{$i}#{$media} > * {
             flex: 0 0 auto;
-            width: #{percentage(1 / $i )};
+            width: calc(#{percentage(1 / $i )} - var(--gutter-inline));
         }
 
         .col-#{$i}#{$media} {
             flex: 0 0 auto;
-            width: #{percentage($i / $grid-columns)} !important;
+            width: calc(#{percentage($i / $grid-columns)} - var(--gutter-inline)) !important;
+
+            &:last-child {
+                width: #{percentage($i / $grid-columns)};
+            }
         }
     }
 

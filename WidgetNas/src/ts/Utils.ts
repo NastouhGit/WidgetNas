@@ -14,10 +14,10 @@ function WNparseBoolean(value: any, Default?: boolean): boolean {
     }
     return false;
 }
-function WNparseNumber(value: any, Default?: number, culture: wnCultureInfo = WNDefaultCultureInfo): number {
+function WNparseNumber(value: any, Default?: number, culture: IWNCultureInfo = wnConfig.cultureInfo): number {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
-    value = WNDeNaitveDigit(value, culture);
+    value = WNDenativeDigit(value, culture);
     return parseInt(value);
 }
 function WNparseString(value: any, Default?: string): string {
@@ -50,26 +50,26 @@ function WNLimitRange(value: number, min: number, max: number) {
         value = max;
     return value;
 }
-function WNNaitveDigit(number: number | string, culture: wnCultureInfo, convert: boolean): string {
+function WNnativeDigit(number: number | string, culture: IWNCultureInfo, convert: boolean): string {
     let ret = number.toString();
     if (convert) {
-        ret = ret.replace(/0/g, culture.NumberFormat.NativeDigits[0]);
-        ret = ret.replace(/1/g, culture.NumberFormat.NativeDigits[1]);
-        ret = ret.replace(/2/g, culture.NumberFormat.NativeDigits[2]);
-        ret = ret.replace(/3/g, culture.NumberFormat.NativeDigits[3]);
-        ret = ret.replace(/4/g, culture.NumberFormat.NativeDigits[4]);
-        ret = ret.replace(/5/g, culture.NumberFormat.NativeDigits[5]);
-        ret = ret.replace(/6/g, culture.NumberFormat.NativeDigits[6]);
-        ret = ret.replace(/7/g, culture.NumberFormat.NativeDigits[7]);
-        ret = ret.replace(/8/g, culture.NumberFormat.NativeDigits[8]);
-        ret = ret.replace(/9/g, culture.NumberFormat.NativeDigits[9]);
+        ret = ret.replace(/0/g, culture.NumberFormat.nativeDigits[0]);
+        ret = ret.replace(/1/g, culture.NumberFormat.nativeDigits[1]);
+        ret = ret.replace(/2/g, culture.NumberFormat.nativeDigits[2]);
+        ret = ret.replace(/3/g, culture.NumberFormat.nativeDigits[3]);
+        ret = ret.replace(/4/g, culture.NumberFormat.nativeDigits[4]);
+        ret = ret.replace(/5/g, culture.NumberFormat.nativeDigits[5]);
+        ret = ret.replace(/6/g, culture.NumberFormat.nativeDigits[6]);
+        ret = ret.replace(/7/g, culture.NumberFormat.nativeDigits[7]);
+        ret = ret.replace(/8/g, culture.NumberFormat.nativeDigits[8]);
+        ret = ret.replace(/9/g, culture.NumberFormat.nativeDigits[9]);
     }
     return ret;
 }
-function WNDeNaitveDigit(value: string, culture: wnCultureInfo = WNDefaultCultureInfo): string {
+function WNDenativeDigit(value: string, culture: IWNCultureInfo = wnConfig.cultureInfo): string {
     value = value.toString();
     for (var i = 0; i < 10; i++) {
-        let r = new RegExp('(' + culture.NumberFormat.NativeDigits[i] + ')', "ig");
+        let r = new RegExp('(' + culture.NumberFormat.nativeDigits[i] + ')', "ig");
         value = value.replace(r, i.toString());
     }
     return value;
@@ -204,6 +204,10 @@ function WNHtmlToEscape(src: string): string {
     }
     return out;
 }
+function WNHtmlToText(src: string): string {
+    var regex = /(<([^>]+)>)/ig;
+    return src.replace(regex, "");
+}
 function WNValueUnit(value: string): { value: number, unit: string } {
     let v = 0;
     let unit = '';
@@ -236,15 +240,20 @@ function WNGetCookie(cname: string): string {
     }
     return "";
 }
-function WNSetCookie(cname: string, cvalue: string, exdays: number): void {
+function WNSetCookie(cname: string, cvalue: string, exdays: number, samesite: string = 'lax', secure: boolean = false, HTTPOnly: boolean = false): void {
+    let cookie = cname + "=" + cvalue + ";";
     const d = new Date();
     if (exdays > 0) {
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         let expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        cookie += expires + ";";
     }
-    else
-        document.cookie = cname + "=" + cvalue + ";path=/";
+    cookie += "path=/;"
+    cookie += "samesite=" + samesite + ";";
+    if (secure) cookie += "secure;";
+    if (HTTPOnly) cookie += "httponly;";
+    cookie = WNTrim(cookie, ';');
+    document.cookie = cookie;
 }
 function WNGetStorage(key: string): string {
     let ret: string = sessionStorage.getItem(key);
@@ -270,11 +279,27 @@ function WNSleep(ms: number) {
 
 function WNAddClassList(elem: HTMLElement, classes: string) {
     if (classes == '' || elem == null || elem == undefined) return;
-    classes.split(' ').forEach((s) => elem.classList.add(s));
+    classes.split(' ').forEach((s) => { if (!elem.classList.contains(s)) elem.classList.add(s) });
 }
 function WNRemoveClassList(elem: HTMLElement, classes: string) {
     if (classes == '' || elem == null || elem == undefined) return;
-    classes.split(' ').forEach((s) => elem.classList.remove(s));
+    classes.split(' ').forEach((s) => { if (elem.classList.contains(s)) elem.classList.remove(s) });
+}
+function WNCalendarFunction(name: string): IWNCalendar {
+    let cal = name.toLowerCase();
+    if (!cal.toLowerCase().startsWith('wn'))
+        cal = 'WN' + cal[0].toUpperCase() + cal.substring(1);
+    else
+        cal = 'WN' + cal[2].toUpperCase() + cal.substring(3);
+    if (!cal.includes('calendar')) cal += 'calendar';
+    cal = cal.replace('calendar', 'Calendar');
+    return WNGenerateFunction('return new ' + cal + '()')() as IWNCalendar;
+}
+function WNCultureInfoFunction(name: string): IWNCultureInfo {
+    let cul = name.toLowerCase().replace('-', '_').split('_');
+    if (cul.length == 1) return null;
+    name = 'WNCultureInfo_' + cul[cul.length - 2].toLowerCase() + '_' + cul[cul.length - 1].toUpperCase();
+    return WNGenerateFunction('return new ' + name + '()')() as IWNCultureInfo;
 }
 
 function WNGenerateFunction(body: string, params: string = ''): any {
@@ -284,8 +309,9 @@ function WNGenerateFunction(body: string, params: string = ''): any {
     if (params !== '')
         pr = params.split(',');
     pr.push(body);
-
-    if (pr.length == 5)
+    if (body.trim().startsWith('('))
+        ret = new Function(body);
+    else if (pr.length == 5)
         ret = new Function(pr[0], pr[1], pr[2], pr[3], pr[4]);
     else if (pr.length == 4)
         ret = new Function(pr[0], pr[1], pr[2], pr[3]);
@@ -323,26 +349,26 @@ function WNtoTitleCase(text: string) {
     let s = text.split(' ');
     for (var i = 0; i < s.length; i++) {
         if (s.length > 0)
-            s[i] = s[i][0].toUpperCase() + s[i].substr(1).toLowerCase();
+            s[i] = s[i][0].toUpperCase() + s[i].substring(1).toLowerCase();
     }
     return s.join(' ');
 }
-function WNNumberToString(num: number, culture: wnCultureInfo = WNDefaultCultureInfo): string {
-    let negsign = num < 0 ? culture.NumberFormat.NegativeSign : '';
-    num = WNparseNumber(num.toFixed(culture.NumberFormat.NumberDecimalDigits), 0);
+function WNNumberToString(num: number, culture: IWNCultureInfo = wnConfig.cultureInfo): string {
+    let negsign = num < 0 ? culture.NumberFormat.negativeSign : '';
+    num = WNparseNumber(num.toFixed(culture.NumberFormat.numberDecimalDigits), 0);
     var decimal = Math.abs(num) - Math.floor(Math.abs(num))
     num = num - decimal;
-    let grp = num.toString().split("").reverse().join("").match(new RegExp('.{1,' + culture.NumberFormat.NumberGroupSizes[0] + '}', 'ig'));
+    let grp = num.toString().split("").reverse().join("").match(new RegExp('.{1,' + culture.NumberFormat.numberGroupSizes[0] + '}', 'ig'));
     let ret = negsign;
     for (var i = grp.length - 1; i > -1; i--)
-        ret += grp[i].split("").reverse().join("") + (i != 0 ? culture.NumberFormat.NumberGroupSeparator : '');
+        ret += grp[i].split("").reverse().join("") + (i != 0 ? culture.NumberFormat.numberGroupSeparator : '');
 
     if (decimal > 0)
-        ret += culture.NumberFormat.NumberDecimalSeparator + decimal.toString();
+        ret += culture.NumberFormat.numberDecimalSeparator + decimal.toString();
     return ret;
 
 }
-function WNStringFormat(text: string | number, format: string, culture: wnCultureInfo = WNDefaultCultureInfo) {
+function WNStringFormat(text: string | number, format: string, culture: IWNCultureInfo = wnConfig.cultureInfo) {
     let ret: string = text.toString();
     if (format.includes('{0}'))
         ret = format.replace('{0}', ret);
@@ -355,14 +381,81 @@ function WNStringFormat(text: string | number, format: string, culture: wnCultur
     else if (format.toLowerCase() == 'number')
         ret = WNNumberToString(WNparseNumber(text), culture);
     else if (format.toLowerCase() == 'date')
-        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toString();
+        ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toString();
     else if (format.toLowerCase() == 'longdate')
-        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toLongDateString();
+        ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toLongDateString();
     else if (format.toLowerCase() == 'shortdate')
-        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toShortDateString();
+        ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toShortDateString();
     else if (format.toLowerCase() == 'longtime')
-        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toLongTimeString();
+        ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toLongTimeString();
     else if (format.toLowerCase() == 'shorttime')
-        ret = new wnDate(culture, WNDefaultCalendar, new Date(ret)).toShortTimeString();
+        ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toShortTimeString();
     return ret;
+}
+function WNToggleClass(elem: string | HTMLElement, setclass: string, classes: string[]) {
+    let el = WN(elem).htmlElement;
+    classes.forEach(x => el.classList.remove(x));
+    el.classList.add(setclass);
+}
+
+window.addEventListener("resize", WNSetViewSize);
+function WNSetViewSize() {
+    let width;
+    width = window.visualViewport.width;
+    document.body.style.setProperty('--view-width', getComputedStyle(document.body).width);
+    return width;
+}
+function WNGetParentsElementsTag(elem: HTMLElement, untilTag: string, untilClass: string): string[] {
+    let ret = [];
+    let tElem = elem;
+    untilTag = (untilTag ?? '').toLowerCase().trim();
+
+    let luntilTag: string[];
+    luntilTag = untilTag.split(' ');
+    untilClass = (untilClass ?? '').toLowerCase().trim();
+    let luntilClass: string[];
+    luntilClass = untilClass.split(' ');
+
+    while (tElem != null) {
+        let tag = tElem.tagName.toLowerCase();
+        let classList = tElem.classList
+        ret.push(tag);
+        if (luntilTag.find((x) => x == tag) != null)
+            break;
+        if (luntilClass.find((x) => classList.contains(x)) != null)
+            break;
+        tElem = tElem.parentElement;
+    }
+    return ret;
+}
+function WNRGB2HEX(rgb: string): string {
+    let ret = '';
+    rgb = rgb.toLowerCase();
+    if (rgb.includes('rgba'))
+        ret = `#${rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+    else if (rgb.includes('rgb'))
+        ret = `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
+    return ret;
+}
+
+function WNFindTreeArray(source: any, fieldName1: string, fieldName2: string = '', value: string, contain: boolean = false, ignoreCase: boolean = false, childsFieldName: string): any[] {
+    let find = [];
+    for (var i = 0; i < source.length; i++) {
+        let item = source[i];
+        let tValue = <string>item[fieldName1];
+        if (fieldName2 != '')
+            tValue += <string>item[fieldName2];
+        if (ignoreCase) {
+            tValue = tValue.toLowerCase();
+            value = value.toLowerCase();
+        }
+        if (contain && tValue.includes(value))
+            find.push(item);
+        else if (tValue == value)
+            find.push(item);
+        if (item[childsFieldName].length > 0) {
+            find = find.concat(WNFindTreeArray(item[childsFieldName], fieldName1, fieldName2, value, contain, ignoreCase, childsFieldName));
+        }
+    }
+    return find;
 }

@@ -1,12 +1,13 @@
-﻿class wneditor {
-    element: HTMLFormElement;
+﻿class WNEditor implements IWNEditor {
+    public readonly nameType: string = 'WNEditor';
+    public element: HTMLFormElement;
 
-    change: any;
+    public change: (t) => void;
 
-    DefaultFonts: string = 'Default On Page, Arial, Tahoma, Verdana, Helvetica, Trebuchet MS, Times New Roman, Georgia, Garamond, Courier New, Brush Script MT';
-    DefaultFontSize: string = 'X Small:4px, Small:8px, Medium:12px, Normal:16px, Large:20px, X Large:24px,2X Large:32px,3X Large:48px';
-    DefaultTags: string = 'Paragraph:p,Heading 1:h1,Heading 2:h2,Heading 3:h3,Heading 4:h4,Heading 5:h5,Heading 6:h6,Preformat:pre';
-    DefaultColorPicker: string[] = [
+    public defaultFonts: string = 'Default On Page, Arial, Tahoma, Verdana, Helvetica, Trebuchet MS, Times New Roman, Georgia, Garamond, Courier New, Brush Script MT';
+    public defaultFontsize: string = 'X Small:4px, Small:8px, Medium:12px, Normal:16px, Large:20px, X Large:24px,2X Large:32px,3X Large:48px';
+    public defaultTags: string = 'Paragraph:p,Heading 1:h1,Heading 2:h2,Heading 3:h3,Heading 4:h4,Heading 5:h5,Heading 6:h6,Preformat:pre';
+    public dfaultcolorPicker: string[] = [
         '#000000', '#333333', '#555555', '#777777', '#999999', '#AAAAAA', '#CCCCCC', '#DDDDDD', '#EEEEEE', '#FFFFFF',
         '#996666', '#B24D4D', '#CC3333', '#E61919', '#FF0000', '#FF2A00', '#E63B19', '#CC4C33', '#B25E4D', '#996F66',
         '#997766', '#B26F4D', '#CC6633', '#E65D19', '#FF5500', '#FF8000', '#E68019', '#CC8033', '#B2804D', '#998066',
@@ -22,12 +23,13 @@
         '#996690', '#B24DA1', '#CC33B2', '#E619C3', '#FF00D4', '#FF33BB', '#EB47B4', '#D65CAD', '#C270A7', '#AD85A0',
         '#AD8592', '#C2708B', '#D65C85', '#EB477E', '#FF3377', '#FF002B', '#E6193C', '#CC334C', '#B24D5E', '#99666F'
     ];
-    ParagraphSeparator = 'p';
+    public paragraphSeparator = 'p';
+
     private FontList: string[];
     private FontSize: string[];
     private TagList: string[];
 
-    private ValueElement: HTMLInputElement;
+    private valueElement: HTMLInputElement;
     private OldHtml: string;
 
     private _content: HTMLDivElement;
@@ -35,8 +37,8 @@
     private _editortoolbar: HTMLDivElement;
     private _toolbar: HTMLDivElement;
 
-    private _colorpicker: HTMLDivElement;
-    private _colorpickerInput: HTMLInputElement;
+    private _colorPicker: HTMLDivElement;
+    private _colorPickerInput: HTMLInputElement;
 
     private _insertLink: HTMLDivElement;
     private _insertLinkUrl: HTMLInputElement;
@@ -59,7 +61,7 @@
     private _insertMediaHeight: HTMLInputElement;
     private _insertMediaControls: HTMLInputElement;
     private _insertMediaMute: HTMLInputElement;
-    private _insertMediaAutoPlay: HTMLInputElement;
+    private _insertMediaautoPlay: HTMLInputElement;
     private _insertMediaBorderWidth: HTMLInputElement;
     private _insertMediaBorderStyle: HTMLSelectElement;
     private _insertMediaClass: HTMLInputElement;
@@ -118,17 +120,9 @@
     private _editor_source_mode: string = 'html';
 
     private _dark_mode: HTMLInputElement;
+    private _fullscreen: HTMLButtonElement;
 
     private _lang: any;
-    rgb2hex(rgb: string): string {
-        let ret = '';
-        rgb = rgb.toLowerCase();
-        if (rgb.includes('rgba'))
-            ret = `#${rgb.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
-        else if (rgb.includes('rgb'))
-            ret = `#${rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/).slice(1).map(n => parseInt(n, 10).toString(16).padStart(2, '0')).join('')}`;
-        return ret;
-    }
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
@@ -137,21 +131,25 @@
         }
     }
     private Init() {
-        this._lang = WNlang[WNDefaultLanguage];
+        if (this.element.hasAttribute('lang'))
+            this._lang = WNLanguage[this.element.getAttribute('lang')]["editor"];
+        else
+            this._lang = wnConfig.language["editor"];
 
         if (!this.element.classList.contains('editor'))
             this.element.classList.add('editor');
 
-        if (this.element.hasAttribute('DefaultColorPicker'))
-            this.DefaultColorPicker = WNparseString(this.element.getAttribute('DefaultColorPicker')).split(',');
-        if (this.element.hasAttribute('DefaultFonts'))
-            this.DefaultFonts = WNparseString(this.element.getAttribute('DefaultFonts'));
-        if (this.element.hasAttribute('DefaultFontSize'))
-            this.DefaultFontSize = WNparseString(this.element.getAttribute('DefaultFontSize'));
-        if (this.element.hasAttribute('DefaultTags'))
-            this.DefaultTags = WNparseString(this.element.getAttribute('DefaultTags'));
-        if (this.element.hasAttribute('ParagraphSeparator'))
-            this.ParagraphSeparator = WNparseString(this.element.getAttribute('ParagraphSeparator'));
+        if (this.element.hasAttribute('dfaultcolorPicker'))
+            this.dfaultcolorPicker = WNparseString(this.element.getAttribute('dfaultcolorPicker')).split(',');
+        if (this.element.hasAttribute('defaultFonts'))
+            this.defaultFonts = WNparseString(this.element.getAttribute('defaultFonts'));
+        if (this.element.hasAttribute('defaultFontsize'))
+            this.defaultFontsize = WNparseString(this.element.getAttribute('defaultFontsize'));
+        if (this.element.hasAttribute('defaultTags'))
+            this.defaultTags = WNparseString(this.element.getAttribute('defaultTags'));
+        if (this.element.hasAttribute('paragraphSeparator'))
+            this.paragraphSeparator = WNparseString(this.element.getAttribute('paragraphSeparator'));
+
 
 
         this._content = this.element.querySelector('.editor-content');
@@ -201,28 +199,36 @@
 
         this._editor_source = this.element.querySelector('.editor-source');
         this._dark_mode = this.element.querySelector('.editor-darkmode');
+        this._fullscreen = this.element.querySelector('.editor-fullscreen');
 
 
-        this.AddToolBar();
-        this.AddContent();
+        this.addToolBar();
+        this.addContent();
+        this.setLanguage();
 
-        this.AssignEvents();
+        this.assignEvents();
         this._content.contentEditable = 'true';
-        document.execCommand("defaultParagraphSeparator", false, this.ParagraphSeparator);
+        this.execCommand("defaultparagraphSeparator", this.paragraphSeparator);
 
         if (this.element.hasAttribute('value-id')) {
-            this.ValueElement = document.getElementById(WNparseString(this.element.getAttribute('value-id'), '')) as HTMLInputElement;
-            this.Html = this.ValueElement?.value;
+            this.valueElement = document.getElementById(WNparseString(this.element.getAttribute('value-id'), '')) as HTMLInputElement;
+            this.html = this.valueElement?.value;
         }
         else
-            this.Html = '';
+            this.html = '';
 
         if (this.element.hasAttribute('onchange'))
-            this.change = WNGenerateFunction(this.element.getAttribute('onchange'),'t');
-        this.OldHtml = this.Html;
+            this.change = WNGenerateFunction(this.element.getAttribute('onchange'), 't');
+        this.OldHtml = this.html;
 
+        if (this.element.hasAttribute('dark-mode')) {
+            if (WNparseBoolean(this.element.getAttribute('dark-mode'), false)) {
+                this._dark_mode.checked = true;
+                this._content.parentElement.classList.add('dark');
+            }
+        };
     }
-    AddToolBar() {
+    private addToolBar() {
         if (this._editorType == 'simple')
             return;
         if (this._editortoolbar == undefined || this._editortoolbar == null) {
@@ -240,40 +246,41 @@
         if (this._editor_undo == null && this._editor_redo == null
             && (this._editorType == 'full')
         ) {
-            this._editor_undo = this.CreateElement('button', 'button editor-undo') as HTMLButtonElement;
-            this._editor_redo = this.CreateElement('button', 'button editor-redo') as HTMLButtonElement;
+            this._editor_undo = this.createElement('button', 'button editor-undo') as HTMLButtonElement;
+            this._editor_redo = this.createElement('button', 'button editor-redo') as HTMLButtonElement;
 
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_undo);
             grp.appendChild(this._editor_redo);
             this._toolbar.appendChild(grp);
         }
+
         //Bold italic underline strikethrough
         if (this._editor_bold == null && this._editor_italic == null && this._editor_underline == null && this._editor_strikethrough == null
             && (this._editorType == 'full' || this._editorType == 'standard')
         ) {
-            this._editor_bold = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_italic = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_underline = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_strikethrough = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_bold = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_italic = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_underline = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_strikethrough = this.createElement('input', '', 'checkbox') as HTMLInputElement;
 
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_bold);
-            grp.appendChild(this.CreateElement('label', 'button editor-bold'));
+            grp.appendChild(this.createElement('label', 'button editor-bold'));
             grp.appendChild(this._editor_italic);
-            grp.appendChild(this.CreateElement('label', 'button editor-italic'));
+            grp.appendChild(this.createElement('label', 'button editor-italic'));
             grp.appendChild(this._editor_underline);
-            grp.appendChild(this.CreateElement('label', 'button editor-underline'));
+            grp.appendChild(this.createElement('label', 'button editor-underline'));
             grp.appendChild(this._editor_strikethrough);
-            grp.appendChild(this.CreateElement('label', 'button editor-strikethrough'));
+            grp.appendChild(this.createElement('label', 'button editor-strikethrough'));
             this._toolbar.appendChild(grp);
         }
         //font fontsize subscript superscript
         if (this._editor_font == null && this._editor_fontsize == null && this._editor_subscript == null && this._editor_superscript == null
             && (this._editorType == 'full')
         ) {
-            this._editor_font = this.CreateElement('select', '.editor-font') as HTMLSelectElement;
-            this.FontList = WNparseString(this.element.getAttribute('default-fonts'), this.DefaultFonts).split(',');
+            this._editor_font = this.createElement('select', '.editor-font') as HTMLSelectElement;
+            this.FontList = WNparseString(this.element.getAttribute('default-fonts'), this.defaultFonts).split(',');
             for (var i = 0; i < this.FontList.length; i++) {
                 this.FontList[i] = this.FontList[i].trim();
                 let itm = document.createElement('option') as HTMLOptionElement;
@@ -282,8 +289,8 @@
                 this._editor_font.appendChild(itm);
             }
 
-            this._editor_fontsize = this.CreateElement('select', '.editor-fontsize') as HTMLSelectElement;
-            this.FontSize = WNparseString(this.element.getAttribute('default-fonts'), this.DefaultFontSize).split(',');
+            this._editor_fontsize = this.createElement('select', '.editor-fontsize') as HTMLSelectElement;
+            this.FontSize = WNparseString(this.element.getAttribute('default-fonts'), this.defaultFontsize).split(',');
 
             this.FontSize.forEach(x => {
                 let xx = x.split(':');
@@ -293,11 +300,11 @@
                 this._editor_fontsize.appendChild(itm);
             });
 
-            this._editor_subscript = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_superscript = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_subscript = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_superscript = this.createElement('input', '', 'checkbox') as HTMLInputElement;
 
-            this._editor_elementtag = this.CreateElement('select', '.editor-elementtag') as HTMLSelectElement;
-            this.TagList = WNparseString(this.element.getAttribute('default-tags'), this.DefaultTags).split(',');
+            this._editor_elementtag = this.createElement('select', '.editor-elementtag') as HTMLSelectElement;
+            this.TagList = WNparseString(this.element.getAttribute('default-tags'), this.defaultTags).split(',');
             this.TagList.forEach(x => {
                 let xx = x.split(':');
                 let itm = document.createElement('option') as HTMLOptionElement;
@@ -306,13 +313,13 @@
                 this._editor_elementtag.appendChild(itm);
             });
 
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_font);
             grp.appendChild(this._editor_fontsize);
             grp.appendChild(this._editor_subscript);
-            grp.appendChild(this.CreateElement('label', 'button editor-subscript'));
+            grp.appendChild(this.createElement('label', 'button editor-subscript'));
             grp.appendChild(this._editor_superscript);
-            grp.appendChild(this.CreateElement('label', 'button editor-superscript'));
+            grp.appendChild(this.createElement('label', 'button editor-superscript'));
             grp.appendChild(this._editor_elementtag);
             this._toolbar.appendChild(grp);
         }
@@ -322,29 +329,29 @@
             this._editor_alignjustify == null && this._editor_ltr == null && this._editor_rtl == null
             && (this._editorType == 'full' || this._editorType == 'standard')
         ) {
-            this._editor_alignleft = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_aligncenter = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_alignright = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_alignjustify = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_ltr = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            this._editor_rtl = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_alignleft = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_aligncenter = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_alignright = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_alignjustify = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_ltr = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            this._editor_rtl = this.createElement('input', '', 'checkbox') as HTMLInputElement;
 
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_alignleft);
-            grp.appendChild(this.CreateElement('label', 'button editor-alignleft'));
+            grp.appendChild(this.createElement('label', 'button editor-alignleft'));
             grp.appendChild(this._editor_aligncenter);
-            grp.appendChild(this.CreateElement('label', 'button editor-aligncenter'));
+            grp.appendChild(this.createElement('label', 'button editor-aligncenter'));
             grp.appendChild(this._editor_alignright);
-            grp.appendChild(this.CreateElement('label', 'button editor-alignright'));
+            grp.appendChild(this.createElement('label', 'button editor-alignright'));
             grp.appendChild(this._editor_alignjustify);
-            grp.appendChild(this.CreateElement('label', 'button editor-alignjustify'));
+            grp.appendChild(this.createElement('label', 'button editor-alignjustify'));
 
-            grp.appendChild(this.CreateElement('div', 'separator'));
+            grp.appendChild(this.createElement('div', 'separator'));
 
             grp.appendChild(this._editor_ltr);
-            grp.appendChild(this.CreateElement('label', 'button editor-ltr'));
+            grp.appendChild(this.createElement('label', 'button editor-ltr'));
             grp.appendChild(this._editor_rtl);
-            grp.appendChild(this.CreateElement('label', 'button editor-rtl'));
+            grp.appendChild(this.createElement('label', 'button editor-rtl'));
             this._toolbar.appendChild(grp);
         }
 
@@ -352,15 +359,15 @@
         if (this._editor_indent == null && this._editor_outdent == null && this._editor_numberlist == null && this._editor_buletlist == null
             && (this._editorType == 'full')
         ) {
-            this._editor_indent = this.CreateElement('button', 'editor-indent') as HTMLButtonElement;
-            this._editor_outdent = this.CreateElement('button', 'editor-outdent') as HTMLButtonElement;
-            this._editor_numberlist = this.CreateElement('button', 'editor-numberlist') as HTMLButtonElement;
-            this._editor_buletlist = this.CreateElement('button', 'editor-buletlist') as HTMLButtonElement;
+            this._editor_indent = this.createElement('button', 'editor-indent') as HTMLButtonElement;
+            this._editor_outdent = this.createElement('button', 'editor-outdent') as HTMLButtonElement;
+            this._editor_numberlist = this.createElement('button', 'editor-numberlist') as HTMLButtonElement;
+            this._editor_buletlist = this.createElement('button', 'editor-buletlist') as HTMLButtonElement;
 
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_indent);
             grp.appendChild(this._editor_outdent);
-            grp.appendChild(this.CreateElement('div', 'separator'));
+            grp.appendChild(this.createElement('div', 'separator'));
             grp.appendChild(this._editor_numberlist);
             grp.appendChild(this._editor_buletlist);
             this._toolbar.appendChild(grp);
@@ -369,15 +376,15 @@
         if (this._editor_textcolor == null && this._editor_background == null && this._editor_fill == null && this._editor_eraseformat == null
             && (this._editorType == 'full')
         ) {
-            this._editor_textcolor = this.CreateElement('button', 'dropdown-toggle editor-textcolor') as HTMLButtonElement;
-            this._editor_background = this.CreateElement('button', 'dropdown-toggle editor-background') as HTMLButtonElement;
-            this._editor_fill = this.CreateElement('button', 'dropdown-toggle editor-fill') as HTMLButtonElement;
-            this._editor_eraseformat = this.CreateElement('button', 'editor-eraseformat') as HTMLButtonElement;
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            this._editor_textcolor = this.createElement('button', 'dropdown-toggle editor-textcolor') as HTMLButtonElement;
+            this._editor_background = this.createElement('button', 'dropdown-toggle editor-background') as HTMLButtonElement;
+            this._editor_fill = this.createElement('button', 'dropdown-toggle editor-fill') as HTMLButtonElement;
+            this._editor_eraseformat = this.createElement('button', 'editor-eraseformat') as HTMLButtonElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_textcolor);
             grp.appendChild(this._editor_background);
             grp.appendChild(this._editor_fill);
-            grp.appendChild(this.CreateElement('div', 'separator'));
+            grp.appendChild(this.createElement('div', 'separator'));
             grp.appendChild(this._editor_eraseformat);
             this._toolbar.appendChild(grp);
         }
@@ -385,14 +392,14 @@
         if (this._editor_link == null && this._editor_unlink == null && this._editor_image == null && this._editor_media == null && this._editor_iframe == null && this._editor_hr == null
             && (this._editorType == 'full')
         ) {
-            this._editor_link = this.CreateElement('button', 'dropdown-toggle editor-link') as HTMLButtonElement;
-            this._editor_unlink = this.CreateElement('button', 'editor-unlink') as HTMLButtonElement;
-            this._editor_image = this.CreateElement('button', 'dropdown-toggle editor-image') as HTMLButtonElement;
-            this._editor_media = this.CreateElement('button', 'dropdown-toggle editor-media') as HTMLButtonElement;
-            this._editor_iframe = this.CreateElement('button', 'dropdown-toggle editor-iframe') as HTMLButtonElement;
-            this._editor_hr = this.CreateElement('button', 'editor-hr') as HTMLButtonElement;
+            this._editor_link = this.createElement('button', 'dropdown-toggle editor-link') as HTMLButtonElement;
+            this._editor_unlink = this.createElement('button', 'editor-unlink') as HTMLButtonElement;
+            this._editor_image = this.createElement('button', 'dropdown-toggle editor-image') as HTMLButtonElement;
+            this._editor_media = this.createElement('button', 'dropdown-toggle editor-media') as HTMLButtonElement;
+            this._editor_iframe = this.createElement('button', 'dropdown-toggle editor-iframe') as HTMLButtonElement;
+            this._editor_hr = this.createElement('button', 'editor-hr') as HTMLButtonElement;
 
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_link);
             grp.appendChild(this._editor_unlink);
             grp.appendChild(this._editor_image);
@@ -405,22 +412,28 @@
         if (this._editor_source == null
             && (this._editorType == 'full')
         ) {
-            this._editor_source = this.CreateElement('button', 'editor-source') as HTMLButtonElement;
+            this._editor_source = this.createElement('button', 'editor-source') as HTMLButtonElement;
 
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._editor_source);
             this._toolbar.appendChild(grp);
         }
         if (this._dark_mode == null) {
-            this._dark_mode = this.CreateElement('input', '', 'checkbox') as HTMLInputElement;
-            let grp = this.CreateElement('div', 'button-group') as HTMLDivElement;
+            this._dark_mode = this.createElement('input', '', 'checkbox') as HTMLInputElement;
+            let grp = this.createElement('div', 'button-group') as HTMLDivElement;
             grp.appendChild(this._dark_mode);
-            grp.appendChild(this.CreateElement('label', 'button editor-darkmode'));
+            grp.appendChild(this.createElement('label', 'button editor-darkmode'));
+            this._toolbar.appendChild(grp);
+        }
+        if (this._fullscreen == null) {
+            this._fullscreen = this.createElement('button', 'editor-fullscreen') as HTMLButtonElement;
+            let grp = this._dark_mode?.parentElement ?? this.createElement('div', 'button-group') as HTMLDivElement;
+            grp.appendChild(this._fullscreen);
             this._toolbar.appendChild(grp);
         }
 
     }
-    AddContent() {
+    private addContent() {
         if (this._content != null)
             return;
         let editorbody = document.createElement('div') as HTMLDivElement;
@@ -454,37 +467,73 @@
 
         this.element.appendChild(editorbody);
     }
-    CreateElement(eltype: string, classname: string, type: string = null): HTMLElement {
+    private setLanguage() {
+        if (this._editor_undo != null) this._editor_undo.title = this._lang['undo'];
+        if (this._editor_redo != null) this._editor_redo.title = this._lang['redo'];
+        if (this._editor_bold != null) (<HTMLLabelElement>this._editor_bold.nextSibling).title = this._lang['bold'];
+        if (this._editor_italic != null) (<HTMLLabelElement>this._editor_italic.nextSibling).title = this._lang['italic'];
+        if (this._editor_underline != null) (<HTMLLabelElement>this._editor_underline.nextSibling).title = this._lang['underline'];
+        if (this._editor_strikethrough != null) (<HTMLLabelElement>this._editor_strikethrough.nextSibling).title = this._lang['strikethrough'];
+        if (this._editor_font != null) this._editor_font.title = this._lang['font'];
+        if (this._editor_fontsize != null) this._editor_fontsize.title = this._lang['fontsize'];
+        if (this._editor_subscript != null) (<HTMLLabelElement>this._editor_subscript.nextSibling).title = this._lang['subscript'];
+        if (this._editor_superscript != null) (<HTMLLabelElement>this._editor_superscript.nextSibling).title = this._lang['superscript'];
+        if (this._editor_elementtag != null) this._editor_elementtag.title = this._lang['style'];
+        if (this._editor_alignleft != null) (<HTMLLabelElement>this._editor_alignleft.nextSibling).title = this._lang['alignleft'];
+        if (this._editor_aligncenter != null) (<HTMLLabelElement>this._editor_aligncenter.nextSibling).title = this._lang['aligncenter'];
+        if (this._editor_alignright != null) (<HTMLLabelElement>this._editor_alignright.nextSibling).title = this._lang['alignright'];
+        if (this._editor_alignjustify != null) (<HTMLLabelElement>this._editor_alignjustify.nextSibling).title = this._lang['alignjustify'];
+        if (this._editor_ltr != null) (<HTMLLabelElement>this._editor_ltr.nextSibling).title = this._lang['ltr'];
+        if (this._editor_rtl != null) (<HTMLLabelElement>this._editor_rtl.nextSibling).title = this._lang['rtl'];
+        if (this._editor_indent != null) this._editor_indent.title = this._lang['indent'];
+        if (this._editor_outdent != null) this._editor_outdent.title = this._lang['outdent'];
+        if (this._editor_numberlist != null) this._editor_numberlist.title = this._lang['numberlist'];
+        if (this._editor_buletlist != null) this._editor_buletlist.title = this._lang['buletlist'];
+        if (this._editor_textcolor != null) this._editor_textcolor.title = this._lang['textcolor'];
+        if (this._editor_background != null) this._editor_background.title = this._lang['background'];
+        if (this._editor_fill != null) this._editor_fill.title = this._lang['fill'];
+        if (this._editor_eraseformat != null) this._editor_eraseformat.title = this._lang['eraseformat'];
+        if (this._editor_link != null) this._editor_link.title = this._lang['link'];
+        if (this._editor_unlink != null) this._editor_unlink.title = this._lang['unlink'];
+        if (this._editor_image != null) this._editor_image.title = this._lang['image'];
+        if (this._editor_media != null) this._editor_media.title = this._lang['media'];
+        if (this._editor_iframe != null) this._editor_iframe.title = this._lang['iframe'];
+        if (this._editor_hr != null) this._editor_hr.title = this._lang['hr'];
+        if (this._editor_source != null) this._editor_source.title = this._lang['source'];
+        if (this._dark_mode != null) (<HTMLLabelElement>this._dark_mode.nextSibling).title = this._lang['dark_mode'];
+        if (this._fullscreen != null) this._fullscreen.title = this._lang['fullscreen'];
+    }
+    private createElement(eltype: string, classname: string, type: string = null): HTMLElement {
         let r = document.createElement(eltype);
         r.className = classname;
         if (type != null)
             (<HTMLInputElement>r).type = type;
         return r;
     }
-    AssignEvents() {
+    private assignEvents() {
         this._editor_undo?.addEventListener('click', () => { this.execCommand('undo'); });
         this._editor_redo?.addEventListener('click', () => { this.execCommand('redo'); });
 
-        this._editor_bold?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('font-weight', 'bold', true); });
-        this._editor_italic?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('font-style', 'italic', true); });
-        this._editor_underline?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('text-decoration', 'underline', true); });
-        this._editor_strikethrough?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('text-decoration', 'line-through', true); });
+        this._editor_bold?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('font-weight', 'bold', true); });
+        this._editor_italic?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('font-style', 'italic', true); });
+        this._editor_underline?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('text-decoration', 'underline', true); });
+        this._editor_strikethrough?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('text-decoration', 'line-through', true); });
 
         this._editor_font?.addEventListener("change", (e) => {
             var value = (<HTMLSelectElement>e.target).value;
             if (value == this.FontList[0])
-                this.SetSelectionStyle('font-family', '', false);
+                this.setSelectionStyle('font-family', '', false);
             else {
-                this.SetSelectionStyle('font-family', value, false);
+                this.setSelectionStyle('font-family', value, false);
             }
 
         });
         this._editor_fontsize?.addEventListener("change", (e) => {
             var value = (<HTMLSelectElement>e.target).value;
             if (value == this.FontList[0])
-                this.SetSelectionStyle('font-size', '', false);
+                this.setSelectionStyle('font-size', '', false);
             else
-                this.SetSelectionStyle('font-size', value, false);
+                this.setSelectionStyle('font-size', value, false);
         });
         this._editor_subscript?.nextSibling.addEventListener('click', () => {
             if (this._editor_subscript.checked)
@@ -495,53 +544,55 @@
         this._editor_superscript?.nextSibling.addEventListener('click', () => { this.execCommand('superscript'); });
 
         this._editor_elementtag?.addEventListener("change", (e) => {
-            this.SetSelectionTag((<HTMLSelectElement>e.target).value);
+            this.setSelectionTag((<HTMLSelectElement>e.target).value);
         });
 
-        this._editor_alignleft?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('text-align', 'start', true, true); });
-        this._editor_aligncenter?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('text-align', 'center', true, true); });
-        this._editor_alignright?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('text-align', 'end', true, true); });
-        this._editor_alignjustify?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('text-align', 'justify', true, true); });
-        this._editor_ltr?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('direction', 'ltr', true, true); });
-        this._editor_rtl?.nextSibling.addEventListener('click', () => { this.SetSelectionStyle('direction', 'rtl', true, true); });
+        this._editor_alignleft?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('text-align', 'start', true, true); });
+        this._editor_aligncenter?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('text-align', 'center', true, true); });
+        this._editor_alignright?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('text-align', 'end', true, true); });
+        this._editor_alignjustify?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('text-align', 'justify', true, true); });
+        this._editor_ltr?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('direction', 'ltr', true, true); });
+        this._editor_rtl?.nextSibling.addEventListener('click', () => { this.setSelectionStyle('direction', 'rtl', true, true); });
 
-        this._editor_indent?.addEventListener('click', () => { this.SetSelectionStyle('padding-inline-start', '+1em', false); });
-        this._editor_outdent?.addEventListener('click', () => { this.SetSelectionStyle('padding-inline-start', '-1em', false); });
+        this._editor_indent?.addEventListener('click', () => { this.setSelectionStyle('padding-inline-start', '+1em', false); });
+        this._editor_outdent?.addEventListener('click', () => { this.setSelectionStyle('padding-inline-start', '-1em', false); });
         this._editor_numberlist?.addEventListener('click', () => { this.execCommand('insertOrderedList'); });
         this._editor_buletlist?.addEventListener('click', () => { this.execCommand('insertUnorderedList'); });
 
-        this._editor_textcolor?.addEventListener('click', () => { this.ColorPicker(this._editor_textcolor, 'color'); });
-        this._editor_background?.addEventListener('click', () => { this.ColorPicker(this._editor_background, 'background-color'); });
-        this._editor_fill?.addEventListener('click', () => { this.ColorPicker(this._editor_fill, 'background-color', true); });
+        this._editor_textcolor?.addEventListener('click', () => { this.colorPicker(this._editor_textcolor, 'color'); });
+        this._editor_background?.addEventListener('click', () => { this.colorPicker(this._editor_background, 'background-color'); });
+        this._editor_fill?.addEventListener('click', () => { this.colorPicker(this._editor_fill, 'background-color', true); });
         this._editor_eraseformat?.addEventListener('click', () => { this.execCommand('removeFormat'); });
 
-        this._editor_link?.addEventListener('click', () => { this.InsertLink(); });
-        this._editor_unlink?.addEventListener('click', () => { document.execCommand("unlink", false, ''); });
-        this._editor_image?.addEventListener('click', () => { this.InsertImage(); });
-        this._editor_media?.addEventListener('click', () => { this.InsertMedia(); });
-        this._editor_iframe?.addEventListener('click', () => { this.InsertIFrame(); });
-        this._editor_hr?.addEventListener('click', () => { document.execCommand("insertHTML", false, '<hr/>'); });
+        this._editor_link?.addEventListener('click', () => { this.insertLink(); });
+        this._editor_unlink?.addEventListener('click', () => { this.execCommand("unlink", ''); });
+        this._editor_image?.addEventListener('click', () => { this.insertImage(); });
+        this._editor_media?.addEventListener('click', () => { this.insertMedia(); });
+        this._editor_iframe?.addEventListener('click', () => { this.insertIFrame(); });
+        this._editor_hr?.addEventListener('click', () => { this.execCommand("insertHTML", '<hr/>'); });
 
-        this._editor_source?.addEventListener('click', () => { this.ShowSource(); });
+        this._editor_source?.addEventListener('click', () => { this.showSource(); });
 
         document.addEventListener("selectionchange", () => {
             // Check if the editor is focussed
             if (this._content === document.activeElement) {
-                this.RecheckToolbar();
+                this.recheckToolbar();
             }
         });
         this._editor_source_textarea.addEventListener("input", () => {
             const parser = new DOMParser();
             const doc3 = parser.parseFromString(this._editor_source_textarea.value, "text/html");
             this._content.innerHTML = doc3.body.innerHTML;
-            if (this.change != null && this.OldHtml != this.Html) {
+            if (this.change != null && this.OldHtml != this.html) {
                 this.change(this);
-                this.OldHtml = this.Html;
+                this.OldHtml = this.html;
             }
         });
-        this._dark_mode?.nextSibling.addEventListener('click', () => { this.SwitchDarkMode(); });
+        this._dark_mode?.nextSibling.addEventListener('click', () => { this.switchDarkMode(); });
+
+        this._fullscreen?.addEventListener('click', () => { this.switchFullScreen(); });
     }
-    RecheckToolbar() {
+    private recheckToolbar() {
         if (this._editor_bold != undefined) this._editor_bold.checked = this.getCurrentStyle('font-weight') > '500';
         if (this._editor_italic != undefined) this._editor_italic.checked = this.getCurrentStyle('font-style') == 'italic';
         if (this._editor_underline != undefined) this._editor_underline.checked = this.getCurrentStyle('font-style') == 'underline';
@@ -575,14 +626,14 @@
             let tagName = this.getParentTagSelection().tagName.toLowerCase();
             this._editor_elementtag.value = (this.TagList.find((e) => e.includes(tagName)) ?? this.TagList[0]).split(':')[1];
         }
-        if (this.ValueElement != undefined) this.ValueElement.value = this.Html;
-        if (this.change != null && this.OldHtml != this.Html) {
+        if (this.valueElement != undefined) this.valueElement.value = this.html;
+        if (this.change != null && this.OldHtml != this.html) {
             this.change(this);
-            this.OldHtml = this.Html;
+            this.OldHtml = this.html;
         }
 
     }
-    isSelectionInTag(tag: string): boolean {
+    private isSelectionInTag(tag: string): boolean {
         tag = tag.toUpperCase();
         let currentNode = window.getSelection().focusNode as HTMLElement;
         while (!currentNode.classList?.contains('editor-content')) {
@@ -592,10 +643,10 @@
         return false;
     }
 
-    execCommand(cmd: string, value: string = null) {
+    private execCommand(cmd: string, value: string = null) {
         document.execCommand(cmd, false, value);
     }
-    getCurrentStyle(prop: string): string {
+    private getCurrentStyle(prop: string): string {
         let value = '';
         var element = document.getSelection().focusNode as HTMLElement;
         for (var p = element; p; p = p.parentNode as HTMLElement) {
@@ -609,7 +660,7 @@
         }
         return value;
     }
-    getParentTagSelection(): HTMLElement {
+    private getParentTagSelection(): HTMLElement {
         let currentNode = window.getSelection().focusNode as HTMLElement;
         for (var i = 0; i < 2; i++) {
             if (!currentNode?.classList?.contains('editor-content')) {
@@ -619,7 +670,7 @@
         }
         return null;
     }
-    SetSelectionStyle(prop: string, value: string = null, toggle: boolean, getParentTag = false) {
+    private setSelectionStyle(prop: string, value: string = null, toggle: boolean, getParentTag = false) {
         let signValue = '';
         if (value.startsWith('+') || value.startsWith('-')) {
             signValue = value.substring(0, 1);
@@ -671,9 +722,9 @@
                 }
             }
         }
-        this.RecheckToolbar();
+        this.recheckToolbar();
     }
-    SetSelectionTag(value: string = null): HTMLElement {
+    private setSelectionTag(value: string = null): HTMLElement {
         var elem: HTMLElement = undefined;
         if (window.getSelection) {
             var sel = window.getSelection();
@@ -702,10 +753,10 @@
                 this._content.focus();
             }
         }
-        this.RecheckToolbar();
+        this.recheckToolbar();
         return elem;
     }
-    saveSelection() {
+    private saveSelection() {
         if (window.getSelection) {
             let sel = window.getSelection();
             if (sel.getRangeAt && sel.rangeCount) {
@@ -721,7 +772,7 @@
         return null;
     }
 
-    restoreSelection(savedSel) {
+    private restoreSelection(savedSel) {
         if (savedSel) {
             if (window.getSelection) {
                 let sel = window.getSelection();
@@ -735,7 +786,7 @@
         }
     }
 
-    cleanWordPaste(str: string): string {
+    private cleanWordPaste(str: string): string {
         str = str.replace(/<o:p>\s*<\/o:p>/g, "");
         str = str.replace(/<o:p>.*?<\/o:p>/g, "&nbsp;");
         str = str.replace(/\s*mso-[^:]+:[^;"]+;?/gi, "");
@@ -785,74 +836,74 @@
 
         return str;
     }
-    ColorPicker(parent: HTMLElement, style: string, selectTag: boolean = false) {
-        if (this._colorpicker == undefined)
-            this.CreateColorPickerObject();
+    private colorPicker(parent: HTMLElement, style: string, selectTag: boolean = false) {
+        if (this._colorPicker == undefined)
+            this.createcolorPickerObject();
         this._colorPickerStyle = style;
         this._colorPickerselectTag = selectTag;
         this._colorPickerDropDown.element = parent;
-        this._colorPickerDropDown.SetPosition();
-        this._colorpickerInput.value = this.rgb2hex(this.getCurrentStyle(style));
-        this._colorPickerDropDown.Show();
+        this._colorPickerDropDown.setPosition();
+        this._colorPickerInput.value = WNRGB2HEX(this.getCurrentStyle(style));
+        this._colorPickerDropDown.show();
     }
     private _colorPickerStyle = '';
     private _colorPickerselectTag = false;
-    private _colorPickerDropDown: wndropdown;
+    private _colorPickerDropDown: WNDropdown;
     private _oldSelection: any;
-    CreateColorPickerObject() {
+    private createcolorPickerObject() {
 
-        this._colorpicker = document.createElement('div');
-        this._colorpicker.classList.add('dropdown');
-        this._colorpicker.id = this.element.id + '_colorpicker';
-        this._colorpicker.setAttribute('wn-dropdown', this._colorpicker.id);
+        this._colorPicker = document.createElement('div');
+        this._colorPicker.classList.add('dropdown');
+        this._colorPicker.id = this.element.id + '_colorPicker';
+        this._colorPicker.setAttribute('wn-dropdown', this._colorPicker.id);
 
-        let _colorpicker = document.createElement('div');
-        _colorpicker.classList.add('colorpicker');
+        let _colorPicker = document.createElement('div');
+        _colorPicker.classList.add('colorPicker');
 
-        let colorpickerbody = document.createElement('div');
-        colorpickerbody.className = 'colorpicker-body';
+        let colorPickerbody = document.createElement('div');
+        colorPickerbody.className = 'colorPicker-body';
 
         let btnErase = document.createElement('button');
         btnErase.classList.add('editor-eraseformat');
         btnErase.addEventListener('click', () => {
-            this.SetSelectionStyle(this._colorPickerStyle, '', false, this._colorPickerselectTag);
-            this._colorPickerDropDown.Hide();
+            this.setSelectionStyle(this._colorPickerStyle, '', false, this._colorPickerselectTag);
+            this._colorPickerDropDown.hide();
         });
 
-        this._colorpickerInput = document.createElement('input');
-        this._colorpickerInput.type = 'color';
-        this._colorpickerInput.setAttribute('rgba', '');
-        this._colorpickerInput.addEventListener('input', () => {
-            this.SetSelectionStyle(this._colorPickerStyle, this._colorpickerInput.value, false, this._colorPickerselectTag);
-            this._colorPickerDropDown.Hide();
+        this._colorPickerInput = document.createElement('input');
+        this._colorPickerInput.type = 'color';
+        this._colorPickerInput.setAttribute('rgba', '');
+        this._colorPickerInput.addEventListener('input', () => {
+            this.setSelectionStyle(this._colorPickerStyle, this._colorPickerInput.value, false, this._colorPickerselectTag);
+            this._colorPickerDropDown.hide();
         });
 
-        for (var i = 0; i < this.DefaultColorPicker.length; i++) {
+        for (var i = 0; i < this.dfaultcolorPicker.length; i++) {
             let btn = document.createElement('button');
-            btn.style.backgroundColor = this.DefaultColorPicker[i];
+            btn.style.backgroundColor = this.dfaultcolorPicker[i];
             btn.addEventListener('click', (e) => {
                 let btn = <HTMLButtonElement>e.target;
-                this._colorpickerInput.value = this.rgb2hex(btn.style.backgroundColor);
-                this.SetSelectionStyle(this._colorPickerStyle, this._colorpickerInput.value, false, this._colorPickerselectTag);
+                this._colorPickerInput.value = WNRGB2HEX(btn.style.backgroundColor);
+                this.setSelectionStyle(this._colorPickerStyle, this._colorPickerInput.value, false, this._colorPickerselectTag);
             });
-            colorpickerbody.appendChild(btn);
+            colorPickerbody.appendChild(btn);
         }
-        _colorpicker.appendChild(colorpickerbody);
+        _colorPicker.appendChild(colorPickerbody);
 
-        let colorpickerbody1 = document.createElement('div');
-        colorpickerbody1.className = 'colorpicker-body';
-        colorpickerbody1.appendChild(btnErase);
-        colorpickerbody1.appendChild(this._colorpickerInput);
-        _colorpicker.appendChild(colorpickerbody1);
-        this._colorpicker.appendChild(_colorpicker);
-        this._toolbar.append(this._colorpicker);
-        this._colorPickerDropDown = new wndropdown(this._colorpicker);
+        let colorPickerbody1 = document.createElement('div');
+        colorPickerbody1.className = 'colorPicker-body';
+        colorPickerbody1.appendChild(btnErase);
+        colorPickerbody1.appendChild(this._colorPickerInput);
+        _colorPicker.appendChild(colorPickerbody1);
+        this._colorPicker.appendChild(_colorPicker);
+        this._toolbar.append(this._colorPicker);
+        this._colorPickerDropDown = new WNDropdown(this._colorPicker);
     }
 
-    private _insertLinkDropDown: wndropdown;
-    InsertLink() {
+    private _insertLinkDropDown: WNDropdown;
+    private insertLink() {
         if (this._insertLink == undefined)
-            this.CreateLinkObject();
+            this.createLinkObject();
 
         let elem = this.getParentTagSelection();
 
@@ -863,19 +914,19 @@
         if (elem.tagName.toLowerCase() == 'a') {
             this._insertLinkUrl.value = (elem as HTMLLinkElement).href;
             this._insertLinkTitle.value = (elem as HTMLLinkElement).title;
-            this._insertLinkTarget.value = (elem as HTMLLinkElement).target;
+            this._insertLinkTarget.value = '';// (elem as HTMLLinkElement).target;
         }
         this._insertLinkDropDown.element = this._editor_link;
-        this._insertLinkDropDown.SetPosition();
+        this._insertLinkDropDown.setPosition();
         this._oldSelection = this.saveSelection();
 
-        this._insertLinkDropDown.Show();
+        this._insertLinkDropDown.show();
     }
-    CreateLinkObject() {
+    private createLinkObject() {
 
         this._insertLink = document.createElement('div');
         this._insertLink.classList.add('dropdown');
-        this._insertLink.id = this.element.id + '_insertlink';
+        this._insertLink.id = this.element.id + '_insertLink';
         this._insertLink.setAttribute('wn-dropdown', this._insertLink.id);
 
         let _insertLink = document.createElement('div');
@@ -883,7 +934,7 @@
 
         let field1 = document.createElement('div');
         let urlLabel = document.createElement('label');
-        urlLabel.innerText = this._lang["editor"]["url"];
+        urlLabel.innerText = this._lang["url"];
         field1.appendChild(urlLabel);
         this._insertLinkUrl = document.createElement('input');
         this._insertLinkUrl.type = "url";
@@ -893,7 +944,7 @@
 
         let field2 = document.createElement('div');
         let targetLabel = document.createElement('label');
-        targetLabel.innerText = this._lang["editor"]["target"];
+        targetLabel.innerText = this._lang["target"];
         field2.appendChild(targetLabel);
         this._insertLinkTarget = document.createElement('select');
         this._insertLinkTarget.style.direction = 'ltr';
@@ -903,7 +954,7 @@
 
         let field3 = document.createElement('div');
         let titleLabel = document.createElement('label');
-        titleLabel.innerText = this._lang["editor"]["title"];
+        titleLabel.innerText = this._lang["title"];
         field3.appendChild(titleLabel);
         this._insertLinkTitle = document.createElement('input');
         this._insertLinkTitle.type = "text";
@@ -912,31 +963,31 @@
 
         let field4 = document.createElement('div');
         let insert = document.createElement('button');
-        insert.innerText = this._lang["editor"]["insert"];
+        insert.innerText = this._lang["insert"];
         insert.addEventListener("click", () => {
             this.restoreSelection(this._oldSelection);
             if (this._insertLinkUrl.value != '') {
-                document.execCommand("unlink", false, '');
-                let link = this.SetSelectionTag("a") as HTMLLinkElement;
+                this.execCommand("unlink", '');
+                let link = this.setSelectionTag("a") as HTMLLinkElement;
                 link.href = this._insertLinkUrl.value;
                 link.title = this._insertLinkTitle.value;
-                link.setAttribute('target',this._insertLinkTarget.value);
-                this._insertLinkDropDown.Hide();
+                link.setAttribute('target', this._insertLinkTarget.value);
+                this._insertLinkDropDown.hide();
             }
         });
         field4.appendChild(insert);
         _insertLink.appendChild(field4);
         this._insertLink.appendChild(_insertLink);
         this._toolbar.append(this._insertLink);
-        this._insertLinkDropDown = new wndropdown(this._insertLink);
-        this._insertLinkDropDown.CheckOnlyDropDown = true;
+        this._insertLinkDropDown = new WNDropdown(this._insertLink);
+        this._insertLinkDropDown.checkOnlyDropDown = true;
     }
 
-    private _insertImageDropDown: wndropdown;
+    private _insertImageDropDown: WNDropdown;
     private _insertImageSelected: HTMLImageElement;
-    InsertImage() {
+    private insertImage() {
         if (this._insertImage == undefined)
-            this.CreateImageObject();
+            this.createImageObject();
 
         let elem = this.getParentTagSelection();
         if (elem.tagName.toLowerCase() != 'img') {
@@ -963,12 +1014,12 @@
         else
             this._insertImageSelected = null;
         this._insertImageDropDown.element = this._editor_image;
-        this._insertImageDropDown.SetPosition();
+        this._insertImageDropDown.setPosition();
         this._oldSelection = this.saveSelection();
 
-        this._insertImageDropDown.Show();
+        this._insertImageDropDown.show();
     }
-    CreateImageObject() {
+    private createImageObject() {
 
         this._insertImage = document.createElement('div');
         this._insertImage.classList.add('dropdown');
@@ -980,7 +1031,7 @@
 
         let field1 = document.createElement('div');
         let urlLabel = document.createElement('label');
-        urlLabel.innerText = this._lang["editor"]["url"];
+        urlLabel.innerText = this._lang["url"];
         field1.appendChild(urlLabel);
         this._insertImageUrl = document.createElement('input');
         this._insertImageUrl.type = "url";
@@ -990,7 +1041,7 @@
 
         let field2 = document.createElement('div');
         let altLabel = document.createElement('label');
-        altLabel.innerText = this._lang["editor"]["alt"];
+        altLabel.innerText = this._lang["alt"];
         field2.appendChild(altLabel);
         this._insertImageAlt = document.createElement('input');
         this._insertImageAlt.type = "text";
@@ -1002,7 +1053,7 @@
         let field3ig1 = document.createElement('ig');
         field3ig1.className = "col-6";
         let widthLabel = document.createElement('label');
-        widthLabel.innerText = this._lang["editor"]["width"];
+        widthLabel.innerText = this._lang["width"];
         field3ig1.appendChild(widthLabel);
         this._insertImageWidth = document.createElement('input');
         this._insertImageWidth.style.direction = 'ltr';
@@ -1011,7 +1062,7 @@
         let field3ig2 = document.createElement('ig');
         field3ig2.className = "col-6";
         let heightLabel = document.createElement('label');
-        heightLabel.innerText = this._lang["editor"]["height"];
+        heightLabel.innerText = this._lang["height"];
         field3ig2.appendChild(heightLabel);
         this._insertImageHeight = document.createElement('input');
         this._insertImageHeight.style.direction = 'ltr';
@@ -1024,7 +1075,7 @@
         let field4ig1 = document.createElement('ig');
         field4ig1.className = "col-6";
         let borderwidthLabel = document.createElement('label');
-        borderwidthLabel.innerText = this._lang["editor"]["borderwidth"];
+        borderwidthLabel.innerText = this._lang["borderwidth"];
         field4ig1.appendChild(borderwidthLabel);
         this._insertImageBorderWidth = document.createElement('input');
         this._insertImageBorderWidth.style.direction = 'ltr';
@@ -1033,7 +1084,7 @@
         let field4ig2 = document.createElement('ig');
         field4ig2.className = "col-6";
         let borderstyleLabel = document.createElement('label');
-        borderstyleLabel.innerText = this._lang["editor"]["borderstyle"];
+        borderstyleLabel.innerText = this._lang["borderstyle"];
         field4ig2.appendChild(borderstyleLabel);
         this._insertImageBorderStyle = document.createElement('select');
         this._insertImageBorderStyle.innerHTML = "<option>none</option><option>solid</option><option>dashed</option>";
@@ -1044,7 +1095,7 @@
 
         let field5 = document.createElement('div');
         let ClassLabel = document.createElement('label');
-        ClassLabel.innerText = this._lang["editor"]["class"];
+        ClassLabel.innerText = this._lang["class"];
         field5.appendChild(ClassLabel);
         this._insertImageClass = document.createElement('input');
         this._insertImageClass.style.direction = 'ltr';
@@ -1053,7 +1104,7 @@
 
         let field6 = document.createElement('div');
         let insert = document.createElement('button');
-        insert.innerText = this._lang["editor"]["insert"];
+        insert.innerText = this._lang["insert"];
         insert.addEventListener("click", () => {
             this.restoreSelection(this._oldSelection);
             if (this._insertImageUrl.value != '') {
@@ -1096,22 +1147,22 @@
                     this._insertImageSelected.style.borderStyle = this._insertImageBorderStyle.value;
                 this._insertImageSelected.className = this._insertImageClass.value;
                 //a.remove();
-                this._insertImageDropDown.Hide();
+                this._insertImageDropDown.hide();
             }
         });
         field6.appendChild(insert);
         _insertImage.appendChild(field6);
         this._insertImage.appendChild(_insertImage);
         this._toolbar.append(this._insertImage);
-        this._insertImageDropDown = new wndropdown(this._insertImage);
-        this._insertImageDropDown.CheckOnlyDropDown = true;
+        this._insertImageDropDown = new WNDropdown(this._insertImage);
+        this._insertImageDropDown.checkOnlyDropDown = true;
     }
 
-    private _insertMediaDropDown: wndropdown;
+    private _insertMediaDropDown: WNDropdown;
     private _insertMediaSelected: HTMLMediaElement;
-    InsertMedia() {
+    private insertMedia() {
         if (this._insertMedia == undefined)
-            this.CreateMediaObject();
+            this.createMediaObject();
 
         let elem = this.getParentTagSelection();
         if (elem.tagName.toLowerCase() != 'video' && elem.tagName.toLowerCase() != 'audio') {
@@ -1127,7 +1178,7 @@
         this._insertMediaHeight.value = '';
         this._insertMediaControls.checked = true;
         this._insertMediaMute.checked = false;
-        this._insertMediaAutoPlay.checked = false;
+        this._insertMediaautoPlay.checked = false;
         this._insertMediaBorderWidth.value = '';
         this._insertMediaBorderStyle.value = 'none';
         this._insertMediaClass.value = '';
@@ -1140,7 +1191,7 @@
             this._insertMediaHeight.value = this._insertMediaSelected.style.height;
             this._insertMediaControls.checked = this._insertMediaSelected.hasAttribute('controls');
             this._insertMediaMute.checked = this._insertMediaSelected.hasAttribute('muted');
-            this._insertMediaAutoPlay.checked = this._insertMediaSelected.hasAttribute('autoplay');
+            this._insertMediaautoPlay.checked = this._insertMediaSelected.hasAttribute('autoPlay');
             this._insertMediaBorderWidth.value = this._insertMediaSelected.style.borderWidth;
             this._insertMediaBorderStyle.value = this._insertMediaSelected.style.borderStyle;
             this._insertMediaClass.value = this._insertMediaSelected.className;
@@ -1148,12 +1199,12 @@
         else
             this._insertMediaSelected = null;
         this._insertMediaDropDown.element = this._editor_media;
-        this._insertMediaDropDown.SetPosition();
+        this._insertMediaDropDown.setPosition();
         this._oldSelection = this.saveSelection();
 
-        this._insertMediaDropDown.Show();
+        this._insertMediaDropDown.show();
     }
-    CreateMediaObject() {
+    private createMediaObject() {
 
         this._insertMedia = document.createElement('div');
         this._insertMedia.classList.add('dropdown');
@@ -1165,7 +1216,7 @@
 
         let field0 = document.createElement('div');
         let mediaLabel = document.createElement('label');
-        mediaLabel.innerText = this._lang["editor"]["type"];
+        mediaLabel.innerText = this._lang["type"];
         field0.appendChild(mediaLabel);
         this._insertMediaType = document.createElement('select');
         this._insertMediaType.innerHTML = "<option>video</option><option>audio</option>";
@@ -1174,7 +1225,7 @@
 
         let field1 = document.createElement('div');
         let urlLabel = document.createElement('label');
-        urlLabel.innerText = this._lang["editor"]["url"];
+        urlLabel.innerText = this._lang["url"];
         field1.appendChild(urlLabel);
         this._insertMediaUrl = document.createElement('input');
         this._insertMediaUrl.type = "url";
@@ -1187,7 +1238,7 @@
         let field3ig1 = document.createElement('ig');
         field3ig1.className = "col-6";
         let widthLabel = document.createElement('label');
-        widthLabel.innerText = this._lang["editor"]["width"];
+        widthLabel.innerText = this._lang["width"];
         field3ig1.appendChild(widthLabel);
         this._insertMediaWidth = document.createElement('input');
         this._insertMediaWidth.style.direction = 'ltr';
@@ -1196,7 +1247,7 @@
         let field3ig2 = document.createElement('ig');
         field3ig2.className = "col-6";
         let heightLabel = document.createElement('label');
-        heightLabel.innerText = this._lang["editor"]["height"];
+        heightLabel.innerText = this._lang["height"];
         field3ig2.appendChild(heightLabel);
         this._insertMediaHeight = document.createElement('input');
         this._insertMediaHeight.style.direction = 'ltr';
@@ -1206,7 +1257,7 @@
 
         let field2 = document.createElement('div');
         let controlsLabel = document.createElement('label');
-        controlsLabel.innerText = this._lang["editor"]["controls"];
+        controlsLabel.innerText = this._lang["controls"];
         this._insertMediaControls = document.createElement('input');
         this._insertMediaControls.type = "checkbox";
         controlsLabel.appendChild(this._insertMediaControls);
@@ -1216,7 +1267,7 @@
 
         let field7 = document.createElement('div');
         let MuteLabel = document.createElement('label');
-        MuteLabel.innerText = this._lang["editor"]["mute"];
+        MuteLabel.innerText = this._lang["mute"];
         this._insertMediaMute = document.createElement('input');
         this._insertMediaMute.type = "checkbox";
         MuteLabel.appendChild(this._insertMediaMute);
@@ -1224,12 +1275,12 @@
         _insertMedia.appendChild(field7);
 
         let field8 = document.createElement('div');
-        let AutoPlayLabel = document.createElement('label');
-        AutoPlayLabel.innerText = this._lang["editor"]["autoplay"];
-        this._insertMediaAutoPlay = document.createElement('input');
-        this._insertMediaAutoPlay.type = "checkbox";
-        AutoPlayLabel.appendChild(this._insertMediaAutoPlay);
-        field8.appendChild(AutoPlayLabel);
+        let autoPlayLabel = document.createElement('label');
+        autoPlayLabel.innerText = this._lang["autoPlay"];
+        this._insertMediaautoPlay = document.createElement('input');
+        this._insertMediaautoPlay.type = "checkbox";
+        autoPlayLabel.appendChild(this._insertMediaautoPlay);
+        field8.appendChild(autoPlayLabel);
         _insertMedia.appendChild(field8);
 
         let field4 = document.createElement('div');
@@ -1237,7 +1288,7 @@
         let field4ig1 = document.createElement('ig');
         field4ig1.className = "col-6";
         let borderwidthLabel = document.createElement('label');
-        borderwidthLabel.innerText = this._lang["editor"]["borderwidth"];
+        borderwidthLabel.innerText = this._lang["borderwidth"];
         field4ig1.appendChild(borderwidthLabel);
         this._insertMediaBorderWidth = document.createElement('input');
         this._insertMediaBorderWidth.style.direction = 'ltr';
@@ -1246,7 +1297,7 @@
         let field4ig2 = document.createElement('ig');
         field4ig2.className = "col-6";
         let borderstyleLabel = document.createElement('label');
-        borderstyleLabel.innerText = this._lang["editor"]["borderstyle"];
+        borderstyleLabel.innerText = this._lang["borderstyle"];
         field4ig2.appendChild(borderstyleLabel);
         this._insertMediaBorderStyle = document.createElement('select');
         this._insertMediaBorderStyle.innerHTML = "<option>none</option><option>solid</option><option>dashed</option>";
@@ -1257,7 +1308,7 @@
 
         let field5 = document.createElement('div');
         let ClassLabel = document.createElement('label');
-        ClassLabel.innerText = this._lang["editor"]["class"];
+        ClassLabel.innerText = this._lang["class"];
         field5.appendChild(ClassLabel);
         this._insertMediaClass = document.createElement('input');
         this._insertMediaClass.style.direction = 'ltr';
@@ -1266,7 +1317,7 @@
 
         let field6 = document.createElement('div');
         let insert = document.createElement('button');
-        insert.innerText = this._lang["editor"]["insert"];
+        insert.innerText = this._lang["insert"];
         insert.addEventListener("click", () => {
             this.restoreSelection(this._oldSelection);
             if (this._insertMediaUrl.value != '') {
@@ -1285,10 +1336,10 @@
                 else
                     this._insertMediaSelected.removeAttribute('muted');
 
-                if (this._insertMediaAutoPlay.checked)
-                    this._insertMediaSelected.setAttribute('autoplay', '');
+                if (this._insertMediaautoPlay.checked)
+                    this._insertMediaSelected.setAttribute('autoPlay', '');
                 else
-                    this._insertMediaSelected.removeAttribute('autoplay');
+                    this._insertMediaSelected.removeAttribute('autoPlay');
 
                 if (this._insertMediaWidth.value != '') {
                     if (!(
@@ -1330,24 +1381,24 @@
                 else
                     MediaType += ext;
 
-                this._insertMediaSelected.innerHTML = "<source src='" + this._insertMediaUrl.value + "' type='" + MediaType + "'>" + this._lang["editor"]["medianotsupport"];
+                this._insertMediaSelected.innerHTML = "<source src='" + this._insertMediaUrl.value + "' type='" + MediaType + "'>" + this._lang["medianotsupport"];
 
-                this._insertMediaDropDown.Hide();
+                this._insertMediaDropDown.hide();
             }
         });
         field6.appendChild(insert);
         _insertMedia.appendChild(field6);
         this._insertMedia.appendChild(_insertMedia);
         this._toolbar.append(this._insertMedia);
-        this._insertMediaDropDown = new wndropdown(this._insertMedia);
-        this._insertMediaDropDown.CheckOnlyDropDown = true;
+        this._insertMediaDropDown = new WNDropdown(this._insertMedia);
+        this._insertMediaDropDown.checkOnlyDropDown = true;
     }
 
-    private _insertIFrameDropDown: wndropdown;
+    private _insertIFrameDropDown: WNDropdown;
     private _insertIFrameSelected: HTMLIFrameElement;
-    InsertIFrame() {
+    private insertIFrame() {
         if (this._insertIFrame == undefined)
-            this.CreateIFrameObject();
+            this.createIFrameObject();
 
         let elem = this.getParentTagSelection();
         if (elem.tagName.toLowerCase() != 'iframe') {
@@ -1374,12 +1425,12 @@
         else
             this._insertIFrameSelected = null;
         this._insertIFrameDropDown.element = this._editor_iframe;
-        this._insertIFrameDropDown.SetPosition();
+        this._insertIFrameDropDown.setPosition();
         this._oldSelection = this.saveSelection();
 
-        this._insertIFrameDropDown.Show();
+        this._insertIFrameDropDown.show();
     }
-    CreateIFrameObject() {
+    private createIFrameObject() {
 
         this._insertIFrame = document.createElement('div');
         this._insertIFrame.classList.add('dropdown');
@@ -1391,7 +1442,7 @@
 
         let field1 = document.createElement('div');
         let urlLabel = document.createElement('label');
-        urlLabel.innerText = this._lang["editor"]["url"];
+        urlLabel.innerText = this._lang["url"];
         field1.appendChild(urlLabel);
         this._insertIFrameUrl = document.createElement('input');
         this._insertIFrameUrl.type = "url";
@@ -1401,7 +1452,7 @@
 
         let field2 = document.createElement('div');
         let titleLabel = document.createElement('label');
-        titleLabel.innerText = this._lang["editor"]["title"];
+        titleLabel.innerText = this._lang["title"];
         field2.appendChild(titleLabel);
         this._insertIFrameTitle = document.createElement('input');
         field2.appendChild(this._insertIFrameUrl);
@@ -1412,7 +1463,7 @@
         let field3ig1 = document.createElement('ig');
         field3ig1.className = "col-6";
         let widthLabel = document.createElement('label');
-        widthLabel.innerText = this._lang["editor"]["width"];
+        widthLabel.innerText = this._lang["width"];
         field3ig1.appendChild(widthLabel);
         this._insertIFrameWidth = document.createElement('input');
         this._insertIFrameWidth.style.direction = 'ltr';
@@ -1421,7 +1472,7 @@
         let field3ig2 = document.createElement('ig');
         field3ig2.className = "col-6";
         let heightLabel = document.createElement('label');
-        heightLabel.innerText = this._lang["editor"]["height"];
+        heightLabel.innerText = this._lang["height"];
         field3ig2.appendChild(heightLabel);
         this._insertIFrameHeight = document.createElement('input');
         this._insertIFrameHeight.style.direction = 'ltr';
@@ -1434,7 +1485,7 @@
         let field4ig1 = document.createElement('ig');
         field4ig1.className = "col-6";
         let borderwidthLabel = document.createElement('label');
-        borderwidthLabel.innerText = this._lang["editor"]["borderwidth"];
+        borderwidthLabel.innerText = this._lang["borderwidth"];
         field4ig1.appendChild(borderwidthLabel);
         this._insertIFrameBorderWidth = document.createElement('input');
         this._insertIFrameBorderWidth.style.direction = 'ltr';
@@ -1443,7 +1494,7 @@
         let field4ig2 = document.createElement('ig');
         field4ig2.className = "col-6";
         let borderstyleLabel = document.createElement('label');
-        borderstyleLabel.innerText = this._lang["editor"]["borderstyle"];
+        borderstyleLabel.innerText = this._lang["borderstyle"];
         field4ig2.appendChild(borderstyleLabel);
         this._insertIFrameBorderStyle = document.createElement('select');
         this._insertIFrameBorderStyle.innerHTML = "<option>none</option><option>solid</option><option>dashed</option>";
@@ -1454,7 +1505,7 @@
 
         let field5 = document.createElement('div');
         let ClassLabel = document.createElement('label');
-        ClassLabel.innerText = this._lang["editor"]["class"];
+        ClassLabel.innerText = this._lang["class"];
         field5.appendChild(ClassLabel);
         this._insertIFrameClass = document.createElement('input');
         this._insertIFrameClass.style.direction = 'ltr';
@@ -1463,7 +1514,7 @@
 
         let field6 = document.createElement('div');
         let insert = document.createElement('button');
-        insert.innerText = this._lang["editor"]["insert"];
+        insert.innerText = this._lang["insert"];
         insert.addEventListener("click", () => {
             this.restoreSelection(this._oldSelection);
             if (this._insertIFrameUrl.value != '') {
@@ -1509,28 +1560,32 @@
                     this._insertIFrameSelected.className = this._insertIFrameClass.value;
 
 
-                this._insertIFrameDropDown.Hide();
+                this._insertIFrameDropDown.hide();
             }
         });
         field6.appendChild(insert);
         _insertIFrame.appendChild(field6);
         this._insertIFrame.appendChild(_insertIFrame);
         this._toolbar.append(this._insertIFrame);
-        this._insertIFrameDropDown = new wndropdown(this._insertIFrame);
-        this._insertIFrameDropDown.CheckOnlyDropDown = true;
+        this._insertIFrameDropDown = new WNDropdown(this._insertIFrame);
+        this._insertIFrameDropDown.checkOnlyDropDown = true;
     }
-    get Html(): string {
+    get html(): string {
         return this._content.innerHTML;
     }
-    set Html(value: string) {
+    set html(value: string) {
         this._content.innerHTML = value;
-        if (value == '')
-            this._content.innerHTML = `<${this.ParagraphSeparator}>&nbsp;</${this.ParagraphSeparator}>`;
+        if (value == '') {
+            this._content.innerHTML = `<${this.paragraphSeparator}>&nbsp;</${this.paragraphSeparator}>`;
+            this._editor_source_textarea.value = this._content.innerHTML;
+        }
 
     }
+    get text(): string {
+        return this._content.innerText;
+    }
 
-
-    ShowSource() {
+    showSource() {
         if (this._editor_source_mode == 'html') {
             this._editor_source_textarea.value = this._content.innerHTML;
             this._editor_source_textarea.classList.add('show');
@@ -1545,16 +1600,28 @@
             this._content.classList.remove('hide');
             this._editor_source_mode = 'html';
         }
-        if (this.change != null && this.OldHtml != this.Html) {
+        if (this.change != null && this.OldHtml != this.html) {
             this.change(this);
-            this.OldHtml = this.Html;
+            this.OldHtml = this.html;
         }
     }
-    SwitchDarkMode() {
+    switchDarkMode() {
         this._dark_mode.checked = !this._dark_mode.checked;
         if (this._dark_mode.checked)
             this._content.parentElement.classList.add('dark');
         else
             this._content.parentElement.classList.remove('dark');
+    }
+    switchFullScreen() {
+        let body = this.element.querySelector('.editor-body');
+        if ((window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+                body.classList.remove('fullscreen');
+            }
+        } else {
+            this.element.requestFullscreen();
+            body.classList.add('fullscreen');
+        }
     }
 }

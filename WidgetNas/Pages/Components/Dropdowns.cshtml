@@ -438,8 +438,8 @@
                     <li>Item 4</li>
                 </ul>
             </div>
-            <button class="secondary" onclick="WN['dropdown-button-ltr'].Show();">Show</button>
-            <button class="secondary" onclick="WN['dropdown-button-ltr'].Hide();">Hide</button>
+            <button class="secondary" onclick="event.stopPropagation();WN('dropdown-button-ltr').wn.show();">Show</button>
+            <button class="secondary" onclick="event.stopPropagation();WN('dropdown-button-ltr').wn.hide();">Hide</button>
         </div>
     </div>
     <div class="rtl">
@@ -454,8 +454,8 @@
                     <li>گزینه 4</li>
                 </ul>
             </div>
-            <button class="secondary" onclick="WN['dropdown-button-rtl'].Show();">نمایش</button>
-            <button class="secondary" onclick="WN['dropdown-button-rtl'].Hide();">مخفی</button>
+            <button class="secondary" onclick="event.stopPropagation();WN('dropdown-button-rtl').wn.show();">نمایش</button>
+            <button class="secondary" onclick="event.stopPropagation();WN('dropdown-button-rtl').wn.hide();">مخفی</button>
         </div>
     </div>
 </div>

@@ -13,12 +13,12 @@
 <p>چرخنده ها از چند قسمت اصلی تشکیل شده اند، یکی قسمت درج ردیفهای نمایشی و دیگری قمستهای کنترلی.</p>
 <p>برای استفاده از این چرخنده ها بایستی یک div از کلاس <bidi>carousel</bidi> داشت، سپس باید برای فعال سازی جاوا اسکریپت، باید نوع آن را نیز تعیین کرد، <bidi>wn-type="carousel"</bidi>. پارامترهای پیش فرض برای این موضوع وجود دارد ولیکن شما میتوانید به صورت دستی یا فراخوانی جاوا اسکریپت آنها را تغییر دهید.</p>
 <p>
-    <h3>خصوصیت autoplay</h3>
+    <h3>خصوصیت autoPlay</h3>
     مقدار این خصوصیت به صورت پیش فرض true است، یعنی با نمایش صفحه، اسلایدها به صورت خودکار پشت سر هم نمایش داده میشوند،
     اگر نمیخواهید به صورت خودکار این عمل انجام شود، مقدار آنرا false کنید. یعنی خصوصیت زیر را در موضوع بنویسید.<br />
-    <bidi>autoplay = "false"</bidi><br />
+    <bidi>autoPlay = "false"</bidi><br />
     <strong>تنظیم توسط جاوا اسکریپت</strong><br />
-    <bidi>WN["ID"].autoplay = false;</bidi><br />
+    <bidi>WN("ID"].autoPlay = false;</bidi><br />
 </p>
 <p>
     <h3>خصوصیت interval</h3>
@@ -26,15 +26,15 @@
     این مقدار بایستی به میلی ثانیه باشد.<br />
     <bidi>interval = "5000"</bidi><br />
     <strong>تنظیم توسط جاوا اسکریپت</strong><br />
-    <bidi>WN["ID"].interval = 5000;</bidi><br />
+    <bidi>WN("ID"].interval = 5000;</bidi><br />
 </p>
 <p>
-    <h3>خصوصیت hoverpause</h3>
+    <h3>خصوصیت hoverPause</h3>
     اگر میخواهید با ورود نشانگر مویس، عمل نمایش اسلایدها متوقف شود و با خروج مویس، ادامه داده شود، این مقدار را تنظیم کنید.
     مقدار پیش فرض true است.<br />
-    <bidi>hoverpause = "true"</bidi><br />
+    <bidi>hoverPause = "true"</bidi><br />
     <strong>تنظیم توسط جاوا اسکریپت</strong><br />
-    <bidi>WN["ID"].hoverpause = true;</bidi><br />
+    <bidi>WN("ID"].hoverPause = true;</bidi><br />
 </p>
 <p>نحوه نمایش افکت ها این موضوع برای صفحات راست به چپ و چ به راست یکسان است.</p>
 
@@ -46,13 +46,13 @@
             <div class="carousel" wn-type="carousel" id="form1">
                 <div class="carousel-slides">
                     <div class="carousel-item active">
-                        <img src="~/images/Slides16-9-h-1.png" />
+                        <img src="/images/Slides16-9-h-1.png" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/images/Slides16-9-h-2.png" />
+                        <img src="/images/Slides16-9-h-2.png" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/images/Slides16-9-h-3.png" />
+                        <img src="/images/Slides16-9-h-3.png" />
                     </div>
                 </div>
             </div>
@@ -71,13 +71,13 @@
             <div class="carousel" wn-type="carousel" id="form2">
                 <div class="carousel-slides carousel-effect-fade">
                     <div class="carousel-item active">
-                        <img src="~/images/Slides16-9-h-1.png" />
+                        <img src="/images/Slides16-9-h-1.png" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/images/Slides16-9-h-2.png" />
+                        <img src="/images/Slides16-9-h-2.png" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/images/Slides16-9-h-3.png" />
+                        <img src="/images/Slides16-9-h-3.png" />
                     </div>
                 </div>
             </div>
@@ -96,13 +96,13 @@
             <div class="carousel" wn-type="carousel" id="form3">
                 <div class="carousel-slides">
                     <div class="carousel-item active carousel-effect-zoom-down">
-                        <img src="~/images/Slides16-9-h-1.png" />
+                        <img src="/images/Slides16-9-h-1.png" />
                     </div>
                     <div class="carousel-item carousel-effect-fall" interval="10000">
-                        <img src="~/images/Slides16-9-h-2.png" />
+                        <img src="/images/Slides16-9-h-2.png" />
                     </div>
                     <div class="carousel-item carousel-effect-rotate">
-                        <img src="~/images/Slides16-9-h-3.png" />
+                        <img src="/images/Slides16-9-h-3.png" />
                     </div>
                 </div>
             </div>
@@ -118,13 +118,13 @@
             <div class="carousel" wn-type="carousel" interval="5000" id="form4">
                 <div id="sampleslides" class="carousel-slides">
                     <div class="carousel-item active">
-                        <img src="~/images/Slides16-9-h-1.png" />
+                        <img src="/images/Slides16-9-h-1.png" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/images/Slides16-9-h-2.png" />
+                        <img src="/images/Slides16-9-h-2.png" />
                     </div>
                     <div class="carousel-item">
-                        <img src="~/images/Slides16-9-h-3.png" />
+                        <img src="/images/Slides16-9-h-3.png" />
                     </div>
                 </div>
             </div>
@@ -171,11 +171,11 @@
         </div>
     </div>
     <script>
-        WNE(document).Ready(()=>{
+        WN(document).ready(()=>{
             let t = document.querySelectorAll('#sampleeffectlist .list-item');
             let sampleslides = document.getElementById('sampleslides');
             for (var i = 0; i < t.length; i++) {
-                t[i].addEventListener('click', function (e) { sampleslides.className = 'carousel-slides ' + e.target.innerText; });
+                t[i].addEventListener('click', function (e) { sampleslides.className = 'carousel-slides ' + e.target.textContent; });
             }
         });
     </script>

@@ -1,73 +1,65 @@
-﻿class wnslicker {
-    element: HTMLElement;
+﻿class WNSlicker implements IWNSlicker {
+    public readonly nameType: string = 'WNSlicker';
+    public element: HTMLElement;
 
-    _interval: number = 20000;
-    get interval() { return this._interval; }
-    set interval(value: number) { this._interval = value; }
+    public interval: number = 20000;
+    public autoPlay: boolean = false;
 
-    _autoplay: boolean = false;
-    get autoplay() { return this._autoplay; }
-    set autoplay(value: boolean) { this._autoplay = value; }
-
-    _playState: string = 'ready';
-    _hoverpause: boolean = true;
-    get hoverpause() { return this._hoverpause; }
-    set hoverpause(value: boolean) {
-        this._hoverpause = value;
-        if (this._hoverpause) {
+    private _playState: string = 'ready';
+    private _hoverPause: boolean = true;
+    public get hoverPause() { return this._hoverPause; }
+    public set hoverPause(value: boolean) {
+        this._hoverPause = value;
+        if (this._hoverPause) {
             this.element.addEventListener("mouseenter", () => { if (this._playState == 'play') this._playState = 'pause'; })
-            this.element.addEventListener("mouseleave", () => { if (this._autoplay) this._playState = 'play'; })
+            this.element.addEventListener("mouseleave", () => { if (this.autoPlay) this._playState = 'play'; })
         }
     };
 
-    _slidewidth: string;
-    get slidewidth() { return this._slidewidth; }
-    set slidewidth(value: string) { this._slidewidth = value.toLowerCase(); }
+    private _slidewidth: string;
+    public get slidewidth() { return this._slidewidth; }
+    public set slidewidth(value: string) { this._slidewidth = value.toLowerCase(); }
 
-    _itemshow: number;
-    get itemshow() { return this._itemshow; }
-    set itemshow(value: number) { this._itemshow = value; }
+    public itemshow: number;
 
-    _itemalign: string = 'center';
+    private _itemalign: string = 'center';
     get itemalign() { return this._itemalign; }
     set itemalign(value: string) { this._itemalign = value.toLowerCase(); }
 
-    _loop: boolean = true;
-    get loop() { return this._loop; }
-    set loop(value: boolean) { this._loop = value; }
+    public loop: boolean = true;
 
-    _slidesHolder: HTMLElement;
-    _slides: HTMLElement[] = [];
-    _slidesWidth: number[] = [];
-    _indicators: HTMLElement[];
-    _itemsCount: number = 0;
-    _totalWidth: number;
-    _index = 0;
-    _touch_pos: number = -1;
-    _width: number = 0;
-    _position: number = 0;
-    _oldposition: number = 0;
+    private _slidesHolder: HTMLElement;
+    private _slides: HTMLElement[] = [];
+    private _slidesWidth: number[] = [];
+    private _indicators: HTMLElement[];
+    private _itemsCount: number = 0;
+    private _totalWidth: number;
+    private _index = 0;
+    private _touch_pos: number = -1;
+    private _width: number = 0;
+    private _position: number = 0;
+    private _oldposition: number = 0;
 
-    NextButton: HTMLButtonElement;
-    PreviousButton: HTMLButtonElement;
+    private nextButton: HTMLButtonElement;
+    private previousButton: HTMLButtonElement;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLElement;
-            this.Init();
+            this.init();
         }
-        if (this.autoplay) {
+        if (this.autoPlay) {
             this._playState = 'play';
             setInterval(() => {
                 if (this._playState == 'play')
-                    this.Next();
+                    this.next();
             }, this.interval);
         }
     }
-    Init() {
+    private init() {
         this.interval = WNparseNumber(this.element.getAttribute("interval"), 20000);
-        this.autoplay = WNparseBoolean(this.element.getAttribute("autoplay"), false);
-        this.hoverpause = WNparseBoolean(this.element.getAttribute("hoverpause"), true);
+        this.autoPlay = WNparseBoolean(this.element.getAttribute("autoplay"), false);
+        this.hoverPause = WNparseBoolean(this.element.getAttribute("hoverpause"), true);
         this.slidewidth = WNparseString(this.element.getAttribute("slidewidth"), '');
         this.itemshow = WNparseNumber(this.element.getAttribute("itemshow"), 0);
         this.itemalign = WNparseString(this.element.getAttribute("align"), 'center');
@@ -84,7 +76,7 @@
         this._itemsCount = this._slides.length;
         this._slidesHolder.innerHTML = '';
         this._index = 0;
-        if (this._loop) {
+        if (this.loop) {
             for (var i = 0; i < this._itemsCount; i++) this._slides.push(this._slides[i].cloneNode(true) as HTMLElement);
             for (var i = 0; i < this._itemsCount; i++) this._slides.push(this._slides[i].cloneNode(true) as HTMLElement);
             this._index = this._itemsCount;
@@ -94,12 +86,12 @@
         this._slides.forEach((e) => this._slidesHolder.appendChild(e));
 
 
-        window.addEventListener("resize", () => this.Resize());
+        window.addEventListener("resize", () => this.resize());
         //Find Next & Previous Button
-        this.NextButton = this.element.querySelector('.slicker-next') as HTMLButtonElement;
-        this.NextButton?.addEventListener('click', () => { this.Next(); });
-        this.PreviousButton = this.element.querySelector('.slicker-previous') as HTMLButtonElement;
-        this.PreviousButton?.addEventListener('click', () => { this.Previous(); });
+        this.nextButton = this.element.querySelector('.slicker-next') as HTMLButtonElement;
+        this.nextButton?.addEventListener('click', () => { this.next(); });
+        this.previousButton = this.element.querySelector('.slicker-previous') as HTMLButtonElement;
+        this.previousButton?.addEventListener('click', () => { this.previous(); });
 
         this.element.addEventListener("touchstart", e => { this.PanStart(e.touches[0].clientX - this.element.offsetLeft); }, true);
         this.element.addEventListener("touchmove", e => { this.PanMove(e.touches[0].clientX - this.element.offsetLeft); }, true);
@@ -123,46 +115,44 @@
             this._indicators = WNGetNodesList(".indicator-item", indicators);
             this._indicators.forEach((e) => {
                 e.addEventListener('click', (e) => {
-                    this.Goto(WNparseNumber((<HTMLElement>e.target).getAttribute('indicator-index'), 0));
+                    this.goto(WNparseNumber((<HTMLElement>e.target).getAttribute('indicator-index'), 0));
                 })
             });
         }
 
-        this.Resize();
+        this.resize();
         this.ShowActiveIndicator();
     }
-    Resize() {
+    private resize() {
         this._width = this.element.parentElement.clientWidth;
 
         if (this.itemshow > 0) {
-            this.CalcSlidesWidth();
+            this.calcSlidesWidth();
             this._width = WNparseNumber(this._slides[0].style.width) * this.itemshow;
-
         }
+
         this.element.style.width = this._width + 'px';
-        this._totalWidth = 0;
-        this.CalcSlidesWidth();
+        this.calcSlidesWidth();
 
         this._slidesHolder.style.width = this._totalWidth + 'px';
-        this._position = this.GetPosition(this._index);
+        this._position = this.getPosition(this._index);
         this._oldposition = this._position;
         this._slidesHolder.style.transform = "translate3d(" + this._position + "px,0px, 0px)";
 
     }
-    CalcSlidesWidth() {
+    private calcSlidesWidth() {
+        this._totalWidth = 0;
         this._slides.forEach((e, i) => {
             let el = (<HTMLElement>e);
             if (this._slidewidth == 'auto') {
                 let img = e.querySelector('img');
                 if (img != null) {
-                    if (img.complete) {
-                        this._slidesWidth[i] = el.clientWidth;
-                        el.style.width = this._slidesWidth[i] + 'px';
-                        this._totalWidth += this._slidesWidth[i];
-                    }
-                    else {
+                    this._slidesWidth[i] = el.clientWidth;
+                    el.style.width = this._slidesWidth[i] + 'px';
+                    this._totalWidth += this._slidesWidth[i];
+                    if (!img.complete) {
                         img.onload = () => {
-                            this.Resize();
+                            this.resize();
                         };
                         return;
                     }
@@ -180,11 +170,8 @@
         });
 
     }
-    ImageLoaded(load: boolean) {
-        if (load)
-            this.Resize();
-    }
-    GetPosition(index: number): number {
+
+    private getPosition(index: number): number {
         let t = 0;
         for (var i = 0; i < index; i++) t += this._slidesWidth[i];
         if (this._itemalign == 'center')
@@ -199,10 +186,10 @@
         return t;
 
     }
-    async PanStart(x: number) {
+    private async PanStart(x: number) {
         this._touch_pos = x;
     }
-    async PanMove(x: number) {
+    private async PanMove(x: number) {
         if (this._touch_pos == -1) return;
 
         let third = this._width / 5;
@@ -217,7 +204,7 @@
             this._slidesHolder.style.transform = "translate3d(" + this._oldposition + "px,0px, 0px)";
         }
     }
-    async PanEnd() {
+    private async PanEnd() {
         let diff = Math.abs(this._position - this._oldposition);
         if (diff < 10) this._touch_pos = -1;
         if (this._touch_pos == -1) return;
@@ -240,8 +227,8 @@
         await this.AnimateSlide();
 
     }
-    async AnimateSlide() {
-        let newposition = this.GetPosition(this._index);
+    private async AnimateSlide() {
+        let newposition = this.getPosition(this._index);
         let i = this._oldposition;
         while (true) {
             if ((newposition < this._oldposition)) {
@@ -260,12 +247,12 @@
         }
         this._index = this._itemsCount + WNmod(this._index, this._itemsCount);
 
-        this._oldposition = this._position = this.GetPosition(this._index);
+        this._oldposition = this._position = this.getPosition(this._index);
         this._slidesHolder.style.transform = "translate3d(" + this._position + "px,0px, 0px)";
 
         this.ShowActiveIndicator();
     }
-    ShowActiveIndicator() {
+    private ShowActiveIndicator() {
         if (!this._indicators)
             return;
 
@@ -275,17 +262,17 @@
         this.element.querySelector("div[indicator-index='" + idx + "']").classList.add('active');
 
     }
-    async Next() {
+    private async next() {
         this._touch_pos = -1;
         this._index++;
         await this.AnimateSlide();
     }
-    async Previous() {
+    private async previous() {
         this._touch_pos = -1;
         this._index--;
         await this.AnimateSlide();
     }
-    async Goto(index: number) {
+    private async goto(index: number) {
         if (index == this._index) return;
         this._index = index;
         await this.AnimateSlide();

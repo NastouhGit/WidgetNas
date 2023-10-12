@@ -1,15 +1,16 @@
-﻿class wntime {
-    element: HTMLFormElement;
-    Date: wnDate = new wnDate();
+﻿class WNTime implements IWNTime {
+    public readonly nameType: string = 'WNTime';
+    public element: HTMLFormElement;
+    public date: IWNDate = new WNDate();
 
-    NaitveDigit = WNDefaultNaitveDigit || false;
-    DisplayElement: HTMLElement;
-    DisplayFormat: string = 'HH:mm';
-    ValueElement: HTMLElement;
-    InputFormat = 'hm';
-    HourLongStep = 5;
-    MinuteLongStep = 15;
+    public nativeDigit = wnConfig.nativeDigit || false;
+    public displayFormat: string = 'HH:mm';
+    public valueElement: HTMLElement;
+    public inputFormat = 'hm';
+    public hourLongStep = 5;
+    public minuteLongStep = 15;
 
+    private displayElement: HTMLElement;
     private ontextinput = false;
     private _selectlabel: HTMLLabelElement;
     private _inputhour: HTMLInputElement;
@@ -18,77 +19,69 @@
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLFormElement;
-            this.Init();
+            this.init();
         }
     }
-    private Init() {
-        if (this.element.hasAttribute('calendar'))
-            this.Date.Calendar = Function('return new ' + this.element.getAttribute('calendar') + '()')() as wnCalendar;
-        if (this.element.hasAttribute('cultureinfo'))
-            this.Date.CultureInfo = Function('return new ' + this.element.getAttribute('cultureinfo') + '()')() as wnCultureInfo;
-        if (this.element.hasAttribute('naitvedigit'))
-            this.NaitveDigit = WNparseBoolean(this.element.getAttribute('naitvedigit'), false);
-
-        if (this.element.hasAttribute('input-format'))
-            this.InputFormat = WNparseString(this.element.getAttribute('input-format'), 'hm');
+    private init():void {
+        if (this.element.hasAttribute('calendar')) this.date.calendar = WNCalendarFunction(this.element.getAttribute('calendar'));
+        if (this.element.hasAttribute('cultureinfo')) this.date.cultureInfo = WNCultureInfoFunction(this.element.getAttribute('cultureinfo'));
+        if (this.element.hasAttribute('native-digit')) this.nativeDigit = WNparseBoolean(this.element.getAttribute('nativeDigit'), false);
+        if (this.element.hasAttribute('input-format')) this.inputFormat = WNparseString(this.element.getAttribute('input-format'), 'hm');
 
         //Inputs
-        if (this.element.hasAttribute('display-id'))
-            this.DisplayElement = document.getElementById(this.element.getAttribute('display-id'));
+        if (this.element.hasAttribute('display-id')) this.displayElement = document.getElementById(this.element.getAttribute('display-id'));
 
-        if (this.DisplayElement != undefined) {
-            this.DisplayElement.addEventListener('input', () => { this.SetValueFromDisplay(); });
-            this.DisplayElement.addEventListener('change', () => { this.RenderDisplay(); });
+        if (this.displayElement != undefined) {
+            this.displayElement.addEventListener('input', () => { this.setValueFromDisplay(); });
+            this.displayElement.addEventListener('change', () => { this.renderDisplay(); });
         }
 
-        this.DisplayFormat = this.Date.CultureInfo.DateTimeFormat.ShortTimePattern;
-        if (this.element.hasAttribute('display-format'))
-            this.DisplayFormat = WNparseString(this.element.getAttribute('display-format'), this.Date.CultureInfo.DateTimeFormat.ShortTimePattern);
+        this.displayFormat = this.date.cultureInfo.DateTimeFormat.shortTimePattern;
+        if (this.element.hasAttribute('display-format')) this.displayFormat = WNparseString(this.element.getAttribute('display-format'), this.date.cultureInfo.DateTimeFormat.shortTimePattern);
 
-        if (this.element.hasAttribute('value-id'))
-            this.ValueElement = document.getElementById(this.element.getAttribute('value-id'));
+        if (this.element.hasAttribute('value-id')) this.valueElement = document.getElementById(this.element.getAttribute('value-id'));
         //---
 
-        this.Date.SetDate(new Date(this.GetElementValue(this.ValueElement)));
+        this.date.setDate(new Date(this.getElementValue(this.valueElement)));
 
-        this.Date.DateChanged = () => {
-            let tDate = new wnDate(this.Date);
-            tDate.SetDate(new Date(this.GetElementValue(this.ValueElement)));
-            tDate.Hour = this.Date.Hour;
-            tDate.Minute = this.Date.Minute;
-            tDate.Second = this.Date.Second;
+        this.date.dateChanged = () => {
+            let tDate = new WNDate(this.date);
+            tDate.setDate(new Date(this.getElementValue(this.valueElement)));
+            tDate.hour = this.date.hour;
+            tDate.minute = this.date.minute;
+            tDate.second = this.date.second;
 
-            this.SetElementValue(this.ValueElement, this.SetDateValue(this.Date, this.ValueElement));
-            this.RenderDisplay();
+            this.setElementValue(this.valueElement, this.setDateValue(this.date, this.valueElement));
+            this.renderDisplay();
         };
 
-        this.AddObjects();
+        this.addObjects();
         this.refresh();
     }
-    get value() { return this.Date.ToDateTime(); }
-    set value(value: Date) { this.Date.SetDate(value); this.refresh(); }
-    SetHour(value: number) {
+    public get value() { return this.date.toDateTime(); }
+    public set value(value: Date) { this.date.setDate(value); this.refresh(); }
+    public setHour(value: number) {
         if (value > 24) value -= 24;
         if (value < 0) value += 24;
 
-        this.Date.Hour = value;
+        this.date.hour = value;
         this.refresh();
     }
-    SetMinute(value: number) {
+    public setMinute(value: number) {
         if (value > 59) value -= 60;
         if (value < 0) value += 60;
 
-        this.Date.Minute = value;
+        this.date.minute = value;
         this.refresh();
     }
-    SetSecond(value: number) {
+    public setSecond(value: number) {
         if (value > 59) value -= 60;
         if (value < 0) value += 60;
 
-        this.Date.Second = value;
+        this.date.second = value;
         this.refresh();
     }
-    AddObjects() {
+    private addObjects() {
         if (!this.element.classList.contains('time'))
             this.element.classList.add('time');
 
@@ -99,79 +92,79 @@
         let timeinput = document.createElement('div');
         timeinput.className = 'time-input';
 
-        if (this.InputFormat.toLocaleLowerCase().includes('h')) {
-            let a = this.AddSection();
-            a[1].addEventListener('click', () => {
-                this.SetHour(this.Date.Hour + this.HourLongStep);
-                event.stopPropagation();
+        if (this.inputFormat.toLocaleLowerCase().includes('h')) {
+            let a = this.addSection();
+            a[1].addEventListener('click', (e) => {
+                this.setHour(this.date.hour + this.hourLongStep);
+                e.stopPropagation();
             });
 
-            a[2].addEventListener('click', () => {
-                this.SetHour(this.Date.Hour + 1);
-                event.stopPropagation();
+            a[2].addEventListener('click', (e) => {
+                this.setHour(this.date.hour + 1);
+                e.stopPropagation();
             });
             a[3].addEventListener('input', (e) => {
-                this.SetHour(parseInt((<HTMLInputElement>e.target).value));
+                this.setHour(parseInt((<HTMLInputElement>e.target).value));
             });
-            a[4].addEventListener('click', () => {
-                this.SetHour(this.Date.Hour - 1);
-                event.stopPropagation();
+            a[4].addEventListener('click', (e) => {
+                this.setHour(this.date.hour - 1);
+                e.stopPropagation();
             });
-            a[5].addEventListener('click', () => {
-                this.SetHour(this.Date.Hour - this.HourLongStep);
-                event.stopPropagation();
+            a[5].addEventListener('click', (e) => {
+                this.setHour(this.date.hour - this.hourLongStep);
+                e.stopPropagation();
             });
 
             this._inputhour = a[3];
             timeinput.appendChild(a[0]);
         }
-        if (this.InputFormat.toLocaleLowerCase().includes('m')) {
-            let a = this.AddSection();
-            a[1].addEventListener('click', () => {
-                this.SetMinute(this.Date.Minute + this.MinuteLongStep);
-                event.stopPropagation();
+        if (this.inputFormat.toLocaleLowerCase().includes('m')) {
+            let a = this.addSection();
+            a[1].addEventListener('click', (e) => {
+                this.setMinute(this.date.minute + this.minuteLongStep);
+                e.stopPropagation();
             });
 
-            a[2].addEventListener('click', () => {
-                this.SetMinute(this.Date.Minute + 1);
-                event.stopPropagation();
+            a[2].addEventListener('click', (e) => {
+                this.setMinute(this.date.minute + 1);
+                e.stopPropagation();
             });
             a[3].addEventListener('input', (e) => {
-                this.SetMinute(parseInt((<HTMLInputElement>e.target).value));
+                this.setMinute(parseInt((<HTMLInputElement>e.target).value));
             });
-            a[4].addEventListener('click', () => {
-                this.SetMinute(this.Date.Minute - 1);
-                event.stopPropagation();
+            a[4].addEventListener('click', (e) => {
+                this.setMinute(this.date.minute - 1);
+                e.stopPropagation();
             });
-            a[5].addEventListener('click', () => {
-                this.SetMinute(this.Date.Minute - this.MinuteLongStep);
-                event.stopPropagation();
+            a[5].addEventListener('click', (e) => {
+                this.setMinute(this.date.minute - this.minuteLongStep);
+                e.stopPropagation();
             });
 
             this._inputminute = a[3];
             timeinput.appendChild(a[0]);
         }
-        if (this.InputFormat.toLocaleLowerCase().includes('s')) {
-            let a = this.AddSection();
-            a[1].addEventListener('click', () => {
-                this.SetSecond(this.Date.Second + this.MinuteLongStep);
-                event.stopPropagation();
+        if (this.inputFormat.toLocaleLowerCase().includes('s')) {
+            let a = this.addSection();
+            a[1].addEventListener('click', (e) => {
+                this.setSecond(this.date.second + this.minuteLongStep);
+                e.stopPropagation();
             });
 
-            a[2].addEventListener('click', () => {
-                this.SetSecond(this.Date.Second + 1);
-                event.stopPropagation();
+            a[2].addEventListener('click', (e) => {
+                this.setSecond(this.date.second + 1);
+                e.stopPropagation();
             });
             a[3].addEventListener('input', (e) => {
-                this.SetSecond(parseInt((<HTMLInputElement>e.target).value));
+                this.setSecond(parseInt((<HTMLInputElement>e.target).value));
             });
-            a[4].addEventListener('click', () => {
-                this.SetSecond(this.Date.Second - 1);
-                event.stopPropagation();
+            a[4].addEventListener('click', (e) => {
+                this.setSecond(this.date.second - 1);
+                e.stopPropagation();
             });
-            a[5].addEventListener('click', () => {
-                this.SetSecond(this.Date.Second - this.MinuteLongStep);
-                event.stopPropagation();
+            a[5].addEventListener('click', (e) => {
+                this.setSecond(this.date.second - this.minuteLongStep);
+                e.stopPropagation();
             });
 
             this._inputsecond = a[3];
@@ -180,7 +173,7 @@
 
         this.element.appendChild(timeinput);
     }
-    AddSection(): [HTMLDivElement, HTMLButtonElement, HTMLButtonElement, HTMLInputElement, HTMLButtonElement, HTMLButtonElement] {
+    private addSection(): [HTMLDivElement, HTMLButtonElement, HTMLButtonElement, HTMLInputElement, HTMLButtonElement, HTMLButtonElement] {
         let div = document.createElement('div');
 
         let doubleup = document.createElement('button');
@@ -200,39 +193,39 @@
         div.appendChild(doubledown);
         return [div, doubleup, up, input, down, doubledown];
     }
-    refresh() {
-        this._selectlabel.textContent = this.Date.toString(this.Date.CultureInfo.DateTimeFormat.LongTimePattern, this.NaitveDigit);
+    private refresh() {
+        this._selectlabel.textContent = this.date.toString(this.date.cultureInfo.DateTimeFormat.longTimePattern, this.nativeDigit);
         if (this._inputhour != null)
-            this._inputhour.value = this.Date.Hour.toString();
+            this._inputhour.value = this.date.hour.toString();
         if (this._inputminute != null)
-            this._inputminute.value = this.Date.Minute.toString();
+            this._inputminute.value = this.date.minute.toString();
         if (this._inputsecond != null)
-            this._inputsecond.value = this.Date.Second.toString();
+            this._inputsecond.value = this.date.second.toString();
     }
-    RenderDisplay() {
+    private renderDisplay() {
         if (this.ontextinput)
             return;
-        let ret1 = this.Date.toString(this.DisplayFormat, this.NaitveDigit);
+        let ret1 = this.date.toString(this.displayFormat, false);
 
-        if (this.DisplayElement != undefined) {
-            this.SetElementValue(this.DisplayElement, ret1);
+        if (this.displayElement != undefined) {
+            this.setElementValue(this.displayElement, ret1);
         }
     }
-    SetValueFromDisplay() {
+    private setValueFromDisplay() {
         this.ontextinput = true;
-        let ret = this.GetElementValue(this.DisplayElement);
-        this.Date.SetDateString(WNDeNaitveDigit(ret, this.Date.CultureInfo));
+        let ret = this.getElementValue(this.displayElement);
+        this.date.setDateString(WNDenativeDigit(ret, this.date.cultureInfo));
         this.refresh();
         this.ontextinput = false;
     }
-    SetElementValue(elem: HTMLElement, value: string) {
+    private setElementValue(elem: HTMLElement, value: string) {
         if (elem != undefined)
             if (elem.localName == 'input')
                 (<HTMLInputElement>elem).value = value;
             else
                 elem.textContent = value;
     }
-    GetElementValue(elem: HTMLElement): string {
+    private getElementValue(elem: HTMLElement): string {
         let ret = '';
         if (elem != undefined)
             if (elem.localName == 'input')
@@ -241,16 +234,16 @@
                 ret = elem.textContent;
         return ret;
     }
-    SetDateValue(date: wnDate, ValueElement: HTMLElement): string {
-        let tDate = new wnDate(date);
-        tDate.SetDate(new Date(this.GetElementValue(ValueElement)));
-        tDate.Hour = date.Hour;
-        tDate.Minute = date.Minute;
-        tDate.Second = date.Second;
-        tDate.Milliseconds = date.Milliseconds;
+    private setDateValue(date: IWNDate, valueElement: HTMLElement): string {
+        let tDate = new WNDate(date);
+        tDate.setDate(new Date(this.getElementValue(valueElement)));
+        tDate.hour = date.hour;
+        tDate.minute = date.minute;
+        tDate.second = date.second;
+        tDate.milliseconds = date.milliseconds;
 
-        date.SetYMD(tDate.Year, tDate.Month, tDate.Day, tDate.Hour, tDate.Minute, tDate.Second, tDate.Milliseconds);
+        date.setYMD(tDate.year, tDate.month, tDate.day, tDate.hour, tDate.minute, tDate.second, tDate.milliseconds);
 
-        return tDate.ToDateTime().toISOString();
+        return tDate.toDateTime().toISOString();
     }
 }

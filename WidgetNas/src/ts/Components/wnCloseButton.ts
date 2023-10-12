@@ -1,13 +1,14 @@
-﻿class wnclosebutton {
-    element: HTMLElement;
+﻿class WNCloseButton implements IWNCloseButton {
+    public readonly nameType: string = 'WNCloseButton';
+    public element: HTMLElement;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
-            this.Render();
+            this.render();
         }
     }
-    Render() {
+    private render() {
         this.element.addEventListener("click", (e) => {
             let elem = <Element>e.target;
             if (elem.hasAttribute('close-parent')) {

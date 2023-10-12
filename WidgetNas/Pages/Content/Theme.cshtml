@@ -16,74 +16,79 @@
             background-color: var(--normal-back);
             color: var(--normal-color);
             border: 1px solid var(--normal-border);
-            box-shadow: 0 0 0 3px var(--normal-shadow);
+            box-shadow: 0 0 0 2px var(--normal-shadow);
         }
 
         .theme.second {
             background-color: var(--second-back);
             color: var(--second-color);
             border: 1px solid var(--second-border);
-            box-shadow: 0 0 0 3px var(--second-shadow);
+            box-shadow: 0 0 0 2px var(--second-shadow);
         }
 
         .theme.select {
             background-color: var(--select-back);
             color: var(--select-color);
             border: 1px solid var(--select-border);
-            box-shadow: 0 0 0 3px var(--select-shadow);
+            box-shadow: 0 0 0 2px var(--select-shadow);
         }
 
         .theme.active {
             background-color: var(--active-back);
             color: var(--active-color);
             border: 1px solid var(--active-border);
-            box-shadow: 0 0 0 3px var(--active-shadow);
+            box-shadow: 0 0 0 2px var(--active-shadow);
         }
 
         .theme.focus {
             background-color: var(--focus-back);
             color: var(--focus-color);
             border: 1px solid var(--focus-border);
-            box-shadow: 0 0 0 3px var(--focus-shadow);
+            box-shadow: 0 0 0 2px var(--focus-shadow);
         }
 
         .theme.hover {
             background-color: var(--hover-back);
             color: var(--hover-color);
             border: 1px solid var(--hover-border);
-            box-shadow: 0 0 0 3px var(--hover-shadow);
+            box-shadow: 0 0 0 2px var(--hover-shadow);
         }
-
+        .theme.hactive {
+            background-color: var(--activehover-back);
+            color: var(--activehover-color);
+            border: 1px solid var(--activehover-border);
+            box-shadow: 0 0 0 2px var(--activehover-shadow);
+        }
         .theme.disable {
             background-color: var(--disable-back);
             color: var(--disable-color);
             border: 1px solid var(--disable-border);
-            box-shadow: 0 0 0 3px var(--disable-shadow);
+            box-shadow: 0 0 0 2px var(--disable-shadow);
         }
 
         .theme.readonly {
             background-color: var(--readonly-back);
             color: var(--readonly-color);
             border: 1px solid var(--readonly-border);
-            box-shadow: 0 0 0 3px var(--readonly-shadow);
+            box-shadow: 0 0 0 2px var(--readonly-shadow);
         }
 
         .theme.valid {
             color: var(--valid-text);
             border: 1px solid var(--valid-border);
-            box-shadow: 0 0 0 3px var(--valid-shadow);
+            box-shadow: 0 0 0 2px var(--valid-shadow);
         }
 
         .theme.invalid {
             color: var(--invalid-text);
             border: 1px solid var(--invalid-border);
-            box-shadow: 0 0 0 3px var(--invalid-shadow);
+            box-shadow: 0 0 0 2px var(--invalid-shadow);
         }
 
         .theme.warning {
-            color: var(--warning-text);
+            color: var(--warning-color);
             border: 1px solid var(--warning-border);
-            box-shadow: 0 0 0 3px var(--warning-shadow);
+            box-shadow: 0 0 0 2px var(--warning-shadow);
         }
 </style>
 
@@ -101,6 +106,7 @@
             <th>active</th>
             <th>focus</th>
             <th>hover</th>
+            <th>active hover</th>
             <th>disable</th>
             <th>readonly</th>
         </tr>
@@ -114,6 +120,7 @@
             <td class="p-5x"><div class="default theme active">نمایشی</div></td>
             <td class="p-5x"><div class="default theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="default theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="default theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="default theme readonly">نمایشی</div></td>
         </tr>
@@ -125,6 +132,7 @@
             <td class="p-5x"><div class="primary theme active">نمایشی</div></td>
             <td class="p-5x"><div class="primary theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="primary theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="primary theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="primary theme readonly">نمایشی</div></td>
         </tr>
@@ -136,6 +144,7 @@
             <td class="p-5x"><div class="secondary theme active">نمایشی</div></td>
             <td class="p-5x"><div class="secondary theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="secondary theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="secondary theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="secondary theme readonly">نمایشی</div></td>
         </tr>
@@ -147,6 +156,7 @@
             <td class="p-5x"><div class="third theme active">نمایشی</div></td>
             <td class="p-5x"><div class="third theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="third theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="third theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="third theme readonly">نمایشی</div></td>
         </tr>
@@ -158,6 +168,7 @@
             <td class="p-5x"><div class="success theme active">نمایشی</div></td>
             <td class="p-5x"><div class="success theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="success theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="success theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="success theme readonly">نمایشی</div></td>
         </tr>
@@ -169,6 +180,7 @@
             <td class="p-5x"><div class="info theme active">نمایشی</div></td>
             <td class="p-5x"><div class="info theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="info theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="info theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="info theme readonly">نمایشی</div></td>
         </tr>
@@ -180,6 +192,7 @@
             <td class="p-5x"><div class="warning theme active">نمایشی</div></td>
             <td class="p-5x"><div class="warning theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="warning theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="warning theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="warning theme readonly">نمایشی</div></td>
         </tr>
@@ -191,6 +204,7 @@
             <td class="p-5x"><div class="danger theme active">نمایشی</div></td>
             <td class="p-5x"><div class="danger theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="danger theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="danger theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="danger theme readonly">نمایشی</div></td>
         </tr>
@@ -202,6 +216,7 @@
             <td class="p-5x"><div class="error theme active">نمایشی</div></td>
             <td class="p-5x"><div class="error theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="error theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="error theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="error theme readonly">نمایشی</div></td>
         </tr>
@@ -213,24 +228,136 @@
             <td class="p-5x"><div class="dark theme active">نمایشی</div></td>
             <td class="p-5x"><div class="dark theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="dark theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="dark theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="dark theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="dark theme readonly">نمایشی</div></td>
         </tr>
+
+
         <tr>
-            <th>dark outline</th>
+            <th>default</th>
+            <td class="p-5x"><div class="default outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>primary</th>
+            <td class="p-5x"><div class="primary outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>secondary</th>
+            <td class="p-5x"><div class="secondary outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>third</th>
+            <td class="p-5x"><div class="third outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>success</th>
+            <td class="p-5x"><div class="success outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>info</th>
+            <td class="p-5x"><div class="info outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>warning</th>
+            <td class="p-5x"><div class="warning outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>danger</th>
+            <td class="p-5x"><div class="danger outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>error</th>
+            <td class="p-5x"><div class="error outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>dark</th>
             <td class="p-5x"><div class="dark outline theme normal">نمایشی</div></td>
             <td class="p-5x"><div class="dark outline theme second">نمایشی</div></td>
             <td class="p-5x"><div class="dark outline theme select">نمایشی</div></td>
             <td class="p-5x"><div class="dark outline theme active">نمایشی</div></td>
             <td class="p-5x"><div class="dark outline theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="dark outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="dark outline theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="dark outline theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="dark outline theme readonly">نمایشی</div></td>
         </tr>
     </tbody>
 </table>
 <h3>تم ها روی زمینه تیره</h3>
-<table class="text-center">
+<table class="dark text-center">
     <thead>
         <tr>
             <th>class</th>
@@ -240,109 +367,119 @@
             <th>active</th>
             <th>focus</th>
             <th>hover</th>
+            <th>active hover</th>
             <th>disable</th>
             <th>readonly</th>
         </tr>
     </thead>
-    <tbody class="dark">
+    <tbody>
         <tr>
-            <th>default outline</th>
-            <td class="p-5x"><div class="default outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="default outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="default outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="default outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="default outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="default outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="default outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="default outline theme readonly">نمایشی</div></td>
+            <th>default</th>
+            <td class="p-5x"><div class="default theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="default theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>primary outline</th>
-            <td class="p-5x"><div class="primary outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="primary outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="primary outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="primary outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="primary outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="primary outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="primary outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="primary outline theme readonly">نمایشی</div></td>
+            <th>primary</th>
+            <td class="p-5x"><div class="primary theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="primary theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>secondary outline</th>
-            <td class="p-5x"><div class="secondary outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="secondary outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="secondary outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="secondary outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="secondary outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="secondary outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="secondary outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="secondary outline theme readonly">نمایشی</div></td>
+            <th>secondary</th>
+            <td class="p-5x"><div class="secondary theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>third outline</th>
-            <td class="p-5x"><div class="third outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="third outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="third outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="third outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="third outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="third outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="third outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="third outline theme readonly">نمایشی</div></td>
+            <th>third</th>
+            <td class="p-5x"><div class="third theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="third theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>success outline</th>
-            <td class="p-5x"><div class="success outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="success outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="success outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="success outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="success outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="success outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="success outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="success outline theme readonly">نمایشی</div></td>
+            <th>success</th>
+            <td class="p-5x"><div class="success theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="success theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>info outline</th>
-            <td class="p-5x"><div class="info outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="info outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="info outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="info outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="info outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="info outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="info outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="info outline theme readonly">نمایشی</div></td>
+            <th>info</th>
+            <td class="p-5x"><div class="info theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="info theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>warning outline</th>
-            <td class="p-5x"><div class="warning outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="warning outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="warning outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="warning outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="warning outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="warning outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="warning outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="warning outline theme readonly">نمایشی</div></td>
+            <th>warning</th>
+            <td class="p-5x"><div class="warning theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="warning theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>danger outline</th>
-            <td class="p-5x"><div class="danger outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="danger outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="danger outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="danger outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="danger outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="danger outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="danger outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="danger outline theme readonly">نمایشی</div></td>
+            <th>danger</th>
+            <td class="p-5x"><div class="danger theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="danger theme readonly">نمایشی</div></td>
         </tr>
         <tr>
-            <th>error outline</th>
-            <td class="p-5x"><div class="error outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="error outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="error outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="error outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="error outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="error outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="error outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="error outline theme readonly">نمایشی</div></td>
+            <th>error</th>
+            <td class="p-5x"><div class="error theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="error theme readonly">نمایشی</div></td>
         </tr>
         <tr>
             <th>light</th>
@@ -352,41 +489,131 @@
             <td class="p-5x"><div class="light theme active">نمایشی</div></td>
             <td class="p-5x"><div class="light theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="light theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="light theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="light theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="light theme readonly">نمایشی</div></td>
         </tr>
+
+
         <tr>
-            <th>light outline</th>
+            <th>default</th>
+            <td class="p-5x"><div class="default outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="default outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>primary</th>
+            <td class="p-5x"><div class="primary outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="primary outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>secondary</th>
+            <td class="p-5x"><div class="secondary outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="secondary outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>third</th>
+            <td class="p-5x"><div class="third outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="third outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>success</th>
+            <td class="p-5x"><div class="success outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="success outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>info</th>
+            <td class="p-5x"><div class="info outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="info outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>warning</th>
+            <td class="p-5x"><div class="warning outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="warning outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>danger</th>
+            <td class="p-5x"><div class="danger outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="danger outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>error</th>
+            <td class="p-5x"><div class="error outline theme normal">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme second">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme select">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme active">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme focus">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme hactive">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme disable">نمایشی</div></td>
+            <td class="p-5x"><div class="error outline theme readonly">نمایشی</div></td>
+        </tr>
+        <tr>
+            <th>light</th>
             <td class="p-5x"><div class="light outline theme normal">نمایشی</div></td>
             <td class="p-5x"><div class="light outline theme second">نمایشی</div></td>
             <td class="p-5x"><div class="light outline theme select">نمایشی</div></td>
             <td class="p-5x"><div class="light outline theme active">نمایشی</div></td>
             <td class="p-5x"><div class="light outline theme focus">نمایشی</div></td>
             <td class="p-5x"><div class="light outline theme hover">نمایشی</div></td>
+            <td class="p-5x"><div class="light outline theme hactive">نمایشی</div></td>
             <td class="p-5x"><div class="light outline theme disable">نمایشی</div></td>
             <td class="p-5x"><div class="light outline theme readonly">نمایشی</div></td>
-        </tr>
-        <tr>
-            <th>white</th>
-            <td class="p-5x"><div class="white theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="white theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="white theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="white theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="white theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="white theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="white theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="white theme readonly">نمایشی</div></td>
-        </tr>
-        <tr>
-            <th>white outline</th>
-            <td class="p-5x"><div class="white outline theme normal">نمایشی</div></td>
-            <td class="p-5x"><div class="white outline theme second">نمایشی</div></td>
-            <td class="p-5x"><div class="white outline theme select">نمایشی</div></td>
-            <td class="p-5x"><div class="white outline theme active">نمایشی</div></td>
-            <td class="p-5x"><div class="white outline theme focus">نمایشی</div></td>
-            <td class="p-5x"><div class="white outline theme hover">نمایشی</div></td>
-            <td class="p-5x"><div class="white outline theme disable">نمایشی</div></td>
-            <td class="p-5x"><div class="white outline theme readonly">نمایشی</div></td>
         </tr>
     </tbody>
 </table>

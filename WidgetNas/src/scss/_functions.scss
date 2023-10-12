@@ -32,7 +32,28 @@
 
     @each $media, $value in $breakpoints-min {
         //@media (min-width: #{$value}) and (max-width:#{map-get($breakpoints,$media)}) {
-        @media (max-width:#{map-get($breakpoints,$media)}) {
+        @media (min-width: #{$value}) {
+            @content('-'+$media);
+        }
+
+        $minvalue: $value;
+    }
+}
+@mixin mediamax() {
+    @content('');
+    @each $media, $value in $breakpoints {
+        @media (max-width: #{$value}) {
+            @content('-'+$media);
+        }
+    }
+}
+@mixin mediaminmax() {
+    $minvalue: 0px;
+
+    @content('');
+
+    @each $media, $value in $breakpoints-min {
+        @media (min-width: #{$value}) and (max-width:#{map-get($breakpoints,$media)}) {
             @content('-'+$media);
         }
 
