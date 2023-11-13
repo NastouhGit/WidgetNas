@@ -261,6 +261,7 @@
                 }
             }
         }
+        this.expandAll();
     }
 
     public addToDataSource(parent: WNTreeNode, text: string, link: string, value: string, image: string): WNTreeNode {

@@ -5,13 +5,22 @@
     "noUnusedLocals": true,
     "outFile": "wwwroot/lib/WidgetNas/js/WidgetNas.js",
     "removeComments": true,
+    "target": "es2022",
+    "allowJs": true,
+    "declaration": true,
     "sourceMap": true,
-    "target": "ES2021",
-    "allowJs": true
+    "emitDeclarationOnly": false,
+    "declarationMap": false
   },
+  "files": [
+    "src/ts/about.ts",
+    "src/ts/Variables.ts"
+  ],
   "include": [
-    "src/ts/WidgetNas.ts",
-    "src/ts/**/*"
+    "src/ts/locales/*",
+    "src/ts/Globalization/**/*",
+    "src/ts/**/*",
+    "src/ts/*"
   ],
   "exclude": [
 

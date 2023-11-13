@@ -3,7 +3,8 @@
 $label-transform: scale(0.8) translateY(calc(-1 * (var(--padding-block) + 1.2em)));
 $border-block-end: calc(var(--border-width) * 2) solid;
 
-.floatingline {
+.floatingline,
+.floatingline ig {
     position: relative;
     padding-block-start: 0.5em;
 
@@ -106,6 +107,8 @@ $border-block-end: calc(var(--border-width) * 2) solid;
 .validated {
 
     &:not(.hide-valid) {
+        &.floatingline ig, &.floatingline,
+        .floatingline ig,
         .floatingline {
 
             .dropdownarrow {
@@ -158,7 +161,8 @@ $border-block-end: calc(var(--border-width) * 2) solid;
     }
 
     &:not(.hide-invalid) {
-        .floatingline {
+        &.floatingline ig, &.floatingline,
+        .floatingline ig, .floatingline {
 
             .dropdownarrow {
                 &.invalid,

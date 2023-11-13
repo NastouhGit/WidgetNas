@@ -102,8 +102,8 @@ function WN(element: HTMLElement | Document | string): WNElement {
     let id = '';
     let telement: HTMLElement | Document;
     if (typeof (element) == 'string') {
-        if (WNElements[element.toLocaleLowerCase()] != undefined)
-            return WNElements[element.toLocaleLowerCase()];
+        if (WNElements[element.toLowerCase()] != undefined)
+            return WNElements[element.toLowerCase()];
 
         telement = document.querySelector(`[id='${element}' i]`) as HTMLElement;
 
@@ -116,7 +116,7 @@ function WN(element: HTMLElement | Document | string): WNElement {
 
         if (telement == undefined)
             return null;
-        id = telement.id.toLocaleLowerCase();
+        id = telement.id.toLowerCase();
     }
     else if (element == document) {
         telement = element;
@@ -124,12 +124,12 @@ function WN(element: HTMLElement | Document | string): WNElement {
     }
     else {
         telement = element;
-        id = (<HTMLElement>telement).id.toLocaleLowerCase();
+        id = (<HTMLElement>telement).id.toLowerCase();
     }
     if (id === '')
-        id = (<any>telement).name.toLocaleLowerCase();
+        id = (<any>telement).name.toLowerCase();
     if (id === '')
-        id = element.toString().toLocaleLowerCase();
+        id = element.toString().toLowerCase();
 
     if (WNElements[id] == undefined) {
         WNElements[id] = new WNElement(telement);

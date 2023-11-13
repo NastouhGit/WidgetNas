@@ -459,3 +459,22 @@ function WNFindTreeArray(source: any, fieldName1: string, fieldName2: string = '
     }
     return find;
 }
+
+async function WNFileToString(input: HTMLInputElement): Promise<string> {
+    if (!input.files || !input.files[0]) return '';
+
+    let result_base64 = await new Promise((resolve) => {
+        let fileReader = new FileReader();
+        fileReader.onload = (e) => resolve(fileReader.result);
+        fileReader.readAsDataURL(input.files[0]);
+    });
+
+    return result_base64 as string;
+}
+async function WNSetImageBase(input: HTMLInputElement, img: HTMLImageElement | string) {
+    if (typeof (img) == 'string') {
+        img = document.getElementById(img) as HTMLImageElement;
+    }
+
+    img.src = await WNFileToString(input);
+}

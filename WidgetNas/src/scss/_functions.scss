@@ -15,9 +15,9 @@
 }
 
 @mixin readonly-tag($extend: '') {
-    fieldset[readonly] & #{$extend},
-    .ig[readonly] & #{$extend},
-    ig[readonly] & #{$extend},
+    fieldset[readonly] &#{$extend},
+    .ig[readonly] &#{$extend},
+    ig[readonly] &#{$extend},
     &[readonly] #{$extend},
     &.readonly #{$extend} {
         pointer-events: none;

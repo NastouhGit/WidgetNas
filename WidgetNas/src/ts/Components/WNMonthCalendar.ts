@@ -515,6 +515,8 @@
         this._monthyearcaption.textContent = this._CurrentDate.toString('MMMM yyyy');
         this._body.innerHTML = '';
         let tDate = new WNDate(this._CurrentDate);
+        if (this._CurrentDate.toNumber() == null)
+            tDate.setDate(new Date());
         tDate.day = 1;
         if (this.onlyMonthYear) {
             tDate.day = Math.floor(tDate.daysInMonth / 2);

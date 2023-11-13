@@ -35,8 +35,9 @@
     ".NETCoreApp,Version=v7.0": {
       "WidgetNas/1.0.0": {
         "dependencies": {
-          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "7.0.4",
-          "Microsoft.TypeScript.MSBuild": "5.0.2",
+          "BuildWebCompiler2022": "1.14.10",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "7.0.9",
+          "Microsoft.TypeScript.MSBuild": "5.1.5",
           "SharpCompress": "0.33.0",
           "System.Drawing.Common": "7.0.0",
           "Microsoft.AspNetCore.Antiforgery": "7.0.0.0",
@@ -343,6 +344,7 @@
           "WidgetNas.dll": {}
         }
       },
+      "BuildWebCompiler2022/1.14.10": {},
       "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Razor.Language": "6.0.0",
@@ -358,7 +360,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/7.0.4": {
+      "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/7.0.9": {
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Razor.Extensions": "6.0.0",
           "Microsoft.CodeAnalysis.Razor": "6.0.0",
@@ -366,8 +368,8 @@
         },
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll": {
-            "assemblyVersion": "7.0.4.0",
-            "fileVersion": "7.0.423.11903"
+            "assemblyVersion": "7.0.9.0",
+            "fileVersion": "7.0.923.32110"
           }
         },
         "compile": {
@@ -534,7 +536,7 @@
         }
       },
       "Microsoft.NETCore.Platforms/2.1.2": {},
-      "Microsoft.TypeScript.MSBuild/5.0.2": {},
+      "Microsoft.TypeScript.MSBuild/5.1.5": {},
       "Microsoft.Win32.SystemEvents/7.0.0": {
         "runtime": {
           "lib/net7.0/Microsoft.Win32.SystemEvents.dll": {
@@ -2388,6 +2390,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "BuildWebCompiler2022/1.14.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K6DuYLk2vB1H35DdAyqaqYkAOSTRcB6rxaPIyL1T0k0cOx70Jm4QKav7JzJx1+6KoltvXlM4oCtmgRbm2F4jhw==",
+      "path": "buildwebcompiler2022/1.14.10",
+      "hashPath": "buildwebcompiler2022.1.14.10.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Mvc.Razor.Extensions/6.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2395,12 +2404,12 @@
       "path": "microsoft.aspnetcore.mvc.razor.extensions/6.0.0",
       "hashPath": "microsoft.aspnetcore.mvc.razor.extensions.6.0.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/7.0.4": {
+    "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/7.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jMCy3GrhNCgXy2vzISIjye1o1N2WHpMTLMcRtBg3sXeZhK6N8rHA8bZUorQaGl/GX3GOkW/PsgISzCQjVA3WkQ==",
-      "path": "microsoft.aspnetcore.mvc.razor.runtimecompilation/7.0.4",
-      "hashPath": "microsoft.aspnetcore.mvc.razor.runtimecompilation.7.0.4.nupkg.sha512"
+      "sha512": "sha512-P9nhc7vrgmSJuRqBleoIiOYbmxWeZ5qpPGcdaws3aqpiQfzgf8SQ1t3pQcE8Asb419C4tlDZ+v6z0IOTy+Yn7A==",
+      "path": "microsoft.aspnetcore.mvc.razor.runtimecompilation/7.0.9",
+      "hashPath": "microsoft.aspnetcore.mvc.razor.runtimecompilation.7.0.9.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.0": {
       "type": "package",
@@ -2451,12 +2460,12 @@
       "path": "microsoft.netcore.platforms/2.1.2",
       "hashPath": "microsoft.netcore.platforms.2.1.2.nupkg.sha512"
     },
-    "Microsoft.TypeScript.MSBuild/5.0.2": {
+    "Microsoft.TypeScript.MSBuild/5.1.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZKxs2Kzri7FWwmoAQlHjIh5fY8nRuRQENuyyFtypttDkSW5L3S+wOHQdo12aTqGVdF0QBRhm2DcnKHnnr39KFg==",
-      "path": "microsoft.typescript.msbuild/5.0.2",
-      "hashPath": "microsoft.typescript.msbuild.5.0.2.nupkg.sha512"
+      "sha512": "sha512-z/IBOSh3jAhdPGizpUEyikPfoHLn6I3BWDAAkdvfmdjA2WbmgzoKGBsZWdXvJmBZtj2H0JflYaY4cUU34gEosA==",
+      "path": "microsoft.typescript.msbuild/5.1.5",
+      "hashPath": "microsoft.typescript.msbuild.5.1.5.nupkg.sha512"
     },
     "Microsoft.Win32.SystemEvents/7.0.0": {
       "type": "package",

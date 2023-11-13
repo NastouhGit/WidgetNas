@@ -466,6 +466,8 @@ declare function WNSetViewSize(): any;
 declare function WNGetParentsElementsTag(elem: HTMLElement, untilTag: string, untilClass: string): string[];
 declare function WNRGB2HEX(rgb: string): string;
 declare function WNFindTreeArray(source: any, fieldName1: string, fieldName2: string, value: string, contain: boolean, ignoreCase: boolean, childsFieldName: string): any[];
+declare function WNFileToString(input: HTMLInputElement): Promise<string>;
+declare function WNSetImageBase(input: HTMLInputElement, img: HTMLImageElement | string): Promise<void>;
 declare class WNConfig implements IWNConfig {
     nativeDigit: boolean;
     calendar: IWNCalendar;
@@ -979,6 +981,17 @@ declare class WNMonthCalendar implements IWNMonthCalendar {
     private setElementValue;
     private getElementValue;
     private setDateValue;
+}
+declare class WNMultiInput implements IWNMultiInput {
+    readonly nameType: string;
+    element: HTMLElement;
+    inputs: HTMLElement[];
+    private detail;
+    constructor(elem: HTMLElement);
+    private init;
+    private toggle;
+    get values(): string[];
+    set values(value: string[]);
 }
 declare class WNMultiSelect implements IWNMultiSelect {
     readonly nameType: string;
@@ -1548,6 +1561,10 @@ interface IWNMonthCalendar extends IWNComponent {
 type WNDictionary = {
     [id: string]: any;
 };
+interface IWNMultiInput extends IWNComponent {
+    inputs: HTMLElement[];
+    values: string[];
+}
 interface IWNMultiSelect extends IWNComponent {
     selectedItems: WNGeneralNode[];
     selectedValue: string[];

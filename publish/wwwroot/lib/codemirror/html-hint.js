@@ -48,7 +48,7 @@
         src: null, mediagroup: null,
         crossorigin: ["anonymous", "use-credentials"],
         preload: ["none", "metadata", "auto"],
-        autoplay: ["", "autoplay"],
+        autoPlay: ["", "autoPlay"],
         loop: ["", "loop"],
         controls: ["", "controls"]
       }
@@ -296,7 +296,7 @@
         src: null, poster: null, width: null, height: null,
         crossorigin: ["anonymous", "use-credentials"],
         preload: ["auto", "metadata", "none"],
-        autoplay: ["", "autoplay"],
+        autoPlay: ["", "autoPlay"],
         mediagroup: ["movie"],
         muted: ["", "muted"],
         controls: ["", "controls"]

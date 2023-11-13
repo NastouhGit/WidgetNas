@@ -1,7 +1,7 @@
 function wnabout() {
     return `
  +--------------------------------------+
- | Widgetnas Version: 1.4.4.0           |
+ | Widgetnas Version: 2.0.0.3           |
  +--------------------------------------+
 `;
 }
@@ -165,7 +165,7 @@ WNLanguage['fa'] = {
             { month: 1, day: 21, holiday: false, text: 'شهادت امیر سپهبد علی صیاد شیرازی (۱۳۷۸ ه‍.ش) - سالروز افتتاح حساب شماره‌ی ۱۰۰ به فرمان امام خمینی (رحمة‌اللّه علیه) و تأسیس بنیاد مسکن انقلاب اسلامی (۱۳۵۸ ه‍.ش)' },
             { month: 1, day: 25, holiday: false, text: 'روز بزرگداشت عطّار نیشابوری ‌' },
             { month: 1, day: 29, holiday: false, text: 'روز ارتش جمهوری اسلامی و نیروی زمینی' },
-            { month: 2, day: 1, holiday: false, text: 'روز بزرگداشت سعدی' },
+            { month: 2, day: 1, holiday: false, text: 'روز بزرگداشت سعدی - روز نثر فارسی' },
             { month: 2, day: 2, holiday: false, text: 'تأسیس سپاه پاسداران انقلاب اسلامی (۱۳۵۸ ه‍.ش) - سالروز اعلام انقلاب فرهنگی (۱۳۵۹ ه‍.ش) - روز زمین پاک' },
             { month: 2, day: 3, holiday: false, text: 'روز بزرگداشت شیخ بهایی - روز معماری - سالروز شهادت امیر سپهبد قرنی (۱۳۵۸ ه‍.ش)' },
             { month: 2, day: 5, holiday: false, text: 'شکست حمله نظامی آمریکا به ایران در طبس (۱۳۵۹ ه‍.ش)' },
@@ -198,7 +198,7 @@ WNLanguage['fa'] = {
             { month: 4, day: 1, holiday: false, text: 'روز تبلیغ و اطلاع‌رسانی دینی (سالروز صدور فرمان امام خمینی رحمة‌اللّه علیه مبنی بر تأسیس سازمان تبلیغات اسلامی) (۱۳۶۰ ه‍.ش) - روز اصناف' },
             { month: 4, day: 7, holiday: false, text: 'شهادت مظلومانه‌ی آیت‌اللّه دکتر بهشتی و ۷۲ تن از یاران امام با انفجار بمب به دست منافقان در دفتر مرکزی حزب جمهوری اسلامی (۱۳۶۰ ه‍.ش) - روز قوه‌ی قضائیه - سالروز بمباران شیمیایی شهر سردشت (۱۳۶۶ ه‍.ش)' },
             { month: 4, day: 8, holiday: false, text: 'روز مبارزه با سلاح‌های شیمیایی و میکروبی' },
-            { month: 4, day: 10, holiday: false, text: 'روز صنعت و معدن - روز آزادسازی شهر مهران - روز بزرگداشت صائب تبریزی' },
+            { month: 4, day: 10, holiday: false, text: 'روز صنعت و معدن - روز آزادسازی شهر مهران - روز بزرگداشت صائب تبریزی - روز دیپلماسی فرهنگی و تعامل با جهان' },
             { month: 4, day: 11, holiday: false, text: 'شهادت آیت‌اللّه صدوقی چهارمین شهید محراب به دست منافقان (۱۳۶۱ ه‍.ش)' },
             { month: 4, day: 12, holiday: false, text: 'حمله‌ی ددمنشانه‌ی ناوگان آمریکای جنایتکار به هواپیمای مسافربری جمهوری اسلامی ایران (۱۳۶۷ ه‍.ش) - روز افشای حقوق بشر آمریکایی - روز بزرگداشت علامه امینی (۱۳۴۹ ه‍.ش)' },
             { month: 4, day: 14, holiday: false, text: 'روز قلم - روز شهرداری و دهیاری' },
@@ -249,6 +249,7 @@ WNLanguage['fa'] = {
             { month: 7, day: 7, holiday: false, text: 'روز بزرگداشت فرماندهان شهید دفاع مقدّس - شهادت سرداران اسلام: فلاحی، فکوری، نامجو، کلاهدوز و جهان‌آرا (۱۳۶۰ ه‍.ش) - روز آتش‌نشانی و ایمنی - روز بزرگداشت شمس' },
             { month: 7, day: 8, holiday: false, text: 'روز بزرگداشت مولوی' },
             { month: 7, day: 9, holiday: false, text: 'روز همبستگی و همدردی با کودکان و نوجوانان فلسطینی' },
+            { month: 7, day: 10, holiday: false, text: 'روز نخبگان' },
             { month: 7, day: 13, holiday: false, text: 'هجرت حضرت امام خمینی (رحمة‌اللّه علیه) از عراق به پاریس (۱۳۵۷ ه‍.ش) - روز نیروی انتظامی' },
             { month: 7, day: 14, holiday: false, text: 'روز دامپزشکی' },
             { month: 7, day: 15, holiday: false, text: 'روز روستا و عشایر' },
@@ -266,6 +267,7 @@ WNLanguage['fa'] = {
             { month: 8, day: 18, holiday: false, text: 'روز کیفیت' },
             { month: 8, day: 24, holiday: false, text: 'روز کتاب، کتاب‌خوانی و کتابدار - روز بزرگداشت آیت‌اللّه علامه سیدمحمّدحسین طباطبایی (۱۳۶۰ ه‍.ش)' },
             { month: 8, day: 26, holiday: false, text: 'سالروز آزادسازی سوسنگرد (۱۳۵۹ ه‍.ش)' },
+            { month: 8, day: 30, holiday: false, text: 'روز قهرمان ملی' },
             { month: 9, day: 5, holiday: false, text: 'روزبسیج مستضعفان (تشکیل بسیج مستضعفان به فرمان حضرت امام خمینی رحمة‌اللّه علیه) (۱۳۵۸ ه‍.ش) - سالروز قیام مردم گرگان (۱۳۵۷ ه‍.ش)' },
             { month: 9, day: 7, holiday: false, text: 'روز نیروی دریایی' },
             { month: 9, day: 9, holiday: false, text: 'روز بزرگداشت شیخ مفید' },
@@ -281,7 +283,7 @@ WNLanguage['fa'] = {
             { month: 9, day: 26, holiday: false, text: 'روز حمل‌و‌نقل و رانندگان' },
             { month: 9, day: 27, holiday: false, text: 'شهادت آیت‌اللّه دکتر محمّد مفتّح (۱۳۵۸ ه‍.ش) - روز وحدت حوزه و دانشگاه' },
             { month: 9, day: 29, holiday: false, text: 'روز تجلیل از شهید تندگویان' },
-            { month: 9, day: 30, holiday: false, text: 'شب یلدا' },
+            { month: 9, day: 30, holiday: false, text: 'شب یلدا - روز ترویج فرهنگ مهمانی و پیوند با خویشان' },
             { month: 10, day: 3, holiday: false, text: 'روز ثبت‌احوال' },
             { month: 10, day: 5, holiday: false, text: 'روز ایمنی در برابر زلزله و کاهش اثرات بلایای طبیعی' },
             { month: 10, day: 7, holiday: false, text: 'سالروز تشکیل نهضت سوادآموزی به فرمان حضرت امام خمینی (رحمة‌اللّه علیه) (۱۳۵۸ ه‍.ش) - شهادت آیت‌اللّه حسین غفّاری به دست مأموران ستم‌شاهی پهلوی (۱۳۵۳ ه‍.ش)' },
@@ -310,7 +312,7 @@ WNLanguage['fa'] = {
             { month: 12, day: 8, holiday: false, text: 'روز امور تربیتی و تربیت اسلامی ‌- روز بزرگداشت حکیم حاج ملاهادی سبزواری' },
             { month: 12, day: 9, holiday: false, text: 'روز حمایت از حقوق مصرف‌کنندگان' },
             { month: 12, day: 14, holiday: false, text: 'روز احسان و نیکوکاری - روز ترویج فرهنگ قرض‌الحسنه' },
-            { month: 12, day: 15, holiday: false, text: 'روز درختکاری' },
+            { month: 12, day: 15, holiday: false, text: 'روز درختکاری - روز آموزش همگانی حفظ محیط زیست' },
             { month: 12, day: 18, holiday: false, text: 'روز بزرگداشت سید‌جمال‌الدّین اسدآبادی - سالروز تأسیس کانون‌های فرهنگی‌و‌هنری مساجد کشور' },
             { month: 12, day: 20, holiday: false, text: 'روز راهیان نور' },
             { month: 12, day: 21, holiday: false, text: 'روز بزرگداشت نظامی گنجوی' },
@@ -321,6 +323,7 @@ WNLanguage['fa'] = {
         ],
         "WNHijriCalendar": [
             { month: 1, day: 1, holiday: false, text: 'آغاز سال هجری قمری (اوّل ماه محرّم)' },
+            { month: 1, day: 2, holiday: true, text: 'روز امر به معروف و نهی از منکر' },
             { month: 1, day: 9, holiday: true, text: 'تاسوعای حسینی' },
             { month: 1, day: 10, holiday: true, text: 'عاشورای حسینی' },
             { month: 1, day: 11, holiday: false, text: 'روز تجلیل از اسرا و مفقودان' },
@@ -1626,8 +1629,8 @@ function WN(element) {
     let id = '';
     let telement;
     if (typeof (element) == 'string') {
-        if (WNElements[element.toLocaleLowerCase()] != undefined)
-            return WNElements[element.toLocaleLowerCase()];
+        if (WNElements[element.toLowerCase()] != undefined)
+            return WNElements[element.toLowerCase()];
         telement = document.querySelector(`[id='${element}' i]`);
         if (telement == null) {
             telement = document.querySelector(`[name='${element}' i]`);
@@ -1636,7 +1639,7 @@ function WN(element) {
             telement = document.querySelector(element);
         if (telement == undefined)
             return null;
-        id = telement.id.toLocaleLowerCase();
+        id = telement.id.toLowerCase();
     }
     else if (element == document) {
         telement = element;
@@ -1644,12 +1647,12 @@ function WN(element) {
     }
     else {
         telement = element;
-        id = telement.id.toLocaleLowerCase();
+        id = telement.id.toLowerCase();
     }
     if (id === '')
-        id = telement.name.toLocaleLowerCase();
+        id = telement.name.toLowerCase();
     if (id === '')
-        id = element.toString().toLocaleLowerCase();
+        id = element.toString().toLowerCase();
     if (WNElements[id] == undefined) {
         WNElements[id] = new WNElement(telement);
     }
@@ -2162,6 +2165,22 @@ function WNFindTreeArray(source, fieldName1, fieldName2 = '', value, contain = f
         }
     }
     return find;
+}
+async function WNFileToString(input) {
+    if (!input.files || !input.files[0])
+        return '';
+    let result_base64 = await new Promise((resolve) => {
+        let fileReader = new FileReader();
+        fileReader.onload = (e) => resolve(fileReader.result);
+        fileReader.readAsDataURL(input.files[0]);
+    });
+    return result_base64;
+}
+async function WNSetImageBase(input, img) {
+    if (typeof (img) == 'string') {
+        img = document.getElementById(img);
+    }
+    img.src = await WNFileToString(input);
 }
 class WNConfig {
     nativeDigit = true;
@@ -7300,6 +7319,8 @@ class WNMonthCalendar {
         this._monthyearcaption.textContent = this._CurrentDate.toString('MMMM yyyy');
         this._body.innerHTML = '';
         let tDate = new WNDate(this._CurrentDate);
+        if (this._CurrentDate.toNumber() == null)
+            tDate.setDate(new Date());
         tDate.day = 1;
         if (this.onlyMonthYear) {
             tDate.day = Math.floor(tDate.daysInMonth / 2);
@@ -7436,6 +7457,139 @@ class WNMonthCalendar {
         tDate.setYMD(date.year, date.month, date.day);
         date.setYMD(tDate.year, tDate.month, tDate.day, tDate.hour, tDate.minute, tDate.second, tDate.milliseconds);
         return tDate.toDateTime().toISOString();
+    }
+}
+class WNMultiInput {
+    nameType = 'WNMultiInput';
+    element;
+    inputs;
+    detail;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        this.inputs = [];
+        let lables = [];
+        let values = [];
+        let classes = [];
+        if (this.element.hasAttribute('lables'))
+            lables = WNparseString(this.element.getAttribute('lables')).replace(/[\[\]']/g, '').split(/\s*,\s*/);
+        if (this.element.hasAttribute('values'))
+            values = WNparseString(this.element.getAttribute('values')).replace(/[\[\]']/g, '').split(/\s*,\s*/);
+        if (this.element.hasAttribute('classes'))
+            classes = WNparseString(this.element.getAttribute('classes')).replace(/[\[\]']/g, '').split(/\s*,\s*/);
+        let inputIG = this.element.querySelector("ig,.ig");
+        if (!inputIG) {
+            inputIG = document.createElement("ig");
+            this.element.appendChild(inputIG);
+        }
+        let inputclass = '';
+        if (this.element.classList.contains('floating'))
+            inputclass = 'floating';
+        else if (this.element.classList.contains('floatingline'))
+            inputclass = 'floatingline';
+        else if (this.element.classList.contains('group'))
+            inputclass = 'group';
+        if (inputclass != '') {
+            inputIG.classList.add(inputclass);
+            this.element.classList.remove(inputclass);
+        }
+        let mainInput;
+        inputIG.querySelectorAll('*').forEach(x => {
+            if (x.tagName != 'LABEL' && x.tagName != 'BUTTON') {
+                mainInput = x;
+                return;
+            }
+        });
+        let mainLabel = inputIG.querySelector('label');
+        if (!mainInput) {
+            mainInput = document.createElement('input');
+            if (inputclass == 'floating' || inputclass == 'floatingline')
+                mainInput.placeholder = '.';
+            inputIG.appendChild(mainInput);
+        }
+        this.inputs.push(mainInput);
+        if (!mainLabel) {
+            mainLabel = document.createElement('label');
+            mainLabel.innerHTML = lables[0];
+            inputIG.appendChild(mainLabel);
+        }
+        let expandButton = inputIG.querySelector('button');
+        if (!expandButton) {
+            expandButton = document.createElement('button');
+            inputIG.appendChild(expandButton);
+        }
+        expandButton.addEventListener("click", () => { this.toggle(); });
+        this.detail = this.element.querySelector('detail,.detail');
+        if (!this.detail) {
+            this.detail = document.createElement('div');
+            this.detail.className = 'detail';
+            this.element.appendChild(this.detail);
+        }
+        if (this.detail.innerHTML == '') {
+            for (var i = 1; i < lables.length; i++) {
+                let ig = document.createElement('ig');
+                let label = document.createElement('label');
+                let input = document.createElement('input');
+                label.innerHTML = lables[i];
+                if (classes[i] != '')
+                    input.classList.add(classes[i]);
+                ig.appendChild(label);
+                ig.appendChild(input);
+                this.detail.appendChild(ig);
+                this.inputs.push(input);
+            }
+        }
+        this.values = values;
+        if (this.element.hasAttribute('required')) {
+            if (this.inputs.length > 0) {
+                this.inputs[0].setAttribute('required', this.element.getAttribute('required'));
+            }
+            this.element.removeAttribute('required');
+        }
+        if (this.element.hasAttribute('onvalidation')) {
+            if (this.inputs.length > 0) {
+                this.inputs[0].setAttribute('onvalidation', this.element.getAttribute('onvalidation'));
+            }
+            this.element.removeAttribute('onvalidation');
+        }
+        if (inputclass == 'group') {
+            inputIG.innerHTML = '';
+            inputIG.appendChild(mainLabel);
+            inputIG.appendChild(mainInput);
+            inputIG.appendChild(expandButton);
+        }
+    }
+    toggle() {
+        this.element.classList.toggle('expand');
+    }
+    get values() {
+        let value = [];
+        this.inputs.forEach(x => {
+            if (x.tagName == 'INPUT')
+                value.push(x.value);
+            else if (x.tagName == 'OPTION')
+                value.push(x.value);
+            else
+                value.push(x);
+        });
+        return value;
+    }
+    set values(value) {
+        if (!value)
+            value = [];
+        for (var i = 0; i < this.inputs.length - value.length; i++)
+            value.push('');
+        for (var i = 0; i < this.inputs.length; i++) {
+            let x = this.inputs[i];
+            if (x.tagName == 'INPUT')
+                x.value = value[i];
+            else if (x.tagName == 'OPTION')
+                x.value = value[i];
+        }
     }
 }
 class WNMultiSelect {
@@ -9429,6 +9583,7 @@ class WNTree {
                 }
             }
         }
+        this.expandAll();
     }
     addToDataSource(parent, text, link, value, image) {
         try {
@@ -9831,3 +9986,4 @@ var WNTableTextValue;
     WNTableTextValue["text"] = "text";
     WNTableTextValue["value"] = "value";
 })(WNTableTextValue || (WNTableTextValue = {}));
+//# sourceMappingURL=WidgetNas.js.map
