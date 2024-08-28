@@ -25,6 +25,9 @@ interface IWNTable extends IWNComponent {
     updateNodeElement(r: WNTableNode): void;
     setDataSource(dataSource: any, append?: boolean): void;
 
+    filterByText(text: string): void;
+    findValueInDatasource(fieldName: string, value: any): WNTableNode
+
 }
 type WNTableNode = {
     privateId: number,

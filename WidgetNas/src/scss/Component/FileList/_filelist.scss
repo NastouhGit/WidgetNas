@@ -30,7 +30,7 @@
                 padding-inline-end: 0;
 
                 &:after {
-                    padding-inline-start:0;
+                    padding-inline-start: 0;
                 }
             }
         }
@@ -248,5 +248,26 @@
             flex-direction: column;
             padding: 1rem;
         }
+    }
+
+
+    @include disabled-tag() {
+        fill: var(--disable-color);
+        color: var(--disable-color);
+    }
+
+    @include disabled-tag('.head') {
+        display: none;
+    }
+
+
+
+    @include readonly-tag ('.head') {
+        display: none;
+    }
+
+    @include readonly-tag ('.files tr') {
+        background-color: var(--readonly-back);
+        color: var(--readonly-color);
     }
 }

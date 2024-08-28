@@ -9,131 +9,177 @@
 <p>شما برای استفاده از این کامپوننت نیازی به اضافه کردن هیچ کتابخانه اضافی ندارید و همچنین سعی شده است سربارهای اضافی نیز حذف گردد.</p>
 <h1>توابع</h1>
 <p>قطعا شما نیز میتوانید از توابع نوشته شده برای اعمال اسکریپتی خود استفاده کنید، برخی از این توابع در زیر نام برده خواهد شد و به مرور زمان مستندات آن تکمیل خواهد گردید.</p>
-<ul class="list">
-    <li>
-        <h3 class="ltr text-start">WNmod(a: number, b: number)</h3>
-        <p>مقدار باقیمانده دو پارامتر خود را برمیگرداند.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNparseBoolean(value: any, Default?: boolean)</h3>
-        <p>مقدار ورودی را بررسی و در صورت bool بودن، مقدار آنرا برمیگرداند، در غیر اینصورت مقدار پیش فرض انتخاب شده را برمیگرداند.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNparseNumber(value: any, Default?: number, culture: wnCultureInfo = wnConfig.cultureInfo)</h3>
-        <p>مقدار عددی ورودی را بررسی میکند، اگر عدد بود، مقدار آن و در غیر اینصورت مقدار پیش فرض را برمیگرداند. اگر اعداد به صورت اعداد محلی بودند، ابتدا اعداد را تبدیل و سپس صحت مقداری را بررسی میکند.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNparseString(value: any, Default?: string)</h3>
-        <p>مقدار رشته ای را بررسی کرده و در صورت عدم وجود مقدار رشته ای مانند null مقدار پیش فرض را برمیگرداند.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNLimitRange(value: number, min: number, max: number)</h3>
-        <p>اگر مقدار بین حداقل و حداکثر بود، مقدار خود و در غیر اینصورت مقدار حداقل یا حداکثر را برمیگرداند.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNParentHaveClass(child: HTMLElement, parentClassName: string)</h3>
-        <p>بررسی میکند، آیا کلاسی در تگهای والد موضوع مورد نظر استفاده شده است یا خیر.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNnativeDigit(number: number | string, culture: wnCultureInfo, convert: boolean)</h3>
-        <p>اعداد درون یک رشته یا عدد را به صورت اعداد محلی تبدیل میکند، برای مثال عدد 1 را ۱ نمایش میدهد.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNDenativeDigit(value: string, culture: wnCultureInfo = wnConfig.cultureInfo)</h3>
-        <p>اعداد محلی را به اعداد سیستمی تبدیل میکند، برعکس تابع WNnativeDigit</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNGetNodesList(list: string, parent: any = document, thiselemnt: HTMLElement = null)</h3>
-        <p>لیست تگهایی که با قوانین سلکتورها قابل شناسایی هستند را برمیگرداند، قوانین را میتوانید در پارامتر list و به صورت , جداکننده استفاده کنید.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNCalcValue(value1: string, value2: string, sign: string, elem: HTMLElement = null, min: number = Number.MIN_VALUE, max: number = Number.MAX_VALUE)</h3>
-        <p>محاسبه 4 عمل اصلی در واحدهای مختلف نمایشی که نسبت به المت انتخاب شده محاسبه میگردد، برای مثال تبدیل px و em یا rem</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNContainElement(elem: HTMLElement, findin: HTMLElement)</h3>
-        <p>بررسی میکند، یک المت داخل یک المت دیگر است یا خیر.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNHtmlToEscape(src:string)</h3>
-        <p>تبدیل تگهای html به تگهای قابل نمایش در pre</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNValueUnit(value: string): { value: number, unit: string }</h3>
-        <p>دریافت مقدار عددی و واحد یک رشته مانند 10px</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNGetCookie(cname: string)</h3>
-        <p>دریافت مقدار کوکی</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNSetCookie(cname: string, cvalue: string, exdays: number)</h3>
-        <p>ثبت مقدار کوکی، اگر مقدار تاریخ انقضا صفر باشد، آنرا تنظیم نمیکند.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNGetStorage(key: string)</h3>
-        <p>دریافت مقدار از استوریج سشن، اگر نبود، از استوریج لوکال</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNSetStorage(key: string, value: string, localstorage: boolean)</h3>
-        <p>تنظیم مقدار استوریج، در صورتیکه localstorage مقدار true باشد. در لوکال استرویج و در غیر اینصورت در سشن ذخیره میشود.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WNAddStringQuote(value: string)</h3>
-        <p>برای ارسال یه رشته به صورت post به سرور، بایستی عبارت متنی در " قرار گیرد، این تابع این علامت را در کنار مقدار قرار میدهد.</p>
-    </li>
-    <li>
-        <h3 class="ltr text-start">WN(element: HTMLElement | HTMLDocument | string): WNElement</h3>
-        <p>
-            اگر میخواهید یکسری توابع یا خصوصیات یک موضوعی را تغییر دهید، از این تابع استفاده کنید.
-        </p>
-        <p class="ltr text-start">
-            Element: HTMLElement | HTMLDocument | any;<br />
-            Ready(callBack: any, options?: boolean);<br />
-            Click(callBack: any);<br />
-            Change(callBack: any);<br />
-            Input(callBack: any);<br />
-            Focus(callBack: any);<br />
-            FocusIn(callBack: any);<br />
-            FocusOut(callBack: any);<br />
-            Resize(callBack: any);<br />
-            Scroll(callBack: any);<br />
-            Select(callBack: any);<br />
-            ContextMenu(callBack: any);<br />
-            Copy(callBack: any);<br />
-            Cut(callBack: any);<br />
-            Paste(callBack: any);<br />
-            DBLClick(callBack: any);<br />
-            Drag(callBack: any);<br />
-            Dragend(callBack: any);<br />
-            Dragenter(callBack: any);<br />
-            Dragleave(callBack: any);<br />
-            Dragover(callBack: any);<br />
-            Dragstart(callBack: any);<br />
-            Drop(callBack: any);<br />
-            Keydown(callBack: any);<br />
-            Keypress(callBack: any);<br />
-            Keyup(callBack: any);<br />
-            Mousedown(callBack: any);<br />
-            Mouseenter(callBack: any);<br />
-            Mouseleave(callBack: any);<br />
-            Mousemove(callBack: any);<br />
-            Mouseover(callBack: any);<br />
-            Mouseout(callBack: any);<br />
-            Mouseup(callBack: any);<br />
-            Touchcancel(callBack: any);<br />
-            Touchend(callBack: any);<br />
-            Touchmove(callBack: any);<br />
-            Touchstart(callBack: any);<br />
-            Wheel(callBack: any);<br />
-        </p>
-        <p>برای مثال میخواهید وقتی روی موضعی با ID یا نام <bidi>'d1'</bidi> کلیک شد یک پیام نشان دهید از مثال زیر استفاده کنید.</p>
-        <p class="ltr text-start">
-            WN('d1').Click(()=>{alert('some');});
-        </p>
-    </li>
-
-</ul>
+<div>
+    <bidi class="ltr text-start">WNmod(a: number, b: number)</bidi>
+    <p>مقدار باقیمانده دو پارامتر خود را برمیگرداند.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNparseBoolean(value: any, Default?: boolean)</bidi>
+    <p>مقدار ورودی را بررسی و در صورت bool بودن، مقدار آنرا برمیگرداند، در غیر اینصورت مقدار پیش فرض انتخاب شده را برمیگرداند.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNparseNumber(value: any, Default?: number, culture: wnCultureInfo = wnConfig.cultureInfo)</bidi>
+    <p>مقدار عددی ورودی را بررسی میکند، اگر عدد بود، مقدار آن و در غیر اینصورت مقدار پیش فرض را برمیگرداند. اگر اعداد به صورت اعداد محلی بودند، ابتدا اعداد را تبدیل و سپس صحت مقداری را بررسی میکند.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNparseString(value: any, Default?: string)</bidi>
+    <p>مقدار رشته ای را بررسی کرده و در صورت عدم وجود مقدار رشته ای مانند null مقدار پیش فرض را برمیگرداند.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNLimitRange(value: number, min: number, max: number)</bidi>
+    <p>اگر مقدار بین حداقل و حداکثر بود، مقدار خود و در غیر اینصورت مقدار حداقل یا حداکثر را برمیگرداند.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNParentHaveClass(child: HTMLElement, parentClassName: string)</bidi>
+    <p>بررسی میکند، آیا کلاسی در تگهای والد موضوع مورد نظر استفاده شده است یا خیر.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNnativeDigit(number: number | string, culture: wnCultureInfo, convert: boolean)</bidi>
+    <p>اعداد درون یک رشته یا عدد را به صورت اعداد محلی تبدیل میکند، برای مثال عدد 1 را ۱ نمایش میدهد.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNDenativeDigit(value: string, culture: wnCultureInfo = wnConfig.cultureInfo)</bidi>
+    <p>اعداد محلی را به اعداد سیستمی تبدیل میکند، برعکس تابع WNnativeDigit</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNGetNodesList(list: string, parent: any = document, thiselemnt: HTMLElement = null)</bidi>
+    <p>لیست تگهایی که با قوانین سلکتورها قابل شناسایی هستند را برمیگرداند، قوانین را میتوانید در پارامتر list و به صورت , جداکننده استفاده کنید.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNCalcValue(value1: string, value2: string, sign: string, elem: HTMLElement = null, min: number = Number.MIN_VALUE, max: number = Number.MAX_VALUE)</bidi>
+    <p>محاسبه 4 عمل اصلی در واحدهای مختلف نمایشی که نسبت به المت انتخاب شده محاسبه میگردد، برای مثال تبدیل px و em یا rem</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNContainElement(elem: HTMLElement, findin: HTMLElement)</bidi>
+    <p>بررسی میکند، یک المت داخل یک المت دیگر است یا خیر.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNHtmlToEscape(src:string)</bidi>
+    <p>تبدیل تگهای html به تگهای قابل نمایش در pre</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNValueUnit(value: string): { value: number, unit: string }</bidi>
+    <p>دریافت مقدار عددی و واحد یک رشته مانند 10px</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNGetCookie(cname: string)</bidi>
+    <p>دریافت مقدار کوکی</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNSetCookie(cname: string, cvalue: string, exdays: number)</bidi>
+    <p>ثبت مقدار کوکی، اگر مقدار تاریخ انقضا صفر باشد، آنرا تنظیم نمیکند.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNGetStorage(key: string)</bidi>
+    <p>دریافت مقدار از استوریج سشن، اگر نبود، از استوریج لوکال</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNSetStorage(key: string, value: string, localstorage: boolean)</bidi>
+    <p>تنظیم مقدار استوریج، در صورتیکه localstorage مقدار true باشد. در لوکال استرویج و در غیر اینصورت در سشن ذخیره میشود.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WNAddStringQuote(value: string)</bidi>
+    <p>برای ارسال یه رشته به صورت post به سرور، بایستی عبارت متنی در " قرار گیرد، این تابع این علامت را در کنار مقدار قرار میدهد.</p>
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">function WNChangeFieldTreeArray(source: any, childsFieldName: string, parent: any, call: Function): void</bidi>
+    <p>
+        در برخی مواقع نیاز داریم بر روی یک دیتایی از نوع درخت، مثل آرایه تابعی را ایجاد کنیم.
+        این تابع چنین دسترسی را به آسانی به شما میدهد.
+    </p>
+    <p>
+        <b>source</b>
+        آرایه ای جنس درخت
+    </p>
+    <p>
+        <b>childsFieldName</b>
+        نام فیلد که دارای فرزند هستند
+    </p>
+    <p>
+        <b>parent</b>
+        والدی که از آن فرزندان در حال پردازش هست. مقدار اولیه null باید باشد. دقیقا به ردیف قبلی دیتا اشاره میکند.
+    </p>
+    <p>
+        <b>call</b>
+        تابعی که به ازای هر ردیف داده صدا زده میشود تا شما در آن عملیات مرتبط را انجام دهید.
+        <div>
+            <bidi>
+                (item,parent) => { sum+=item.y + parent.x }
+            </bidi>
+        </div>
+    </p>
+   
+</div>
+<hr />
+<div>
+    <bidi class="ltr text-start">WN(element: HTMLElement | HTMLDocument | string): WNElement</bidi>
+    <p>
+        اگر میخواهید یکسری توابع یا خصوصیات یک موضوعی را تغییر دهید، از این تابع استفاده کنید.
+    </p>
+    <p class="ltr text-start">
+        Element: HTMLElement | HTMLDocument | any;<br />
+        Ready(callBack: any, options?: boolean);<br />
+        Click(callBack: any);<br />
+        Change(callBack: any);<br />
+        Input(callBack: any);<br />
+        Focus(callBack: any);<br />
+        FocusIn(callBack: any);<br />
+        FocusOut(callBack: any);<br />
+        Resize(callBack: any);<br />
+        Scroll(callBack: any);<br />
+        Select(callBack: any);<br />
+        ContextMenu(callBack: any);<br />
+        Copy(callBack: any);<br />
+        Cut(callBack: any);<br />
+        Paste(callBack: any);<br />
+        DBLClick(callBack: any);<br />
+        Drag(callBack: any);<br />
+        Dragend(callBack: any);<br />
+        Dragenter(callBack: any);<br />
+        Dragleave(callBack: any);<br />
+        Dragover(callBack: any);<br />
+        Dragstart(callBack: any);<br />
+        Drop(callBack: any);<br />
+        Keydown(callBack: any);<br />
+        Keypress(callBack: any);<br />
+        Keyup(callBack: any);<br />
+        Mousedown(callBack: any);<br />
+        Mouseenter(callBack: any);<br />
+        Mouseleave(callBack: any);<br />
+        Mousemove(callBack: any);<br />
+        Mouseover(callBack: any);<br />
+        Mouseout(callBack: any);<br />
+        Mouseup(callBack: any);<br />
+        Touchcancel(callBack: any);<br />
+        Touchend(callBack: any);<br />
+        Touchmove(callBack: any);<br />
+        Touchstart(callBack: any);<br />
+        Wheel(callBack: any);<br />
+    </p>
+    <p>برای مثال میخواهید وقتی روی موضعی با ID یا نام <bidi>'d1'</bidi> کلیک شد یک پیام نشان دهید از مثال زیر استفاده کنید.</p>
+    <p class="ltr text-start">
+        WN('d1').Click(()=>{alert('some');});
+    </p>
+</div>
+<hr />
 <h2>ارسال و دریافت اطلاعات با سرور</h2>
 <p>برای آنکه شما بتوانید به سرور ارسال اطلاعات داشته باشید میتوانید از توابع زیر استفاده کنید.</p>
 <p>

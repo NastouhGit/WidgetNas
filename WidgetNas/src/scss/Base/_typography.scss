@@ -1,4 +1,5 @@
 ﻿@import "../_functions.scss";
+@import "../_variables.scss";
 
 @include media() using ($media) {
     .text-start#{$media} {
@@ -62,7 +63,13 @@
 
         .fs-#{$name}#{$media} {
             font-size: #{$value}em;
+            --font-size: #{$value}em;
         }
+
+            .fs-#{$name}#{$media}-i {
+                font-size: #{$value}em !important;
+                --font-size: #{$value}em !important;
+            }
     }
 }
 
@@ -89,6 +96,9 @@
 
 .fw-normal {
     font-weight: normal;
+}
+.fw-normal-i {
+    font-weight: normal !important;
 }
 
 .fw-100 {

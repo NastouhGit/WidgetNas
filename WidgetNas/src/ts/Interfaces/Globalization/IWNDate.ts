@@ -32,6 +32,7 @@
     readonly weekOfYear: number;
 
     setDate(date: Date): void;
+    setUTCDate(date: any): void;
     setDateYMD(Year: number, Month: number, Day: number, Hour: number, Minute: number, Second: number, Millisecond: number): void;
     setYMD(Year: number, Month: number, Day: number, Hour: number, Minute: number, Second: number, Millisecond: number): void;
     setDateNumber(jd: number): void;

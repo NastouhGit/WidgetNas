@@ -81,15 +81,21 @@
     public get isLeapDay() { return this.calendar.isLeapDay(this._Year, this._Month, this._Day); }
     public get weekOfYear() { return this.calendar.getWeekOfYear(this._Year, this._Month, this._Day); }
 
-    public setDate(date: Date) {
+    public setDate(date: Date): void {
+        if (date == undefined) {
+            this.setDateNumber(undefined);
+            return;
+        }
+        if (typeof (date) == 'string') date = new Date(date);
         if (date == undefined || isNaN(date.getTime())) {
             this.setDateNumber(undefined);
             return;
         }
 
         //Date Month Start From Zero
+        
         let days = this.GregorianCalnedar.getDaysFromBase(date.getFullYear(), date.getMonth() + 1, date.getDate());
-        let ret = this.calendar.getYearMontDayFromDays(days);
+        let ret = this.calendar.getYearMonthDayFromDays(days);
 
         this._Year = ret.year;
         this._Month = ret.month;
@@ -101,6 +107,18 @@
         this._DayOfWeek = this.calendar.getDayOfWeek(this._Year, this._Month, this._Day);
 
         this.dateChanged?.(this);
+    }
+    public setUTCDate(date: any): void {
+        date = new Date(date);
+        if (date == undefined || isNaN(date.getTime())) {
+            this.setDateNumber(undefined);
+            return;
+        }
+
+        //Date Month Start From Zero
+        var offset = date.getTimezoneOffset();
+        date = new Date(date.getTime() + offset * 60000);
+        this.setDate(date);
     }
     public setDateYMD(Year: number, Month: number, Day: number, Hour: number = 0, Minute: number = 0, Second: number = 0, Millisecond: number = 0) {
         this._Year = Year;
@@ -135,7 +153,7 @@
             this.dateChanged?.(this);
             return;
         }
-        let ret = this.calendar.getYearMontDayFromDays(jd);
+        let ret = this.calendar.getYearMonthDayFromDays(jd);
         this._Year = ret.year;
         this._Month = ret.month;
         this._Day = ret.day;
@@ -225,7 +243,7 @@
     public toDateTime(): Date {
         if (this.year == 0 && this.month == 0 && this.day == 0 && this.hour == 0 && this.minute == 0 && this.second == 0 && this.milliseconds == 0) return null;
         let days = this.calendar.getDaysFromBase(this._Year, this._Month, this._Day);
-        let ret = this.GregorianCalnedar.getYearMontDayFromDays(days);
+        let ret = this.GregorianCalnedar.getYearMonthDayFromDays(days);
         return new Date(ret.year, ret.month - 1, ret.day, this._Hour, this._Minute, this._Second, this._Millisecond);
     }
     public toNumber(): number {

@@ -324,6 +324,13 @@ function WNGenerateFunction(body: string, params: string = ''): any {
 
     return ret;
 }
+function WNToDictionary(value: string): WNDictionary {
+    value = value.trim();
+    if (!value.startsWith('{')) value = '{' + value;
+    if (!value.endsWith('}')) value = value + '}';
+
+    return WNGenerateFunction('return ' + value)();
+}
 
 function WNAddStringQuote(value: string) { return '"' + value + '"'; }
 
@@ -405,6 +412,16 @@ function WNSetViewSize() {
     document.body.style.setProperty('--view-width', getComputedStyle(document.body).width);
     return width;
 }
+function WNGetWNType(elem: HTMLElement): string {
+    let tElem = elem;
+
+    while (tElem != null) {
+        if (tElem.hasAttribute('wn-type'))
+            return tElem.getAttribute('wn-type');
+        tElem = tElem.parentElement;
+    }
+    return '';
+}
 function WNGetParentsElementsTag(elem: HTMLElement, untilTag: string, untilClass: string): string[] {
     let ret = [];
     let tElem = elem;
@@ -459,7 +476,16 @@ function WNFindTreeArray(source: any, fieldName1: string, fieldName2: string = '
     }
     return find;
 }
+function WNChangeFieldTreeArray(source: any, childsFieldName: string, parent: any, call: Function): void {
+    for (var i = 0; i < source.length; i++) {
+        let item = source[i];
+        call?.(item, parent);
 
+        if (item[childsFieldName].length > 0) {
+            WNChangeFieldTreeArray(item[childsFieldName], childsFieldName, item, call);
+        }
+    }
+}
 async function WNFileToString(input: HTMLInputElement): Promise<string> {
     if (!input.files || !input.files[0]) return '';
 
@@ -477,4 +503,21 @@ async function WNSetImageBase(input: HTMLInputElement, img: HTMLImageElement | s
     }
 
     img.src = await WNFileToString(input);
+}
+
+function WNCheckReadOnlyDisabled(element: HTMLElement, readOnly = true, disabled = true) {
+    let ret = false;
+    if (readOnly) 
+        ret = ret || element.hasAttribute('readonly') || element.classList.contains('readonly');
+    if (disabled)
+        ret = ret ||  element.hasAttribute('disabled') || element.classList.contains('disabled');
+    return ret;
+    
+}
+
+function WNQueryString(key: string): string {
+    let q = new URLSearchParams(window.location.search);
+    if (q.has(key))
+        return q.get(key)
+    return '';
 }

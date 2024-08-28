@@ -1,0 +1,72 @@
+﻿.revert ig,
+.revert .ig,
+ig .revert,
+.ig .revert,
+.revert {
+    input[type=radio] + label,
+    input[type=checkbox] + label,
+    input[type=radio]:focus + label,
+    input[type=checkbox]:focus + label,
+    input:focus + label,
+    input + label,
+    label {
+        position: relative !important;
+        display: inline-block !important;
+        right: unset !important;
+        left: unset !important;
+        top: unset !important;
+        bottom: unset !important;
+        pointer-events: auto !important;
+        transition: unset !important;
+        border-block-end: none !important;
+        padding-inline-start: 0 !important;
+        margin-inline-start: unset !important;
+    }
+
+    input, select,
+    input, select {
+        display: inline-block !important;
+        border-radius: var(--border-radius) !important;
+        margin-block: unset !important;
+        margin-inline: unset !important;
+        padding-block: unset !important;
+        border-block-end: unset !important;
+        background-color: var(--normal-back) !important;
+        border-width: var(--border-width) !important;
+        border-style: solid !important;
+        border-color: var(--normal-border) !important;
+
+        &:hover {
+            background-color: unset !important;
+        }
+
+        &:focus {
+            outline: unset !important;
+            border-block-end: unset !important;
+            box-shadow: unset !important;
+            background-color: unset !important;
+            border-width: var(--border-width) !important;
+            border-style: solid !important;
+            border-color: var(--normal-border) !important;
+        }
+    }
+
+    label input,
+    input {
+        &[type=checkbox] {
+            border-radius: var(--border-radius) !important;
+            border-width: var(--border-width) !important;
+            border-style: solid !important;
+            border-color: var(--normal-border) !important;
+            position: static;
+            margin-inline-end: 0.25em !important;
+        }
+
+        &[type=radio] {
+            border-width: var(--border-width) !important;
+            border-style: solid !important;
+            border-color: var(--normal-border) !important;
+            border-radius: 50% !important;
+        }
+    }
+}

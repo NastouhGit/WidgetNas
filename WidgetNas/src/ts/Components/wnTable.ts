@@ -29,6 +29,7 @@
         let t = (<HTMLElement>this.element.querySelector(`[page-index='${this._currentPage}']`));
         if (t) t.style.display = '';
         this.setPaginationElements();
+        this.selectedItem = null;
         this.afterPageChange?.(this, old, this.currentPage)
     };
     private date: IWNDate = new WNDate();
@@ -52,9 +53,9 @@
         if (this._selectedItem == value) return;
         if (this.beforeSelected && !this.beforeSelected?.(this, this._selectedItem, value)) return;
 
-        this.bodyTable.querySelectorAll('tr.active').forEach((x) => x.classList.remove('active'));
-        value.rowElement?.classList.add('active');
-        this.selectionChanged(this, this._selectedItem, value);
+        this.element.querySelectorAll('tr.active').forEach((x) => x.classList.remove('active'));
+        value?.rowElement?.classList.add('active');
+        this.selectionChanged?.(this, this._selectedItem, value);
         this._selectedItem = value;
     }
 
@@ -446,6 +447,16 @@
                 this.date.setDate(r.value);
                 r.text = this.date.toString(col.format);
             }
+            if (col.datatype == 'list') {
+                let l = col.format.split('|');
+                if (r.value > -1 && r.value < l.length)
+                    r.text = l[r.value].trim();
+                else
+                    r.text = '---';
+
+                r.value = new Date(r.value);
+                this.date.setDate(r.value);
+            }
             else if (col.format != '') //Check other type format
                 r.text = WNStringFormat(r.value, col.format, this.date.cultureInfo);
         } catch (e) {
@@ -556,6 +567,7 @@
                         td.innerHTML = x[this.cols[i].field];
                     else
                         td.innerHTML = '';
+                    td.className = this.cols[i].class;
                     //Add data for aggregate row
                     if (this.cols[i].aggregate != '') {
                         aggregate[i].push(x.fields[this.cols[i].field].value);
@@ -651,6 +663,40 @@
         }
         this._lastBodyTable.appendChild(tr);
     }
+    public filterByText(text: string): void {
+        if (text=='') {
+            this._renderData = this.dataSource.map(x => x);
+            if (this._sortby.length > 0)
+                this.resort();
+            else
+                this.sort(-1);
+            this.refresh();
+            return;
+        }
+        if (this.beforeFilter && !!this.beforeFilter?.(this))
+            return;
+
+        text = text.toLowerCase();
+        this._renderData = [];
+        for (var row = 0; row < this.dataSource.length; row++) {
+            let x = this.dataSource[row];
+            let ret = false;
+            for (var i = 0; i < this.cols.length; i++) {
+                ret = ret || WNDenativeDigit(x.fields[this.cols[i].field].text.toLowerCase()).includes(text);
+            }
+            if (ret)
+                this._renderData.push(x);
+        }
+        
+
+        if (this._sortby.length > 0)
+            this.resort();
+        else
+            this.sort(-1);
+
+        this.afterFilter?.(this);
+        this.refresh();
+    }
     private setFilter() {
         let filtervalue = [];
         for (var i = 0; i < this.cols.length; i++) {
@@ -672,6 +718,7 @@
             return;
 
         this._renderData = this.filter(this.dataSource, filtervalue);
+        this.selectedItem = null;
 
         if (this._sortby.length > 0)
             this.resort();
@@ -697,4 +744,9 @@
         }
         return retArray;
     }
+
+    public findValueInDatasource(fieldName: string, value: any): WNTableNode {
+        return this._dataSource.find(x => x.fields[fieldName].value === value);
+    }
+    
 }

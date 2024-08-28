@@ -20,7 +20,7 @@
         <div id="time1" wn-type="Time" class="time bordered" style="width:17rem"
              cultureinfo="WNCultureInfo_en_US">
         </div>
-</div>
+    </div>
     <div class="rtl">
         <h3>RTL</h3>
         <div wn-type="Time" class="time bordered" style="width:17rem"
@@ -39,7 +39,7 @@
 <figure>
     <pre><code class="html">
     <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> wn-type</span><span class="hv">="time</span>"<span class="ha"> class</span><span class="hv">="time</span>"
-        <span class="ha"> cultureinfo</span><span class="hv">="WNCultureInfo_en_US</span>"<span class="hv">&gt;</span>
+    <span class="ha"> cultureinfo</span><span class="hv">="WNCultureInfo_en_US</span>"<span class="hv">&gt;</span>
     <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
 </code></pre>
 </figure>
@@ -52,9 +52,11 @@
     کلاس wntime دارای خصوصیاتی است که خصوصیت Date که از جنس wnDate است، این خصوصیت امکان دسترسی به مدیریت زمان را به شما میدهد.
     <bidi>Date</bidi> تاریخ و زمان است، اگر در هنگام ورودی، مقدار تاریخ دار نیز باشد، فقط مقدارهای ساعت را تغییر میدهد و تاریخ بدون استفاده است.
 </p>
-<figure><code data-on="_code" data-mode="javascript">
-    alert(WN('time-id').wn.Date.toString());
-</code></figure>
+<figure>
+    <code data-on="_code" data-mode="javascript">
+        alert(WN('time-id').wn.Date.toString());
+    </code>
+</figure>
 <p>
     دسترسی داشتن به زمان امکان خوبی است ولی معمولا اضافه کردن کدهای تکراری به صفحه و مدیریت توسط جاوا اسکریپت آنچنان دلچسب نیست.
     ما برای راحتتر شدن دسترسی و ذخیره تغییرات، خصوصیت <bidi>value-id</bidi> را طراحی کردیم، تا زمانیکه تاریخ تغییر کرد، به صورت خودکار،
@@ -118,54 +120,51 @@
         <h3>LTR</h3>
         <input id="date3_d_ltr" type="text" />
         <div wn-type="Time"
-             class="time"  style="width:17rem"
+             class="time" style="width:17rem"
              cultureinfo="WNCultureInfo_en_US"
              display-id="date3_d_ltr"
-             display-format="HH:mm:ss"
-             >
+             display-format="HH:mm:ss">
         </div>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <input id="date3_d_rtl" type="text" />
         <div wn-type="Time"
-             class="time"  style="width:17rem"
+             class="time" style="width:17rem"
              cultureinfo="WNCultureInfo_fa_IR"
              display-id="date3_d_rtl"
-             display-format="HH:mm:ss"
-             >
+             display-format="HH:mm:ss">
         </div>
     </div>
 </div>
 <figure><code data-on="form3"></code></figure>
 <h2>تنظیم ورودی</h2>
-<p>اگر میخواهید ساعت و دقیقه و ثانیه را از ورودی بگیرید کافیست نوع ورودی را مشخص کنید. برای همین خصوصیت <bidi>input-format = 'hms'</bidi> را تنظیم کنید.
+<p>
+    اگر میخواهید ساعت و دقیقه و ثانیه را از ورودی بگیرید کافیست نوع ورودی را مشخص کنید. برای همین خصوصیت <bidi>input-format = 'hms'</bidi> را تنظیم کنید.
     برای دریافت ساعت عبارت h و دقیقه m و ثانیه عبارت s در متن ورودی باشد.
-    </p>
+</p>
 <p>ترتیب ورود حروف در نوع دریافت ورودی تاثیری ندارد یعنی عبارت hms با shm یک معنی را میدهد.</p>
 <div class="example-div">
     <div class="ltr" id="form4">
         <h3>LTR</h3>
         <input id="date4_d_ltr" type="text" />
         <div wn-type="Time"
-             class="time"  style="width:17rem"
+             class="time" style="width:17rem"
              cultureinfo="WNCultureInfo_en_US"
              display-id="date4_d_ltr"
              display-format="HH:mm:ss"
-             input-format="hms"
-             >
+             input-format="hms">
         </div>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <input id="date4_d_rtl" type="text" />
         <div wn-type="Time"
-             class="time"  style="width:17rem"
+             class="time" style="width:17rem"
              cultureinfo="WNCultureInfo_fa_IR"
              display-id="date4_d_rtl"
              display-format="HH:mm:ss"
-             input-format="hms"
-             >
+             input-format="hms">
         </div>
     </div>
 </div>
@@ -200,8 +199,7 @@
                      class="time"
                      cultureinfo="WNCultureInfo_en_US"
                      display-id="inputdate2_ltr"
-                     value-id="inputdate2_h_ltr"
-                     >
+                     value-id="inputdate2_h_ltr">
                 </div>
             </div>
 
@@ -214,8 +212,7 @@
                      class="time"
                      cultureinfo="WNCultureInfo_en_US"
                      display-id="inputdate3_ltr"
-                     value-id="inputdate3_h_ltr"
-                     >
+                     value-id="inputdate3_h_ltr">
                 </div>
             </div>
         </ig>
@@ -324,3 +321,60 @@
     </div>
 </div>
 <figure><code data-on="form5"></code></figure>
+<h2>فقط خواندنی و غیر فعال</h2>
+
+<div class="example-div">
+    <div class="ltr" id="form6">
+        <h3>LTR</h3>
+        <ig readonly>
+            <div wn-type="Time" class="time bordered" style="width:17rem"
+                 cultureinfo="WNCultureInfo_en_US">
+            </div>
+            <br />
+            <ig class="group">
+                <label for="inputdate61_ltr">Time</label>
+                <input id="inputdate61_ltr" type="text" />
+                <button class="dropdown-toggle" wn-type="dropdown"></button>
+            </ig>
+        </ig>
+        <br />
+        <ig disabled>
+            <div wn-type="Time" class="time bordered" style="width:17rem"
+                 cultureinfo="WNCultureInfo_en_US">
+            </div>
+            <br />
+            <ig class="group">
+                <label for="inputdate62_ltr">Time</label>
+                <input id="inputdate62_ltr" type="text" />
+                <button class="dropdown-toggle" wn-type="dropdown"></button>
+            </ig>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig readonly>
+            <div wn-type="Time" class="time bordered" style="width:17rem"
+                 cultureinfo="WNCultureInfo_fa_IR">
+            </div>
+            <br />
+            <ig class="group">
+                <label for="inputdate61_rtl">زمان</label>
+                <input id="inputdate61_rtl" type="text" />
+                <button class="dropdown-toggle" wn-type="dropdown"></button>
+            </ig>
+        </ig>
+        <br>
+        <ig disabled>
+            <div wn-type="Time" class="time bordered" style="width:17rem"
+                 cultureinfo="WNCultureInfo_en_US">
+            </div>
+            <br />
+            <ig class="group">
+                <label for="inputdate62_rtl">زمان</label>
+                <input id="inputdate62_rtl" type="text" />
+                <button class="dropdown-toggle" wn-type="dropdown"></button>
+            </ig>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>

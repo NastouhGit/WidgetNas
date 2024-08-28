@@ -8,7 +8,7 @@
     selectionChanged: (t) => void;
 
     private _selectedIndex: number = -1;
-    public get selectedIndex(): number { return this._selectedIndex };
+    public get selectedIndex(): number { return this._selectedIndex }
     public set selectedIndex(value: number) {
         if (value < 0 && this.items.length > 0) value = 0;
         if (value < 0) value = -1;
@@ -21,7 +21,7 @@
         this._selectedIndex = value;
         this.setCollapse();
         this.selectionChanged?.(this);
-    };
+    }
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLElement;

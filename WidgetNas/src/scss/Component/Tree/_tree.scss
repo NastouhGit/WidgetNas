@@ -195,6 +195,23 @@
             }
         }
     }
+
+    &[readonly] *:not(ul):not(li),
+    &.readonly *:not(ul):not(li) {
+        pointer-events: none;
+        background-color: var(--readonly-back) !important;
+        border-color: var(--normal-border) !important;
+    }
+
+    &[disabled] *:not(ul):not(li),
+    &.disabled *:not(ul):not(li) {
+        pointer-events: none;
+        color: var(--disable-color) !important;
+
+        .button, button {
+            background-color: var(--disable-back) !important;
+        }
+    }
 }
 
 .tree {

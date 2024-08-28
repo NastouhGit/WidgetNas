@@ -7,10 +7,12 @@
     checkedValues: string[];
 
     checkbox: boolean;
+    checkboxclass: string;
 
     beforeClick: (t: IWNList, node: WNListNode, e: MouseEvent) => boolean;
     afterClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
     selectionChanged: (t: IWNList, node: WNListNode) => void;
+    checkChanged: (t: IWNList, node: WNListNode) => void;
 
     select(node: WNListNode): void;
 

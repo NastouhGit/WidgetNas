@@ -3,6 +3,80 @@ declare var WNLanguage: {
     [id: string]: any;
 };
 declare var wnConfig: IWNConfig;
+declare class WNCultureInfo_ar_SA implements IWNCultureInfo {
+    readonly displayName = "\u0627\u0644\u0639\u0631\u0628\u064A\u0629";
+    readonly englishName = "Arabic";
+    readonly threeLetterISOLanguageName = "ara";
+    readonly twoLetterISOLanguageName = "ar";
+    readonly DateTimeFormat: {
+        amDesignator: string;
+        abbreviatedDayNames: string[];
+        abbreviatedMonthNames: {
+            persian: string[];
+            gregory: string[];
+            julian: string[];
+            islamic: string[];
+        };
+        dateSeparator: string;
+        dayNames: string[];
+        firstDayOfWeek: number;
+        fullDateTimePattern: string;
+        longDatePattern: string;
+        longTimePattern: string;
+        monthDayPattern: string;
+        monthNames: {
+            persian: string[];
+            gregory: string[];
+            julian: string[];
+            islamic: string[];
+        };
+        pmDesignator: string;
+        shortDatePattern: string;
+        shortTimePattern: string;
+        shortestDayNames: string[];
+        timeSeparator: string;
+        yearMonthPattern: string;
+        holiday: number;
+    };
+    readonly NumberFormat: {
+        currencyDecimalDigits: number;
+        currencyDecimalSeparator: string;
+        currencyGroupSeparator: string;
+        currencyGroupSizes: number[];
+        currencyNegativePattern: number;
+        currencyPositivePattern: number;
+        currencySymbol: string;
+        nanSymbol: string;
+        nativeDigits: string[];
+        negativeInfinitySymbol: string;
+        negativeSign: string;
+        numberDecimalDigits: number;
+        numberDecimalSeparator: string;
+        numberGroupSeparator: string;
+        numberGroupSizes: number[];
+        numberNegativePattern: number;
+        perMilleSymbol: string;
+        percentDecimalDigits: number;
+        percentDecimalSeparator: string;
+        percentGroupSeparator: string;
+        percentGroupSizes: number[];
+        percentNegativePattern: number;
+        percentPositivePattern: number;
+        percentSymbol: string;
+        positiveInfinitySymbol: string;
+        positiveSign: string;
+    };
+    readonly TextInfo: {
+        ansiCodePage: number;
+        cultureName: string;
+        ebcdicCodePage: number;
+        isRightToLeft: boolean;
+        lcid: number;
+        listSeparator: string;
+        macCodePage: number;
+        oemCodePage: number;
+    };
+}
 declare class WNCultureInfo_en_US implements IWNCultureInfo {
     readonly displayName = "English";
     readonly englishName = "English";
@@ -198,6 +272,7 @@ declare class WNDate implements IWNDate {
     get isLeapDay(): boolean;
     get weekOfYear(): number;
     setDate(date: Date): void;
+    setUTCDate(date: any): void;
     setDateYMD(Year: number, Month: number, Day: number, Hour?: number, Minute?: number, Second?: number, Millisecond?: number): void;
     setYMD(Year: number, Month: number, Day: number, Hour?: number, Minute?: number, Second?: number, Millisecond?: number): void;
     setDateNumber(jd: number): void;
@@ -246,7 +321,7 @@ declare class WNGregorianCalendar implements IWNCalendar {
     isLeapYear(Year: number): boolean;
     getMonthsDays(mLeapYear: boolean): number[];
     getDaysFromBase(Year: number, Month: number, Day: number): number;
-    getYearMontDayFromDays(jd: number): {
+    getYearMonthDayFromDays(jd: number): {
         year: number;
         month: number;
         day: number;
@@ -269,7 +344,7 @@ declare class WNHijriCalendar implements IWNCalendar {
     isLeapMonth(Year: number, Month: number): boolean;
     isLeapYear(Year: number): boolean;
     getDaysFromBase(Year: number, Month: number, Day: number): number;
-    getYearMontDayFromDays(jd: number): {
+    getYearMonthDayFromDays(jd: number): {
         year: number;
         month: number;
         day: number;
@@ -291,7 +366,7 @@ declare class WNJulianCalendar implements IWNCalendar {
     isLeapYear(Year: number): boolean;
     getMonthsDays(mLeapYear: boolean): number[];
     getDaysFromBase(Year: number, Month: number, Day: number): number;
-    getYearMontDayFromDays(jd: number): {
+    getYearMonthDayFromDays(jd: number): {
         year: number;
         month: number;
         day: number;
@@ -311,7 +386,7 @@ declare class WNPersianCalendar implements IWNCalendar {
     isLeapMonth(Year: number, Month: number): boolean;
     isLeapYear(Year: number): boolean;
     getDaysFromBase(Year: number, Month: number, Day: number): number;
-    getYearMontDayFromDays(jd: number): {
+    getYearMonthDayFromDays(jd: number): {
         year: number;
         month: number;
         day: number;
@@ -456,6 +531,7 @@ declare function WNRemoveClassList(elem: HTMLElement, classes: string): void;
 declare function WNCalendarFunction(name: string): IWNCalendar;
 declare function WNCultureInfoFunction(name: string): IWNCultureInfo;
 declare function WNGenerateFunction(body: string, params?: string): any;
+declare function WNToDictionary(value: string): WNDictionary;
 declare function WNAddStringQuote(value: string): string;
 declare function WNisJson(item: any): boolean;
 declare function WNtoTitleCase(text: string): string;
@@ -463,11 +539,15 @@ declare function WNNumberToString(num: number, culture?: IWNCultureInfo): string
 declare function WNStringFormat(text: string | number, format: string, culture?: IWNCultureInfo): string;
 declare function WNToggleClass(elem: string | HTMLElement, setclass: string, classes: string[]): void;
 declare function WNSetViewSize(): any;
+declare function WNGetWNType(elem: HTMLElement): string;
 declare function WNGetParentsElementsTag(elem: HTMLElement, untilTag: string, untilClass: string): string[];
 declare function WNRGB2HEX(rgb: string): string;
 declare function WNFindTreeArray(source: any, fieldName1: string, fieldName2: string, value: string, contain: boolean, ignoreCase: boolean, childsFieldName: string): any[];
+declare function WNChangeFieldTreeArray(source: any, childsFieldName: string, parent: any, call: Function): void;
 declare function WNFileToString(input: HTMLInputElement): Promise<string>;
 declare function WNSetImageBase(input: HTMLInputElement, img: HTMLImageElement | string): Promise<void>;
+declare function WNCheckReadOnlyDisabled(element: HTMLElement, readOnly?: boolean, disabled?: boolean): boolean;
+declare function WNQueryString(key: string): string;
 declare class WNConfig implements IWNConfig {
     nativeDigit: boolean;
     calendar: IWNCalendar;
@@ -860,10 +940,12 @@ declare class WNList implements IWNList {
     element: HTMLElement;
     dataSource: WNListNode[];
     checkbox: boolean;
+    checkboxclass: string;
     beforeClick: (t: IWNList, node: WNListNode, e: MouseEvent) => boolean;
     afterClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
     dblClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
     selectionChanged: (t: IWNList, node: WNListNode) => void;
+    checkChanged: (t: IWNList, node: WNListNode) => void;
     constructor(elem: HTMLElement);
     private init;
     private initDataSource;
@@ -987,11 +1069,14 @@ declare class WNMultiInput implements IWNMultiInput {
     element: HTMLElement;
     inputs: HTMLElement[];
     private detail;
+    private labels;
     constructor(elem: HTMLElement);
     private init;
+    private getLables;
     private toggle;
-    get values(): string[];
-    set values(value: string[]);
+    get values(): WNDictionary;
+    set values(value: WNDictionary);
+    private createInput;
 }
 declare class WNMultiSelect implements IWNMultiSelect {
     readonly nameType: string;
@@ -1018,6 +1103,7 @@ declare class WNMultiSelect implements IWNMultiSelect {
     get selectedValue(): string[];
     set selectedValue(value: string[]);
     private clearAll;
+    clearSearch(): void;
 }
 declare class WNProgress implements IWNProgress {
     readonly nameType: string;
@@ -1186,8 +1272,10 @@ declare class WNTable implements IWNTable {
     private addTableRows;
     private hideByParent;
     private addAggregateRow;
+    filterByText(text: string): void;
     private setFilter;
     private filter;
+    findValueInDatasource(fieldName: string, value: any): WNTableNode;
 }
 declare class WNTime implements IWNTime {
     readonly nameType: string;
@@ -1262,6 +1350,9 @@ declare class WNTree implements IWNTree {
     element: HTMLUListElement;
     dataSource: WNTreeNode[];
     selectedItem: WNTreeNode;
+    checkbox: boolean;
+    checkboxclass: string;
+    checkboxautochild: boolean;
     beforeClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     afterClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     selectionChanged: (t: IWNTree, node: WNTreeNode) => void;
@@ -1271,6 +1362,7 @@ declare class WNTree implements IWNTree {
     afterExpand: (t: IWNTree, node: WNTreeNode) => void;
     beforeToggle: (t: IWNTree, node: WNTreeNode) => void;
     afterToggle: (t: IWNTree, node: WNTreeNode) => void;
+    checkChanged: (t: IWNTree, node: WNTreeNode) => void;
     constructor(elem: HTMLElement);
     private Init;
     private initDataSource;
@@ -1290,6 +1382,7 @@ declare class WNTree implements IWNTree {
     expandChilds(node: WNTreeNode): void;
     expandAll(): void;
     findByText(text: string, contains?: boolean, select?: boolean): WNTreeNode[];
+    private findBy;
     findByValue(value: string, select?: boolean): WNTreeNode;
     findByTextOrValue(text: string, contains?: boolean, select?: boolean): WNTreeNode[];
     filterByText(text: string, contains?: boolean): void;
@@ -1304,6 +1397,17 @@ declare class WNTree implements IWNTree {
     setDataSource(parentNode: WNTreeNode, dataSource: WNTreeNode[], append?: boolean): void;
     private clearChilds;
     private convertDataSource;
+    get checkedItems(): WNTreeNode[];
+    set checkedItems(value: WNTreeNode[]);
+    get checkedValues(): string[];
+    set checkedValues(value: string[]);
+    get checkedAllValues(): string[];
+    set checkedAllValues(value: string[]);
+    checkedClear(): void;
+    checkedAll(): void;
+    checkedInvert(): void;
+    checkedHide(value: string[]): void;
+    checkedChild(checked: boolean, node: WNTreeNode): any;
 }
 declare class WNTreeTable implements IWNTreeTable {
     readonly nameType: string;
@@ -1341,6 +1445,7 @@ declare function wnStopPreLoaderTimeout(): void;
 declare function wnShowPreLoaderTimeout(show: boolean, _WNPreLoaderTimeout?: number, _WNPreLoaderDelayStart?: number, _WNPreLoderId?: string): void;
 declare function showPreLoaderDelay(show: boolean, _WNPreLoaderDelayStart?: number, _WNPreLoaderTimeout?: number, _WNPreLoderId?: string): void;
 declare function wnShowPreLoader(show: boolean, _WNPreLoderId?: string, _WNPreLoaderDelayStart?: number, _WNPreLoaderTimeout?: number): void;
+declare function wnHideAllPreLoader(_WNPreLoderId?: string): void;
 declare class WNDateShow implements IWNDateShow {
     readonly nameType: string;
     element: HTMLElement;
@@ -1499,9 +1604,11 @@ interface IWNList extends IWNComponent {
     checkedItems: WNListNode[];
     checkedValues: string[];
     checkbox: boolean;
+    checkboxclass: string;
     beforeClick: (t: IWNList, node: WNListNode, e: MouseEvent) => boolean;
     afterClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
     selectionChanged: (t: IWNList, node: WNListNode) => void;
+    checkChanged: (t: IWNList, node: WNListNode) => void;
     select(node: WNListNode): void;
     findByText(text: string, contains?: boolean, select?: boolean): WNListNode[];
     findByValue(value: string, select?: boolean): WNListNode;
@@ -1563,7 +1670,7 @@ type WNDictionary = {
 };
 interface IWNMultiInput extends IWNComponent {
     inputs: HTMLElement[];
-    values: string[];
+    values: WNDictionary;
 }
 interface IWNMultiSelect extends IWNComponent {
     selectedItems: WNGeneralNode[];
@@ -1574,6 +1681,7 @@ interface IWNMultiSelect extends IWNComponent {
     beforeFilterChanged: (t: IWNSearchList, text: string) => Promise<boolean> | boolean;
     max: number;
     search: IWNSearchList;
+    clearSearch(): void;
 }
 type WNGeneralNode = {
     id?: number;
@@ -1640,6 +1748,8 @@ interface IWNTable extends IWNComponent {
     removeFromDataSource(r: WNTableNode): boolean;
     updateNodeElement(r: WNTableNode): void;
     setDataSource(dataSource: any, append?: boolean): void;
+    filterByText(text: string): void;
+    findValueInDatasource(fieldName: string, value: any): WNTableNode;
 }
 type WNTableNode = {
     privateId: number;
@@ -1704,6 +1814,12 @@ interface IWNTooltip extends IWNComponent {
 interface IWNTree extends IWNComponent {
     dataSource: WNTreeNode[];
     selectedItem: WNTreeNode;
+    checkedItems: WNTreeNode[];
+    checkedValues: string[];
+    checkedAllValues: string[];
+    checkbox: boolean;
+    checkboxclass: string;
+    checkboxautochild: boolean;
     beforeClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     afterClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     selectionChanged: (t: IWNTree, node: WNTreeNode) => void;
@@ -1713,6 +1829,7 @@ interface IWNTree extends IWNComponent {
     afterExpand: (t: IWNTree, node: WNTreeNode) => void;
     beforeToggle: (t: IWNTree, node: WNTreeNode) => void;
     afterToggle: (t: IWNTree, node: WNTreeNode) => void;
+    checkChanged: (t: IWNTree, node: WNTreeNode) => void;
     select(node: WNTreeNode): void;
     toggle(node: WNTreeNode): void;
     collapse(node: WNTreeNode): void;
@@ -1732,6 +1849,10 @@ interface IWNTree extends IWNComponent {
     setDataSourceByParentId(parentNode: WNTreeNode, dataSource: any[], idFieldName: string, parentFieldName: string, parentRootValue: any, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void;
     setDataSourceByItem(parentNode: WNTreeNode, dataSource: any[], itemFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void;
     setDataSource(parentNode: WNTreeNode, dataSource: WNTreeNode[], append?: boolean): void;
+    checkedClear(): void;
+    checkedAll(): void;
+    checkedInvert(): void;
+    checkedHide(value: string[]): void;
 }
 type WNTreeNode = {
     id: number;
@@ -1765,7 +1886,7 @@ interface IWNCalendar {
     getDaysInYear(Year: number): number;
     getWeekOfYear(Year: number, Month: number, Day: number): number;
     getDaysFromBase(Year: number, Month: number, Day: number): number;
-    getYearMontDayFromDays(mNum: number): {
+    getYearMonthDayFromDays(mNum: number): {
         year: number;
         month: number;
         day: number;
@@ -1872,6 +1993,7 @@ interface IWNDate {
     readonly isLeapDay: boolean;
     readonly weekOfYear: number;
     setDate(date: Date): void;
+    setUTCDate(date: any): void;
     setDateYMD(Year: number, Month: number, Day: number, Hour: number, Minute: number, Second: number, Millisecond: number): void;
     setYMD(Year: number, Month: number, Day: number, Hour: number, Minute: number, Second: number, Millisecond: number): void;
     setDateNumber(jd: number): void;

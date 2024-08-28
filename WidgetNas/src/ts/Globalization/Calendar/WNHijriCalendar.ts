@@ -40,7 +40,7 @@
             this.ISLAMIC_EPOCH) - 1;
     }
 
-    getYearMontDayFromDays(jd: number): { year: number, month: number, day: number } {
+    getYearMonthDayFromDays(jd: number): { year: number, month: number, day: number } {
         let year, month, day;
 
         jd = Math.floor(jd) + 0.5 + this.hijriAdjustment;

@@ -615,3 +615,110 @@
 <h2>ریسپانسیو کردن جدول</h2>
 <p>برای ریسپانسیو کردن جدول باید کل جدول را در یک div قرار داد و به آن div کلاس responsive را اضافه کرد و هر اندازه ای که مد نظر است به آن داد.</p>
 <p>جدول در زمان ریسپانسیو شدن، عنوان و پانوشت به صورت چسبان همیشه نمایش داده میشود.</p>
+
+<h2>فقط خواندنی و غیر فعال</h2>
+<div class="example-div" id="form4">
+    <div class="ltr w-90-i">
+        <h3>Readonly</h3>
+        <table lass="tablex hover striped" wn-type="table" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
+               oncommand="alert(command +':'+ node.privateId)" readonly>
+            <thead>
+                <tr>
+                    <th sortable data-field='id' data-type='number' data-format='number' style="width:3rem">#</th>
+                    <th filterable data-field='firstName' data-format='Name is : {0}'>First Name</th>
+                    <th filterable sortable data-field='lastName'>Last Name</th>
+                    <th filterable sortable data-field='position' data-format='t'>Position</th>
+                    <th filterable sortable="value" data-field='date' data-type='date' data-format='shortdate'
+                        condition="t.className=value.getFullYear()==2005?'secondary':''">Birth Date</th>
+                    <th condition="t.innerText=node.fields['date'].value.getFullYear()">Condition</th>
+                    <th command>
+                        Commands
+                        <button command="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="m-is-50r" command="delete"><i class="fa-solid fa-trash"></i></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <td>omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                    <td>1979-04-04</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td>reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                    <td>2000-05-17</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3</th>
+                    <td>Mohammad</td>
+                    <td>Keshavarz</td>
+                    <td>Marketing</td>
+                    <td>2005-02-20</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="ltr w-90-i">
+        <h3>Disabled</h3>
+        <table id="table1-ltr" class="tablex hover striped" wn-type="table" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US"
+               oncommand="alert(command +':'+ node.privateId)" disabled>
+            <thead>
+                <tr>
+                    <th sortable data-field='id' data-type='number' data-format='number' style="width:3rem">#</th>
+                    <th filterable data-field='firstName' data-format='Name is : {0}'>First Name</th>
+                    <th filterable sortable data-field='lastName'>Last Name</th>
+                    <th filterable sortable data-field='position' data-format='t'>Position</th>
+                    <th filterable sortable="value" data-field='date' data-type='date' data-format='shortdate'
+                        condition="t.className=value.getFullYear()==2005?'secondary':''">Birth Date</th>
+                    <th condition="t.innerText=node.fields['date'].value.getFullYear()">Condition</th>
+                    <th command>
+                        Commands
+                        <button command="edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="m-is-50r" command="delete"><i class="fa-solid fa-trash"></i></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <td>omid</td>
+                    <td>Moridi</td>
+                    <td>WidgetNas Creator</td>
+                    <td>1979-04-04</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td>reza</td>
+                    <td>Rahmani</td>
+                    <td>Developer</td>
+                    <td>2000-05-17</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>3</th>
+                    <td>Mohammad</td>
+                    <td>Keshavarz</td>
+                    <td>Marketing</td>
+                    <td>2005-02-20</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<figure><code data-on="form4"></code></figure>

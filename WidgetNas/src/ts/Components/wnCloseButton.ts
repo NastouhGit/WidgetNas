@@ -12,10 +12,16 @@
         this.element.addEventListener("click", (e) => {
             let elem = <Element>e.target;
             if (elem.hasAttribute('close-parent')) {
-                if (this.element.parentElement.classList.contains('show'))
-                    this.element.parentElement.classList.remove('show');
+                let parent = this.element.parentElement;
+                if (elem.getAttribute('close-parent') !== '') {
+                    parent = WNGetNodesList(elem.getAttribute('close-parent'))[0] ?? null;
+                    if (parent == null) return;
+                }
+
+                if (parent.classList.contains('show'))
+                    parent.classList.remove('show');
                 else
-                    this.element.parentElement.classList.add('hide');
+                    parent.classList.add('hide');
 
             }
             else if (elem.hasAttribute('remove-id')) {

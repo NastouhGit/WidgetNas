@@ -4,6 +4,11 @@
     public dataSource: WNTreeNode[];
     public selectedItem: WNTreeNode;
 
+    public checkbox: boolean = false;
+    public checkboxclass: string = "";
+    public checkboxautochild: boolean = false;
+
+
     public beforeClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     public afterClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     public selectionChanged: (t: IWNTree, node: WNTreeNode) => void;
@@ -13,6 +18,7 @@
     public afterExpand: (t: IWNTree, node: WNTreeNode) => void;
     public beforeToggle: (t: IWNTree, node: WNTreeNode) => void;
     public afterToggle: (t: IWNTree, node: WNTreeNode) => void;
+    public checkChanged: (t: IWNTree, node: WNTreeNode) => void;
 
     //private
     //private lastClickID = '';
@@ -20,6 +26,9 @@
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLUListElement;
             this.Init();
+            if (this.checkbox == true)
+                this.setDataSource(null, this.dataSource, false);
+
         }
     }
     private Init() {
@@ -29,6 +38,13 @@
 
         if (this.element.classList.contains('collapsed-all'))
             this.collapsedAll();
+
+        if (this.element.hasAttribute('checkbox'))
+            this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
+        if (this.element.hasAttribute('checkbox-class'))
+            this.checkboxclass = this.element.getAttribute('checkbox-class');
+        if (this.element.hasAttribute('checkbox-auto'))
+            this.checkboxautochild = WNparseBoolean(this.element.getAttribute('checkbox-auto'), false);
 
         //assign events
         if (this.element.hasAttribute('onbeforeclick'))
@@ -49,6 +65,9 @@
             this.beforeToggle = WNGenerateFunction(this.element.getAttribute('onbeforetoggle'), 't,n');
         if (this.element.hasAttribute('onaftertoggle'))
             this.afterToggle = WNGenerateFunction(this.element.getAttribute('onaftertoggle'), 't,n');
+        if (this.element.hasAttribute('oncheckchanged'))
+            this.checkChanged = WNGenerateFunction(this.element.getAttribute('oncheckchanged'), 't,n');
+
     }
     private initDataSource(parentNode?: WNTreeNode, parent: HTMLOListElement | HTMLUListElement = undefined) {
         if (parent == undefined) {
@@ -132,12 +151,14 @@
             this.lastNodeTime = Date.now();
             this.lastNodeClick = node;
         }
-        this.beforeClick?.(this, node, e);
 
+        if (!WNCheckReadOnlyDisabled(this.element)) this.beforeClick?.(this, node, e);
 
         if (node.children.length > 0) {
-            if (this.selectedItem != node)
+            if (!WNCheckReadOnlyDisabled(this.element) && this.selectedItem != node) {
                 this.select(node);
+            }
+
             else
                 if ((node.liElement.dir == 'ltr' && e.offsetX < parseInt(getComputedStyle(node.liElement).paddingInlineStart) * 1.1) ||
                     ((node.liElement.clientWidth - e.offsetX) < parseInt(getComputedStyle(node.liElement).paddingInlineStart) * 1.1))
@@ -145,18 +166,19 @@
 
         }
         else
-            this.select(node);
+            if (!WNCheckReadOnlyDisabled(this.element)) this.select(node);
 
-        this.afterClick?.(this, node, e);
+        if (!WNCheckReadOnlyDisabled(this.element)) this.afterClick?.(this, node, e);
     }
     private dblclick(node: WNTreeNode, e: MouseEvent): void {
+        if (WNCheckReadOnlyDisabled(this.element)) return;
         e.stopPropagation();
         if (node.children.length == 0) return;
         this.toggle(node);
     }
 
     public select(node: WNTreeNode): void {
-        if (node.element.hasAttribute('disabled') || node.element.classList.contains('disabled'))
+        if (WNCheckReadOnlyDisabled(node.element))
             return;
         if (node == this.selectedItem) return;
         this.element.querySelectorAll('.active').forEach(x => x.classList.remove('active'));
@@ -227,6 +249,20 @@
         let find = WNFindTreeArray(this.dataSource, "text", '', text, contains, true, "children") as WNTreeNode[];
         if (select && find.length > 0)
             this.select(find[0]);
+        return find;
+    }
+    private findBy(pre: Function, source: WNTreeNode[] = null): WNTreeNode[] {
+        let find: WNTreeNode[] = [];
+        if (source == null) source = this.dataSource;
+        for (var i = 0; i < source.length; i++) {
+            let item = source[i];
+            let r = pre(item);
+            if (r == true)
+                find.push(item);
+            if (item.children.length > 0) {
+                find = find.concat(this.findBy(pre, item.children));
+            }
+        }
         return find;
     }
     public findByValue(value: string, select?: boolean): WNTreeNode {
@@ -342,6 +378,23 @@
         }
         tItem.innerHTML += node.html == '' ? node.text : node.html;
         node.text = WNHtmlToText(item.innerHTML);
+
+        if (this.checkbox) {
+            let check = document.createElement('input');
+            check.type = 'checkbox';
+            check.className = 'item-check ' + this.checkboxclass;
+            check.id = this.element.id + '_' + node.id;
+            check.value = node.value;
+            check.addEventListener("input", x => {
+                let xx = x.target as HTMLInputElement;
+                this.checkedChild(xx?.checked, node);
+                this.checkChanged?.(this, node);
+
+            }, true);
+            item.insertAdjacentElement('afterbegin', check);
+
+        }
+
         return item;
     }
     public removeFromDataSource(node: WNTreeNode): boolean {
@@ -373,7 +426,7 @@
             this.clearChilds(parentNode);
 
         this.convertParentId(parentNode, parentRootValue, dataSource, idFieldName, parentFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
-
+        this.selectedItem = null;
     }
     private convertParentId(parentNode: WNTreeNode, parentValue: any, dataSource: any[], idFieldName: string, parentFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string): void {
         let subItem = dataSource.filter(x => x[parentFieldName] == parentValue);
@@ -388,6 +441,7 @@
         if (!append)
             this.clearChilds(parentNode);
         this.convertByItem(parentNode, dataSource, itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
+        this.selectedItem = null;
     }
     private convertByItem(parentNode: WNTreeNode, dataSource: any[], itemFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string): void {
         for (var i = 0; i < dataSource.length; i++) {
@@ -402,6 +456,7 @@
             this.clearChilds(parentNode);
 
         this.convertDataSource(parentNode, dataSource);
+        this.selectedItem = null;
     }
     private clearChilds(parentNode: WNTreeNode) {
         if (parentNode == null) {
@@ -419,4 +474,88 @@
                 this.convertDataSource(node, item['children']);
         }
     }
+
+    public get checkedItems(): WNTreeNode[] {
+        let ret: WNTreeNode[] = [];
+        let f = this.findBy(x => true);
+        for (var i = 0; i < f.length; i++) {
+            let inp = f[i].element.querySelector('input[type=checkbox]') as HTMLInputElement;
+            if (inp?.checked)
+                ret.push(f[i]);
+
+        }
+        return ret;
+    };
+    public set checkedItems(value: WNTreeNode[]) {
+        this.checkedClear();
+
+        for (var i = 0; i < value.length; i++) {
+            let inp = value[i].element.querySelector('input[type=checkbox]') as HTMLInputElement;
+            if (inp)
+                inp.checked = true;
+        }
+    };
+
+    public get checkedValues(): string[] {
+        let ret: string[] = [];
+        let checked = this.checkedItems;
+        for (var i = 0; i < checked.length; i++) ret.push(checked[i].value)
+        return ret;
+    };
+    public set checkedValues(value: string[]) {
+        let checked: WNTreeNode[] = [];
+        for (var i = 0; i < value.length; i++) {
+            let f = this.findBy(x => x.value == value[i]);
+            if (f.length > 0) checked.push(f[0]);
+
+        }
+        this.checkedItems = checked;
+    };
+    public get checkedAllValues(): string[] {
+        let ret: string[] = [];
+        var inp = this.element.querySelectorAll('input[type=checkbox]');
+        for (var i = 0; i < inp.length; i++) {
+            let c = inp[i] as HTMLInputElement;
+            if (c.value != '' && c.checked) {
+                ret.push(c.value);
+            }
+        }
+        return ret;
+    };
+    public set checkedAllValues(value: string[]) {
+        var inp = this.element.querySelectorAll('input[type=checkbox]');
+        for (var i = 0; i < inp.length; i++) {
+            let c = inp[i] as HTMLInputElement;
+            c.checked = value.includes(c.value);
+        }
+    };
+    
+    public checkedClear(): void {
+        this.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.checked = false);
+    }
+    public checkedAll(): void {
+        this.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.checked = true);
+    }
+    public checkedInvert(): void {
+        this.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.checked = !x.checked);
+    }
+    public checkedHide(value: string[]): void {
+        for (var i = 0; i < value.length; i++) {
+            let f = this.findBy(x => x.value == value[i]);
+            f.forEach(f =>
+                f.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.remove())
+            );
+
+        }
+
+    }
+    checkedChild(checked: boolean, node: WNTreeNode): any {
+        node.children.forEach(x => {
+            x.element.querySelectorAll('input.item-check').forEach((x: HTMLInputElement) => x.checked = checked);
+            if (x.children?.length > 0)
+                this.checkedChild(checked, x);
+        })
+
+    }
+
 }

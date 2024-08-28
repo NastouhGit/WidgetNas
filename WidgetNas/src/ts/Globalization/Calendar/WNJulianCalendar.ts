@@ -51,7 +51,7 @@
             Math.floor((30.6001 * (Month + 1))) +
             Day) - 1524.5);
     }
-    getYearMontDayFromDays(jd: number): { year: number, month: number, day: number } {
+    getYearMonthDayFromDays(jd: number): { year: number, month: number, day: number } {
         let a, b, c, d, e, year, month, day;
 
         jd += 0.5;

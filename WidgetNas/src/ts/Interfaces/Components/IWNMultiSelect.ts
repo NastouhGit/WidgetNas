@@ -13,6 +13,7 @@
     max: number;
 
     search: IWNSearchList;
+    clearSearch(): void;
 }
 
 

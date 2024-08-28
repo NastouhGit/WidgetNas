@@ -8,7 +8,6 @@
 .list tr, .list li, .list .list-item {
   font-size: var(--font-size);
   position: relative;
-  display: block;
   padding-block: var(--padding-block);
   padding-inline: var(--padding-inline);
   text-decoration: none;
@@ -44,14 +43,26 @@
   color: var(--disable-color) !important;
   pointer-events: none;
 }
+.list tr label, .list li label, .list .list-item label {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  pointer-events: auto;
+}
+.list tr input, .list li input, .list .list-item input {
+  position: relative;
+}
 .list tr input[type=checkbox] + label,
 .list tr input[type=radio] + label, .list li input[type=checkbox] + label,
 .list li input[type=radio] + label, .list .list-item input[type=checkbox] + label,
 .list .list-item input[type=radio] + label {
   margin-inline-start: 0.25rem;
+  border: none !important;
 }
 .list tr.hide, .list li.hide, .list .list-item.hide {
-  display: none;
+  display: none !important;
 }
 .list tr img, .list tr i, .list li img, .list li i, .list .list-item img, .list .list-item i {
   margin-inline-end: 0.25rem;
@@ -73,6 +84,19 @@
 .list.list-hover .list-active:hover {
   color: var(--select-color);
   background-color: var(--select-back);
+}
+.list[readonly] *:not(tr):not(li):not(.list-item), .list.readonly *:not(tr):not(li):not(.list-item) {
+  pointer-events: none;
+}
+.list[disabled] *:not(tr):not(li):not(.list-item), .list.disabled *:not(tr):not(li):not(.list-item) {
+  pointer-events: none;
+}
+.list[disabled] *:not(ul):not(li), .list.disabled *:not(ul):not(li) {
+  pointer-events: none;
+  color: var(--disable-color) !important;
+}
+.list[disabled] *:not(ul):not(li) .button, .list[disabled] *:not(ul):not(li) button, .list.disabled *:not(ul):not(li) .button, .list.disabled *:not(ul):not(li) button {
+  background-color: var(--disable-back) !important;
 }
 
 table.list > :not(table.caption) > * > * {

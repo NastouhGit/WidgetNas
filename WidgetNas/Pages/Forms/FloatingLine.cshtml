@@ -216,6 +216,14 @@
         <h3>LTR</h3>
         <form id="form5">
             <ig class="floatingline">
+                <input type="text" disabled placeholder=".">
+                <label>Input disabled</label>
+            </ig>
+            <ig class="floatingline" disabled>
+                <input type="text" placeholder=".">
+                <label>ig disabled</label>
+            </ig>
+            <ig class="floatingline">
                 <input type="text" value="Nastouh" disabled placeholder=".">
                 <label>Input disabled</label>
             </ig>
@@ -270,11 +278,19 @@
         <h3>RTL</h3>
         <form>
             <ig class="floatingline">
+                <input type="text" disabled placeholder=".">
+                <label>ورودی غیر فعال</label>
+            </ig>
+            <ig class="floatingline" disabled>
+                <input type="text" placeholder=".">
+                <label>گروه ورودی غیر فعال</label>
+            </ig>
+            <ig class="floatingline">
                 <input type="text" value="Nastouh" disabled placeholder=".">
                 <label>ورودی غیر فعال</label>
             </ig>
             <ig class="floatingline" disabled>
-                <input type="text" value="Nastouh">
+                <input type="text" value="Nastouh" placeholder=".">
                 <label>گروه ورودی غیر فعال</label>
             </ig>
             <ig class="floatingline">
@@ -439,13 +455,84 @@
                 <div class="col-4">
                     <ig class="floatingline">
                         <input placeholder="." class="dropdownarrow" required />
-                        <label >Dropdown</label>
+                        <label>Dropdown</label>
                     </ig>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 floatingline">
+                    <ul class="list">
+                        <li><input type="checkbox" /><label>Item 1</label></li>
+                        <li><input type="checkbox" /><label>Item 2</label></li>
+                        <li><input type="checkbox" /><label>Item 3</label></li>
+                    </ul>
                 </div>
             </div>
             <button class="danger" type="submit">Send</button>
             <button class="warning" type="reset">Reset</button>
         </form>
+        <h3>By Parent</h3>
+        <div class="floatingline">
+            <div>
+                <form wn-type="validator" novalidate>
+                    <div class="row">
+                        <div class="col-4">
+                            <ig>
+                                <input type="text" placeholder="." required />
+                                <label>First Name</label>
+                            </ig>
+                        </div>
+                        <div class="col-4">
+                            <ig>
+
+                                <select required>
+                                    <option hidden disabled selected value=""></option>
+                                    <option value="1">Tehran</option>
+                                    <option value="2">Markazi</option>
+                                    <option value="3">Fars</option>
+                                </select>
+                                <label>State</label>
+                            </ig>
+                        </div>
+                        <div class="col-4">
+                            <ul class="list" wn-type="list" checkbox="true">
+                                <li>Item 1</li>
+                                <li>Item 2</li>
+                                <li>Item 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div id="m1" class="multiselect" wn-type="MultiSelect">
+                                <input type="search" >
+                                <label>Selected</label>
+                                <div class="selecteditem"></div>
+                                <div class="dropdown">
+                                    <ul wn-type="list">
+                                        <li value="FirstName">First Name</li>
+                                        <li value="LastName">Last Name</li>
+                                        <li value="Company">Company</li>
+                                        <li value="Address">Address</li>
+                                        <li value="City">City</li>
+                                        <li value="Country">Country</li>
+                                        <li value="State">State/Province</li>
+                                        <li value="ZIP">ZIP/Postal Code</li>
+                                        <li value="Phone1">Phone 1</li>
+                                        <li value="Phone2">Phone 2</li>
+                                        <li value="Email">Email</li>
+                                        <li value="Web">Web</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="danger" type="submit">Send</button>
+                    <button class="warning" type="reset">Reset</button>
+
+                </form>
+            </div>
+        </div>
     </div>
     <div class="rtl w-75">
         <h3>RTL</h3>
@@ -575,3 +662,80 @@
     </div>
 </div>
 <figure><code data-on="form6"></code></figure>
+<h2>پیش فرض</h2>
+<div class="example-div">
+    <div class="ltr w-75">
+        <h3>LTR</h3>
+        <div id="form7" class="floatingline">
+            <div class="revert">
+                <ig>
+                    <label>First Name</label>
+                    <input type="text" />
+                </ig>
+                <ig>
+                    <label>Check 1</label>
+                    <input type="checkbox" />
+                </ig>
+                <ig>
+                    <label>Check 2</label>
+                    <input type="checkbox" />
+                </ig>
+                <ig>
+                    <input type="radio" name="rr1" />
+                    <label>Radio 1</label>
+                    <input type="radio" name="rr1" />
+                    <label>Radio 2</label>
+                </ig>
+
+                <ig>
+                    <label>State</label>
+                    <select required>
+                        <option hidden disabled selected value=""></option>
+                        <option value="1">Tehran</option>
+                        <option value="2">Markazi</option>
+                        <option value="3">Fars</option>
+                    </select>
+                </ig>
+                <ul class="list" wn-type="list" checkbox="true">
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                </ul>
+                <ul class="tree tree-expand-item tree-arrow" wn-type="tree" checkbox="true" checkbox-class="switch">
+                    <li>
+                        <item value="c">Checkbox</item>
+                        <ul>
+                            <li>
+                                <item value="c1">
+                                    Checkbox 1
+                                </item>
+                            </li>
+                            <li>
+                                <item value="c2">
+                                    Checkbox 2
+                                </item>
+                            </li>
+                            <li>
+                                <item value="c3">
+                                    Checkbox 3
+                                </item>
+                            </li>
+                            <li>
+                                <item value="c4">
+                                    Checkbox 4
+                                </item>
+                            </li>
+                            <li>
+                                <item value="c5">
+                                    Checkbox 5
+                                </item>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>

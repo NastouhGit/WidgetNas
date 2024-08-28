@@ -43,3 +43,9 @@ function wnShowPreLoader(show: boolean, _WNPreLoderId: string = WNPreLoderId, _W
         }
     }
 }
+
+function wnHideAllPreLoader(_WNPreLoderId: string = WNPreLoderId){
+    wnStopPreLoaderTimeout();
+    _PreLoaderWaitCount = 0;
+    document.getElementById(_WNPreLoderId)?.classList.add('hide');
+}

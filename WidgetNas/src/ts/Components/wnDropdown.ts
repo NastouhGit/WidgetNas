@@ -68,7 +68,7 @@
         let doHide = false;
         if (event.target == document || event.target == window)
             doHide = true;
-        else if (event.target.getAttribute('wn-type') != 'dropdown' && !WNParentHaveClass(event.target, 'dropdown'))
+        else if (WNGetWNType(event.target) != 'dropdown' && !WNParentHaveClass(event.target, 'dropdown'))
             doHide = true;
 
         if (doHide) {

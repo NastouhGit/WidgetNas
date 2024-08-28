@@ -2,6 +2,13 @@
     dataSource: WNTreeNode[];
     selectedItem: WNTreeNode;
 
+    checkedItems: WNTreeNode[];
+    checkedValues: string[];
+    checkedAllValues: string[];
+    checkbox: boolean;
+    checkboxclass: string;
+    checkboxautochild: boolean;
+
     beforeClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     afterClick: (t: IWNTree, node: WNTreeNode, e: MouseEvent) => void;
     selectionChanged: (t: IWNTree, node: WNTreeNode) => void;
@@ -11,6 +18,7 @@
     afterExpand: (t: IWNTree, node: WNTreeNode) => void;
     beforeToggle: (t: IWNTree, node: WNTreeNode) => void;
     afterToggle: (t: IWNTree, node: WNTreeNode) => void;
+    checkChanged: (t: IWNTree, node: WNTreeNode) => void;
 
     select(node: WNTreeNode):void;
     toggle(node: WNTreeNode): void;
@@ -34,7 +42,12 @@
     updateNodeElement(node: WNTreeNode): void;
     setDataSourceByParentId(parentNode: WNTreeNode, dataSource: any[], idFieldName: string, parentFieldName: string, parentRootValue: any, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void;
     setDataSourceByItem(parentNode: WNTreeNode, dataSource: any[], itemFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void;
-    setDataSource(parentNode: WNTreeNode,dataSource: WNTreeNode[],  append?: boolean): void;
+    setDataSource(parentNode: WNTreeNode, dataSource: WNTreeNode[], append?: boolean): void;
+
+    checkedClear(): void;
+    checkedAll(): void;
+    checkedInvert(): void;
+    checkedHide(value:string[]): void;
 }
 
 type WNTreeNode = {

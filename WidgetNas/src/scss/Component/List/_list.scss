@@ -11,7 +11,6 @@
     tr, li, .list-item {
         font-size: var(--font-size);
         position: relative;
-        display: block;
         padding-block: var(--padding-block);
         padding-inline: var(--padding-inline);
         text-decoration: none;
@@ -60,16 +59,30 @@
             pointer-events: none;
         }
 
-        input[type=checkbox] + label,
-        input[type=radio] + label {
-            margin-inline-start: 0.25rem;
+        label {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            pointer-events: auto;
         }
+
+        input {
+            position: relative;
+        }
+
+            input[type=checkbox] + label,
+            input[type=radio] + label {
+                margin-inline-start: 0.25rem;
+                border: none !important;
+            }
 
         &.hide {
-            display: none;
+            display: none !important;
         }
 
-        img,i {
+        img, i {
             margin-inline-end: 0.25rem;
         }
     }
@@ -100,6 +113,26 @@
                 color: var(--select-color);
                 background-color: var(--select-back);
             }
+        }
+    }
+
+    &[readonly] *:not(tr):not(li):not(.list-item),
+    &.readonly *:not(tr):not(li):not(.list-item) {
+        pointer-events: none;
+    }
+
+    &[disabled] *:not(tr):not(li):not(.list-item),
+    &.disabled *:not(tr):not(li):not(.list-item) {
+        pointer-events: none;
+    }
+
+    &[disabled] *:not(ul):not(li),
+    &.disabled *:not(ul):not(li) {
+        pointer-events: none;
+        color: var(--disable-color) !important;
+
+        .button, button {
+            background-color: var(--disable-back) !important;
         }
     }
 }

@@ -110,3 +110,28 @@
 <figure><code data-on="form3"></code></figure>
 <h2>نمونه کنترلر Restful</h2>
 <p>برای مشاهده نمونه کنترلر به زبان <bidi>C#</bidi> به فایل مندرج در <bidi>Pages\Component\FileListController.cs</bidi> مراجعه کنید. </p>
+
+<h2>فقط خواندنی و غیر فعال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="sample1">
+            <div wn-type="FileList" mode="full" multi-select="true" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US" url="/api/FileList" readonly>
+            </div>
+            <br />
+            <div wn-type="FileList" mode="full" multi-select="true" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US" url="/api/FileList" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div wn-type="FileList" mode="full" multi-select="true" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US" url="/api/FileList" readonly>
+        </div>
+        <br />
+        <div wn-type="FileList" mode="full" multi-select="true" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US" url="/api/FileList" disabled>
+        </div>
+
+    </div>
+</div>
+
+<figure><code data-on="sample1"></code></figure>

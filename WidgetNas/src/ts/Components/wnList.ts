@@ -4,21 +4,27 @@
     public dataSource: WNListNode[];
 
     public checkbox: boolean = false;
+    public checkboxclass: string = "";
 
     public beforeClick: (t: IWNList, node: WNListNode, e: MouseEvent) => boolean;
     public afterClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
     public dblClick: (t: IWNList, node: WNListNode, e: MouseEvent) => void;
     public selectionChanged: (t: IWNList, node: WNListNode) => void;
+    public checkChanged: (t: IWNList, node: WNListNode) => void;
 
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem as HTMLElement;
             this.init();
+            if (this.checkbox == true)
+                this.redraw();
         }
     }
     private init() {
         if (this.element.hasAttribute('checkbox'))
             this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
+        if (this.element.hasAttribute('checkbox-class'))
+            this.checkboxclass = this.element.getAttribute('checkbox-class');
 
         this.element.classList.add('list');
         this.element.classList.add('list-hover');
@@ -37,6 +43,10 @@
             this.dblClick = WNGenerateFunction(this.element.getAttribute('ondblclick'), 't,n,e');
             this.element.ondblclick = null;
         }
+        if (this.element.hasAttribute('oncheckchanged'))
+            this.checkChanged = WNGenerateFunction(this.element.getAttribute('oncheckchanged'), 't,n');
+
+
         this.selectedItem = null;
         this.initDataSource();
         this.initItems();
@@ -109,16 +119,18 @@
             this.lastNodeTime = Date.now();
             this.lastNodeClick = node;
         }
+        if (WNCheckReadOnlyDisabled(this.element))
+            return;
         if (this.beforeClick && !this.beforeClick(this, node, e))
             return;
-
         this.select(node);
-
         this.afterClick?.(this, node, e);
     }
 
     private dblclick(node: WNListNode, e: MouseEvent): void {
         e.stopPropagation();
+        if (WNCheckReadOnlyDisabled(this.element))
+            return;
         this.select(node);
         this.dblClick?.(this, node, e);
     }
@@ -237,14 +249,14 @@
                 index: 0,
                 html: text,
                 link: link,
-                value: value??text,
+                value: value ?? text,
                 image: image,
                 element: null,
                 text: ''
             };
             this.dataSource.forEach((x) => { item.id = x.id > item.id ? x.id : item.id });
             item.id++;
-            item.index = item.id;
+            item.index = this.dataSource.length;
 
             let elem = this.nodeToHtmlElement(item);
 
@@ -270,19 +282,6 @@
             item = document.createElement('div');
 
         let tItem = item;
-        if (this.checkbox) {
-            let ttItem = tItem;
-            if (this.element.tagName == 'TABLE') {
-                let td = document.createElement('td');
-                tItem.appendChild(td);
-                ttItem = td;
-            }
-            let inp = document.createElement('input');
-            inp.type = 'checkbox';
-            inp.className = 'item-check';
-            inp.id = this.element.id + '_' + node.id;
-            ttItem.appendChild(inp);
-        }
 
         if (this.element.tagName == 'TABLE') {
             let td = document.createElement('td');
@@ -307,19 +306,39 @@
             if (node.image.trim().startsWith('<'))
                 tItem.innerHTML += node.image;
             else
-                tItem.innerHTML += `<img src="${node.image}"/>`;
+                tItem.innerHTML += `<img src="${node.image}" loading="lazy"/>`;
         }
         tItem.innerHTML += node.html == '' ? node.text : node.html;
         tItem.setAttribute('item-id', item.id.toString());
+
+        if (this.checkbox) {
+            let ttItem: HTMLElement;
+            if (this.element.tagName == 'TABLE') {
+                let td = document.createElement('td');
+                tItem.appendChild(td);
+                ttItem = td;
+            }
+            let inp = document.createElement('input');
+            inp.type = 'checkbox';
+            inp.className = 'item-check ' + this.checkboxclass;
+            inp.id = this.element.id + '_' + node.id;
+            inp.addEventListener("input", () => this.checkChanged?.(this, node));
+            if (ttItem != undefined) {
+                ttItem.appendChild(inp);
+            }
+            else
+                ttItem = inp;
+            tItem.insertAdjacentElement('afterbegin', ttItem);
+        }
         node.text = tItem.textContent;
         node.element = item;
         return item;
     }
     public removeFromDataSource(node: WNListNode): boolean {
         try {
-            node.element.removeEventListener("click", (e) => { this.click(node, e); });
-            node.element.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
-            node.element.remove();
+            node.element?.removeEventListener("click", (e) => { this.click(node, e); });
+            node.element?.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
+            node.element?.remove();
             let list = this.dataSource;
             for (var i = 0; i < list.length; i++) {
                 if (list[i].id == node.id) {
@@ -344,6 +363,7 @@
             let item = dataSource[i];
             this.addToDataSource(item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
         }
+        this.selectedItem = null;
     }
 
     public setDataSource(dataSource: WNListNode[], append?: boolean): void {
@@ -354,6 +374,7 @@
             let item = dataSource[i];
             this.addToDataSource(item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
         }
+        this.selectedItem = null;
     }
 
     private clearDataSource() {

@@ -253,6 +253,18 @@ table {
             box-shadow: none;
         }
     }
+
+    @include disabled-tag('tr') {
+        background-color: var(--disable-back);
+        --normal-back: var(--disable-back) !important;
+        color: var(--disable-color);
+    }
+
+    @include readonly-tag('tr') {
+        background-color: var(--readonly-back);
+        --normal-back: var(--readonly-back) !important;
+        color: var(--readonly-color);
+    }
 }
 .responsive {
     table {

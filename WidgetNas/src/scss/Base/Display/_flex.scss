@@ -46,7 +46,9 @@
     flex: 0 0 auto;
     width: auto;
 }
-
+.flex-1 {
+    flex:1;
+}
 
 @include mediaminmax() using ($media) {
     @for $i from 1 through $grid-columns {

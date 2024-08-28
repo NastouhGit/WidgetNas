@@ -1,5 +1,6 @@
 ﻿multiselect, .multiselect {
     display: flex;
+    position:relative;
     padding: calc(var(--border-radius) / 5);
     align-items: stretch;
 

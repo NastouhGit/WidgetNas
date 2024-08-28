@@ -22,15 +22,15 @@
             <li>Item 5</li>
         </ul>
         <h4>div</h4>
-         <div wn-type="list">
+        <div wn-type="list">
             <div class="list-item">Item 1</div>
             <div class="list-item">Item 2</div>
             <div class="list-item">Item 3</div>
             <div class="list-item">Item 4</div>
             <div class="list-item">Item 5</div>
-        </div> 
+        </div>
         <h4>Table</h4>
-         <table wn-type="list">
+        <table wn-type="list">
             <thead>
                 <tr>
                     <td>Col 1</td>
@@ -55,9 +55,9 @@
                     <td>V 3-3</td>
                 </tr>
             </tbody>
-        </table> 
+        </table>
     </div>
-     <div class="rtl">
+    <div class="rtl">
         <h3>RTL</h3>
         <h4>ul</h4>
         <ul wn-type="list">
@@ -102,12 +102,13 @@
                 </tr>
             </tbody>
         </table>
-    </div> 
+    </div>
 </div>
 <figure><code data-on="form1"></code></figure>
- <h2>کنترل لیست با Javascript</h2>
+<h2>کنترل لیست با Javascript</h2>
 <p>برای آنکه بتوانید به صورت آنلاین لیست خود را کنترل کنید، مثال زیر را مشاهده کنید.</p>
-<p>برای شروع باید بدانید، همه اطلاعات در یک دیتا سورس داخلی ذخیره میشود، چه از ابتدا دارای مقدار باشد، 
+<p>
+    برای شروع باید بدانید، همه اطلاعات در یک دیتا سورس داخلی ذخیره میشود، چه از ابتدا دارای مقدار باشد،
     چه بعدا به آن اضافه شود، این خصوصیت <bidi>dataSource</bidi> نام دارد که آرایه ای از جنس <bidi>WNListNode</bidi> است.
 </p>
 <p>
@@ -300,7 +301,7 @@
                 function InsertItem() {
                     let value = WN('Insert1').inputElement.value;
                     if (value != '') {
-                        WN('list1').wn.addToDataSource(value, '',value,'');
+                        WN('list1').wn.addToDataSource(value, '', value, '');
                     }
                 }
                 function DeleteItem() {
@@ -315,7 +316,7 @@
                     if (findvalue)
                         WN('list1').wn.findByValue(value, true);
                     else
-                        WN('list1').wn.findByText(value, true,true);
+                        WN('list1').wn.findByText(value, true, true);
                 }
                 function Import(append) {
                     let o = [
@@ -324,9 +325,9 @@
                         { text: 'item 3', value: 'a3' },
                         { text: 'item 4', value: 'a4' },
                     ];
-                    WN('list1').wn.setDataSourceByItem(o, 'text', 'value','','', append);
+                    WN('list1').wn.setDataSourceByItem(o, 'text', 'value', '', '', append);
                 }
-                function ChangeText2() { 
+                function ChangeText2() {
                     let item = WN('list1').wn.dataSource[2];
                     item.html = 'Changed!';
                     WN('list1').wn.updateNodeElement(item);
@@ -351,16 +352,13 @@
 
 <h2>تیک دار کردن و انتخاب</h2>
 <p>اگر تمایل دارید گزینه ها به صورت جعه تیک باشند، خصوصیت <bidi>checkbox</bidi> را با مقدار true پر نمایید. یا این خصوصیت را از طریق جاوا اسکریپت مقدار دهی کنید.</p>
-
-
 <p>برای درک بیشتر به مثال زیر توجه کنید.</p>
-
-<div class="example-div" id="exam3">
+<div class="example-div" id="exam4">
     <div class="row w-100">
         <div class="ltr col">
             <h3>LTR</h3>
-            <ul id="list2" class="list" wn-type="list" checkbox="true">
-                <li value="m1"><input id="list2_m1" type="checkbox" value="m1" class="item-check" /><label for="list2_m1">Checkbox Manual Item 1</label></li>
+            <ul id="list2" class="list" wn-type="list" checkbox="true" oncheckchanged="alert(WN('list2').wn.checkedValues.join())">
+                <li value="m1">Checkbox Manual Item 1</li>
             </ul>
             <button class="primary m-bs-100r" onclick="alert(WN('list2').wn.checkedValues.join())">Get Checked</button>
             <button class="primary m-bs-100r" onclick="WN('list2').wn.checkedValues=['m1','a2']">Set Checked m1,a2</button>
@@ -370,8 +368,8 @@
             <script>
                 WN(document).ready(() => {
                     let o = [
-                        { text: 'Chekbox item 1', value: 'a1', image:'/images/tools16.png' },
-                        { text: 'Chekbox item 2', value: 'a2', image:'<i class="fa-sharp fa-solid fa-circle-check"></i>' },
+                        { text: 'Chekbox item 1', value: 'a1', image: '/images/tools16.png' },
+                        { text: 'Chekbox item 2', value: 'a2', image: '<i class="fa-sharp fa-solid fa-circle-check"></i>' },
                         { text: 'Chekbox item 3', value: 'a3' }
                     ];
                     WN('list2').wn.setDataSourceByItem(o, 'text', 'value', '', 'image', true);
@@ -380,13 +378,25 @@
         </div>
 
     </div>
+    <div class="row w-100">
+        <div class="ltr col">
+            <h3>LTR</h3>
+            <ul class="list" wn-type="list" checkbox="true" checkbox-class="switch">
+                <li value="m1">Checkbox Manual Item 1</li>
+                <li value="m2">Checkbox Manual Item 2</li>
+                <li value="m3">Checkbox Manual Item 3</li>
+                <li value="m4">Checkbox Manual Item 4</li>
+            </ul>
+        </div>
+
+    </div>
 </div>
-<figure><code data-on="exam3"></code></figure>
+<figure><code data-on="exam4"></code></figure>
 
 <h2>رخدادها</h2>
 <p>
     <h5>beforeClick</h5>
-    قبل از کلیک بر روی گزینه لیست، این رخداد فراخوانده میشود. اگر این رخداد مقدار <bidi>false</bidi> برگرداند، ادامه عملیات کلیک متوقف میشود.<br/>
+    قبل از کلیک بر روی گزینه لیست، این رخداد فراخوانده میشود. اگر این رخداد مقدار <bidi>false</bidi> برگرداند، ادامه عملیات کلیک متوقف میشود.<br />
     این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onbeforeclick تعریف کنید.
 </p>
 <p>
@@ -399,3 +409,50 @@
     بعد از انتخاب هر ردیف این رخداد فراخوانی میشود.<br />
     این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام onselectionchanged تعریف کنید.
 </p>
+<p>
+    <h5>checkChanged</h5>
+    بعد از تغییر تیک هر ردیف این رخداد فراخوانی میشود.<br />
+    این رخداد را به صورت جاوا اسکریپت به خصوصیت گفته شده نسبت دهید یا در خصوصیت html بنام oncheckchanged تعریف کنید.
+</p>
+
+<h2>فقط خواندنی و غیر فعال</h2>
+<p>در برخی مواقع میخواهیم درخت مان فقط خواندنی باشد و هیچ انتخابی صورت نگیرد.</p>
+<div class="example-div" id="exam5">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <ul class="list" wn-type="list" checkbox="true" readonly>
+            <li>Checkbox Item 1</li>
+            <li>Checkbox Item 2</li>
+            <li>Checkbox Item 3</li>
+            <li>Checkbox Item 4</li>
+            <li>Checkbox Item 5</li>
+        </ul>
+        <br />
+        <ul class="list" wn-type="list" checkbox="true" disabled>
+            <li>Checkbox Item 1</li>
+            <li>Checkbox Item 2</li>
+            <li>Checkbox Item 3</li>
+            <li>Checkbox Item 4</li>
+            <li>Checkbox Item 5</li>
+        </ul>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ul class="list" wn-type="list" checkbox="true" readonly>
+            <li>گزینه تیک دار 1</li>
+            <li>گزینه تیک دار 2</li>
+            <li>گزینه تیک دار 3</li>
+            <li>گزینه تیک دار 4</li>
+            <li>گزینه تیک دار 5</li>
+        </ul>
+        <br />
+        <ul class="list" wn-type="list" checkbox="true" disabled>
+            <li>گزینه تیک دار 1</li>
+            <li>گزینه تیک دار 2</li>
+            <li>گزینه تیک دار 3</li>
+            <li>گزینه تیک دار 4</li>
+            <li>گزینه تیک دار 5</li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="exam5"></code></figure>

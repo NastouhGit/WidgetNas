@@ -46,7 +46,7 @@
                 ) +
                 Day);
     }
-    getYearMontDayFromDays(jd: number): { year: number, month: number, day: number } {
+    getYearMonthDayFromDays(jd: number): { year: number, month: number, day: number } {
         let wjd, depoch, quadricent, dqc, cent, dcent, quad, dquad,
             yindex, year, yearday, leapadj, month, day;
 

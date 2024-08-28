@@ -10,11 +10,6 @@
     public max: number = 0;
     public search: IWNSearchList;
 
-    //selectedItems: any[];
-    //selectionChanged: any;
-    //beforeDeselect: any;
-    //afterDeselect: any;
-
     private searchbox: HTMLInputElement;
     private selectedarea: HTMLElement;
     private dropdownlist: HTMLElement;
@@ -118,6 +113,8 @@
         if (this.add(item) != null) {
             if (t.nameType != 'WNTree')
                 n.element.classList.add('d-none');
+
+            this.dropdown.hide();
             this.selectionChanged?.(this, n);
         }
         t.selectedItem = null;
@@ -138,7 +135,8 @@
         sp.addEventListener('click', (t) => {
             if (this.remove(node)) {
                 this.search.list.findByValue(node.value, false)?.element.classList.remove('d-none');
-                this.afterDeselect?.(this, node)
+                this.afterDeselect?.(this, node);
+                this.selectionChanged?.(this, null);
             }
         });
         this.selectedarea.appendChild(sp);
@@ -200,6 +198,9 @@
         if (this.selectedarea)
             this.selectedarea.innerHTML = '';
         this.search?.list?.element.querySelectorAll('.d-none').forEach(x => x.classList.remove('d-none'));
+    }
+    public clearSearch(): void {
+        this.searchbox.value = '';
     }
 }
 

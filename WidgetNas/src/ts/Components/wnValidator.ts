@@ -40,6 +40,7 @@
     public reset(): void {
         this.element.classList.remove('validated');
         this.element.noValidate = true;
+        this.element.querySelectorAll('input').forEach(x => x.setCustomValidity(''));
     }
 }
 async function wnValidator_onvalidationcheck(children: HTMLCollection, event: Event) {

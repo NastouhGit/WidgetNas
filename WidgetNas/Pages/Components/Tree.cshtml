@@ -791,7 +791,7 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <ul class="tree tree-fill" wn-type="tree" >
+        <ul class="tree tree-fill" wn-type="tree">
             <li>
                 <item>
                     <div class="d-flex align-items-center">
@@ -1022,12 +1022,510 @@
     </div>
 </div>
 <figure><code data-on="form5"></code></figure>
+
+
+<h2>گزینه های تیک دار</h2>
+<p>اگر تمایل دارید، در درختواره خود چک باکس داشته باشید، به مثالهای زیر توجه کنید.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <ul class="tree tree-expand-item tree-arrow" wn-type="tree" id="form6" checkbox="true" checkbox-auto="true" oncheckchanged="alert(WN('form6').wn.checkedValues.join())">
+            <li>
+                <item value="c">Checkbox</item>
+                <ul>
+                    <li>
+                        <item value="c1">
+                            Checkbox 1
+                        </item>
+                    </li>
+                    <li>
+                        <item value="c2">
+                            Checkbox 2
+                        </item>
+                    </li>
+                    <li>
+                        <item value="c3">
+                            Checkbox 3
+                        </item>
+                        <ul>
+                            <li>
+                                <item value="m1">
+                                    Checkbox m1
+                                    <input type="checkbox"/> Check 1
+                                    <input type="checkbox"/> Check 2
+                                    <input type="checkbox"/> Check 3
+                                </item>
+                            </li>
+                            <li>
+                                <item value="m2">
+                                    Checkbox m2
+                                </item>
+                            </li>
+                            <li>
+                                <item value="m3">
+                                    Checkbox m3
+                                </item>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <item value="c4">
+                            Checkbox 4
+                        </item>
+                    </li>
+                    <li>
+                        <item value="c5">
+                            Checkbox 5
+                        </item>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <button class="primary m-bs-100r" onclick="alert(WN('form6').wn.checkedValues.join())">Get Checked</button>
+        <button class="primary m-bs-100r" onclick="WN('form6').wn.checkedValues=['c1','c2']">Set Checked c1,c2</button>
+        <button class="primary m-bs-100r" onclick="WN('form6').wn.checkedClear()">Clear Checked</button>
+        <button class="primary m-bs-100r" onclick="WN('form6').wn.checkedAll()">Checked All</button>
+        <button class="primary m-bs-100r" onclick="WN('form6').wn.checkedInvert()">Invert Checked</button>
+        <button class="primary m-bs-100r" onclick="WN('form6').wn.checkedHide(['c'])">Hide Checkbox c</button>
+
+        <ul class="tree tree-expand-item tree-arrow" wn-type="tree" checkbox="true" checkbox-class="switch">
+            <li>
+                <item value="c">Checkbox</item>
+                <ul>
+                    <li>
+                        <item value="c1">
+                            Checkbox 1
+                        </item>
+                    </li>
+                    <li>
+                        <item value="c2">
+                            Checkbox 2
+                        </item>
+                    </li>
+                    <li>
+                        <item value="c3">
+                            Checkbox 3
+                        </item>
+                    </li>
+                    <li>
+                        <item value="c4">
+                            Checkbox 4
+                        </item>
+                    </li>
+                    <li>
+                        <item value="c5">
+                            Checkbox 5
+                        </item>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="form6"></code></figure>
+
+<h2>فقط خواندنی</h2>
+<p>در برخی مواقع میخواهیم درخت مان فقط خواندنی باشد و هیچ انتخابی صورت نگیرد.</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <ul class="tree" wn-type="tree" id="form7" readonly>
+            <li>
+                <item>Checkbox</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            Checkbox 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            Checkbox 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            Checkbox 3
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            Switch 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            Switch 2
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>Radio</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_ltr">
+                            Radio 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_ltr">
+                            Radio 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_ltr">
+                            Radio 3
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>Input</item>
+                <ul>
+                    <li>
+                        <item class="ig">
+                            <label for="input1_ltr">Text</label>
+                            <input id="input1_ltr" class="p-b-10r-i">
+                        </item>
+                    </li>
+                    <li>
+                        <item class="ig">
+                            <label for="select1_ltr">Dropdown</label>
+                            <select id="select1_ltr" class="p-b-10r-i">
+                                <option>Item 1</option>
+                                <option>Item 2</option>
+                                <option>Item 3</option>
+                            </select>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>Buttons</item>
+                <ul>
+                    <li>
+                        <item class="ig button-group">
+                            <button class="primary">First</button>
+                            <button class="secondary">Second</button>
+                            <button class="third">Third</button>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ul class="tree tree-expand-item tree-arrow" wn-type="tree" readonly>
+            <li>
+                <item>چک باکس</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            چک 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            چک 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            چک 3
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            سوئیچ 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            سوئیچ 2
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>رادیو</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_rtl">
+                            رادیو 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_rtl">
+                            رادیو 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_rtl">
+                            رادیو 3
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>ورودی</item>
+                <ul>
+                    <li>
+                        <item class="ig">
+                            <label for="input1_rtl">متن</label>
+                            <input id="input1_rtl" class="p-b-10r-i">
+                        </item>
+                    </li>
+                    <li>
+                        <item class="ig">
+                            <label for="select1_rtl">بازشو</label>
+                            <select id="select1_rtl" class="p-b-10r-i">
+                                <option>گزینه 1</option>
+                                <option>گزینه 2</option>
+                                <option>گزینه 3</option>
+                            </select>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>دکمه</item>
+                <ul>
+                    <li>
+                        <item class="ig button-group">
+                            <button class="primary">اولی</button>
+                            <button class="secondary">دومی</button>
+                            <button class="third">سومی</button>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="form7"></code></figure>
+
+<h2>غیر فعال</h2>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <ul class="tree" wn-type="tree" id="form8" disabled>
+            <li>
+                <item>Checkbox</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            Checkbox 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            Checkbox 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            Checkbox 3
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            Switch 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            Switch 2
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>Radio</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_ltr">
+                            Radio 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_ltr">
+                            Radio 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_ltr">
+                            Radio 3
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>Input</item>
+                <ul>
+                    <li>
+                        <item class="ig">
+                            <label for="input1_ltr">Text</label>
+                            <input id="input1_ltr" class="p-b-10r-i">
+                        </item>
+                    </li>
+                    <li>
+                        <item class="ig">
+                            <label for="select1_ltr">Dropdown</label>
+                            <select id="select1_ltr" class="p-b-10r-i">
+                                <option>Item 1</option>
+                                <option>Item 2</option>
+                                <option>Item 3</option>
+                            </select>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>Buttons</item>
+                <ul>
+                    <li>
+                        <item class="ig button-group">
+                            <button class="primary">First</button>
+                            <button class="secondary">Second</button>
+                            <button class="third">Third</button>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ul class="tree tree-expand-item tree-arrow" wn-type="tree" disabled>
+            <li>
+                <item>چک باکس</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            چک 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            چک 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="checkbox">
+                            چک 3
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            سوئیچ 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input class="switch" type="checkbox">
+                            سوئیچ 2
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>رادیو</item>
+                <ul>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_rtl">
+                            رادیو 1
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_rtl">
+                            رادیو 2
+                        </item>
+                    </li>
+                    <li>
+                        <item>
+                            <input type="radio" name="tree-radio_rtl">
+                            رادیو 3
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>ورودی</item>
+                <ul>
+                    <li>
+                        <item class="ig">
+                            <label for="input1_rtl">متن</label>
+                            <input id="input1_rtl" class="p-b-10r-i">
+                        </item>
+                    </li>
+                    <li>
+                        <item class="ig">
+                            <label for="select1_rtl">بازشو</label>
+                            <select id="select1_rtl" class="p-b-10r-i">
+                                <option>گزینه 1</option>
+                                <option>گزینه 2</option>
+                                <option>گزینه 3</option>
+                            </select>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <item>دکمه</item>
+                <ul>
+                    <li>
+                        <item class="ig button-group">
+                            <button class="primary">اولی</button>
+                            <button class="secondary">دومی</button>
+                            <button class="third">سومی</button>
+                        </item>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<figure><code data-on="form8"></code></figure>
+
 <h2>رنگها و اندازه ها</h2>
 <p>شما قادر هستید مانند دیگر موضوعات از کلاسهای رنگی و یا کلاسهای اندازه استفاده کنید.</p>
 <p>به دلیل ازیاد حجم صفحه، از آوردن مثال خود داری شده است.</p>
 
 <h2>جاوا اسکریپت</h2>
-<p>قطعا در طول برنامه نویسی شما نیاز پیدا میکنید تا توسط توابع جاوا اسکریپت اقدام به کنترل درخت یا مقدار دهی آن کنید.
+<p>
+    قطعا در طول برنامه نویسی شما نیاز پیدا میکنید تا توسط توابع جاوا اسکریپت اقدام به کنترل درخت یا مقدار دهی آن کنید.
     بدین منظور به صفحه مرتبط که در زیر لینک آن است مراجعه فرمایید.
 </p>
 <a href="/Components/TreeScript" class="button secondary s-xl">نمایش مستندات در صفحه مربوطه</a>

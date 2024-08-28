@@ -71,4 +71,24 @@
                 }
         }
     }
+
+    &[readonly] *:not(tr):not(li):not(.list-item),
+    &.readonly *:not(tr):not(li):not(.list-item) {
+        pointer-events: none;
+    }
+
+    &[disabled] *:not(tr):not(li):not(.list-item),
+    &.disabled *:not(tr):not(li):not(.list-item) {
+        pointer-events: none;
+    }
+
+    &[disabled] *:not(ul):not(li),
+    &.disabled *:not(ul):not(li) {
+        pointer-events: none;
+        color: var(--disable-color) !important;
+
+        .button, button {
+            background-color: var(--disable-back) !important;
+        }
+    }
 }

@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <FileVersion>1.4.3.0</FileVersion>
     <NeutralLanguage>fa</NeutralLanguage>

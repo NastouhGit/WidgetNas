@@ -1,4 +1,6 @@
-﻿.toast-container {
+﻿@import "../../_variables.scss";
+
+.toast-container {
     width: -webkit-max-content;
     width: -moz-max-content;
     width: max-content;
@@ -79,6 +81,7 @@ toast,
     border-radius: var(--border-radius);
     display: none;
     transition: $transition;
+    max-width: 90vw;
 
     &.show {
         display: block;

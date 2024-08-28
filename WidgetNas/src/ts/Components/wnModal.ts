@@ -63,8 +63,8 @@
             WNAddClassList(this.modalDialog, this.showClass);
             WNAddClassList(this.element, this._fadeIn + " show");
 
-            let ani = this.modalDialog.getAnimations();
-            if (ani.length > 0) {
+            let ani = this.modalDialog?.getAnimations();
+            if (ani && ani.length > 0) {
                 ani[ani.length - 1].finished.finally(
                     () => {
                         WNRemoveClassList(this.modalDialog, this.showClass);
@@ -88,8 +88,8 @@
             WNRemoveClassList(this.element, this._fadeIn);
             WNRemoveClassList(this.modalDialog, this.showClass);
             WNAddClassList(this.modalDialog, this.hideClass);
-            let ani = this.modalDialog.getAnimations();
-            if (ani.length > 0) {
+            let ani = this.modalDialog?.getAnimations();
+            if (ani && ani.length > 0) {
                 ani[ani.length - 1].finished.finally(
                     () => {
                         WNAddClassList(this.element, this._fadeOut);

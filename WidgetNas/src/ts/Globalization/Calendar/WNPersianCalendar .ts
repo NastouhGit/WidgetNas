@@ -42,7 +42,7 @@
             Math.floor(epbase / 2820) * 1029983 +
             (this.PERSIAN_EPOCH - 1);
     }
-    getYearMontDayFromDays(jd: number): { year: number, month: number, day: number } {
+    getYearMonthDayFromDays(jd: number): { year: number, month: number, day: number } {
         let year, month, day, depoch, cycle, cyear, ycycle,
             aux1, aux2, yday;
 

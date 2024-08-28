@@ -6,6 +6,9 @@
     font: inherit;
     -webkit-appearance: button;
 }
+input:not([type=button]):not([type=submit]):not([type=reset]):not([type=checkbox]):not([type=radio]):not([type=color]):not([type=date]):not([type=datetime]):not([type=datetime-local]):not([type=file]):not([type=month]):not([type=range]):not([type=search]):not([type=tel]):not([type=time]):not([type=week])[readonly] {
+    pointer-events: auto !important;
+}
 
 textarea,
 input:not([type=button]):not([type=submit]):not([type=reset]) {
@@ -47,6 +50,8 @@ input:not([type=button]):not([type=submit]):not([type=reset]) {
         color: var(--readonly-color);
     }
 
+
+
     fieldset.noborder &, .ig.noborder &, ig.noborder &, &.noborder {
         border-color: transparent;
         background-color: var(--normal-back);
@@ -82,7 +87,7 @@ input[type=file] {
         border-inline-end-width: var(--border-width);
         border-radius: 0;
         pointer-events: none;
-        height: calc(var(--padding-block) * 3 + var(--line-height)) ;
+        height: calc(var(--padding-block) * 3 + var(--line-height));
     }
 
     @include disabled-tag() {

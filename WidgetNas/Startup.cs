@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,8 @@ namespace WidgetNas
     {
         public Startup(IConfiguration configuration)
         {
+            //var cu = new CultureInfo("ar-SA");
+
             Configuration = configuration;
         }
 

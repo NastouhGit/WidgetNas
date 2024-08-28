@@ -8,7 +8,7 @@
     getDaysInYear(Year: number): number;
     getWeekOfYear(Year: number, Month: number, Day: number): number;
     getDaysFromBase(Year: number, Month: number, Day: number): number;
-    getYearMontDayFromDays(mNum: number): { year: number, month: number, day: number };
+    getYearMonthDayFromDays(mNum: number): { year: number, month: number, day: number };
     isLeapDay(Year: number, Month: number, Day: number): boolean;
     isLeapMonth(Year: number, Month: number): boolean;
     isLeapYear(Year: number): boolean;

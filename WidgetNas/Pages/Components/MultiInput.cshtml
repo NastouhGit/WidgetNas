@@ -18,42 +18,121 @@
 <div class="example-div">
     <div class="ltr" id="form1">
         <h3>LTR</h3>
-        <div id="multiinput1" class="multiinput floating" wn-type="MultiInput" classes="'ltr','rtl','rtl'" lables="'Text','fa','ar'" values="'Default text','متن پیش فرض','النص الافتراضي'">
+        <div id="multiinput1"
+             class="multiinput floating"
+             wn-type="MultiInput"
+             type="text"
+             classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="en"
+             labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
         </div>
-        <button onclick="alert( WN('multiinput1').wn.values)">Get Values</button> <button onclick="WN('multiinput1').wn.values=['1','2','3']">Set Values</button>
+        <button onclick="alert( Object.entries(WN('multiinput1').wn.values))">Get Values</button> <button onclick="WN('multiinput1').wn.values={'en':'E1','fa':'F2','ar':'A3'}">Set Values</button>
 
-        <div class="multiinput floatingline" wn-type="MultiInput" classes="'ltr','rtl','rtl'" lables="'Text','fa','ar'" values="'Default text','متن پیش فرض','النص الافتراضي'">
+        <div class="multiinput floatingline" wn-type="MultiInput"
+             classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="fa"
+             labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
         </div>
-        <div class="multiinput group" wn-type="MultiInput" classes="'ltr','rtl','rtl'" lables="'Text','fa','ar'" values="'Default text','متن پیش فرض','النص الافتراضي'">
+        <div class="multiinput group" wn-type="MultiInput"
+             classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="ar"
+             labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
         </div>
+        <h4>Text Area</h4>
+        <div class="multiinput floating"
+             wn-type="MultiInput"
+             type="textarea" rows="3"
+             classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="en"
+             labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+        </div>
+        <h4>Group style by parent element</h4>
+        <div class="floating">
+            <multiinput class=""
+                        wn-type="MultiInput"
+                        classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                        default="en"
+                        labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                        values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </multiinput>
+        </div>
+        <div class="floatingline">
+            <multiinput class=""
+                        wn-type="MultiInput"
+                        classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                        default="en"
+                        labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                        values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </multiinput>
+        </div>
+        <div class="group">
+            <multiinput class=""
+                        wn-type="MultiInput"
+                        classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                        default="en"
+                        labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                        values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </multiinput>
+        </div>
+
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <div class="multiinput floating" wn-type="MultiInput" classes="'rtl','ltr','rtl'" lables="['متن','en','ar']" values="['متن پیش فرض','Default text','النص الافتراضي']">
+        <div class="multiinput floating" wn-type="MultiInput"
+             classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="fa"
+             labels="'en':'انگلیسی','fa':'فارسی','ar':'عربی'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
         </div>
-        <div class="multiinput floatingline" wn-type="MultiInput" classes="'rtl','ltr','rtl'" lables="['متن','en','ar']" values="['متن پیش فرض','Default text','النص الافتراضي']">
+        <div class="multiinput floatingline" wn-type="MultiInput" classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="ar"
+             labels="'en':'انگلیسی','fa':'فارسی','ar':'عربی'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
         </div>
-        <div class="multiinput group" wn-type="MultiInput" classes="'rtl','ltr','rtl'" lables="['متن','en','ar']" values="['متن پیش فرض','Default text','النص الافتراضي']">
+        <div class="multiinput group" wn-type="MultiInput" classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="en"
+             labels="'en':'انگلیسی','fa':'فارسی','ar':'عربی'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
         </div>
+        <h4>چند خطی</h4>
+        <div class="multiinput floating" wn-type="MultiInput" type="textarea" rows="3"
+             classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+             default="fa"
+             labels="'en':'انگلیسی','fa':'فارسی','ar':'عربی'"
+             values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+        </div>
+
     </div>
 </div>
 <figure><code data-on="form1"></code></figure>
 <h2>خصوصیات</h2>
 <p>
-    <strong>lables</strong><br />
+    <strong>labels</strong><br />
     این مهمترین خصوصیت است، یعنی برچسب برای شناسایی تعداد ورودی ها و عنوان آنها است. تعداد ورودی ها بر اساس تعداد گزینه های این
-    خصوصیت مشخص میشود. برای تعریف کافیست آرایه ای از عناوین بر حسب ترتیب مد نظر دراین خصوصیت وارد کنید، اولین عنوان،
-    عنوان اصلی و مقدارهای دیگر، عناوین زیر مجموعه قلمداد میشود. هر عنوان بایستی در بین ' قرار گیرد و هر عنوان با , از هم جدا شوند.
+    خصوصیت مشخص میشود. برای تعریف کافیست رشته ای دیکشنری ای مانند به صورت جیسون از عناوین بر حسب ترتیب مد نظر و کلیدهای ورودی دراین خصوصیت وارد کنید،
+    <bidi>{'key':'value'}</bidi>
 </p>
 <p>
     <strong>classes</strong><br />
-    این خصوصیت نیز طبق قوانین lables بایستی مقدار دهی شود. از این خصوصیت در ساخت ورودی ها استفاده میشود. یعنی اگر هر کلاسی را
-    خواستید به هر ورودی بر حسب ترتیب اضافه کنید، میتوانید در این خصوصیت معرفی کنید. برای مثال ممکن است یک ورودی راست به چپ
+    این خصوصیت نیز طبق قوانین labels بایستی مقدار دهی شود. از این خصوصیت در ساخت ورودی ها استفاده میشود. یعنی اگر هر کلاسی را
+    خواستید به هر ورودی بر حسب کلید آن اضافه کنید، میتوانید در این خصوصیت معرفی کنید. برای مثال ممکن است یک ورودی راست به چپ
     باشد که از خصوصیت rtl و دیگری چپ به راست باشد که بایستی از کلاس ltr استفاده کنید. یا هر کلاس دیگری که میخواهید به input نسبت دهید.
 </p>
 <p>
     <strong>values</strong><br />
-    این خصوصیت نیز طبق قوانین lables بایستی مقدار دهی شود. این خصوصیت مقدارهای پیش فرض برای هر ورودی را مشخص میکند.
+    این خصوصیت نیز طبق قوانین labels بایستی مقدار دهی شود. این خصوصیت مقدارهای پیش فرض برای هر ورودی را مشخص میکند.
+</p>
+<p>
+    <strong>default</strong><br />
+    با این خصوصیت اشاره میکنید، کلید پیش فرض برای نمایش ورودی در مقدار اصلی کدام است. کافیت نام کلید را وارد کنید.
+</p>
+<p>
+    <strong>type</strong><br />
+    اگر ورودی از نوع input باشد که این ورودی پیش فرض است، در صورتیکه بخواهید تایپ هر ورودی را مشخص کنید، آنرا در این خصوصیت وارد کنید.
 </p>
 <h2>خصوصیات جاوا اسکریپت</h2>
 <p>
@@ -62,7 +141,7 @@
 </p>
 <p>
     <strong>values</strong><br />
-    این خصوصیت آرایه از رشته است که به ازای هر ورودی مقدار نسبت داده شده به آن قابل دریافت یا تنظیم است.
+    این خصوصیت کلاس جیسون از کلید ها و مقدار هر ورودی مرتبط با آن است. دقیقا مانند چیزی که در خصوصیات است ولی به صورت یک موضوع نه رشته
 </p>
 <h2>سفارشی کردن</h2>
 <p>اگر میخواهید موضوع را سفارشی کنید بایستی تمام اجزا را طبق تعاریف بسازید. جهت تعریف اجزا به مثال زیر توجه کنید.</p>
@@ -70,8 +149,8 @@
 <div class="example-div">
     <div class="ltr" id="form2">
         <h3>LTR</h3>
-        <div class="multiinput" wn-type="MultiInput">
-            <ig class="floating">
+        <div id="multiinput2" class="multiinput" wn-type="MultiInput">
+            <ig class="group">
                 <select>
                     <option>M</option>
                     <option selected>CM</option>
@@ -99,11 +178,13 @@
                 </ig>
             </detail>
         </div>
+        <button onclick="alert( Object.entries(WN('multiinput2').wn.values))">Get Values</button>
+        <button onclick="WN('multiinput2').wn.values={'Unit':'MM','Second Unit':'CM','Third Unit':'M'}">Set Values</button>
     </div>
     <div class="rtl">
         <h3>RTL</h3>
         <div class="multiinput" wn-type="MultiInput">
-            <ig class="floating">
+            <ig class="group">
                 <select>
                     <option>متر</option>
                     <option selected>سانتیمتر</option>
@@ -139,9 +220,11 @@
 <div class="example-div">
     <div class="ltr" id="form3">
         <h3>LTR</h3>
-        <form wn-type="validator" novalidate>
+        <form wn-type="validator" novalidate class="w-95">
             <div class="multiinput floating" wn-type="MultiInput"
-                 classes="'ltr','rtl','rtl'" lables="'Text','fa','ar'"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="en"
+                 labels="'en':'Text','fa':'Persian','ar':'Arabic'"
                  required>
                 <div class="valid-feedback">
                     Correct.
@@ -155,8 +238,12 @@
     </div>
     <div class="rtl">
         <h3>RTL</h3>
-        <form wn-type="validator" novalidate>
-            <div class="multiinput floating" wn-type="MultiInput" classes="'rtl','ltr','rtl'" lables="['متن','en','ar']" values="['متن پیش فرض','Default text','النص الافتراضي']">
+        <form wn-type="validator" novalidate class="w-95">
+            <div class="multiinput floatingline" wn-type="MultiInput"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="fa"
+                 labels="'en':'انگلیسی','fa':'فارسی','ar':'عربی'"
+                 required>
                 <div class="valid-feedback">
                     صحیح
                 </div>
@@ -169,3 +256,121 @@
     </div>
 </div>
 <figure><code data-on="form3"></code></figure>
+
+<h2>فقط خواندنی و غیر فعال</h2>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>Readonly</h3>
+        <div readonly>
+            <div class="multiinput floating"
+                 wn-type="MultiInput"
+                 type="text"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="en"
+                 labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                 values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </div>
+
+            <div class="multiinput floatingline" wn-type="MultiInput"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="fa"
+                 labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                 values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </div>
+            <div class="multiinput group" wn-type="MultiInput"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="ar"
+                 labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                 values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </div>
+            <h4>Group style by parent element</h4>
+            <div class="floating">
+                <multiinput class=""
+                            wn-type="MultiInput"
+                            classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                            default="en"
+                            labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                            values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+                </multiinput>
+            </div>
+            <div class="floatingline">
+                <multiinput class=""
+                            wn-type="MultiInput"
+                            classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                            default="en"
+                            labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                            values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+                </multiinput>
+            </div>
+            <div class="group">
+                <multiinput class=""
+                            wn-type="MultiInput"
+                            classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                            default="en"
+                            labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                            values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+                </multiinput>
+            </div>
+        </div>
+    </div>
+    <div class="ltr">
+        <h3>Disabled</h3>
+        <div disabled>
+            <div class="multiinput floating"
+                 wn-type="MultiInput"
+                 type="text"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="en"
+                 labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                 values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </div>
+
+            <div class="multiinput floatingline" wn-type="MultiInput"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="fa"
+                 labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                 values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </div>
+            <div class="multiinput group" wn-type="MultiInput"
+                 classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                 default="ar"
+                 labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                 values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+            </div>
+            <h4>Group style by parent element</h4>
+            <div class="floating">
+                <multiinput class=""
+                            wn-type="MultiInput"
+                            classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                            default="en"
+                            labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                            values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+                </multiinput>
+            </div>
+            <div class="floatingline">
+                <multiinput class=""
+                            wn-type="MultiInput"
+                            classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                            default="en"
+                            labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                            values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+                </multiinput>
+            </div>
+            <div class="group">
+                <multiinput class=""
+                            wn-type="MultiInput"
+                            classes="'en':'ltr','fa':'rtl','ar':'rtl'"
+                            default="en"
+                            labels="'en':'Text','fa':'Persian','ar':'Arabic'"
+                            values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
+                </multiinput>
+            </div>
+        </div>
+    </div>
+
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>کلاسهای دستوری</h2>
+<p><strong>first-label</strong>اگر میخواهید ابتدا برچسب قرار گیرد و سپس ورودی بعد از آن باشد از این کلاس استفاده کنید.</p>
+<p><strong>first-input</strong>اگر میخواهید ابتدا ورودی قرار گیرد و سپس برچسب بعد از آن باشد از این کلاس استفاده کنید.</p>
+<p><strong>group-input-button</strong>اگر ابتدا برچسب باشد و سپس ورودی و دکمه، اگر بخواهید ورودی و دکمه در یک گروه div باشند از این کلاس استفاده کنید.</p>

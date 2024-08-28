@@ -374,7 +374,8 @@
 </p>
 <h2>تقویم بازشو</h2>
 <p>اگر میخواهید تقویم به صورت بازشو عمل کند، بایستی طبق موارد گفته شده در قسمت <a href="Dropdowns">dropdown</a> عمل کنید.</p>
-<p>این موضوع دارای یک خصوصیت به نام <bidi>autoClosePopup</bidi> است که به صورت خودکار مقدار true را دارد.
+<p>
+    این موضوع دارای یک خصوصیت به نام <bidi>autoClosePopup</bidi> است که به صورت خودکار مقدار true را دارد.
     شما میتوانید با تنظیم آن در خصوصیت <bidi>auto-close-popup</bidi> عملکرد آنرا مشخص کنید.
     تنظیم این خصوصیت باعث میشود، موضوع به دنبال اولین dropdown والد بگردد و پس از انتخاب تاریخ، آنرا مخفی کند.
 </p>
@@ -711,4 +712,154 @@
     </div>
 </div>
 <figure><code data-on="form8"></code></figure>
- 
+<h2>فقط خواندی و غیر فعال</h2>
+<div class="example-div">
+    <div class="ltr" id="form9">
+        <h3>LTR</h3>
+        <ig readonly>
+            <div wn-type="MonthCalendar" class="calendar" style="width:17rem" calendar="GregorianCalendar" cultureinfo="en_US"></div>
+
+            <ig class="group">
+                <label for="inputdate92_ltr">First</label>
+                <input id="inputdate92_ltr" type="text" />
+                <input id="inputdate92_h_ltr" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_ltr"></button>
+
+                <label for="inputdate93_ltr">Second</label>
+                <input id="inputdate93_ltr" type="text" />
+                <input id="inputdate93_h_ltr" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_ltr"></button>
+            </ig>
+            <ig class="d-flex">
+                <ig class="floating">
+                    <input id="inputdate94_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate94_ltr">First</label>
+                </ig>
+                <ig class="floating">
+                    <input id="inputdate95_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate95_ltr">Second</label>
+                </ig>
+            </ig>
+            <ig class="d-flex floatingline">
+                <ig>
+                    <input id="inputdate96_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate96_ltr">First</label>
+                </ig>
+                <ig>
+                    <input id="inputdate97_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate97_ltr">Second</label>
+                </ig>
+            </ig>
+        </ig>
+        <br />
+        <ig disabled>
+            <div wn-type="MonthCalendar" class="calendar" style="width:17rem" calendar="GregorianCalendar" cultureinfo="en_US"></div>
+            <ig class="group">
+                <label for="inputdate92_ltr">First</label>
+                <input id="inputdate92_ltr" type="text" />
+                <input id="inputdate92_h_ltr" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_ltr"></button>
+
+                <label for="inputdate93_ltr">Second</label>
+                <input id="inputdate93_ltr" type="text" />
+                <input id="inputdate93_h_ltr" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_ltr"></button>
+            </ig>
+            <ig class="d-flex">
+                <ig class="floating">
+                    <input id="inputdate94_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate94_ltr">First</label>
+                </ig>
+                <ig class="floating">
+                    <input id="inputdate95_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate95_ltr">Second</label>
+                </ig>
+            </ig>
+            <ig class="d-flex floatingline">
+                <ig>
+                    <input id="inputdate96_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate96_ltr">First</label>
+                </ig>
+                <ig>
+                    <input id="inputdate97_ltr" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_ltr" />
+                    <label for="inputdate97_ltr">Second</label>
+                </ig>
+            </ig>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig readonly>
+            <div wn-type="MonthCalendar" class="calendar" style="width:17rem" calendar="PersianCalendar" cultureinfo="fa_IR"></div>
+
+            <ig class="group">
+                <label for="inputdate92_rtl">اولی</label>
+                <input id="inputdate92_rtl" type="text" />
+                <input id="inputdate92_h_rtl" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_rtl"></button>
+
+                <label for="inputdate93_rtl">دومی</label>
+                <input id="inputdate93_rtl" type="text" />
+                <input id="inputdate93_h_rtl" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_rtl"></button>
+            </ig>
+            <ig class="d-flex">
+                <ig class="floating">
+                    <input id="inputdate94_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate94_rtl">اولی</label>
+                </ig>
+                <ig class="floating">
+                    <input id="inputdate95_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate95_rtl">دومی</label>
+                </ig>
+            </ig>
+            <ig class="d-flex floatingline">
+                <ig>
+                    <input id="inputdate96_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate96_rtl">اولی</label>
+                </ig>
+                <ig>
+                    <input id="inputdate97_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate97_rtl">دومی</label>
+                </ig>
+            </ig>
+        </ig>
+        <br />
+        <ig disabled>
+            <div wn-type="MonthCalendar" class="calendar" style="width:17rem" calendar="PersianCalendar" cultureinfo="fa_IR"></div>
+
+            <ig class="group">
+                <label for="inputdate92_rtl">اولی</label>
+                <input id="inputdate92_rtl" type="text" />
+                <input id="inputdate92_h_rtl" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_rtl"></button>
+
+                <label for="inputdate93_rtl">دومی</label>
+                <input id="inputdate93_rtl" type="text" />
+                <input id="inputdate93_h_rtl" type="hidden" />
+                <button class="dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown1_rtl"></button>
+            </ig>
+            <ig class="d-flex">
+                <ig class="floating">
+                    <input id="inputdate94_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate94_rtl">اولی</label>
+                </ig>
+                <ig class="floating">
+                    <input id="inputdate95_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate95_rtl">دومی</label>
+                </ig>
+            </ig>
+            <ig class="d-flex floatingline">
+                <ig>
+                    <input id="inputdate96_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate96_rtl">اولی</label>
+                </ig>
+                <ig>
+                    <input id="inputdate97_rtl" placeholder="." class="dropdownarrow" wn-type="dropdown" wn-dropdown="dropdown91_rtl" />
+                    <label for="inputdate97_rtl">دومی</label>
+                </ig>
+            </ig>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form9"></code></figure>

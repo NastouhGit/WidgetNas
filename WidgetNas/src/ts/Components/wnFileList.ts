@@ -1151,6 +1151,7 @@ class WNFileList implements IWNFilelist {
         this._files.tHead.innerHTML = `<tr><td><input type="checkbox"/></td><td>${this._lang["filelist"]["filename"]}</td><td>${this._lang["filelist"]["ext"]}</td><td>${this._lang["filelist"]["size"]}</td><td>${this._lang["filelist"]["date"]}</td></tr>`;
         this._files.createTBody();
         this._files.tHead.querySelector("input[type=checkbox]").addEventListener("click", (t) => {
+            if (WNCheckReadOnlyDisabled(this.element)) return;
             if (!this.multiSelect)
                 return;
             let th = t.target as HTMLInputElement;
@@ -1199,6 +1200,7 @@ class WNFileList implements IWNFilelist {
         this._foldertree = new WNTree(this._folders);
         this._foldertree.selectionChanged = async (t, n) => {
             await this.getFiles(n.value);
+            if (WNCheckReadOnlyDisabled(this.element)) return;
             this.selectionChanged?.(this);
 
         };
@@ -1279,7 +1281,7 @@ class WNFileList implements IWNFilelist {
                 let tr = document.createElement('tr');
                 let ext: string = r[i].ext.toString() ?? '';
 
-                className = WNFileList._classExt.find((x) => x.ext.includes(ext)).className;
+                className = WNFileList._classExt.find((x) => x.ext.includes(ext))?.className;
 
                 tr.innerHTML = `<td><input type="checkbox" value='${r[i].fileName}'/></td><td class='${className}'>${r[i].fileName}</td><td>${r[i].ext}</td><td>${r[i].size}</td><td>${this._date.convert(new Date(r[i].date), 'shortdatetime')}</td>`;
                 let checkbox = tr.querySelector('input[type=checkbox]') as HTMLInputElement;
