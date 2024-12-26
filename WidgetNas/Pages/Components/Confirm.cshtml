@@ -81,3 +81,66 @@
 <p><bidi>class</bidi>: کلاسهای مرتبط با هر دکمه.</p>
 <p><bidi>click</bidi>: یک تابع که بعد از کلیک شدن، آن فراخوانی شود. اگر مقدار بازگشتی تابع true باشد، پنجره بسته میشود.</p>
 
+<h2>باز شدن با مودال شخصی سازی شده</h2>
+<div class="example-div" id="from3">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button onclick="modalconfirm3()">Show</button>
+        <div class="modal dark" wn-type="Modal" id="LTRModal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="LTROk" class="secondary">Ok</button>
+                    <button id="LTRCancel" class="primary">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button onclick="modalconfirm4()">نمایش</button>
+        <div class="modal" wn-type="Modal" id="RTLModal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title">عنوان</h5>
+                    <button class="close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>یک متن خاص</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="RTLOk" class="secondary">تایید</button>
+                    <button id="RTLCancel" class="primary">لغو</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function modalconfirm3() {
+            let confirm = new WNConfirm();
+            confirm.customModal = 'LTRModal';
+            confirm.buttons = [
+                { id: 'LTROk', click: () => { alert('You select OK button.'); } },
+                { id: 'LTRCancel', click: () => { alert('You select Cancel button.'); } },
+            ]
+            confirm.show();
+        }
+        function modalconfirm4() {
+            let confirm = new WNConfirm();
+            confirm.customModal = 'RTLModal';
+            confirm.buttons = [
+                { id: 'RTLOk', click: () => { alert('انتخاب کلید تایید'); } },
+                { id: 'RTLCancel', click: () => { alert('انتخاب کلید لفو'); } },
+            ]
+            confirm.show();
+        }
+    </script>
+</div>
+<figure><code data-on="from3"></code></figure>

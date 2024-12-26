@@ -2,8 +2,8 @@
 .validated {
 
     &:not(.hide-valid) {
-        input,
-        textarea {
+        input:not(:optional),
+        textarea:not(:optional) {
             &.valid:not([type=radio]):not([type=checkbox]),
             &:valid:not([type=radio]):not([type=checkbox]) {
                 background-image: var(--image-valid);
@@ -22,7 +22,7 @@
             }
         }
 
-        select {
+        select:not(:optional) {
             &.valid,
             &:valid {
                 border-color: var(--valid-border);
@@ -37,24 +37,26 @@
             }
         }
 
-        & *:valid ~ .valid-feedback,
-        & .valid ~ .valid-feedback,
-        & *:valid ~ .valid-tooltip,
-        & .valid ~ .valid-tooltip {
-            display: block;
-            visibility: visible;
+        *:not(:optional) {
+            & *:valid ~ .valid-feedback,
+            & .valid ~ .valid-feedback,
+            & *:valid ~ .valid-tooltip,
+            & .valid ~ .valid-tooltip {
+                display: block;
+                visibility: visible;
+            }
         }
     }
 
     &:not(.hide-invalid) {
-        input,
-        textarea {
+        input:not(:optional),
+        textarea:not(:optional) {
             &.invalid:not([type=radio]):not([type=checkbox]),
             &:invalid:not([type=radio]):not([type=checkbox]) {
                 background-image: var(--image-invalid);
                 background-repeat: no-repeat;
                 background-position: left calc(var(--padding-inline)/2) center;
-                background-size: 1em;
+                background-size: 0.3em;
             }
 
             &.invalid,
@@ -67,7 +69,7 @@
                     background-image: var(--image-invalid);
                     background-repeat: no-repeat;
                     background-position: left center;
-                    background-size: 1em;
+                    background-size: 0.3em;
                     padding-inline-end: 1.2em;
                 }
 
@@ -85,14 +87,13 @@
             }
         }
 
-        select {
+        select:not(:optional) {
             &.invalid,
             &:invalid {
-                
                 border-color: var(--invalid-border);
                 background-repeat: no-repeat;
                 background-image: var(--arrow-down-image),var(--image-invalid);
-                background-size: 0.8em,1em;
+                background-size: 1em,0.3em;
                 background-position: left calc(var(--padding-inline)/2) center, center left 1.2em;
             }
 
@@ -104,10 +105,12 @@
             }
         }
 
-        & *:invalid ~ .invalid-feedback,
-        & .invalid ~ .invalid-feedback {
-            display: block;
-            visibility: visible;
+        *:not(:optional) {
+            & *:invalid ~ .invalid-feedback,
+            & .invalid ~ .invalid-feedback {
+                display: block;
+                visibility: visible;
+            }
         }
     }
 }
@@ -115,10 +118,20 @@
 .valid-feedback,
 .invalid-feedback {
     display: none;
-    width: 100%;
     margin-block-start: var(--margin-block);
     font-size: 0.875em;
     transition: $transition !important;
+    left: 1.7em;
+    right: auto;
+    bottom: 0.5em;
+    top: auto;
+    position:absolute;
+    z-index:0;
+
+    &[dir=ltr] {
+        left: auto;
+        right: 1.7em;
+    }
 
     &.tooltip {
         position: absolute;
@@ -155,6 +168,10 @@
 .valid-feedback {
     color: var(--valid-back);
 
+    &:hover:not(.tooltip) {
+        opacity: 0.1;
+    }
+
     &.tooltip {
         color: var(--valid-color);
         background-color: var(--valid-back);
@@ -163,6 +180,10 @@
 
 .invalid-feedback {
     color: var(--invalid-back);
+
+    &:hover:not(.tooltip) {
+        opacity: 0.1;
+    }
 
     &.tooltip {
         color: var(--invalid-color);

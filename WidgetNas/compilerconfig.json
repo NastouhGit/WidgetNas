@@ -2,21 +2,5 @@
   {
     "outputFile": "wwwroot/lib/WidgetNas/css/WidgetNas.css",
     "inputFile": "src/scss/WidgetNas.scss"
-  },
-  {
-    "outputFile": "src/scss/Component/Lightbox/_lightbox.css",
-    "inputFile": "src/scss/Component/Lightbox/_lightbox.scss"
-  },
-  {
-    "outputFile": "src/scss/Component/List/_list.css",
-    "inputFile": "src/scss/Component/List/_list.scss"
-  },
-  {
-    "outputFile": "src/scss/Theme/_auto-generate.css",
-    "inputFile": "src/scss/Theme/_auto-generate.scss"
-  },
-  {
-    "outputFile": "src/scss/Theme/_theme.css",
-    "inputFile": "src/scss/Theme/_theme.scss"
   }
 ]

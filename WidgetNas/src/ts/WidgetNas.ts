@@ -17,6 +17,17 @@ function CheckBrowserCompatibility() {
     let objbrowserName = '';
     let objfullVersion = '';
     let objBrMajorVersion = 0;
+    let mobile = false;
+    let OS = 'Windows';
+    let objAgentL = objAgent.toLowerCase();
+    mobile = (objAgentL.indexOf("android") != -1) ||
+        (objAgentL.indexOf("iphone") != -1) ||
+        (objAgentL.indexOf("ipad") != -1);
+
+    OS = (objAgentL.indexOf("android") != -1) ? 'Android' :
+        (objAgentL.indexOf("iphone") != -1) ? 'iOS' :
+            (objAgentL.indexOf("ipad") != -1) ? 'iOS' : 'Windows';
+
     let objOffsetName, objOffsetVersion, ix;
     if ((objOffsetVersion = objAgent.indexOf("Chrome")) != -1) {
         objbrowserName = "Chrome";
@@ -47,15 +58,29 @@ function CheckBrowserCompatibility() {
         objfullVersion = objfullVersion.substring(0, ix);
     if ((ix = objfullVersion.indexOf(" ")) != -1)
         objfullVersion = objfullVersion.substring(0, ix);
-    objBrMajorVersion = parseInt('' + objfullVersion, 10);
+    objBrMajorVersion = WNparseFloat('' + objfullVersion, 10);
     if (isNaN(objBrMajorVersion)) {
         objfullVersion = '1.0';
         objBrMajorVersion = 0;
     }
     let error = true;
-    if (objbrowserName == 'Chrome' && objBrMajorVersion >= 89)
+    if (!mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
         error = false;
-    else if (objbrowserName == 'Firefox' && objBrMajorVersion >= 5)
+    else if (mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
+        error = false;
+    else if (!mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (!mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.1)
+        error = false;
+    else if (mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Android' && objBrMajorVersion >= 69)
+        error = false;
+    else if (OS == 'iOS' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Windows' && objBrMajorVersion >= 79)
         error = false;
     if (error)
         document.body.innerHTML = `<div class='alert warning'>` + wnConfig.language["common"]["browsererror"] + ' ' + objbrowserName + ':' + objBrMajorVersion + `</div>` + document.body.innerHTML;
@@ -108,7 +133,7 @@ function SetComponentCompatibility(elem: HTMLElement | Document = document) {
         if (elem !== null) {
             let st = getComputedStyle(elem);
             if (st.direction == 'ltr') {
-                if (elem.tagName == "INPUT" && (elem.type == 'email')) {
+                if (elem.tagName == "INPUT" && (elem.getAttribute('type') == 'email')) {
                     if (getComputedStyle(<HTMLElement>elem.parentElement).direction == 'ltr')
                         elem.setAttribute('dir', 'ltr');
                     else

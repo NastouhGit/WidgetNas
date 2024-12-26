@@ -1,6 +1,6 @@
 ﻿@import "../../_variables.scss";
 
-.group {
+.group:not(.clean) {
     position: relative;
     display: flex;
     flex-wrap: nowrap;
@@ -13,9 +13,9 @@
     line-height: var(--line-height);
     margin-block-end: var(--margin-block);
 
-    input,
-    textarea,
-    select {
+    input:not(.clean),
+    textarea:not(.clean),
+    select:not(.clean) {
         position: relative !important;
         flex: 1 1 auto !important;
         width: 1%;
@@ -27,24 +27,24 @@
         }
     }
 
-        input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]):not([type=reset]),
-        > input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]):not([type=reset]) {
-            min-width: 3em;
-        }
+    input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]):not([type=reset]):not(.clean),
+    > input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]):not([type=reset]):not(.clean) {
+        min-width: 3em;
+    }
 
-        button,
-        .button,
-        input[type=button],
-        input[type=submit],
-        input[type=reset] {
-            border: none;
-            position: relative;
-            z-index: 2;
+    button:not(.clean),
+    .button:not(.clean),
+    input[type=button]:not(.clean),
+    input[type=submit]:not(.clean),
+    input[type=reset]:not(.clean) {
+        border: none;
+        position: relative;
+        z-index: 2;
 
-            &:focus {
-                z-index: 3;
-            }
+        &:focus {
+            z-index: 3;
         }
+    }
 
     .box {
         display: flex;
@@ -70,7 +70,7 @@
     }
 
     .text,
-    label {
+    label:not(.clean) {
         display: flex;
         align-items: center;
         padding-block-start: 0;
@@ -144,27 +144,25 @@
         border-inline-end: var(--border-width) solid var(--normal-border) !important;
     }
 
-    .valid-feedback {
+    .valid-feedback:not(.clean) {
         background-color: var(--valid-back);
         color: var(--valid-color);
     }
 
-    .invalid-feedback {
+    .invalid-feedback:not(.clean) {
         background-color: var(--invalid-back);
         color: var(--invalid-color);
     }
 
-    .valid-feedback, .invalid-feedback {
+    .valid-feedback:not(.clean),
+    .invalid-feedback:not(.clean) {
         display: none;
         font-size: 0.875em;
         transition: $transition !important;
         position: absolute;
         opacity: 0.9;
-        top: calc(calc(var(--line-height) * -1) - var(--padding-block));
         z-index: 5;
         max-width: 100%;
-        left: auto;
-        right: auto;
         width: auto;
         padding-block: 0;
         padding-inline: calc(var(--padding-inline)/2);
@@ -184,15 +182,28 @@ fieldset,
     padding-block-end: var(--padding-block);
     margin-block-start: var(--line-height);
 
+    &:has(legend),
+    &:has(h4) {
+        margin-block-start: calc(var(--line-height) * 1.1);
+        padding-block-start: calc(var(--line-height) / 2);
+    }
 
     & h4:first-child,
     & legend {
-        margin-block-start: calc(var(--line-height) * -1 - var(--padding-inline));
-        background-color: var(--normal-back);
+        background-color:transparent;
+
+        margin-block-start: calc(var(--line-height) * -1.1);
+        background: linear-gradient(transparent 0, 
+                    transparent calc(var(--line-height) * 0.5 ), 
+                    var(--normal-back) calc(var(--line-height) * 0.5), 
+                    var(--normal-back) calc(var(--line-height) * 0.6 + var(--border-width)),
+                    transparent calc(var(--line-height) * 0.6 + var(--border-width)),
+                    transparent 100%);
         width: fit-content;
         padding-inline: var(--padding-inline);
+        padding-block:0;
         font-weight: normal;
-        font-size: 1.1em;
+        font-size:var(--font-size);
         margin-inline-start: var(--margin-inline);
     }
 }

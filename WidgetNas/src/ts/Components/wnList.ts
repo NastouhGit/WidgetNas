@@ -82,7 +82,7 @@
                 link: link,
                 image: image,
                 element: itemelement
-            };
+            }
             this.dataSource.push(item);
             itemelement.setAttribute('item-id', item.id.toString());
         }
@@ -137,19 +137,22 @@
 
 
     private _selectedItem: WNListNode = null;
-    public get selectedItem(): WNListNode { return this._selectedItem };
-    public set selectedItem(value: WNListNode) { this.select(value); };
+    public get selectedItem(): WNListNode { return this._selectedItem }
+    public set selectedItem(value: WNListNode) { this.select(value); }
 
-    public get selectedValue(): string { return this._selectedItem?.value; };
+    public get selectedValue(): string { return this._selectedItem?.value; }
     public set selectedValue(value: string) {
         this.findByValue(value, true);
-    };
+    }
 
-    public get selectedIndex(): number { return this.selectedItem?.index ?? -1 };
+    public get selectedIndex(): number { return this.selectedItem?.index ?? -1 }
     public set selectedIndex(value: number) {
         let f = this.dataSource.find(x => x.index == value);
-        if (f) this.select(f);
-    };
+        if (f)
+            this.select(f);
+        else
+            this.select(null);
+    }
 
     public get checkedItems(): WNListNode[] {
         let ret: WNListNode[] = [];
@@ -159,7 +162,7 @@
                 ret.push(this.dataSource[i]);
         }
         return ret;
-    };
+    }
     public set checkedItems(value: WNListNode[]) {
         this.checkedClear();
 
@@ -168,14 +171,14 @@
             if (inp)
                 inp.checked = true;
         }
-    };
+    }
 
     public get checkedValues(): string[] {
         let ret: string[] = [];
         let checked = this.checkedItems;
         for (var i = 0; i < checked.length; i++) ret.push(checked[i].value)
         return ret;
-    };
+    }
     public set checkedValues(value: string[]) {
         let checked: WNListNode[] = [];
         for (var i = 0; i < value.length; i++) {
@@ -184,7 +187,7 @@
 
         }
         this.checkedItems = checked;
-    };
+    }
 
     public select(node: WNListNode): void {
         if (node == this.selectedItem) return;
@@ -253,7 +256,7 @@
                 image: image,
                 element: null,
                 text: ''
-            };
+            }
             this.dataSource.forEach((x) => { item.id = x.id > item.id ? x.id : item.id });
             item.id++;
             item.index = this.dataSource.length;
@@ -272,7 +275,7 @@
         }
         return null;
     }
-    private nodeToHtmlElement(node: WNListNode): HTMLElement {
+    private nodeToHtmlElement(node: WNListNode,updateNode=true): HTMLElement {
         let item: HTMLElement;
         if (this.element.tagName == 'UL')
             item = document.createElement('li');
@@ -331,11 +334,13 @@
             tItem.insertAdjacentElement('afterbegin', ttItem);
         }
         node.text = tItem.textContent;
-        node.element = item;
+        if (updateNode==true)
+            node.element = item;
         return item;
     }
     public removeFromDataSource(node: WNListNode): boolean {
         try {
+            this.selectedIndex = -1;
             node.element?.removeEventListener("click", (e) => { this.click(node, e); });
             node.element?.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
             node.element?.remove();
@@ -346,6 +351,7 @@
                     break;
                 }
             }
+            for (var i = 0; i < list.length; i++) list[i].index = i;
         } catch (e) {
             console.error(e);
             return false;
@@ -353,7 +359,7 @@
         return true;
     }
     public updateNodeElement(node: WNListNode): void {
-        node.element.innerHTML = this.nodeToHtmlElement(node).innerHTML;
+        node.element.innerHTML = this.nodeToHtmlElement(node, false).innerHTML;
     }
     public setDataSourceByItem(dataSource: any[], displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string, append?: boolean): void {
         if (!append)

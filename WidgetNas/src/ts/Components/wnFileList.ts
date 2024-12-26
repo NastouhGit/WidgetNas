@@ -30,7 +30,7 @@ class WNFileList implements IWNFilelist {
     private _date: IWNDate = new WNDate();
 
     static _clipboard: string[] = [];
-    static _classExt= [
+    static _classExt = [
         {
             className: 'compress',
             ext: [
@@ -859,7 +859,7 @@ class WNFileList implements IWNFilelist {
 
         this._lang = WNLanguage[this._date.cultureInfo.twoLetterISOLanguageName];
 
-        if (!this.element.classList.contains('filelist'))
+        if (this.element.className == '')
             this.element.classList.add('filelist')
         this.mode = this.element.getAttribute('mode').toLowerCase() ?? 'select';
         this.multiSelect = WNparseBoolean(this.element.getAttribute('multi-select'), false);
@@ -878,7 +878,7 @@ class WNFileList implements IWNFilelist {
         this._divfolders = this.element.querySelector('.folders') as HTMLDivElement;
         this._divfiles = this.element.querySelector('.files') as HTMLDivElement;
 
-      
+
 
         this.url = WNparseString(this.element.getAttribute('url'), this.url);
         await this.getFolders("");
@@ -1246,7 +1246,7 @@ class WNFileList implements IWNFilelist {
             if (path == '') {
                 this._foldertree.element.innerHTML = '';
                 root = this._foldertree.dataSource = [];
-                root=this._foldertree.addToDataSource(null, this._lang["filelist"]["root"], '', '', '');
+                root = this._foldertree.addToDataSource(null, this._lang["filelist"]["root"], '', '', '');
             }
             for (var i = 0; i < r.length; i++) {
                 let it = r[i].split('/');
@@ -1341,7 +1341,7 @@ class WNFileList implements IWNFilelist {
         this.preLoad(true);
 
         let path = this._foldertree.selectedItem?.value ?? '';
-        
+
 
         let o = { command: "createfolder", path: path + '/' + value };
         let ret = false;
@@ -1476,9 +1476,9 @@ class WNFileList implements IWNFilelist {
     }
     private async uploadFile(files) {
         this.preLoad(true);
-        await upload(files, this._foldertree.selectedItem?.value??'', this.url).then(async (r) => {
+        await upload(files, this._foldertree.selectedItem?.value ?? '', this.url).then(async (r) => {
             if (r == true) {
-                await this.getFiles(this._foldertree.selectedItem?.value??'');
+                await this.getFiles(this._foldertree.selectedItem?.value ?? '');
                 this.showMessage("uploaded", "success");
             }
             else {

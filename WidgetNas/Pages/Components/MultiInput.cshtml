@@ -27,7 +27,7 @@
              labels="'en':'Text','fa':'Persian','ar':'Arabic'"
              values="'en':'Default text','fa':'متن پیش فرض','ar':'النص الافتراضي'">
         </div>
-        <button onclick="alert( Object.entries(WN('multiinput1').wn.values))">Get Values</button> <button onclick="WN('multiinput1').wn.values={'en':'E1','fa':'F2','ar':'A3'}">Set Values</button>
+        <button onclick="alert( Object.entries(WN('multiinput1').wn.values))">Get Values</button> <button onclick="WN('multiinput1').wn.values={'en':'E1','fa':'F2','ar':'A3'}">Set Values</button> <button onclick="WN('multiinput1').wn.values='Default Value'">Set Text Values</button> <button onclick="WN('multiinput1').wn.values=''">Empty Values</button> <button onclick="WN('multiinput1').wn.values=null">Null Values</button>
 
         <div class="multiinput floatingline" wn-type="MultiInput"
              classes="'en':'ltr','fa':'rtl','ar':'rtl'"

@@ -12,11 +12,11 @@
 
         & + li,
         & + .brdc-item {
-            padding-inline-start: var(--padding-inline);
+            padding-inline-start: 0;
         }
 
         &:not(:last-child):after {
-            padding-inline-start: var(--padding-inline);
+            padding-inline-start: calc(var(--padding-inline) / 2);
             color: var(--disable-color);
             content: var(--breadcrumb-divider, "/");
         }

@@ -2,21 +2,21 @@
 
 $label-transform: scale(0.85) translateY(-0.9em);
 
-.floating {
+.floating:not(.clean) {
     position: relative;
     margin-block-end: var(--margin-block);
 
-    input,
-    textarea {
+    input:not(.clean),
+    textarea:not(.clean) {
         padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.5em) !important;
         padding-inline: var(--padding-inline) !important;
         margin-block: 0 !important;
         margin-inline: 0 !important;
     }
 
-    input,
-    textarea,
-    select {
+    input:not(.clean),
+    textarea:not(.clean),
+    select:not(.clean) {
         &::-webkit-input-placeholder {
             color: transparent;
         }
@@ -74,7 +74,7 @@ $label-transform: scale(0.85) translateY(-0.9em);
         }
     }
 
-    select {
+    select:not(.clean) {
         padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.5em) !important;
         padding-inline: var(--padding-inline) !important;
         margin-block: 0 !important;
@@ -87,14 +87,14 @@ $label-transform: scale(0.85) translateY(-0.9em);
         }
     }
 
-    input[type=range] {
+    input[type=range]:not(.clean) {
         border: var(--border-width) solid var(--normal-border) !important;
         padding-block-start: calc(var(--padding-block) + var(--margin-block) + 1.42em) !important;
         padding-block-end: calc(var(--padding-block) + var(--margin-block) + 0.3em) !important;
         padding-inline: var(--padding-inline) !important;
     }
 
-    label {
+    label:not(.clean) {
         position: absolute;
         top: 0;
         padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.25em) !important;
@@ -104,23 +104,23 @@ $label-transform: scale(0.85) translateY(-0.9em);
         transition: $transition;
     }
 
-    input [type=radio] ~ label,
-    input[type=checkbox] ~ label {
+    input[type=radio]:not(.clean) ~ label:not(.clean),
+    input[type=checkbox]:not(.clean) ~ label:not(.clean) {
         pointer-events: auto;
     }
 
-    > ig {
+    > ig:not(.clean) {
         border: var(--border-width) solid var(--normal-border);
         border-radius: var(--border-radius);
         padding-block-start: calc(var(--padding-block) + var(--margin-block) + 0.6em) !important;
         padding-block-end: calc(var(--padding-block) / 2) !important;
         padding-inline: var(--padding-inline) !important;
 
-        ig {
+        ig:not(.clean) {
             display: inline-block !important;
             padding: 0 !important;
 
-            label {
+            label:not(.clean) {
                 padding-block: 0 !important;
                 opacity: 1 !important;
                 position: relative;
@@ -130,18 +130,18 @@ $label-transform: scale(0.85) translateY(-0.9em);
             }
         }
 
-        & ~ label {
+        & ~ label:not(.clean) {
             opacity: 0.65;
             transform: $label-transform;
         }
     }
 
-    &.checkbox, ig.checkbox {
+    &.checkbox:not(.clean), ig.checkbox:not(.clean) {
         height: 100%;
         display: flex;
         align-items: center;
 
-        label {
+        label:not(.clean) {
             transform: none;
             opacity: 1;
             position: relative;
@@ -149,28 +149,25 @@ $label-transform: scale(0.85) translateY(-0.9em);
         }
     }
 
-    .valid-feedback {
+    .valid-feedback:not(.clean) {
         background-color: var(--valid-back);
         color: var(--valid-color);
     }
 
-    .invalid-feedback {
+    .invalid-feedback:not(.clean) {
         background-color: var(--invalid-back);
         color: var(--invalid-color)
     }
 
-    .valid-feedback, .invalid-feedback {
+    .valid-feedback:not(.clean),
+    .invalid-feedback:not(.clean) {
         display: none;
         font-size: 0.875em;
         transition: $transition !important;
         position: absolute;
         opacity: 0.9;
-        bottom: 0;
-        z-index: $zindex-tooltip;
         max-width: 100%;
         min-width: max-content;
-        left: auto;
-        right: auto;
         width: auto;
         padding-block: 0;
         padding-inline: calc(var(--padding-inline)/2);
@@ -178,9 +175,5 @@ $label-transform: scale(0.85) translateY(-0.9em);
         border-radius: var(--border-radius);
         user-select: none;
         overflow: hidden;
-
-        &:hover {
-            display: none !important;
-        }
     }
 }

@@ -299,7 +299,7 @@
         calendarhead.dir = this.element.dir;
 
         let prev = document.createElement('button');
-        prev.className = 'primary previous-button';
+        prev.className = 'previous-button';
         prev.addEventListener('click', (e) => {
             this.previousMonths();
             e.stopPropagation();
@@ -307,7 +307,7 @@
         calendarhead.appendChild(prev);
 
         let now = document.createElement('button');
-        now.className = 'secondary now-button';
+        now.className = 'now-button';
         now.addEventListener('click', (e) => {
             this.now();
             e.stopPropagation();
@@ -319,7 +319,7 @@
 
         if (!this.onlyMonthYear) {
             let showMonthYear = document.createElement('button');
-            showMonthYear.className = 'dropdown-toggle secondary month-button';
+            showMonthYear.className = 'dropdown-toggle month-button';
             showMonthYear.addEventListener('click', (e) => {
                 this._rangestate = 0;
                 this._selectmonthyear.classList.toggle('hide');
@@ -332,7 +332,7 @@
         }
 
         let next = document.createElement('button');
-        next.className = 'primary next-button';
+        next.className = 'next-button';
         next.addEventListener('click', (e) => {
             this.nextMonths();
             e.stopPropagation();

@@ -157,6 +157,11 @@
                         return;
                     }
                 }
+                else {
+                    this._slidesWidth[i] = this._width;
+                    el.style.width = this._slidesWidth[i] + 'px';
+                    this._totalWidth += this._slidesWidth[i];
+                }
             }
             else {
                 if (this._slidewidth != '')

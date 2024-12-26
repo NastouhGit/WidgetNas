@@ -1,12 +1,21 @@
-﻿.carousel {
+﻿@import "_bounce.scss";
+@import "_fade.scss";
+@import "_flip.scss";
+@import "_other.scss";
+@import "_rotate.scss";
+@import "_slide.scss";
+@import "_zoom.scss";
+
+.carousel {
     position: relative;
     background-color: var(--normal-back);
     user-select: none;
-    touch-action:pan-y;
+    touch-action: pan-y;
 
     .carousel-slides {
         position: relative;
         width: 100%;
+        height: 100%;
         overflow: hidden;
 
         &::after {
@@ -19,13 +28,14 @@
         .carousel-item {
             position: relative;
             width: 100%;
+            height: 100%;
             top: 0;
             z-index: 0;
             transition: all 1s ease-in-out;
             -webkit-animation-duration: 1s;
             animation-duration: 1s;
             animation-iteration-count: 1;
-            animation-delay: 0;
+            animation-delay: 0ms;
             animation-direction: normal;
             animation-fill-mode: both;
             display: none;
@@ -193,10 +203,3 @@
     }
 }
 
-@import "_slide.scss";
-@import "_fade.scss";
-@import "_zoom.scss";
-@import "_bounce.scss";
-@import "_flip.scss";
-@import "_rotate.scss";
-@import "_other.scss";

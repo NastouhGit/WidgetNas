@@ -504,6 +504,7 @@ declare function WNSetElementPosition(source: HTMLElement, base: HTMLElement, pa
 declare function WNmod(a: number, b: number): number;
 declare function WNparseBoolean(value: any, Default?: boolean): boolean;
 declare function WNparseNumber(value: any, Default?: number, culture?: IWNCultureInfo): number;
+declare function WNparseFloat(value: any, Default?: number, culture?: IWNCultureInfo): number;
 declare function WNparseString(value: any, Default?: string): string;
 declare function WNTrim(value: string, trimstr?: string): string;
 declare function WNTrimStart(value: string, trimstr?: string): string;
@@ -532,6 +533,7 @@ declare function WNCalendarFunction(name: string): IWNCalendar;
 declare function WNCultureInfoFunction(name: string): IWNCultureInfo;
 declare function WNGenerateFunction(body: string, params?: string): any;
 declare function WNToDictionary(value: string): WNDictionary;
+declare function WNStringToObject(value: string): any;
 declare function WNAddStringQuote(value: string): string;
 declare function WNisJson(item: any): boolean;
 declare function WNtoTitleCase(text: string): string;
@@ -541,6 +543,7 @@ declare function WNToggleClass(elem: string | HTMLElement, setclass: string, cla
 declare function WNSetViewSize(): any;
 declare function WNGetWNType(elem: HTMLElement): string;
 declare function WNGetParentsElementsTag(elem: HTMLElement, untilTag: string, untilClass: string): string[];
+declare function WNFindParentsTag(elem: HTMLElement, untilTag: string): HTMLElement;
 declare function WNRGB2HEX(rgb: string): string;
 declare function WNFindTreeArray(source: any, fieldName1: string, fieldName2: string, value: string, contain: boolean, ignoreCase: boolean, childsFieldName: string): any[];
 declare function WNChangeFieldTreeArray(source: any, childsFieldName: string, parent: any, call: Function): void;
@@ -574,7 +577,10 @@ declare class WNAccordion implements IWNAccordion {
     readonly nameType: string;
     element: HTMLElement;
     mode: AccordionMode;
-    private items;
+    items: {
+        head: HTMLElement;
+        body: HTMLElement;
+    }[];
     get selectedItem(): {
         head: HTMLElement;
         body: HTMLElement;
@@ -588,9 +594,14 @@ declare class WNAccordion implements IWNAccordion {
     set selectedIndex(value: number);
     beforeCollapse: (t: IWNAccordion, index: number) => boolean;
     afterCollapse: (t: any, index: any) => void;
+    beforeExpand: (t: IWNAccordion, index: number) => boolean;
+    afterExpand: (t: any, index: any) => void;
     constructor(elem: HTMLElement);
     private init;
+    addItem(head: HTMLButtonElement, body: HTMLDivElement, collapsed?: boolean): void;
+    addItemByHtmlText(caption: string, body: string, collapsed?: boolean): void;
     private setCollapse;
+    clear(): void;
 }
 declare class WNCaptcha implements IWNCaptcha {
     readonly nameType: string;
@@ -662,7 +673,8 @@ declare class WNConfirm implements IWNConfirm {
     title: string;
     body: string | HTMLElement;
     buttons: {
-        caption: string;
+        id?: string;
+        caption?: string;
         class?: string;
         click?: (t: IWNConfirm) => Promise<boolean>;
     }[];
@@ -671,6 +683,7 @@ declare class WNConfirm implements IWNConfirm {
     bodyClass: string;
     footerClass: string;
     showClass: string;
+    customModal: string;
     closeButton: boolean;
     values: {
         [id: string]: any;
@@ -1075,8 +1088,43 @@ declare class WNMultiInput implements IWNMultiInput {
     private getLables;
     private toggle;
     get values(): WNDictionary;
-    set values(value: WNDictionary);
+    set values(value: WNDictionary | string);
     private createInput;
+}
+declare class WNMultiInputPhone implements IWNMultiInputPhone {
+    readonly nameType: string;
+    element: HTMLElement;
+    itemClick: (t: IWNMultiInputPhone, node: WNPhoneNode) => void;
+    max: number;
+    private dropDownPopup;
+    private dropdown;
+    private list;
+    private inpCaption;
+    private inpCountry;
+    private inpArea;
+    private inpNumber;
+    private inpExt;
+    private cCaption;
+    private cCountry;
+    private cArea;
+    private cNumber;
+    private cExt;
+    private hiddenElemet;
+    constructor(elem: HTMLElement);
+    private init;
+    private add;
+    private createLinkNode;
+    private refreshAllLinkNode;
+    private _value;
+    get value(): string[];
+    set value(value: string[]);
+    private makeFullNumber;
+    private addButton;
+    private saveButton;
+    private deleteButton;
+    private fixedInput;
+    private listChange;
+    private changeOrder;
 }
 declare class WNMultiSelect implements IWNMultiSelect {
     readonly nameType: string;
@@ -1327,20 +1375,20 @@ declare class WNTooltip implements IWNTooltip {
     delay: number;
     hideAfter: number;
     tooltipClass: string;
+    target: HTMLElement;
     private _events;
     get events(): string;
     set events(value: string);
     private _lostEvents;
     get lostEvents(): string;
     set lostEvents(value: string);
-    private _target;
     private _delayHandle;
     private _hideAfterhandle;
     constructor(elem: HTMLElement);
     private init;
-    private create_target;
+    private createtarget;
     private setEvents;
-    private autoShow;
+    autoShow(): void;
     show(): void;
     hide(): void;
 }
@@ -1472,6 +1520,10 @@ interface IWNConfig {
     baseFetchUri: string;
 }
 interface IWNAccordion extends IWNComponent {
+    items: {
+        head: HTMLElement;
+        body: HTMLElement;
+    }[];
     selectedItem: {
         head: HTMLElement;
         body: HTMLElement;
@@ -1480,6 +1532,11 @@ interface IWNAccordion extends IWNComponent {
     mode: AccordionMode;
     beforeCollapse: (t: any, index: any) => boolean;
     afterCollapse: (t: any, index: any) => void;
+    beforeExpand: (t: any, index: any) => boolean;
+    afterExpand: (t: any, index: any) => void;
+    addItem(head: HTMLButtonElement, body: HTMLDivElement, collapsed: boolean): void;
+    addItemByHtmlText(caption: string, body: string, collapsed: boolean): void;
+    clear(): any;
 }
 declare enum AccordionMode {
     single = "single",
@@ -1518,7 +1575,8 @@ interface IWNConfirm extends IWNComponent {
     title: string;
     body: string | HTMLElement;
     buttons: {
-        caption: string;
+        id?: string;
+        caption?: string;
         class?: string;
         click?: (t: IWNConfirm) => Promise<boolean>;
     }[];
@@ -1532,6 +1590,7 @@ interface IWNConfirm extends IWNComponent {
         [id: string]: any;
     };
     parentElement: HTMLElement;
+    customModal: string;
     show(): void;
 }
 interface IWNCounter extends IWNComponent {
@@ -1670,8 +1729,21 @@ type WNDictionary = {
 };
 interface IWNMultiInput extends IWNComponent {
     inputs: HTMLElement[];
-    values: WNDictionary;
+    values: WNDictionary | string;
 }
+interface IWNMultiInputPhone extends IWNComponent {
+    value: string[];
+    itemClick: (t: IWNMultiInputPhone, node: WNPhoneNode) => void;
+    max: number;
+}
+type WNPhoneNode = {
+    caption: string;
+    country: string;
+    area: string;
+    number: string;
+    extension: string;
+    fullNumber: string;
+};
 interface IWNMultiSelect extends IWNComponent {
     selectedItems: WNGeneralNode[];
     selectedValue: string[];
@@ -1803,11 +1875,13 @@ interface IWNToast extends IWNComponent {
     hide(): void;
 }
 interface IWNTooltip extends IWNComponent {
+    target: HTMLElement;
     delay: number;
     hideAfter: number;
     tooltipClass: string;
     events: string;
     lostEvents: string;
+    autoShow(): void;
     show(): void;
     hide(): void;
 }

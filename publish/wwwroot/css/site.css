@@ -41,7 +41,7 @@ body {
     margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
-    flex: 0 0 auto;
+    flex: 1;
     width: 100%;
     justify-content: center;
     padding-inline: 0.5rem;
@@ -61,7 +61,7 @@ body {
 
     .example-div .rtl,
     .example-div .ltr {
-        flex: 0 0 auto;
+        flex: 1 auto;
         width: 45%;
         margin-inline: 0.5rem;
     }

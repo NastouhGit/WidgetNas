@@ -8,11 +8,12 @@
 
     .calendar-head {
         width: 100%;
-        display: inline-flex;
-        border-block-start: var(--border-width) solid var(--normal-border);
+        display: flex;
+        /*        border-block-start: var(--border-width) solid var(--normal-border);
         border-block-end: var(--border-width) solid var(--normal-border);
-        border-radius: var(--border-radius);
-        align-items: center;
+*/ border-radius: var(--border-radius);
+        align-items: stretch;
+        border: var(--border-width) solid var(--normal-border);
 
 
         .dropdown-toggle {
@@ -23,21 +24,25 @@
             position: relative;
             border: none;
             padding-block-start: 0 !important;
-            display: inline-block;
+            display: flex;
             color: var(--label-color);
             font-size: var(--font-size);
             width: 100%;
             text-align: center;
-            top: auto;
+            align-items: center;
+            justify-content: center;
         }
 
         button {
-            margin-block-start: calc(var(--border-width) * -1);
-            margin-block-end: calc(var(--border-width) * -1);
+            margin-block-start: 0;
+            margin-block-end: 0;
             background-repeat: no-repeat;
             background-position: center;
             height: 1.8em !important;
             width: 1.8em !important;
+            box-shadow: none;
+            border: none;
+            background-color: var(--primary-back);
 
             &:focus {
                 box-shadow: none;
@@ -65,15 +70,16 @@
                 }
             }
 
-            &:nth-child(2),
-            &.dropdown-toggle {
+            &.month-button {
                 border-radius: 0;
                 border-inline-end: none;
+                background-color: var(--light-back);
             }
 
-            &:nth-child(2) {
+            &.now-button {
                 background-size: 0.9em;
                 background-image: var(--checkbox-image);
+                background-color: var(--warning-back);
             }
         }
     }

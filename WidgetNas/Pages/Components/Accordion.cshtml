@@ -61,7 +61,7 @@
         <h3>RTL</h3>
         <div class="accordion" wn-type="accordion" selected-index="-1" mode="multiple">
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     گزینه 1 آکاردئون
                 </button>
                 <div id="collapse1_rtl" class="accordion-body">
@@ -111,7 +111,7 @@
         <h3>LTR</h3>
         <div class="accordion" id="accordion2" wn-type="accordion" selected-index="0" mode="single">
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     Accordion Item #1
                 </button>
                 <div class="accordion-body">
@@ -127,7 +127,7 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     Accordion Item #3
                 </button>
                 <div class="accordion-body">
@@ -206,7 +206,7 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     Accordion Item #3
                 </button>
                 <div class="accordion-body">
@@ -219,7 +219,7 @@
         <h3>RTL</h3>
         <div class="accordion accordion-noedge" wn-type="accordion" selected-index="0" mode="single">
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     گزینه 1 آکاردئون
                 </button>
                 <div class="accordion-body">
@@ -243,7 +243,7 @@
                 </div>
             </div>
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     گزینه 3 آکاردئون
                 </button>
                 <div class="accordion-body">
@@ -316,7 +316,7 @@
         <h3>LTR</h3>
         <div class="accordion" id="accordion4_ltr" wn-type="accordion" selected-index="0" mode="single">
             <div class="accordion-item primary">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     Primary 1
                 </button>
                 <div class="accordion-body">
@@ -324,10 +324,10 @@
                 </div>
             </div>
             <div class="accordion-item third">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     Primary 2
                 </button>
-                <div  class="accordion-body">
+                <div class="accordion-body">
                     Some Text
                 </div>
             </div>
@@ -337,7 +337,7 @@
         <h3>RTL</h3>
         <div class="accordion" wn-type="accordion" selected-index="0" mode="single">
             <div class="accordion-item primary">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     رنگ اصلی 1
                 </button>
                 <div class="accordion-body">
@@ -370,7 +370,7 @@
                 <button class="accordion-header" type="button">
                     Small 1
                 </button>
-                <div  class="accordion-body">
+                <div class="accordion-body">
                     Some Text
                 </div>
             </div>
@@ -388,18 +388,18 @@
         <h3>RTL</h3>
         <div class="accordion s-s" wn-type="accordion" selected-index="0" mode="single">
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     کوچک 1
                 </button>
-                <div  class="accordion-body">
+                <div class="accordion-body">
                     متنی جهت آزمایش
                 </div>
             </div>
             <div class="accordion-item">
-                <button class="accordion-header" type="button" >
+                <button class="accordion-header" type="button">
                     کوچک 2
                 </button>
-                <div  class="accordion-body">
+                <div class="accordion-body">
                     متنی جهت آزمایش
                 </div>
             </div>
@@ -407,3 +407,97 @@
     </div>
 </div>
 <figure><code data-on="accordion5_ltr"></code></figure>
+
+<h3>اضافه کردن با جاوا اسکریپت</h3>
+<p>اگر میخواهید در حین اجرای سایت، به آکاردیون چیزی اضافه کنید از توابع زیر استفاده کنید.</p>
+<p>
+    <h3>addItem</h3>
+    با استفاده از این تابع میتوانید المنت ساخته شده را به آکاردیون اضافه کنید.<br />
+    <bidi>addItem(head: HTMLButtonElement, body: HTMLDivElement, collapsed: boolean): void</bidi><br />
+    <strong>head </strong>عنوان سر تیتر یا هدر از جنس button<br />
+    <strong>body </strong>محتوی بدنه آکاردیون از جنس div<br />
+    <strong>collapsed </strong>در هنگام ایجاد به حالت بسته باشد یا خیر، در صورتیکه آکاردیون به صورت تک باز باشد، همیشه به صورت بسته اضافه میشود.<br />
+</p>
+<p>
+    <h3>addItemByHtmlText</h3>
+    با استفاده از این تابع میتوانید متن html را بعنوان هدر و متن بدنه اضافه کنید.<br />
+    <bidi>addItemByHtmlText(caption: string, body: string, collapsed: boolean): void</bidi><br />
+    <strong>caption </strong>عنوان سر تیتر یا هدر<br />
+    <strong>body </strong>محتوی بدنه آکاردیون<br />
+    <strong>collapsed </strong>در هنگام ایجاد به حالت بسته باشد یا خیر، در صورتیکه آکاردیون به صورت تک باز باشد، همیشه به صورت بسته اضافه میشود.<br />
+</p>
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <button type="button" onclick="AddAccordionItem()">Add Test</button>
+        <div class="accordion" id="accordion6_ltr" wn-type="accordion" selected-index="-1" mode="single">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button">
+                    Accordion Item #1
+                </button>
+                <div class="accordion-body">
+                    Body 1
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button">
+                    Accordion Item #2
+                </button>
+                <div class="accordion-body accordion-collapse">
+                    Body 2
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header" type="button">
+                    Accordion Item #3
+                </button>
+                <div class="accordion-body">
+                    Body 3
+                </div>
+            </div>
+        </div>
+        <script>
+            function AddAccordionItem() {
+                WN('accordion6_ltr').wn.addItemByHtmlText('Test', 'This is test body');
+            }
+        </script>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <button type="button" onclick="AddAccordionItem2(false)">اضافه کردن تست باز</button>
+        <button type="button" onclick="AddAccordionItem2(true)">اضافه کردن تست بسته</button>
+
+        <div id="accordion6_rtl" class="accordion" wn-type="accordion" selected-index="-1" mode="multiple">
+            <div class="accordion-item">
+                <button class="accordion-header" type="button">
+                    گزینه 1 آکاردئون
+                </button>
+                <div id="collapse1_rtl" class="accordion-body">
+                    بدنه 1
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header collapsed" type="button">
+                    گزینه 2 آکاردئون
+                </button>
+                <div class="accordion-body accordion-collapse">
+                    بدنه 2
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-header" type="button">
+                    گزینه 3 آکاردئون
+                </button>
+                <div class="accordion-body">
+                    بدنه 3
+                </div>
+            </div>
+        </div>
+        <script>
+            function AddAccordionItem2(collapsed) {
+                WN('accordion6_rtl').wn.addItemByHtmlText('آزمایش', 'این یک متن آزمایشی است', collapsed);
+            }
+        </script>
+    </div>
+</div>
+<figure><code data-on="accordion6_ltr"></code></figure>

@@ -1,0 +1,369 @@
+﻿@page
+@model WidgetNas.Pages.Components.ImageEditorModel
+@{
+    ViewData["Title"] = "ویرایشگر تصویر Image Editor";
+    ViewData["Description"] = "اگر میخواهید قبل از ارسال تصویر به سرور، تنظیماتی بر روی تصویر داشته باشید، ویرایشگر تصویر ویجت نس به شما کمک خواهد کرد.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    همیشه کاربر برای ارسال تصویر به سرور، عکس آماده ای ندارد. یا شما میخواهید در کادری خاص تصویر تنظیم شود و آن تنظیم بایستی توسط کاربر انجام شود.
+    بدین منظور، شما میتوانید از موضوع ویرایشگر تصویر استفاده کنید.
+</p>
+<h2>ساختار</h2>
+<p>
+    برای ایجاد یک محیط ویرایشگر متن با امکانات ساده میتوانید از این ویراشگر تصویر استفاده کنید.
+    بدین منظور یک موضوع از جنس canvas و <bidi>wn-type="ImageEditor"</bidi> نیاز دارید.
+    همچنین برای تنظیمات میتوانیداز توابع جاوا اسکریپتی و یا تگ های مقدار دهی استفاده کنید.
+</p>
+<h2>مقادیر اولیه</h2>
+<p>
+    <strong>scale</strong>
+    موضوع به صورت خودکار با حرکت چرخ مویس اقدام به بزرگ نمایی یا کوچک نمایی میکند.
+    اگر شما میخواهید این امکان غیر فعال شود کافیست از مقدار false استفاده کنید.
+    <br /><bidi>scale='false'</bidi>
+</p>
+<p>
+    <strong>rotate</strong>
+    اگر میخواهید به صورت پیش فرض تصویر دارای چرخش باشد میتوانید مقدار درجه آن را تعیین کنید.
+    <br /><bidi>rotate='0'</bidi>
+</p>
+<p>
+    <strong>flip</strong>
+    اگر میخواهید به صورت پیش فرض تصویر دارای flip باشد میتوانید وضعیت آن را تعیین کنید.
+    <br />
+    مقدار 0: بدون تغییر<br />
+    مقدار 1: flip حول محور x<br />
+    مقدار 2: flip حول محور y<br />
+    مقدار 3: flip حول محور x و y<br />
+    این مقادیر در تنظیم جاوا اسکریپتی نیز یکسان است.
+    <br /><bidi>flip='0'</bidi>
+</p>
+<p>
+    <strong>pan</strong>
+    موضوع به صورت خودکار با درگ کردن تصویر جابجا میشود.
+    اگر شما میخواهید این امکان غیر فعال شود کافیست از مقدار false استفاده کنید.
+    <br /><bidi>pan='false'</bidi>
+</p>
+<p>
+    <strong>mask</strong>
+    اگر میخواهید به صورت پیش فرض بر روی تصویر یک ماسک برای محدود کردن اندازه تصویر خروجی داشته باشید میتوانید آنرا مشخص کنید.
+    مقادیر میتوانید یکی از شرایط زیر باشد.
+    <br />
+    circle,radius: برای ایجاد دایره عبارت circle و سپس مقدار شعاع آن <bidi>circle,64</bidi><br />
+    rect,width: برای ایجاد مربع عبارت rect و سپس مقدار ضلع آن <bidi>rect,64</bidi><br />
+    rect,width,height: برای ایجاد مستطیل عبارت rect و سپس مقدار طول و عرض آن <bidi>rect,64,128</bidi><br />
+    این مقادیر در تنظیم جاوا اسکریپتی نیز یکسان است.
+    <br /><bidi>mask='circle,64'</bidi>
+</p>
+<p>
+    <strong>filter</strong>
+    اگر میخواهید به صورت پیش فرض فیلتر خاصی بر روی تصویر اعمال شود، آنرا مشخص کنید.<br />
+    برای اطلاع از معرفی فیلترها به آدرس <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter" target="_blank">معرفی فیلترها در CSS</a> مراجعه کنید.
+
+    <br /><bidi>filter='blur(5px);grayscale(80%);hue-rotate(90deg);'</bidi>
+</p>
+
+<p>
+    <strong>src</strong>
+    اگر میخواهید به صورت پیش فرض یک تصویر نمایش داده شود، میتوانید آدرس آن یا عبارت base64 مخصوص تصویر را مقدار دهی اولیه کنید.
+    <br /><bidi>src='/images/temp.png'</bidi>
+</p>
+<h2>توابع و خصوصیات جاوا اسکریپت</h2>
+<p>
+    <strong>x,y</strong>
+    اگر خواستید تصویر بر اساس نیاز شما جابجا شود، میتوانید این دو خصوصیت را تنظیم کنید.
+    <br /><bidi>wn.x-=5;<br />wn.y+=5;</bidi>
+</p>
+<p>
+    <strong>scale</strong>
+    برای تعیین درصد بزرگ نمایی و یا کوچک نمایی تصویر استفاده میشود. مقادیر میتوانید بین 0.125 تا 5 باشد
+    <br /><bidi>wn.scale=2</bidi>
+</p>
+<p>
+    <strong>rotate</strong>
+    برای تعیین زاویه چرخش تصویر استفاده میشود. مقادیر میتوانید بین -365 تا 365 باشد
+    <br /><bidi>wn.rotate=45</bidi>
+</p>
+<p>
+    <strong>flip</strong>
+    برای تعیین flip تصویر استفاده میشود. مقادیر یکی از حالات 0 تا 3 است که در قسمت مربوطه توضیح داده شده است.
+    <br /><bidi>wn.flip=1</bidi>
+</p>
+<p>
+    <strong>filter</strong>
+    همانند مقدار پیش فرض filter است. با این تفاوت که میتوانید به صورت آنلاین آنرا تصحیح کنید.
+    <br /><bidi>wn.filter='blur(5px);grayscale(80%);hue-rotate(90deg);'</bidi>
+</p>
+<p>
+    <strong>mask</strong>
+    همانند مقدار پیش فرض mask است. با این تفاوت که میتوانید به صورت آنلاین آنرا تصحیح کنید.
+    <br /><bidi>wn.mask='circle,64'</bidi>
+</p>
+<h3>برش تصویر</h3>
+<p>
+    اگر میخواهید تصویر را برش بزنید، ابتدا باید به کاربر اجازه انتخاب محدوده مد نظر را دهد.
+    بدین منظور دستور <strong>anchorStart()</strong> اجازه میدهد که کاربر محدوده مد نظر راانتخاب کند.
+    اگر خواستید این عمل لغو شود باید از دستور <strong>anchorStop()</strong> استفاده شود.
+    و اگر میخواهید عمل برش انجام شود از دستور <strong>crop()</strong> استفاده شود.
+    <br /><bidi>wn.anchorStart()<br />wn.crop()</bidi>
+</p>
+<h3>دریافت تصویر از دوربین</h3>
+<p>
+    اگر تمایل دارید کاربر تصویر خود را توسط دوربین دستگاه گرفته و سپس اقدام به تغییرات کند میتوانید
+    دستور <strong>startCamera()</strong> را فراخوانی کنید. سپس اگر به صورت موفق توانست به دوربین متصل شود
+    صفحه نمایش تصویر دوربین ظاهر میشود. بر روی این صفحه میتوانید بین دوربین ها سوییچ کنید و یا عمل را لغو کنید.
+    در صورت کلیک بر روی تصویر، آن تصویر انتخاب میشود.<br />
+    اگر خواستید این عمل لغو شود باید از دستور <strong>stopCamera()</strong> استفاده شود.
+    <br /><bidi>wn.startCamera()</bidi>
+</p>
+<h3>بارگذاری تصویر</h3>
+<p>
+    اگر میخواهید به صورت دستی تصویری را بارگذاری کنید میتوانید از تابع
+    <strong>load(data)</strong> استفاده کنید. در این تابع آدرس تصویر و یا محتوی تصویر به صورت base64 میتواند بعنوان ورودی باشد.
+    همچنین اگر در حین استفاده تصویر در حافظه باشد، میتوانید از خصوصیت paste تصویر نیز استفاده کنید.
+    <br /><bidi>wn.load('image.png')</bidi>
+</p>
+<h3>ذخیره تصویر</h3>
+<p>
+    در نهایت باید اطلاعات تصویر ساخته و در اختیار شما قرار گیرد. خواستید به سرور منتقل کنید یا در جایی نمایشد دهید.
+    دستور <strong>save()</strong> مقدار رشته url تصویر را به صورت فایل png برای شما ساخته و بر میگرداند.
+    <br /><bidi>...= wn.save()</bidi>
+</p>
+<h2>مثال</h2>
+<div class="example-div">
+    <div id="sample1" class="ltr">
+        <div class="row">
+            <div class="col-6">
+                <h2>Editor</h2>
+                <canvas id="edit1" wn-type="ImageEditor" src="/Images/Sample2.jpg" class="image-editor" mask="circle,64">
+                </canvas>
+            </div>
+            <div class="col-6">
+                <h2>Output</h2>
+                <img id="edit1out" />
+            </div>
+        </div>
+        <div class="m-b-50r">
+            <label>Input</label>
+            <div class="button-group">
+                <button onclick="WN('edit1').wn.load('/Images/Sample1.jpg')">Sample 1</button>
+                <button onclick="WN('edit1').wn.load('/Images/Sample2.jpg')">Sample 2</button>
+                <button onclick="WN('edit1').wn.startCamera()">Camera</button>
+            </div>
+            <br />
+            <label>Mask</label>
+            <div class="button-group">
+                <button onclick="WN('edit1').wn.mask='circle,64'">Circle</button>
+                <button onclick="WN('edit1').wn.mask='rect,128'">Square</button>
+                <button onclick="WN('edit1').wn.mask='rect,96,128'">Rectangle</button>
+            </div>
+            <br />
+            <label>Filter</label>
+            <div class="button-group">
+                <button onclick="WN('edit1').wn.filter=''">None</button>
+                <button onclick="WN('edit1').wn.filter='grayscale(100%)'">Grayscale</button>
+                <button onclick="WN('edit1').wn.filter='sepia(100%)'">Sepia</button>
+                <button onclick="WN('edit1').wn.filter='brightness(0.4)'">Darkness</button>
+                <button onclick="WN('edit1').wn.filter='brightness(1.4)'">Brightness</button>
+                <button onclick="WN('edit1').wn.filter='contrast(200%)'">Contrast</button>
+                <button onclick="WN('edit1').wn.filter='saturate(30%)'">Saturate</button>
+            </div>
+            <br />
+            <label>Edit</label>
+            <div class="button-group">
+                <button onclick="WN('edit1').wn.flip=0;">Flip None</button>
+                <button onclick="WN('edit1').wn.flip=1;">Flip X</button>
+                <button onclick="WN('edit1').wn.flip=2;">Flip Y</button>
+                <button onclick="WN('edit1').wn.flip=3;">Flip XY</button>
+            </div>
+            <br />
+            <label>Rotate</label>
+            <div class="button-group">
+                <input type="range" min="-45" max="45" value="0" oninput="WN('edit1').wn.rotate=this.value;" />
+            </div>
+            <br />
+            <label>Crop</label>
+            <div class="button-group">
+                <button onclick="WN('edit1').wn.anchorStart();">Start Anchor</button>
+                <button onclick="WN('edit1').wn.anchorStop();">Stop Anchor</button>
+                <button onclick="WN('edit1').wn.crop();">Crop</button>
+            </div>
+            <br />
+            <label>Output</label><div class="button-group">
+                <button onclick="WN('edit1out').element.src=WN('edit1').wn.save()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="sample1"></code></figure>
+
+<h2>مثال فارسی در مودال</h2>
+<p>برای باز شدن مودال روی تصویر کلیک کنید</p>
+<div id="sample2">
+    <script>
+        function showModal(){
+            WN('imageEditModal').wn.load(WN('imageSample2').element.src);
+            WN('sample2modal').wn.show();
+        }
+        function showModal2(){
+            if (WN('imageSample3').element.files.length==0) {
+                WN('sample2modal').wn.show();
+                return;
+            }
+            var fr = new FileReader();
+            fr.onload = function () {
+                WN('imageEditModal').wn.load(fr.result);
+            }
+            fr.readAsDataURL(WN('imageSample3').element.files[0]);
+            WN('sample2modal').wn.show();
+        }
+        function startCamera(){
+            WN('imageEditModal').wn.startCamera();
+        }
+        function crop(mode){
+            if (mode==0)
+                WN('imageEditModal').wn.anchorStart();
+            else if (mode==1)
+                WN('imageEditModal').wn.anchorStop();
+            else if (mode==2)
+                WN('imageEditModal').wn.crop();
+        }
+        function flip(mode){
+            WN('imageEditModal').wn.flip=mode;
+        }
+        function rotate(deg){
+            WN('imageEditModal').wn.rotate=deg;
+        }
+        function filter(){
+            let flt=
+            `
+            blur(${WN('blur').inputElement.value}px)
+            brightness(${WN('brightness').inputElement.value})
+            contrast(${WN('contrast').inputElement.value}%)
+            grayscale(${WN('grayscale').inputElement.value}%)
+            hue-rotate(${WN('hue-rotate').inputElement.value}deg)
+            invert(${WN('invert').inputElement.value}%)
+            opacity(${WN('opacity').inputElement.value}%)
+            saturate(${WN('saturate').inputElement.value}%)
+            sepia(${WN('sepia').inputElement.value}%)
+            `;
+            WN('imageEditModal').wn.filter=flt;
+        }
+        function save(){
+            WN('imageSample2').element.src= WN('imageEditModal').wn.save();
+            WN('sample2modal').wn.hide();
+        }
+    </script>
+    <style>
+        .filter-col {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+            .filter-col div {
+                margin-inline-end: 0.125rem;
+                width: 32%;
+                display: block;
+            }
+
+            .filter-col label {
+                font-size: 0.8rem;
+            }
+
+            .filter-col input {
+                margin: 0 !important;
+                border: none !important;
+                padding: 0 !important;
+                margin-top: -0.5rem !important;
+            }
+    </style>
+    <div>
+        <img id="imageSample2" src="~/images/Sample2.jpg" onclick="showModal()" style="max-width:256px;max-height:256px" />
+    </div>
+    <div>
+        <input id="imageSample3"  type="file"/>
+        <button onclick="showModal2()">ویرایش</button>
+    </div>
+    <div class="modal darkback" id="sample2modal" wn-type="modal" show-class="animation zoomIn" hide-class="animation zoomOut" back-close="false">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h5 class="modal-title">ویرایش تصویر</h5>
+                <button class="close" close-parent=""></button>
+            </div>
+            <div class="modal-body">
+                <canvas id="imageEditModal" wn-type="ImageEditor" class="image-editor" style="min-width:300px;min-height:150px;width:100%" mask="rect,192" width="600" height="300">
+                </canvas>
+                <div class="row">
+                    <div class="col-4 d-flex flex-row">
+                        <div class="button-group">
+                            <button onclick="startCamera()"><i class="fa-regular fa-camera"></i></button>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <div class="button-group">
+                                <button onclick="crop(0)"><i class="fa-regular fa-border-none"></i></button>
+                                <button onclick="crop(1)"><i class="fa-regular fa-arrow-rotate-left"></i></button>
+                                <button onclick="crop(2)"><i class="fa-regular fa-crop"></i></button>
+                            </div>
+                            <div class="button-group">
+                                <button onclick="flip(0)"><i class="fa-regular fa-arrows-up-down-left-right"></i></button>
+                                <button onclick="flip(1)"><i class="fa-regular fa-reflect-horizontal"></i></button>
+                                <button onclick="flip(2)"><i class="fa-regular fa-reflect-vertical"></i></button>
+                                <button onclick="flip(3)"><i class="fa-regular fa-reflect-both"></i></button>
+                            </div>
+                            <div class="button-group ltr align-items-center">
+                                <i class="fa-regular fa-rotate-left"></i>
+                                <input type="range" min="-45" max="45" value="0" oninput="rotate(this.value)" />
+                                <i class="fa-regular fa-rotate-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 filter-col">
+                        <div>
+                            <label>تاری</label>
+                            <input id="blur" type="range" min="0" max="20" value="0" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>روشنایی</label>
+                            <input id="brightness" type="range" min="0" max="2" value="1" step="0.1" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>کنتراست</label>
+                            <input id="contrast" type="range" min="0" max="200" value="100" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>خاکستری گونه</label>
+                            <input id="grayscale" type="range" min="0" max="100" value="0" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>چرخش رنگ</label>
+                            <input id="hue-rotate" type="range" min="0" max="365" value="0" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>برعکس کردن رنگ</label>
+                            <input id="invert" type="range" min="0" max="100" value="0" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>شفافیت</label>
+                            <input id="opacity" type="range" min="0" max="100" value="100" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>اشباع رنگ</label>
+                            <input id="saturate" type="range" min="0" max="100" value="100" oninput="filter()" />
+                        </div>
+                        <div>
+                            <label>قهوه ای گونه</label>
+                            <input id="sepia" type="range" min="0" max="100" value="0" oninput="filter()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="primary" onclick="save()">ذخیره تصویر</button>
+                <button class="secondary" close-parent="">برگشت</button>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="sample2"></code></figure>

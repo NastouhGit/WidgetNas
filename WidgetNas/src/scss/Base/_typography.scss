@@ -200,3 +200,18 @@ bidi,
     font-size: calc(var(--font-size) * 1.25);
     font-weight: 300;
 }
+.unicode-bidi-normal {
+    unicode-bidi:normal;
+}
+.unicode-bidi-embed {
+    unicode-bidi: embed;
+}
+.unicode-bidi-isolate {
+    unicode-bidi: isolate;
+}
+.unicode-bidi-plaintext {
+    unicode-bidi: plaintext;
+}
+.unicode-bidi-unset {
+    unicode-bidi: unset;
+}

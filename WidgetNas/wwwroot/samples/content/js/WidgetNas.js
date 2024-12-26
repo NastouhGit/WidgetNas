@@ -1,7 +1,7 @@
 function wnabout() {
     return `
  +--------------------------------------+
- | Widgetnas Version: 2.0.0.3           |
+ | Widgetnas Version: 2.0.1.5           |
  +--------------------------------------+
 `;
 }
@@ -1826,6 +1826,12 @@ function WNparseNumber(value, Default, culture = wnConfig.cultureInfo) {
     value = WNDenativeDigit(value, culture);
     return parseInt(value);
 }
+function WNparseFloat(value, Default, culture = wnConfig.cultureInfo) {
+    if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
+        return Default;
+    value = WNDenativeDigit(value, culture);
+    return parseFloat(value);
+}
 function WNparseString(value, Default) {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
@@ -2140,6 +2146,14 @@ function WNToDictionary(value) {
         value = value + '}';
     return WNGenerateFunction('return ' + value)();
 }
+function WNStringToObject(value) {
+    value = value.trim();
+    if (!value.startsWith('{') && !value.startsWith('['))
+        value = '{' + value;
+    if (!value.endsWith('}') && !value.endsWith(']'))
+        value = value + '}';
+    return WNGenerateFunction('return ' + value)();
+}
 function WNAddStringQuote(value) { return '"' + value + '"'; }
 function WNisJson(item) {
     item = typeof item !== "string"
@@ -2242,6 +2256,19 @@ function WNGetParentsElementsTag(elem, untilTag, untilClass) {
         tElem = tElem.parentElement;
     }
     return ret;
+}
+function WNFindParentsTag(elem, untilTag) {
+    let tElem = elem;
+    untilTag = (untilTag ?? '').toLowerCase().trim();
+    let luntilTag;
+    luntilTag = untilTag.split(' ');
+    while (tElem != null) {
+        let tag = tElem.tagName.toLowerCase();
+        if (luntilTag.find((x) => x == tag) != null)
+            return tElem;
+        tElem = tElem.parentElement;
+    }
+    return null;
 }
 function WNRGB2HEX(rgb) {
     let ret = '';
@@ -2361,6 +2388,15 @@ function CheckBrowserCompatibility() {
     let objbrowserName = '';
     let objfullVersion = '';
     let objBrMajorVersion = 0;
+    let mobile = false;
+    let OS = 'Windows';
+    let objAgentL = objAgent.toLowerCase();
+    mobile = (objAgentL.indexOf("android") != -1) ||
+        (objAgentL.indexOf("iphone") != -1) ||
+        (objAgentL.indexOf("ipad") != -1);
+    OS = (objAgentL.indexOf("android") != -1) ? 'Android' :
+        (objAgentL.indexOf("iphone") != -1) ? 'iOS' :
+            (objAgentL.indexOf("ipad") != -1) ? 'iOS' : 'Windows';
     let objOffsetName, objOffsetVersion, ix;
     if ((objOffsetVersion = objAgent.indexOf("Chrome")) != -1) {
         objbrowserName = "Chrome";
@@ -2391,15 +2427,29 @@ function CheckBrowserCompatibility() {
         objfullVersion = objfullVersion.substring(0, ix);
     if ((ix = objfullVersion.indexOf(" ")) != -1)
         objfullVersion = objfullVersion.substring(0, ix);
-    objBrMajorVersion = parseInt('' + objfullVersion, 10);
+    objBrMajorVersion = WNparseFloat('' + objfullVersion, 10);
     if (isNaN(objBrMajorVersion)) {
         objfullVersion = '1.0';
         objBrMajorVersion = 0;
     }
     let error = true;
-    if (objbrowserName == 'Chrome' && objBrMajorVersion >= 89)
+    if (!mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
         error = false;
-    else if (objbrowserName == 'Firefox' && objBrMajorVersion >= 5)
+    else if (mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
+        error = false;
+    else if (!mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (!mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.1)
+        error = false;
+    else if (mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Android' && objBrMajorVersion >= 69)
+        error = false;
+    else if (OS == 'iOS' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Windows' && objBrMajorVersion >= 79)
         error = false;
     if (error)
         document.body.innerHTML = `<div class='alert warning'>` + wnConfig.language["common"]["browsererror"] + ' ' + objbrowserName + ':' + objBrMajorVersion + `</div>` + document.body.innerHTML;
@@ -2473,33 +2523,59 @@ class WNAccordion {
             return null;
         return this.items[this._selectedIndex];
     }
-    ;
     set selectedItem(value) {
+        if (value.head.classList.contains('collapsed'))
+            value.head.classList.remove('collapsed');
+        if (value.body.classList.contains('accordion-collapse'))
+            value.body.classList.remove('accordion-collapse');
         for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].body == value.body && this.items[i].head == value.head) {
-                this.selectedIndex = i;
-                break;
+            if (value.head.id != '') {
+                if (this.items[i].head.id == value.head.id) {
+                    this.selectedIndex = i;
+                    break;
+                }
+            }
+            else if (value.body.id != '') {
+                if (this.items[i].body.id == value.body.id) {
+                    this.selectedIndex = i;
+                    break;
+                }
+            }
+            else {
+                if (this.items[i].head.classList.contains('collapsed'))
+                    this.items[i].head.classList.remove('collapsed');
+                if (this.items[i].body.classList.contains('accordion-collapse'))
+                    this.items[i].body.classList.remove('accordion-collapse');
+                if (this.items[i].body == value.body && this.items[i].head == value.head) {
+                    this.selectedIndex = i;
+                    break;
+                }
             }
         }
     }
-    ;
     _selectedIndex = -1;
     get selectedIndex() { return this._selectedIndex; }
-    ;
     set selectedIndex(value) {
         if (value < 0)
             value = -1;
         if (value >= this.items.length)
             value = this.items.length - 1;
-        if (this.beforeCollapse && this.beforeCollapse(this, value) != false)
+        let isCollapsed = this.items[value]?.head.classList.contains('collapsed');
+        if (isCollapsed && this.beforeCollapse && this.beforeCollapse(this, value) != false)
+            return;
+        if (!isCollapsed && this.beforeExpand && this.beforeExpand(this, value) != false)
             return;
         this._selectedIndex = value;
         this.setCollapse();
-        this.afterCollapse?.(this, value);
+        if (isCollapsed)
+            this.afterCollapse?.(this, value);
+        else
+            this.afterExpand?.(this, value);
     }
-    ;
     beforeCollapse;
     afterCollapse;
+    beforeExpand;
+    afterExpand;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -2508,7 +2584,6 @@ class WNAccordion {
     }
     init() {
         this.items = [];
-        let index = 0;
         this.element.querySelectorAll('.accordion-item').forEach((x) => {
             let head = x.querySelector('.accordion-header');
             let body = x.querySelector('.accordion-body');
@@ -2522,18 +2597,50 @@ class WNAccordion {
                     body.className = 'accordion-body';
                     head.after(body);
                 }
-                head.setAttribute('index', index.toString());
-                head.addEventListener("click", (e) => {
-                    this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
-                });
-                this.items.push({ head: head, body: body });
-                index++;
             }
+            head.setAttribute('index', this.items.length.toString());
+            head.onclick = (e) => {
+                this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
+            };
+            this.items.push({ head: head, body: body });
         });
         if (this.element.hasAttribute('mode'))
             this.mode = this.element.getAttribute('mode') == 'multiple' ? AccordionMode.multiple : AccordionMode.single;
         if (this.element.hasAttribute('selected-index'))
             this.selectedIndex = WNparseNumber(this.element.getAttribute('selected-index'));
+    }
+    addItem(head, body, collapsed = false) {
+        let accordion_item = document.createElement('div');
+        accordion_item.className = 'accordion-item';
+        if (!head.classList.contains('accordion-header'))
+            head.classList.add('accordion-header');
+        head.type = "button";
+        if (!body.classList.contains('accordion-body'))
+            body.classList.add('accordion-body');
+        if (this.mode == 'single' || collapsed) {
+            if (!head.classList.contains('collapsed'))
+                head.classList.add('collapsed');
+            if (!body.classList.contains('accordion-collapse'))
+                body.classList.add('accordion-collapse');
+        }
+        accordion_item.appendChild(head);
+        accordion_item.appendChild(body);
+        this.element.appendChild(accordion_item);
+        head.setAttribute('index', this.items.length.toString());
+        head.onclick = (e) => {
+            this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
+        };
+        this.items.push({ head: head, body: body });
+    }
+    addItemByHtmlText(caption, body, collapsed = false) {
+        let head = document.createElement('button');
+        head.className = 'accordion-header ' + (this.mode == 'single' || collapsed ? 'collapsed' : '');
+        head.type = 'button';
+        head.innerHTML = caption;
+        let ebody = document.createElement('div');
+        ebody.className = 'accordion-body ' + (this.mode == 'single' || collapsed ? 'accordion-collapse' : '');
+        ebody.innerHTML = body;
+        this.addItem(head, ebody);
     }
     setCollapse() {
         if (this.mode == AccordionMode.single) {
@@ -2552,6 +2659,13 @@ class WNAccordion {
                 this.items[this.selectedIndex].body.classList.toggle('accordion-collapse');
             }
         }
+    }
+    clear() {
+        this.items?.forEach(x => {
+            x.head.onclick = null;
+            x.head.parentElement.remove();
+        });
+        this.items = [];
     }
 }
 class WNCaptcha {
@@ -2970,6 +3084,7 @@ class WNConfirm {
     bodyClass = '';
     footerClass = '';
     showClass = "animation zoomIn";
+    customModal = "";
     closeButton = true;
     values = {};
     parentElement = document.body;
@@ -2993,48 +3108,73 @@ class WNConfirm {
         if (typeof (this.body) == 'object') {
             this.body = this.body.outerHTML;
         }
-        this.element = document.createElement("div");
-        this.element.className = `modal darkback ${this.modalClass}`;
-        this.element.setAttribute("showClass", this.showClass);
-        let modaldialog = document.createElement('div');
-        modaldialog.className = "modal-dialog";
-        modaldialog.innerHTML = `
+        let modaldialog;
+        if (this.modal == null) {
+            if (this.customModal == '') {
+                this.element = document.createElement("div");
+                this.element.className = `modal darkback ${this.modalClass}`;
+                this.element.setAttribute("showClass", this.showClass);
+                modaldialog = document.createElement('div');
+                modaldialog.className = "modal-dialog";
+                modaldialog.innerHTML = `
         <div class="modal-header ${this.headClass}">
             <h5 class="modal-title">${this.title}</h5>` +
-            (this.closeButton ? `<button class="close" close-parent=""></button>` : '') +
-            `</div>
+                    (this.closeButton ? `<button class="close" close-parent=""></button>` : '') +
+                    `</div>
         <div class="modal-body ${this.bodyClass}">
             ${this.body}
         </div>`;
-        let footer = document.createElement('div');
-        footer.className = `modal-footer  ${this.footerClass}`;
-        for (var i = 0; i < this.buttons.length; i++) {
-            let btn = document.createElement("button");
-            btn.className = this.buttons[i].class ?? '';
-            btn.innerHTML = this.buttons[i].caption ?? '';
-            let click = this.buttons[i]?.click;
-            btn.onclick = async () => {
-                if (click != null) {
-                    let r = await click(this);
-                    if (r == undefined || r == true) {
-                        this.modal.hide();
-                        this.element.remove();
+                let footer = document.createElement('div');
+                footer.className = `modal-footer  ${this.footerClass}`;
+                for (var i = 0; i < this.buttons.length; i++) {
+                    let btn = document.createElement("button");
+                    btn.className = this.buttons[i].class ?? '';
+                    btn.innerHTML = this.buttons[i].caption ?? '';
+                    let click = this.buttons[i]?.click;
+                    btn.onclick = async () => {
+                        if (click != null) {
+                            let r = await click(this);
+                            if (r == undefined || r == true) {
+                                this.modal.hide();
+                                this.element.remove();
+                            }
+                        }
+                        else {
+                            this.modal.hide();
+                            this.element.remove();
+                        }
+                    };
+                    footer.appendChild(btn);
+                }
+                modaldialog.appendChild(footer);
+                this.element.appendChild(modaldialog);
+                this.parentElement.appendChild(this.element);
+                this.modal = new WNModal(this.element);
+            }
+            else {
+                this.modal = WN(this.customModal).wn;
+                for (var i = 0; i < this.buttons.length; i++) {
+                    if (this.buttons[i].id != '') {
+                        let button = this.buttons[i];
+                        let btn = document.getElementById(this.buttons[i].id);
+                        if (btn) {
+                            if (button.click != null)
+                                btn.onclick = async () => {
+                                    let r = await button.click(this);
+                                    if (r == undefined || r == true) {
+                                        this.modal.hide();
+                                    }
+                                };
+                            else {
+                                btn.onclick = async () => {
+                                    this.modal.hide();
+                                };
+                            }
+                        }
                     }
                 }
-                else {
-                    this.modal.hide();
-                    this.element.remove();
-                }
-            };
-            footer.appendChild(btn);
+            }
         }
-        modaldialog.appendChild(footer);
-        this.element.appendChild(modaldialog);
-        this.parentElement.appendChild(this.element);
-        if (this.modal == null)
-            this.modal = new WNModal(this.element);
-        else
-            this.modal.element = this.element;
         await this.modal.show();
         modaldialog.focus();
     }
@@ -3628,12 +3768,21 @@ class WNEditor {
         });
         editorbody.addEventListener('paste', (event) => {
             let paste = (event.clipboardData).getData('text');
-            paste = this.cleanWordPaste(paste);
+            if (this._editor_source_mode == 'html') {
+                paste = this.cleanWordPaste(paste);
+                if (paste == '') {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            else
+                return true;
             const selection = window.getSelection();
             if (!selection.rangeCount)
                 return false;
             selection.deleteFromDocument();
-            selection.getRangeAt(0).insertNode(document.createElement(paste));
+            let elem = document.createTextNode(paste);
+            selection.getRangeAt(0).insertNode(elem);
             event.preventDefault();
             return true;
         });
@@ -3826,10 +3975,12 @@ class WNEditor {
             this._editor_textcolor.style.borderBlockEndColor = this.getCurrentStyle('color');
         if (this._editor_background != undefined)
             this._editor_background.style.borderBlockEndColor = this.getCurrentStyle('background-color');
-        if (this._editor_fill != undefined)
-            this._editor_fill.style.borderBlockEndColor = getComputedStyle(this.getParentTagSelection()).getPropertyValue('background-color');
+        if (this._editor_fill != undefined) {
+            if (this.getParentTagSelection() != null)
+                this._editor_fill.style.borderBlockEndColor = getComputedStyle(this.getParentTagSelection()).getPropertyValue('background-color');
+        }
         if (this._editor_elementtag != undefined) {
-            let tagName = this.getParentTagSelection().tagName.toLowerCase();
+            let tagName = this.getParentTagSelection()?.tagName.toLowerCase();
             this._editor_elementtag.value = (this.TagList.find((e) => e.includes(tagName)) ?? this.TagList[0]).split(':')[1];
         }
         if (this.valueElement != undefined)
@@ -3842,11 +3993,12 @@ class WNEditor {
     isSelectionInTag(tag) {
         tag = tag.toUpperCase();
         let currentNode = window.getSelection().focusNode;
-        while (!currentNode.classList?.contains('editor-content')) {
-            if (currentNode.tagName == tag)
-                return true;
-            currentNode = currentNode.parentNode;
-        }
+        if (currentNode != null)
+            while (!currentNode?.classList?.contains('editor-content')) {
+                if (currentNode.tagName == tag)
+                    return true;
+                currentNode = currentNode.parentNode;
+            }
         return false;
     }
     execCommand(cmd, value = null) {
@@ -3868,13 +4020,14 @@ class WNEditor {
     }
     getParentTagSelection() {
         let currentNode = window.getSelection().focusNode;
-        for (var i = 0; i < 2; i++) {
-            if (!currentNode?.classList?.contains('editor-content')) {
-                if (currentNode.tagName != undefined)
-                    return currentNode;
-                currentNode = currentNode.parentNode;
+        if (currentNode != null)
+            for (var i = 0; i < 2; i++) {
+                if (!currentNode?.classList?.contains('editor-content')) {
+                    if (currentNode.tagName != undefined)
+                        return currentNode;
+                    currentNode = currentNode.parentNode;
+                }
             }
-        }
         return null;
     }
     setSelectionStyle(prop, value = null, toggle, getParentTag = false) {
@@ -3903,7 +4056,7 @@ class WNEditor {
                     else
                         span = span.parentElement;
                 }
-                if (span.innerHTML != '') {
+                if (span?.innerHTML != '') {
                     span.childNodes.forEach(x => {
                         if (x.nodeName != '#text')
                             x?.style.removeProperty(prop);
@@ -3951,8 +4104,8 @@ class WNEditor {
                 elem = range.commonAncestorContainer;
                 elem = document.createElement(value);
                 elem.innerText = rangeText;
-                parent.before(elem);
-                parent.remove();
+                parent?.before(elem);
+                parent?.remove();
                 this._content.focus();
             }
         }
@@ -4171,7 +4324,7 @@ class WNEditor {
         if (this._insertImage == undefined)
             this.createImageObject();
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'img') {
+        if (elem?.tagName.toLowerCase() != 'img') {
             elem = elem.querySelector('img');
         }
         this._insertImageUrl.value = '';
@@ -4327,13 +4480,14 @@ class WNEditor {
         if (this._insertMedia == undefined)
             this.createMediaObject();
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'video' && elem.tagName.toLowerCase() != 'audio') {
-            let elemVideo = elem.querySelector('video');
-            if (elemVideo == null)
-                elem = elem.querySelector('audio');
-            else
-                elem = elemVideo;
-        }
+        if (elem)
+            if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
+                let elemVideo = elem.querySelector('video');
+                if (elemVideo == null)
+                    elem = elem.querySelector('audio');
+                else
+                    elem = elemVideo;
+            }
         this._insertMediaType.value = 'video';
         this._insertMediaUrl.value = '';
         this._insertMediaWidth.value = '';
@@ -4536,7 +4690,7 @@ class WNEditor {
         if (this._insertIFrame == undefined)
             this.createIFrameObject();
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'iframe') {
+        if (elem?.tagName.toLowerCase() != 'iframe') {
             elem = elem.querySelector('iframe');
         }
         this._insertIFrameUrl.value = '';
@@ -5590,7 +5744,7 @@ class WNFileList {
             this.element.ondblclick = null;
         }
         this._lang = WNLanguage[this._date.cultureInfo.twoLetterISOLanguageName];
-        if (!this.element.classList.contains('filelist'))
+        if (this.element.className == '')
             this.element.classList.add('filelist');
         this.mode = this.element.getAttribute('mode').toLowerCase() ?? 'select';
         this.multiSelect = WNparseBoolean(this.element.getAttribute('multi-select'), false);
@@ -6648,23 +6802,19 @@ class WNList {
     }
     _selectedItem = null;
     get selectedItem() { return this._selectedItem; }
-    ;
     set selectedItem(value) { this.select(value); }
-    ;
     get selectedValue() { return this._selectedItem?.value; }
-    ;
     set selectedValue(value) {
         this.findByValue(value, true);
     }
-    ;
     get selectedIndex() { return this.selectedItem?.index ?? -1; }
-    ;
     set selectedIndex(value) {
         let f = this.dataSource.find(x => x.index == value);
         if (f)
             this.select(f);
+        else
+            this.select(null);
     }
-    ;
     get checkedItems() {
         let ret = [];
         for (var i = 0; i < this.dataSource.length; i++) {
@@ -6674,7 +6824,6 @@ class WNList {
         }
         return ret;
     }
-    ;
     set checkedItems(value) {
         this.checkedClear();
         for (var i = 0; i < value.length; i++) {
@@ -6683,7 +6832,6 @@ class WNList {
                 inp.checked = true;
         }
     }
-    ;
     get checkedValues() {
         let ret = [];
         let checked = this.checkedItems;
@@ -6691,7 +6839,6 @@ class WNList {
             ret.push(checked[i].value);
         return ret;
     }
-    ;
     set checkedValues(value) {
         let checked = [];
         for (var i = 0; i < value.length; i++) {
@@ -6701,7 +6848,6 @@ class WNList {
         }
         this.checkedItems = checked;
     }
-    ;
     select(node) {
         if (node == this.selectedItem)
             return;
@@ -6781,7 +6927,7 @@ class WNList {
         }
         return null;
     }
-    nodeToHtmlElement(node) {
+    nodeToHtmlElement(node, updateNode = true) {
         let item;
         if (this.element.tagName == 'UL')
             item = document.createElement('li');
@@ -6835,11 +6981,13 @@ class WNList {
             tItem.insertAdjacentElement('afterbegin', ttItem);
         }
         node.text = tItem.textContent;
-        node.element = item;
+        if (updateNode == true)
+            node.element = item;
         return item;
     }
     removeFromDataSource(node) {
         try {
+            this.selectedIndex = -1;
             node.element?.removeEventListener("click", (e) => { this.click(node, e); });
             node.element?.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
             node.element?.remove();
@@ -6850,6 +6998,8 @@ class WNList {
                     break;
                 }
             }
+            for (var i = 0; i < list.length; i++)
+                list[i].index = i;
         }
         catch (e) {
             console.error(e);
@@ -6858,7 +7008,7 @@ class WNList {
         return true;
     }
     updateNodeElement(node) {
-        node.element.innerHTML = this.nodeToHtmlElement(node).innerHTML;
+        node.element.innerHTML = this.nodeToHtmlElement(node, false).innerHTML;
     }
     setDataSourceByItem(dataSource, displayFieldName, valueFieldName, linkFieldName, imageFieldName, append) {
         if (!append)
@@ -7288,14 +7438,14 @@ class WNMonthCalendar {
         calendarhead.className = 'calendar-head';
         calendarhead.dir = this.element.dir;
         let prev = document.createElement('button');
-        prev.className = 'primary previous-button';
+        prev.className = 'previous-button';
         prev.addEventListener('click', (e) => {
             this.previousMonths();
             e.stopPropagation();
         });
         calendarhead.appendChild(prev);
         let now = document.createElement('button');
-        now.className = 'secondary now-button';
+        now.className = 'now-button';
         now.addEventListener('click', (e) => {
             this.now();
             e.stopPropagation();
@@ -7305,7 +7455,7 @@ class WNMonthCalendar {
         calendarhead.appendChild(this._monthyearcaption);
         if (!this.onlyMonthYear) {
             let showMonthYear = document.createElement('button');
-            showMonthYear.className = 'dropdown-toggle secondary month-button';
+            showMonthYear.className = 'dropdown-toggle month-button';
             showMonthYear.addEventListener('click', (e) => {
                 this._rangestate = 0;
                 this._selectmonthyear.classList.toggle('hide');
@@ -7316,7 +7466,7 @@ class WNMonthCalendar {
             calendarhead.appendChild(showMonthYear);
         }
         let next = document.createElement('button');
-        next.className = 'primary next-button';
+        next.className = 'next-button';
         next.addEventListener('click', (e) => {
             this.nextMonths();
             e.stopPropagation();
@@ -7804,9 +7954,16 @@ class WNMultiInput {
         return value;
     }
     set values(value) {
+        let lkey = Object.keys(this.labels);
+        if (typeof value == 'string') {
+            let t = {};
+            for (var i = 0; i < lkey.length; i++)
+                t[lkey[i]] = '';
+            t[lkey[0]] = value;
+            value = t;
+        }
         if (!value)
             value = {};
-        let lkey = Object.keys(this.labels);
         for (var i = 0; i < this.inputs.length; i++) {
             let x = this.inputs[i];
             let v = value[lkey[i]] ?? '';
@@ -7838,6 +7995,283 @@ class WNMultiInput {
         if (elemclass && elemclass != '')
             mainInput.classList.add(elemclass);
         return mainInput;
+    }
+}
+class WNMultiInputPhone {
+    nameType = 'WNMultiInputPhone';
+    element;
+    itemClick;
+    max = 0;
+    dropDownPopup;
+    dropdown;
+    list;
+    inpCaption;
+    inpCountry;
+    inpArea;
+    inpNumber;
+    inpExt;
+    cCaption = 'Caption';
+    cCountry = 'Country';
+    cArea = 'Area';
+    cNumber = 'Number';
+    cExt = 'Ext.';
+    hiddenElemet;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        this.max = WNparseNumber(this.element.getAttribute('max'), 0);
+        if (this.element.hasAttribute('onitemclick'))
+            this.itemClick = WNGenerateFunction(this.element.getAttribute('onitemclick'), 't,n');
+        if (this.dropDownPopup == null) {
+            this.dropDownPopup = document.createElement("div");
+            this.dropDownPopup.className = 'dropdown align-end multiinputphone_dialog_dropdown';
+            let dialogDiv = document.createElement('div');
+            dialogDiv.className = 'multiinputphone_dialog clean';
+            if (this.element.hasAttribute('dialog')) {
+                let dialog = document.getElementById(this.element.getAttribute('dialog'));
+                dialogDiv.innerHTML = dialog.innerHTML;
+            }
+            else {
+                if (this.element.hasAttribute('labels')) {
+                    let l = WNStringToObject(this.element.getAttribute('labels'));
+                    this.cCaption = l?.caption ?? this.cCaption;
+                    this.cCountry = l?.country ?? this.cCountry;
+                    this.cArea = l?.area ?? this.cArea;
+                    this.cNumber = l?.number ?? this.cNumber;
+                    this.cExt = l?.extension ?? this.cExt;
+                }
+                dialogDiv.innerHTML =
+                    `<ul class="clean"></ul>
+                    <div class="clean">
+                        <ig class="clean"><label class="clean">${this.cCaption}</label><input class="caption clean"  /></ig>
+                        <ig class="clean"><label class="clean">${this.cCountry}</label><input class="country clean" /></ig>
+                        <ig class="clean"><label class="clean">${this.cArea}</label><input class="area clean" /></ig>
+                        <ig class="clean"><label class="clean">${this.cNumber}</label><input class="number clean" /></ig>
+                        <ig class="clean"><label class="clean">${this.cExt}</label><input class="ext clean" /></ig>
+                        <ig class="clean">
+                            <button class="add"></button>
+                            <button class="save"></button>
+                            <button class="delete"></button>
+                            <button class="up"></button>
+                            <button class="down"></button>
+                        </ig>
+                    </div>`;
+            }
+            this.dropDownPopup.appendChild(dialogDiv);
+            let lst = this.dropDownPopup.querySelector('ul');
+            this.list = new WNList(lst);
+            this.list.selectionChanged = () => { this.listChange(); };
+            this.inpCaption = this.dropDownPopup.querySelector('input.caption');
+            this.inpCountry = this.dropDownPopup.querySelector('input.country');
+            this.inpArea = this.dropDownPopup.querySelector('input.area');
+            this.inpNumber = this.dropDownPopup.querySelector('input.number');
+            this.inpExt = this.dropDownPopup.querySelector('input.ext');
+            this.dropDownPopup.querySelector('button.add')?.addEventListener('click', () => this.addButton());
+            this.dropDownPopup.querySelector('button.save')?.addEventListener('click', () => this.saveButton());
+            this.dropDownPopup.querySelector('button.delete')?.addEventListener('click', () => this.deleteButton());
+            this.dropDownPopup.querySelector('button.up')?.addEventListener('click', () => this.changeOrder(-1));
+            this.dropDownPopup.querySelector('button.down')?.addEventListener('click', () => this.changeOrder(1));
+            this.dropDownPopup.classList.add('hide-invalid');
+            this.dropDownPopup.classList.add('hide-valid');
+            this.element.insertAdjacentElement("afterend", this.dropDownPopup);
+        }
+        this.dropdown = new WNDropdown(this.element);
+        this.dropdown.dropdown = this.dropDownPopup;
+        this.element.addEventListener('click', (ev) => {
+            if (getComputedStyle(this.element).pointerEvents == 'none')
+                return;
+            this.dropdown?.toggle();
+            ev.stopPropagation();
+        }, false);
+        if (this.element.hasAttribute('value')) {
+            this.value = WNStringToObject(this.element.getAttribute('value'));
+        }
+        else
+            this.value = [];
+        if (this.element.hasAttribute('required')) {
+            this.hiddenElemet = document.createElement('input');
+            this.hiddenElemet.style.display = "none";
+            this.element.appendChild(this.hiddenElemet);
+            let r = WNFindParentsTag(this.element, 'form');
+            r?.addEventListener('submit', (event) => {
+                if (this._value?.length == 0) {
+                    this.hiddenElemet?.setCustomValidity('Error');
+                    this.hiddenElemet?.reportValidity();
+                    event.preventDefault();
+                }
+                else {
+                    this.hiddenElemet?.setCustomValidity('');
+                }
+            });
+        }
+    }
+    add(node) {
+        if (this.max != 0 && this._value.length >= this.max)
+            return null;
+        if (this._value.find(x => x.fullNumber == node.fullNumber))
+            return null;
+        this._value.push(node);
+        this.createLinkNode(node);
+        this.list.addToDataSource(`<span>${node.caption}</span>${node.fullNumber}`, '', node.fullNumber, '');
+        return node;
+    }
+    createLinkNode(node) {
+        let div = document.createElement('a');
+        div.href = `callto://+${node.country}${node.area}${node.number}`;
+        let sp = document.createElement('span');
+        sp.innerHTML = node.caption;
+        div.appendChild(sp);
+        div.innerHTML += node.fullNumber;
+        div.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            this.itemClick?.(this, node);
+        });
+        this.element.appendChild(div);
+    }
+    refreshAllLinkNode() {
+        this.element.querySelectorAll('a').forEach(x => x.remove());
+        this._value.forEach(x => this.createLinkNode(x));
+    }
+    _value;
+    get value() {
+        let t = [];
+        for (var i = 0; i < this._value.length; i++)
+            t.push(`${this._value[i].caption.trim()}|${this._value[i].country.trim()}|${this._value[i].area.trim()}|${this._value[i].number.trim()}|${this._value[i].extension.trim()}`);
+        return t;
+    }
+    set value(value) {
+        this._value = [];
+        for (var i = 0; i < value.length; i++) {
+            let s = value[i].split('|');
+            if (s.length == 5) {
+                let n = { caption: s[0], country: s[1], area: s[2], number: s[3], extension: s[4], fullNumber: '' };
+                n.fullNumber = this.makeFullNumber(n);
+                this.add(n);
+            }
+        }
+        if (this.element.hasAttribute('required') && this.hiddenElemet) {
+            if (this._value.length == 0) {
+                this.hiddenElemet?.setCustomValidity('Error');
+                this.hiddenElemet?.reportValidity();
+            }
+            else {
+                this.hiddenElemet?.setCustomValidity('');
+            }
+        }
+    }
+    makeFullNumber(n) {
+        let number = '';
+        if (n.number.length < 6)
+            number = n.number;
+        else if (n.number.length == 6)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6);
+        else if (n.number.length == 7)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 5) + ' ' + n.number.substring(5, 7);
+        else if (n.number.length == 8)
+            number = n.number.substring(0, 2) + ' ' + n.number.substring(2, 4) + ' ' + n.number.substring(4, 6) + ' ' + n.number.substring(6, 8);
+        else if (n.number.length == 9)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6) + ' ' + n.number.substring(6, 9);
+        else if (n.number.length == 10)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6) + ' ' + n.number.substring(6, 8) + ' ' + n.number.substring(8, 10);
+        else
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6) + ' ' + n.number.substring(6, 9) + ' ' + n.number.substring(9);
+        return `+${n.country} (${n.area}) ${number}` + (n.extension != '' ? ` x ${n.extension}` : ``);
+    }
+    addButton() {
+        this.fixedInput();
+        if (this.inpCountry?.value == '')
+            return;
+        if (this.inpArea?.value == '')
+            return;
+        if (this.inpNumber?.value == '')
+            return;
+        let n = {
+            caption: this.inpCaption?.value.trim(),
+            country: this.inpCountry.value.trim(),
+            area: this.inpArea?.value.trim(),
+            number: this.inpNumber?.value.trim(),
+            extension: this.inpExt?.value.trim(),
+            fullNumber: ''
+        };
+        n.fullNumber = this.makeFullNumber(n);
+        if (this.add(n) != null) {
+            this.inpCaption.value = '';
+            this.inpCountry.value = '';
+            this.inpArea.value = '';
+            this.inpNumber.value = '';
+            this.inpExt.value = '';
+            this.list.selectedIndex = -1;
+        }
+    }
+    saveButton() {
+        this.fixedInput();
+        if (this.list.selectedIndex == -1)
+            return;
+        let node = {
+            caption: this.inpCaption.value,
+            country: this.inpCountry.value,
+            area: this.inpArea.value,
+            number: this.inpNumber.value,
+            extension: this.inpExt.value,
+            fullNumber: ''
+        };
+        node.fullNumber = this.makeFullNumber(node);
+        let idx = this._value.findIndex(x => x.fullNumber == node.fullNumber);
+        if (idx != this.list.selectedIndex)
+            return null;
+        this._value[this.list.selectedIndex] = node;
+        this.inpCaption.value = '';
+        this.inpCountry.value = '';
+        this.inpArea.value = '';
+        this.inpNumber.value = '';
+        this.inpExt.value = '';
+        this.list.selectedItem.element.innerHTML = `<span>${this._value[this.list.selectedIndex].caption}</span>${this._value[this.list.selectedIndex].fullNumber}`;
+        this.list.selectedIndex = -1;
+        this.refreshAllLinkNode();
+    }
+    deleteButton() {
+        if (this.list.selectedIndex == -1)
+            return;
+        this._value.splice(this.list.selectedIndex, 1);
+        this.list.removeFromDataSource(this.list.selectedItem);
+        this.refreshAllLinkNode();
+    }
+    fixedInput() {
+        this.inpCaption.value = this.inpCaption.value.trim();
+        this.inpCaption.value = this.inpCaption.value != '' ? this.inpCaption.value : '#';
+        this.inpCountry.value = this.inpCountry.value.replace(/\D/g, '');
+        this.inpArea.value = this.inpArea.value.replace(/\D/g, '');
+        this.inpNumber.value = this.inpNumber.value.replace(/\D/g, '');
+        this.inpExt.value = this.inpExt.value.replace(/\D/g, '');
+    }
+    listChange() {
+        this.inpCaption.value = '';
+        this.inpCountry.value = '';
+        this.inpArea.value = '';
+        this.inpNumber.value = '';
+        this.inpExt.value = '';
+        if (this.list.selectedIndex == -1)
+            return;
+        this.inpCaption.value = this._value[this.list.selectedIndex].caption;
+        this.inpCountry.value = this._value[this.list.selectedIndex].country;
+        this.inpArea.value = this._value[this.list.selectedIndex].area;
+        this.inpNumber.value = this._value[this.list.selectedIndex].number;
+        this.inpExt.value = this._value[this.list.selectedIndex].extension;
+    }
+    changeOrder(index) {
+        let idx = this.list.selectedIndex;
+        if (idx + index < 0)
+            return;
+        if (idx + index >= this._value.length)
+            return;
+        [this._value[idx + index], this._value[idx]] = [this._value[idx], this._value[idx + index]];
+        [this.list.dataSource[idx + index].element.innerHTML, this.list.dataSource[idx].element.innerHTML] = [this.list.dataSource[idx].element.innerHTML, this.list.dataSource[idx + index].element.innerHTML];
+        this.list.selectedIndex = idx + index;
+        this.refreshAllLinkNode();
     }
 }
 class WNMultiSelect {
@@ -8351,6 +8785,11 @@ class WNSlicker {
                         };
                         return;
                     }
+                }
+                else {
+                    this._slidesWidth[i] = this._width;
+                    el.style.width = this._slidesWidth[i] + 'px';
+                    this._totalWidth += this._slidesWidth[i];
                 }
             }
             else {
@@ -9528,13 +9967,13 @@ class WNTooltip {
     delay = 500;
     hideAfter = 3000;
     tooltipClass = '';
+    target;
     _events;
     get events() { return this._events; }
     set events(value) { this._events = value; this.setEvents(); }
     _lostEvents;
     get lostEvents() { return this._lostEvents; }
     set lostEvents(value) { this._lostEvents = value; this.setEvents(); }
-    _target;
     _delayHandle;
     _hideAfterhandle;
     constructor(elem) {
@@ -9545,11 +9984,11 @@ class WNTooltip {
     }
     init() {
         let text = this.element.getAttribute('wn-tooltip');
-        this._target = document.getElementById(text);
-        if (this._target != null && !this._target.classList.contains('tooltip'))
-            this._target = null;
-        if (this._target == null)
-            this.create_target(text);
+        this.target = document.getElementById(text);
+        if (this.target != null && !this.target.classList.contains('tooltip'))
+            this.target = null;
+        if (this.target == null)
+            this.createtarget(text);
         if (this.element.hasAttribute('wn-tooltip-delay'))
             this.delay = WNparseNumber(this.element.getAttribute('wn-tooltip-delay'), 500);
         if (this.element.hasAttribute('wn-tooltip-hideAfter'))
@@ -9568,18 +10007,18 @@ class WNTooltip {
         }
         this.setEvents();
     }
-    create_target(content) {
-        this._target = document.createElement('div');
-        this._target.className = 'tooltip tooltip-arrow-bottom';
-        this._target.innerHTML = content;
+    createtarget(content) {
+        this.target = document.createElement('div');
+        this.target.className = 'tooltip tooltip-arrow-bottom';
+        this.target.innerHTML = content;
         if (this.element.hasAttribute('wn-tooltip-class')) {
             let t = this.element.getAttribute('wn-tooltip-class');
             if (t.includes('tooltip-arrow'))
-                this._target.className = 'tooltip';
-            this._target.className += ' ' + t;
+                this.target.className = 'tooltip';
+            this.target.className += ' ' + t;
         }
-        this._target.setAttribute('dir', this.element.dir);
-        this.element.after(this._target);
+        this.target.setAttribute('dir', this.element.dir);
+        this.element.after(this.target);
     }
     setEvents() {
         if (this.events != null) {
@@ -9596,8 +10035,8 @@ class WNTooltip {
                 this.element.addEventListener(e.trim(), () => { this.hide(); });
             });
         }
-        window.addEventListener("scroll", () => { this._target.classList.remove('show'); });
-        window.addEventListener("resize", () => { this._target.classList.remove('show'); });
+        window.addEventListener("scroll", () => { this.target.classList.remove('show'); });
+        window.addEventListener("resize", () => { this.target.classList.remove('show'); });
     }
     autoShow() {
         this._delayHandle = setTimeout(() => {
@@ -9609,26 +10048,26 @@ class WNTooltip {
         }, this.delay);
     }
     show() {
-        if (this._target.classList.contains('show'))
+        if (this.target.classList.contains('show'))
             return;
-        this._target.className = 'tooltip ' + this.tooltipClass;
+        this.target.className = 'tooltip ' + this.tooltipClass;
         let param = { fit: false, direction: '' };
         param.direction = 'top';
-        if (this._target.classList.contains('tooltip-arrow-bottom'))
+        if (this.target.classList.contains('tooltip-arrow-bottom'))
             param.direction = 'top';
-        else if (this._target.classList.contains('tooltip-arrow-top'))
+        else if (this.target.classList.contains('tooltip-arrow-top'))
             param.direction = 'bottom';
-        else if (this._target.classList.contains('tooltip-arrow-start'))
+        else if (this.target.classList.contains('tooltip-arrow-start'))
             param.direction = 'start';
-        else if (this._target.classList.contains('tooltip-arrow-end'))
+        else if (this.target.classList.contains('tooltip-arrow-end'))
             param.direction = 'end';
-        WNSetElementPosition(this._target, this.element, param);
-        this._target.classList.add('show');
+        WNSetElementPosition(this.target, this.element, param);
+        this.target.classList.add('show');
     }
     hide() {
         clearTimeout(this._hideAfterhandle);
         clearTimeout(this._delayHandle);
-        this._target.classList.remove('show');
+        this.target?.classList.remove('show');
     }
 }
 function WNTooltipAssign(elem) {

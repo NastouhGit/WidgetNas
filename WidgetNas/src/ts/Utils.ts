@@ -20,6 +20,12 @@ function WNparseNumber(value: any, Default?: number, culture: IWNCultureInfo = w
     value = WNDenativeDigit(value, culture);
     return parseInt(value);
 }
+function WNparseFloat(value: any, Default?: number, culture: IWNCultureInfo = wnConfig.cultureInfo): number {
+    if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
+        return Default;
+    value = WNDenativeDigit(value, culture);
+    return parseFloat(value);
+}
 function WNparseString(value: any, Default?: string): string {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
@@ -331,7 +337,13 @@ function WNToDictionary(value: string): WNDictionary {
 
     return WNGenerateFunction('return ' + value)();
 }
+function WNStringToObject(value: string): any {
+    value = value.trim();
+    if (!value.startsWith('{') && !value.startsWith('[')) value = '{' + value;
+    if (!value.endsWith('}') && !value.endsWith(']')) value = value + '}';
 
+    return WNGenerateFunction('return ' + value)();
+}
 function WNAddStringQuote(value: string) { return '"' + value + '"'; }
 
 function WNisJson(item) {
@@ -351,7 +363,18 @@ function WNisJson(item) {
 
     return false;
 }
+function WNJSONparse(item) {
+    item = typeof item !== "string"
+        ? JSON.stringify(item)
+        : item;
 
+    try {
+        let item2 = JSON.parse(item);
+        return item2;
+    } catch (e) {
+    }
+        return item;
+}
 function WNtoTitleCase(text: string) {
     let s = text.split(' ');
     for (var i = 0; i < s.length; i++) {
@@ -445,6 +468,21 @@ function WNGetParentsElementsTag(elem: HTMLElement, untilTag: string, untilClass
     }
     return ret;
 }
+function WNFindParentsTag(elem: HTMLElement, untilTag: string): HTMLElement {
+    let tElem = elem;
+    untilTag = (untilTag ?? '').toLowerCase().trim();
+
+    let luntilTag: string[];
+    luntilTag = untilTag.split(' ');
+
+    while (tElem != null) {
+        let tag = tElem.tagName.toLowerCase();
+        if (luntilTag.find((x) => x == tag) != null)
+            return tElem;
+        tElem = tElem.parentElement;
+    }
+    return null;
+}
 function WNRGB2HEX(rgb: string): string {
     let ret = '';
     rgb = rgb.toLowerCase();
@@ -520,4 +558,16 @@ function WNQueryString(key: string): string {
     if (q.has(key))
         return q.get(key)
     return '';
+}
+
+function WNToBase64String(str: string): string {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode(parseInt(p1, 16));
+        }));
+}
+function WNFromBase64String(str: string): string {
+    return decodeURIComponent(atob(str).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 }

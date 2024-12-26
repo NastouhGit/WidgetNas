@@ -4,7 +4,9 @@
 *::before,
 *::after {
     box-sizing: border-box;
+    unicode-bidi: normal;
 }
+
 html {
     font-display: auto;
 }
@@ -252,7 +254,6 @@ body {
 
 .rtl {
     direction: rtl;
-    unicode-bidi: embed;
 }
 
 .ltr {

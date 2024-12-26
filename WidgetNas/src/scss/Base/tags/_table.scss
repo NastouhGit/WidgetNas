@@ -1,4 +1,5 @@
 ﻿@import "../../_variables.scss";
+@import "../../_functions.scss";
 $TDBackImagePaddingInLine: 0.8;
 
 table {
@@ -49,7 +50,7 @@ table {
     }
 
     & > :not(:last-child) > :last-child > * {
-        border-bottom-color: currentColor;
+        border-bottom-color: var(--border-color);
     }
 
     caption {

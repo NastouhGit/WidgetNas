@@ -4,6 +4,7 @@
     public delay = 500;
     public hideAfter = 3000;
     public tooltipClass = '';
+    public target: HTMLElement;
 
     private _events: string;
     public get events() { return this._events; }
@@ -13,7 +14,6 @@
     public get lostEvents() { return this._lostEvents; }
     public set lostEvents(value: string) { this._lostEvents = value; this.setEvents(); }
 
-    private _target: HTMLElement;
     private _delayHandle: any;
     private _hideAfterhandle: any;
     constructor(elem: HTMLElement) {
@@ -24,11 +24,11 @@
     }
     private init() {
         let text = this.element.getAttribute('wn-tooltip');
-        this._target = document.getElementById(text);
-        if (this._target != null && !this._target.classList.contains('tooltip'))
-            this._target = null;
-        if (this._target == null) 
-            this.create_target(text);
+        this.target = document.getElementById(text);
+        if (this.target != null && !this.target.classList.contains('tooltip'))
+            this.target = null;
+        if (this.target == null) 
+            this.createtarget(text);
         
 
         if (this.element.hasAttribute('wn-tooltip-delay')) 
@@ -53,19 +53,19 @@
 
         this.setEvents();
     }
-    private create_target(content: string) {
-        this._target = document.createElement('div') as HTMLDivElement;
-        this._target.className = 'tooltip tooltip-arrow-bottom';
-        this._target.innerHTML = content;
+    private createtarget(content: string) {
+        this.target = document.createElement('div') as HTMLDivElement;
+        this.target.className = 'tooltip tooltip-arrow-bottom';
+        this.target.innerHTML = content;
         if (this.element.hasAttribute('wn-tooltip-class')) {
             let t = this.element.getAttribute('wn-tooltip-class');
             if (t.includes('tooltip-arrow'))
-                this._target.className = 'tooltip';
-            this._target.className += ' ' + t;
+                this.target.className = 'tooltip';
+            this.target.className += ' ' + t;
         }
         
-            this._target.setAttribute('dir', this.element.dir);
-        this.element.after(this._target);
+            this.target.setAttribute('dir', this.element.dir);
+        this.element.after(this.target);
     }
     private setEvents() {
         if (this.events != null) {
@@ -82,10 +82,10 @@
                 this.element.addEventListener(e.trim(), () => { this.hide(); });
             });
         }
-        window.addEventListener("scroll", () => { this._target.classList.remove('show'); });
-        window.addEventListener("resize", () => { this._target.classList.remove('show'); });
+        window.addEventListener("scroll", () => { this.target.classList.remove('show'); });
+        window.addEventListener("resize", () => { this.target.classList.remove('show'); });
     }
-    private autoShow() {
+    public autoShow() {
         this._delayHandle = setTimeout(() => {
             this.show();
             if (this.hideAfter != 0)
@@ -95,29 +95,29 @@
         }, this.delay);
     }
     public show() {
-        if (this._target.classList.contains('show'))
+        if (this.target.classList.contains('show'))
             return;
-        this._target.className = 'tooltip ' + this.tooltipClass;
+        this.target.className = 'tooltip ' + this.tooltipClass;
         
 
         let param: PositionParameters = { fit: false, direction: '' };
         param.direction = 'top';
-        if (this._target.classList.contains('tooltip-arrow-bottom'))
+        if (this.target.classList.contains('tooltip-arrow-bottom'))
             param.direction = 'top';
-        else if (this._target.classList.contains('tooltip-arrow-top'))
+        else if (this.target.classList.contains('tooltip-arrow-top'))
             param.direction = 'bottom';
-        else if (this._target.classList.contains('tooltip-arrow-start'))
+        else if (this.target.classList.contains('tooltip-arrow-start'))
             param.direction = 'start';
-        else if (this._target.classList.contains('tooltip-arrow-end'))
+        else if (this.target.classList.contains('tooltip-arrow-end'))
             param.direction = 'end';
 
-        WNSetElementPosition(this._target, this.element, param);
-        this._target.classList.add('show');
+        WNSetElementPosition(this.target, this.element, param);
+        this.target.classList.add('show');
     }
     public hide() {
         clearTimeout(this._hideAfterhandle);
         clearTimeout(this._delayHandle);
-        this._target.classList.remove('show');
+        this.target?.classList.remove('show');
     }
 }
 function WNTooltipAssign(elem: HTMLElement) {

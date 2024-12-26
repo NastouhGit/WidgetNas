@@ -450,12 +450,25 @@
         })
         editorbody.addEventListener('paste', (event) => {
             let paste = (event.clipboardData).getData('text');
-            paste = this.cleanWordPaste(paste);
+            if (this._editor_source_mode == 'html') {
+                paste = this.cleanWordPaste(paste);
+                if (paste == '') {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            else
+                return true;
 
             const selection = window.getSelection();
-            if (!selection.rangeCount) return false;
+            if (!selection.rangeCount)
+                return false;
             selection.deleteFromDocument();
-            selection.getRangeAt(0).insertNode(document.createElement(paste));
+
+            let elem = selection.getRangeAt(0).createContextualFragment(paste);
+            //document.createElement('p');
+            //elem.innerHTML = paste;
+            selection.getRangeAt(0).insertNode(elem);
 
             event.preventDefault();
             return true;
@@ -619,11 +632,14 @@
 
         if (this._editor_background != undefined) this._editor_background.style.borderBlockEndColor = this.getCurrentStyle('background-color')
 
-        if (this._editor_fill != undefined) this._editor_fill.style.borderBlockEndColor = getComputedStyle(this.getParentTagSelection()).getPropertyValue('background-color');
+        if (this._editor_fill != undefined) {
+            if (this.getParentTagSelection() != null)
+                this._editor_fill.style.borderBlockEndColor = getComputedStyle(this.getParentTagSelection()).getPropertyValue('background-color');
+        }
 
 
         if (this._editor_elementtag != undefined) {
-            let tagName = this.getParentTagSelection().tagName.toLowerCase();
+            let tagName = this.getParentTagSelection()?.tagName.toLowerCase();
             this._editor_elementtag.value = (this.TagList.find((e) => e.includes(tagName)) ?? this.TagList[0]).split(':')[1];
         }
         if (this.valueElement != undefined) this.valueElement.value = this.html;
@@ -636,10 +652,11 @@
     private isSelectionInTag(tag: string): boolean {
         tag = tag.toUpperCase();
         let currentNode = window.getSelection().focusNode as HTMLElement;
-        while (!currentNode.classList?.contains('editor-content')) {
-            if (currentNode.tagName == tag) return true;
-            currentNode = currentNode.parentNode as HTMLElement;
-        }
+        if (currentNode != null)
+            while (!currentNode?.classList?.contains('editor-content')) {
+                if (currentNode.tagName == tag) return true;
+                currentNode = currentNode.parentNode as HTMLElement;
+            }
         return false;
     }
 
@@ -662,12 +679,13 @@
     }
     private getParentTagSelection(): HTMLElement {
         let currentNode = window.getSelection().focusNode as HTMLElement;
-        for (var i = 0; i < 2; i++) {
-            if (!currentNode?.classList?.contains('editor-content')) {
-                if (currentNode.tagName != undefined) return currentNode;
-                currentNode = currentNode.parentNode as HTMLElement;
+        if (currentNode != null)
+            for (var i = 0; i < 2; i++) {
+                if (!currentNode?.classList?.contains('editor-content')) {
+                    if (currentNode.tagName != undefined) return currentNode;
+                    currentNode = currentNode.parentNode as HTMLElement;
+                }
             }
-        }
         return null;
     }
     private setSelectionStyle(prop: string, value: string = null, toggle: boolean, getParentTag = false) {
@@ -696,7 +714,7 @@
                     else
                         span = span.parentElement;
                 }
-                if (span.innerHTML != '') {
+                if (span?.innerHTML != '') {
                     span.childNodes.forEach(x => {
                         if (x.nodeName != '#text')
                             (<HTMLElement>x)?.style.removeProperty(prop);
@@ -748,8 +766,8 @@
                 elem = range.commonAncestorContainer as HTMLElement;
                 elem = document.createElement(value);
                 elem.innerText = rangeText;
-                parent.before(elem);
-                parent.remove();
+                parent?.before(elem);
+                parent?.remove();
                 this._content.focus();
             }
         }
@@ -819,7 +837,7 @@
         str = str.replace(/<H4([^>]*)>/gi, '');
         str = str.replace(/<H5([^>]*)>/gi, '');
         str = str.replace(/<H6([^>]*)>/gi, '');
-        str = str.replace(/<\/H\d>/gi, '<br>'); //remove this to take out breaks where Heading tags were 
+        str = str.replace(/<\/H\d>/gi, '<br/>'); //remove this to take out breaks where Heading tags were 
         str = str.replace(/<(U|I|STRIKE)>&nbsp;<\/\1>/g, '&nbsp;');
         str = str.replace(/<(B|b)>&nbsp;<\/\b|B>/g, '');
         str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
@@ -831,11 +849,75 @@
         var re2 = new RegExp("(<font|<FONT)([^*>]*>.*?)(<\/FONT>|<\/font>)", "gi");
         str = str.replace(re2, "<div$2</div>");
         str = str.replace(/size|SIZE = ([\d]{1})/g, '');
-        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
         str = str.replace(/¬/g, '\u200C');
 
+        if (this.isMarkUp(str)) {
+            var h = '';
+            function escape(t) {
+                return new Option(t).innerHTML;
+            }
+            function inlineEscape(s) {
+                return escape(s)
+                    .replace(/!\[([^\]]*)]\(([^(]+)\)/g, '<img alt="$1" src="$2">')
+                    .replace(/\[([^\]]+)]\(([^(]+?)\)/g, '$1'.link('$2'))
+                    .replace(/`([^`]+)`/g, '<code>$1</code>')
+                    .replace(/(\*\*|__)(?=\S)([^\r]*?\S[*_]*)\1/g, '<strong>$2</strong>')
+                    .replace(/(\*|_)(?=\S)([^\r]*?\S)\1/g, '<em>$2</em>');
+            }
+
+
+            str
+                .replace(/^\s+|\r|\s+$/g, '')
+                .replace(/\t/g, '    ')
+                .split(/\n\n+/)
+                .forEach(function (b: any, f: any, R) {
+                    f = b[0];
+                    R =
+                        {
+                            '*': [/\n\* /, '<ul><li>', '</li></ul>'],
+                            '1': [/\n[1-9]\d*\.? /, '<ol><li>', '</li></ol>'],
+                            ' ': [/\n    /, '<pre><code>', '</code></pre>', '\n'],
+                            '>': [/\n> /, '<blockquote>', '</blockquote>', '\n']
+                        }[f];
+                    h +=
+                        R ? R[1] + ('\n' + b)
+                            .split(R[0])
+                            .slice(1)
+                            .map(R[3] ? escape : inlineEscape)
+                            .join(R[3] || '</li>\n<li>') + R[2] :
+                            f == '#' ? '<h' + (f = b.indexOf(' ')) + '>' + inlineEscape(b.slice(f + 1)) + '</h' + f + '>' :
+                                f == '<' ? b :
+                                    '<p>' + inlineEscape(b) + '</p>';
+                });
+            str = h;
+        }
+        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
         return str;
     }
+    private isMarkUp(src: string): boolean {
+        const h1 = /(^|\n) {0,3}#{1,6} {1,8}[^\n]{1,64}\r?\n\r?\n\s{0,32}\S/;
+        const bold = /(?:\s|^)(_|__|\*|\*\*|~~|==|\+\+)(?!\s).{1,64}(?<!\s)(?=\1)/;
+        const link = /\[[^\]]{1,128}\]\(https?:\/\/\S{1,999}\)/;
+        const code = /(?:\s|^)`(?!\s)[^`]{1,48}(?<!\s)`([^\w]|$)/;
+        const ul = /(?:^|\n)\s{0,5}\-\s{1}[^\n]+\n\s{0,15}\-\s/;
+        const ol = /(?:^|\n)\s{0,5}\d+\.\s{1}[^\n]+\n\s{0,15}\d+\.\s/;
+        const hr = /\n{2} {0,3}\-{2,48}\n{2}/;
+        const fences = /(?:\n|^)(```|~~~|\$\$)(?!`|~)[^\s]{0,64} {0,64}[^\n]{0,64}\n[\s\S]{0,9999}?\s*\1 {0,64}(?:\n+|$)/;
+        const title = /(?:\n|^)(?!\s)\w[^\n]{0,64}\r?\n(\-|=)\1{0,64}\n\n\s{0,64}(\w|$)/;
+        const blockquote = /(?:^|(\r?\n\r?\n))( {0,3}>[^\n]{1,333}\n){1,999}($|(\r?\n))/;
+        return h1.test(src) ||
+            bold.test(src) ||
+            link.test(src) ||
+            code.test(src) ||
+            ul.test(src) ||
+            ol.test(src) ||
+            hr.test(src) ||
+            fences.test(src) ||
+            title.test(src) ||
+            blockquote.test(src);
+    }
+
+
     private colorPicker(parent: HTMLElement, style: string, selectTag: boolean = false) {
         if (this._colorPicker == undefined)
             this.createcolorPickerObject();
@@ -990,7 +1072,7 @@
             this.createImageObject();
 
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'img') {
+        if (elem?.tagName.toLowerCase() != 'img') {
             elem = elem.querySelector('img');
         }
         this._insertImageUrl.value = '';
@@ -1165,13 +1247,14 @@
             this.createMediaObject();
 
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'video' && elem.tagName.toLowerCase() != 'audio') {
-            let elemVideo = elem.querySelector('video');
-            if (elemVideo == null)
-                elem = elem.querySelector('audio');
-            else
-                elem = elemVideo;
-        }
+        if (elem)
+            if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
+                let elemVideo = elem.querySelector('video');
+                if (elemVideo == null)
+                    elem = elem.querySelector('audio');
+                else
+                    elem = elemVideo;
+            }
         this._insertMediaType.value = 'video';
         this._insertMediaUrl.value = '';
         this._insertMediaWidth.value = '';
@@ -1401,7 +1484,7 @@
             this.createIFrameObject();
 
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'iframe') {
+        if (elem?.tagName.toLowerCase() != 'iframe') {
             elem = elem.querySelector('iframe');
         }
         this._insertIFrameUrl.value = '';
@@ -1576,7 +1659,8 @@
     set html(value: string) {
         this._content.innerHTML = value;
         if (value == '') {
-            this._content.innerHTML = `<${this.paragraphSeparator}>&nbsp;</${this.paragraphSeparator}>`;
+            //this._content.innerHTML = `<${this.paragraphSeparator}>&nbsp;</${this.paragraphSeparator}>`;
+            this._content.innerHTML = ``;
             this._editor_source_textarea.value = this._content.innerHTML;
         }
 

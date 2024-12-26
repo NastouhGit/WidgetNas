@@ -102,7 +102,7 @@
     }
 }
 
-.sticky-onfly {
+.sticky-active {
     navbar, .navbar {
         opacity: 0.8;
         transition: opacity 0.3s ease-in-out;
@@ -115,7 +115,7 @@
     }
 }
 
-.sticky-bottom.sticky-onfly {
+.sticky-bottom.sticky-active {
     navbar, .navbar {
         padding-block-end: calc(var(--padding-block) * 2);
     }

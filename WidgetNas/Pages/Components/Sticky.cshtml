@@ -1,0 +1,85 @@
+﻿@page
+@model WidgetNas.Pages.Components.StickyModel
+@{
+    ViewData["Title"] = "چسبنده Sticky";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>در برخی مواقع نیاز دارید هنگام اسکرول کردن اگر موضوعی از دید خارج شد، به بالا یا پایین بچسبد و از دید خارج نشود. یک روش استاندارد برای ا« است.</p>
+<p class="ltr">
+    <bidi>
+        position:sticky;<br />
+        top:0;
+    </bidi>
+</p>
+<p>
+    در یک مثال از خصوصیت sticky-top و در مثال فارسی از sticky-bottom استفاده شده است.
+    برای مشاهده مثال صفحه را اسکرول کنید.
+</p>
+
+<div class="example-div" id="form1">
+    <div class="ltr h-1000r overflow-y-scroll">
+        <h3>LTR</h3>
+        <div class="sticky-top-i alert info">
+            <h1>This is sticky header.</h1>
+        </div>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+    </div>
+    <div class="rtl h-1000r overflow-y-scroll">
+        <h3>RTL</h3>
+        <p>
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+        </p>
+        <div class="sticky-bottom-i alert info">
+            <h1>این عنوان چسبان است.</h1>
+        </div>
+    </div>
+
+</div>
+<figure><code data-on="form1"></code></figure>
+<p>
+    تا اینجا کار خاصی انجام نشده است و از خصوصیت های استاندارد استفاده شده است.<br />
+    اما زمانیکه بخواهید وقتی در حالت sticky قرار گرفت، شما استایل دیگری داشته باشید، دیگر به همین سادگی نیست.<br />
+    حال ما برای شما افزونه ای تهیه کردیم که در صورتیکه موضوع به حالت چسبندگی بود کلاس sticky-active را به موضوع اضافه میکند و
+    شما میتوانید هر استایلی که مد نظر است را در آن مشخص کنید.
+</p>
+
+<div class="example-div" id="form2">
+    <div class="ltr h-1000r overflow-y-scroll">
+        <h3>LTR</h3>
+        <style>
+            .sticky-active {
+                opacity: 0.9;
+                box-shadow: 3px 3px 3px gray;
+            }
+        </style>
+        <div>Some Space Area</div>
+        <div class="sticky-top-i alert info" wn-type="sticky">
+            <h1>This is sticky header.</h1>
+        </div>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+    </div>
+    <div class="rtl h-1000r overflow-y-scroll">
+        <h3>RTL</h3>
+        <p>
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+        </p>
+        <div class="sticky-bottom-i alert info" wn-type="sticky">
+            <h1>این عنوان چسبان است.</h1>
+        </div>
+        <div>یک فضای اضافی</div>
+    </div>
+
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>چسبنده به صفحه</h2>
+<div class="sticky-top-i alert primary" wn-type="sticky">
+    <h1>این یک چسبنده به بالا هست</h1>
+</div>
+<div class="sticky-bottom-i alert secondary" wn-type="sticky">
+    <h1>این یک چسبنده به پایین است.</h1>
+</div>

@@ -67,6 +67,11 @@
             color: var(--normal-color);
         }
 
+        a {
+            position: relative;
+            z-index: 3;
+        }
+
         .card-link {
             color: var(--active-back);
 
@@ -89,7 +94,7 @@
             left: 0;
             padding: 1rem;
             border-radius: calc(var(--border-radius) * 0.9);
-            background-color:transparent;
+            background-color: transparent;
         }
     }
 

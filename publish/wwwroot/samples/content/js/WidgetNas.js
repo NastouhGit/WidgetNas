@@ -1,7 +1,7 @@
 function wnabout() {
     return `
  +--------------------------------------+
- | Widgetnas Version: 2.0.0.3           |
+ | Widgetnas Version: 2.0.0.4           |
  +--------------------------------------+
 `;
 }
@@ -532,6 +532,80 @@ WNLanguage['fa'] = {
         "505": "نسخه HTTP پشتیبانی نمی شود"
     }
 };
+class WNCultureInfo_ar_SA {
+    displayName = 'العربية';
+    englishName = 'Arabic';
+    threeLetterISOLanguageName = 'ara';
+    twoLetterISOLanguageName = 'ar';
+    DateTimeFormat = {
+        amDesignator: 'ص',
+        abbreviatedDayNames: ["أحد", "اثنين", "ثلاثا", "أربعا", "خميس", "جمعة", "سبت"],
+        abbreviatedMonthNames: {
+            "persian": ["فرو", "ارد", "خرد", "تیر", "مرد", "شهر", "مهر", "آبا", "آذر", "دی", "بهم", "اسف", ""],
+            "gregory": ["ينا", "فبر", "مارس", "أبريل", "مايو", "يوني", "يولي", "أغسطس", "سبتم", "أكتو", "نوفم", "ديسم", ""],
+            "julian": ["ينا", "فبر", "مارس", "أبريل", "مايو", "يوني", "يولي", "أغسطس", "سبتم", "أكتو", "نوفم", "ديسم", ""],
+            "islamic": ["محر", "صفر", "راول", "رثانی", "جاول", "جثانی", "رجب", "شعب", "رمض", "شوا", "ذقعده", "ذحجه", ""],
+        },
+        dateSeparator: '/',
+        dayNames: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+        firstDayOfWeek: 6,
+        fullDateTimePattern: 'dddd، d MMMM yyyy h:mm:ss tt',
+        longDatePattern: 'dddd، d MMMM yyyy',
+        longTimePattern: 'h:mm:ss tt',
+        monthDayPattern: 'd MMMM',
+        monthNames: {
+            "persian": ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند", ""],
+            "gregory": ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيه", "يوليه", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر", ""],
+            "julian": ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيه", "يوليه", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر", ""],
+            "islamic": ["محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة", ""],
+        },
+        pmDesignator: 'م',
+        shortDatePattern: "d/M‏/yyyy",
+        shortTimePattern: "h:mm tt",
+        shortestDayNames: ["ح", "ن", "ث", "ر", "خ", "ج", "س"],
+        timeSeparator: ':',
+        yearMonthPattern: 'MMMM yyyy',
+        holiday: 5
+    };
+    NumberFormat = {
+        currencyDecimalDigits: 2,
+        currencyDecimalSeparator: "٫",
+        currencyGroupSeparator: ",",
+        currencyGroupSizes: [3],
+        currencyNegativePattern: 8,
+        currencyPositivePattern: 3,
+        currencySymbol: "ر.س.",
+        nanSymbol: "ليس رقم",
+        nativeDigits: ["۰", "۱", "۲", "۳", "٤", "٥", "٦", "۷", "۸", "۹"],
+        negativeInfinitySymbol: "-∞",
+        negativeSign: "-",
+        numberDecimalDigits: 3,
+        numberDecimalSeparator: "٫",
+        numberGroupSeparator: ",",
+        numberGroupSizes: [3],
+        numberNegativePattern: 1,
+        perMilleSymbol: "‰",
+        percentDecimalDigits: 3,
+        percentDecimalSeparator: "٫",
+        percentGroupSeparator: ",",
+        percentGroupSizes: [3],
+        percentNegativePattern: 1,
+        percentPositivePattern: 1,
+        percentSymbol: "؜",
+        positiveInfinitySymbol: "∞",
+        positiveSign: "+"
+    };
+    TextInfo = {
+        ansiCodePage: 1025,
+        cultureName: "ar-SA",
+        ebcdicCodePage: 20420,
+        isRightToLeft: true,
+        lcid: 1025,
+        listSeparator: ";",
+        macCodePage: 10004,
+        oemCodePage: 720
+    };
+}
 class WNCultureInfo_en_US {
     displayName = 'English';
     englishName = 'English';
@@ -753,12 +827,18 @@ class WNDate {
     get isLeapDay() { return this.calendar.isLeapDay(this._Year, this._Month, this._Day); }
     get weekOfYear() { return this.calendar.getWeekOfYear(this._Year, this._Month, this._Day); }
     setDate(date) {
+        if (date == undefined) {
+            this.setDateNumber(undefined);
+            return;
+        }
+        if (typeof (date) == 'string')
+            date = new Date(date);
         if (date == undefined || isNaN(date.getTime())) {
             this.setDateNumber(undefined);
             return;
         }
         let days = this.GregorianCalnedar.getDaysFromBase(date.getFullYear(), date.getMonth() + 1, date.getDate());
-        let ret = this.calendar.getYearMontDayFromDays(days);
+        let ret = this.calendar.getYearMonthDayFromDays(days);
         this._Year = ret.year;
         this._Month = ret.month;
         this._Day = ret.day;
@@ -768,6 +848,16 @@ class WNDate {
         this._Millisecond = date.getMilliseconds();
         this._DayOfWeek = this.calendar.getDayOfWeek(this._Year, this._Month, this._Day);
         this.dateChanged?.(this);
+    }
+    setUTCDate(date) {
+        date = new Date(date);
+        if (date == undefined || isNaN(date.getTime())) {
+            this.setDateNumber(undefined);
+            return;
+        }
+        var offset = date.getTimezoneOffset();
+        date = new Date(date.getTime() + offset * 60000);
+        this.setDate(date);
     }
     setDateYMD(Year, Month, Day, Hour = 0, Minute = 0, Second = 0, Millisecond = 0) {
         this._Year = Year;
@@ -801,7 +891,7 @@ class WNDate {
             this.dateChanged?.(this);
             return;
         }
-        let ret = this.calendar.getYearMontDayFromDays(jd);
+        let ret = this.calendar.getYearMonthDayFromDays(jd);
         this._Year = ret.year;
         this._Month = ret.month;
         this._Day = ret.day;
@@ -890,7 +980,7 @@ class WNDate {
         if (this.year == 0 && this.month == 0 && this.day == 0 && this.hour == 0 && this.minute == 0 && this.second == 0 && this.milliseconds == 0)
             return null;
         let days = this.calendar.getDaysFromBase(this._Year, this._Month, this._Day);
-        let ret = this.GregorianCalnedar.getYearMontDayFromDays(days);
+        let ret = this.GregorianCalnedar.getYearMonthDayFromDays(days);
         return new Date(ret.year, ret.month - 1, ret.day, this._Hour, this._Minute, this._Second, this._Millisecond);
     }
     toNumber() {
@@ -1108,7 +1198,7 @@ class WNGregorianCalendar {
                     (this.isLeapYear(Year) ? -1 : -2)) +
                 Day);
     }
-    getYearMontDayFromDays(jd) {
+    getYearMonthDayFromDays(jd) {
         let wjd, depoch, quadricent, dqc, cent, dcent, quad, dquad, yindex, year, yearday, leapadj, month, day;
         wjd = Math.floor(jd - 0.5) + 0.5;
         depoch = wjd - this.GREGORIAN_EPOCH;
@@ -1172,7 +1262,7 @@ class WNHijriCalendar {
             Math.floor((3 + (11 * Year)) / 30) +
             this.ISLAMIC_EPOCH) - 1;
     }
-    getYearMontDayFromDays(jd) {
+    getYearMonthDayFromDays(jd) {
         let year, month, day;
         jd = Math.floor(jd) + 0.5 + this.hijriAdjustment;
         year = Math.floor(((30 * (jd - this.ISLAMIC_EPOCH)) + 10646) / 10631);
@@ -1230,7 +1320,7 @@ class WNJulianCalendar {
             Math.floor((30.6001 * (Month + 1))) +
             Day) - 1524.5);
     }
-    getYearMontDayFromDays(jd) {
+    getYearMonthDayFromDays(jd) {
         let a, b, c, d, e, year, month, day;
         jd += 0.5;
         a = Math.floor(jd);
@@ -1287,7 +1377,7 @@ class WNPersianCalendar {
             Math.floor(epbase / 2820) * 1029983 +
             (this.PERSIAN_EPOCH - 1);
     }
-    getYearMontDayFromDays(jd) {
+    getYearMonthDayFromDays(jd) {
         let year, month, day, depoch, cycle, cyear, ycycle, aux1, aux2, yday;
         jd = Math.floor(jd) + 0.5;
         depoch = jd - this.getDaysFromBase(475, 1, 1);
@@ -2042,6 +2132,22 @@ function WNGenerateFunction(body, params = '') {
         ret = new Function(pr[0]);
     return ret;
 }
+function WNToDictionary(value) {
+    value = value.trim();
+    if (!value.startsWith('{'))
+        value = '{' + value;
+    if (!value.endsWith('}'))
+        value = value + '}';
+    return WNGenerateFunction('return ' + value)();
+}
+function WNStringToObject(value) {
+    value = value.trim();
+    if (!value.startsWith('{') && !value.startsWith('['))
+        value = '{' + value;
+    if (!value.endsWith('}') && !value.endsWith(']'))
+        value = value + '}';
+    return WNGenerateFunction('return ' + value)();
+}
 function WNAddStringQuote(value) { return '"' + value + '"'; }
 function WNisJson(item) {
     item = typeof item !== "string"
@@ -2115,6 +2221,15 @@ function WNSetViewSize() {
     document.body.style.setProperty('--view-width', getComputedStyle(document.body).width);
     return width;
 }
+function WNGetWNType(elem) {
+    let tElem = elem;
+    while (tElem != null) {
+        if (tElem.hasAttribute('wn-type'))
+            return tElem.getAttribute('wn-type');
+        tElem = tElem.parentElement;
+    }
+    return '';
+}
 function WNGetParentsElementsTag(elem, untilTag, untilClass) {
     let ret = [];
     let tElem = elem;
@@ -2135,6 +2250,19 @@ function WNGetParentsElementsTag(elem, untilTag, untilClass) {
         tElem = tElem.parentElement;
     }
     return ret;
+}
+function WNFindParentsTag(elem, untilTag) {
+    let tElem = elem;
+    untilTag = (untilTag ?? '').toLowerCase().trim();
+    let luntilTag;
+    luntilTag = untilTag.split(' ');
+    while (tElem != null) {
+        let tag = tElem.tagName.toLowerCase();
+        if (luntilTag.find((x) => x == tag) != null)
+            return tElem;
+        tElem = tElem.parentElement;
+    }
+    return null;
 }
 function WNRGB2HEX(rgb) {
     let ret = '';
@@ -2166,6 +2294,15 @@ function WNFindTreeArray(source, fieldName1, fieldName2 = '', value, contain = f
     }
     return find;
 }
+function WNChangeFieldTreeArray(source, childsFieldName, parent, call) {
+    for (var i = 0; i < source.length; i++) {
+        let item = source[i];
+        call?.(item, parent);
+        if (item[childsFieldName].length > 0) {
+            WNChangeFieldTreeArray(item[childsFieldName], childsFieldName, item, call);
+        }
+    }
+}
 async function WNFileToString(input) {
     if (!input.files || !input.files[0])
         return '';
@@ -2181,6 +2318,20 @@ async function WNSetImageBase(input, img) {
         img = document.getElementById(img);
     }
     img.src = await WNFileToString(input);
+}
+function WNCheckReadOnlyDisabled(element, readOnly = true, disabled = true) {
+    let ret = false;
+    if (readOnly)
+        ret = ret || element.hasAttribute('readonly') || element.classList.contains('readonly');
+    if (disabled)
+        ret = ret || element.hasAttribute('disabled') || element.classList.contains('disabled');
+    return ret;
+}
+function WNQueryString(key) {
+    let q = new URLSearchParams(window.location.search);
+    if (q.has(key))
+        return q.get(key);
+    return '';
 }
 class WNConfig {
     nativeDigit = true;
@@ -2693,10 +2844,16 @@ class WNCloseButton {
         this.element.addEventListener("click", (e) => {
             let elem = e.target;
             if (elem.hasAttribute('close-parent')) {
-                if (this.element.parentElement.classList.contains('show'))
-                    this.element.parentElement.classList.remove('show');
+                let parent = this.element.parentElement;
+                if (elem.getAttribute('close-parent') !== '') {
+                    parent = WNGetNodesList(elem.getAttribute('close-parent'))[0] ?? null;
+                    if (parent == null)
+                        return;
+                }
+                if (parent.classList.contains('show'))
+                    parent.classList.remove('show');
                 else
-                    this.element.parentElement.classList.add('hide');
+                    parent.classList.add('hide');
             }
             else if (elem.hasAttribute('remove-id')) {
                 let el = WNGetNodesList(elem.getAttribute('remove-id'));
@@ -3009,7 +3166,7 @@ class WNDropdown {
         let doHide = false;
         if (event.target == document || event.target == window)
             doHide = true;
-        else if (event.target.getAttribute('wn-type') != 'dropdown' && !WNParentHaveClass(event.target, 'dropdown'))
+        else if (WNGetWNType(event.target) != 'dropdown' && !WNParentHaveClass(event.target, 'dropdown'))
             doHide = true;
         if (doHide) {
             while (WNDropdown.WNLastDropdownOpened.length > 0) {
@@ -3492,12 +3649,21 @@ class WNEditor {
         });
         editorbody.addEventListener('paste', (event) => {
             let paste = (event.clipboardData).getData('text');
-            paste = this.cleanWordPaste(paste);
+            if (this._editor_source_mode == 'html') {
+                paste = this.cleanWordPaste(paste);
+                if (paste == '') {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            else
+                return true;
             const selection = window.getSelection();
             if (!selection.rangeCount)
                 return false;
             selection.deleteFromDocument();
-            selection.getRangeAt(0).insertNode(document.createElement(paste));
+            let elem = document.createTextNode(paste);
+            selection.getRangeAt(0).insertNode(elem);
             event.preventDefault();
             return true;
         });
@@ -3690,10 +3856,12 @@ class WNEditor {
             this._editor_textcolor.style.borderBlockEndColor = this.getCurrentStyle('color');
         if (this._editor_background != undefined)
             this._editor_background.style.borderBlockEndColor = this.getCurrentStyle('background-color');
-        if (this._editor_fill != undefined)
-            this._editor_fill.style.borderBlockEndColor = getComputedStyle(this.getParentTagSelection()).getPropertyValue('background-color');
+        if (this._editor_fill != undefined) {
+            if (this.getParentTagSelection() != null)
+                this._editor_fill.style.borderBlockEndColor = getComputedStyle(this.getParentTagSelection()).getPropertyValue('background-color');
+        }
         if (this._editor_elementtag != undefined) {
-            let tagName = this.getParentTagSelection().tagName.toLowerCase();
+            let tagName = this.getParentTagSelection()?.tagName.toLowerCase();
             this._editor_elementtag.value = (this.TagList.find((e) => e.includes(tagName)) ?? this.TagList[0]).split(':')[1];
         }
         if (this.valueElement != undefined)
@@ -3767,7 +3935,7 @@ class WNEditor {
                     else
                         span = span.parentElement;
                 }
-                if (span.innerHTML != '') {
+                if (span?.innerHTML != '') {
                     span.childNodes.forEach(x => {
                         if (x.nodeName != '#text')
                             x?.style.removeProperty(prop);
@@ -3815,8 +3983,8 @@ class WNEditor {
                 elem = range.commonAncestorContainer;
                 elem = document.createElement(value);
                 elem.innerText = rangeText;
-                parent.before(elem);
-                parent.remove();
+                parent?.before(elem);
+                parent?.remove();
                 this._content.focus();
             }
         }
@@ -4035,7 +4203,7 @@ class WNEditor {
         if (this._insertImage == undefined)
             this.createImageObject();
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'img') {
+        if (elem?.tagName.toLowerCase() != 'img') {
             elem = elem.querySelector('img');
         }
         this._insertImageUrl.value = '';
@@ -4191,7 +4359,7 @@ class WNEditor {
         if (this._insertMedia == undefined)
             this.createMediaObject();
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'video' && elem.tagName.toLowerCase() != 'audio') {
+        if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
             let elemVideo = elem.querySelector('video');
             if (elemVideo == null)
                 elem = elem.querySelector('audio');
@@ -4400,7 +4568,7 @@ class WNEditor {
         if (this._insertIFrame == undefined)
             this.createIFrameObject();
         let elem = this.getParentTagSelection();
-        if (elem.tagName.toLowerCase() != 'iframe') {
+        if (elem?.tagName.toLowerCase() != 'iframe') {
             elem = elem.querySelector('iframe');
         }
         this._insertIFrameUrl.value = '';
@@ -5700,6 +5868,8 @@ class WNFileList {
         this._files.tHead.innerHTML = `<tr><td><input type="checkbox"/></td><td>${this._lang["filelist"]["filename"]}</td><td>${this._lang["filelist"]["ext"]}</td><td>${this._lang["filelist"]["size"]}</td><td>${this._lang["filelist"]["date"]}</td></tr>`;
         this._files.createTBody();
         this._files.tHead.querySelector("input[type=checkbox]").addEventListener("click", (t) => {
+            if (WNCheckReadOnlyDisabled(this.element))
+                return;
             if (!this.multiSelect)
                 return;
             let th = t.target;
@@ -5739,6 +5909,8 @@ class WNFileList {
         this._foldertree = new WNTree(this._folders);
         this._foldertree.selectionChanged = async (t, n) => {
             await this.getFiles(n.value);
+            if (WNCheckReadOnlyDisabled(this.element))
+                return;
             this.selectionChanged?.(this);
         };
         let tc = document.createElement('div');
@@ -5808,7 +5980,7 @@ class WNFileList {
                 let className = '';
                 let tr = document.createElement('tr');
                 let ext = r[i].ext.toString() ?? '';
-                className = WNFileList._classExt.find((x) => x.ext.includes(ext)).className;
+                className = WNFileList._classExt.find((x) => x.ext.includes(ext))?.className;
                 tr.innerHTML = `<td><input type="checkbox" value='${r[i].fileName}'/></td><td class='${className}'>${r[i].fileName}</td><td>${r[i].ext}</td><td>${r[i].size}</td><td>${this._date.convert(new Date(r[i].date), 'shortdatetime')}</td>`;
                 let checkbox = tr.querySelector('input[type=checkbox]');
                 checkbox.addEventListener("change", () => {
@@ -6396,19 +6568,25 @@ class WNList {
     element;
     dataSource;
     checkbox = false;
+    checkboxclass = "";
     beforeClick;
     afterClick;
     dblClick;
     selectionChanged;
+    checkChanged;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
             this.init();
+            if (this.checkbox == true)
+                this.redraw();
         }
     }
     init() {
         if (this.element.hasAttribute('checkbox'))
             this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
+        if (this.element.hasAttribute('checkbox-class'))
+            this.checkboxclass = this.element.getAttribute('checkbox-class');
         this.element.classList.add('list');
         this.element.classList.add('list-hover');
         if (this.element.hasAttribute('onbeforeclick'))
@@ -6421,6 +6599,8 @@ class WNList {
             this.dblClick = WNGenerateFunction(this.element.getAttribute('ondblclick'), 't,n,e');
             this.element.ondblclick = null;
         }
+        if (this.element.hasAttribute('oncheckchanged'))
+            this.checkChanged = WNGenerateFunction(this.element.getAttribute('oncheckchanged'), 't,n');
         this.selectedItem = null;
         this.initDataSource();
         this.initItems();
@@ -6484,6 +6664,8 @@ class WNList {
             this.lastNodeTime = Date.now();
             this.lastNodeClick = node;
         }
+        if (WNCheckReadOnlyDisabled(this.element))
+            return;
         if (this.beforeClick && !this.beforeClick(this, node, e))
             return;
         this.select(node);
@@ -6491,6 +6673,8 @@ class WNList {
     }
     dblclick(node, e) {
         e.stopPropagation();
+        if (WNCheckReadOnlyDisabled(this.element))
+            return;
         this.select(node);
         this.dblClick?.(this, node, e);
     }
@@ -6511,6 +6695,8 @@ class WNList {
         let f = this.dataSource.find(x => x.index == value);
         if (f)
             this.select(f);
+        else
+            this.select(null);
     }
     ;
     get checkedItems() {
@@ -6615,7 +6801,7 @@ class WNList {
             };
             this.dataSource.forEach((x) => { item.id = x.id > item.id ? x.id : item.id; });
             item.id++;
-            item.index = item.id;
+            item.index = this.dataSource.length;
             let elem = this.nodeToHtmlElement(item);
             item.text = elem.textContent;
             item.element = elem;
@@ -6638,19 +6824,6 @@ class WNList {
         else if (this.element.tagName == 'DIV')
             item = document.createElement('div');
         let tItem = item;
-        if (this.checkbox) {
-            let ttItem = tItem;
-            if (this.element.tagName == 'TABLE') {
-                let td = document.createElement('td');
-                tItem.appendChild(td);
-                ttItem = td;
-            }
-            let inp = document.createElement('input');
-            inp.type = 'checkbox';
-            inp.className = 'item-check';
-            inp.id = this.element.id + '_' + node.id;
-            ttItem.appendChild(inp);
-        }
         if (this.element.tagName == 'TABLE') {
             let td = document.createElement('td');
             item.appendChild(td);
@@ -6672,19 +6845,39 @@ class WNList {
             if (node.image.trim().startsWith('<'))
                 tItem.innerHTML += node.image;
             else
-                tItem.innerHTML += `<img src="${node.image}"/>`;
+                tItem.innerHTML += `<img src="${node.image}" loading="lazy"/>`;
         }
         tItem.innerHTML += node.html == '' ? node.text : node.html;
         tItem.setAttribute('item-id', item.id.toString());
+        if (this.checkbox) {
+            let ttItem;
+            if (this.element.tagName == 'TABLE') {
+                let td = document.createElement('td');
+                tItem.appendChild(td);
+                ttItem = td;
+            }
+            let inp = document.createElement('input');
+            inp.type = 'checkbox';
+            inp.className = 'item-check ' + this.checkboxclass;
+            inp.id = this.element.id + '_' + node.id;
+            inp.addEventListener("input", () => this.checkChanged?.(this, node));
+            if (ttItem != undefined) {
+                ttItem.appendChild(inp);
+            }
+            else
+                ttItem = inp;
+            tItem.insertAdjacentElement('afterbegin', ttItem);
+        }
         node.text = tItem.textContent;
         node.element = item;
         return item;
     }
     removeFromDataSource(node) {
         try {
-            node.element.removeEventListener("click", (e) => { this.click(node, e); });
-            node.element.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
-            node.element.remove();
+            this.selectedIndex = -1;
+            node.element?.removeEventListener("click", (e) => { this.click(node, e); });
+            node.element?.removeEventListener("dblclick", (e) => { this.dblclick(node, e); });
+            node.element?.remove();
             let list = this.dataSource;
             for (var i = 0; i < list.length; i++) {
                 if (list[i].id == node.id) {
@@ -6692,6 +6885,8 @@ class WNList {
                     break;
                 }
             }
+            for (var i = 0; i < list.length; i++)
+                list[i].index = i;
         }
         catch (e) {
             console.error(e);
@@ -6709,6 +6904,7 @@ class WNList {
             let item = dataSource[i];
             this.addToDataSource(item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
         }
+        this.selectedItem = null;
     }
     setDataSource(dataSource, append) {
         if (!append)
@@ -6717,6 +6913,7 @@ class WNList {
             let item = dataSource[i];
             this.addToDataSource(item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
         }
+        this.selectedItem = null;
     }
     clearDataSource() {
         while (this.dataSource.length > 0)
@@ -6823,8 +7020,8 @@ class WNModal {
         await new Promise(() => {
             WNAddClassList(this.modalDialog, this.showClass);
             WNAddClassList(this.element, this._fadeIn + " show");
-            let ani = this.modalDialog.getAnimations();
-            if (ani.length > 0) {
+            let ani = this.modalDialog?.getAnimations();
+            if (ani && ani.length > 0) {
                 ani[ani.length - 1].finished.finally(() => {
                     WNRemoveClassList(this.modalDialog, this.showClass);
                 });
@@ -6845,8 +7042,8 @@ class WNModal {
             WNRemoveClassList(this.element, this._fadeIn);
             WNRemoveClassList(this.modalDialog, this.showClass);
             WNAddClassList(this.modalDialog, this.hideClass);
-            let ani = this.modalDialog.getAnimations();
-            if (ani.length > 0) {
+            let ani = this.modalDialog?.getAnimations();
+            if (ani && ani.length > 0) {
                 ani[ani.length - 1].finished.finally(() => {
                     WNAddClassList(this.element, this._fadeOut);
                     if (this.element.getAnimations().length > 0)
@@ -7464,6 +7661,7 @@ class WNMultiInput {
     element;
     inputs;
     detail;
+    labels;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -7472,83 +7670,130 @@ class WNMultiInput {
     }
     init() {
         this.inputs = [];
-        let lables = [];
-        let values = [];
-        let classes = [];
-        if (this.element.hasAttribute('lables'))
-            lables = WNparseString(this.element.getAttribute('lables')).replace(/[\[\]']/g, '').split(/\s*,\s*/);
+        this.labels = {};
+        let _labels = {};
+        let values = {};
+        let classes = {};
+        let _default = '';
+        let setDefaultValue = true;
+        let inputType = 'text';
+        if (this.element.hasAttribute('labels'))
+            _labels = WNToDictionary(this.element.getAttribute('labels'));
         if (this.element.hasAttribute('values'))
-            values = WNparseString(this.element.getAttribute('values')).replace(/[\[\]']/g, '').split(/\s*,\s*/);
+            values = WNToDictionary(this.element.getAttribute('values'));
         if (this.element.hasAttribute('classes'))
-            classes = WNparseString(this.element.getAttribute('classes')).replace(/[\[\]']/g, '').split(/\s*,\s*/);
+            classes = WNToDictionary(this.element.getAttribute('classes'));
+        if (this.element.hasAttribute('default'))
+            _default = WNparseString(this.element.getAttribute('default'));
+        if (this.element.hasAttribute('type'))
+            inputType = WNparseString(this.element.getAttribute('type'), inputType);
+        let lkey = Object.keys(_labels);
+        if (lkey.length == 0) {
+            _labels = this.getLables();
+            lkey = Object.keys(_labels);
+            setDefaultValue = false;
+        }
+        if (_default == '' && lkey.length > 0)
+            _default = lkey[0];
+        this.labels[_default] = _labels[_default];
+        lkey.forEach((x) => {
+            if (x != _default)
+                this.labels[x] = _labels[x];
+            if (!values[x])
+                values[x] = '';
+        });
         let inputIG = this.element.querySelector("ig,.ig");
         if (!inputIG) {
             inputIG = document.createElement("ig");
-            this.element.appendChild(inputIG);
         }
         let inputclass = '';
-        if (this.element.classList.contains('floating'))
-            inputclass = 'floating';
-        else if (this.element.classList.contains('floatingline'))
-            inputclass = 'floatingline';
-        else if (this.element.classList.contains('group'))
-            inputclass = 'group';
+        let ele = this.element;
+        while (ele && inputclass == '') {
+            if (ele.classList.contains('floating'))
+                inputclass += ' floating';
+            else if (ele.classList.contains('floatingline'))
+                inputclass += ' floatingline';
+            else if (ele.classList.contains('group'))
+                inputclass += ' group';
+            else if (ele.classList.contains('first-label'))
+                inputclass += ' first-label';
+            else if (ele.classList.contains('first-input'))
+                inputclass += ' first-input';
+            ele = ele.parentElement;
+        }
+        inputclass = inputclass.trim();
         if (inputclass != '') {
             inputIG.classList.add(inputclass);
             this.element.classList.remove(inputclass);
         }
-        let mainInput;
-        inputIG.querySelectorAll('*').forEach(x => {
-            if (x.tagName != 'LABEL' && x.tagName != 'BUTTON') {
-                mainInput = x;
-                return;
-            }
-        });
+        let mainInput = inputIG.querySelector('input,select,textarea');
+        if (!mainInput)
+            mainInput = this.createInput(inputType, inputclass, classes[_default], false);
         let mainLabel = inputIG.querySelector('label');
-        if (!mainInput) {
-            mainInput = document.createElement('input');
-            if (inputclass == 'floating' || inputclass == 'floatingline')
-                mainInput.placeholder = '.';
-            inputIG.appendChild(mainInput);
-        }
-        this.inputs.push(mainInput);
         if (!mainLabel) {
             mainLabel = document.createElement('label');
-            mainLabel.innerHTML = lables[0];
-            inputIG.appendChild(mainLabel);
+            mainLabel.innerHTML = this.labels[_default];
         }
         let expandButton = inputIG.querySelector('button');
         if (!expandButton) {
             expandButton = document.createElement('button');
+        }
+        expandButton.type = 'button';
+        expandButton.addEventListener("click", () => { this.toggle(); });
+        if (inputclass.includes('floating') || inputclass.includes('floatingline') || inputclass.includes('first-input')) {
+            inputIG.appendChild(mainInput);
+            inputIG.appendChild(mainLabel);
             inputIG.appendChild(expandButton);
         }
-        expandButton.addEventListener("click", () => { this.toggle(); });
+        else {
+            inputIG.appendChild(mainLabel);
+            if (this.element.classList.contains('group-input-button')) {
+                let div = document.createElement('div');
+                div.appendChild(mainInput);
+                div.appendChild(expandButton);
+                inputIG.appendChild(div);
+            }
+            else {
+                inputIG.appendChild(mainInput);
+                inputIG.appendChild(expandButton);
+            }
+        }
+        this.inputs.push(mainInput);
         this.detail = this.element.querySelector('detail,.detail');
         if (!this.detail) {
             this.detail = document.createElement('div');
             this.detail.className = 'detail';
-            this.element.appendChild(this.detail);
         }
         if (this.detail.innerHTML == '') {
-            for (var i = 1; i < lables.length; i++) {
+            lkey = Object.keys(this.labels);
+            for (var i = 1; i < lkey.length; i++) {
                 let ig = document.createElement('ig');
                 let label = document.createElement('label');
-                let input = document.createElement('input');
-                label.innerHTML = lables[i];
-                if (classes[i] != '')
-                    input.classList.add(classes[i]);
+                let input = this.createInput(inputType, '', classes[lkey[i]], true);
+                label.innerHTML = this.labels[lkey[i]];
                 ig.appendChild(label);
                 ig.appendChild(input);
                 this.detail.appendChild(ig);
                 this.inputs.push(input);
             }
         }
-        this.values = values;
+        else {
+            this.inputs = [];
+            this.element.querySelectorAll('input,select,textarea').forEach((x) => this.inputs.push(x));
+        }
+        if (setDefaultValue == true)
+            this.values = values;
         if (this.element.hasAttribute('required')) {
             if (this.inputs.length > 0) {
                 this.inputs[0].setAttribute('required', this.element.getAttribute('required'));
             }
             this.element.removeAttribute('required');
+        }
+        if (this.element.hasAttribute('norequired')) {
+            if (this.inputs.length > 0) {
+                this.inputs[0].setAttribute('norequired', this.element.getAttribute('norequired'));
+            }
+            this.element.removeAttribute('norequired');
         }
         if (this.element.hasAttribute('onvalidation')) {
             if (this.inputs.length > 0) {
@@ -7556,40 +7801,364 @@ class WNMultiInput {
             }
             this.element.removeAttribute('onvalidation');
         }
-        if (inputclass == 'group') {
-            inputIG.innerHTML = '';
-            inputIG.appendChild(mainLabel);
-            inputIG.appendChild(mainInput);
-            inputIG.appendChild(expandButton);
-        }
+        let feedback = this.element.querySelector('.valid-feedback');
+        if (feedback)
+            inputIG.appendChild(feedback);
+        feedback = this.element.querySelector('.invalid-feedback');
+        if (feedback)
+            inputIG.appendChild(feedback);
+        this.element.appendChild(inputIG);
+        this.element.appendChild(this.detail);
+    }
+    getLables() {
+        let l = this.element.querySelectorAll('label');
+        let lables = {};
+        l.forEach((x) => {
+            if ((x.previousElementSibling && (x.previousElementSibling.tagName == 'INPUT' || x.previousElementSibling.tagName == 'SELECT')) ||
+                (x.nextElementSibling && (x.nextElementSibling.tagName == 'INPUT' || x.nextElementSibling.tagName == 'SELECT')))
+                lables[x.textContent] = x.textContent;
+        });
+        return lables;
     }
     toggle() {
         this.element.classList.toggle('expand');
     }
     get values() {
-        let value = [];
-        this.inputs.forEach(x => {
-            if (x.tagName == 'INPUT')
-                value.push(x.value);
-            else if (x.tagName == 'OPTION')
-                value.push(x.value);
-            else
-                value.push(x);
-        });
+        let value = {};
+        let lkey = Object.keys(this.labels);
+        for (var i = 0; i < this.inputs.length; i++) {
+            let v = '';
+            if (this.inputs[i].tagName == 'INPUT')
+                v = this.inputs[i].value;
+            else if (this.inputs[i].tagName == 'TEXTAREA')
+                v = this.inputs[i].value;
+            else if (this.inputs[i].tagName == 'OPTION')
+                v = this.inputs[i].value;
+            else if (this.inputs[i].tagName == 'SELECT')
+                v = this.inputs[i].value;
+            value[lkey[i]] = v;
+        }
         return value;
     }
     set values(value) {
+        let lkey = Object.keys(this.labels);
+        if (typeof value == 'string') {
+            let t = {};
+            for (var i = 0; i < lkey.length; i++)
+                t[lkey[i]] = '';
+            t[lkey[0]] = value;
+            value = t;
+        }
         if (!value)
-            value = [];
-        for (var i = 0; i < this.inputs.length - value.length; i++)
-            value.push('');
+            value = {};
         for (var i = 0; i < this.inputs.length; i++) {
             let x = this.inputs[i];
+            let v = value[lkey[i]] ?? '';
             if (x.tagName == 'INPUT')
-                x.value = value[i];
+                x.value = v;
+            else if (x.tagName == 'TEXTAREA')
+                x.value = v;
             else if (x.tagName == 'OPTION')
-                x.value = value[i];
+                x.value = v;
+            else if (x.tagName == 'SELECT')
+                x.value = v;
         }
+    }
+    createInput(inputType, inputclass, elemclass, detail) {
+        let mainInput;
+        if (inputType == 'textarea') {
+            mainInput = document.createElement('textarea');
+            if (this.element.hasAttribute('rows'))
+                mainInput.setAttribute('rows', this.element.getAttribute('rows'));
+        }
+        else {
+            mainInput = document.createElement('input');
+            mainInput.type = inputType;
+        }
+        if (detail == false) {
+            if (inputclass.includes('floating') || inputclass.includes('floatingline'))
+                mainInput.placeholder = '.';
+        }
+        if (elemclass && elemclass != '')
+            mainInput.classList.add(elemclass);
+        return mainInput;
+    }
+}
+class WNMultiInputPhone {
+    nameType = 'WNMultiInputPhone';
+    element;
+    itemClick;
+    max = 0;
+    dropDownPopup;
+    dropdown;
+    list;
+    inpCaption;
+    inpCountry;
+    inpArea;
+    inpNumber;
+    inpExt;
+    cCaption = 'Caption';
+    cCountry = 'Country';
+    cArea = 'Area';
+    cNumber = 'Number';
+    cExt = 'Ext.';
+    hiddenElemet;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        this.max = WNparseNumber(this.element.getAttribute('max'), 0);
+        if (this.element.hasAttribute('onitemclick'))
+            this.itemClick = WNGenerateFunction(this.element.getAttribute('onitemclick'), 't,n');
+        if (this.dropDownPopup == null) {
+            this.dropDownPopup = document.createElement("div");
+            this.dropDownPopup.className = 'dropdown align-end multiinputphone_dialog_dropdown';
+            let dialogDiv = document.createElement('div');
+            dialogDiv.className = 'multiinputphone_dialog clean';
+            if (this.element.hasAttribute('dialog')) {
+                let dialog = document.getElementById(this.element.getAttribute('dialog'));
+                dialogDiv.innerHTML = dialog.innerHTML;
+            }
+            else {
+                if (this.element.hasAttribute('labels')) {
+                    let l = WNStringToObject(this.element.getAttribute('labels'));
+                    this.cCaption = l?.caption ?? this.cCaption;
+                    this.cCountry = l?.country ?? this.cCountry;
+                    this.cArea = l?.area ?? this.cArea;
+                    this.cNumber = l?.number ?? this.cNumber;
+                    this.cExt = l?.extension ?? this.cExt;
+                }
+                dialogDiv.innerHTML =
+                    `<ul class="clean"></ul>
+                    <div class="clean">
+                        <ig class="clean"><label class="clean">${this.cCaption}</label><input class="caption clean"  /></ig>
+                        <ig class="clean"><label class="clean">${this.cCountry}</label><input class="country clean" /></ig>
+                        <ig class="clean"><label class="clean">${this.cArea}</label><input class="area clean" /></ig>
+                        <ig class="clean"><label class="clean">${this.cNumber}</label><input class="number clean" /></ig>
+                        <ig class="clean"><label class="clean">${this.cExt}</label><input class="ext clean" /></ig>
+                        <ig class="clean">
+                            <button class="add"></button>
+                            <button class="save"></button>
+                            <button class="delete"></button>
+                            <button class="up"></button>
+                            <button class="down"></button>
+                        </ig>
+                    </div>`;
+            }
+            this.dropDownPopup.appendChild(dialogDiv);
+            let lst = this.dropDownPopup.querySelector('ul');
+            this.list = new WNList(lst);
+            this.list.selectionChanged = () => { this.listChange(); };
+            this.inpCaption = this.dropDownPopup.querySelector('input.caption');
+            this.inpCountry = this.dropDownPopup.querySelector('input.country');
+            this.inpArea = this.dropDownPopup.querySelector('input.area');
+            this.inpNumber = this.dropDownPopup.querySelector('input.number');
+            this.inpExt = this.dropDownPopup.querySelector('input.ext');
+            this.dropDownPopup.querySelector('button.add')?.addEventListener('click', () => this.addButton());
+            this.dropDownPopup.querySelector('button.save')?.addEventListener('click', () => this.saveButton());
+            this.dropDownPopup.querySelector('button.delete')?.addEventListener('click', () => this.deleteButton());
+            this.dropDownPopup.querySelector('button.up')?.addEventListener('click', () => this.changeOrder(-1));
+            this.dropDownPopup.querySelector('button.down')?.addEventListener('click', () => this.changeOrder(1));
+            this.dropDownPopup.classList.add('hide-invalid');
+            this.dropDownPopup.classList.add('hide-valid');
+            this.element.insertAdjacentElement("afterend", this.dropDownPopup);
+        }
+        this.dropdown = new WNDropdown(this.element);
+        this.dropdown.dropdown = this.dropDownPopup;
+        this.element.addEventListener('click', (ev) => {
+            if (getComputedStyle(this.element).pointerEvents == 'none')
+                return;
+            this.dropdown?.toggle();
+            ev.stopPropagation();
+        }, false);
+        if (this.element.hasAttribute('value')) {
+            this.value = WNStringToObject(this.element.getAttribute('value'));
+        }
+        else
+            this.value = [];
+        if (this.element.hasAttribute('required')) {
+            this.hiddenElemet = document.createElement('input');
+            this.hiddenElemet.style.display = "none";
+            this.element.appendChild(this.hiddenElemet);
+            let r = WNFindParentsTag(this.element, 'form');
+            r?.addEventListener('submit', (event) => {
+                if (this._value?.length == 0) {
+                    this.hiddenElemet?.setCustomValidity('Error');
+                    this.hiddenElemet?.reportValidity();
+                    event.preventDefault();
+                }
+                else {
+                    this.hiddenElemet?.setCustomValidity('');
+                }
+            });
+        }
+    }
+    add(node) {
+        if (this.max != 0 && this._value.length >= this.max)
+            return null;
+        if (this._value.find(x => x.fullNumber == node.fullNumber))
+            return null;
+        this._value.push(node);
+        this.createLinkNode(node);
+        this.list.addToDataSource(`<span>${node.caption}</span>${node.fullNumber}`, '', node.fullNumber, '');
+        return node;
+    }
+    createLinkNode(node) {
+        let div = document.createElement('a');
+        div.href = `callto://+${node.country}${node.area}${node.number}`;
+        let sp = document.createElement('span');
+        sp.innerHTML = node.caption;
+        div.appendChild(sp);
+        div.innerHTML += node.fullNumber;
+        div.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            this.itemClick?.(this, node);
+        });
+        this.element.appendChild(div);
+    }
+    refreshAllLinkNode() {
+        this.element.querySelectorAll('a').forEach(x => x.remove());
+        this._value.forEach(x => this.createLinkNode(x));
+    }
+    _value;
+    get value() {
+        let t = [];
+        for (var i = 0; i < this._value.length; i++)
+            t.push(`${this._value[i].caption.trim()}|${this._value[i].country.trim()}|${this._value[i].area.trim()}|${this._value[i].number.trim()}|${this._value[i].extension.trim()}`);
+        return t;
+    }
+    set value(value) {
+        this._value = [];
+        for (var i = 0; i < value.length; i++) {
+            let s = value[i].split('|');
+            if (s.length == 5) {
+                let n = { caption: s[0], country: s[1], area: s[2], number: s[3], extension: s[4], fullNumber: '' };
+                n.fullNumber = this.makeFullNumber(n);
+                this.add(n);
+            }
+        }
+        if (this.element.hasAttribute('required') && this.hiddenElemet) {
+            if (this._value.length == 0) {
+                this.hiddenElemet?.setCustomValidity('Error');
+                this.hiddenElemet?.reportValidity();
+            }
+            else {
+                this.hiddenElemet?.setCustomValidity('');
+            }
+        }
+    }
+    makeFullNumber(n) {
+        let number = '';
+        if (n.number.length < 6)
+            number = n.number;
+        else if (n.number.length == 6)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6);
+        else if (n.number.length == 7)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 5) + ' ' + n.number.substring(5, 7);
+        else if (n.number.length == 8)
+            number = n.number.substring(0, 2) + ' ' + n.number.substring(2, 4) + ' ' + n.number.substring(4, 6) + ' ' + n.number.substring(6, 8);
+        else if (n.number.length == 9)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6) + ' ' + n.number.substring(6, 9);
+        else if (n.number.length == 10)
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6) + ' ' + n.number.substring(6, 8) + ' ' + n.number.substring(8, 10);
+        else
+            number = n.number.substring(0, 3) + ' ' + n.number.substring(3, 6) + ' ' + n.number.substring(6, 9) + ' ' + n.number.substring(9);
+        return `+${n.country} (${n.area}) ${number}` + (n.extension != '' ? ` x ${n.extension}` : ``);
+    }
+    addButton() {
+        this.fixedInput();
+        if (this.inpCountry?.value == '')
+            return;
+        if (this.inpArea?.value == '')
+            return;
+        if (this.inpNumber?.value == '')
+            return;
+        let n = {
+            caption: this.inpCaption?.value.trim(),
+            country: this.inpCountry.value.trim(),
+            area: this.inpArea?.value.trim(),
+            number: this.inpNumber?.value.trim(),
+            extension: this.inpExt?.value.trim(),
+            fullNumber: ''
+        };
+        n.fullNumber = this.makeFullNumber(n);
+        if (this.add(n) != null) {
+            this.inpCaption.value = '';
+            this.inpCountry.value = '';
+            this.inpArea.value = '';
+            this.inpNumber.value = '';
+            this.inpExt.value = '';
+            this.list.selectedIndex = -1;
+        }
+    }
+    saveButton() {
+        this.fixedInput();
+        if (this.list.selectedIndex == -1)
+            return;
+        let node = {
+            caption: this.inpCaption.value,
+            country: this.inpCountry.value,
+            area: this.inpArea.value,
+            number: this.inpNumber.value,
+            extension: this.inpExt.value,
+            fullNumber: ''
+        };
+        node.fullNumber = this.makeFullNumber(node);
+        let idx = this._value.findIndex(x => x.fullNumber == node.fullNumber);
+        if (idx != this.list.selectedIndex)
+            return null;
+        this._value[this.list.selectedIndex] = node;
+        this.inpCaption.value = '';
+        this.inpCountry.value = '';
+        this.inpArea.value = '';
+        this.inpNumber.value = '';
+        this.inpExt.value = '';
+        this.list.selectedItem.element.innerHTML = `<span>${this._value[this.list.selectedIndex].caption}</span>${this._value[this.list.selectedIndex].fullNumber}`;
+        this.list.selectedIndex = -1;
+        this.refreshAllLinkNode();
+    }
+    deleteButton() {
+        if (this.list.selectedIndex == -1)
+            return;
+        this._value.splice(this.list.selectedIndex, 1);
+        this.list.removeFromDataSource(this.list.selectedItem);
+        this.refreshAllLinkNode();
+    }
+    fixedInput() {
+        this.inpCaption.value = this.inpCaption.value.trim();
+        this.inpCaption.value = this.inpCaption.value != '' ? this.inpCaption.value : '#';
+        this.inpCountry.value = this.inpCountry.value.replace(/\D/g, '');
+        this.inpArea.value = this.inpArea.value.replace(/\D/g, '');
+        this.inpNumber.value = this.inpNumber.value.replace(/\D/g, '');
+        this.inpExt.value = this.inpExt.value.replace(/\D/g, '');
+    }
+    listChange() {
+        this.inpCaption.value = '';
+        this.inpCountry.value = '';
+        this.inpArea.value = '';
+        this.inpNumber.value = '';
+        this.inpExt.value = '';
+        if (this.list.selectedIndex == -1)
+            return;
+        this.inpCaption.value = this._value[this.list.selectedIndex].caption;
+        this.inpCountry.value = this._value[this.list.selectedIndex].country;
+        this.inpArea.value = this._value[this.list.selectedIndex].area;
+        this.inpNumber.value = this._value[this.list.selectedIndex].number;
+        this.inpExt.value = this._value[this.list.selectedIndex].extension;
+    }
+    changeOrder(index) {
+        let idx = this.list.selectedIndex;
+        if (idx + index < 0)
+            return;
+        if (idx + index >= this._value.length)
+            return;
+        [this._value[idx + index], this._value[idx]] = [this._value[idx], this._value[idx + index]];
+        [this.list.dataSource[idx + index].element.innerHTML, this.list.dataSource[idx].element.innerHTML] = [this.list.dataSource[idx].element.innerHTML, this.list.dataSource[idx + index].element.innerHTML];
+        this.list.selectedIndex = idx + index;
+        this.refreshAllLinkNode();
     }
 }
 class WNMultiSelect {
@@ -7687,6 +8256,7 @@ class WNMultiSelect {
         if (this.add(item) != null) {
             if (t.nameType != 'WNTree')
                 n.element.classList.add('d-none');
+            this.dropdown.hide();
             this.selectionChanged?.(this, n);
         }
         t.selectedItem = null;
@@ -7705,6 +8275,7 @@ class WNMultiSelect {
             if (this.remove(node)) {
                 this.search.list.findByValue(node.value, false)?.element.classList.remove('d-none');
                 this.afterDeselect?.(this, node);
+                this.selectionChanged?.(this, null);
             }
         });
         this.selectedarea.appendChild(sp);
@@ -7764,6 +8335,9 @@ class WNMultiSelect {
         if (this.selectedarea)
             this.selectedarea.innerHTML = '';
         this.search?.list?.element.querySelectorAll('.d-none').forEach(x => x.classList.remove('d-none'));
+    }
+    clearSearch() {
+        this.searchbox.value = '';
     }
 }
 class WNProgress {
@@ -8244,7 +8818,6 @@ class WNTab {
     selectionChanged;
     _selectedIndex = -1;
     get selectedIndex() { return this._selectedIndex; }
-    ;
     set selectedIndex(value) {
         if (value < 0 && this.items.length > 0)
             value = 0;
@@ -8260,7 +8833,6 @@ class WNTab {
         this.setCollapse();
         this.selectionChanged?.(this);
     }
-    ;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -8330,6 +8902,7 @@ class WNTable {
         if (t)
             t.style.display = '';
         this.setPaginationElements();
+        this.selectedItem = null;
         this.afterPageChange?.(this, old, this.currentPage);
     }
     ;
@@ -8353,9 +8926,9 @@ class WNTable {
             return;
         if (this.beforeSelected && !this.beforeSelected?.(this, this._selectedItem, value))
             return;
-        this.bodyTable.querySelectorAll('tr.active').forEach((x) => x.classList.remove('active'));
-        value.rowElement?.classList.add('active');
-        this.selectionChanged(this, this._selectedItem, value);
+        this.element.querySelectorAll('tr.active').forEach((x) => x.classList.remove('active'));
+        value?.rowElement?.classList.add('active');
+        this.selectionChanged?.(this, this._selectedItem, value);
         this._selectedItem = value;
     }
     _groups = [];
@@ -8726,6 +9299,15 @@ class WNTable {
                 this.date.setDate(r.value);
                 r.text = this.date.toString(col.format);
             }
+            if (col.datatype == 'list') {
+                let l = col.format.split('|');
+                if (r.value > -1 && r.value < l.length)
+                    r.text = l[r.value].trim();
+                else
+                    r.text = '---';
+                r.value = new Date(r.value);
+                this.date.setDate(r.value);
+            }
             else if (col.format != '')
                 r.text = WNStringFormat(r.value, col.format, this.date.cultureInfo);
         }
@@ -8824,6 +9406,7 @@ class WNTable {
                         td.innerHTML = x[this.cols[i].field];
                     else
                         td.innerHTML = '';
+                    td.className = this.cols[i].class;
                     if (this.cols[i].aggregate != '') {
                         aggregate[i].push(x.fields[this.cols[i].field].value);
                     }
@@ -8913,6 +9496,36 @@ class WNTable {
         }
         this._lastBodyTable.appendChild(tr);
     }
+    filterByText(text) {
+        if (text == '') {
+            this._renderData = this.dataSource.map(x => x);
+            if (this._sortby.length > 0)
+                this.resort();
+            else
+                this.sort(-1);
+            this.refresh();
+            return;
+        }
+        if (this.beforeFilter && !!this.beforeFilter?.(this))
+            return;
+        text = text.toLowerCase();
+        this._renderData = [];
+        for (var row = 0; row < this.dataSource.length; row++) {
+            let x = this.dataSource[row];
+            let ret = false;
+            for (var i = 0; i < this.cols.length; i++) {
+                ret = ret || WNDenativeDigit(x.fields[this.cols[i].field].text.toLowerCase()).includes(text);
+            }
+            if (ret)
+                this._renderData.push(x);
+        }
+        if (this._sortby.length > 0)
+            this.resort();
+        else
+            this.sort(-1);
+        this.afterFilter?.(this);
+        this.refresh();
+    }
     setFilter() {
         let filtervalue = [];
         for (var i = 0; i < this.cols.length; i++) {
@@ -8933,6 +9546,7 @@ class WNTable {
         if (this.beforeFilter && !!this.beforeFilter?.(this))
             return;
         this._renderData = this.filter(this.dataSource, filtervalue);
+        this.selectedItem = null;
         if (this._sortby.length > 0)
             this.resort();
         else
@@ -8954,6 +9568,9 @@ class WNTable {
                 retArray.push(x);
         }
         return retArray;
+    }
+    findValueInDatasource(fieldName, value) {
+        return this._dataSource.find(x => x.fields[fieldName].value === value);
     }
 }
 class WNTime {
@@ -9352,6 +9969,9 @@ class WNTree {
     element;
     dataSource;
     selectedItem;
+    checkbox = false;
+    checkboxclass = "";
+    checkboxautochild = false;
     beforeClick;
     afterClick;
     selectionChanged;
@@ -9361,10 +9981,13 @@ class WNTree {
     afterExpand;
     beforeToggle;
     afterToggle;
+    checkChanged;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
             this.Init();
+            if (this.checkbox == true)
+                this.setDataSource(null, this.dataSource, false);
         }
     }
     Init() {
@@ -9373,6 +9996,12 @@ class WNTree {
         this.initItems();
         if (this.element.classList.contains('collapsed-all'))
             this.collapsedAll();
+        if (this.element.hasAttribute('checkbox'))
+            this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
+        if (this.element.hasAttribute('checkbox-class'))
+            this.checkboxclass = this.element.getAttribute('checkbox-class');
+        if (this.element.hasAttribute('checkbox-auto'))
+            this.checkboxautochild = WNparseBoolean(this.element.getAttribute('checkbox-auto'), false);
         if (this.element.hasAttribute('onbeforeclick'))
             this.beforeClick = WNGenerateFunction(this.element.getAttribute('onbeforeclick'), 't,n,e');
         if (this.element.hasAttribute('onafterclick'))
@@ -9391,6 +10020,8 @@ class WNTree {
             this.beforeToggle = WNGenerateFunction(this.element.getAttribute('onbeforetoggle'), 't,n');
         if (this.element.hasAttribute('onaftertoggle'))
             this.afterToggle = WNGenerateFunction(this.element.getAttribute('onaftertoggle'), 't,n');
+        if (this.element.hasAttribute('oncheckchanged'))
+            this.checkChanged = WNGenerateFunction(this.element.getAttribute('oncheckchanged'), 't,n');
     }
     initDataSource(parentNode, parent = undefined) {
         if (parent == undefined) {
@@ -9464,26 +10095,31 @@ class WNTree {
             this.lastNodeTime = Date.now();
             this.lastNodeClick = node;
         }
-        this.beforeClick?.(this, node, e);
+        if (!WNCheckReadOnlyDisabled(this.element))
+            this.beforeClick?.(this, node, e);
         if (node.children.length > 0) {
-            if (this.selectedItem != node)
+            if (!WNCheckReadOnlyDisabled(this.element) && this.selectedItem != node) {
                 this.select(node);
+            }
             else if ((node.liElement.dir == 'ltr' && e.offsetX < parseInt(getComputedStyle(node.liElement).paddingInlineStart) * 1.1) ||
                 ((node.liElement.clientWidth - e.offsetX) < parseInt(getComputedStyle(node.liElement).paddingInlineStart) * 1.1))
                 this.toggle(node);
         }
-        else
+        else if (!WNCheckReadOnlyDisabled(this.element))
             this.select(node);
-        this.afterClick?.(this, node, e);
+        if (!WNCheckReadOnlyDisabled(this.element))
+            this.afterClick?.(this, node, e);
     }
     dblclick(node, e) {
+        if (WNCheckReadOnlyDisabled(this.element))
+            return;
         e.stopPropagation();
         if (node.children.length == 0)
             return;
         this.toggle(node);
     }
     select(node) {
-        if (node.element.hasAttribute('disabled') || node.element.classList.contains('disabled'))
+        if (WNCheckReadOnlyDisabled(node.element))
             return;
         if (node == this.selectedItem)
             return;
@@ -9550,6 +10186,21 @@ class WNTree {
         let find = WNFindTreeArray(this.dataSource, "text", '', text, contains, true, "children");
         if (select && find.length > 0)
             this.select(find[0]);
+        return find;
+    }
+    findBy(pre, source = null) {
+        let find = [];
+        if (source == null)
+            source = this.dataSource;
+        for (var i = 0; i < source.length; i++) {
+            let item = source[i];
+            let r = pre(item);
+            if (r == true)
+                find.push(item);
+            if (item.children.length > 0) {
+                find = find.concat(this.findBy(pre, item.children));
+            }
+        }
         return find;
     }
     findByValue(value, select) {
@@ -9656,6 +10307,19 @@ class WNTree {
         }
         tItem.innerHTML += node.html == '' ? node.text : node.html;
         node.text = WNHtmlToText(item.innerHTML);
+        if (this.checkbox) {
+            let check = document.createElement('input');
+            check.type = 'checkbox';
+            check.className = 'item-check ' + this.checkboxclass;
+            check.id = this.element.id + '_' + node.id;
+            check.value = node.value;
+            check.addEventListener("input", x => {
+                let xx = x.target;
+                this.checkedChild(xx?.checked, node);
+                this.checkChanged?.(this, node);
+            }, true);
+            item.insertAdjacentElement('afterbegin', check);
+        }
         return item;
     }
     removeFromDataSource(node) {
@@ -9686,6 +10350,7 @@ class WNTree {
         if (!append)
             this.clearChilds(parentNode);
         this.convertParentId(parentNode, parentRootValue, dataSource, idFieldName, parentFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
+        this.selectedItem = null;
     }
     convertParentId(parentNode, parentValue, dataSource, idFieldName, parentFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName) {
         let subItem = dataSource.filter(x => x[parentFieldName] == parentValue);
@@ -9699,6 +10364,7 @@ class WNTree {
         if (!append)
             this.clearChilds(parentNode);
         this.convertByItem(parentNode, dataSource, itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
+        this.selectedItem = null;
     }
     convertByItem(parentNode, dataSource, itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName) {
         for (var i = 0; i < dataSource.length; i++) {
@@ -9712,6 +10378,7 @@ class WNTree {
         if (!append)
             this.clearChilds(parentNode);
         this.convertDataSource(parentNode, dataSource);
+        this.selectedItem = null;
     }
     clearChilds(parentNode) {
         if (parentNode == null) {
@@ -9729,6 +10396,86 @@ class WNTree {
             if (item['children'] && item['children'].length > 0)
                 this.convertDataSource(node, item['children']);
         }
+    }
+    get checkedItems() {
+        let ret = [];
+        let f = this.findBy(x => true);
+        for (var i = 0; i < f.length; i++) {
+            let inp = f[i].element.querySelector('input[type=checkbox]');
+            if (inp?.checked)
+                ret.push(f[i]);
+        }
+        return ret;
+    }
+    ;
+    set checkedItems(value) {
+        this.checkedClear();
+        for (var i = 0; i < value.length; i++) {
+            let inp = value[i].element.querySelector('input[type=checkbox]');
+            if (inp)
+                inp.checked = true;
+        }
+    }
+    ;
+    get checkedValues() {
+        let ret = [];
+        let checked = this.checkedItems;
+        for (var i = 0; i < checked.length; i++)
+            ret.push(checked[i].value);
+        return ret;
+    }
+    ;
+    set checkedValues(value) {
+        let checked = [];
+        for (var i = 0; i < value.length; i++) {
+            let f = this.findBy(x => x.value == value[i]);
+            if (f.length > 0)
+                checked.push(f[0]);
+        }
+        this.checkedItems = checked;
+    }
+    ;
+    get checkedAllValues() {
+        let ret = [];
+        var inp = this.element.querySelectorAll('input[type=checkbox]');
+        for (var i = 0; i < inp.length; i++) {
+            let c = inp[i];
+            if (c.value != '' && c.checked) {
+                ret.push(c.value);
+            }
+        }
+        return ret;
+    }
+    ;
+    set checkedAllValues(value) {
+        var inp = this.element.querySelectorAll('input[type=checkbox]');
+        for (var i = 0; i < inp.length; i++) {
+            let c = inp[i];
+            c.checked = value.includes(c.value);
+        }
+    }
+    ;
+    checkedClear() {
+        this.element.querySelectorAll('input.item-check').forEach((x) => x.checked = false);
+    }
+    checkedAll() {
+        this.element.querySelectorAll('input.item-check').forEach((x) => x.checked = true);
+    }
+    checkedInvert() {
+        this.element.querySelectorAll('input.item-check').forEach((x) => x.checked = !x.checked);
+    }
+    checkedHide(value) {
+        for (var i = 0; i < value.length; i++) {
+            let f = this.findBy(x => x.value == value[i]);
+            f.forEach(f => f.element.querySelectorAll('input.item-check').forEach((x) => x.remove()));
+        }
+    }
+    checkedChild(checked, node) {
+        node.children.forEach(x => {
+            x.element.querySelectorAll('input.item-check').forEach((x) => x.checked = checked);
+            if (x.children?.length > 0)
+                this.checkedChild(checked, x);
+        });
     }
 }
 class WNTreeTable {
@@ -9799,6 +10546,7 @@ class WNValidator {
     reset() {
         this.element.classList.remove('validated');
         this.element.noValidate = true;
+        this.element.querySelectorAll('input').forEach(x => x.setCustomValidity(''));
     }
 }
 async function wnValidator_onvalidationcheck(children, event) {
@@ -9924,6 +10672,11 @@ function wnShowPreLoader(show, _WNPreLoderId = WNPreLoderId, _WNPreLoaderDelaySt
             wnStopPreLoaderTimeout();
         }
     }
+}
+function wnHideAllPreLoader(_WNPreLoderId = WNPreLoderId) {
+    wnStopPreLoaderTimeout();
+    _PreLoaderWaitCount = 0;
+    document.getElementById(_WNPreLoderId)?.classList.add('hide');
 }
 class WNDateShow {
     nameType = 'WNDateShow';

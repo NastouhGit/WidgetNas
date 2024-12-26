@@ -122,6 +122,11 @@ $l-height: ('lh':'line-height');
 @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'r','rem',0.01,$size-values-em,false);
 @include size(('g-i':'--gutter-inline','g-b':'--gutter-block'),'e','em',0.01,$size-values-em,false);
 
+@include size(('g':'gap'),'','',1,(0));
+@include size(('g':'gap'),'x','px',1,$size-values-5-100);
+@include size(('g':'gap'),'p','%',1,$size-values-5-100);
+@include size(('g':'gap'),'r','rem',0.01,$size-values-em);
+@include size(('g':'gap'),'e','em',0.01,$size-values-em);
 
 @each $name,$value in $sizes {
     .s-#{$name} {

@@ -11,7 +11,7 @@
 <div class="example-div overflow-hidden">
     <div class="row w-100">
         <div class="col-12 text-center overflow-hidden">
-            <div id="AnimateDiv" class="animate slideInDown">                
+            <div id="AnimateDiv" class="animate slideInDown">
                 <h1 class="primary-bkcolor">This is sample header</h1>
                 <p class="secondary-bkcolor">Some text cames here!</p>
             </div>
@@ -93,20 +93,51 @@
             <button onclick="Animate(this)">slideOutRight</button>
             <button onclick="Animate(this)">slideOutUp</button>
         </div>
+        <div class="m-b-100r d-flex">
+            <ig class="group">
+                <label>
+                    Speed:
+                </label>
+                <select id="speed">
+                    <option value="animation-duration-10" selected>100 ms</option>
+                    <option value="animation-duration-50">500 ms</option>
+                    <option value="animation-duration-100">1 s</option>
+                    <option value="animation-duration-150">1.5 s</option>
+                    <option value="animation-duration-200">2 s</option>
+                    <option value="animation-duration-250">2.5 s</option>
+                    <option value="animation-duration-300">3 s</option>
+                </select>
+            </ig>
+            <ig class="group">
+                <label>
+                    Iteration:
+                </label>
+                <select id="iteration">
+                    <option value="animation-iteration-count-1" selected>no repeat</option>
+                    <option value="animation-iteration-count-3">3 times</option>
+                    <option value="animation-iteration-count-6">6 times</option>
+                    <option value="animation-iteration-count-infinite">infinite</option>
+                </select>
+            </ig>
+        </div>
+        <input id="classes" value="" />
     </div>
 </div>
 
 <figure>
     <pre><code class="html">
     <span class="hv">&lt;</span><span class="ht">div</span><span class="ha"> class</span><span class="hv">="animate slideInDown</span>"<span class="hv">&gt;</span>
-        <span class="hv">&lt;</span><span class="ht">h1</span><span class="hv">&gt;</span>This is sample header<span class="hv">&lt;/</span><span class="ht">h1</span><span class="hv">&gt;</span>
+    <span class="hv">&lt;</span><span class="ht">h1</span><span class="hv">&gt;</span>This is sample header<span class="hv">&lt;/</span><span class="ht">h1</span><span class="hv">&gt;</span>
     <span class="hv">&lt;/</span><span class="ht">div</span><span class="hv">&gt;</span>
 </code></pre>
 </figure>
 
 <script>
     function Animate(obj) {
-        WN('AnimateDiv').Element.className = 'animate ' + obj.innerHTML;
+        let classes = 'animate ' + obj.innerHTML + ' ' + WN('iteration').element.value + ' ' + WN('speed').element.value;
+        WN('AnimateDiv').element.className = classes;
+        WN('classes').element.value = classes;
+
     }
 </script>
 <h2>شروع انیمیشن در هنگام نمایش</h2>

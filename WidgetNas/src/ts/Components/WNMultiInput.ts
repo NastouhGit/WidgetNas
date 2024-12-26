@@ -25,7 +25,6 @@
         if (this.element.hasAttribute('labels')) _labels = WNToDictionary(this.element.getAttribute('labels'));
         if (this.element.hasAttribute('values')) values = WNToDictionary(this.element.getAttribute('values'));
         if (this.element.hasAttribute('classes')) classes = WNToDictionary(this.element.getAttribute('classes'));
-        //if (this.element.hasAttribute('classes')) classes = WNparseString(this.element.getAttribute('classes')).replace(/[\[\]']/g, '').split(/\s*,\s*/);
         if (this.element.hasAttribute('default')) _default = WNparseString(this.element.getAttribute('default'));
         if (this.element.hasAttribute('type')) inputType = WNparseString(this.element.getAttribute('type'), inputType);
 
@@ -205,9 +204,17 @@
         }
         return value;
     }
-    public set values(value: WNDictionary) {
-        if (!value) value = {};
+    public set values(value: WNDictionary | string) {
         let lkey = Object.keys(this.labels);
+
+        if (typeof value == 'string') {
+            let t = {};
+            for (var i = 0; i < lkey.length; i++)
+                t[lkey[i]] = ''
+            t[lkey[0]] = value;
+            value=t;
+        }
+        if (!value) value = {};
 
         for (var i = 0; i < this.inputs.length; i++) {
             let x = this.inputs[i];

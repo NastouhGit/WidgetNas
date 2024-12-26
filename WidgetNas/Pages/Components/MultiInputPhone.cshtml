@@ -1,0 +1,351 @@
+﻿@page
+@model WidgetNas.Pages.Components.MultiInputPhoneModel
+@{
+    ViewData["Title"] = "ورودی چندگانه تلفن";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    در برخی مواقع نیاز است بخواهیم یک یا چند شماره تلفن را از کاربر بگیریم این شماره ها ممکن است دارای عنوان و مهمتر دارای ساختار صحیح باشند.
+    یعنی کد کشور، استان و شماره قابل تفکیک باشند. شما در آینده میخواهید از این شماره ها در ارتباطات استفاده کنید.
+</p>
+<p>
+    برای استفاده از این موضوع به مثال زیر توجه کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div id="multiinputphone1"
+             class="multiinputphone"
+             wn-type="MultiInputPhone"
+             labels="'caption':'Caption','country':'Country','area':'Area','number':'Number','extension':'Ext.'"
+             value="['Home|98|21|23456789|','Work|98|21|34567890|','Shop|98|21|45678901|']">
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div id="multiinputphone1_rtl"
+             class="multiinputphone"
+             wn-type="MultiInputPhone"
+             labels="'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'"
+             value="['منزل|98|21|23456789|','محل کار|98|21|34567890|','مغازه|98|21|45678901|']">
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+
+
+<h2>خصوصیات</h2>
+<p>
+    <strong>labels</strong><br />
+    اگر میخواهید زمانیکه اطلاعات شماره را وارد کنید، عبارت هر قسمت به عبارت مد نظر شما نمایش داده شود، این خصوصیت را مقدار دهی کنید.
+    برای مثال
+    <bidi>{'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'}</bidi>
+</p>
+<p>
+    <strong>value</strong><br />
+    برای مقدار دهی اولیه است. آرایه ای از رشته که درون هر کدام مشخصه یک شماره است.<br />
+    هر گزینه با علامت | از هم جدا شده و ترتیب به شرح زیر است.<br />
+    <bidi>'Caption|Country|Area|Number|extension'</bidi>
+</p>
+<p>
+    <strong>dialog</strong><br />
+    برای شخصی سازی و تغییر گزینه های بازشونده، از این خصوصیت استفاده میشود. در بخش شخصی سازی به صورت کامل شرح داده میشود.
+</p>
+<p>
+    <strong>max</strong><br />
+    تعداد حداکثر شماره های قابل ثبت را مشخص میکند، مقدار صفر یعنی بدون محدودیت.
+</p>
+<h2>خصوصیات جاوا اسکریپت</h2>
+<p>
+    <strong>onitemclick</strong><br />
+    بعد از مقدار دهی هر شماره به صورت لینک callto مشخص میشود، اگر میخواهید بعد از کلیک کردن عملی را انجام دهید. در رخداد itemClick آنرا مشخص کنید.<br />
+    <bidi>itemClick: (t: IWNMultiInputPhone, node: WNPhoneNode) => void</bidi>
+</p>
+<h2>سفارشی کردن</h2>
+<p>اگر میخواهید موضوع را سفارشی کنید بایستی تمام اجزا را طبق تعاریف بسازید. جهت تعریف اجزا به مثال زیر توجه کنید.</p>
+<p>نیاز دارید یک محفظه مخفی داشته باشید و درون آن بر اساس چیدمان مد نظر پر کنید. حتما بایستی موارد زیر را رعایت کنید.</p>
+<p>همچنین در خصوصیت dialog باید id آن محفظه را بدهید. مدیریت برچسب ها نیز با خود شما خواهد بود.</p>
+<p>
+    <bidi>ul</bidi> برای نمایش لیست شماره ها<br />
+    <bidi>input class="caption"</bidi> ورودی عنوان<br />
+    <bidi>input class="country"</bidi> ورودی کد کشور<br />
+    <bidi>input class="area"</bidi> ورودی کد شهر<br />
+    <bidi>input class="number"</bidi> ورودی شماره<br />
+    <bidi>input class="ext"</bidi> ورودی داخلی<br />
+    <bidi>button class="add"</bidi> کلید اضافه<br />
+    <bidi>button class="save"</bidi> کلید ذخیره<br />
+    <bidi>button class="delete"</bidi> کلید حذف<br />
+    <bidi>button class="up"</bidi> کلید جابجایی شماره به بالا<br />
+    <bidi>button class="down"</bidi> کلید جابجایی شماره به رتبه پایین تر<br />
+</p>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <div class="multiinputphone"
+             wn-type="MultiInputPhone"
+             dialog="MultiInputPhoneDialogLtr"
+             value="['Home|98|21|23456789|','Work|98|21|34567890|','Shop|98|21|45678901|']">
+        </div>
+        <div id="MultiInputPhoneDialogLtr" class="d-none">
+            <ul></ul>
+            <div>
+                <ig><label>Cap</label><input class="caption" /></ig>
+                <ig><label>Country</label><input class="country" /></ig>
+                <ig><label>Cty</label><input class="area" /></ig>
+                <ig><label>No.</label><input class="number" /></ig>
+                <ig><label>Ext</label><input class="ext" /></ig>
+                <ig>
+                    <button class="add primary"></button>
+                    <button class="save"></button>
+                    <button class="delete"></button>
+                    <button class="up"></button>
+                    <button class="down"></button>
+                </ig>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form2"></code></figure>
+<h2>اعتبار سنجی</h2>
+<p>برای ایجاد اعتبار سنجی برای موضوع، همانند دیگر مضوعات عمل کنید</p>
+<div class="example-div">
+    <div class="ltr" id="form3">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate method="dialog" class="w-95">
+            <div required
+                 class="multiinputphone"
+                 wn-type="MultiInputPhone"
+                 labels="'caption':'Caption','country':'Country','area':'Area','number':'Number','extension':'Ext.'"
+                 value="['Home|98|21|23456789|','Work|98|21|34567890|','Shop|98|21|45678901|']">
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <h4>hide-valid</h4>
+        <form wn-type="validator" novalidate method="dialog" class="w-95 hide-valid">
+            <div required
+                 class="multiinputphone"
+                 wn-type="MultiInputPhone"
+                 labels="'caption':'Caption','country':'Country','area':'Area','number':'Number','extension':'Ext.'"
+                 value="['Home|98|21|23456789|','Work|98|21|34567890|','Shop|98|21|45678901|']">
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate method="dialog" class="w-95">
+            <div required
+                 class="multiinputphone"
+                 wn-type="MultiInputPhone"
+                 labels="'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'">
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    خطا!
+                </div>
+            </div>
+
+            <button type="submit">ارسال</button>
+        </form>
+        <h4>مخفی کردن ورودی های درست</h4>
+        <form wn-type="validator" novalidate method="dialog" class="w-95 hide-valid">
+            <div required
+                 class="multiinputphone"
+                 wn-type="MultiInputPhone"
+                 labels="'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'"
+                 value="['خانه|98|21|23456789|']">
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    خطا!
+                </div>
+            </div>
+
+            <button type="submit">ارسال</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>
+
+<h2>فقط خواندنی و غیر فعال</h2>
+<div class="example-div">
+    <div class="ltr" id="form4">
+        <h3>Readonly</h3>
+        <div readonly>
+            <div class="multiinputphone"
+                 wn-type="MultiInputPhone"
+                 dialog="MultiInputPhoneDialogLtr"
+                 value="['Home|98|21|23456789|','Work|98|21|34567890|','Shop|98|21|45678901|']">
+            </div>
+        </div>
+    </div>
+    <div class="ltr">
+        <h3>Disabled</h3>
+        <div disabled>
+            <div class="multiinputphone"
+                 wn-type="MultiInputPhone"
+                 dialog="MultiInputPhoneDialogLtr"
+                 value="['Home|98|21|23456789|','Work|98|21|34567890|','Shop|98|21|45678901|']">
+            </div>
+        </div>
+    </div>
+
+</div>
+<figure><code data-on="form4"></code></figure>
+<h2>تم های مختلف</h2>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <h3>LTR</h3>
+        <form wn-type="validator" novalidate method="dialog" class="w-95">
+            <h4>Normal</h4>
+            <ig>
+                <label>Phone</label>
+                <div required
+                     class="multiinputphone"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'Caption','country':'Country','area':'Area','number':'Number','extension':'Ext.'"
+                     value="['Home|98|21|23456789|']">
+                </div>
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <h4>Floating</h4>
+            <ig class="floating">
+                <div required
+                     class="multiinputphone"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'Caption','country':'Country','area':'Area','number':'Number','extension':'Ext.'"
+                     value="['Home|98|21|23456789|']">
+                    <div class="valid-feedback">
+                        Correct.
+                    </div>
+                    <div class="invalid-feedback">
+                        Error!
+                    </div>
+                </div>
+                <label>Phone</label>
+            </ig>
+            <h4>Floating Line</h4>
+            <ig class="floatingline">
+                <div required
+                     class="multiinputphone"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'Caption','country':'Country','area':'Area','number':'Number','extension':'Ext.'"
+                     value="['Home|98|21|23456789|']">
+                </div>
+                <label>Phone</label>
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <h4>Group</h4>
+            <ig class="group">
+                <label>Phone</label>
+                <div required
+                     class="multiinputphone"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'Caption','country':'Country','area':'Area','number':'Number','extension':'Ext.'"
+                     value="['Home|98|21|23456789|']">
+                </div>
+                <div class="valid-feedback">
+                    Correct.
+                </div>
+                <div class="invalid-feedback">
+                    Error!
+                </div>
+            </ig>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form wn-type="validator" novalidate method="dialog" class="w-95">
+            <h4>Normal</h4>
+            <ig>
+                <label>تلفن</label>
+                <div required
+                     class="multiinputphone floating"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'">
+                </div>
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    خطا!
+                </div>
+            </ig>
+            <h4>Floating</h4>
+            <ig class="floating">
+                <div required
+                     class="multiinputphone floating"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'">
+                    <div class="valid-feedback">
+                        صحیح
+                    </div>
+                    <div class="invalid-feedback">
+                        خطا!
+                    </div>
+                </div>
+                <label>تلفن</label>
+            </ig>
+            <h4>Floating Line</h4>
+            <ig class="floatingline">
+                <div required
+                     class="multiinputphone floating"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'">
+                </div>
+                <label>تلفن</label>
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    خطا!
+                </div>
+            </ig>
+            <h4>Group</h4>
+            <ig class="group">
+                <label>تلفن</label>
+                <div required
+                     class="multiinputphone floating"
+                     wn-type="MultiInputPhone"
+                     labels="'caption':'عنوان','country':'کشور','area':'شهر','number':'شماره','extension':'داخلی'">
+                </div>
+                <div class="valid-feedback">
+                    صحیح
+                </div>
+                <div class="invalid-feedback">
+                    خطا!
+                </div>
+            </ig>
+            <button type="submit">ارسال</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form3"></code></figure>

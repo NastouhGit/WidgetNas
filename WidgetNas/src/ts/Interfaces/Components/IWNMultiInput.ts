@@ -1,6 +1,6 @@
 ﻿interface IWNMultiInput extends IWNComponent {
     inputs: HTMLElement[];
-    values: WNDictionary;
+    values: WNDictionary | string;
 
 }
 

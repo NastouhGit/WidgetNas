@@ -397,7 +397,7 @@
     تنظیم این خصوصیت، زمان مخفی شدن خودکار پس از نمایش نکته را به شما میدهد.
 </p>
 <p>
-    <strong>tooltipclass</strong><br />
+    <strong>tooltipClass</strong><br />
     تنظیم این خصوصیت، کلاسهای اضافه برای ساخت خودکار نکته را تعیین میکند.
 </p>
 <p>
@@ -417,7 +417,7 @@
     با فراخوانی این متد، نکته نمایش داده میشود.
 </p>
 <p>
-    <strong>autoshow</strong><br />
+    <strong>autoShow</strong><br />
     با فراخوانی این متد، عمل نمایش نکته شروع میشود.
 </p>
 <p>
@@ -446,15 +446,15 @@
         <script>
             let tip;
             WN(document).ready(() => {
-                tip = new wntooltip();
+                tip = new WNTooltip();
                 tip.delay = 0;
                 tip.target = document.getElementById("tooltip_js");
             });
             function ShowTip(elem, pos) {
                 tip.hide();
                 tip.element = elem;
-                tip.tooltipclass = 'tooltip-arrow-' + pos;
-                tip.autoshow();
+                tip.tooltipClass = 'tooltip-arrow-' + pos;
+                tip.autoShow();
                 return true;
             }
         </script>
@@ -480,15 +480,16 @@
     <script>
         let tiprtl;
         WN(document).ready(() => {
-            tiprtl = new wntooltip();
+            tiprtl = new WNTooltip();
             tiprtl.delay = 0;
             tiprtl.target = document.getElementById("tooltip_jsRtl");
+
         });
         function ShowTipRtl(elem, pos) {
             tiprtl.hide();
             tiprtl.element = elem;
-            tiprtl.tooltipclass = 'tooltip-arrow-' + pos;
-            tiprtl.autoshow();
+            tiprtl.tooltipClass = 'tooltip-arrow-' + pos;
+            tiprtl.autoShow();
         }
     </script>
 </div>
