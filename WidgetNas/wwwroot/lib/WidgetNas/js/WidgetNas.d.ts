@@ -960,6 +960,7 @@ declare class WNImageEditor implements IWNImageEditor {
     private checkAnchor;
     private translateMouse;
     load(src: string): Promise<void>;
+    private mousedown;
     private mouseup;
     get scale(): number;
     set scale(value: number);

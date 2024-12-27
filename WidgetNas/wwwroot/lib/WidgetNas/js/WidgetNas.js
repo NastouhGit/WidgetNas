@@ -6646,24 +6646,29 @@ class WNImageEditor {
         if (this.element.hasAttribute('src')) {
             this.load(this.element.getAttribute('src'));
         }
+        this.element.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            this.mousedown(e.touches[0].clientX, e.touches[0].clientY);
+        });
         this.element.addEventListener("mousedown", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            [this.startX, this.startY] = this.translateMouse(e);
-            if (this._anchor == true) {
-                this.anchorStartMouse(this.startX, this.startY);
-            }
-            else if (this.canPan == true) {
-                this.isDown = true;
-                this.element.style.cursor = 'grabbing';
-            }
+            this.mousedown(e.clientX, e.clientY);
         });
+        this.element.addEventListener("touchend", (e) => { this.mouseup(e); });
+        this.element.addEventListener("touchcancel", (e) => { this.mouseup(e); });
         this.element.addEventListener("mouseup", (e) => this.mouseup(e));
         this.element.addEventListener("mouseout", (e) => this.mouseup(e));
+        this.element.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+            let [x, y] = this.translateMouse(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+            this.checkAnchor(x, y);
+            this.checkPan(x, y);
+        });
         this.element.addEventListener("mousemove", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            let [x, y] = this.translateMouse(e);
+            let [x, y] = this.translateMouse(e.clientX, e.clientY);
             this.checkAnchor(x, y);
             this.checkPan(x, y);
         });
@@ -6685,6 +6690,13 @@ class WNImageEditor {
             }
         });
         if (this.canScale == true) {
+            this.element.addEventListener("gesturechange", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (this._anchor == true)
+                    return;
+                this.scale += e.scale * -0.0005;
+            });
             this.element.addEventListener("wheel", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -6771,13 +6783,13 @@ class WNImageEditor {
         }
         this.refresh();
     }
-    translateMouse(e) {
+    translateMouse(x, y) {
         let context = this.element.getContext('2d');
         let r = this.element.getBoundingClientRect();
         let scx = (context.canvas.width / r.width);
         let scy = (context.canvas.height / r.height);
-        let x = (e.clientX - r.left) * scx;
-        let y = (e.clientY - r.top) * scy;
+        x = (x - r.left) * scx;
+        y = (y - r.top) * scy;
         return [x, y];
     }
     async load(src) {
@@ -6802,6 +6814,16 @@ class WNImageEditor {
             this.x = undefined;
             this.y = undefined;
             this.refresh();
+        }
+    }
+    mousedown(x, y) {
+        [this.startX, this.startY] = this.translateMouse(x, y);
+        if (this._anchor == true) {
+            this.anchorStartMouse(this.startX, this.startY);
+        }
+        else if (this.canPan == true) {
+            this.isDown = true;
+            this.element.style.cursor = 'grabbing';
         }
     }
     mouseup(e) {

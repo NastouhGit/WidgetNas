@@ -1,7 +1,7 @@
 function wnabout() {
     return `
  +--------------------------------------+
- | Widgetnas Version: 2.0.0.4           |
+ | Widgetnas Version: 2.1.0.6           |
  +--------------------------------------+
 `;
 }
@@ -1826,6 +1826,12 @@ function WNparseNumber(value, Default, culture = wnConfig.cultureInfo) {
     value = WNDenativeDigit(value, culture);
     return parseInt(value);
 }
+function WNparseFloat(value, Default, culture = wnConfig.cultureInfo) {
+    if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
+        return Default;
+    value = WNDenativeDigit(value, culture);
+    return parseFloat(value);
+}
 function WNparseString(value, Default) {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
@@ -2164,6 +2170,18 @@ function WNisJson(item) {
     }
     return false;
 }
+function WNJSONparse(item) {
+    item = typeof item !== "string"
+        ? JSON.stringify(item)
+        : item;
+    try {
+        let item2 = JSON.parse(item);
+        return item2;
+    }
+    catch (e) {
+    }
+    return item;
+}
 function WNtoTitleCase(text) {
     let s = text.split(' ');
     for (var i = 0; i < s.length; i++) {
@@ -2333,6 +2351,16 @@ function WNQueryString(key) {
         return q.get(key);
     return '';
 }
+function WNToBase64String(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+        return String.fromCharCode(parseInt(p1, 16));
+    }));
+}
+function WNFromBase64String(str) {
+    return decodeURIComponent(atob(str).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
 class WNConfig {
     nativeDigit = true;
     calendar;
@@ -2382,6 +2410,15 @@ function CheckBrowserCompatibility() {
     let objbrowserName = '';
     let objfullVersion = '';
     let objBrMajorVersion = 0;
+    let mobile = false;
+    let OS = 'Windows';
+    let objAgentL = objAgent.toLowerCase();
+    mobile = (objAgentL.indexOf("android") != -1) ||
+        (objAgentL.indexOf("iphone") != -1) ||
+        (objAgentL.indexOf("ipad") != -1);
+    OS = (objAgentL.indexOf("android") != -1) ? 'Android' :
+        (objAgentL.indexOf("iphone") != -1) ? 'iOS' :
+            (objAgentL.indexOf("ipad") != -1) ? 'iOS' : 'Windows';
     let objOffsetName, objOffsetVersion, ix;
     if ((objOffsetVersion = objAgent.indexOf("Chrome")) != -1) {
         objbrowserName = "Chrome";
@@ -2412,15 +2449,29 @@ function CheckBrowserCompatibility() {
         objfullVersion = objfullVersion.substring(0, ix);
     if ((ix = objfullVersion.indexOf(" ")) != -1)
         objfullVersion = objfullVersion.substring(0, ix);
-    objBrMajorVersion = parseInt('' + objfullVersion, 10);
+    objBrMajorVersion = WNparseFloat('' + objfullVersion, 10);
     if (isNaN(objBrMajorVersion)) {
         objfullVersion = '1.0';
         objBrMajorVersion = 0;
     }
     let error = true;
-    if (objbrowserName == 'Chrome' && objBrMajorVersion >= 89)
+    if (!mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
         error = false;
-    else if (objbrowserName == 'Firefox' && objBrMajorVersion >= 5)
+    else if (mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
+        error = false;
+    else if (!mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (!mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.1)
+        error = false;
+    else if (mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Android' && objBrMajorVersion >= 69)
+        error = false;
+    else if (OS == 'iOS' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Windows' && objBrMajorVersion >= 79)
         error = false;
     if (error)
         document.body.innerHTML = `<div class='alert warning'>` + wnConfig.language["common"]["browsererror"] + ' ' + objbrowserName + ':' + objBrMajorVersion + `</div>` + document.body.innerHTML;
@@ -2472,7 +2523,7 @@ function SetComponentCompatibility(elem = document) {
         if (elem !== null) {
             let st = getComputedStyle(elem);
             if (st.direction == 'ltr') {
-                if (elem.tagName == "INPUT" && (elem.type == 'email')) {
+                if (elem.tagName == "INPUT" && (elem.getAttribute('type') == 'email')) {
                     if (getComputedStyle(elem.parentElement).direction == 'ltr')
                         elem.setAttribute('dir', 'ltr');
                     else
@@ -2494,33 +2545,59 @@ class WNAccordion {
             return null;
         return this.items[this._selectedIndex];
     }
-    ;
     set selectedItem(value) {
+        if (value.head.classList.contains('collapsed'))
+            value.head.classList.remove('collapsed');
+        if (value.body.classList.contains('accordion-collapse'))
+            value.body.classList.remove('accordion-collapse');
         for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].body == value.body && this.items[i].head == value.head) {
-                this.selectedIndex = i;
-                break;
+            if (value.head.id != '') {
+                if (this.items[i].head.id == value.head.id) {
+                    this.selectedIndex = i;
+                    break;
+                }
+            }
+            else if (value.body.id != '') {
+                if (this.items[i].body.id == value.body.id) {
+                    this.selectedIndex = i;
+                    break;
+                }
+            }
+            else {
+                if (this.items[i].head.classList.contains('collapsed'))
+                    this.items[i].head.classList.remove('collapsed');
+                if (this.items[i].body.classList.contains('accordion-collapse'))
+                    this.items[i].body.classList.remove('accordion-collapse');
+                if (this.items[i].body == value.body && this.items[i].head == value.head) {
+                    this.selectedIndex = i;
+                    break;
+                }
             }
         }
     }
-    ;
     _selectedIndex = -1;
     get selectedIndex() { return this._selectedIndex; }
-    ;
     set selectedIndex(value) {
         if (value < 0)
             value = -1;
         if (value >= this.items.length)
             value = this.items.length - 1;
-        if (this.beforeCollapse && this.beforeCollapse(this, value) != false)
+        let isCollapsed = this.items[value]?.head.classList.contains('collapsed');
+        if (isCollapsed && this.beforeCollapse && this.beforeCollapse(this, value) != false)
+            return;
+        if (!isCollapsed && this.beforeExpand && this.beforeExpand(this, value) != false)
             return;
         this._selectedIndex = value;
         this.setCollapse();
-        this.afterCollapse?.(this, value);
+        if (isCollapsed)
+            this.afterCollapse?.(this, value);
+        else
+            this.afterExpand?.(this, value);
     }
-    ;
     beforeCollapse;
     afterCollapse;
+    beforeExpand;
+    afterExpand;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -2529,7 +2606,6 @@ class WNAccordion {
     }
     init() {
         this.items = [];
-        let index = 0;
         this.element.querySelectorAll('.accordion-item').forEach((x) => {
             let head = x.querySelector('.accordion-header');
             let body = x.querySelector('.accordion-body');
@@ -2543,18 +2619,50 @@ class WNAccordion {
                     body.className = 'accordion-body';
                     head.after(body);
                 }
-                head.setAttribute('index', index.toString());
-                head.addEventListener("click", (e) => {
-                    this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
-                });
-                this.items.push({ head: head, body: body });
-                index++;
             }
+            head.setAttribute('index', this.items.length.toString());
+            head.onclick = (e) => {
+                this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
+            };
+            this.items.push({ head: head, body: body });
         });
         if (this.element.hasAttribute('mode'))
             this.mode = this.element.getAttribute('mode') == 'multiple' ? AccordionMode.multiple : AccordionMode.single;
         if (this.element.hasAttribute('selected-index'))
             this.selectedIndex = WNparseNumber(this.element.getAttribute('selected-index'));
+    }
+    addItem(head, body, collapsed = false) {
+        let accordion_item = document.createElement('div');
+        accordion_item.className = 'accordion-item';
+        if (!head.classList.contains('accordion-header'))
+            head.classList.add('accordion-header');
+        head.type = "button";
+        if (!body.classList.contains('accordion-body'))
+            body.classList.add('accordion-body');
+        if (this.mode == 'single' || collapsed) {
+            if (!head.classList.contains('collapsed'))
+                head.classList.add('collapsed');
+            if (!body.classList.contains('accordion-collapse'))
+                body.classList.add('accordion-collapse');
+        }
+        accordion_item.appendChild(head);
+        accordion_item.appendChild(body);
+        this.element.appendChild(accordion_item);
+        head.setAttribute('index', this.items.length.toString());
+        head.onclick = (e) => {
+            this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
+        };
+        this.items.push({ head: head, body: body });
+    }
+    addItemByHtmlText(caption, body, collapsed = false) {
+        let head = document.createElement('button');
+        head.className = 'accordion-header ' + (this.mode == 'single' || collapsed ? 'collapsed' : '');
+        head.type = 'button';
+        head.innerHTML = caption;
+        let ebody = document.createElement('div');
+        ebody.className = 'accordion-body ' + (this.mode == 'single' || collapsed ? 'accordion-collapse' : '');
+        ebody.innerHTML = body;
+        this.addItem(head, ebody);
     }
     setCollapse() {
         if (this.mode == AccordionMode.single) {
@@ -2573,6 +2681,13 @@ class WNAccordion {
                 this.items[this.selectedIndex].body.classList.toggle('accordion-collapse');
             }
         }
+    }
+    clear() {
+        this.items?.forEach(x => {
+            x.head.onclick = null;
+            x.head.parentElement.remove();
+        });
+        this.items = [];
     }
 }
 class WNCaptcha {
@@ -2991,6 +3106,7 @@ class WNConfirm {
     bodyClass = '';
     footerClass = '';
     showClass = "animation zoomIn";
+    customModal = "";
     closeButton = true;
     values = {};
     parentElement = document.body;
@@ -3014,48 +3130,73 @@ class WNConfirm {
         if (typeof (this.body) == 'object') {
             this.body = this.body.outerHTML;
         }
-        this.element = document.createElement("div");
-        this.element.className = `modal darkback ${this.modalClass}`;
-        this.element.setAttribute("showClass", this.showClass);
-        let modaldialog = document.createElement('div');
-        modaldialog.className = "modal-dialog";
-        modaldialog.innerHTML = `
+        let modaldialog;
+        if (this.modal == null) {
+            if (this.customModal == '') {
+                this.element = document.createElement("div");
+                this.element.className = `modal darkback ${this.modalClass}`;
+                this.element.setAttribute("showClass", this.showClass);
+                modaldialog = document.createElement('div');
+                modaldialog.className = "modal-dialog";
+                modaldialog.innerHTML = `
         <div class="modal-header ${this.headClass}">
             <h5 class="modal-title">${this.title}</h5>` +
-            (this.closeButton ? `<button class="close" close-parent=""></button>` : '') +
-            `</div>
+                    (this.closeButton ? `<button class="close" close-parent=""></button>` : '') +
+                    `</div>
         <div class="modal-body ${this.bodyClass}">
             ${this.body}
         </div>`;
-        let footer = document.createElement('div');
-        footer.className = `modal-footer  ${this.footerClass}`;
-        for (var i = 0; i < this.buttons.length; i++) {
-            let btn = document.createElement("button");
-            btn.className = this.buttons[i].class ?? '';
-            btn.innerHTML = this.buttons[i].caption ?? '';
-            let click = this.buttons[i]?.click;
-            btn.onclick = async () => {
-                if (click != null) {
-                    let r = await click(this);
-                    if (r == undefined || r == true) {
-                        this.modal.hide();
-                        this.element.remove();
+                let footer = document.createElement('div');
+                footer.className = `modal-footer  ${this.footerClass}`;
+                for (var i = 0; i < this.buttons.length; i++) {
+                    let btn = document.createElement("button");
+                    btn.className = this.buttons[i].class ?? '';
+                    btn.innerHTML = this.buttons[i].caption ?? '';
+                    let click = this.buttons[i]?.click;
+                    btn.onclick = async () => {
+                        if (click != null) {
+                            let r = await click(this);
+                            if (r == undefined || r == true) {
+                                this.modal.hide();
+                                this.element.remove();
+                            }
+                        }
+                        else {
+                            this.modal.hide();
+                            this.element.remove();
+                        }
+                    };
+                    footer.appendChild(btn);
+                }
+                modaldialog.appendChild(footer);
+                this.element.appendChild(modaldialog);
+                this.parentElement.appendChild(this.element);
+                this.modal = new WNModal(this.element);
+            }
+            else {
+                this.modal = WN(this.customModal).wn;
+                for (var i = 0; i < this.buttons.length; i++) {
+                    if (this.buttons[i].id != '') {
+                        let button = this.buttons[i];
+                        let btn = document.getElementById(this.buttons[i].id);
+                        if (btn) {
+                            if (button.click != null)
+                                btn.onclick = async () => {
+                                    let r = await button.click(this);
+                                    if (r == undefined || r == true) {
+                                        this.modal.hide();
+                                    }
+                                };
+                            else {
+                                btn.onclick = async () => {
+                                    this.modal.hide();
+                                };
+                            }
+                        }
                     }
                 }
-                else {
-                    this.modal.hide();
-                    this.element.remove();
-                }
-            };
-            footer.appendChild(btn);
+            }
         }
-        modaldialog.appendChild(footer);
-        this.element.appendChild(modaldialog);
-        this.parentElement.appendChild(this.element);
-        if (this.modal == null)
-            this.modal = new WNModal(this.element);
-        else
-            this.modal.element = this.element;
         await this.modal.show();
         modaldialog.focus();
     }
@@ -3662,7 +3803,7 @@ class WNEditor {
             if (!selection.rangeCount)
                 return false;
             selection.deleteFromDocument();
-            let elem = document.createTextNode(paste);
+            let elem = selection.getRangeAt(0).createContextualFragment(paste);
             selection.getRangeAt(0).insertNode(elem);
             event.preventDefault();
             return true;
@@ -3874,11 +4015,12 @@ class WNEditor {
     isSelectionInTag(tag) {
         tag = tag.toUpperCase();
         let currentNode = window.getSelection().focusNode;
-        while (!currentNode.classList?.contains('editor-content')) {
-            if (currentNode.tagName == tag)
-                return true;
-            currentNode = currentNode.parentNode;
-        }
+        if (currentNode != null)
+            while (!currentNode?.classList?.contains('editor-content')) {
+                if (currentNode.tagName == tag)
+                    return true;
+                currentNode = currentNode.parentNode;
+            }
         return false;
     }
     execCommand(cmd, value = null) {
@@ -3900,13 +4042,14 @@ class WNEditor {
     }
     getParentTagSelection() {
         let currentNode = window.getSelection().focusNode;
-        for (var i = 0; i < 2; i++) {
-            if (!currentNode?.classList?.contains('editor-content')) {
-                if (currentNode.tagName != undefined)
-                    return currentNode;
-                currentNode = currentNode.parentNode;
+        if (currentNode != null)
+            for (var i = 0; i < 2; i++) {
+                if (!currentNode?.classList?.contains('editor-content')) {
+                    if (currentNode.tagName != undefined)
+                        return currentNode;
+                    currentNode = currentNode.parentNode;
+                }
             }
-        }
         return null;
     }
     setSelectionStyle(prop, value = null, toggle, getParentTag = false) {
@@ -4054,7 +4197,7 @@ class WNEditor {
         str = str.replace(/<H4([^>]*)>/gi, '');
         str = str.replace(/<H5([^>]*)>/gi, '');
         str = str.replace(/<H6([^>]*)>/gi, '');
-        str = str.replace(/<\/H\d>/gi, '<br>');
+        str = str.replace(/<\/H\d>/gi, '<br/>');
         str = str.replace(/<(U|I|STRIKE)>&nbsp;<\/\1>/g, '&nbsp;');
         str = str.replace(/<(B|b)>&nbsp;<\/\b|B>/g, '');
         str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
@@ -4065,9 +4208,69 @@ class WNEditor {
         var re2 = new RegExp("(<font|<FONT)([^*>]*>.*?)(<\/FONT>|<\/font>)", "gi");
         str = str.replace(re2, "<div$2</div>");
         str = str.replace(/size|SIZE = ([\d]{1})/g, '');
-        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
         str = str.replace(/¬/g, '\u200C');
+        if (this.isMarkUp(str)) {
+            var h = '';
+            function escape(t) {
+                return new Option(t).innerHTML;
+            }
+            function inlineEscape(s) {
+                return escape(s)
+                    .replace(/!\[([^\]]*)]\(([^(]+)\)/g, '<img alt="$1" src="$2">')
+                    .replace(/\[([^\]]+)]\(([^(]+?)\)/g, '$1'.link('$2'))
+                    .replace(/`([^`]+)`/g, '<code>$1</code>')
+                    .replace(/(\*\*|__)(?=\S)([^\r]*?\S[*_]*)\1/g, '<strong>$2</strong>')
+                    .replace(/(\*|_)(?=\S)([^\r]*?\S)\1/g, '<em>$2</em>');
+            }
+            str
+                .replace(/^\s+|\r|\s+$/g, '')
+                .replace(/\t/g, '    ')
+                .split(/\n\n+/)
+                .forEach(function (b, f, R) {
+                f = b[0];
+                R =
+                    {
+                        '*': [/\n\* /, '<ul><li>', '</li></ul>'],
+                        '1': [/\n[1-9]\d*\.? /, '<ol><li>', '</li></ol>'],
+                        ' ': [/\n    /, '<pre><code>', '</code></pre>', '\n'],
+                        '>': [/\n> /, '<blockquote>', '</blockquote>', '\n']
+                    }[f];
+                h +=
+                    R ? R[1] + ('\n' + b)
+                        .split(R[0])
+                        .slice(1)
+                        .map(R[3] ? escape : inlineEscape)
+                        .join(R[3] || '</li>\n<li>') + R[2] :
+                        f == '#' ? '<h' + (f = b.indexOf(' ')) + '>' + inlineEscape(b.slice(f + 1)) + '</h' + f + '>' :
+                            f == '<' ? b :
+                                '<p>' + inlineEscape(b) + '</p>';
+            });
+            str = h;
+        }
+        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
         return str;
+    }
+    isMarkUp(src) {
+        const h1 = /(^|\n) {0,3}#{1,6} {1,8}[^\n]{1,64}\r?\n\r?\n\s{0,32}\S/;
+        const bold = /(?:\s|^)(_|__|\*|\*\*|~~|==|\+\+)(?!\s).{1,64}(?<!\s)(?=\1)/;
+        const link = /\[[^\]]{1,128}\]\(https?:\/\/\S{1,999}\)/;
+        const code = /(?:\s|^)`(?!\s)[^`]{1,48}(?<!\s)`([^\w]|$)/;
+        const ul = /(?:^|\n)\s{0,5}\-\s{1}[^\n]+\n\s{0,15}\-\s/;
+        const ol = /(?:^|\n)\s{0,5}\d+\.\s{1}[^\n]+\n\s{0,15}\d+\.\s/;
+        const hr = /\n{2} {0,3}\-{2,48}\n{2}/;
+        const fences = /(?:\n|^)(```|~~~|\$\$)(?!`|~)[^\s]{0,64} {0,64}[^\n]{0,64}\n[\s\S]{0,9999}?\s*\1 {0,64}(?:\n+|$)/;
+        const title = /(?:\n|^)(?!\s)\w[^\n]{0,64}\r?\n(\-|=)\1{0,64}\n\n\s{0,64}(\w|$)/;
+        const blockquote = /(?:^|(\r?\n\r?\n))( {0,3}>[^\n]{1,333}\n){1,999}($|(\r?\n))/;
+        return h1.test(src) ||
+            bold.test(src) ||
+            link.test(src) ||
+            code.test(src) ||
+            ul.test(src) ||
+            ol.test(src) ||
+            hr.test(src) ||
+            fences.test(src) ||
+            title.test(src) ||
+            blockquote.test(src);
     }
     colorPicker(parent, style, selectTag = false) {
         if (this._colorPicker == undefined)
@@ -4359,13 +4562,14 @@ class WNEditor {
         if (this._insertMedia == undefined)
             this.createMediaObject();
         let elem = this.getParentTagSelection();
-        if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
-            let elemVideo = elem.querySelector('video');
-            if (elemVideo == null)
-                elem = elem.querySelector('audio');
-            else
-                elem = elemVideo;
-        }
+        if (elem)
+            if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
+                let elemVideo = elem.querySelector('video');
+                if (elemVideo == null)
+                    elem = elem.querySelector('audio');
+                else
+                    elem = elemVideo;
+            }
         this._insertMediaType.value = 'video';
         this._insertMediaUrl.value = '';
         this._insertMediaWidth.value = '';
@@ -4724,7 +4928,7 @@ class WNEditor {
     set html(value) {
         this._content.innerHTML = value;
         if (value == '') {
-            this._content.innerHTML = `<${this.paragraphSeparator}>&nbsp;</${this.paragraphSeparator}>`;
+            this._content.innerHTML = ``;
             this._editor_source_textarea.value = this._content.innerHTML;
         }
     }
@@ -5622,7 +5826,7 @@ class WNFileList {
             this.element.ondblclick = null;
         }
         this._lang = WNLanguage[this._date.cultureInfo.twoLetterISOLanguageName];
-        if (!this.element.classList.contains('filelist'))
+        if (this.element.className == '')
             this.element.classList.add('filelist');
         this.mode = this.element.getAttribute('mode').toLowerCase() ?? 'select';
         this.multiSelect = WNparseBoolean(this.element.getAttribute('multi-select'), false);
@@ -6306,10 +6510,13 @@ class WNFilter {
         this.buttons.forEach((t) => {
             if (t.nodeName == 'INPUT' && t.type == "text") {
                 t.addEventListener("input", () => {
+                    this.setActive(t);
                     WNFilter.filter(this.element.querySelectorAll("[filter-category]"), 'contains(' + t.value + ')');
                 });
+                if (t.value == '')
+                    this.setActive(t);
             }
-            if (t.nodeName == 'INPUT' && t.type == "checkbox") {
+            else if (t.nodeName == 'INPUT' && t.type == "checkbox") {
                 t.addEventListener("click", () => {
                     this.CheckBoxFilter();
                 });
@@ -6317,8 +6524,15 @@ class WNFilter {
             }
             else {
                 t.addEventListener("click", (e) => {
+                    this.setActive(t);
                     WNFilter.filter(this.element.querySelectorAll("[filter-category]"), '[filter-category*=' + e.target.getAttribute('filter-value') + ']');
                 });
+                if (t.getAttribute('filter-value') == '') {
+                    if (t.nodeName == 'INPUT' && t.type == "radio") {
+                        t.checked = true;
+                    }
+                    this.setActive(t);
+                }
             }
         });
     }
@@ -6333,6 +6547,10 @@ class WNFilter {
             condition = condition.substring(0, condition.length - 1);
         WNFilter.filter(this.element.querySelectorAll("[filter-category]"), condition);
     }
+    setActive(t) {
+        this.buttons.forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+    }
     static filter(selectors, filterby) {
         let list;
         if (typeof (selectors) == "string")
@@ -6344,19 +6562,651 @@ class WNFilter {
             filterby = filterby.substring(1, filterby.lastIndexOf(')')).toLowerCase();
             list.forEach((e) => {
                 if (e.innerText.toLowerCase().indexOf(filterby) > -1)
-                    e.style.display = '';
+                    e.classList.remove('d-none');
                 else
-                    e.style.display = 'none';
+                    e.classList.add('d-none');
             });
         }
         else
             list.forEach((e) => {
                 if (filterby == '' || filterby == "[filter-category*=]" || e.matches(filterby))
-                    e.style.display = '';
+                    e.classList.remove('d-none');
                 else
-                    e.style.display = 'none';
+                    e.classList.add('d-none');
                 e.getAnimations().forEach(x => x.play());
             });
+    }
+}
+class WNImageEditor {
+    nameType = 'WNImageEditor';
+    element;
+    _Image;
+    tmpImage;
+    tmpContext;
+    isDown = false;
+    startX = 0;
+    startY = 0;
+    offsetX = 0;
+    offsetY = 0;
+    canScale = true;
+    canPan = true;
+    _scale = 1;
+    _rotate = 0;
+    _flip = 0;
+    _filter = '';
+    _mask = '';
+    _anchor = false;
+    _anchorRec = { x: 0, y: 0, w: 0, h: 0 };
+    _anchorBoxSize = 8;
+    _anchorBox = {
+        xy1: { x: 0, y: 0 },
+        y1: { x: 0, y: 0 },
+        xy2: { x: 0, y: 0 },
+        x1: { x: 0, y: 0 },
+        x2: { x: 0, y: 0 },
+        xy3: { x: 0, y: 0 },
+        y2: { x: 0, y: 0 },
+        xy4: { x: 0, y: 0 }
+    };
+    _anchorSizeMode = '';
+    _anchorIsDown = false;
+    isActive = false;
+    x = undefined;
+    y = undefined;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            if (elem.tagName != 'CANVAS')
+                return;
+            this.element = elem;
+            this.element.style.cursor = 'grab';
+            this.Init();
+        }
+    }
+    async Init() {
+        this.element.onmouseenter = () => this.isActive = true;
+        this.element.onmouseleave = () => this.isActive = false;
+        if (this.element.hasAttribute('scale')) {
+            if (this.element.getAttribute('scale') == 'false')
+                this.canScale = false;
+            else
+                this.scale = WNparseFloat(this.element.getAttribute('scale'), this.scale);
+        }
+        if (this.element.hasAttribute('rotate')) {
+            this.rotate = WNparseFloat(this.element.getAttribute('rotate'), this.rotate);
+        }
+        if (this.element.hasAttribute('flip')) {
+            this.flip = WNparseFloat(this.element.getAttribute('flip'), this.flip);
+        }
+        if (this.element.hasAttribute('pan'))
+            this.canPan = WNparseBoolean(this.element.getAttribute('pan'), true);
+        if (this.element.hasAttribute('mask'))
+            this.mask = this.element.getAttribute('mask');
+        if (this.element.hasAttribute('filter'))
+            this.filter = this.element.getAttribute('filter');
+        if (this.element.hasAttribute('src')) {
+            this.load(this.element.getAttribute('src'));
+        }
+        this.element.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            this.mousedown(e.touches[0].clientX, e.touches[0].clientY);
+        });
+        this.element.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.mousedown(e.clientX, e.clientY);
+        });
+        this.element.addEventListener("touchend", (e) => { this.mouseup(e); });
+        this.element.addEventListener("touchcancel", (e) => { this.mouseup(e); });
+        this.element.addEventListener("mouseup", (e) => this.mouseup(e));
+        this.element.addEventListener("mouseout", (e) => this.mouseup(e));
+        this.element.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+            let [x, y] = this.translateMouse(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+            this.checkAnchor(x, y);
+            this.checkPan(x, y);
+        });
+        this.element.addEventListener("mousemove", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            let [x, y] = this.translateMouse(e.clientX, e.clientY);
+            this.checkAnchor(x, y);
+            this.checkPan(x, y);
+        });
+        document.addEventListener("paste", (e) => {
+            if (!this.isActive)
+                return;
+            var items = (e.clipboardData).items;
+            for (let i = 0; i < items.length; i++) {
+                var item = items[i];
+                if (item.kind === 'file') {
+                    var blob = item.getAsFile();
+                    var reader = new FileReader();
+                    let imgedit = this;
+                    reader.onload = function (event) {
+                        imgedit.load(event.target.result.toString());
+                    };
+                    reader.readAsDataURL(blob);
+                }
+            }
+        });
+        if (this.canScale == true) {
+            this.element.addEventListener("gesturechange", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (this._anchor == true)
+                    return;
+                this.scale += e.scale * -0.0005;
+            });
+            this.element.addEventListener("wheel", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (this._anchor == true)
+                    return;
+                this.scale += e.deltaY * -0.0005;
+            });
+        }
+    }
+    checkPan(x, y) {
+        if (!this.tmpImage)
+            return;
+        if (this.canPan != true)
+            return;
+        if (this.isDown == false)
+            return;
+        this.offsetX = x - this.startX;
+        this.offsetY = y - this.startY;
+        if (this.x + this.offsetX + this.tmpImage.width * this.scale < this.element.width * 0.5)
+            this.offsetX = -this.x - this.tmpImage.width * this.scale + this.element.width * 0.5;
+        if (this.x + this.offsetX > this.element.width - this.element.width * 0.5)
+            this.offsetX = (this.element.width - this.element.width * 0.5) - this.x;
+        if (this.y + this.offsetY + this.tmpImage.height * this.scale < this.element.height * 0.5)
+            this.offsetY = -this.y - this.tmpImage.height * this.scale + this.element.height * 0.5;
+        if (this.y + this.offsetY > this.element.height - this.element.height * 0.5)
+            this.offsetY = (this.element.height - this.element.height * 0.5) - this.y;
+        this.refresh();
+    }
+    checkAnchor(x, y) {
+        if (this._anchor != true)
+            return;
+        if (this._anchorIsDown == false) {
+            this.anchorSetSizeMode(x, y);
+            if (this._anchorSizeMode == 'x1' || this._anchorSizeMode == 'x2')
+                this.element.style.cursor = 'e-resize';
+            else if (this._anchorSizeMode == 'xy1' || this._anchorSizeMode == 'xy4')
+                this.element.style.cursor = 'nw-resize';
+            else if (this._anchorSizeMode == 'y1' || this._anchorSizeMode == 'y2')
+                this.element.style.cursor = 'n-resize';
+            else if (this._anchorSizeMode == 'xy2' || this._anchorSizeMode == 'xy3')
+                this.element.style.cursor = 'ne-resize';
+            else if (this._anchorSizeMode == 'xy')
+                this.element.style.cursor = 'move';
+            else
+                this.element.style.cursor = 'default';
+        }
+        if (this._anchorIsDown == false || this._anchorSizeMode == '')
+            return;
+        if (this._anchorSizeMode == 'x1' || this._anchorSizeMode == 'xy1' || this._anchorSizeMode == 'xy3') {
+            if (this._anchorRec.w - (x - this._anchorRec.x) < this._anchorBoxSize * 2)
+                return;
+            this._anchorRec.w -= x - this._anchorRec.x;
+            this._anchorRec.x = x;
+        }
+        if (this._anchorSizeMode == 'x2' || this._anchorSizeMode == 'xy2' || this._anchorSizeMode == 'xy4') {
+            if (x - this._anchorRec.x < this._anchorBoxSize * 2)
+                return;
+            this._anchorRec.w = x - this._anchorRec.x;
+        }
+        if (this._anchorSizeMode == 'y1' || this._anchorSizeMode == 'xy1' || this._anchorSizeMode == 'xy2') {
+            if (this._anchorRec.h - (y - this._anchorRec.y) < this._anchorBoxSize * 2)
+                return;
+            this._anchorRec.h -= y - this._anchorRec.y;
+            this._anchorRec.y = y;
+        }
+        if (this._anchorSizeMode == 'y2' || this._anchorSizeMode == 'xy3' || this._anchorSizeMode == 'xy4') {
+            if (y - this._anchorRec.y < this._anchorBoxSize * 2)
+                return;
+            this._anchorRec.h = y - this._anchorRec.y;
+        }
+        if (this._anchorSizeMode == 'xy') {
+            this._anchorRec.x = this._anchorRec.x + x - this.startX;
+            this._anchorRec.y = this._anchorRec.y + y - this.startY;
+            if (this._anchorRec.x < 0)
+                this._anchorRec.x = 0;
+            if (this._anchorRec.y < 0)
+                this._anchorRec.y = 0;
+            if (this._anchorRec.x + this._anchorRec.w > this.element.width)
+                this._anchorRec.x = this.element.width - this._anchorRec.w;
+            if (this._anchorRec.y + this._anchorRec.h > this.element.height)
+                this._anchorRec.y = this.element.height - this._anchorRec.h;
+            this.startX = x;
+            this.startY = y;
+        }
+        this.refresh();
+    }
+    translateMouse(x, y) {
+        let context = this.element.getContext('2d');
+        let r = this.element.getBoundingClientRect();
+        let scx = (context.canvas.width / r.width);
+        let scy = (context.canvas.height / r.height);
+        x = (x - r.left) * scx;
+        y = (y - r.top) * scy;
+        return [x, y];
+    }
+    async load(src) {
+        let canRefresh = false;
+        await new Promise((resolve, reject) => {
+            this._Image = new Image();
+            this._Image.onload = () => resolve(this._Image.height);
+            this._Image.onerror = reject;
+            this._Image.src = src;
+        }).then(() => { canRefresh = true; });
+        if (canRefresh) {
+            if (!this.tmpImage) {
+                this.tmpImage = document.createElement('canvas');
+            }
+            this.tmpImage.width = this._Image.width * 2;
+            this.tmpImage.height = this._Image.height * 2;
+            this.tmpContext = this.tmpImage.getContext('2d');
+            if (this.element.width / this._Image.width < this.element.height / this._Image.height)
+                this.scale = this.element.width / this._Image.width;
+            else
+                this.scale = this.element.height / this._Image.height;
+            this.x = undefined;
+            this.y = undefined;
+            this.refresh();
+        }
+    }
+    mousedown(x, y) {
+        [this.startX, this.startY] = this.translateMouse(x, y);
+        if (this._anchor == true) {
+            this.anchorStartMouse(this.startX, this.startY);
+        }
+        else if (this.canPan == true) {
+            this.isDown = true;
+            this.element.style.cursor = 'grabbing';
+        }
+    }
+    mouseup(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this._anchor == true) {
+            this._anchorIsDown = false;
+        }
+        else if (this.canPan == true) {
+            this.x += this.offsetX;
+            this.y += this.offsetY;
+            this.offsetX = 0;
+            this.offsetY = 0;
+            this.isDown = false;
+            this.element.style.cursor = this.canPan ? 'grab' : 'auto';
+        }
+        this.refresh();
+    }
+    get scale() { return this._scale; }
+    set scale(value) {
+        if (!this.canScale)
+            return;
+        value = Math.min(Math.max(0.125, value), 5);
+        this._scale = value;
+        this.refresh();
+    }
+    get rotate() { return this._rotate; }
+    set rotate(value) {
+        value = Math.min(Math.max(-365, value), 365);
+        this._rotate = value;
+        this.refresh();
+    }
+    get flip() { return this._flip; }
+    set flip(value) {
+        value = Math.min(Math.max(0, value), 3);
+        this._flip = value;
+        this.refresh();
+    }
+    get filter() { return this._filter; }
+    set filter(value) {
+        this._filter = value.replace(/[\r\n]*/g, "").replace(/\s+/g, " ").trim();
+        this.refresh();
+    }
+    get mask() { return this._mask; }
+    set mask(value) {
+        this._mask = value;
+        this.refresh();
+    }
+    refresh() {
+        if (!this._Image)
+            return;
+        if (!this.tmpContext)
+            return;
+        let context = this.element.getContext('2d');
+        context.reset();
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
+        this.tmpContext.reset();
+        this.tmpContext.setTransform(1, 0, 0, 1, 0, 0);
+        this.tmpContext.clearRect(0, 0, this.tmpImage.width, this.tmpImage.height);
+        this.tmpContext.translate(this._Image.width, this._Image.height);
+        if (this.rotate != 0) {
+            this.tmpContext.rotate(this.rotate * Math.PI / 180);
+        }
+        if (this.flip == 1) {
+            this.tmpContext.scale(-1, 1);
+        }
+        else if (this.flip == 2) {
+            this.tmpContext.scale(1, -1);
+        }
+        else if (this.flip == 3) {
+            this.tmpContext.scale(-1, -1);
+        }
+        this.tmpContext.filter = this.filter;
+        this.tmpContext.drawImage(this._Image, -this._Image.width / 2, -this._Image.height / 2);
+        let imageWidth = this._Image.width * this.scale * 2;
+        let imageHeight = this._Image.height * this.scale * 2;
+        if (!this.x)
+            this.x = (this.element.width - imageWidth) / 2;
+        if (!this.y)
+            this.y = (this.element.height - imageHeight) / 2;
+        context.clearRect(0, 0, this.element.width, this.element.height);
+        context.drawImage(this.tmpImage, this.x + this.offsetX, this.y + this.offsetY, imageWidth, imageHeight);
+        context.save();
+        if (this.mask != '') {
+            let mp = this.mask.split(',');
+            context.globalAlpha = 0.5;
+            context.fillStyle = '#000';
+            context.fillRect(0, 0, this.element.width, this.element.height);
+            context.globalAlpha = 1;
+            context.beginPath();
+            if (mp[0].trim().toLowerCase() == 'circle')
+                context.arc(this.element.width / 2, this.element.height / 2, WNparseNumber(mp[1], 32), 0, 2 * Math.PI, false);
+            else if (mp[0].trim().toLowerCase() == 'rect') {
+                if (mp.length == 2)
+                    mp.push(mp[1]);
+                let w = WNparseNumber(mp[1], 32);
+                let h = WNparseNumber(mp[2], 32);
+                context.rect(this.element.width / 2 - w / 2, this.element.height / 2 - h / 2, w, h);
+            }
+            context.clip();
+        }
+        context.drawImage(this.tmpImage, this.x + this.offsetX, this.y + this.offsetY, imageWidth, imageHeight);
+        context.restore();
+        this.tmpContext.setTransform(1, 0, 0, 1, 0, 0);
+        if (this._anchor == true) {
+            this._anchorBox = {
+                xy1: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2
+                },
+                y1: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2 + this._anchorRec.w / 2,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2
+                },
+                xy2: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2 + this._anchorRec.w,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2
+                },
+                x1: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2 + this._anchorRec.h / 2
+                },
+                x2: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2 + this._anchorRec.w,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2 + this._anchorRec.h / 2
+                },
+                xy3: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2 + this._anchorRec.h
+                },
+                y2: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2 + this._anchorRec.w / 2,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2 + this._anchorRec.h
+                },
+                xy4: {
+                    x: this._anchorRec.x - this._anchorBoxSize / 2 + this._anchorRec.w,
+                    y: this._anchorRec.y - this._anchorBoxSize / 2 + this._anchorRec.h
+                }
+            };
+            context.beginPath();
+            context.strokeStyle = "#fff";
+            context.setLineDash([]);
+            context.rect(this._anchorRec.x, this._anchorRec.y, this._anchorRec.w, this._anchorRec.h);
+            context.stroke();
+            context.beginPath();
+            context.strokeStyle = "#000";
+            context.setLineDash([5, 5]);
+            context.rect(this._anchorRec.x, this._anchorRec.y, this._anchorRec.w, this._anchorRec.h);
+            context.stroke();
+            context.beginPath();
+            context.setLineDash([]);
+            context.rect(this._anchorBox.xy1.x, this._anchorBox.xy1.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.rect(this._anchorBox.y1.x, this._anchorBox.y1.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.rect(this._anchorBox.xy2.x, this._anchorBox.xy2.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.rect(this._anchorBox.x1.x, this._anchorBox.x1.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.rect(this._anchorBox.x2.x, this._anchorBox.x2.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.rect(this._anchorBox.xy3.x, this._anchorBox.xy3.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.rect(this._anchorBox.y2.x, this._anchorBox.y2.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.rect(this._anchorBox.xy4.x, this._anchorBox.xy4.y, this._anchorBoxSize, this._anchorBoxSize);
+            context.stroke();
+        }
+    }
+    anchorStart() {
+        this._anchor = true;
+        this._anchorRec = { x: this.element.width * 0.1, y: this.element.height * 0.1, w: this.element.width - this.element.width * 0.2, h: this.element.height - this.element.height * 0.2 };
+        this.element.style.cursor = 'auto';
+        this.refresh();
+    }
+    anchorStop() {
+        this._anchor = false;
+        this.element.style.cursor = this.canPan ? 'grab' : 'auto';
+        this.refresh();
+    }
+    anchorStartMouse(x, y) {
+        this.anchorSetSizeMode(x, y);
+        this._anchorIsDown = true;
+        this.refresh();
+    }
+    anchorSetSizeMode(x, y) {
+        this._anchorSizeMode = '';
+        let y1 = this._anchorBox.y1.y - this._anchorBoxSize / 2;
+        let y2 = this._anchorBox.y2.y - this._anchorBoxSize / 2;
+        let x1 = this._anchorBox.x1.x - this._anchorBoxSize / 2;
+        let x2 = this._anchorBox.x2.x - this._anchorBoxSize / 2;
+        let y1e = y1 + this._anchorBoxSize * 2;
+        let y2e = y2 + this._anchorBoxSize * 2;
+        let x1e = x1 + this._anchorBoxSize * 2;
+        let x2e = x2 + this._anchorBoxSize * 2;
+        if (y >= y1 && y <= y1e && x >= x1 && x <= x2e) {
+            this._anchorSizeMode = 'y1';
+        }
+        else if (y >= y2 && y <= y2e && x >= x1 && x <= x2e) {
+            this._anchorSizeMode = 'y2';
+        }
+        if (x >= x1 && x <= x1e) {
+            if (y >= y1 && y <= y1e) {
+                this._anchorSizeMode = 'xy1';
+            }
+            else if (y >= y2 && y <= y2e) {
+                this._anchorSizeMode = 'xy3';
+            }
+            else if (y >= y1 && y <= y2e)
+                this._anchorSizeMode = 'x1';
+        }
+        else if (x >= x2 && x <= x2e) {
+            if (y >= y1 && y <= y1e) {
+                this._anchorSizeMode = 'xy2';
+            }
+            else if (y >= y2 && y <= y2e) {
+                this._anchorSizeMode = 'xy4';
+            }
+            else if (y >= y1 && y <= y2e)
+                this._anchorSizeMode = 'x2';
+        }
+        else if (x > x1e && x < x2 && y > y1e && y < y2) {
+            this._anchorSizeMode = 'xy';
+        }
+    }
+    crop() {
+        if (this._anchor == false)
+            return;
+        this._anchor = false;
+        this.element.style.cursor = this.canPan ? 'grab' : 'auto';
+        this.anchorSetSizeMode(0, 0);
+        let x = this._anchorRec.x - (this.x + (this._Image.width / 2 * this._scale));
+        let y = this._anchorRec.y - (this.y + (this._Image.height / 2 * this._scale));
+        let w = this._anchorRec.w;
+        let h = this._anchorRec.h;
+        x = Math.round(x / this._scale);
+        y = Math.round(y / this._scale);
+        w = Math.round(w / this._scale);
+        h = Math.round(h / this._scale);
+        if (x < 0)
+            x = 0;
+        if (y < 0)
+            y = 0;
+        if (x + w > this._Image.width)
+            w = this._Image.width - x;
+        if (y + h > this._Image.height)
+            h = this._Image.height - y;
+        this.tmpContext.reset();
+        this.tmpImage.width = w;
+        this.tmpImage.height = h;
+        this.tmpContext.setTransform(1, 0, 0, 1, 0, 0);
+        this.tmpContext.drawImage(this._Image, x, y, w, h, 0, 0, w, h);
+        this.load(this.tmpImage.toDataURL('image/png'));
+    }
+    _divCamera;
+    _videoCamera;
+    createCameraArea() {
+        if (!this._divCamera) {
+            this._divCamera = document.createElement('div');
+            this._divCamera.className = 'camera';
+            this.element.parentElement.appendChild(this._divCamera);
+        }
+        let rect = this.element.getBoundingClientRect();
+        this._divCamera.style.left = rect.x + 'px';
+        this._divCamera.style.top = rect.y + 'px';
+        this._divCamera.style.width = rect.width + 'px';
+        this._divCamera.style.height = rect.height + 'px';
+        window.addEventListener("scroll", () => {
+            let rect = this.element.getBoundingClientRect();
+            this._divCamera.style.left = rect.x + 'px';
+            this._divCamera.style.top = rect.y + 'px';
+            this._divCamera.style.width = rect.width + 'px';
+            this._divCamera.style.height = rect.height + 'px';
+        });
+        if (!this._videoCamera) {
+            this._videoCamera = document.createElement('video');
+            this._videoCamera.addEventListener("click", () => {
+                if (!this.tmpImage) {
+                    this.tmpImage = document.createElement('canvas');
+                    this.tmpContext = this.tmpImage.getContext('2d');
+                }
+                this.tmpImage.width = this._videoCamera.videoWidth;
+                this.tmpImage.height = this._videoCamera.videoHeight;
+                this.tmpContext.drawImage(this._videoCamera, 0, 0, this.tmpImage.width, this.tmpImage.height);
+                this.load(this.tmpImage.toDataURL('image/png'));
+                this.stopCamera();
+            });
+            this._videoCamera.onloadedmetadata = async () => {
+                this._videoCamera.play();
+                this._divCamera.classList.add('show');
+            };
+            this._divCamera.appendChild(this._videoCamera);
+        }
+        let cameraSwitch = this._divCamera.querySelector('.switch');
+        if (!cameraSwitch) {
+            cameraSwitch = document.createElement('button');
+            cameraSwitch.className = 'switch';
+            cameraSwitch.onclick = () => {
+                if (this._videoCamera.srcObject) {
+                    if (this._cameraDeviceId.length < 2)
+                        return;
+                    let idx = this._cameraDeviceId.indexOf(this._cameraOldId);
+                    if (idx != -1)
+                        idx++;
+                    if (idx >= this._cameraDeviceId.length)
+                        idx = 0;
+                    this.stopCamera();
+                    this.startCamera(this._cameraDeviceId[idx]);
+                }
+            };
+            this._divCamera.appendChild(cameraSwitch);
+        }
+        if (this._cameraDeviceId.length < 2)
+            cameraSwitch.style.display = 'none';
+        else
+            cameraSwitch.style.display = '';
+        let cameraBack = this._divCamera.querySelector('.back');
+        if (!cameraBack) {
+            cameraBack = document.createElement('button');
+            cameraBack.className = 'back';
+            cameraBack.onclick = () => {
+                this.stopCamera();
+            };
+            this._divCamera.appendChild(cameraBack);
+        }
+    }
+    _cameraDeviceId = [];
+    _cameraOldId = '';
+    async stopCamera() {
+        this._videoCamera.srcObject.getTracks().forEach(function (track) {
+            track.stop();
+        });
+        this._videoCamera.srcObject = null;
+        this._divCamera.classList.remove('show');
+    }
+    async startCamera(id) {
+        if (this._cameraDeviceId.length == 0) {
+            await navigator.mediaDevices.enumerateDevices().then((devices) => devices.forEach((x) => {
+                if (x.kind == "videoinput")
+                    this._cameraDeviceId.push(x.deviceId);
+            }));
+        }
+        let option = { audio: false, video: { facingMode: "user" } };
+        if (id == undefined && this._cameraOldId != '')
+            id = this._cameraOldId;
+        if (id)
+            option = { audio: false, video: { deviceId: id } };
+        await navigator.mediaDevices.getUserMedia(option)
+            .then((stream) => {
+            this.createCameraArea();
+            this._cameraOldId = stream.getVideoTracks()[0]?.getSettings()?.deviceId;
+            this._videoCamera.srcObject = stream;
+        })
+            .catch((error) => {
+            console.error("Error accessing the camera: ", error);
+        });
+    }
+    _saveImage;
+    save() {
+        if (!this._saveImage)
+            this._saveImage = document.createElement('canvas');
+        let x = 0;
+        let y = 0;
+        let w = this.element.width;
+        let h = this.element.height;
+        let oldMask = this.mask;
+        this.mask = '';
+        let mp = oldMask.split(',');
+        if (mp[0].trim().toLowerCase() == 'circle') {
+            let r = WNparseNumber(mp[1], 32);
+            x = this.element.width / 2 - r;
+            y = this.element.height / 2 - r;
+            w = r * 2;
+            h = r * 2;
+        }
+        else if (mp[0].trim().toLowerCase() == 'rect') {
+            if (mp.length == 2)
+                mp.push(mp[1]);
+            w = WNparseNumber(mp[1], 32);
+            h = WNparseNumber(mp[2], 32);
+            x = this.element.width / 2 - w / 2;
+            y = this.element.height / 2 - h / 2;
+        }
+        this._saveImage.width = w;
+        this._saveImage.height = h;
+        let ctx = this._saveImage.getContext("2d");
+        ctx.drawImage(this.element, x, y, w, h, 0, 0, w, h);
+        this.mask = oldMask;
+        return this._saveImage.toDataURL('image/png');
     }
 }
 class WNLightbox {
@@ -6680,17 +7530,12 @@ class WNList {
     }
     _selectedItem = null;
     get selectedItem() { return this._selectedItem; }
-    ;
     set selectedItem(value) { this.select(value); }
-    ;
     get selectedValue() { return this._selectedItem?.value; }
-    ;
     set selectedValue(value) {
         this.findByValue(value, true);
     }
-    ;
     get selectedIndex() { return this.selectedItem?.index ?? -1; }
-    ;
     set selectedIndex(value) {
         let f = this.dataSource.find(x => x.index == value);
         if (f)
@@ -6698,7 +7543,6 @@ class WNList {
         else
             this.select(null);
     }
-    ;
     get checkedItems() {
         let ret = [];
         for (var i = 0; i < this.dataSource.length; i++) {
@@ -6708,7 +7552,6 @@ class WNList {
         }
         return ret;
     }
-    ;
     set checkedItems(value) {
         this.checkedClear();
         for (var i = 0; i < value.length; i++) {
@@ -6717,7 +7560,6 @@ class WNList {
                 inp.checked = true;
         }
     }
-    ;
     get checkedValues() {
         let ret = [];
         let checked = this.checkedItems;
@@ -6725,7 +7567,6 @@ class WNList {
             ret.push(checked[i].value);
         return ret;
     }
-    ;
     set checkedValues(value) {
         let checked = [];
         for (var i = 0; i < value.length; i++) {
@@ -6735,7 +7576,6 @@ class WNList {
         }
         this.checkedItems = checked;
     }
-    ;
     select(node) {
         if (node == this.selectedItem)
             return;
@@ -6815,7 +7655,7 @@ class WNList {
         }
         return null;
     }
-    nodeToHtmlElement(node) {
+    nodeToHtmlElement(node, updateNode = true) {
         let item;
         if (this.element.tagName == 'UL')
             item = document.createElement('li');
@@ -6869,7 +7709,8 @@ class WNList {
             tItem.insertAdjacentElement('afterbegin', ttItem);
         }
         node.text = tItem.textContent;
-        node.element = item;
+        if (updateNode == true)
+            node.element = item;
         return item;
     }
     removeFromDataSource(node) {
@@ -6895,7 +7736,7 @@ class WNList {
         return true;
     }
     updateNodeElement(node) {
-        node.element.innerHTML = this.nodeToHtmlElement(node).innerHTML;
+        node.element.innerHTML = this.nodeToHtmlElement(node, false).innerHTML;
     }
     setDataSourceByItem(dataSource, displayFieldName, valueFieldName, linkFieldName, imageFieldName, append) {
         if (!append)
@@ -7325,14 +8166,14 @@ class WNMonthCalendar {
         calendarhead.className = 'calendar-head';
         calendarhead.dir = this.element.dir;
         let prev = document.createElement('button');
-        prev.className = 'primary previous-button';
+        prev.className = 'previous-button';
         prev.addEventListener('click', (e) => {
             this.previousMonths();
             e.stopPropagation();
         });
         calendarhead.appendChild(prev);
         let now = document.createElement('button');
-        now.className = 'secondary now-button';
+        now.className = 'now-button';
         now.addEventListener('click', (e) => {
             this.now();
             e.stopPropagation();
@@ -7342,7 +8183,7 @@ class WNMonthCalendar {
         calendarhead.appendChild(this._monthyearcaption);
         if (!this.onlyMonthYear) {
             let showMonthYear = document.createElement('button');
-            showMonthYear.className = 'dropdown-toggle secondary month-button';
+            showMonthYear.className = 'dropdown-toggle month-button';
             showMonthYear.addEventListener('click', (e) => {
                 this._rangestate = 0;
                 this._selectmonthyear.classList.toggle('hide');
@@ -7353,7 +8194,7 @@ class WNMonthCalendar {
             calendarhead.appendChild(showMonthYear);
         }
         let next = document.createElement('button');
-        next.className = 'primary next-button';
+        next.className = 'next-button';
         next.addEventListener('click', (e) => {
             this.nextMonths();
             e.stopPropagation();
@@ -8673,6 +9514,11 @@ class WNSlicker {
                         return;
                     }
                 }
+                else {
+                    this._slidesWidth[i] = this._width;
+                    el.style.width = this._slidesWidth[i] + 'px';
+                    this._totalWidth += this._slidesWidth[i];
+                }
             }
             else {
                 if (this._slidewidth != '')
@@ -8783,7 +9629,10 @@ class WNSlicker {
 class WNSticky {
     nameType = 'WNSticky';
     element;
-    position = 'top';
+    _top = 0;
+    _bottom = 0;
+    _isWindow = true;
+    _parent;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -8792,22 +9641,46 @@ class WNSticky {
         }
     }
     Init() {
-        if (this.element.classList.contains('sticky-top'))
-            this.position = 'top';
-        else if (this.element.classList.contains('sticky-bottom'))
-            this.position = 'bottom';
-        window.addEventListener('scroll', () => { this.CheckSticky(); });
+        this._parent = this.element.parentElement;
+        while (this._parent.tagName != 'BODY') {
+            let style = getComputedStyle(this._parent);
+            if (this._parent.tagName == 'BODY') {
+                break;
+            }
+            else if (style.overflowY == 'scroll') {
+                this._isWindow = false;
+                break;
+            }
+            this._parent = this._parent.parentElement;
+        }
+        if (this._isWindow) {
+            this._top = this.element.offsetTop;
+            this._bottom = this._top + this.element.clientHeight + parseInt(getComputedStyle(this.element).marginBlockEnd) + parseInt(getComputedStyle(this.element).marginBlockStart);
+            window.addEventListener('scroll', () => { this.CheckSticky(); });
+        }
+        else {
+            this._top = this.element.offsetTop - this.element.parentElement.offsetTop;
+            this._bottom = this._top + this.element.offsetHeight + parseInt(getComputedStyle(this.element).marginBlockEnd) + parseInt(getComputedStyle(this.element).marginBlockStart);
+            this._parent.addEventListener('scroll', () => { this.CheckSticky(); });
+        }
     }
     CheckSticky() {
-        let addstickyOnfly = false;
-        if (this.position == 'top' && this.element.offsetTop > this.element.clientHeight)
-            addstickyOnfly = true;
-        if (this.position == 'bottom' && (document.body.clientHeight - this.element.offsetTop) > this.element.clientHeight)
-            addstickyOnfly = true;
-        if (addstickyOnfly)
-            this.element.classList.add("sticky-onfly");
-        else
-            this.element.classList.remove("sticky-onfly");
+        let scrollTop = Math.round(this._parent.scrollTop);
+        if (this._isWindow)
+            scrollTop = window.scrollY;
+        let style = getComputedStyle(this.element);
+        if (style.top != 'auto' && style.top != '') {
+            if (this._top < scrollTop)
+                this.element.classList.add("sticky-active");
+            else
+                this.element.classList.remove("sticky-active");
+        }
+        else if (style.bottom != 'auto' && style.bottom != '') {
+            if (this._bottom > scrollTop)
+                this.element.classList.add("sticky-active");
+            else
+                this.element.classList.remove("sticky-active");
+        }
     }
 }
 class WNTab {
@@ -9849,13 +10722,13 @@ class WNTooltip {
     delay = 500;
     hideAfter = 3000;
     tooltipClass = '';
+    target;
     _events;
     get events() { return this._events; }
     set events(value) { this._events = value; this.setEvents(); }
     _lostEvents;
     get lostEvents() { return this._lostEvents; }
     set lostEvents(value) { this._lostEvents = value; this.setEvents(); }
-    _target;
     _delayHandle;
     _hideAfterhandle;
     constructor(elem) {
@@ -9866,11 +10739,11 @@ class WNTooltip {
     }
     init() {
         let text = this.element.getAttribute('wn-tooltip');
-        this._target = document.getElementById(text);
-        if (this._target != null && !this._target.classList.contains('tooltip'))
-            this._target = null;
-        if (this._target == null)
-            this.create_target(text);
+        this.target = document.getElementById(text);
+        if (this.target != null && !this.target.classList.contains('tooltip'))
+            this.target = null;
+        if (this.target == null)
+            this.createtarget(text);
         if (this.element.hasAttribute('wn-tooltip-delay'))
             this.delay = WNparseNumber(this.element.getAttribute('wn-tooltip-delay'), 500);
         if (this.element.hasAttribute('wn-tooltip-hideAfter'))
@@ -9889,18 +10762,18 @@ class WNTooltip {
         }
         this.setEvents();
     }
-    create_target(content) {
-        this._target = document.createElement('div');
-        this._target.className = 'tooltip tooltip-arrow-bottom';
-        this._target.innerHTML = content;
+    createtarget(content) {
+        this.target = document.createElement('div');
+        this.target.className = 'tooltip tooltip-arrow-bottom';
+        this.target.innerHTML = content;
         if (this.element.hasAttribute('wn-tooltip-class')) {
             let t = this.element.getAttribute('wn-tooltip-class');
             if (t.includes('tooltip-arrow'))
-                this._target.className = 'tooltip';
-            this._target.className += ' ' + t;
+                this.target.className = 'tooltip';
+            this.target.className += ' ' + t;
         }
-        this._target.setAttribute('dir', this.element.dir);
-        this.element.after(this._target);
+        this.target.setAttribute('dir', this.element.dir);
+        this.element.after(this.target);
     }
     setEvents() {
         if (this.events != null) {
@@ -9917,8 +10790,8 @@ class WNTooltip {
                 this.element.addEventListener(e.trim(), () => { this.hide(); });
             });
         }
-        window.addEventListener("scroll", () => { this._target.classList.remove('show'); });
-        window.addEventListener("resize", () => { this._target.classList.remove('show'); });
+        window.addEventListener("scroll", () => { this.target.classList.remove('show'); });
+        window.addEventListener("resize", () => { this.target.classList.remove('show'); });
     }
     autoShow() {
         this._delayHandle = setTimeout(() => {
@@ -9930,26 +10803,26 @@ class WNTooltip {
         }, this.delay);
     }
     show() {
-        if (this._target.classList.contains('show'))
+        if (this.target.classList.contains('show'))
             return;
-        this._target.className = 'tooltip ' + this.tooltipClass;
+        this.target.className = 'tooltip ' + this.tooltipClass;
         let param = { fit: false, direction: '' };
         param.direction = 'top';
-        if (this._target.classList.contains('tooltip-arrow-bottom'))
+        if (this.target.classList.contains('tooltip-arrow-bottom'))
             param.direction = 'top';
-        else if (this._target.classList.contains('tooltip-arrow-top'))
+        else if (this.target.classList.contains('tooltip-arrow-top'))
             param.direction = 'bottom';
-        else if (this._target.classList.contains('tooltip-arrow-start'))
+        else if (this.target.classList.contains('tooltip-arrow-start'))
             param.direction = 'start';
-        else if (this._target.classList.contains('tooltip-arrow-end'))
+        else if (this.target.classList.contains('tooltip-arrow-end'))
             param.direction = 'end';
-        WNSetElementPosition(this._target, this.element, param);
-        this._target.classList.add('show');
+        WNSetElementPosition(this.target, this.element, param);
+        this.target.classList.add('show');
     }
     hide() {
         clearTimeout(this._hideAfterhandle);
         clearTimeout(this._delayHandle);
-        this._target.classList.remove('show');
+        this.target?.classList.remove('show');
     }
 }
 function WNTooltipAssign(elem) {

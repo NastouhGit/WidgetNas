@@ -1,7 +1,7 @@
 function wnabout() {
     return `
  +--------------------------------------+
- | Widgetnas Version: 2.0.0.4           |
+ | Widgetnas Version: 2.0.1.5           |
  +--------------------------------------+
 `;
 }
@@ -1826,6 +1826,12 @@ function WNparseNumber(value, Default, culture = wnConfig.cultureInfo) {
     value = WNDenativeDigit(value, culture);
     return parseInt(value);
 }
+function WNparseFloat(value, Default, culture = wnConfig.cultureInfo) {
+    if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
+        return Default;
+    value = WNDenativeDigit(value, culture);
+    return parseFloat(value);
+}
 function WNparseString(value, Default) {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
@@ -2382,6 +2388,15 @@ function CheckBrowserCompatibility() {
     let objbrowserName = '';
     let objfullVersion = '';
     let objBrMajorVersion = 0;
+    let mobile = false;
+    let OS = 'Windows';
+    let objAgentL = objAgent.toLowerCase();
+    mobile = (objAgentL.indexOf("android") != -1) ||
+        (objAgentL.indexOf("iphone") != -1) ||
+        (objAgentL.indexOf("ipad") != -1);
+    OS = (objAgentL.indexOf("android") != -1) ? 'Android' :
+        (objAgentL.indexOf("iphone") != -1) ? 'iOS' :
+            (objAgentL.indexOf("ipad") != -1) ? 'iOS' : 'Windows';
     let objOffsetName, objOffsetVersion, ix;
     if ((objOffsetVersion = objAgent.indexOf("Chrome")) != -1) {
         objbrowserName = "Chrome";
@@ -2412,15 +2427,29 @@ function CheckBrowserCompatibility() {
         objfullVersion = objfullVersion.substring(0, ix);
     if ((ix = objfullVersion.indexOf(" ")) != -1)
         objfullVersion = objfullVersion.substring(0, ix);
-    objBrMajorVersion = parseInt('' + objfullVersion, 10);
+    objBrMajorVersion = WNparseFloat('' + objfullVersion, 10);
     if (isNaN(objBrMajorVersion)) {
         objfullVersion = '1.0';
         objBrMajorVersion = 0;
     }
     let error = true;
-    if (objbrowserName == 'Chrome' && objBrMajorVersion >= 89)
+    if (!mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
         error = false;
-    else if (objbrowserName == 'Firefox' && objBrMajorVersion >= 5)
+    else if (mobile && objbrowserName == 'Chrome' && objBrMajorVersion >= 69)
+        error = false;
+    else if (!mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (mobile && objbrowserName == 'Firefox' && objBrMajorVersion >= 41)
+        error = false;
+    else if (!mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.1)
+        error = false;
+    else if (mobile && objbrowserName == 'Safari' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Android' && objBrMajorVersion >= 69)
+        error = false;
+    else if (OS == 'iOS' && objBrMajorVersion >= 12.2)
+        error = false;
+    else if (OS == 'Windows' && objBrMajorVersion >= 79)
         error = false;
     if (error)
         document.body.innerHTML = `<div class='alert warning'>` + wnConfig.language["common"]["browsererror"] + ' ' + objbrowserName + ':' + objBrMajorVersion + `</div>` + document.body.innerHTML;
@@ -2494,33 +2523,59 @@ class WNAccordion {
             return null;
         return this.items[this._selectedIndex];
     }
-    ;
     set selectedItem(value) {
+        if (value.head.classList.contains('collapsed'))
+            value.head.classList.remove('collapsed');
+        if (value.body.classList.contains('accordion-collapse'))
+            value.body.classList.remove('accordion-collapse');
         for (var i = 0; i < this.items.length; i++) {
-            if (this.items[i].body == value.body && this.items[i].head == value.head) {
-                this.selectedIndex = i;
-                break;
+            if (value.head.id != '') {
+                if (this.items[i].head.id == value.head.id) {
+                    this.selectedIndex = i;
+                    break;
+                }
+            }
+            else if (value.body.id != '') {
+                if (this.items[i].body.id == value.body.id) {
+                    this.selectedIndex = i;
+                    break;
+                }
+            }
+            else {
+                if (this.items[i].head.classList.contains('collapsed'))
+                    this.items[i].head.classList.remove('collapsed');
+                if (this.items[i].body.classList.contains('accordion-collapse'))
+                    this.items[i].body.classList.remove('accordion-collapse');
+                if (this.items[i].body == value.body && this.items[i].head == value.head) {
+                    this.selectedIndex = i;
+                    break;
+                }
             }
         }
     }
-    ;
     _selectedIndex = -1;
     get selectedIndex() { return this._selectedIndex; }
-    ;
     set selectedIndex(value) {
         if (value < 0)
             value = -1;
         if (value >= this.items.length)
             value = this.items.length - 1;
-        if (this.beforeCollapse && this.beforeCollapse(this, value) != false)
+        let isCollapsed = this.items[value]?.head.classList.contains('collapsed');
+        if (isCollapsed && this.beforeCollapse && this.beforeCollapse(this, value) != false)
+            return;
+        if (!isCollapsed && this.beforeExpand && this.beforeExpand(this, value) != false)
             return;
         this._selectedIndex = value;
         this.setCollapse();
-        this.afterCollapse?.(this, value);
+        if (isCollapsed)
+            this.afterCollapse?.(this, value);
+        else
+            this.afterExpand?.(this, value);
     }
-    ;
     beforeCollapse;
     afterCollapse;
+    beforeExpand;
+    afterExpand;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -2529,7 +2584,6 @@ class WNAccordion {
     }
     init() {
         this.items = [];
-        let index = 0;
         this.element.querySelectorAll('.accordion-item').forEach((x) => {
             let head = x.querySelector('.accordion-header');
             let body = x.querySelector('.accordion-body');
@@ -2543,18 +2597,50 @@ class WNAccordion {
                     body.className = 'accordion-body';
                     head.after(body);
                 }
-                head.setAttribute('index', index.toString());
-                head.addEventListener("click", (e) => {
-                    this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
-                });
-                this.items.push({ head: head, body: body });
-                index++;
             }
+            head.setAttribute('index', this.items.length.toString());
+            head.onclick = (e) => {
+                this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
+            };
+            this.items.push({ head: head, body: body });
         });
         if (this.element.hasAttribute('mode'))
             this.mode = this.element.getAttribute('mode') == 'multiple' ? AccordionMode.multiple : AccordionMode.single;
         if (this.element.hasAttribute('selected-index'))
             this.selectedIndex = WNparseNumber(this.element.getAttribute('selected-index'));
+    }
+    addItem(head, body, collapsed = false) {
+        let accordion_item = document.createElement('div');
+        accordion_item.className = 'accordion-item';
+        if (!head.classList.contains('accordion-header'))
+            head.classList.add('accordion-header');
+        head.type = "button";
+        if (!body.classList.contains('accordion-body'))
+            body.classList.add('accordion-body');
+        if (this.mode == 'single' || collapsed) {
+            if (!head.classList.contains('collapsed'))
+                head.classList.add('collapsed');
+            if (!body.classList.contains('accordion-collapse'))
+                body.classList.add('accordion-collapse');
+        }
+        accordion_item.appendChild(head);
+        accordion_item.appendChild(body);
+        this.element.appendChild(accordion_item);
+        head.setAttribute('index', this.items.length.toString());
+        head.onclick = (e) => {
+            this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
+        };
+        this.items.push({ head: head, body: body });
+    }
+    addItemByHtmlText(caption, body, collapsed = false) {
+        let head = document.createElement('button');
+        head.className = 'accordion-header ' + (this.mode == 'single' || collapsed ? 'collapsed' : '');
+        head.type = 'button';
+        head.innerHTML = caption;
+        let ebody = document.createElement('div');
+        ebody.className = 'accordion-body ' + (this.mode == 'single' || collapsed ? 'accordion-collapse' : '');
+        ebody.innerHTML = body;
+        this.addItem(head, ebody);
     }
     setCollapse() {
         if (this.mode == AccordionMode.single) {
@@ -2573,6 +2659,13 @@ class WNAccordion {
                 this.items[this.selectedIndex].body.classList.toggle('accordion-collapse');
             }
         }
+    }
+    clear() {
+        this.items?.forEach(x => {
+            x.head.onclick = null;
+            x.head.parentElement.remove();
+        });
+        this.items = [];
     }
 }
 class WNCaptcha {
@@ -2991,6 +3084,7 @@ class WNConfirm {
     bodyClass = '';
     footerClass = '';
     showClass = "animation zoomIn";
+    customModal = "";
     closeButton = true;
     values = {};
     parentElement = document.body;
@@ -3014,48 +3108,73 @@ class WNConfirm {
         if (typeof (this.body) == 'object') {
             this.body = this.body.outerHTML;
         }
-        this.element = document.createElement("div");
-        this.element.className = `modal darkback ${this.modalClass}`;
-        this.element.setAttribute("showClass", this.showClass);
-        let modaldialog = document.createElement('div');
-        modaldialog.className = "modal-dialog";
-        modaldialog.innerHTML = `
+        let modaldialog;
+        if (this.modal == null) {
+            if (this.customModal == '') {
+                this.element = document.createElement("div");
+                this.element.className = `modal darkback ${this.modalClass}`;
+                this.element.setAttribute("showClass", this.showClass);
+                modaldialog = document.createElement('div');
+                modaldialog.className = "modal-dialog";
+                modaldialog.innerHTML = `
         <div class="modal-header ${this.headClass}">
             <h5 class="modal-title">${this.title}</h5>` +
-            (this.closeButton ? `<button class="close" close-parent=""></button>` : '') +
-            `</div>
+                    (this.closeButton ? `<button class="close" close-parent=""></button>` : '') +
+                    `</div>
         <div class="modal-body ${this.bodyClass}">
             ${this.body}
         </div>`;
-        let footer = document.createElement('div');
-        footer.className = `modal-footer  ${this.footerClass}`;
-        for (var i = 0; i < this.buttons.length; i++) {
-            let btn = document.createElement("button");
-            btn.className = this.buttons[i].class ?? '';
-            btn.innerHTML = this.buttons[i].caption ?? '';
-            let click = this.buttons[i]?.click;
-            btn.onclick = async () => {
-                if (click != null) {
-                    let r = await click(this);
-                    if (r == undefined || r == true) {
-                        this.modal.hide();
-                        this.element.remove();
+                let footer = document.createElement('div');
+                footer.className = `modal-footer  ${this.footerClass}`;
+                for (var i = 0; i < this.buttons.length; i++) {
+                    let btn = document.createElement("button");
+                    btn.className = this.buttons[i].class ?? '';
+                    btn.innerHTML = this.buttons[i].caption ?? '';
+                    let click = this.buttons[i]?.click;
+                    btn.onclick = async () => {
+                        if (click != null) {
+                            let r = await click(this);
+                            if (r == undefined || r == true) {
+                                this.modal.hide();
+                                this.element.remove();
+                            }
+                        }
+                        else {
+                            this.modal.hide();
+                            this.element.remove();
+                        }
+                    };
+                    footer.appendChild(btn);
+                }
+                modaldialog.appendChild(footer);
+                this.element.appendChild(modaldialog);
+                this.parentElement.appendChild(this.element);
+                this.modal = new WNModal(this.element);
+            }
+            else {
+                this.modal = WN(this.customModal).wn;
+                for (var i = 0; i < this.buttons.length; i++) {
+                    if (this.buttons[i].id != '') {
+                        let button = this.buttons[i];
+                        let btn = document.getElementById(this.buttons[i].id);
+                        if (btn) {
+                            if (button.click != null)
+                                btn.onclick = async () => {
+                                    let r = await button.click(this);
+                                    if (r == undefined || r == true) {
+                                        this.modal.hide();
+                                    }
+                                };
+                            else {
+                                btn.onclick = async () => {
+                                    this.modal.hide();
+                                };
+                            }
+                        }
                     }
                 }
-                else {
-                    this.modal.hide();
-                    this.element.remove();
-                }
-            };
-            footer.appendChild(btn);
+            }
         }
-        modaldialog.appendChild(footer);
-        this.element.appendChild(modaldialog);
-        this.parentElement.appendChild(this.element);
-        if (this.modal == null)
-            this.modal = new WNModal(this.element);
-        else
-            this.modal.element = this.element;
         await this.modal.show();
         modaldialog.focus();
     }
@@ -3874,11 +3993,12 @@ class WNEditor {
     isSelectionInTag(tag) {
         tag = tag.toUpperCase();
         let currentNode = window.getSelection().focusNode;
-        while (!currentNode.classList?.contains('editor-content')) {
-            if (currentNode.tagName == tag)
-                return true;
-            currentNode = currentNode.parentNode;
-        }
+        if (currentNode != null)
+            while (!currentNode?.classList?.contains('editor-content')) {
+                if (currentNode.tagName == tag)
+                    return true;
+                currentNode = currentNode.parentNode;
+            }
         return false;
     }
     execCommand(cmd, value = null) {
@@ -3900,13 +4020,14 @@ class WNEditor {
     }
     getParentTagSelection() {
         let currentNode = window.getSelection().focusNode;
-        for (var i = 0; i < 2; i++) {
-            if (!currentNode?.classList?.contains('editor-content')) {
-                if (currentNode.tagName != undefined)
-                    return currentNode;
-                currentNode = currentNode.parentNode;
+        if (currentNode != null)
+            for (var i = 0; i < 2; i++) {
+                if (!currentNode?.classList?.contains('editor-content')) {
+                    if (currentNode.tagName != undefined)
+                        return currentNode;
+                    currentNode = currentNode.parentNode;
+                }
             }
-        }
         return null;
     }
     setSelectionStyle(prop, value = null, toggle, getParentTag = false) {
@@ -4359,13 +4480,14 @@ class WNEditor {
         if (this._insertMedia == undefined)
             this.createMediaObject();
         let elem = this.getParentTagSelection();
-        if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
-            let elemVideo = elem.querySelector('video');
-            if (elemVideo == null)
-                elem = elem.querySelector('audio');
-            else
-                elem = elemVideo;
-        }
+        if (elem)
+            if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
+                let elemVideo = elem.querySelector('video');
+                if (elemVideo == null)
+                    elem = elem.querySelector('audio');
+                else
+                    elem = elemVideo;
+            }
         this._insertMediaType.value = 'video';
         this._insertMediaUrl.value = '';
         this._insertMediaWidth.value = '';
@@ -5622,7 +5744,7 @@ class WNFileList {
             this.element.ondblclick = null;
         }
         this._lang = WNLanguage[this._date.cultureInfo.twoLetterISOLanguageName];
-        if (!this.element.classList.contains('filelist'))
+        if (this.element.className == '')
             this.element.classList.add('filelist');
         this.mode = this.element.getAttribute('mode').toLowerCase() ?? 'select';
         this.multiSelect = WNparseBoolean(this.element.getAttribute('multi-select'), false);
@@ -6680,17 +6802,12 @@ class WNList {
     }
     _selectedItem = null;
     get selectedItem() { return this._selectedItem; }
-    ;
     set selectedItem(value) { this.select(value); }
-    ;
     get selectedValue() { return this._selectedItem?.value; }
-    ;
     set selectedValue(value) {
         this.findByValue(value, true);
     }
-    ;
     get selectedIndex() { return this.selectedItem?.index ?? -1; }
-    ;
     set selectedIndex(value) {
         let f = this.dataSource.find(x => x.index == value);
         if (f)
@@ -6698,7 +6815,6 @@ class WNList {
         else
             this.select(null);
     }
-    ;
     get checkedItems() {
         let ret = [];
         for (var i = 0; i < this.dataSource.length; i++) {
@@ -6708,7 +6824,6 @@ class WNList {
         }
         return ret;
     }
-    ;
     set checkedItems(value) {
         this.checkedClear();
         for (var i = 0; i < value.length; i++) {
@@ -6717,7 +6832,6 @@ class WNList {
                 inp.checked = true;
         }
     }
-    ;
     get checkedValues() {
         let ret = [];
         let checked = this.checkedItems;
@@ -6725,7 +6839,6 @@ class WNList {
             ret.push(checked[i].value);
         return ret;
     }
-    ;
     set checkedValues(value) {
         let checked = [];
         for (var i = 0; i < value.length; i++) {
@@ -6735,7 +6848,6 @@ class WNList {
         }
         this.checkedItems = checked;
     }
-    ;
     select(node) {
         if (node == this.selectedItem)
             return;
@@ -6815,7 +6927,7 @@ class WNList {
         }
         return null;
     }
-    nodeToHtmlElement(node) {
+    nodeToHtmlElement(node, updateNode = true) {
         let item;
         if (this.element.tagName == 'UL')
             item = document.createElement('li');
@@ -6869,7 +6981,8 @@ class WNList {
             tItem.insertAdjacentElement('afterbegin', ttItem);
         }
         node.text = tItem.textContent;
-        node.element = item;
+        if (updateNode == true)
+            node.element = item;
         return item;
     }
     removeFromDataSource(node) {
@@ -6895,7 +7008,7 @@ class WNList {
         return true;
     }
     updateNodeElement(node) {
-        node.element.innerHTML = this.nodeToHtmlElement(node).innerHTML;
+        node.element.innerHTML = this.nodeToHtmlElement(node, false).innerHTML;
     }
     setDataSourceByItem(dataSource, displayFieldName, valueFieldName, linkFieldName, imageFieldName, append) {
         if (!append)
@@ -7325,14 +7438,14 @@ class WNMonthCalendar {
         calendarhead.className = 'calendar-head';
         calendarhead.dir = this.element.dir;
         let prev = document.createElement('button');
-        prev.className = 'primary previous-button';
+        prev.className = 'previous-button';
         prev.addEventListener('click', (e) => {
             this.previousMonths();
             e.stopPropagation();
         });
         calendarhead.appendChild(prev);
         let now = document.createElement('button');
-        now.className = 'secondary now-button';
+        now.className = 'now-button';
         now.addEventListener('click', (e) => {
             this.now();
             e.stopPropagation();
@@ -7342,7 +7455,7 @@ class WNMonthCalendar {
         calendarhead.appendChild(this._monthyearcaption);
         if (!this.onlyMonthYear) {
             let showMonthYear = document.createElement('button');
-            showMonthYear.className = 'dropdown-toggle secondary month-button';
+            showMonthYear.className = 'dropdown-toggle month-button';
             showMonthYear.addEventListener('click', (e) => {
                 this._rangestate = 0;
                 this._selectmonthyear.classList.toggle('hide');
@@ -7353,7 +7466,7 @@ class WNMonthCalendar {
             calendarhead.appendChild(showMonthYear);
         }
         let next = document.createElement('button');
-        next.className = 'primary next-button';
+        next.className = 'next-button';
         next.addEventListener('click', (e) => {
             this.nextMonths();
             e.stopPropagation();
@@ -8673,6 +8786,11 @@ class WNSlicker {
                         return;
                     }
                 }
+                else {
+                    this._slidesWidth[i] = this._width;
+                    el.style.width = this._slidesWidth[i] + 'px';
+                    this._totalWidth += this._slidesWidth[i];
+                }
             }
             else {
                 if (this._slidewidth != '')
@@ -9849,13 +9967,13 @@ class WNTooltip {
     delay = 500;
     hideAfter = 3000;
     tooltipClass = '';
+    target;
     _events;
     get events() { return this._events; }
     set events(value) { this._events = value; this.setEvents(); }
     _lostEvents;
     get lostEvents() { return this._lostEvents; }
     set lostEvents(value) { this._lostEvents = value; this.setEvents(); }
-    _target;
     _delayHandle;
     _hideAfterhandle;
     constructor(elem) {
@@ -9866,11 +9984,11 @@ class WNTooltip {
     }
     init() {
         let text = this.element.getAttribute('wn-tooltip');
-        this._target = document.getElementById(text);
-        if (this._target != null && !this._target.classList.contains('tooltip'))
-            this._target = null;
-        if (this._target == null)
-            this.create_target(text);
+        this.target = document.getElementById(text);
+        if (this.target != null && !this.target.classList.contains('tooltip'))
+            this.target = null;
+        if (this.target == null)
+            this.createtarget(text);
         if (this.element.hasAttribute('wn-tooltip-delay'))
             this.delay = WNparseNumber(this.element.getAttribute('wn-tooltip-delay'), 500);
         if (this.element.hasAttribute('wn-tooltip-hideAfter'))
@@ -9889,18 +10007,18 @@ class WNTooltip {
         }
         this.setEvents();
     }
-    create_target(content) {
-        this._target = document.createElement('div');
-        this._target.className = 'tooltip tooltip-arrow-bottom';
-        this._target.innerHTML = content;
+    createtarget(content) {
+        this.target = document.createElement('div');
+        this.target.className = 'tooltip tooltip-arrow-bottom';
+        this.target.innerHTML = content;
         if (this.element.hasAttribute('wn-tooltip-class')) {
             let t = this.element.getAttribute('wn-tooltip-class');
             if (t.includes('tooltip-arrow'))
-                this._target.className = 'tooltip';
-            this._target.className += ' ' + t;
+                this.target.className = 'tooltip';
+            this.target.className += ' ' + t;
         }
-        this._target.setAttribute('dir', this.element.dir);
-        this.element.after(this._target);
+        this.target.setAttribute('dir', this.element.dir);
+        this.element.after(this.target);
     }
     setEvents() {
         if (this.events != null) {
@@ -9917,8 +10035,8 @@ class WNTooltip {
                 this.element.addEventListener(e.trim(), () => { this.hide(); });
             });
         }
-        window.addEventListener("scroll", () => { this._target.classList.remove('show'); });
-        window.addEventListener("resize", () => { this._target.classList.remove('show'); });
+        window.addEventListener("scroll", () => { this.target.classList.remove('show'); });
+        window.addEventListener("resize", () => { this.target.classList.remove('show'); });
     }
     autoShow() {
         this._delayHandle = setTimeout(() => {
@@ -9930,26 +10048,26 @@ class WNTooltip {
         }, this.delay);
     }
     show() {
-        if (this._target.classList.contains('show'))
+        if (this.target.classList.contains('show'))
             return;
-        this._target.className = 'tooltip ' + this.tooltipClass;
+        this.target.className = 'tooltip ' + this.tooltipClass;
         let param = { fit: false, direction: '' };
         param.direction = 'top';
-        if (this._target.classList.contains('tooltip-arrow-bottom'))
+        if (this.target.classList.contains('tooltip-arrow-bottom'))
             param.direction = 'top';
-        else if (this._target.classList.contains('tooltip-arrow-top'))
+        else if (this.target.classList.contains('tooltip-arrow-top'))
             param.direction = 'bottom';
-        else if (this._target.classList.contains('tooltip-arrow-start'))
+        else if (this.target.classList.contains('tooltip-arrow-start'))
             param.direction = 'start';
-        else if (this._target.classList.contains('tooltip-arrow-end'))
+        else if (this.target.classList.contains('tooltip-arrow-end'))
             param.direction = 'end';
-        WNSetElementPosition(this._target, this.element, param);
-        this._target.classList.add('show');
+        WNSetElementPosition(this.target, this.element, param);
+        this.target.classList.add('show');
     }
     hide() {
         clearTimeout(this._hideAfterhandle);
         clearTimeout(this._delayHandle);
-        this._target.classList.remove('show');
+        this.target?.classList.remove('show');
     }
 }
 function WNTooltipAssign(elem) {

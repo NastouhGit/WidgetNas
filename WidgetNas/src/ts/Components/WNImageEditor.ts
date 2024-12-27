@@ -38,7 +38,6 @@
     private _anchorIsDown = false;
 
     private isActive = false;
-
     public x: number = undefined;
     public y: number = undefined;
 
@@ -76,27 +75,32 @@
         if (this.element.hasAttribute('src')) {
             this.load(this.element.getAttribute('src'));
         }
-
+        this.element.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            this.mousedown(e.touches[0].clientX, e.touches[0].clientY);
+        });
         this.element.addEventListener("mousedown", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            [this.startX, this.startY] = this.translateMouse(e);
 
-            if (this._anchor == true) {
-                this.anchorStartMouse(this.startX, this.startY);
-            }
-            else if (this.canPan == true) {
-                this.isDown = true;
-                this.element.style.cursor = 'grabbing';
-            }
+            this.mousedown(e.clientX, e.clientY);
         });
 
+        this.element.addEventListener("touchend", (e) => { this.mouseup(e); });
+        this.element.addEventListener("touchcancel", (e) => { this.mouseup(e); });
         this.element.addEventListener("mouseup", (e) => this.mouseup(e));
         this.element.addEventListener("mouseout", (e) => this.mouseup(e));
+
+        this.element.addEventListener("touchmove", (e: TouchEvent) => {
+            e.preventDefault();
+            let [x, y] = this.translateMouse(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+            this.checkAnchor(x, y);
+            this.checkPan(x, y);
+        });
         this.element.addEventListener("mousemove", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            let [x, y] = this.translateMouse(e);
+            let [x, y] = this.translateMouse(e.clientX, e.clientY);
             this.checkAnchor(x, y);
             this.checkPan(x, y);
         });
@@ -104,7 +108,7 @@
         document.addEventListener("paste", (e: ClipboardEvent) => {
             if (!this.isActive) return;
             var items = (e.clipboardData).items;
-            for (let i = 0; i < items.length;i++) {
+            for (let i = 0; i < items.length; i++) {
                 var item = items[i];
                 if (item.kind === 'file') {
                     var blob = item.getAsFile();
@@ -112,13 +116,21 @@
                     let imgedit = this;
                     reader.onload = function (event) {
                         imgedit.load(event.target.result.toString())
-                    }; 
+                    };
                     reader.readAsDataURL(blob);
                 }
             }
         });
 
         if (this.canScale == true) {
+
+            this.element.addEventListener("gesturechange", (e: any) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (this._anchor == true) return;
+                this.scale += e.scale * -0.0005;
+
+            });
             this.element.addEventListener("wheel", (e: WheelEvent) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -206,13 +218,13 @@
         }
         this.refresh();
     }
-    private translateMouse(e: MouseEvent) {
+    private translateMouse(x: number, y: number) {
         let context = this.element.getContext('2d');
         let r = this.element.getBoundingClientRect();
         let scx = (context.canvas.width / r.width);
         let scy = (context.canvas.height / r.height);
-        let x = (e.clientX - r.left) * scx;
-        let y = (e.clientY - r.top) * scy;
+        x = (x - r.left) * scx;
+        y = (y - r.top) * scy;
         return [x, y];
     }
     public async load(src: string) {
@@ -241,13 +253,24 @@
         }
 
     }
+    private mousedown(x: number, y: number) {
+        [this.startX, this.startY] = this.translateMouse(x, y);
+
+        if (this._anchor == true) {
+            this.anchorStartMouse(this.startX, this.startY);
+        }
+        else if (this.canPan == true) {
+            this.isDown = true;
+            this.element.style.cursor = 'grabbing';
+        }
+    }
     private mouseup(e) {
         e.preventDefault();
         e.stopPropagation();
         if (this._anchor == true) {
             this._anchorIsDown = false;
         }
-        else if(this.canPan == true) {
+        else if (this.canPan == true) {
             this.x += this.offsetX;
             this.y += this.offsetY;
             this.offsetX = 0;
@@ -265,7 +288,7 @@
         value = Math.min(Math.max(0.125, value), 5)
         this._scale = value; this.refresh();
     }
-
+   
     public get rotate() { return this._rotate; }
     public set rotate(value: number) {
         value = Math.min(Math.max(-365, value), 365)

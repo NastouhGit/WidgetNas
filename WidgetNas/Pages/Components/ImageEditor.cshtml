@@ -234,6 +234,11 @@
         function rotate(deg){
             WN('imageEditModal').wn.rotate=deg;
         }
+        function scale(value){
+            WN('imageEditModal').wn.x=undefined;
+            WN('imageEditModal').wn.y=undefined;
+            WN('imageEditModal').wn.scale=value;
+        }
         function filter(){
             let flt=
             `
@@ -316,6 +321,10 @@
                                 <i class="fa-regular fa-rotate-left"></i>
                                 <input type="range" min="-45" max="45" value="0" oninput="rotate(this.value)" />
                                 <i class="fa-regular fa-rotate-right"></i>
+                            </div>
+                            <div class="button-group ltr align-items-center">
+                                <input type="range" min="0.125" max="5" value="1" step="0.1" oninput="scale(this.value)" />
+                                <i class="fa-regular fa-magnifying-glass"></i>
                             </div>
                         </div>
                     </div>
