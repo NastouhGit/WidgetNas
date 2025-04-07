@@ -1373,6 +1373,8 @@ class WNPersianCalendar {
         let epbase, epyear;
         epbase = Year - ((Year >= 0) ? 474 : 473);
         epyear = 474 + WNmod(epbase, 2820);
+        if (this.isLeapYear(Year - 1))
+            Day++;
         return Day +
             ((Month <= 7) ?
                 ((Month - 1) * 31) :
