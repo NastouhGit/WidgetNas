@@ -554,6 +554,7 @@ declare function WNCheckReadOnlyDisabled(element: HTMLElement, readOnly?: boolea
 declare function WNQueryString(key: string): string;
 declare function WNToBase64String(str: string): string;
 declare function WNFromBase64String(str: string): string;
+declare function WNIsStringArray(input: any[]): boolean;
 declare class WNConfig implements IWNConfig {
     nativeDigit: boolean;
     calendar: IWNCalendar;
@@ -988,6 +989,25 @@ declare class WNImageEditor implements IWNImageEditor {
     private _saveImage;
     save(): string;
 }
+declare class WNInputList implements IWNInputList {
+    readonly nameType: string;
+    element: HTMLElement;
+    beforeAdd: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterAdd: (t: IWNInputList, v: string) => void;
+    beforeSave: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterSave: (t: IWNInputList, v: string) => void;
+    beforeRemove: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterRemove: (t: IWNInputList, v: string) => void;
+    beforeOrder: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterOrder: (t: IWNInputList, v: string) => void;
+    max: number;
+    private input;
+    list: IWNList;
+    constructor(elem: HTMLElement);
+    private init;
+    get value(): string[];
+    set value(value: string[]);
+}
 declare class WNLightbox implements IWNLightbox {
     readonly nameType: string;
     element: HTMLElement;
@@ -1059,7 +1079,8 @@ declare class WNList implements IWNList {
     private clearDataSource;
     orderDataSourceByText(desc?: boolean): void;
     orderDataSourceByValue(desc?: boolean): void;
-    private redraw;
+    swap(index: number, order: number): void;
+    redraw(): void;
     private reindex;
     checkedClear(): void;
     checkedAll(): void;
@@ -1175,7 +1196,6 @@ declare class WNMultiInputPhone implements IWNMultiInputPhone {
     private cArea;
     private cNumber;
     private cExt;
-    private hiddenElemet;
     constructor(elem: HTMLElement);
     private init;
     private add;
@@ -1264,6 +1284,24 @@ declare class WNSearchList implements IWNSearchList {
     private init;
     private waitToInitList;
     private selectionchanged;
+}
+declare class WNSelect implements IWNSelect {
+    readonly nameType: string;
+    element: HTMLElement;
+    list: IWNList;
+    selectionChanged: (t: IWNSelect) => void;
+    private dropdownlist;
+    private dropdown;
+    private displayElement;
+    constructor(elem: HTMLElement);
+    private init;
+    private initDataSource;
+    private _value;
+    get value(): string;
+    set value(value: string);
+    addToDataSource(text: string, value: string): void;
+    removeFromDataSource(index: number): boolean;
+    setDataSource(dataSource: HTMLOptionElement[], append?: boolean): void;
 }
 declare class WNSlicker implements IWNSlicker {
     readonly nameType: string;
@@ -1734,6 +1772,19 @@ interface IWNImageEditor extends IWNComponent {
     startCamera(id?: string): void;
     save(): string;
 }
+interface IWNInputList extends IWNComponent {
+    value: string[];
+    beforeAdd: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterAdd: (t: IWNInputList, v: string) => void;
+    beforeSave: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterSave: (t: IWNInputList, v: string) => void;
+    beforeRemove: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterRemove: (t: IWNInputList, v: string) => void;
+    beforeOrder: (t: IWNInputList, v: string) => Promise<boolean> | boolean;
+    afterOrder: (t: IWNInputList, v: string) => void;
+    max: number;
+    list: IWNList;
+}
 interface IWNLightbox extends IWNComponent {
     loop: boolean;
     close: boolean;
@@ -1765,6 +1816,8 @@ interface IWNList extends IWNComponent {
     setDataSource(dataSource: WNListNode[], append?: boolean): void;
     orderDataSourceByText(desc?: boolean): void;
     orderDataSourceByValue(desc?: boolean): void;
+    swap(index: number, order: number): void;
+    redraw(): void;
     checkedClear(): void;
     checkedAll(): void;
     checkedInvert(): void;
@@ -2033,6 +2086,14 @@ interface IWNTreeTable extends IWNComponent {
 interface IWNValidator extends IWNComponent {
     isValid(): boolean;
     reset(): void;
+}
+interface IWNSelect extends IWNComponent {
+    value: string;
+    list: IWNList;
+    selectionChanged: (t: IWNSelect) => void;
+    addToDataSource(text: string, value: string): void;
+    removeFromDataSource(index: number): boolean;
+    setDataSource(dataSource: HTMLOptionElement[], append?: boolean): void;
 }
 interface IWNCalendar {
     readonly localeName: string;

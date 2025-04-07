@@ -42,6 +42,8 @@
         if (defaultevent !== '')
             defaultevent.split(',').forEach((s) => {
                 this.element.addEventListener(s.trim(), (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     if (this.checkOnlyDropDown) {
                         if ((e.target == this.dropdown))
                             this.toggle();

@@ -17,7 +17,8 @@
     -webkit-appearance: none;
     overflow: visible;
     vertical-align: middle;
-    transition: $transition,background-position none;
+    transition: $transition;
+    transition-property:all,background-position 0s;
     text-transform: none !important;
     cursor: pointer !important;
     fill: var(--normal-color);

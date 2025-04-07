@@ -265,7 +265,19 @@
     پارامترها:<br />
     <strong>desc</strong>: آیا از بزرگ به کوچک مرتب کند یا خیر<br />
 </p>
-
+<p>
+    <strong>swap</strong><br />
+    اگر میخواهید یک ردیف جایش را با قبلی یا بعدی جابجا کند از این تابع استفاده کنید.
+    <br />
+    پارامترها:<br />
+    <strong>index</strong>: شماره لیست مد نظر<br />
+    <strong>order</strong>: مقدار 1 برای بعدی و مقدار -1 برای قبلی<br />
+</p>
+<p>
+    <strong>redraw</strong><br />
+    اگر میخواهید دوباره لیست ساخته شود از این تابع استفاده کنید.
+    
+</p>
 <p>
     برای درک بیشتر به مثال زیر توجه کنید.
 </p>
@@ -285,6 +297,8 @@
                 <button onclick="Import(false)">Import Data</button>
                 <button onclick="Import(true)">Append Data</button>
                 <button onclick="ChangeText2();">Change Index 2 Text</button>
+                <button onclick="WN('list1').wn.swap(WN('list1').wn.selectedIndex,1)">Swap 1</button>
+                <button onclick="WN('list1').wn.swap(WN('list1').wn.selectedIndex,-1)">Swap -1</button>
             </ig>
             <ig class="group">
                 <label for="Filter1">Text</label>

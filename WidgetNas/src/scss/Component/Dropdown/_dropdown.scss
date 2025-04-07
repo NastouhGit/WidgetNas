@@ -16,7 +16,8 @@
     background-clip: padding-box;
     opacity: 0;
     visibility: hidden;
-    transition: $transition, left 0s,top 0.1s, right 0s, bottom 0.1s;
+    transition: $transition;
+    transition-property: all, left 0s,top 0.1s, right 0s, bottom 0.1s;
     box-shadow: var(--box-shadow);
     max-height: 35vh;
     max-width: 80vw;

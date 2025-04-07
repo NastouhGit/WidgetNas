@@ -21,10 +21,10 @@
         border-radius: 0;
         display: flex;
         align-items: center;
-        transition: $transition, border-block-end 0s;
+        transition: $transition;
+        transition-property: all,border-block-end 0s;
 
-        &.first-child,
-        &:first-child {
+        &.first-child, &:first-child {
             border-start-start-radius: var(--border-radius);
             border-start-end-radius: var(--border-radius);
         }
@@ -66,17 +66,24 @@
             left: auto;
             right: auto;
             pointer-events: auto;
+
+            input[type=checkbox],
+            input[type=radio] {
+                margin-inline-end: 0.25rem;
+            }
         }
 
         input {
             position: relative;
-        }
 
-            input[type=checkbox] + label,
-            input[type=radio] + label {
+            &[type=checkbox] + label,
+            &[type=radio] + label {
                 margin-inline-start: 0.25rem;
                 border: none !important;
             }
+        }
+
+
 
         &.hide {
             display: none !important;

@@ -18,19 +18,25 @@ function WNparseNumber(value: any, Default?: number, culture: IWNCultureInfo = w
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
     value = WNDenativeDigit(value, culture);
-    return parseInt(value);
+    let v = parseInt(value);
+    if (isNaN(v))
+        return Default;
+    return v;
 }
 function WNparseFloat(value: any, Default?: number, culture: IWNCultureInfo = wnConfig.cultureInfo): number {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
     value = WNDenativeDigit(value, culture);
-    return parseFloat(value);
+    let v = parseFloat(value);
+    if (isNaN(v))
+        return Default;
+    return v;
 }
 function WNparseString(value: any, Default?: string): string {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
 
-    return value;
+    return value+'';
 }
 function WNTrim(value: string, trimstr: string = ' ') {
     while (value.startsWith(trimstr))
@@ -570,4 +576,8 @@ function WNFromBase64String(str: string): string {
     return decodeURIComponent(atob(str).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+}
+
+function WNIsStringArray(input: any[]): boolean {
+    return Array.isArray(input) && input.every(item => typeof item === 'string');
 }

@@ -24,8 +24,14 @@
     }
     isLeapMonth(Year: number, Month: number): boolean { return this.isLeapYear(Year) && Month === this.leapMonth; }
     isLeapYear(Year: number): boolean {
-        return ((((((Year - ((Year > 0) ? 474 : 473)) % 2820) + 474) + 38) * 682) % 2816) < 682;
+        let v = WNmod(Year, 33);
+        if (Year <1343 && [1, 5, 9, 13, 17, 21, 26, 30].includes(v))
+            return true;
+        else if ([1, 5, 9, 13, 17, 22, 26, 30].includes(v))
+            return true;
+        return false;
     }
+
     getDaysFromBase(Year: number, Month: number, Day: number): number {
         let epbase, epyear;
 

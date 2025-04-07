@@ -22,7 +22,7 @@
     private cNumber = 'Number';
     private cExt = 'Ext.';
 
-    private hiddenElemet: HTMLInputElement;
+   // private hiddenElemet: HTMLInputElement;
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -112,28 +112,6 @@
         }
         else
             this.value = [];
-
-        if (this.element.hasAttribute('required')) {
-            this.hiddenElemet = document.createElement('input');
-            this.hiddenElemet.style.display = "none";
-            this.element.appendChild(this.hiddenElemet);
-
-           
-
-            let r = WNFindParentsTag(this.element, 'form');
-            r?.addEventListener('submit', (event) => {
-
-                if (this._value?.length == 0) {
-
-                    this.hiddenElemet?.setCustomValidity('Error');
-                    this.hiddenElemet?.reportValidity();
-                    event.preventDefault();
-                }
-                else {
-                    this.hiddenElemet?.setCustomValidity('');
-                }
-            });
-        }
     }
 
 
@@ -184,16 +162,16 @@
                 this.add(n);
             }
         }
-        if (this.element.hasAttribute('required') && this.hiddenElemet) {
-            if (this._value.length == 0) {
+        //if (this.element.hasAttribute('required') && this.hiddenElemet) {
+        //    if (this._value.length == 0) {
 
-                this.hiddenElemet?.setCustomValidity('Error');
-                this.hiddenElemet?.reportValidity();
-            }
-            else {
-                this.hiddenElemet?.setCustomValidity('');
-            }
-        }
+        //        this.hiddenElemet?.setCustomValidity('Error');
+        //        this.hiddenElemet?.reportValidity();
+        //    }
+        //    else {
+        //        this.hiddenElemet?.setCustomValidity('');
+        //    }
+        //}
     }
     private makeFullNumber(n: WNPhoneNode): string {
         let number = '';

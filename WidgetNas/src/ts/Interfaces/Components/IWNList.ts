@@ -32,7 +32,8 @@
 
     orderDataSourceByText(desc?: boolean): void;
     orderDataSourceByValue(desc?: boolean): void;
-
+    swap(index: number, order: number): void;
+    redraw(): void;
 
     
     checkedClear():void;

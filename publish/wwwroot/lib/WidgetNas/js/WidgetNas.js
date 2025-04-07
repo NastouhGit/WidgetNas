@@ -1,7 +1,7 @@
 function wnabout() {
     return `
  +--------------------------------------+
- | Widgetnas Version: 2.1.0.6           |
+ | Widgetnas Version: 2.1.1.7           |
  +--------------------------------------+
 `;
 }
@@ -1362,7 +1362,12 @@ class WNPersianCalendar {
     }
     isLeapMonth(Year, Month) { return this.isLeapYear(Year) && Month === this.leapMonth; }
     isLeapYear(Year) {
-        return ((((((Year - ((Year > 0) ? 474 : 473)) % 2820) + 474) + 38) * 682) % 2816) < 682;
+        let v = WNmod(Year, 33);
+        if (Year < 1343 && [1, 5, 9, 13, 17, 21, 26, 30].includes(v))
+            return true;
+        else if ([1, 5, 9, 13, 17, 22, 26, 30].includes(v))
+            return true;
+        return false;
     }
     getDaysFromBase(Year, Month, Day) {
         let epbase, epyear;
@@ -1824,18 +1829,24 @@ function WNparseNumber(value, Default, culture = wnConfig.cultureInfo) {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
     value = WNDenativeDigit(value, culture);
-    return parseInt(value);
+    let v = parseInt(value);
+    if (isNaN(v))
+        return Default;
+    return v;
 }
 function WNparseFloat(value, Default, culture = wnConfig.cultureInfo) {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
     value = WNDenativeDigit(value, culture);
-    return parseFloat(value);
+    let v = parseFloat(value);
+    if (isNaN(v))
+        return Default;
+    return v;
 }
 function WNparseString(value, Default) {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
-    return value;
+    return value + '';
 }
 function WNTrim(value, trimstr = ' ') {
     while (value.startsWith(trimstr))
@@ -2360,6 +2371,9 @@ function WNFromBase64String(str) {
     return decodeURIComponent(atob(str).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+}
+function WNIsStringArray(input) {
+    return Array.isArray(input) && input.every(item => typeof item === 'string');
 }
 class WNConfig {
     nativeDigit = true;
@@ -3282,6 +3296,8 @@ class WNDropdown {
         if (defaultevent !== '')
             defaultevent.split(',').forEach((s) => {
                 this.element.addEventListener(s.trim(), (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     if (this.checkOnlyDropDown) {
                         if ((e.target == this.dropdown))
                             this.toggle();
@@ -7209,6 +7225,167 @@ class WNImageEditor {
         return this._saveImage.toDataURL('image/png');
     }
 }
+class WNInputList {
+    nameType = 'WNInputList';
+    element;
+    beforeAdd;
+    afterAdd;
+    beforeSave;
+    afterSave;
+    beforeRemove;
+    afterRemove;
+    beforeOrder;
+    afterOrder;
+    max = 0;
+    input;
+    list;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        if (this.element.hasAttribute('max'))
+            this.max = WNparseNumber(this.element.getAttribute('max'), 0);
+        if (this.element.hasAttribute('onbeforeadd'))
+            this.beforeAdd = WNGenerateFunction(this.element.getAttribute('onbeforeadd'), 't,v');
+        if (this.element.hasAttribute('onafteradd'))
+            this.afterAdd = WNGenerateFunction(this.element.getAttribute('onafteradd'), 't,v');
+        if (this.element.hasAttribute('onbeforesave'))
+            this.beforeSave = WNGenerateFunction(this.element.getAttribute('onbeforesave'), 't,v');
+        if (this.element.hasAttribute('onaftersave'))
+            this.afterSave = WNGenerateFunction(this.element.getAttribute('onaftersave'), 't,v');
+        if (this.element.hasAttribute('onbeforeremove'))
+            this.beforeRemove = WNGenerateFunction(this.element.getAttribute('onbeforeremove'), 't,v');
+        if (this.element.hasAttribute('onafterremove'))
+            this.afterRemove = WNGenerateFunction(this.element.getAttribute('onafterremove'), 't,v');
+        if (this.element.hasAttribute('onbeforeorder'))
+            this.beforeOrder = WNGenerateFunction(this.element.getAttribute('onbeforeorder'), 't,v');
+        if (this.element.hasAttribute('onafterorder'))
+            this.afterOrder = WNGenerateFunction(this.element.getAttribute('onafterorder'), 't,v');
+        this.input = this.element.querySelector('input');
+        if (this.input == null) {
+            this.input = document.createElement('input');
+            this.element.appendChild(this.input);
+        }
+        let toolbar = this.element.querySelector('.toolbar');
+        if (toolbar == null) {
+            toolbar = document.createElement('div');
+            toolbar.className = 'toolbar';
+            this.element.appendChild(toolbar);
+        }
+        let buttonAdd = this.element.querySelector('button.add');
+        if (buttonAdd == null) {
+            buttonAdd = document.createElement('button');
+            buttonAdd.className = 'add';
+            toolbar.appendChild(buttonAdd);
+        }
+        let buttonEdit = this.element.querySelector('button.edit');
+        if (buttonEdit == null) {
+            buttonEdit = document.createElement('button');
+            buttonEdit.className = 'edit';
+            toolbar.appendChild(buttonEdit);
+        }
+        let buttonRemove = this.element.querySelector('button.remove');
+        if (buttonRemove == null) {
+            buttonRemove = document.createElement('button');
+            buttonRemove.className = 'remove';
+            toolbar.appendChild(buttonRemove);
+        }
+        let buttonOrderUp = this.element.querySelector('button.order-up');
+        if (buttonOrderUp == null) {
+            buttonOrderUp = document.createElement('button');
+            buttonOrderUp.className = 'order-up';
+            toolbar.appendChild(buttonOrderUp);
+        }
+        let buttonOrderDown = this.element.querySelector('button.order-down');
+        if (buttonOrderDown == null) {
+            buttonOrderDown = document.createElement('button');
+            buttonOrderDown.className = 'order-down';
+            toolbar.appendChild(buttonOrderDown);
+        }
+        let list = this.element.querySelector('ul');
+        if (list == null) {
+            list = document.createElement('ul');
+            list.className = 'list';
+            this.element.appendChild(list);
+        }
+        this.list = new WNList(list);
+        this.list.selectionChanged = (t) => { this.input.value = t.selectedItem.text; };
+        buttonAdd.addEventListener('click', (t) => {
+            let value = this.input.value.trim();
+            if (this.list.findByText(value).length > 0)
+                return;
+            if (this.max > 0 && this.list.dataSource.length >= this.max)
+                return;
+            if (this.beforeAdd && !this.beforeAdd(this, value))
+                return;
+            if (this.beforeSave && !this.beforeSave(this, value))
+                return;
+            this.list.addToDataSource(value, '', value, '');
+            this.input.value = '';
+            this.afterAdd?.(this, value);
+            this.afterSave?.(this, value);
+        });
+        buttonEdit.addEventListener('click', (t) => {
+            if (this.list.selectedItem == null)
+                return;
+            let value = this.input.value.trim();
+            if (this.list.findByText(value).length > 0)
+                return;
+            if (this.beforeSave && !this.beforeSave(this, value))
+                return;
+            this.list.selectedItem.text = value;
+            this.list.selectedItem.value = value;
+            this.list.selectedItem.html = '';
+            this.list.updateNodeElement(this.list.selectedItem);
+            this.input.value = '';
+            this.afterSave?.(this, value);
+        });
+        buttonRemove.addEventListener('click', (t) => {
+            if (this.list.selectedItem == null)
+                return;
+            let value = this.input.value.trim();
+            if (this.beforeRemove && !this.beforeRemove(this, value))
+                return;
+            this.list.removeFromDataSource(this.list.selectedItem);
+            this.input.value = '';
+            this.afterRemove?.(this, value);
+        });
+        buttonOrderUp.addEventListener('click', (t) => {
+            if (this.list.selectedItem == null)
+                return;
+            let value = this.input.value.trim();
+            if (this.beforeOrder && !this.beforeOrder(this, value))
+                return;
+            this.list.swap(this.list.selectedIndex, -1);
+            this.input.value = '';
+            this.afterOrder?.(this, value);
+        });
+        buttonOrderDown.addEventListener('click', (t) => {
+            if (this.list.selectedItem == null)
+                return;
+            let value = this.input.value.trim();
+            if (this.beforeOrder && !this.beforeOrder(this, value))
+                return;
+            this.list.swap(this.list.selectedIndex, 1);
+            this.input.value = '';
+            this.afterOrder?.(this, value);
+        });
+        if (this.element.hasAttribute('value'))
+            this.value = WNStringToObject(this.element.getAttribute('value'));
+    }
+    get value() {
+        let v = [];
+        this.list?.dataSource.forEach(x => v.push(x.text));
+        return v;
+    }
+    set value(value) {
+        this.list?.setDataSource([], false);
+        value.forEach(x => this.list?.addToDataSource(x, '', x, ''));
+    }
+}
 class WNLightbox {
     nameType = 'WNLightbox';
     element;
@@ -7437,8 +7614,10 @@ class WNList {
             this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
         if (this.element.hasAttribute('checkbox-class'))
             this.checkboxclass = this.element.getAttribute('checkbox-class');
-        this.element.classList.add('list');
-        this.element.classList.add('list-hover');
+        if (this.element.className == '') {
+            this.element.classList.add('list');
+            this.element.classList.add('list-hover');
+        }
         if (this.element.hasAttribute('onbeforeclick'))
             this.beforeClick = WNGenerateFunction(this.element.getAttribute('onbeforeclick'), 't,n,e');
         if (this.element.hasAttribute('onafterclick'))
@@ -7476,7 +7655,7 @@ class WNList {
             let link = itemelement.querySelector('a')?.getAttribute('href') ?? '';
             let item = {
                 id: i + 1,
-                index: i + 1,
+                index: i,
                 text: itemelement.textContent,
                 html: itemelement.innerHTML,
                 value: itemelement.getAttribute('value') ?? itemelement.textContent,
@@ -7537,11 +7716,10 @@ class WNList {
     }
     get selectedIndex() { return this.selectedItem?.index ?? -1; }
     set selectedIndex(value) {
+        this.select(null);
         let f = this.dataSource.find(x => x.index == value);
         if (f)
             this.select(f);
-        else
-            this.select(null);
     }
     get checkedItems() {
         let ret = [];
@@ -7750,9 +7928,13 @@ class WNList {
     setDataSource(dataSource, append) {
         if (!append)
             this.clearDataSource();
+        let isSimpleArray = WNIsStringArray(dataSource);
         for (var i = 0; i < dataSource.length; i++) {
             let item = dataSource[i];
-            this.addToDataSource(item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
+            if (isSimpleArray)
+                this.addToDataSource(item.toString(), null, item.toString(), null);
+            else
+                this.addToDataSource(item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
         }
         this.selectedItem = null;
     }
@@ -7768,7 +7950,6 @@ class WNList {
                 return desc ? 1 : -1;
             return 0;
         });
-        this.reindex();
         this.redraw();
     }
     orderDataSourceByValue(desc = false) {
@@ -7779,10 +7960,23 @@ class WNList {
                 return desc ? 1 : -1;
             return 0;
         });
-        this.reindex();
         this.redraw();
     }
+    swap(index, order) {
+        if (order >= 0)
+            order = 1;
+        if (order < 0)
+            order = -1;
+        if (order == 1 && (index < 0 || index > this.dataSource.length - 2))
+            return;
+        if (order == -1 && (index < 1))
+            return;
+        [this.dataSource[index + order], this.dataSource[index]] = [this.dataSource[index], this.dataSource[index + order]];
+        this.redraw();
+        this.selectedIndex = index + order;
+    }
     redraw() {
+        this.reindex();
         this.element.innerHTML = '';
         this.dataSource.forEach((item) => {
             let elem = this.nodeToHtmlElement(item);
@@ -7793,7 +7987,7 @@ class WNList {
     }
     reindex() {
         for (var i = 0; i < this.dataSource.length; i++)
-            this.dataSource[i].index = i + 1;
+            this.dataSource[i].index = i;
     }
     checkedClear() {
         this.element.querySelectorAll('input.item-check').forEach((x) => x.checked = false);
@@ -8743,7 +8937,6 @@ class WNMultiInputPhone {
     cArea = 'Area';
     cNumber = 'Number';
     cExt = 'Ext.';
-    hiddenElemet;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -8820,22 +9013,6 @@ class WNMultiInputPhone {
         }
         else
             this.value = [];
-        if (this.element.hasAttribute('required')) {
-            this.hiddenElemet = document.createElement('input');
-            this.hiddenElemet.style.display = "none";
-            this.element.appendChild(this.hiddenElemet);
-            let r = WNFindParentsTag(this.element, 'form');
-            r?.addEventListener('submit', (event) => {
-                if (this._value?.length == 0) {
-                    this.hiddenElemet?.setCustomValidity('Error');
-                    this.hiddenElemet?.reportValidity();
-                    event.preventDefault();
-                }
-                else {
-                    this.hiddenElemet?.setCustomValidity('');
-                }
-            });
-        }
     }
     add(node) {
         if (this.max != 0 && this._value.length >= this.max)
@@ -8879,15 +9056,6 @@ class WNMultiInputPhone {
                 let n = { caption: s[0], country: s[1], area: s[2], number: s[3], extension: s[4], fullNumber: '' };
                 n.fullNumber = this.makeFullNumber(n);
                 this.add(n);
-            }
-        }
-        if (this.element.hasAttribute('required') && this.hiddenElemet) {
-            if (this._value.length == 0) {
-                this.hiddenElemet?.setCustomValidity('Error');
-                this.hiddenElemet?.reportValidity();
-            }
-            else {
-                this.hiddenElemet?.setCustomValidity('');
             }
         }
     }
@@ -9370,6 +9538,131 @@ class WNSearchList {
                 this.valueElement.innerHTML = n.value;
         }
         this.selectionChanged?.(t, n);
+    }
+}
+class WNSelect {
+    nameType = 'WNList';
+    element;
+    list;
+    selectionChanged;
+    dropdownlist;
+    dropdown;
+    displayElement;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        if (this.element.classList.length == 0)
+            this.element.className = 'select';
+        this.dropdownlist = this.element.querySelector('.dropdown');
+        if (this.dropdownlist == null) {
+            if (this.element.nextSibling?.classList?.contains('.dropdown'))
+                this.dropdownlist = this.element.nextSibling;
+        }
+        if (this.dropdownlist == null) {
+            this.dropdownlist = document.createElement("div");
+            this.dropdownlist.className = "dropdown list align-end align-fit";
+            this.element.insertAdjacentElement('afterend', this.dropdownlist);
+        }
+        this.dropdown = new WNDropdown(this.element);
+        let l = this.dropdownlist.querySelector("[wn-type='list']");
+        if (l != null)
+            this.list = WN(l).wn;
+        else {
+            l = document.createElement('ul');
+            this.dropdownlist.appendChild(l);
+            this.list = new WNList(l);
+        }
+        this.list.selectionChanged = (t, n) => {
+            this.value = n.value;
+            if (t.selectedItem == null)
+                this.value = '';
+            this.dropdown.hide();
+        };
+        if (this.element.hasAttribute('onselectionchanged'))
+            this.selectionChanged = WNGenerateFunction(this.element.getAttribute('onselectionchanged'), 't');
+        this.initDataSource();
+        this.displayElement = document.createElement('div');
+        this.displayElement.className = 'inner-element';
+        this.element.appendChild(this.displayElement);
+        if (this.element.hasAttribute('value')) {
+            this.list.selectedValue = this.element.getAttribute('value');
+            if (this.list.selectedValue == null)
+                this.value = '';
+        }
+        else if (this.list.dataSource.length > 0)
+            this.list.selectedIndex = 0;
+        else
+            this.displayElement.innerHTML = "&nbsp";
+    }
+    initDataSource() {
+        this.list.dataSource = [];
+        let items = this.element.querySelectorAll('option');
+        for (var i = 0; i < items.length; i++) {
+            this.addToDataSource(items[i].innerHTML, items[i].value);
+        }
+        this.element.innerHTML = '';
+    }
+    _value = '';
+    get value() { return this._value; }
+    set value(value) {
+        let found = false;
+        for (var i = 0; i < this.list.dataSource.length; i++) {
+            if (this.list.dataSource[i].value == value) {
+                this.displayElement.innerHTML = this.list.dataSource[i].html;
+                this._value = value;
+                this.element.setAttribute('value', value);
+                this.selectionChanged?.(this);
+                found = true;
+                this.element.classList.remove('invalid');
+                if (this.element.hasAttribute('required'))
+                    this.element.classList.add('valid');
+                break;
+            }
+        }
+        if (!found) {
+            this.displayElement.innerHTML = '&nbsp';
+            this._value = '';
+            this.list.selectedIndex = -1;
+            this.element.setAttribute('value', '');
+            if (this.element.hasAttribute('required'))
+                this.element.classList.add('invalid');
+            this.selectionChanged?.(this);
+        }
+    }
+    addToDataSource(text, value) {
+        try {
+            this.list.addToDataSource(text, '', value, '');
+        }
+        catch (e) {
+            console.error(e);
+        }
+        return null;
+    }
+    removeFromDataSource(index) {
+        try {
+            if (index > -1) {
+                this.list.dataSource.splice(index, 1);
+                this.list.redraw();
+            }
+        }
+        catch (e) {
+            console.error(e);
+            return false;
+        }
+        return true;
+    }
+    setDataSource(dataSource, append) {
+        if (!append)
+            this.list.setDataSource([], false);
+        for (var i = 0; i < dataSource.length; i++) {
+            let item = dataSource[i];
+            this.addToDataSource(item.text, item.value);
+        }
+        this.list.redraw();
     }
 }
 class WNSlicker {
@@ -11443,6 +11736,26 @@ async function wnValidator_onvalidationcheck(children, event) {
                 else
                     x.setCustomValidity('');
             }
+            else if (x.hasAttribute('required') && x.hasAttribute('wn-type')) {
+                x.classList.remove('invalid');
+                x.classList.remove('valid');
+                let h = x.querySelector('.hidden-validation');
+                if ((WN(x.id).wn.value != null && WN(x.id).wn.value.length == 0)) {
+                    x.classList.add('invalid');
+                    if (h == null) {
+                        h = document.createElement('input');
+                        h.className = 'hidden-validation';
+                        h.style.display = "none";
+                        x.appendChild(h);
+                    }
+                    h.setCustomValidity('Error');
+                    h.reportValidity();
+                }
+                else {
+                    x.classList.add('valid');
+                    h?.setCustomValidity('');
+                }
+            }
             if (x.childElementCount > 0)
                 wnValidator_onvalidationcheck(x.children, event);
         }
@@ -11453,6 +11766,9 @@ async function wnValidator_onvalidationcheck(children, event) {
             elems.forEach((x) => {
                 x.setAttribute('norequired', '');
                 x.removeAttribute('required');
+                x.classList.remove('invalid');
+                x.classList.remove('valid');
+                x.querySelector('.hidden-validation')?.setCustomValidity('');
             });
         }
     }

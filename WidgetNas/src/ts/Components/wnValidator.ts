@@ -1,7 +1,7 @@
 ﻿class WNValidator implements IWNValidator {
     public readonly nameType: string = 'WNValidator';
     public element: HTMLFormElement;
-    
+
     constructor(element: HTMLElement) {
         if (element !== undefined && element !== null) {
             this.element = element as HTMLFormElement;
@@ -13,7 +13,7 @@
         this.element.addEventListener('submit', (event) => {
             this.validate(<HTMLFormElement>event.target, event);
         });
-        this.element.addEventListener('reset', (event)=> {
+        this.element.addEventListener('reset', (event) => {
             this.reset();
         });
     }
@@ -45,7 +45,7 @@
 }
 async function wnValidator_onvalidationcheck(children: HTMLCollection, event: Event) {
     for (var i = 0; i < children.length; i++) {
-        let x = children.item(i);
+        let x = children.item(i) as HTMLElement;
         let elems = x.querySelectorAll('[norequired]');
         elems.forEach((x) => {
             (x as HTMLInputElement).setAttribute('required', '');
@@ -66,6 +66,27 @@ async function wnValidator_onvalidationcheck(children: HTMLCollection, event: Ev
                 else
                     (x as HTMLInputElement).setCustomValidity('');
             }
+            else if (x.hasAttribute('required') && x.hasAttribute('wn-type')) {
+                x.classList.remove('invalid');
+                x.classList.remove('valid');
+                let h = x.querySelector('.hidden-validation') as HTMLInputElement;
+                if ((WN(x.id).wn.value != null && WN(x.id).wn.value.length == 0)) {
+                    x.classList.add('invalid');
+                    if (h == null) {
+                        h = document.createElement('input');
+                        h.className = 'hidden-validation';
+                        h.style.display = "none";
+                        x.appendChild(h);
+                    }
+                    h.setCustomValidity('Error');
+                    h.reportValidity();
+                }
+                else {
+                    x.classList.add('valid');
+                    h?.setCustomValidity('');
+                }
+            }
+
             if (x.childElementCount > 0)
                 wnValidator_onvalidationcheck(x.children, event);
         }
@@ -76,6 +97,9 @@ async function wnValidator_onvalidationcheck(children: HTMLCollection, event: Ev
             elems.forEach((x) => {
                 (x as HTMLInputElement).setAttribute('norequired', '');
                 (x as HTMLInputElement).removeAttribute('required')
+                x.classList.remove('invalid');
+                x.classList.remove('valid');
+                (x.querySelector('.hidden-validation') as HTMLInputElement)?.setCustomValidity('');
             });
         }
 

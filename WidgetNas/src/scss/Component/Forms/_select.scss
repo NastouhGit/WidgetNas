@@ -1,4 +1,5 @@
-﻿select {
+﻿.select,
+select {
     display: block;
     font-size: var(--font-size);
     font-weight: inherit;
@@ -10,13 +11,12 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     border-radius: var(--border-radius);
-    transition: $transition,background-position none;
+    transition: $transition, background-position 0s;
     line-height: var(--line-height);
     min-width: 4em;
     width: 100%;
     width: -webkit-fill-available;
     width: -moz-available;
-    margin: calc(var(--border-width) * 3);
     padding-top: var(--padding-block);
     padding-bottom: var(--padding-block);
     padding-right: var(--padding-inline);
@@ -25,7 +25,7 @@
     background-repeat: no-repeat;
     background-size: 0.8em;
     background-position: left var(--padding-inline) center;
-
+    cursor: default;
 
     &[dir=ltr] {
         padding-left: var(--padding-inline);
@@ -87,5 +87,14 @@
 
     &[dir=ltr] {
         background-position: right var(--padding-inline) center;
+    }
+}
+
+.select {
+    .inner-element {
+        width: 100%;
+        height: 100%;
+        width: -webkit-fit-content;
+        height: -webkit-fit-content;
     }
 }

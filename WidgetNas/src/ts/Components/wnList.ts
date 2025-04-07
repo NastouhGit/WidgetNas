@@ -25,10 +25,10 @@
             this.checkbox = WNparseBoolean(this.element.getAttribute('checkbox'), false);
         if (this.element.hasAttribute('checkbox-class'))
             this.checkboxclass = this.element.getAttribute('checkbox-class');
-
-        this.element.classList.add('list');
-        this.element.classList.add('list-hover');
-
+        if (this.element.className == '') {
+            this.element.classList.add('list');
+            this.element.classList.add('list-hover');
+        }
 
 
 
@@ -75,7 +75,7 @@
             let link = itemelement.querySelector('a')?.getAttribute('href') ?? '';
             let item: WNListNode = {
                 id: i + 1,
-                index: i + 1,
+                index: i,
                 text: itemelement.textContent,
                 html: itemelement.innerHTML,
                 value: itemelement.getAttribute('value') ?? itemelement.textContent,
@@ -147,11 +147,11 @@
 
     public get selectedIndex(): number { return this.selectedItem?.index ?? -1 }
     public set selectedIndex(value: number) {
+        this.select(null);
         let f = this.dataSource.find(x => x.index == value);
         if (f)
             this.select(f);
-        else
-            this.select(null);
+
     }
 
     public get checkedItems(): WNListNode[] {
@@ -275,7 +275,7 @@
         }
         return null;
     }
-    private nodeToHtmlElement(node: WNListNode,updateNode=true): HTMLElement {
+    private nodeToHtmlElement(node: WNListNode, updateNode = true): HTMLElement {
         let item: HTMLElement;
         if (this.element.tagName == 'UL')
             item = document.createElement('li');
@@ -334,7 +334,7 @@
             tItem.insertAdjacentElement('afterbegin', ttItem);
         }
         node.text = tItem.textContent;
-        if (updateNode==true)
+        if (updateNode == true)
             node.element = item;
         return item;
     }
@@ -375,10 +375,13 @@
     public setDataSource(dataSource: WNListNode[], append?: boolean): void {
         if (!append)
             this.clearDataSource();
-
+        let isSimpleArray = WNIsStringArray(dataSource);
         for (var i = 0; i < dataSource.length; i++) {
             let item = dataSource[i];
-            this.addToDataSource(item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
+            if (isSimpleArray)
+                this.addToDataSource(item.toString(), null, item.toString(), null);
+            else
+                this.addToDataSource(item['html'] ?? null, item['link'] ?? null, item['value'] ?? null, item['image'] ?? null);
         }
         this.selectedItem = null;
     }
@@ -395,7 +398,6 @@
                 return desc ? 1 : -1;
             return 0;
         });
-        this.reindex();
         this.redraw();
     }
     public orderDataSourceByValue(desc: boolean = false): void {
@@ -406,10 +408,20 @@
                 return desc ? 1 : -1;
             return 0;
         });
-        this.reindex();
         this.redraw();
     }
-    private redraw() {
+    public swap(index: number, order: number): void {
+        if (order >= 0) order = 1;
+        if (order < 0) order = -1;
+        if (order == 1 && (index < 0 || index > this.dataSource.length - 2)) return;
+        if (order == -1 && (index < 1)) return;
+
+        [this.dataSource[index + order], this.dataSource[index]] = [this.dataSource[index], this.dataSource[index + order]];
+        this.redraw();
+        this.selectedIndex = index + order;
+    }
+    public redraw() {
+        this.reindex();
         this.element.innerHTML = '';
         this.dataSource.forEach((item) => {
             let elem = this.nodeToHtmlElement(item);
@@ -420,7 +432,7 @@
     }
     private reindex() {
         for (var i = 0; i < this.dataSource.length; i++)
-            this.dataSource[i].index = i + 1;
+            this.dataSource[i].index = i;
     }
 
 

@@ -22,6 +22,8 @@
             }
         }
 
+        .multiinputphone,
+        .select:not(:optional),
         select:not(:optional) {
             &.valid,
             &:valid {
@@ -87,6 +89,8 @@
             }
         }
 
+        .multiinputphone,
+        .select:not(:optional),
         select:not(:optional) {
             &.invalid,
             &:invalid {

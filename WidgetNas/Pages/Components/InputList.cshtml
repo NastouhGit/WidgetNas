@@ -1,0 +1,89 @@
+﻿@page
+@model WidgetNas.Pages.Components.InputListModel
+@{
+    ViewData["Title"] = "ورود لیستی";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    اگر میخواهید به صورت یک لیست ورودی داشته باشید، میتوانید از این گزینه استفاده نمایید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div id="InputList1" class="inputlist" wn-type="InputList" max="10" value="['l1','l2','l3','l4']">
+            <input>
+            <div class="toolbar">
+                <button class="add" type="button"></button>
+                <button class="edit" type="button"></button>
+                <button class="remove" type="button"></button>
+                <button class="order-up" type="button"></button>
+                <button class="order-down" type="button"></button>
+            </div>
+            <ul class="list">
+            </ul>
+        </div>
+        <br/>
+        <button onclick="WN('InputList1').wn.value=['a1','a2','a3']">Sample</button>
+        <button onclick="WN('InputList1').wn.value=[]">Clear</button>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="inputlist" wn-type="InputList" max="10">
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h3>خصوصیات</h3>
+<p>
+    <strong>max</strong> اگر میخواهید لیست شما حداکثر تعداد ورودی محدود شود، میتوانید آنرا وارد کنید. مقدار 0 یعنی بدون محدودیت.
+</p>
+<p>
+    <strong>value</strong>
+    آرایه ای به صورت رشته که تمامی موارد متنی وارد شده در لیست را برگردانده یا تنظیم میکند.
+</p>
+<p>
+    <strong>list</strong>
+    خصوصیتی از جنس IWNList است که توسط آن میتوانید لیست خود را مدیریت کنید.
+</p>
+<h3>رخدادها</h3>
+<p>
+    <strong>beforeAdd</strong>
+    قبل از اضافه کردن یک گزینه به لیست این رخداد فعال میشود، اگر مقدار برگشتی false باشد، ادامه کار لغو میشود.<br/>
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onbeforeadd را تنظیم کنید.
+</p>
+<p>
+    <strong>afterAdd</strong>
+    بعد از اضافه کردن به لیست این رخداد فعال میشود.<br />
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onafteradd را تنظیم کنید.
+</p>
+<p>
+    <strong>beforeSave</strong>
+    قبل از تغییر دادن یک گزینه در لیست این رخداد فعال میشود، اگر مقدار برگشتی false باشد، ادامه کار لغو میشود.<br />
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onbeforesave را تنظیم کنید.
+</p>
+<p>
+    <strong>afterSave</strong>
+    بعد از تغییر لیست این رخداد فعال میشود.<br />
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onaftersave را تنظیم کنید.
+</p>
+<p>
+    <strong>beforeRemove</strong>
+    قبل از حذف کردن یک گزینه در لیست این رخداد فعال میشود، اگر مقدار برگشتی false باشد، ادامه کار لغو میشود.<br />
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onbeforeremove را تنظیم کنید.
+</p>
+<p>
+    <strong>afterRemove</strong>
+    بعد حذف از لیست این رخداد فعال میشود.<br />
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onafterremove را تنظیم کنید.
+</p>
+<p>
+    <strong>beforeOrder</strong>
+    قبل از جابجا کردن گزینه ای در لیست این رخداد فعال میشود، اگر مقدار برگشتی false باشد، ادامه کار لغو میشود.<br />
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onbeforeorder را تنظیم کنید.
+</p>
+<p>
+    <strong>afterOrder</strong>
+    بعد از جابجا کردن در لیست این رخداد فعال میشود.<br />
+    شما میتوانید مستقیما این رخداد را مقدار دهی کرده یا در بدنه html خصوصیت onafterorder را تنظیم کنید.
+</p>

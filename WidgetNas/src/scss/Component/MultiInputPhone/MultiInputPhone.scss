@@ -15,7 +15,7 @@ multiinputphone, .multiinputphone {
     -webkit-appearance: none;
     -moz-appearance: none;
     border-radius: var(--border-radius);
-    transition: $transition,background-position none;
+    transition: $transition, background-position 0s;
     line-height: var(--line-height);
     min-width: 5em;
     min-height: 2em;
@@ -76,50 +76,6 @@ multiinputphone, .multiinputphone {
     }
 }
 
-.validated:not(.hide-valid),
-.validated:not(.hide-valid) {
-    multiinputphone,
-    .multiinputphone {
-        &:has(:valid,.valid) {
-            border-color: var(--valid-border);
-            background-image: var(--arrow-down-image),var(--image-valid);
-            background-repeat: no-repeat;
-            background-size: 0.8em,1em;
-            background-position: left calc(var(--padding-inline)/2) center, center left 1.2em;
-
-            &[dir=ltr] {
-                background-position: right calc(var(--padding-inline)/2) center, center right 1.2em;
-            }
-
-            & ~ .valid-feedback,
-            & ~ .valid-tooltip,
-            & .valid-feedback,
-            & .valid-tooltip {
-                display: block;
-            }
-        }
-
-
-        &:has(:invalid,.invalid) {
-            border-color: var(--invalid-border);
-            background-repeat: no-repeat;
-            background-image: var(--arrow-down-image),var(--image-invalid);
-            background-size: 0.8em,1em;
-            background-position: left calc(var(--padding-inline)/2) center, center left 1.2em;
-
-            &[dir=ltr] {
-                background-position: right calc(var(--padding-inline)/2) center, center right 1.2em;
-            }
-
-            & ~ .invalid-feedback,
-            & ~ .invalid-tooltip,
-            & .invalid-feedback,
-            & .invalid-tooltip {
-                display: block;
-            }
-        }
-    }
-}
 
 .ig:has(.multiinputphone),
 .ig:has(multiinputphone),

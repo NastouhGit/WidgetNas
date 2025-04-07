@@ -1,0 +1,47 @@
+﻿inputlist, .inputlist {
+    display: flex;
+    position: relative;
+    align-items: stretch;
+    flex-direction: column;
+
+
+    input {
+    }
+
+    .toolbar {
+        margin-block: var(--margin-block);
+        display: flex;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+
+        button {
+            width: 2em;
+            height: 2em;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 1em;
+            margin: var(--margin-block);
+
+            &.add {
+                background-image: var(--add-image);
+            }
+
+            &.edit {
+                background-image: var(--edit-image);
+            }
+
+            &.remove {
+                background-image: var(--remove-image);
+            }
+
+            &.order-up {
+                background-image: var(--arrow-line-up-image);
+            }
+
+            &.order-down {
+                background-image: var(--arrow-line-down-image);
+            }
+        }
+    }
+}

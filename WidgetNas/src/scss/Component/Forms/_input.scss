@@ -23,10 +23,9 @@ input:not([type=button]):not([type=submit]):not([type=reset]) {
     -webkit-appearance: none;
     -moz-appearance: none;
     border-radius: var(--border-radius);
-    transition: $transition, background-position none;
+    transition: $transition, background-position 0s;
     line-height: var(--line-height);
     width: 100%;
-    margin: calc(var(--border-width)*3);
     padding-inline: var(--padding-inline);
     padding-block: var(--padding-block);
     background-clip: padding-box;

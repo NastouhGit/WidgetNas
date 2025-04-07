@@ -7,6 +7,7 @@ namespace WidgetNas.Pages.Components
     {
         public void OnGet()
         {
+            
         }
     }
 }

@@ -1,0 +1,110 @@
+﻿@page
+@model WidgetNas.Pages.Components.SelectModel
+@{
+    ViewData["Title"] = "انتخاب";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    یکی از مشکلات که تگ select دارد، عدم نمایش html در هر ردیف لیست است. یعنی شما فقط میتوانید در لیست گزینه متنی داشته باشید. <br />
+    برای اینکه یک select با قابلیت درج گزینه های html داشته باشید، میتوانید از موضوع select به شکل زیر استفاده کنید.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div id="select1"
+             class="select"
+             wn-type="Select"
+             value="2"
+             onselectionchanged="WN('select1_value').inputElement.value=this.value">
+            <option value="0">Item 1<br />Some Detail for Item 1</option>
+            <option value="1">Item 2<br />Some Detail for Item 2</option>
+            <option value="2">Item 3<br />Some Detail for Item 3</option>
+            <option value="3">Item 4<br />Some Detail for Item 4</option>
+        </div>
+        <input id="select1_value" />
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="select"
+             wn-type="Select">
+            <option value="0">گزینه 1<br />اطلاعاتی تستی برای گزینه 1</option>
+            <option value="1">گزینه 2<br />اطلاعاتی تستی برای گزینه 2</option>
+            <option value="2">گزینه 3<br />اطلاعاتی تستی برای گزینه 3</option>
+            <option value="3">گزینه 4<br />اطلاعاتی تستی برای گزینه 4</option>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+<h2>خصوصیات</h2>
+<p>
+    <strong>value</strong><br />
+    مقدار انتخاب شده، در این خصوصیت برگردانده میشود، همچنین در صورت مقدار دهی این خصوصیت، گزینه مد نظر انتخاب میشود.
+    <bidi>value='...'</bidi>
+</p>
+<p>
+    <strong>list</strong><br />
+    این خصوصیت یک موضوع از جنس IWNList است، که برای نمایش لیست موضوعات درج شده و انتخاب از لیست استفاده میشود.
+</p>
+<p>
+    <strong>option</strong><br />
+    هر تعداد option تعریف شده در بدنه این کامپوننت، بعنوان پیش فرض انتخاب میشود.
+</p>
+<h2>رخدادها</h2>
+<p>
+    <strong>selectionChanged</strong><br />
+    هرگاه مقدار value تغییر کند، این رخداد فراخوان میشود.
+</p>
+<h2>توابع</h2>
+<p>
+    <strong>addToDataSource</strong><br />
+    برای اضافه کردن یک متن و مقدار به لیست از این تابع استفاده میشود.<br />
+    <bidi>addToDataSource(text: string, value: string): void</bidi>
+</p>
+<p>
+    <strong>removeFromDataSource</strong><br />
+    برای حذف کردن یک ردیف از لیست از این تابع استفاده میشود. کافیست شماره ایندکس آنرا مشخص کنید.<br />
+    <bidi>removeFromDataSource(index: number): boolean</bidi>
+</p>
+<p>
+    <strong>setDataSource</strong><br />
+    اگر آرایه ای از Option دارید، میتوانید یکباره آنها را اضافه کنید.<br />
+    <bidi>setDataSource(dataSource: HTMLOptionElement[], append?: boolean): void</bidi>
+</p>
+<h2>اعتبار سنجی</h2>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <form novalidate wn-type="validator" method="dialog" id="select-validity">
+            <div id="select2"
+                 class="select"
+                 wn-type="Select"
+                 value=""
+                 required>
+                <option value="0">Item 1<br />Some Detail for Item 1</option>
+                <option value="1">Item 2<br />Some Detail for Item 2</option>
+                <option value="2">Item 3<br />Some Detail for Item 3</option>
+                <option value="3">Item 4<br />Some Detail for Item 4</option>
+            </div>
+            <input required/>
+            <button onclick="alert(WN('select-validity').wn.isValid())">Submit</button>
+        </form>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <form novalidate wn-type="validator" method="dialog" id="select-validity2" class="hide-valid" >
+            <div class="select"
+                 wn-type="Select"
+                 value=""
+                 required>
+                <option value="0">گزینه 1<br />اطلاعاتی تستی برای گزینه 1</option>
+                <option value="1">گزینه 2<br />اطلاعاتی تستی برای گزینه 2</option>
+                <option value="2">گزینه 3<br />اطلاعاتی تستی برای گزینه 3</option>
+                <option value="3">گزینه 4<br />اطلاعاتی تستی برای گزینه 4</option>
+            </div>
+            <button>ارسال</button>
+        </form>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
