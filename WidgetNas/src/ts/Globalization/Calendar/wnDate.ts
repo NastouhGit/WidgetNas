@@ -157,7 +157,7 @@
         this._Year = ret.year;
         this._Month = ret.month;
         this._Day = ret.day;
-        jd -= 0.5; /* Astronomical to civil */
+        //jd -= 0.5; /* Astronomical to civil */
         let ij = (jd - Math.floor(jd)) * 1000000000;
         this._Hour = Math.floor(ij / 3600000);
         ij = ij % 3600000;

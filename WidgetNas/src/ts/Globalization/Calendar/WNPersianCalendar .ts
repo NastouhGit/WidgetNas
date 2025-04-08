@@ -3,12 +3,13 @@
     readonly leapMonth: number = 12;
     readonly monthsInYear: number = 12;
 
-    private PERSIAN_EPOCH: number = 1948320.5;
+    private baseCalendar = new WNCalendarBase();
+
     getDayOfWeek(Year: number, Month: number, Day: number): number {
-        return WNmod(Math.floor((this.getDaysFromBase(Year, Month, Day) + 1.5)), 7);
+        return WNmod(Math.floor((this.persian_to_jd(Year, Month, Day) + 1.5+0.5)), 7);
     }
     getDayOfYear(Year: number, Month: number, Day: number): number {
-        return this.getDaysFromBase(Year, Month, Day) - this.getDaysFromBase(Year, 1, 1);
+        return this.persian_to_jd(Year, Month, Day) - this.persian_to_jd(Year, 1, 1);
     }
     getDaysInMonth(Year: number, Month: number): number {
         return this.getMonthsDays(this.isLeapYear(Year))[Month - 1];
@@ -24,58 +25,87 @@
     }
     isLeapMonth(Year: number, Month: number): boolean { return this.isLeapYear(Year) && Month === this.leapMonth; }
     isLeapYear(Year: number): boolean {
-        let v = WNmod(Year, 33);
-        if (Year <1343 && [1, 5, 9, 13, 17, 21, 26, 30].includes(v))
-            return true;
-        else if ([1, 5, 9, 13, 17, 22, 26, 30].includes(v))
-            return true;
-        return false;
+        return (this.persian_to_jd(Year + 1, 1, 1) -
+            this.persian_to_jd(Year, 1, 1)) > 365;
+
     }
 
-    getDaysFromBase(Year: number, Month: number, Day: number): number {
-        let epbase, epyear;
+    private persiana_year(jd) {
+        var guess = this.baseCalendar.jd_to_gregorian(jd)[0] - 2,
+            lasteq, nexteq, adr;
 
-        epbase = Year - ((Year >= 0) ? 474 : 473);
-        epyear = 474 + WNmod(epbase, 2820);
+        lasteq = this.tehran_equinox_jd(guess);
+        while (lasteq > jd) {
+            guess--;
+            lasteq = this.tehran_equinox_jd(guess);
+        }
+        nexteq = lasteq - 1;
+        while (!((lasteq <= jd) && (jd < nexteq))) {
+            lasteq = nexteq;
+            guess++;
+            nexteq = this.tehran_equinox_jd(guess);
+        }
+        adr = Math.round((lasteq - this.baseCalendar.PERSIAN_EPOCH) / this.baseCalendar.TropicalYear) + 1;
 
-        if (this.isLeapYear(Year - 1)) Day++;
+        return new Array(adr, lasteq);
+    }
+    private tehran_equinox_jd(year) {
+        var ep, epg;
 
-        return Day +
+        var equJED, equJD, equAPP, dtTehran;
+
+        equJED = this.baseCalendar.equinox(year, 0);
+
+        equJD = equJED - (this.baseCalendar.deltat(year) / (24 * 60 * 60));
+
+        equAPP = equJD + this.baseCalendar.equationOfTime(equJED);
+
+        dtTehran = (52 + (30 / 60.0) + (0 / (60.0 * 60.0))) / 360;
+        ep = equAPP + dtTehran;
+
+        epg = Math.floor(ep);
+
+        return epg;
+    }
+    private persian_to_jd(Year: number, Month: number, Day: number):number {
+        var adr, equinox, guess, jd;
+
+        guess = (this.baseCalendar.PERSIAN_EPOCH - 1) + (this.baseCalendar.TropicalYear * ((Year - 1) - 1));
+        adr = new Array(Year - 1, 0);
+
+        while (adr[0] < Year) {
+            adr = this.persiana_year(guess);
+            guess = adr[1] + (this.baseCalendar.TropicalYear + 2);
+        }
+        equinox = adr[1];
+
+        jd = equinox +
             ((Month <= 7) ?
                 ((Month - 1) * 31) :
                 (((Month - 1) * 30) + 6)
             ) +
-            Math.floor(((epyear * 682) - 110) / 2816) +
-            (epyear - 1) * 365 +
-            Math.floor(epbase / 2820) * 1029983 +
-            (this.PERSIAN_EPOCH - 1);
+            (Day - 1);
+        return jd;
+    }
+    getDaysFromBase(Year: number, Month: number, Day: number): number {
+        return this.persian_to_jd(Year, Month,Day)+0.5;
+
     }
     getYearMonthDayFromDays(jd: number): { year: number, month: number, day: number } {
-        let year, month, day, depoch, cycle, cyear, ycycle,
-            aux1, aux2, yday;
+        var year, month, day,
+            adr, equinox, yday;
 
         jd = Math.floor(jd) + 0.5;
+        adr = this.persiana_year(jd);
+        year = adr[0];
+        equinox = adr[1];
+        day = Math.floor((jd - equinox) / 30) + 1;
 
-        depoch = jd - this.getDaysFromBase(475, 1, 1);
-        cycle = Math.floor(depoch / 1029983);
-        cyear = WNmod(depoch, 1029983);
-        if (cyear == 1029982) {
-            ycycle = 2820;
-        } else {
-            aux1 = Math.floor(cyear / 366);
-            aux2 = WNmod(cyear, 366);
-            ycycle = Math.floor(((2134 * aux1) + (2816 * aux2) + 2815) / 1028522) +
-                aux1 + 1;
-        }
-        year = ycycle + (2820 * cycle) + 474;
-        if (year <= 0) {
-            year--;
-        }
-        yday = (jd - this.getDaysFromBase(year, 1, 1)) + 1;
+        yday = (Math.floor(jd) - this.persian_to_jd(year, 1, 1)) + 1;
         month = (yday <= 186) ? Math.ceil(yday / 31) : Math.ceil((yday - 6) / 30);
-        day = (jd - this.getDaysFromBase(year, month, 1)) + 1;
-
+        day = (Math.floor(jd) - this.persian_to_jd(year, month, 1)) + 1;
         return { year: year, month: month, day: day };
+
     }
     getMonthsDays(mLeapYear: boolean) {
         return [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, mLeapYear ? 30 : 29, 0];

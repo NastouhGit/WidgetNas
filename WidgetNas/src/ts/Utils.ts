@@ -1,4 +1,10 @@
 ﻿function WNmod(a: number, b: number) { return a - (b * Math.floor(a / b)); }
+function WNdtr(d) { return (d * Math.PI) / 180.0; }
+function WNrtd(r) { return (r * 180.0) / Math.PI;}
+function WNdcos(d) { return Math.cos(WNdtr(d)); }
+function WNdsin(d) { return Math.sin(WNdtr(d)); }
+function WNfixangle(a) { return a - 360.0 * (Math.floor(a / 360.0)); }
+function WNfixangr(a) {return a - (2 * Math.PI) * (Math.floor(a / (2 * Math.PI)));}
 function WNparseBoolean(value: any, Default?: boolean): boolean {
     if ((value === undefined || value == null) && Default != undefined)
         return Default;
@@ -36,7 +42,7 @@ function WNparseString(value: any, Default?: string): string {
     if ((value == undefined || value == null || value == '') && Default != undefined && Default != null)
         return Default;
 
-    return value+'';
+    return value + '';
 }
 function WNTrim(value: string, trimstr: string = ' ') {
     while (value.startsWith(trimstr))
@@ -379,7 +385,7 @@ function WNJSONparse(item) {
         return item2;
     } catch (e) {
     }
-        return item;
+    return item;
 }
 function WNtoTitleCase(text: string) {
     let s = text.split(' ');
@@ -551,12 +557,12 @@ async function WNSetImageBase(input: HTMLInputElement, img: HTMLImageElement | s
 
 function WNCheckReadOnlyDisabled(element: HTMLElement, readOnly = true, disabled = true) {
     let ret = false;
-    if (readOnly) 
+    if (readOnly)
         ret = ret || element.hasAttribute('readonly') || element.classList.contains('readonly');
     if (disabled)
-        ret = ret ||  element.hasAttribute('disabled') || element.classList.contains('disabled');
+        ret = ret || element.hasAttribute('disabled') || element.classList.contains('disabled');
     return ret;
-    
+
 }
 
 function WNQueryString(key: string): string {

@@ -225,6 +225,30 @@ declare class WNCultureInfo_fa_IR implements IWNCultureInfo {
         oemCodePage: number;
     };
 }
+declare class WNCalendarBase {
+    PERSIAN_EPOCH: number;
+    GREGORIAN_EPOCH: number;
+    TropicalYear: number;
+    private JDE0tab1000;
+    private JDE0tab2000;
+    private EquinoxpTerms;
+    private deltaTtab;
+    private J2000;
+    private JulianCentury;
+    private JulianMillennium;
+    private oterms;
+    private nutArgMult;
+    private nutArgCoeff;
+    leap_gregorian(year: any): boolean;
+    gregorian_to_jd(year: any, month: any, day: any): number;
+    jd_to_gregorian(jd: any): any[];
+    equinox(year: any, which: any): any;
+    deltat(year: any): any;
+    obliqeq(jd: any): any;
+    sunpos(jd: any): any[];
+    nutation(jd: any): any[];
+    equationOfTime(jd: any): any;
+}
 declare class WNDate implements IWNDate {
     private _Year;
     private _Month;
@@ -309,7 +333,7 @@ declare class WNGregorianCalendar implements IWNCalendar {
     readonly leapMonth: number;
     readonly monthsInYear: number;
     readonly localeName: string;
-    private GREGORIAN_EPOCH;
+    private baseCalendar;
     ["constructor"](): IWNCalendar;
     getDayOfWeek(Year: number, Month: number, Day: number): number;
     getDayOfYear(Year: number, Month: number, Day: number): number;
@@ -376,7 +400,7 @@ declare class WNPersianCalendar implements IWNCalendar {
     readonly localeName: string;
     readonly leapMonth: number;
     readonly monthsInYear: number;
-    private PERSIAN_EPOCH;
+    private baseCalendar;
     getDayOfWeek(Year: number, Month: number, Day: number): number;
     getDayOfYear(Year: number, Month: number, Day: number): number;
     getDaysInMonth(Year: number, Month: number): number;
@@ -385,6 +409,9 @@ declare class WNPersianCalendar implements IWNCalendar {
     isLeapDay(Year: number, Month: number, Day: number): boolean;
     isLeapMonth(Year: number, Month: number): boolean;
     isLeapYear(Year: number): boolean;
+    private persiana_year;
+    private tehran_equinox_jd;
+    private persian_to_jd;
     getDaysFromBase(Year: number, Month: number, Day: number): number;
     getYearMonthDayFromDays(jd: number): {
         year: number;
@@ -502,6 +529,12 @@ type PositionParameters = {
 };
 declare function WNSetElementPosition(source: HTMLElement, base: HTMLElement, param: PositionParameters): void;
 declare function WNmod(a: number, b: number): number;
+declare function WNdtr(d: any): number;
+declare function WNrtd(r: any): number;
+declare function WNdcos(d: any): number;
+declare function WNdsin(d: any): number;
+declare function WNfixangle(a: any): number;
+declare function WNfixangr(a: any): number;
 declare function WNparseBoolean(value: any, Default?: boolean): boolean;
 declare function WNparseNumber(value: any, Default?: number, culture?: IWNCultureInfo): number;
 declare function WNparseFloat(value: any, Default?: number, culture?: IWNCultureInfo): number;
