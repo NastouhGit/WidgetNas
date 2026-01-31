@@ -44,3 +44,4 @@
         }
     }
 }
+(globalThis as any).WNScroll = WNScroll;

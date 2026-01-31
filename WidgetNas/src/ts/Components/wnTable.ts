@@ -750,3 +750,4 @@
     }
     
 }
+(globalThis as any).WNTable = WNTable;

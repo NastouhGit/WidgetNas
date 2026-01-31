@@ -31,7 +31,6 @@ a ~ .lightboxbutton {
     user-select: none;
 
     &.show {
-        display: block;
         display: flex;
         overflow-x: hidden;
         overflow-y: auto;
@@ -53,9 +52,16 @@ a ~ .lightboxbutton {
         bottom: 0;
         display: flex;
         justify-content: center;
-        align-content: center;
         align-items: center;
         touch-action: pan-x;
+
+        .media {
+            position: relative;
+            max-width: 100vw;
+            max-height: 100vh;
+            min-width: 10vw;
+            min-height: 10vh;
+        }
 
         & > * {
             z-index: 1;
@@ -68,16 +74,21 @@ a ~ .lightboxbutton {
             z-index: 0;
             border: none;
             box-shadow: none;
-            max-height: 100%;
-            max-width: 100%;
-            width: auto;
-            height: auto;
             user-select: none;
             -webkit-user-drag: none;
             -khtml-user-drag: none;
             -moz-user-drag: none;
             -o-user-drag: none;
             user-drag: none;
+            position:relative;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            max-height: 100vh;
+            max-width: 100vw;
+            width: auto;
+            height: auto;
         }
 
         &::after {

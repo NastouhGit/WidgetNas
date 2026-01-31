@@ -63,3 +63,4 @@
     public set max(value: number) { this._max = value; this.showProgress() }
     public get max() { return this._max }
 }
+(globalThis as any).WNProgress = WNProgress;

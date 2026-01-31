@@ -111,3 +111,4 @@
         return [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, mLeapYear ? 30 : 29, 0];
     }
 }
+(globalThis as any).WNPersianCalendar = WNPersianCalendar;

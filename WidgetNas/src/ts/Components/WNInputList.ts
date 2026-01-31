@@ -169,5 +169,4 @@
         value.forEach(x => this.list?.addToDataSource(x, '', x, ''));
     }
 }
-
-
+(globalThis as any).WNInputList = WNInputList;

@@ -1,5 +1,5 @@
 ﻿class WNSelect implements IWNSelect {
-    public readonly nameType: string = 'WNList';
+    public readonly nameType: string = 'WNSelect';
     public element: HTMLElement;
 
     public list: IWNList;
@@ -139,3 +139,4 @@
 
    
 }
+(globalThis as any).WNSelect = WNSelect;

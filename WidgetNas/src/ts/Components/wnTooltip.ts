@@ -120,6 +120,7 @@
         this.target?.classList.remove('show');
     }
 }
+(globalThis as any).WNTooltip = WNTooltip;
 function WNTooltipAssign(elem: HTMLElement) {
     let selectors: NodeListOf<HTMLDivElement> = elem.querySelectorAll("[wn-tooltip]");
     for (var i = 0; i < selectors.length; i++) {

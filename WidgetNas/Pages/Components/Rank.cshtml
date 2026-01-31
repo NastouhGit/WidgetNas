@@ -1,0 +1,137 @@
+﻿@page
+@model WidgetNas.Pages.Components.RankModel
+@{
+    ViewData["Title"] = "رتبه — Rank";
+    ViewData["Description"] = "کامپوننت رتبه (WNRank) برای نمایش و دریافت رتبه/امتیاز به صورت تعاملی؛ پشتیبانی از حالت خواندنی و غیرفعال، راست‌چین و واکنش‌گرایی.";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    کامپوننت <strong>WNRank</strong> ابزاری ساده و منعطف برای نمایش و انتخاب رتبه (Rate) است. با این کامپوننت می‌توانید مجموعه‌ای از نمادها (مثل ستاره، قلب یا تصویر دلخواه) را به‌عنوان گزینه‌های رتبه‌بندی نمایش داده و مقدار انتخابی را از کاربر دریافت کنید.
+</p>
+
+<h4>ویژگی‌های کلیدی</h4>
+<ul>
+    <li>تعاملی: انتخاب رتبه با کلیک یا لمس</li>
+    <li>قابل سفارشی‌سازی: پشتیبانی از کلاس‌های استایل برای نمایش نمادهای متفاوت (ستاره، قلب و غیره)</li>
+    <li>پشتیبانی از حالت‌های <em>readonly</em> و <em>disabled</em></li>
+    <li>واکنش‌گرا و سازگار با موبایل، تبلت و دسکتاپ</li>
+    <li>پشتیبانی از راست‌به‌چپ (RTL)</li>
+</ul>
+
+<h4>کاربردهای متداول</h4>
+<ul>
+    <li>نمایش امتیاز کالا یا خدمات</li>
+    <li>دریافت بازخورد کاربر (رضایت، علاقه و غیره)</li>
+    <li>نمایش رتبه در لیست‌ها و نتایج</li>
+</ul>
+
+<h3>نحوه استفاده سریع</h3>
+<p>
+    برای افزودن کامپوننت کافی است یک المنت با صفت <code>wn-type="Rank"</code> بسازید. با افزودن کلاس‌هایی مانند <code>heart</code> می‌توانید ظاهر نمادها را تغییر دهید. مثال‌های زیر نحوه مقداردهی اولیه و استفاده از رویدادها را نشان می‌دهند.
+</p>
+
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <h5>Star</h5>
+        <div class="rank"
+             wn-type="Rank"
+             max="5"
+             value="3"
+             onclick="WN('rank-ltr').htmlElement.innerHTML=t.value">
+        </div>
+        <label id="rank-ltr"></label>
+        <h5>Heart</h5>
+        <div class="rank heart"
+             wn-type="Rank"
+             max="5"
+             value="3">
+        </div>
+        <h5>Read only</h5>
+        <div class="rank"
+             wn-type="Rank"
+             max="5"
+             value="3"
+             readonly>
+        </div>
+        <h5>Disabled</h5>
+        <div class="rank"
+             wn-type="Rank"
+             max="5"
+             value="3"
+             disabled>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h5>ستاره</h5>
+        <div class="rank"
+             wn-type="Rank"
+             max="5"
+             value="3">
+        </div>
+        <h5>قلب</h5>
+        <div class="rank heart"
+             wn-type="Rank"
+             max="5"
+             value="3">
+        </div>
+        <h5>فقط خواندنی</h5>
+        <div class="rank"
+             wn-type="Rank"
+             max="5"
+             value="3"
+             readonly>
+        </div>
+        <h5>غیر فعال</h5>
+        <div class="rank"
+             wn-type="Rank"
+             max="5"
+             value="3"
+             disabled>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+
+<h3>خصوصیات (Attributes)</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>نام</th>
+            <th>نوع</th>
+            <th>پیش‌فرض</th>
+            <th>توضیحات</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>max</td><td>عدد</td><td>5</td><td>حداکثر مقدار (تعداد نمادها). عدد باید >= 1 باشد.</td></tr>
+        <tr><td>value</td><td>عدد</td><td>0</td><td>مقدار فعلی انتخاب‌شده؛ بازهٔ مجاز: 0 .. max</td></tr>
+        <tr><td>readonly</td><td>بولین</td><td>false</td><td>وقتی وجود دارد کاربر نمی‌تواند مقدار را تغییر دهد (فقط نمایش)</td></tr>
+        <tr><td>disabled</td><td>بولین</td><td>false</td><td>وقتی وجود دارد کامپوننت غیرفعال است و هیچ رویدادی ارسال نمی‌شود</td></tr>
+        <tr><td>onbeforechange</td><td>تابع</td><td>-</td><td>فراخوانی قبل از تغییر مقدار توسط کاربر؛ اگر تابع مقدار <code>false</code> برگرداند، تغییر لغو می‌شود. امضا: <code>function(oldValue, newValue, element)</code></td></tr>
+        <tr><td>onclick</td><td>تابع</td><td>-</td><td>فراخوانی پس از تغییر مقدار؛ امضا: <code>function(value, element)</code></td></tr>
+    </tbody>
+</table>
+
+<h3>رویدادها</h3>
+<ul>
+    <li>
+        <strong>onbeforechange / beforechange</strong>: قبل از اعمال تغییر که کاربر درخواست آن را کرده؛ می‌توانید در این رویداد اعتبارسنجی یا تأیید انجام دهید و با بازگرداندن <code>false</code> از تغییر جلوگیری کنید.<br>
+        مثال: <code>&lt;div wn-type="Rank" onbeforechange="return confirmChange(oldV,newV)"&gt;&lt;/div&gt;</code>
+    </li>
+    <li>
+        <strong>onclick / change</strong>: پس از تغییر موفق مقدار فراخوانی می‌شود و مقدار جدید را دریافت می‌کنید.<br>
+        مثال: <code>&lt;div wn-type="Rank" onclick="console.log(t.value)"&gt;&lt;/div&gt;</code>
+    </li>
+</ul>
+
+<h3>نکات و راهنمایی</h3>
+<ul>
+    <li>برای نمایش نمادهای سفارشی، از کلاس‌های CSS روی المان اصلی یا آیتم‌ها استفاده کنید.</li>
+    <li>اگر می‌خواهید مقدار را برنامه‌نویسی تغییر دهید، پراپرتی <code>value</code> را ست کرده و سپس در صورت نیاز رابط را بروزرسانی نمایید (کلاس پیاده‌سازی معمولاً متدی مثل <code>layout</code> یا <code>refresh</code> دارد).</li>
+    <li>در حالت موبایل، از لمس ساده برای کلیک و از حرکت افقی/اسکرول برای جلوگیری از انتخاب ناخواسته استفاده شود.</li>
+</ul>

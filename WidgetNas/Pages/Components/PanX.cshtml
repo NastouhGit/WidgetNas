@@ -1,0 +1,57 @@
+﻿@page
+@model WidgetNas.Pages.Components.PanXModel
+@{
+    ViewData["Title"] = "پیمایش افقی Pan-X";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    در برخی موارد طراحی رابط کاربری، نیاز داریم عنصری داشته باشیم که فرزندان آن به‌صورت افقی درون آن جابجا شوند. این حالت معمولاً برای نمایش مجموعه‌ای از گزینه‌ها، تصاویر، کارت‌ها یا آیتم‌هایی مشابه کاربرد دارد.
+</p>
+<p>
+    برای مثال، تصور کنید یک لیست از تصاویر یا دکمه‌ها داریم که کاربر می‌تواند با کشیدن یا پیمایش، آن‌ها را در راستای افقی مرور کند. در چنین شرایطی، عنصر والد نقش یک قاب یا ظرف را ایفا می‌کند و فرزندان درون آن به‌صورت پیمایش‌پذیر افقی (horizontal scrollable) قرار می‌گیرند.
+</p>
+<p>
+    این تکنیک نه‌تنها باعث صرفه‌جویی در فضای صفحه می‌شود، بلکه تجربهٔ کاربری روان‌تری را در دستگاه‌های لمسی یا کوچک‌تر فراهم می‌کند.
+</p>
+<h2>نحوه بکار گیری</h2>
+<p>برای فعال‌سازی پیمایش افقی (Pan در راستای X)، کافی‌ست یک عنصر والد با کلاس wn-pan-x تعریف کنید. این عنصر نقش قاب اصلی را دارد که فرزندان درون آن به‌صورت افقی قابل جابجایی خواهند بود.</p>
+<p>درون این عنصر، می‌توانید یک div فرزند قرار دهید که شامل هر نوع محتوایی باشد—از گزینه‌ها و تصاویر گرفته تا کارت‌های اطلاعاتی یا دکمه‌ها.</p>
+<p>با اختصاص کلاس wn-pan-x به عنصر والد، سیستم به‌طور خودکار قابلیت پیمایش افقی را فعال می‌کند. این ویژگی به‌ویژه در طراحی رابط‌های لمسی یا نمایش آیتم‌های زیاد در فضای محدود بسیار کاربردی است.</p>
+
+<div class="example-div">
+    <div class="ltr">
+        <h3>LTR</h3>
+        <div id="pan-x-1" class="wn-pan-x d-flex flex-direction-row justify-content-center border w-50">
+            <div class="d-flex h-200r">
+                <a href='#A' class="w-1000r m-i-50r" style="background-color:red">A</a>
+                <a href='#B' class="w-1000r m-i-50r" style="background-color:blue">B</a>
+                <a href='#C' class="w-1000r m-i-50r" style="background-color:green">C</a>
+                <a href='#D' class="w-1000r m-i-50r" style="background-color:yellow">D</a>
+                <a href='#E' class="w-1000r m-i-50r" style="background-color:magenta">E</a>
+                <a href='#F' class="w-1000r m-i-50r" style="background-color:olive">F</a>
+                <a href='#G' class="w-1000r m-i-50r" style="background-color:seagreen">G</a>
+                <a href='#H' class="w-1000r m-i-50r" style="background-color:greenyellow">H</a>
+            </div>
+        </div>
+        <h4>No Need Pan</h4>
+        <div id="pan-x-1" class="wn-pan-x d-flex flex-direction-row justify-content-center border  w-100">
+            <div class="d-flex h-200r">
+                <div class="m-i-50r" style="background-color:red">A</div>
+                <div class="m-i-50r" style="background-color:blue">B</div>
+                <div class="m-i-50r" style="background-color:green">C</div>
+                <div class="m-i-50r" style="background-color:yellow">D</div>
+                <div class="m-i-50r" style="background-color:magenta">E</div>
+                <div class="m-i-50r" style="background-color:olive">F</div>
+                <div class="m-i-50r" style="background-color:seagreen">G</div>
+                <div class="m-i-50r" style="background-color:greenyellow">H</div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+    </div>
+
+</div>
+
+<figure><code data-on="pan-x-1"></code></figure>

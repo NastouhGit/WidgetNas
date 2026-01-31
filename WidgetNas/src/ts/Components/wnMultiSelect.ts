@@ -110,7 +110,7 @@
             text: n.text,
             value: n.value
         };
-        if (this.add(item) != null) {
+        if (this.addSelectedItem(item) != null) {
             if (t.nameType != 'WNTree')
                 n.element.classList.add('d-none');
 
@@ -119,8 +119,15 @@
         }
         t.selectedItem = null;
     }
-
-    private add(node: WNGeneralNode): WNGeneralNode {
+    public addSelectedItemByList(rows: [], textField: string, valueField: string, append: boolean): void {
+        if (append == false)
+            this.clearAll();
+        rows?.forEach(x => this.addSelectedItemBy(WNGetRecordValue(x, textField), WNGetRecordValue(x,valueField)));
+    }
+    public addSelectedItemBy(text: string, value: string): WNGeneralNode {
+        return this.addSelectedItem({ text: text, value: value });
+    }
+    public addSelectedItem(node: WNGeneralNode): WNGeneralNode {
         if (this.max != 0 && this.selectedItems.length >= this.max) return null;
         if (this.selectedItems.find(x => x.id == node.id && x.value == node.value && x.text == node.text))
             return null;
@@ -133,7 +140,7 @@
         sp.dir = this.element.dir;
 
         sp.addEventListener('click', (t) => {
-            if (this.remove(node)) {
+            if (this.removeSelectedItem(node)) {
                 this.search.list.findByValue(node.value, false)?.element.classList.remove('d-none');
                 this.afterDeselect?.(this, node);
                 this.selectionChanged?.(this, null);
@@ -143,7 +150,7 @@
         node.element = sp;
         return node;
     }
-    private remove(node: WNGeneralNode): boolean {
+    public removeSelectedItem(node: WNGeneralNode): boolean {
         if (this.beforeDeselect && !this.beforeDeselect?.(this, node))
             return null;
 
@@ -166,34 +173,34 @@
     public set selectedItems(value: WNGeneralNode[]) {
         this.clearAll();
         for (var i = 0; i < value.length; i++) {
-            if (this.add(value[i]) != null) {
+            if (this.addSelectedItem(value[i]) != null) {
                 let node = this.search.list.findByValue(value[i].value);
-                if (this.add(node) != null)
+                if (this.addSelectedItem(node) != null)
                     node.element.classList.add('d-none');
             }
         }
     }
     public get selectedValue(): string[] {
         let ret: string[] = [];
-        this.selectedItems.forEach(x => ret.push(x.value));
+        this.selectedItems?.forEach(x => ret.push(x.value));
         return ret;
     }
     public set selectedValue(value: string[]) {
         this.clearAll();
         for (var i = 0; i < value.length; i++) {
-            let node = this.search.list.findByValue(value[i]);
+            let node = this.search.list?.findByValue(value[i]);
             if (node) {
                 let item: WNGeneralNode = {
                     id: node.id,
                     text: node.text,
                     value: node.value
                 };
-                if (this.add(item) != null)
+                if (this.addSelectedItem(item) != null)
                     node.element.classList.add('d-none');
             }
         }
     }
-    private clearAll() {
+    public clearAll() {
         this._selectedItems = [];
         if (this.selectedarea)
             this.selectedarea.innerHTML = '';
@@ -203,4 +210,4 @@
         this.searchbox.value = '';
     }
 }
-
+(globalThis as any).WNMultiSelect = WNMultiSelect;

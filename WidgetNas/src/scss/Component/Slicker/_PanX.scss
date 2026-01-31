@@ -1,0 +1,25 @@
+﻿@import "../../_variables.scss";
+
+.wn-pan-x {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &.grab {
+        cursor: grab;
+
+        &.dragging {
+            cursor: grabbing;
+            user-select: none;
+
+            * {
+                cursor: grabbing;
+                user-select: none;
+            }
+        }
+    }
+}

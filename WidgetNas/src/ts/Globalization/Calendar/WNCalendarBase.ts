@@ -427,3 +427,4 @@
         return E;
     }
 }
+(globalThis as any).WNCalendarBase = WNCalendarBase;

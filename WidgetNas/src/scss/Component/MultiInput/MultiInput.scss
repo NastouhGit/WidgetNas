@@ -1,6 +1,6 @@
 ﻿@import "../../_variables.scss";
 
-multiinput, .multiinput {
+multiinput, .multiinput, .multi-input {
     display: flex;
     padding: calc(var(--border-radius) / 5);
     align-items: stretch;
@@ -62,7 +62,6 @@ multiinput, .multiinput {
                 border-block-start: none;
                 border-inline: none;
                 border-block-end: calc(var(--border-width) * 2) solid var(--normal-border);
-                margin-block-end: calc(var(--margin-block) - var(--border-width)) !important;
                 border-radius: 0;
             }
         }

@@ -76,3 +76,4 @@
         return { year: year, month: month, day: day };
     }
 }
+(globalThis as any).WNJulianCalendar = WNJulianCalendar;

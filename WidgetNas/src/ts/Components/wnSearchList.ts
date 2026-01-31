@@ -31,10 +31,10 @@
 
         if (this.element.hasAttribute('list-id'))
             this.listElement = document.getElementById(this.element.getAttribute('list-id')) as HTMLElement;
-        else if (this.searchbox.nextElementSibling != null)
-            this.listElement = this.searchbox.nextElementSibling as HTMLElement;
-        else if (this.searchbox.previousElementSibling != null)
-            this.listElement = this.searchbox.previousElementSibling as HTMLElement;
+        //else if (this.searchbox.nextElementSibling != null)
+        //    this.listElement = this.searchbox.nextElementSibling as HTMLElement;
+        //else if (this.searchbox.previousElementSibling != null)
+        //    this.listElement = this.searchbox.previousElementSibling as HTMLElement;
         else {
             this.listElement = this.element.querySelector('ul,.list,.tree');
             if (this.listElement == null)
@@ -48,31 +48,27 @@
         if (this.element.hasAttribute('onafterfilterchanged')) this.afterFilterChanged = WNGenerateFunction(this.element.getAttribute('onafterfilterchanged'), 't,text');
         if (this.element.hasAttribute('onselectionchanged')) this.selectionChanged = WNGenerateFunction(this.element.getAttribute('onselectionchanged'), 't,n');
 
-
+        let inputTimeHandler = 0;
         this.searchbox.addEventListener('input',
             async (e) => {
                 if (this.list == null) return;
                 let v = (<HTMLInputElement>e.target).value;
                 if (v.length != 0 && v.length < this.minLength) return;
+                if (inputTimeHandler != 0)
+                    clearTimeout(inputTimeHandler);
 
-                if (this.beforeFilterChanged && !this.beforeFilterChanged?.(this, v))
-                    return;
-                this.list.filterByText(v, true);
+                inputTimeHandler = setTimeout(() => {
+                    let v = this.searchbox.value;
+                    if (this.beforeFilterChanged && !this.beforeFilterChanged?.(this, v))
+                        return;
+                    this.list.filterByText(v, true);
 
-                this.afterFilterChanged?.(this, v);
+                    this.afterFilterChanged?.(this, v);
+                }, 300);
             });
 
-        this.waitToInitList();
-    }
-    private waitToInitList() {
-        let tim = setInterval(() => {
-            if (WN(this.listElement.id).wn != null) {
-                this.list = WN(this.listElement.id).wn;
-                this.list.selectionChanged = (t, n) => this.selectionchanged(t, n);
-                clearInterval(tim);
-
-            }
-        }, 100)
+        this.list = new WNList(this.listElement);
+        this.list.selectionChanged = (t, n) => this.selectionchanged(t, n);
     }
     private selectionchanged(t, n: WNListNode | WNTreeNode) {
         if (this.displayElement) {
@@ -90,4 +86,4 @@
         this.selectionChanged?.(t, n);
     }
 }
-
+(globalThis as any).WNSearchList = WNSearchList;

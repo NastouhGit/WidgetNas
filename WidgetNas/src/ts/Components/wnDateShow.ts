@@ -51,3 +51,4 @@
             this.element.innerHTML = disp;
     }
 }
+(globalThis as any).WNDateShow = WNDateShow;

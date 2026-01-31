@@ -39,3 +39,4 @@
         
     }
 }
+(globalThis as any).WNTreeTable = WNTreeTable;

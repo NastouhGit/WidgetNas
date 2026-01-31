@@ -109,3 +109,4 @@
         this.afterHide?.(this);
     }
 }
+(globalThis as any).WNModal = WNModal;

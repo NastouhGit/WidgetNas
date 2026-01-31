@@ -52,3 +52,4 @@
         });
     }
 }
+(globalThis as any).WNCloseButton = WNCloseButton;

@@ -433,7 +433,7 @@
 
         for (var i = 0; i < subItem.length; i++) {
             let item = subItem[i];
-            let node = this.addToDataSource(parentNode, item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            let node = this.addToDataSource(parentNode, WNGetRecordValue(item, displayFieldName), WNGetRecordValue(item, linkFieldName), WNGetRecordValue(item, valueFieldName), WNGetRecordValue(item,imageFieldName));
             this.convertParentId(node, node.value, dataSource, idFieldName, parentFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
         }
     }
@@ -446,7 +446,7 @@
     private convertByItem(parentNode: WNTreeNode, dataSource: any[], itemFieldName: string, displayFieldName: string, valueFieldName: string, linkFieldName: string, imageFieldName: string): void {
         for (var i = 0; i < dataSource.length; i++) {
             let item = dataSource[i];
-            let node = this.addToDataSource(parentNode, item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            let node = this.addToDataSource(parentNode, WNGetRecordValue(item, displayFieldName), WNGetRecordValue(item, linkFieldName), WNGetRecordValue(item, valueFieldName), WNGetRecordValue(item,imageFieldName));
             if (item[itemFieldName] && item[itemFieldName].length > 0)
                 this.convertByItem(node, item[itemFieldName], itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
         }
@@ -559,3 +559,4 @@
     }
 
 }
+(globalThis as any).WNTree = WNTree;

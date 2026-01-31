@@ -20,7 +20,7 @@
             else {
                 this.dropdown = elem.querySelector("[class*='dropdown']");
                 if (this.dropdown == null) {
-                    if ((this.element.nextElementSibling as HTMLElement).classList.contains('dropdown'))
+                    if ((this.element.nextElementSibling as HTMLElement)?.classList.contains('dropdown'))
                         this.dropdown = this.element.nextElementSibling as HTMLElement;
                 }
             }
@@ -39,7 +39,7 @@
         if (this.element.hasAttribute('wn-dropdown-event'))
             defaultevent = this.element.getAttribute('wn-dropdown-event');
 
-        if (defaultevent !== '')
+        if (defaultevent !== '' && defaultevent != 'none')
             defaultevent.split(',').forEach((s) => {
                 this.element.addEventListener(s.trim(), (e) => {
                     e.preventDefault();
@@ -117,86 +117,104 @@
         this.afterHide?.(this);
     }
 
-    public show(): void {
+    public async show() {
         WNDropdown.WNWindowClickHandled = true;
         this.setPosition();
         this.beforeShow?.(this);
-
-        this.dropdown.classList.add("show");
-        if (!this.dropdown.classList.contains('single')) {
-            WNDropdown.WNLastDropdownOpened.push(this.dropdown);
-        }
-        //this.dropdown.focus();
-        this.afterShow?.(this);
+        requestAnimationFrame(() => {
+            this.dropdown.classList.add("show");
+            if (!this.dropdown.classList.contains('single')) {
+                WNDropdown.WNLastDropdownOpened.push(this.dropdown);
+            }
+            this.afterShow?.(this);
+        });
     }
 
-    public setPosition(): void {
+    public setPosition(lastElement: HTMLElement = undefined): void {
+        if (!lastElement) lastElement = this.element;
+        this.dropdown.style.width = '';
+        this.dropdown.style.height = '';
+        requestAnimationFrame(() => {
+            let dropdown_cs = getComputedStyle(this.dropdown);
+            let dropdown_pos = this.dropdown.getBoundingClientRect();
+            let element_pos = lastElement.getBoundingClientRect();
+            let offsetLeft = element_pos.left;
+            let offsetTop = element_pos.top;
+            let marginTop = + parseInt(dropdown_cs.marginTop);
+            let rtl = dropdown_cs.direction == 'rtl';
 
-        let dropdown_cs = getComputedStyle(this.dropdown);
-        let dropdown_pos = this.dropdown.getBoundingClientRect();
-        let element_pos = this.element.getBoundingClientRect();
-        let offsetLeft = element_pos.left;
-        let offsetTop = element_pos.top;
-        let marginTop = + parseInt(dropdown_cs.marginTop);
-        let rtl = dropdown_cs.direction == 'rtl';
+            let top = offsetTop + element_pos.height;
+            let start = 0;
+            let width = dropdown_pos.width;
 
-        let top = offsetTop + element_pos.height;
-        let start = 0;
-        let width = dropdown_pos.width;
+            //Fixed Dropdown Width
+            if (this.dropdown.className.includes('align-fit')) {
+                if (width < element_pos.width) {
+                    this.dropdown.style.width = '';
+                    width = element_pos.width;
+                }
+            }
 
-        //Fixed Dropdown Width
-        if (this.dropdown.className.includes('align-fit')) {
-            if (width < element_pos.width)
-                width = element_pos.width;
-        }
+            //Where Dropdown show
+            //Calculate Top position
+            if (element_pos.bottom + dropdown_pos.height + marginTop * 2 > window.innerHeight || lastElement.className.includes('pos-top'))
+                top = offsetTop - dropdown_pos.height - marginTop * 2;
 
-        //Where Dropdown show
-        //Calculate Top position
-        if (element_pos.bottom + dropdown_pos.height + marginTop * 2 > window.innerHeight || this.element.className.includes('pos-top'))
-            top = offsetTop - dropdown_pos.height - marginTop * 2;
-
-        //Calculate Left or Right position
-        if (rtl) {
-            start = element_pos.right - width;
-            if (this.dropdown.className.includes('align-end')) {
+            //Calculate Left or Right position
+            if (rtl) {
+                start = element_pos.right - width;
+                if (this.dropdown.className.includes('align-end')) {
+                    start = offsetLeft;
+                }
+            }
+            else {
                 start = offsetLeft;
+                if (this.dropdown.className.includes('align-end')) {
+                    start = offsetLeft + element_pos.width - width;
+                }
             }
-        }
-        else {
-            start = offsetLeft;
-            if (this.dropdown.className.includes('align-end')) {
-                start = offsetLeft + element_pos.width - width;
+            if (start < 0) start = offsetLeft;
+            if (start + width > document.body.clientWidth) {
+                width = document.body.clientWidth;
+                start = 0;
             }
-        }
-        if (start < 0) start = offsetLeft;
-        if (start + width > window.innerWidth) start = window.innerWidth - width;
+            if (lastElement.className.includes('pos-start')) {
+                top = offsetTop - dropdown_pos.height / 2;
+                if (rtl)
+                    start = offsetLeft + lastElement.offsetWidth + marginTop;
+                else
+                    start = offsetLeft - width - marginTop;
+            }
+            if (lastElement.className.includes('pos-end')) {
+                top = offsetTop - dropdown_pos.height / 2;
+                if (rtl)
+                    start = offsetLeft - width - marginTop;
+                else
+                    start = offsetLeft + lastElement.offsetWidth + marginTop;
+            }
+            if (lastElement.className.includes('pos-bottom'))
+                top = offsetTop + element_pos.height;
 
-        if (this.element.className.includes('pos-start')) {
-            top = offsetTop - dropdown_pos.height / 2;
-            if (rtl)
-                start = offsetLeft + this.element.offsetWidth + marginTop;
-            else
-                start = offsetLeft - width - marginTop;
-        }
-        if (this.element.className.includes('pos-end')) {
-            top = offsetTop - dropdown_pos.height / 2;
-            if (rtl)
-                start = offsetLeft - width - marginTop;
-            else
-                start = offsetLeft + this.element.offsetWidth + marginTop;
-        }
-        if (this.element.className.includes('pos-bottom'))
-            top = offsetTop + element_pos.height;
+            this.dropdown.style.top = top + "px";
+            if (rtl) {
+                //this.dropdown.style.left = start + "px";
+                this.dropdown.style.right = (document.body.clientWidth - start - width) + "px";
 
-        this.dropdown.style.top = top + "px";
-        this.dropdown.style.left = start + "px";
-        if (width > 0)
-            this.dropdown.style.width = width + "px";
-        else
-            this.dropdown.style.width = '';
+                this.dropdown.style.left = '';
+            }
+            else {
+                this.dropdown.style.left = start + "px";
+                this.dropdown.style.right = '';
+            }
+            if (this.dropdown.style.width == '' && width > 0)
+                this.dropdown.style.width = width + "px";
+            else
+                this.dropdown.style.width = '';
+        });
     }
 
     public hideAllDropDowns(): void {
         WNDropdown.WNLastDropdownOpened.forEach((x) => { x.classList.remove('show'); });
     }
 }
+(globalThis as any).WNDropdown = WNDropdown;

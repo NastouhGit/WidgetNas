@@ -35,4 +35,4 @@
 
     }
 }
-
+(globalThis as any).WNConfig = WNConfig;

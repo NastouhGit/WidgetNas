@@ -81,4 +81,4 @@
         });
 }
 }
-
+(globalThis as any).WNFilter = WNFilter;

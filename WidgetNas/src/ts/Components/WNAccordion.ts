@@ -57,9 +57,9 @@
         this._selectedIndex = value;
         this.setCollapse();
         if (isCollapsed)
-            this.afterCollapse?.(this, value);
-        else
             this.afterExpand?.(this, value);
+        else
+            this.afterCollapse?.(this, value);
     }
     public beforeCollapse: (t: IWNAccordion, index: number) => boolean;
     public afterCollapse: (t, index) => void;
@@ -167,3 +167,4 @@
         this.items = [];
     }
 }
+(globalThis as any).WNAccordion = WNAccordion;

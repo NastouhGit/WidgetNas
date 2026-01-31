@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
+    "target": "es2022",
+    "module": "none",
+    "outFile": "wwwroot/lib/WidgetNas/js/WidgetNas.js",
+    "removeComments": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "outFile": "wwwroot/lib/WidgetNas/js/WidgetNas.js",
-    "removeComments": true,
-    "target": "es2022",
-    "allowJs": true,
-    "declaration": true,
-    "sourceMap": true,
-    "emitDeclarationOnly": false,
-    "declarationMap": false
+    "allowJs": false
   },
   "files": [
     "src/ts/about.ts",

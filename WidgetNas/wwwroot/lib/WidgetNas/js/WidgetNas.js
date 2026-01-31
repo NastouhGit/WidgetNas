@@ -1,12 +1,13 @@
 function wnabout() {
     return `
  +--------------------------------------+
- | Widgetnas Version: 2.1.2.8           |
+ | Widgetnas Version: 2.1.4.10           |
  +--------------------------------------+
 `;
 }
 var WNLanguage = {};
 var wnConfig;
+var WNRTLLanguages = ['ar', 'fa', 'he', 'ur', 'ps', 'sd', 'ug', 'yi', 'dv', 'ku', 'nqo', 'sy'];
 WNLanguage['en'] = {
     'common': {
         'browsererror': 'Please use a new browser with proper w3 support. Chrome version 89 and above or FireFox version 55 and above.',
@@ -606,6 +607,7 @@ class WNCultureInfo_ar_SA {
         oemCodePage: 720
     };
 }
+globalThis.WNCultureInfo_ar_SA = WNCultureInfo_ar_SA;
 class WNCultureInfo_en_US {
     displayName = 'English';
     englishName = 'English';
@@ -680,6 +682,7 @@ class WNCultureInfo_en_US {
         oemCodePage: 437
     };
 }
+globalThis.WNCultureInfo_en_US = WNCultureInfo_en_US;
 class WNCultureInfo_fa_IR {
     displayName = 'پارسی';
     englishName = 'Persian';
@@ -754,6 +757,7 @@ class WNCultureInfo_fa_IR {
         oemCodePage: 720
     };
 }
+globalThis.WNCultureInfo_fa_IR = WNCultureInfo_fa_IR;
 class WNCalendarBase {
     PERSIAN_EPOCH = 1948320.5;
     GREGORIAN_EPOCH = 1721425.5;
@@ -941,6 +945,7 @@ class WNCalendarBase {
         return E;
     }
 }
+globalThis.WNCalendarBase = WNCalendarBase;
 class WNDate {
     _Year;
     _Month;
@@ -1339,6 +1344,7 @@ class WNDate {
         return this.toNumber() !== rhs.toNumber();
     }
 }
+globalThis.WNDate = WNDate;
 class WNGregorianCalendar {
     leapMonth = 2;
     monthsInYear = 12;
@@ -1381,6 +1387,7 @@ class WNGregorianCalendar {
         return { year: r[0], month: r[1], day: r[2] };
     }
 }
+globalThis.WNGregorianCalendar = WNGregorianCalendar;
 class WNHijriCalendar {
     localeName = "islamic";
     leapMonth = 12;
@@ -1433,6 +1440,7 @@ class WNHijriCalendar {
         return [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, mLeapYear ? 30 : 29, 0];
     }
 }
+globalThis.WNHijriCalendar = WNHijriCalendar;
 class WNJulianCalendar {
     localeName = "julian";
     leapMonth = 2;
@@ -1496,6 +1504,7 @@ class WNJulianCalendar {
         return { year: year, month: month, day: day };
     }
 }
+globalThis.WNJulianCalendar = WNJulianCalendar;
 class WNPersianCalendar {
     localeName = "persian";
     leapMonth = 12;
@@ -1586,6 +1595,7 @@ class WNPersianCalendar {
         return [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, mLeapYear ? 30 : 29, 0];
     }
 }
+globalThis.WNPersianCalendar = WNPersianCalendar;
 function getFormData(Form) {
     let data = new FormData();
     if (Form != undefined) {
@@ -1805,94 +1815,144 @@ var WNElements = {};
 class WNElement {
     wn;
     element;
-    get htmlElement() { return this.element; }
-    get document() { return this.element; }
-    get fieldSetElement() { return this.element; }
-    get embedElement() { return this.element; }
-    get formElement() { return this.element; }
-    get hrElement() { return this.element; }
-    get headElement() { return this.element; }
-    get headingElement() { return this.element; }
-    get linkElement() { return this.element; }
-    get iFrameElement() { return this.element; }
-    get imageElement() { return this.element; }
-    get inputElement() { return this.element; }
-    get liElement() { return this.element; }
-    get labelElement() { return this.element; }
-    get legendElement() { return this.element; }
-    get mapElement() { return this.element; }
-    get mediaElement() { return this.element; }
-    get menuElement() { return this.element; }
-    get metaElement() { return this.element; }
-    get meterElement() { return this.element; }
-    get oListElement() { return this.element; }
-    get objectElement() { return this.element; }
-    get optGroupElement() { return this.element; }
-    get optionElement() { return this.element; }
-    get outputElement() { return this.element; }
-    get paragraphElement() { return this.element; }
-    get pictureElement() { return this.element; }
-    get preElement() { return this.element; }
-    get progressElement() { return this.element; }
-    get quoteElement() { return this.element; }
-    get scriptElement() { return this.element; }
-    get selectElement() { return this.element; }
-    get sourceElement() { return this.element; }
-    get spanElement() { return this.element; }
-    get tableCaptionElement() { return this.element; }
-    get tableCellElement() { return this.element; }
-    get tableColElement() { return this.element; }
-    get tableElement() { return this.element; }
-    get tableRowElement() { return this.element; }
-    get tableSectionElement() { return this.element; }
-    get templateElement() { return this.element; }
-    get textAreaElement() { return this.element; }
-    get timeElement() { return this.element; }
-    get titleElement() { return this.element; }
-    get trackElement() { return this.element; }
-    get uListElement() { return this.element; }
-    get videoElement() { return this.element; }
-    ready(callBack, options = false) { this.element.addEventListener("DOMContentLoaded", callBack, options); }
-    click(callBack) { this.element.addEventListener("click", callBack); }
-    change(callBack) { this.element.addEventListener("change", callBack); }
-    input(callBack) { this.element.addEventListener("input", callBack); }
-    focus(callBack) { this.element.addEventListener("focus", callBack); }
-    focusIn(callBack) { this.element.addEventListener("focusin", callBack); }
-    focusOut(callBack) { this.element.addEventListener("focusout", callBack); }
-    resize(callBack) { this.element.addEventListener("resize", callBack); }
-    scroll(callBack) { this.element.addEventListener("scroll", callBack); }
-    select(callBack) { this.element.addEventListener("select", callBack); }
-    contextMenu(callBack) { this.element.addEventListener("contextmenu", callBack); }
-    copy(callBack) { this.element.addEventListener("copy", callBack); }
-    cut(callBack) { this.element.addEventListener("cut", callBack); }
-    paste(callBack) { this.element.addEventListener("paste", callBack); }
-    dblClick(callBack) { this.element.addEventListener("dblclick", callBack); }
-    drag(callBack) { this.element.addEventListener("drag", callBack); }
-    dragend(callBack) { this.element.addEventListener("dragend", callBack); }
-    dragEnter(callBack) { this.element.addEventListener("dragenter", callBack); }
-    dragLeave(callBack) { this.element.addEventListener("dragleave", callBack); }
-    dragOver(callBack) { this.element.addEventListener("dragover", callBack); }
-    dragStart(callBack) { this.element.addEventListener("dragstart", callBack); }
-    drop(callBack) { this.element.addEventListener("drop", callBack); }
-    keyDown(callBack) { this.element.addEventListener("keydown", callBack); }
-    keyPress(callBack) { this.element.addEventListener("keypress", callBack); }
-    keyUp(callBack) { this.element.addEventListener("keyup", callBack); }
-    mouseDown(callBack) { this.element.addEventListener("mousedown", callBack); }
-    mouseEnter(callBack) { this.element.addEventListener("mouseenter", callBack); }
-    mouseLeave(callBack) { this.element.addEventListener("mouseleave", callBack); }
-    mouseMove(callBack) { this.element.addEventListener("mousemove", callBack); }
-    mouseOver(callBack) { this.element.addEventListener("mouseover", callBack); }
-    mouseOut(callBack) { this.element.addEventListener("mouseout", callBack); }
-    mouseUp(callBack) { this.element.addEventListener("mouseup", callBack); }
-    touchCancel(callBack) { this.element.addEventListener("touchcancel", callBack); }
-    touchEnd(callBack) { this.element.addEventListener("touchend", callBack); }
-    touchMove(callBack) { this.element.addEventListener("touchmove", callBack); }
-    touchStart(callBack) { this.element.addEventListener("touchstart", callBack); }
-    wheel(callBack) { this.element.addEventListener("wheel", callBack); }
+    get WNAccordion() { return this.wn ? this.wn : null; }
+    get WNCaptcha() { return this.wn ? this.wn : null; }
+    get WNCarousel() { return this.wn ? this.wn : null; }
+    get WNCloseButton() { return this.wn ? this.wn : null; }
+    get WNCollapse() { return this.wn ? this.wn : null; }
+    get WNConfirm() { return this.wn ? this.wn : null; }
+    get WNCounter() { return this.wn ? this.wn : null; }
+    get WNDateShow() { return this.wn ? this.wn : null; }
+    get WNDropdown() { return this.wn ? this.wn : null; }
+    get WNEditor() { return this.wn ? this.wn : null; }
+    get WNFileList() { return this.wn ? this.wn : null; }
+    get WNFilter() { return this.wn ? this.wn : null; }
+    get WNImageEditor() { return this.wn ? this.wn : null; }
+    get WNInputList() { return this.wn ? this.wn : null; }
+    get WNLightbox() { return this.wn ? this.wn : null; }
+    get WNList() { return this.wn ? this.wn : null; }
+    get WNModal() { return this.wn ? this.wn : null; }
+    get WNMonthCalendar() { return this.wn ? this.wn : null; }
+    get WNMultiInput() { return this.wn ? this.wn : null; }
+    get WNMultiInputPhone() { return this.wn ? this.wn : null; }
+    get WNMultiSelect() { return this.wn ? this.wn : null; }
+    get WNProgress() { return this.wn ? this.wn : null; }
+    get WNScroll() { return this.wn ? this.wn : null; }
+    get WNSearchList() { return this.wn ? this.wn : null; }
+    get WNSlicker() { return this.wn ? this.wn : null; }
+    get WNSticky() { return this.wn ? this.wn : null; }
+    get WNTab() { return this.wn ? this.wn : null; }
+    get WNTable() { return this.wn ? this.wn : null; }
+    get WNTime() { return this.wn ? this.wn : null; }
+    get WNToast() { return this.wn ? this.wn : null; }
+    get WNTooltip() { return this.wn ? this.wn : null; }
+    get WNToolbar() { return this.wn ? this.wn : null; }
+    get WNTree() { return this.wn ? this.wn : null; }
+    get WNTreeTable() { return this.wn ? this.wn : null; }
+    get WNValidator() { return this.wn ? this.wn : null; }
+    get WNSelect() { return this.wn ? this.wn : null; }
+    get WNCalendar() { return this.wn ? this.wn : null; }
+    get WNCultureInfo() { return this.wn ? this.wn : null; }
+    get WNDate() { return this.wn ? this.wn : null; }
+    get WNRange() { return this.wn ? this.wn : null; }
+    get htmlElement() { return this.element instanceof HTMLElement ? this.element : null; }
+    get document() { return this.element instanceof Document ? this.element : null; }
+    get fieldSetElement() { return this.element instanceof HTMLFieldSetElement ? this.element : null; }
+    get embedElement() { return this.element instanceof HTMLEmbedElement ? this.element : null; }
+    get formElement() { return this.element instanceof HTMLFormElement ? this.element : null; }
+    get hrElement() { return this.element instanceof HTMLHRElement ? this.element : null; }
+    get headElement() { return this.element instanceof HTMLHeadElement ? this.element : null; }
+    get headingElement() { return this.element instanceof HTMLHeadingElement ? this.element : null; }
+    get linkElement() { return this.element instanceof HTMLLinkElement ? this.element : null; }
+    get iFrameElement() { return this.element instanceof HTMLIFrameElement ? this.element : null; }
+    get imageElement() { return this.element instanceof HTMLImageElement ? this.element : null; }
+    get inputElement() { return this.element instanceof HTMLInputElement ? this.element : null; }
+    get liElement() { return this.element instanceof HTMLLIElement ? this.element : null; }
+    get labelElement() { return this.element instanceof HTMLLabelElement ? this.element : null; }
+    get legendElement() { return this.element instanceof HTMLLegendElement ? this.element : null; }
+    get mapElement() { return this.element instanceof HTMLMapElement ? this.element : null; }
+    get mediaElement() { return this.element instanceof HTMLMediaElement ? this.element : null; }
+    get menuElement() { return this.element instanceof HTMLMenuElement ? this.element : null; }
+    get metaElement() { return this.element instanceof HTMLMetaElement ? this.element : null; }
+    get meterElement() { return this.element instanceof HTMLMeterElement ? this.element : null; }
+    get oListElement() { return this.element instanceof HTMLOListElement ? this.element : null; }
+    get objectElement() { return this.element instanceof HTMLObjectElement ? this.element : null; }
+    get optGroupElement() { return this.element instanceof HTMLOptGroupElement ? this.element : null; }
+    get optionElement() { return this.element instanceof HTMLOptionElement ? this.element : null; }
+    get outputElement() { return this.element instanceof HTMLOutputElement ? this.element : null; }
+    get paragraphElement() { return this.element instanceof HTMLParagraphElement ? this.element : null; }
+    get pictureElement() { return this.element instanceof HTMLPictureElement ? this.element : null; }
+    get preElement() { return this.element instanceof HTMLPreElement ? this.element : null; }
+    get progressElement() { return this.element instanceof HTMLProgressElement ? this.element : null; }
+    get quoteElement() { return this.element instanceof HTMLQuoteElement ? this.element : null; }
+    get scriptElement() { return this.element instanceof HTMLScriptElement ? this.element : null; }
+    get selectElement() { return this.element instanceof HTMLSelectElement ? this.element : null; }
+    get sourceElement() { return this.element instanceof HTMLSourceElement ? this.element : null; }
+    get spanElement() { return this.element instanceof HTMLSpanElement ? this.element : null; }
+    get tableCaptionElement() { return this.element instanceof HTMLTableCaptionElement ? this.element : null; }
+    get tableCellElement() { return this.element instanceof HTMLTableCellElement ? this.element : null; }
+    get tableColElement() { return this.element instanceof HTMLTableColElement ? this.element : null; }
+    get tableElement() { return this.element instanceof HTMLTableElement ? this.element : null; }
+    get tableRowElement() { return this.element instanceof HTMLTableRowElement ? this.element : null; }
+    get tableSectionElement() { return this.element instanceof HTMLTableSectionElement ? this.element : null; }
+    get templateElement() { return this.element instanceof HTMLTemplateElement ? this.element : null; }
+    get textAreaElement() { return this.element instanceof HTMLTextAreaElement ? this.element : null; }
+    get timeElement() { return this.element instanceof HTMLTimeElement ? this.element : null; }
+    get titleElement() { return this.element instanceof HTMLTitleElement ? this.element : null; }
+    get trackElement() { return this.element instanceof HTMLTrackElement ? this.element : null; }
+    get uListElement() { return this.element instanceof HTMLUListElement ? this.element : null; }
+    get videoElement() { return this.element instanceof HTMLVideoElement ? this.element : null; }
+    get buttonElement() { return this.element instanceof HTMLButtonElement ? this.element : null; }
+    get customElement() { return this.element instanceof HTMLElement ? this.element : null; }
+    get documentFragment() { return this.element instanceof DocumentFragment ? this.element : null; }
+    query(selector) {
+        return this.element && this.element.querySelector ? this.element.querySelector(selector) : null;
+    }
+    queryAll(selector) {
+        return this.element && this.element.querySelectorAll ? this.element.querySelectorAll(selector) : null;
+    }
+    ready(callBack, options = false) { this.element?.addEventListener?.("DOMContentLoaded", callBack, options); }
+    click(callBack) { this.element?.addEventListener?.("click", callBack); }
+    change(callBack) { this.element?.addEventListener?.("change", callBack); }
+    input(callBack) { this.element?.addEventListener?.("input", callBack); }
+    focus(callBack) { this.element?.addEventListener?.("focus", callBack); }
+    focusIn(callBack) { this.element?.addEventListener?.("focusin", callBack); }
+    focusOut(callBack) { this.element?.addEventListener?.("focusout", callBack); }
+    resize(callBack) { this.element?.addEventListener?.("resize", callBack); }
+    scroll(callBack) { this.element?.addEventListener?.("scroll", callBack); }
+    select(callBack) { this.element?.addEventListener?.("select", callBack); }
+    contextMenu(callBack) { this.element?.addEventListener?.("contextmenu", callBack); }
+    copy(callBack) { this.element?.addEventListener?.("copy", callBack); }
+    cut(callBack) { this.element?.addEventListener?.("cut", callBack); }
+    paste(callBack) { this.element?.addEventListener?.("paste", callBack); }
+    dblClick(callBack) { this.element?.addEventListener?.("dblclick", callBack); }
+    drag(callBack) { this.element?.addEventListener?.("drag", callBack); }
+    dragend(callBack) { this.element?.addEventListener?.("dragend", callBack); }
+    dragEnter(callBack) { this.element?.addEventListener?.("dragenter", callBack); }
+    dragLeave(callBack) { this.element?.addEventListener?.("dragleave", callBack); }
+    dragOver(callBack) { this.element?.addEventListener?.("dragover", callBack); }
+    dragStart(callBack) { this.element?.addEventListener?.("dragstart", callBack); }
+    drop(callBack) { this.element?.addEventListener?.("drop", callBack); }
+    keyDown(callBack) { this.element?.addEventListener?.("keydown", callBack); }
+    keyPress(callBack) { this.element?.addEventListener?.("keypress", callBack); }
+    keyUp(callBack) { this.element?.addEventListener?.("keyup", callBack); }
+    mouseDown(callBack) { this.element?.addEventListener?.("mousedown", callBack); }
+    mouseEnter(callBack) { this.element?.addEventListener?.("mouseenter", callBack); }
+    mouseLeave(callBack) { this.element?.addEventListener?.("mouseleave", callBack); }
+    mouseMove(callBack) { this.element?.addEventListener?.("mousemove", callBack); }
+    mouseOver(callBack) { this.element?.addEventListener?.("mouseover", callBack); }
+    mouseOut(callBack) { this.element?.addEventListener?.("mouseout", callBack); }
+    mouseUp(callBack) { this.element?.addEventListener?.("mouseup", callBack); }
+    touchCancel(callBack) { this.element?.addEventListener?.("touchcancel", callBack); }
+    touchEnd(callBack) { this.element?.addEventListener?.("touchend", callBack); }
+    touchMove(callBack) { this.element?.addEventListener?.("touchmove", callBack); }
+    touchStart(callBack) { this.element?.addEventListener?.("touchstart", callBack); }
+    wheel(callBack) { this.element?.addEventListener?.("wheel", callBack); }
     constructor(element) {
         this.element = element;
     }
 }
+globalThis.WNElement = WNElement;
 function WNReset() {
     WNElements = {};
 }
@@ -1933,57 +1993,83 @@ function WNSetElementPosition(source, base, param) {
     let source_cs = getComputedStyle(source);
     let source_pos = source.getBoundingClientRect();
     let element_pos = base.getBoundingClientRect();
-    let offsetLeft = element_pos.left;
-    let offsetTop = element_pos.top;
     let marginTop = WNparseNumber(source_cs.marginTop.replace('px', ''), 0);
     let marginLeft = WNparseNumber(source_cs.marginLeft.replace('px', ''), 0);
     let marginRight = WNparseNumber(source_cs.marginRight.replace('px', ''), 0);
     let rtl = source_cs.direction == 'rtl';
-    let top = offsetTop + element_pos.height;
+    let top = element_pos.top + element_pos.height;
     let start = 0;
     let width = source_pos.width;
+    let height = source_pos.height;
+    let windowWidth = window.innerWidth - 16;
+    let windowHeight = window.innerHeight - 16;
     if (param.fit) {
         if (width < element_pos.width)
             width = element_pos.width;
     }
-    if (element_pos.bottom + source_pos.height + marginTop * 2 > window.innerHeight || param.direction == 'top')
-        top = offsetTop - source_pos.height - marginTop * 2;
-    if (rtl) {
-        start = element_pos.right - width;
-        if (param.direction == 'end') {
-            start = offsetLeft;
-        }
+    if (width > windowWidth) {
+        source.style.left = '0.5rem';
+        source.style.right = '0.5rem';
+        source.style.width = `calc(100vw - 1rem)`;
     }
     else {
-        start = offsetLeft;
-        if (param.direction == 'end') {
-            start = offsetLeft + element_pos.width - width;
+        if (rtl) {
+            start = element_pos.right - width;
+            if (param.direction == 'end') {
+                start = element_pos.left;
+            }
         }
+        else {
+            start = element_pos.left;
+            if (param.direction == 'end') {
+                start = element_pos.left + element_pos.width - width;
+            }
+        }
+        const minEdge = 8;
+        if (start < minEdge)
+            start = minEdge;
+        if (start + width > windowWidth - minEdge)
+            start = windowWidth - width - minEdge;
+        if (start < minEdge)
+            start = minEdge;
+        if (start + width + minEdge + minEdge > windowWidth)
+            width = windowWidth - minEdge - minEdge;
+        source.style.left = start + "px";
+        source.style.right = '';
+        source.style.width = width + "px";
     }
-    if (start < 0)
-        start = offsetLeft;
-    if (start + width > window.innerWidth)
-        start = window.innerWidth - width;
+    if (element_pos.bottom + height + marginTop * 2 > windowHeight || param.direction == 'top')
+        top = element_pos.top - height - marginTop * 2;
     if (param.direction == 'start') {
-        top = offsetTop - source_pos.height / 2;
+        top = element_pos.top - height / 2;
         if (rtl)
-            start = offsetLeft + base.offsetWidth;
+            start = element_pos.left + base.offsetWidth;
         else
-            start = offsetLeft - width - marginLeft - marginRight;
+            start = element_pos.left - width - marginLeft - marginRight;
     }
     if (param.direction == 'end') {
-        top = offsetTop - source_pos.height / 2;
+        top = element_pos.top - height / 2;
         if (rtl)
-            start = offsetLeft - width - marginLeft - marginRight;
+            start = element_pos.left - width - marginLeft - marginRight;
         else
-            start = offsetLeft + base.offsetWidth;
+            start = element_pos.left + base.offsetWidth;
     }
     if (param.direction == 'bottom')
-        top = offsetTop + element_pos.height;
-    source.style.top = top + "px";
-    source.style.left = start + "px";
-    if (width != 0)
-        source.style.width = width + "px";
+        top = element_pos.top + element_pos.height;
+    if (height > windowHeight - 1) {
+        source.style.top = '0.5rem';
+        source.style.bottom = '0.5rem';
+    }
+    else {
+        const minEdge = 8;
+        if (top < minEdge)
+            top = minEdge;
+        if (top + height > windowHeight - minEdge)
+            top = windowHeight - height - minEdge;
+        source.style.top = top + "px";
+        source.style.bottom = '';
+    }
+    source.style.position = 'fixed';
 }
 function WNmod(a, b) { return a - (b * Math.floor(a / b)); }
 function WNdtr(d) { return (d * Math.PI) / 180.0; }
@@ -2400,7 +2486,7 @@ function WNStringFormat(text, format, culture = wnConfig.cultureInfo) {
     let ret = text.toString();
     if (format.includes('{0}'))
         ret = format.replace('{0}', ret);
-    else if (format.toLowerCase() == 'l' || format.toLowerCase() == 'lowercase')
+    if (format.toLowerCase() == 'l' || format.toLowerCase() == 'lowercase')
         ret = ret.toLowerCase();
     else if (format.toLowerCase() == 'u' || format.toLowerCase() == 'uppercase')
         ret = ret.toUpperCase();
@@ -2418,6 +2504,18 @@ function WNStringFormat(text, format, culture = wnConfig.cultureInfo) {
         ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toLongTimeString();
     else if (format.toLowerCase() == 'shorttime')
         ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toShortTimeString();
+    else if (format.toLowerCase() == 'fulltime')
+        ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toString("yyyy/MM/dd HH:mm:ss");
+    else if (format.toLowerCase() == 'formatbytes')
+        ret = WNFormatBytes(text);
+    else if (format.toLowerCase() == 'compact')
+        ret = WNFormatCompactNumber(text);
+    else if (format.includes(',0')) {
+        let num = WNparseNumber(text);
+        ret = WNNumberToString(num, culture);
+    }
+    else if (format.toLowerCase().startsWith('return'))
+        ret = new Function(ret)();
     return ret;
 }
 function WNToggleClass(elem, setclass, classes) {
@@ -2557,6 +2655,79 @@ function WNFromBase64String(str) {
 function WNIsStringArray(input) {
     return Array.isArray(input) && input.every(item => typeof item === 'string');
 }
+function WNFormatBytes(bytes) {
+    const units = ["B", "K", "M", "G", "T"];
+    let index = 0;
+    while (bytes >= 1024 && index < units.length - 1) {
+        bytes /= 1024;
+        index++;
+    }
+    let o = '';
+    if (index == 0)
+        o = bytes.toFixed(0);
+    else
+        o = bytes.toFixed(1);
+    if (o.endsWith('.0')) {
+        o = o.slice(0, -2);
+    }
+    return `${o}${units[index]}`;
+}
+function WNFormatCompactNumber(bytes) {
+    const units = ["", "K", "M", "B", "T"];
+    let index = 0;
+    while (bytes >= 1000 && index < units.length - 1) {
+        bytes /= 1000;
+        index++;
+    }
+    let o = '';
+    if (index == 0)
+        o = bytes.toFixed(0);
+    else
+        o = bytes.toFixed(1);
+    if (o.endsWith('.0')) {
+        o = o.slice(0, -2);
+    }
+    return `${o}${units[index]}`;
+}
+function WNReverseFormatBytes(value) {
+    const units = { "B": "B", "KB": "K", "MB": "M", "GB": "G", "TB": "T" };
+    const regex = /^(\d+(?:\.\d+)?)([BKMGTP]{1,2})$/;
+    value = value.replace(/\s+/g, "").toUpperCase();
+    const match = value.match(regex);
+    if (!match)
+        throw new Error("فرمت ورودی نامعتبر است");
+    let [_, num, unit] = match;
+    unit = units[unit] || unit;
+    let index = ["B", "K", "M", "G", "T"].indexOf(unit);
+    if (index === -1)
+        throw new Error("واحد نامعتبر است");
+    return parseFloat(num) * Math.pow(1024, index);
+}
+function WNSwap(array, index, targetIndex) {
+    if (!Array.isArray(array) ||
+        index < 0 || index >= array.length ||
+        targetIndex < 0 || targetIndex >= array.length)
+        return;
+    const temp = array[index];
+    array[index] = array[targetIndex];
+    array[targetIndex] = temp;
+}
+function WNGetRecordValue(record, fieldName, defualtValue = null) {
+    if (!record || !fieldName)
+        return defualtValue;
+    const fields = fieldName.split('.');
+    let value = record;
+    for (let i = 0; i < fields.length; i++) {
+        if (value == null)
+            return defualtValue;
+        const keys = Object.keys(value);
+        const key = keys.find(k => k.toLowerCase() === fields[i].toLowerCase());
+        if (!key)
+            return defualtValue;
+        value = value[key];
+    }
+    return value;
+}
 class WNConfig {
     nativeDigit = true;
     calendar;
@@ -2593,6 +2764,7 @@ class WNConfig {
         }
     }
 }
+globalThis.WNConfig = WNConfig;
 if (!wnConfig)
     wnConfig = new WNConfig();
 document.addEventListener("DOMContentLoaded", initComponents, true);
@@ -2677,6 +2849,7 @@ function InitWNBlock(elem = document) {
     SetComponentCompatibility(elem);
     WNTooltipAssign(elem);
     WNAnimationSetup();
+    WNPanXSetup();
 }
 function InitWN(masterelem = document) {
     let selectors = masterelem.querySelectorAll("*");
@@ -2695,12 +2868,18 @@ function InitWN(masterelem = document) {
                 elem.setAttribute('id', elem.id);
                 idIndex++;
             }
+            if (elem.tagName == 'BUTTON' && !elem.getAttribute('type'))
+                elem.type = 'button';
             try {
                 if (type != null) {
                     let welem = WN(elem);
                     if (welem.wn == null) {
-                        let wn = new Function('elem', 'return new WN' + type[0].toUpperCase() + type.substring(1) + '(elem)')(elem);
-                        welem.wn = wn;
+                        const className = 'WN' + type[0].toUpperCase() + type.substring(1);
+                        const constructor = globalThis[className];
+                        if (constructor)
+                            welem.wn = new constructor(elem);
+                        else
+                            console.error('Constructor not found ' + className);
                     }
                     else
                         console.error('Duplicated WNElement ID! ' + elem.id + ' ' + type);
@@ -2730,6 +2909,104 @@ function SetComponentCompatibility(elem = document) {
             }
         }
     }
+}
+function WNDateString(date, Format = 'yyyy/MM/dd HH:mm:ss') {
+    let d = new WNDate();
+    d.setUTCDate(date);
+    return d.toString(Format);
+}
+function WNPanXSetup() {
+    const CheckGrab = () => {
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.wn-pan-x').forEach(el => {
+                if (el.scrollWidth > el.clientWidth) {
+                    el.classList.add('grab');
+                }
+                else {
+                    el.classList.remove('grab');
+                }
+                let st = getComputedStyle(el);
+                if (el.classList.contains('grab') && st.justifyContent != 'start')
+                    el.style.setProperty('justify-content', 'start', 'important');
+                else
+                    el.style.removeProperty('justify-content');
+            });
+        });
+    };
+    window.addEventListener('resize', () => CheckGrab());
+    CheckGrab();
+    let isPanning = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let scrollLeftStart = 0;
+    let currentEl = null;
+    const PanStart = (el, x) => {
+        isPanning = true;
+        startX = x;
+        scrollLeft = el.scrollLeft;
+        scrollLeftStart = el.scrollLeft;
+        currentEl = el;
+        el.classList.add('dragging');
+    };
+    const PanMove = (el, x) => {
+        if (!isPanning || currentEl !== el)
+            return;
+        const dx = x - startX;
+        el.scrollLeft = scrollLeft - dx;
+    };
+    const PanEnd = (el) => {
+        isPanning = false;
+        if (el)
+            el.classList.remove('dragging');
+        currentEl = null;
+    };
+    document.querySelectorAll('.wn-pan-x').forEach(elem => {
+        let el = elem;
+        const isDragTarget = (target) => {
+            if (!(target instanceof HTMLElement))
+                return false;
+            return (target.closest('a, button, [draggable="true"]'));
+        };
+        let panMoved = false;
+        el.addEventListener("touchstart", (e) => {
+            if (e.touches.length === 1) {
+                panMoved = false;
+                PanStart(el, e.touches[0].clientX - el.offsetLeft);
+            }
+        }, true);
+        el.addEventListener("touchmove", e => {
+            if (e.touches.length === 1) {
+                PanMove(el, e.touches[0].clientX - el.offsetLeft);
+                panMoved = true;
+            }
+        }, true);
+        el.addEventListener("touchend", e => {
+            PanEnd(el);
+            if (!panMoved && isDragTarget(e.target)) {
+            }
+        }, true);
+        el.addEventListener("touchcancel", e => { PanEnd(el); }, true);
+        el.addEventListener("mousedown", e => {
+            if (e.button === 0) {
+                if (isDragTarget(e.target))
+                    e.preventDefault();
+                PanStart(el, e.clientX - el.offsetLeft);
+            }
+        });
+        el.addEventListener("mousemove", e => {
+            if (e.buttons === 1) {
+                PanMove(el, e.clientX - el.offsetLeft);
+            }
+        });
+        el.addEventListener("mouseup", e => { PanEnd(el); });
+        el.addEventListener("mouseleave", e => { PanEnd(el); });
+        el.addEventListener("click", e => {
+            const scrollDiff = Math.abs(el.scrollLeft - scrollLeftStart);
+            if ((scrollDiff > 5 || panMoved) && isDragTarget(e.target)) {
+                e.preventDefault();
+            }
+        });
+    });
 }
 class WNAccordion {
     nameType = 'WNAccordion';
@@ -2786,9 +3063,9 @@ class WNAccordion {
         this._selectedIndex = value;
         this.setCollapse();
         if (isCollapsed)
-            this.afterCollapse?.(this, value);
-        else
             this.afterExpand?.(this, value);
+        else
+            this.afterCollapse?.(this, value);
     }
     beforeCollapse;
     afterCollapse;
@@ -2886,6 +3163,7 @@ class WNAccordion {
         this.items = [];
     }
 }
+globalThis.WNAccordion = WNAccordion;
 class WNCaptcha {
     nameType = 'WNCaptcha';
     element;
@@ -2968,6 +3246,7 @@ class WNCaptcha {
         return ret;
     }
 }
+globalThis.WNCaptcha = WNCaptcha;
 class WNCarousel {
     nameType = 'WNCarousel';
     element;
@@ -3142,6 +3421,7 @@ class WNCarousel {
         this.play();
     }
 }
+globalThis.WNCarousel = WNCarousel;
 class WNCloseButton {
     nameType = 'WNCloseButton';
     element;
@@ -3193,6 +3473,7 @@ class WNCloseButton {
         });
     }
 }
+globalThis.WNCloseButton = WNCloseButton;
 class WNCollapse {
     nameType = 'WNCollapse';
     element;
@@ -3292,6 +3573,7 @@ class WNCollapse {
         }
     }
 }
+globalThis.WNCollapse = WNCollapse;
 class WNConfirm {
     nameType = 'WNConfirm';
     title = '';
@@ -3398,6 +3680,7 @@ class WNConfirm {
     }
     ;
 }
+globalThis.WNConfirm = WNConfirm;
 class WNCounter {
     nameType = 'WNCounter';
     element;
@@ -3438,6 +3721,7 @@ class WNCounter {
         }
     }
 }
+globalThis.WNCounter = WNCounter;
 class WNDropdown {
     nameType = 'WNDropdown';
     static WNWindowClickHandled = false;
@@ -3458,7 +3742,7 @@ class WNDropdown {
             else {
                 this.dropdown = elem.querySelector("[class*='dropdown']");
                 if (this.dropdown == null) {
-                    if (this.element.nextElementSibling.classList.contains('dropdown'))
+                    if (this.element.nextElementSibling?.classList.contains('dropdown'))
                         this.dropdown = this.element.nextElementSibling;
                 }
             }
@@ -3475,7 +3759,7 @@ class WNDropdown {
         let defaultevent = "click";
         if (this.element.hasAttribute('wn-dropdown-event'))
             defaultevent = this.element.getAttribute('wn-dropdown-event');
-        if (defaultevent !== '')
+        if (defaultevent !== '' && defaultevent != 'none')
             defaultevent.split(',').forEach((s) => {
                 this.element.addEventListener(s.trim(), (e) => {
                     e.preventDefault();
@@ -3547,76 +3831,96 @@ class WNDropdown {
         }
         this.afterHide?.(this);
     }
-    show() {
+    async show() {
         WNDropdown.WNWindowClickHandled = true;
         this.setPosition();
         this.beforeShow?.(this);
-        this.dropdown.classList.add("show");
-        if (!this.dropdown.classList.contains('single')) {
-            WNDropdown.WNLastDropdownOpened.push(this.dropdown);
-        }
-        this.afterShow?.(this);
+        requestAnimationFrame(() => {
+            this.dropdown.classList.add("show");
+            if (!this.dropdown.classList.contains('single')) {
+                WNDropdown.WNLastDropdownOpened.push(this.dropdown);
+            }
+            this.afterShow?.(this);
+        });
     }
-    setPosition() {
-        let dropdown_cs = getComputedStyle(this.dropdown);
-        let dropdown_pos = this.dropdown.getBoundingClientRect();
-        let element_pos = this.element.getBoundingClientRect();
-        let offsetLeft = element_pos.left;
-        let offsetTop = element_pos.top;
-        let marginTop = +parseInt(dropdown_cs.marginTop);
-        let rtl = dropdown_cs.direction == 'rtl';
-        let top = offsetTop + element_pos.height;
-        let start = 0;
-        let width = dropdown_pos.width;
-        if (this.dropdown.className.includes('align-fit')) {
-            if (width < element_pos.width)
-                width = element_pos.width;
-        }
-        if (element_pos.bottom + dropdown_pos.height + marginTop * 2 > window.innerHeight || this.element.className.includes('pos-top'))
-            top = offsetTop - dropdown_pos.height - marginTop * 2;
-        if (rtl) {
-            start = element_pos.right - width;
-            if (this.dropdown.className.includes('align-end')) {
+    setPosition(lastElement = undefined) {
+        if (!lastElement)
+            lastElement = this.element;
+        this.dropdown.style.width = '';
+        this.dropdown.style.height = '';
+        requestAnimationFrame(() => {
+            let dropdown_cs = getComputedStyle(this.dropdown);
+            let dropdown_pos = this.dropdown.getBoundingClientRect();
+            let element_pos = lastElement.getBoundingClientRect();
+            let offsetLeft = element_pos.left;
+            let offsetTop = element_pos.top;
+            let marginTop = +parseInt(dropdown_cs.marginTop);
+            let rtl = dropdown_cs.direction == 'rtl';
+            let top = offsetTop + element_pos.height;
+            let start = 0;
+            let width = dropdown_pos.width;
+            if (this.dropdown.className.includes('align-fit')) {
+                if (width < element_pos.width) {
+                    this.dropdown.style.width = '';
+                    width = element_pos.width;
+                }
+            }
+            if (element_pos.bottom + dropdown_pos.height + marginTop * 2 > window.innerHeight || lastElement.className.includes('pos-top'))
+                top = offsetTop - dropdown_pos.height - marginTop * 2;
+            if (rtl) {
+                start = element_pos.right - width;
+                if (this.dropdown.className.includes('align-end')) {
+                    start = offsetLeft;
+                }
+            }
+            else {
                 start = offsetLeft;
+                if (this.dropdown.className.includes('align-end')) {
+                    start = offsetLeft + element_pos.width - width;
+                }
             }
-        }
-        else {
-            start = offsetLeft;
-            if (this.dropdown.className.includes('align-end')) {
-                start = offsetLeft + element_pos.width - width;
+            if (start < 0)
+                start = offsetLeft;
+            if (start + width > document.body.clientWidth) {
+                width = document.body.clientWidth;
+                start = 0;
             }
-        }
-        if (start < 0)
-            start = offsetLeft;
-        if (start + width > window.innerWidth)
-            start = window.innerWidth - width;
-        if (this.element.className.includes('pos-start')) {
-            top = offsetTop - dropdown_pos.height / 2;
-            if (rtl)
-                start = offsetLeft + this.element.offsetWidth + marginTop;
+            if (lastElement.className.includes('pos-start')) {
+                top = offsetTop - dropdown_pos.height / 2;
+                if (rtl)
+                    start = offsetLeft + lastElement.offsetWidth + marginTop;
+                else
+                    start = offsetLeft - width - marginTop;
+            }
+            if (lastElement.className.includes('pos-end')) {
+                top = offsetTop - dropdown_pos.height / 2;
+                if (rtl)
+                    start = offsetLeft - width - marginTop;
+                else
+                    start = offsetLeft + lastElement.offsetWidth + marginTop;
+            }
+            if (lastElement.className.includes('pos-bottom'))
+                top = offsetTop + element_pos.height;
+            this.dropdown.style.top = top + "px";
+            if (rtl) {
+                this.dropdown.style.right = (document.body.clientWidth - start - width) + "px";
+                this.dropdown.style.left = '';
+            }
+            else {
+                this.dropdown.style.left = start + "px";
+                this.dropdown.style.right = '';
+            }
+            if (this.dropdown.style.width == '' && width > 0)
+                this.dropdown.style.width = width + "px";
             else
-                start = offsetLeft - width - marginTop;
-        }
-        if (this.element.className.includes('pos-end')) {
-            top = offsetTop - dropdown_pos.height / 2;
-            if (rtl)
-                start = offsetLeft - width - marginTop;
-            else
-                start = offsetLeft + this.element.offsetWidth + marginTop;
-        }
-        if (this.element.className.includes('pos-bottom'))
-            top = offsetTop + element_pos.height;
-        this.dropdown.style.top = top + "px";
-        this.dropdown.style.left = start + "px";
-        if (width > 0)
-            this.dropdown.style.width = width + "px";
-        else
-            this.dropdown.style.width = '';
+                this.dropdown.style.width = '';
+        });
     }
     hideAllDropDowns() {
         WNDropdown.WNLastDropdownOpened.forEach((x) => { x.classList.remove('show'); });
     }
 }
+globalThis.WNDropdown = WNDropdown;
 class WNEditor {
     nameType = 'WNEditor';
     element;
@@ -3987,16 +4291,25 @@ class WNEditor {
             this._content.focus();
         });
         editorbody.addEventListener('paste', (event) => {
-            let paste = (event.clipboardData).getData('text');
+            let paste = event.clipboardData.getData('text/html');
+            if (!paste) {
+                paste = event.clipboardData.getData('text/plain');
+            }
+            if (!paste) {
+                return true;
+            }
             if (this._editor_source_mode == 'html') {
-                paste = this.cleanWordPaste(paste);
+                paste = this.cleanHtmlPaste(paste);
                 if (paste == '') {
                     event.preventDefault();
                     return false;
                 }
+                this.fireChangeEvent();
             }
-            else
+            else {
+                this.fireChangeEvent();
                 return true;
+            }
             const selection = window.getSelection();
             if (!selection.rangeCount)
                 return false;
@@ -4004,6 +4317,7 @@ class WNEditor {
             let elem = selection.getRangeAt(0).createContextualFragment(paste);
             selection.getRangeAt(0).insertNode(elem);
             event.preventDefault();
+            this.fireChangeEvent();
             return true;
         });
         this._editor_source_textarea = document.createElement('textarea');
@@ -4150,13 +4464,25 @@ class WNEditor {
             const parser = new DOMParser();
             const doc3 = parser.parseFromString(this._editor_source_textarea.value, "text/html");
             this._content.innerHTML = doc3.body.innerHTML;
-            if (this.change != null && this.OldHtml != this.html) {
-                this.change(this);
-                this.OldHtml = this.html;
-            }
+            this.fireChangeEvent();
         });
         this._dark_mode?.nextSibling.addEventListener('click', () => { this.switchDarkMode(); });
         this._fullscreen?.addEventListener('click', () => { this.switchFullScreen(); });
+        this._content.addEventListener('dblclick', (event) => {
+            const target = event.target;
+            if (target.tagName.toLowerCase() === 'img') {
+                this.editImage(target);
+            }
+            else if (target.tagName.toLowerCase() === 'video' || target.tagName.toLowerCase() === 'audio') {
+                this.editMedia(target);
+            }
+        });
+    }
+    fireChangeEvent() {
+        if (this.change != null && this.OldHtml != this.html) {
+            this.change(this);
+            this.OldHtml = this.html;
+        }
     }
     recheckToolbar() {
         if (this._editor_bold != undefined)
@@ -4205,16 +4531,13 @@ class WNEditor {
         }
         if (this.valueElement != undefined)
             this.valueElement.value = this.html;
-        if (this.change != null && this.OldHtml != this.html) {
-            this.change(this);
-            this.OldHtml = this.html;
-        }
+        this.fireChangeEvent();
     }
     isSelectionInTag(tag) {
         tag = tag.toUpperCase();
         let currentNode = window.getSelection().focusNode;
         if (currentNode != null)
-            while (!currentNode?.classList?.contains('editor-content')) {
+            while (currentNode != null && !currentNode?.classList?.contains('editor-content')) {
                 if (currentNode.tagName == tag)
                     return true;
                 currentNode = currentNode.parentNode;
@@ -4277,7 +4600,7 @@ class WNEditor {
                         span = span.parentElement;
                 }
                 if (span?.innerHTML != '') {
-                    span.childNodes.forEach(x => {
+                    span?.childNodes.forEach(x => {
                         if (x.nodeName != '#text')
                             x?.style.removeProperty(prop);
                     });
@@ -4362,113 +4685,58 @@ class WNEditor {
             }
         }
     }
-    cleanWordPaste(str) {
-        str = str.replace(/<o:p>\s*<\/o:p>/g, "");
-        str = str.replace(/<o:p>.*?<\/o:p>/g, "&nbsp;");
-        str = str.replace(/\s*mso-[^:]+:[^;"]+;?/gi, "");
-        str = str.replace(/\s*MARGIN: 0cm 0cm 0pt\s*;/gi, "");
-        str = str.replace(/\s*MARGIN: 0cm 0cm 0pt\s*"/gi, "\"");
-        str = str.replace(/\s*TEXT-INDENT: 0cm\s*;/gi, "");
-        str = str.replace(/\s*TEXT-INDENT: 0cm\s*"/gi, "\"");
-        str = str.replace(/\s*TEXT-ALIGN: [^\s;]+;?"/gi, "\"");
-        str = str.replace(/\s*PAGE-BREAK-BEFORE: [^\s;]+;?"/gi, "\"");
-        str = str.replace(/\s*FONT-VARIANT: [^\s;]+;?"/gi, "\"");
-        str = str.replace(/\s*tab-stops:[^;"]*;?/gi, "");
-        str = str.replace(/\s*tab-stops:[^"]*/gi, "");
-        str = str.replace(/\s*face="[^"]*"/gi, "");
-        str = str.replace(/\s*face=[^ >]*/gi, "");
-        str = str.replace(/\s*FONT-FAMILY:[^;"]*;?/gi, "");
-        str = str.replace(/<(\w[^>]*) class=([^ |>]*)([^>]*)/gi, "<$1$3");
-        str = str.replace(/<(\w[^>]*) style="([^\"]*)"([^>]*)/gi, "<$1$3");
-        str = str.replace(/\s*style="\s*"/gi, '');
-        str = str.replace(/<SPAN\s*[^>]*>\s*&nbsp;\s*<\/SPAN>/gi, '&nbsp;');
-        str = str.replace(/<SPAN\s*[^>]*><\/SPAN>/gi, '');
-        str = str.replace(/<(\w[^>]*) lang=([^ |>]*)([^>]*)/gi, "<$1$3");
-        str = str.replace(/<SPAN\s*>(.*?)<\/SPAN>/gi, '$1');
-        str = str.replace(/<FONT\s*>(.*?)<\/FONT>/gi, '$1');
-        str = str.replace(/<\\?\?xml[^>]*>/gi, "");
-        str = str.replace(/<\/?\w+:[^>]*>/gi, "");
-        str = str.replace(/<H\d>\s*<\/H\d>/gi, '');
-        str = str.replace(/<H1([^>]*)>/gi, '');
-        str = str.replace(/<H2([^>]*)>/gi, '');
-        str = str.replace(/<H3([^>]*)>/gi, '');
-        str = str.replace(/<H4([^>]*)>/gi, '');
-        str = str.replace(/<H5([^>]*)>/gi, '');
-        str = str.replace(/<H6([^>]*)>/gi, '');
-        str = str.replace(/<\/H\d>/gi, '<br/>');
-        str = str.replace(/<(U|I|STRIKE)>&nbsp;<\/\1>/g, '&nbsp;');
-        str = str.replace(/<(B|b)>&nbsp;<\/\b|B>/g, '');
-        str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
-        str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
-        str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
-        var re = new RegExp("(<P)([^>]*>.*?)(<\/P>)", "gi");
-        str = str.replace(re, "<div$2</div>");
-        var re2 = new RegExp("(<font|<FONT)([^*>]*>.*?)(<\/FONT>|<\/font>)", "gi");
-        str = str.replace(re2, "<div$2</div>");
-        str = str.replace(/size|SIZE = ([\d]{1})/g, '');
-        str = str.replace(/¬/g, '\u200C');
-        if (this.isMarkUp(str)) {
-            var h = '';
-            function escape(t) {
-                return new Option(t).innerHTML;
-            }
-            function inlineEscape(s) {
-                return escape(s)
-                    .replace(/!\[([^\]]*)]\(([^(]+)\)/g, '<img alt="$1" src="$2">')
-                    .replace(/\[([^\]]+)]\(([^(]+?)\)/g, '$1'.link('$2'))
-                    .replace(/`([^`]+)`/g, '<code>$1</code>')
-                    .replace(/(\*\*|__)(?=\S)([^\r]*?\S[*_]*)\1/g, '<strong>$2</strong>')
-                    .replace(/(\*|_)(?=\S)([^\r]*?\S)\1/g, '<em>$2</em>');
-            }
-            str
-                .replace(/^\s+|\r|\s+$/g, '')
-                .replace(/\t/g, '    ')
-                .split(/\n\n+/)
-                .forEach(function (b, f, R) {
-                f = b[0];
-                R =
-                    {
-                        '*': [/\n\* /, '<ul><li>', '</li></ul>'],
-                        '1': [/\n[1-9]\d*\.? /, '<ol><li>', '</li></ol>'],
-                        ' ': [/\n    /, '<pre><code>', '</code></pre>', '\n'],
-                        '>': [/\n> /, '<blockquote>', '</blockquote>', '\n']
-                    }[f];
-                h +=
-                    R ? R[1] + ('\n' + b)
-                        .split(R[0])
-                        .slice(1)
-                        .map(R[3] ? escape : inlineEscape)
-                        .join(R[3] || '</li>\n<li>') + R[2] :
-                        f == '#' ? '<h' + (f = b.indexOf(' ')) + '>' + inlineEscape(b.slice(f + 1)) + '</h' + f + '>' :
-                            f == '<' ? b :
-                                '<p>' + inlineEscape(b) + '</p>';
-            });
-            str = h;
+    cleanHtmlPaste(str) {
+        str = str
+            .replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>')
+            .replace(/(\*|_)(.*?)\1/g, '<em>$2</em>')
+            .replace(/~~(.*?)~~/g, '<s>$1</s>')
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+        if (!/<[a-z][\s\S]*>/i.test(str)) {
+            str = `<p>${str}</p>`;
         }
-        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-        return str;
-    }
-    isMarkUp(src) {
-        const h1 = /(^|\n) {0,3}#{1,6} {1,8}[^\n]{1,64}\r?\n\r?\n\s{0,32}\S/;
-        const bold = /(?:\s|^)(_|__|\*|\*\*|~~|==|\+\+)(?!\s).{1,64}(?<!\s)(?=\1)/;
-        const link = /\[[^\]]{1,128}\]\(https?:\/\/\S{1,999}\)/;
-        const code = /(?:\s|^)`(?!\s)[^`]{1,48}(?<!\s)`([^\w]|$)/;
-        const ul = /(?:^|\n)\s{0,5}\-\s{1}[^\n]+\n\s{0,15}\-\s/;
-        const ol = /(?:^|\n)\s{0,5}\d+\.\s{1}[^\n]+\n\s{0,15}\d+\.\s/;
-        const hr = /\n{2} {0,3}\-{2,48}\n{2}/;
-        const fences = /(?:\n|^)(```|~~~|\$\$)(?!`|~)[^\s]{0,64} {0,64}[^\n]{0,64}\n[\s\S]{0,9999}?\s*\1 {0,64}(?:\n+|$)/;
-        const title = /(?:\n|^)(?!\s)\w[^\n]{0,64}\r?\n(\-|=)\1{0,64}\n\n\s{0,64}(\w|$)/;
-        const blockquote = /(?:^|(\r?\n\r?\n))( {0,3}>[^\n]{1,333}\n){1,999}($|(\r?\n))/;
-        return h1.test(src) ||
-            bold.test(src) ||
-            link.test(src) ||
-            code.test(src) ||
-            ul.test(src) ||
-            ol.test(src) ||
-            hr.test(src) ||
-            fences.test(src) ||
-            title.test(src) ||
-            blockquote.test(src);
+        str = str.replace(/(?:\r\n|\r|\n)/g, ' ');
+        const allowedTags = [
+            'P', 'B', 'I', 'U', 'STRONG', 'EM', 'BR', 'UL', 'OL', 'LI', 'A', 'CODE', 'S', 'SUB', 'SUP',
+            'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'TABLE', 'TR', 'TD', 'TH', 'THEAD', 'TBODY', 'TFOOT',
+            'BODY'
+        ];
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(str, 'text/html');
+        function cleanNode(node) {
+            if (node.childNodes.length > 0)
+                Array.from(node.childNodes).forEach(x => cleanNode(x));
+            if (node.nodeType === Node.COMMENT_NODE) {
+                node.parentNode?.removeChild(node);
+                return;
+            }
+            if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) {
+                const el = node;
+                while (el.attributes?.length > 0) {
+                    el.removeAttribute(el.attributes[0].name);
+                }
+                const tag = el.tagName;
+                if (!allowedTags.includes(tag)) {
+                    if (!el.hasChildNodes()) {
+                        const text = document.createTextNode(el.textContent.trim() || '');
+                        if (text.textContent.trim() != '') {
+                            el.replaceWith(text);
+                        }
+                        else
+                            el.remove();
+                    }
+                    else {
+                        el.outerHTML = el.innerHTML;
+                    }
+                    return;
+                }
+            }
+            else {
+                node.parentElement.removeChild(node);
+            }
+        }
+        cleanNode(doc.body);
+        return doc.body?.innerHTML ?? '';
     }
     colorPicker(parent, style, selectTag = false) {
         if (this._colorPicker == undefined)
@@ -4476,7 +4744,6 @@ class WNEditor {
         this._colorPickerStyle = style;
         this._colorPickerselectTag = selectTag;
         this._colorPickerDropDown.element = parent;
-        this._colorPickerDropDown.setPosition();
         this._colorPickerInput.value = WNRGB2HEX(this.getCurrentStyle(style));
         this._colorPickerDropDown.show();
     }
@@ -4540,7 +4807,6 @@ class WNEditor {
             this._insertLinkTarget.value = '';
         }
         this._insertLinkDropDown.element = this._editor_link;
-        this._insertLinkDropDown.setPosition();
         this._oldSelection = this.saveSelection();
         this._insertLinkDropDown.show();
     }
@@ -4604,7 +4870,7 @@ class WNEditor {
         if (this._insertImage == undefined)
             this.createImageObject();
         let elem = this.getParentTagSelection();
-        if (elem?.tagName.toLowerCase() != 'img') {
+        if (elem && elem?.tagName.toLowerCase() != 'img') {
             elem = elem.querySelector('img');
         }
         this._insertImageUrl.value = '';
@@ -4627,8 +4893,22 @@ class WNEditor {
         else
             this._insertImageSelected = null;
         this._insertImageDropDown.element = this._editor_image;
-        this._insertImageDropDown.setPosition();
         this._oldSelection = this.saveSelection();
+        this._insertImageDropDown.show();
+    }
+    editImage(image) {
+        if (!this._insertImage) {
+            this.createImageObject();
+        }
+        this._insertImageSelected = image;
+        this._insertImageUrl.value = image.src;
+        this._insertImageAlt.value = image.alt;
+        this._insertImageWidth.value = image.style.width || '';
+        this._insertImageHeight.value = image.style.height || '';
+        this._insertImageBorderWidth.value = image.style.borderWidth || '';
+        this._insertImageBorderStyle.value = image.style.borderStyle || 'none';
+        this._insertImageClass.value = image.className || '';
+        this._insertImageDropDown.element = this._editor_image;
         this._insertImageDropDown.show();
     }
     createImageObject() {
@@ -4757,17 +5037,14 @@ class WNEditor {
     _insertMediaDropDown;
     _insertMediaSelected;
     insertMedia() {
-        if (this._insertMedia == undefined)
+        if (this._insertMedia == undefined) {
             this.createMediaObject();
+        }
         let elem = this.getParentTagSelection();
-        if (elem)
-            if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
-                let elemVideo = elem.querySelector('video');
-                if (elemVideo == null)
-                    elem = elem.querySelector('audio');
-                else
-                    elem = elemVideo;
-            }
+        if (elem && elem.tagName.toLowerCase() !== 'video' && elem.tagName.toLowerCase() !== 'audio') {
+            let videoElem = elem.querySelector('video');
+            elem = videoElem ? videoElem : elem.querySelector('audio');
+        }
         this._insertMediaType.value = 'video';
         this._insertMediaUrl.value = '';
         this._insertMediaWidth.value = '';
@@ -4778,24 +5055,33 @@ class WNEditor {
         this._insertMediaBorderWidth.value = '';
         this._insertMediaBorderStyle.value = 'none';
         this._insertMediaClass.value = '';
-        if (elem != null) {
-            this._insertMediaSelected = elem;
-            this._insertMediaType.value = this._insertMediaSelected.tagName.toLowerCase();
-            this._insertMediaUrl.value = this._insertMediaSelected.src;
-            this._insertMediaWidth.value = this._insertMediaSelected.style.width;
-            this._insertMediaHeight.value = this._insertMediaSelected.style.height;
-            this._insertMediaControls.checked = this._insertMediaSelected.hasAttribute('controls');
-            this._insertMediaMute.checked = this._insertMediaSelected.hasAttribute('muted');
-            this._insertMediaautoPlay.checked = this._insertMediaSelected.hasAttribute('autoPlay');
-            this._insertMediaBorderWidth.value = this._insertMediaSelected.style.borderWidth;
-            this._insertMediaBorderStyle.value = this._insertMediaSelected.style.borderStyle;
-            this._insertMediaClass.value = this._insertMediaSelected.className;
+        if (elem) {
+            this.editMedia(elem);
         }
-        else
+        else {
             this._insertMediaSelected = null;
+            this._insertMediaDropDown.element = this._editor_media;
+            this._oldSelection = this.saveSelection();
+            this._insertMediaDropDown.show();
+        }
+    }
+    editMedia(media) {
+        if (!this._insertMedia) {
+            this.createMediaObject();
+        }
+        this._insertMediaSelected = media;
+        this._insertMediaType.value = media.tagName.toLowerCase();
+        let s = media.querySelector('source');
+        this._insertMediaUrl.value = s?.src ?? '';
+        this._insertMediaWidth.value = media.style.width || '';
+        this._insertMediaHeight.value = media.style.height || '';
+        this._insertMediaControls.checked = media.hasAttribute('controls');
+        this._insertMediaMute.checked = media.hasAttribute('muted');
+        this._insertMediaautoPlay.checked = media.hasAttribute('autoplay');
+        this._insertMediaBorderWidth.value = media.style.borderWidth || '';
+        this._insertMediaBorderStyle.value = media.style.borderStyle || 'none';
+        this._insertMediaClass.value = media.className || '';
         this._insertMediaDropDown.element = this._editor_media;
-        this._insertMediaDropDown.setPosition();
-        this._oldSelection = this.saveSelection();
         this._insertMediaDropDown.show();
     }
     createMediaObject() {
@@ -4970,7 +5256,7 @@ class WNEditor {
         if (this._insertIFrame == undefined)
             this.createIFrameObject();
         let elem = this.getParentTagSelection();
-        if (elem?.tagName.toLowerCase() != 'iframe') {
+        if (elem && elem?.tagName.toLowerCase() != 'iframe') {
             elem = elem.querySelector('iframe');
         }
         this._insertIFrameUrl.value = '';
@@ -4993,7 +5279,6 @@ class WNEditor {
         else
             this._insertIFrameSelected = null;
         this._insertIFrameDropDown.element = this._editor_iframe;
-        this._insertIFrameDropDown.setPosition();
         this._oldSelection = this.saveSelection();
         this._insertIFrameDropDown.show();
     }
@@ -5148,10 +5433,7 @@ class WNEditor {
             this._content.classList.remove('hide');
             this._editor_source_mode = 'html';
         }
-        if (this.change != null && this.OldHtml != this.html) {
-            this.change(this);
-            this.OldHtml = this.html;
-        }
+        this.fireChangeEvent();
     }
     switchDarkMode() {
         this._dark_mode.checked = !this._dark_mode.checked;
@@ -5174,6 +5456,7 @@ class WNEditor {
         }
     }
 }
+globalThis.WNEditor = WNEditor;
 class WNFileList {
     nameType = 'WNFileList';
     element;
@@ -6693,6 +6976,7 @@ class WNFileList {
         return this.basepath + this._foldertree.selectedItem.value;
     }
 }
+globalThis.WNFileList = WNFileList;
 class WNFilter {
     nameType = 'WNFilter';
     element;
@@ -6775,6 +7059,7 @@ class WNFilter {
             });
     }
 }
+globalThis.WNFilter = WNFilter;
 class WNImageEditor {
     nameType = 'WNImageEditor';
     element;
@@ -7407,6 +7692,7 @@ class WNImageEditor {
         return this._saveImage.toDataURL('image/png');
     }
 }
+globalThis.WNImageEditor = WNImageEditor;
 class WNInputList {
     nameType = 'WNInputList';
     element;
@@ -7568,6 +7854,7 @@ class WNInputList {
         value.forEach(x => this.list?.addToDataSource(x, '', x, ''));
     }
 }
+globalThis.WNInputList = WNInputList;
 class WNLightbox {
     nameType = 'WNLightbox';
     element;
@@ -7772,6 +8059,7 @@ class WNLightbox {
         this.TouchStart = -99999999;
     }
 }
+globalThis.WNLightbox = WNLightbox;
 class WNList {
     nameType = 'WNList';
     element;
@@ -7815,6 +8103,8 @@ class WNList {
         this.selectedItem = null;
         this.initDataSource();
         this.initItems();
+        if (this.element.hasAttribute('selectedindex'))
+            this.selectedIndex = WNparseNumber(this.element.getAttribute('selectedindex'), -1);
     }
     initDataSource() {
         this.dataSource = [];
@@ -8103,7 +8393,7 @@ class WNList {
             this.clearDataSource();
         for (var i = 0; i < dataSource.length; i++) {
             let item = dataSource[i];
-            this.addToDataSource(item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            this.addToDataSource(WNGetRecordValue(item, displayFieldName), WNGetRecordValue(item, linkFieldName), WNGetRecordValue(item, valueFieldName), WNGetRecordValue(item, imageFieldName));
         }
         this.selectedItem = null;
     }
@@ -8181,6 +8471,7 @@ class WNList {
         this.element.querySelectorAll('input.item-check').forEach((x) => x.checked = !x.checked);
     }
 }
+globalThis.WNList = WNList;
 class WNModal {
     nameType = 'WNModal';
     element;
@@ -8277,6 +8568,7 @@ class WNModal {
         this.afterHide?.(this);
     }
 }
+globalThis.WNModal = WNModal;
 class WNMonthCalendar {
     nameType = 'WNMonthCalendar';
     element;
@@ -8556,6 +8848,7 @@ class WNMonthCalendar {
         });
         calendarhead.appendChild(now);
         this._monthyearcaption = document.createElement('label');
+        this._monthyearcaption.classList.add('clean');
         calendarhead.appendChild(this._monthyearcaption);
         if (!this.onlyMonthYear) {
             let showMonthYear = document.createElement('button');
@@ -8873,12 +9166,22 @@ class WNMonthCalendar {
         return tDate.toDateTime().toISOString();
     }
 }
+globalThis.WNMonthCalendar = WNMonthCalendar;
 class WNMultiInput {
     nameType = 'WNMultiInput';
     element;
     inputs;
-    detail;
     labels;
+    classes;
+    default = '';
+    detail;
+    inputType = 'text';
+    requiredStatus = '';
+    validation = '';
+    inputIG;
+    expandButton;
+    inputclass = '';
+    doRefresh = true;
     constructor(elem) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -8886,146 +9189,170 @@ class WNMultiInput {
         }
     }
     init() {
-        this.inputs = [];
-        this.labels = {};
-        let _labels = {};
-        let values = {};
-        let classes = {};
-        let _default = '';
-        let setDefaultValue = true;
-        let inputType = 'text';
+        this.clear();
+        let lValue = {};
         if (this.element.hasAttribute('labels'))
-            _labels = WNToDictionary(this.element.getAttribute('labels'));
+            this.labels = WNToDictionary(this.element.getAttribute('labels'));
         if (this.element.hasAttribute('values'))
-            values = WNToDictionary(this.element.getAttribute('values'));
+            lValue = WNToDictionary(this.element.getAttribute('values'));
         if (this.element.hasAttribute('classes'))
-            classes = WNToDictionary(this.element.getAttribute('classes'));
+            this.classes = WNToDictionary(this.element.getAttribute('classes'));
         if (this.element.hasAttribute('default'))
-            _default = WNparseString(this.element.getAttribute('default'));
+            this.default = WNparseString(this.element.getAttribute('default'));
         if (this.element.hasAttribute('type'))
-            inputType = WNparseString(this.element.getAttribute('type'), inputType);
-        let lkey = Object.keys(_labels);
+            this.inputType = WNparseString(this.element.getAttribute('type'), this.inputType);
+        let lkey = Object.keys(this.labels);
         if (lkey.length == 0) {
-            _labels = this.getLables();
-            lkey = Object.keys(_labels);
-            setDefaultValue = false;
+            this.labels = this.getLables();
+            lkey = Object.keys(this.labels);
+            if (lkey.length > 0)
+                this.doRefresh = false;
         }
-        if (_default == '' && lkey.length > 0)
-            _default = lkey[0];
-        this.labels[_default] = _labels[_default];
         lkey.forEach((x) => {
-            if (x != _default)
-                this.labels[x] = _labels[x];
-            if (!values[x])
-                values[x] = '';
+            if (!(x in lValue))
+                lValue[x] = '';
+            if (!(x in this.classes))
+                this.classes[x] = '';
         });
-        let inputIG = this.element.querySelector("ig,.ig");
-        if (!inputIG) {
-            inputIG = document.createElement("ig");
+        if (this.default == '' && lkey.length > 0)
+            this.default = lkey[0];
+        this.inputIG = this.element.querySelector("ig,.ig");
+        if (!this.inputIG) {
+            this.inputIG = document.createElement("ig");
         }
-        let inputclass = '';
+        else
+            this.doRefresh = false;
+        this.inputclass = '';
         let ele = this.element;
-        while (ele && inputclass == '') {
+        while (ele && this.inputclass == '') {
             if (ele.classList.contains('floating'))
-                inputclass += ' floating';
+                this.inputclass += ' floating';
             else if (ele.classList.contains('floatingline'))
-                inputclass += ' floatingline';
+                this.inputclass += ' floatingline';
             else if (ele.classList.contains('group'))
-                inputclass += ' group';
+                this.inputclass += ' group';
             else if (ele.classList.contains('first-label'))
-                inputclass += ' first-label';
+                this.inputclass += ' first-label';
             else if (ele.classList.contains('first-input'))
-                inputclass += ' first-input';
+                this.inputclass += ' first-input';
             ele = ele.parentElement;
         }
-        inputclass = inputclass.trim();
-        if (inputclass != '') {
-            inputIG.classList.add(inputclass);
-            this.element.classList.remove(inputclass);
+        this.inputclass = this.inputclass.trim();
+        if (this.inputclass != '') {
+            this.inputIG.classList.add(this.inputclass);
+            this.inputclass.split(' ').forEach(x => this.element.classList.remove(x));
         }
-        let mainInput = inputIG.querySelector('input,select,textarea');
-        if (!mainInput)
-            mainInput = this.createInput(inputType, inputclass, classes[_default], false);
-        let mainLabel = inputIG.querySelector('label');
-        if (!mainLabel) {
-            mainLabel = document.createElement('label');
-            mainLabel.innerHTML = this.labels[_default];
+        this.requiredStatus = '';
+        if (this.element.hasAttribute('required')) {
+            this.requiredStatus = 'required';
+            this.element.removeAttribute('required');
         }
-        let expandButton = inputIG.querySelector('button');
-        if (!expandButton) {
-            expandButton = document.createElement('button');
+        else if (this.element.hasAttribute('norequired')) {
+            this.requiredStatus = 'norequired';
+            this.element.removeAttribute('norequired');
         }
-        expandButton.type = 'button';
-        expandButton.addEventListener("click", () => { this.toggle(); });
-        if (inputclass.includes('floating') || inputclass.includes('floatingline') || inputclass.includes('first-input')) {
-            inputIG.appendChild(mainInput);
-            inputIG.appendChild(mainLabel);
-            inputIG.appendChild(expandButton);
+        this.validation = '';
+        if (this.element.hasAttribute('onvalidation')) {
+            this.validation = this.element.getAttribute('onvalidation');
+            this.element.removeAttribute('onvalidation');
         }
-        else {
-            inputIG.appendChild(mainLabel);
-            if (this.element.classList.contains('group-input-button')) {
-                let div = document.createElement('div');
-                div.appendChild(mainInput);
-                div.appendChild(expandButton);
-                inputIG.appendChild(div);
-            }
-            else {
-                inputIG.appendChild(mainInput);
-                inputIG.appendChild(expandButton);
-            }
-        }
-        this.inputs.push(mainInput);
+        this.inputs = [];
+        let mainInput = this.inputIG.querySelector('input,select,textarea');
+        if (mainInput)
+            this.inputs.push(mainInput);
+        this.expandButton = this.inputIG.querySelector('button');
         this.detail = this.element.querySelector('detail,.detail');
         if (!this.detail) {
             this.detail = document.createElement('div');
             this.detail.className = 'detail';
         }
-        if (this.detail.innerHTML == '') {
-            lkey = Object.keys(this.labels);
-            for (var i = 1; i < lkey.length; i++) {
-                let ig = document.createElement('ig');
-                let label = document.createElement('label');
-                let input = this.createInput(inputType, '', classes[lkey[i]], true);
-                label.innerHTML = this.labels[lkey[i]];
-                ig.appendChild(label);
-                ig.appendChild(input);
-                this.detail.appendChild(ig);
-                this.inputs.push(input);
-            }
-        }
-        else {
-            this.inputs = [];
+        else if (this.detail.hasChildNodes) {
             this.element.querySelectorAll('input,select,textarea').forEach((x) => this.inputs.push(x));
-        }
-        if (setDefaultValue == true)
-            this.values = values;
-        if (this.element.hasAttribute('required')) {
-            if (this.inputs.length > 0) {
-                this.inputs[0].setAttribute('required', this.element.getAttribute('required'));
-            }
-            this.element.removeAttribute('required');
-        }
-        if (this.element.hasAttribute('norequired')) {
-            if (this.inputs.length > 0) {
-                this.inputs[0].setAttribute('norequired', this.element.getAttribute('norequired'));
-            }
-            this.element.removeAttribute('norequired');
-        }
-        if (this.element.hasAttribute('onvalidation')) {
-            if (this.inputs.length > 0) {
-                this.inputs[0].setAttribute('onvalidation', this.element.getAttribute('onvalidation'));
-            }
-            this.element.removeAttribute('onvalidation');
         }
         let feedback = this.element.querySelector('.valid-feedback');
         if (feedback)
-            inputIG.appendChild(feedback);
+            this.inputIG.appendChild(feedback);
         feedback = this.element.querySelector('.invalid-feedback');
         if (feedback)
-            inputIG.appendChild(feedback);
-        this.element.appendChild(inputIG);
+            this.inputIG.appendChild(feedback);
+        this.element.appendChild(this.inputIG);
         this.element.appendChild(this.detail);
+        this.refresh();
+        this.values = lValue;
+    }
+    clear() {
+        this.inputs = [];
+        this.labels = {};
+        this.classes = {};
+        this.values = {};
+    }
+    refresh() {
+        if (this.doRefresh == false) {
+            this.expandButton.onclick = () => { this.toggle(); };
+            return;
+        }
+        let lkey = Object.keys(this.labels);
+        if (lkey.length == 0) {
+            this.inputIG.innerHTML = '';
+            this.detail.innerHTML = '';
+            return;
+        }
+        let tDefault = this.default;
+        if (!lkey.includes(tDefault))
+            tDefault = lkey[0];
+        this.inputIG.innerHTML = '';
+        this.inputs = [];
+        this.inputs.push(this.createInput(this.inputType, this.inputclass, this.classes[tDefault], false));
+        let mainLabel = document.createElement('label');
+        mainLabel.innerHTML = this.labels[tDefault] ?? '';
+        if (lkey.length > 1) {
+            if (!this.expandButton)
+                this.expandButton = document.createElement('button');
+            this.expandButton.type = 'button';
+            this.expandButton.onclick = () => { this.toggle(); };
+        }
+        if (this.inputclass.includes('floating') || this.inputclass.includes('floatingline') || this.inputclass.includes('first-input')) {
+            this.inputIG.appendChild(this.inputs[0]);
+            this.inputIG.appendChild(mainLabel);
+            if (this.expandButton)
+                this.inputIG.appendChild(this.expandButton);
+        }
+        else {
+            this.inputIG.appendChild(mainLabel);
+            if (this.element.classList.contains('group-input-button')) {
+                let div = document.createElement('div');
+                div.appendChild(this.inputs[0]);
+                if (this.expandButton)
+                    div.appendChild(this.expandButton);
+                this.inputIG.appendChild(div);
+            }
+            else {
+                this.inputIG.appendChild(this.inputs[0]);
+                if (this.expandButton)
+                    this.inputIG.appendChild(this.expandButton);
+            }
+        }
+        this.detail.innerHTML = '';
+        for (var i = 0; i < lkey.length; i++) {
+            if (lkey[i] != tDefault) {
+                let ig = document.createElement('ig');
+                let label = document.createElement('label');
+                let input = this.createInput(this.inputType, '', this.classes[lkey[i]], true);
+                this.inputs.push(input);
+                label.innerHTML = this.labels[lkey[i]] ?? '';
+                ig.appendChild(label);
+                ig.appendChild(input);
+                this.detail.appendChild(ig);
+            }
+        }
+        if (this.inputs.length > 0) {
+            if (this.requiredStatus == 'required')
+                this.inputs[0].setAttribute('required', this.element.getAttribute('required'));
+            else if (this.requiredStatus == 'norequired')
+                this.inputs[0].setAttribute('norequired', this.element.getAttribute('norequired'));
+        }
+        if (this.validation != '')
+            this.inputs[0].setAttribute('onvalidation', this.validation);
     }
     getLables() {
         let l = this.element.querySelectorAll('label');
@@ -9100,7 +9427,14 @@ class WNMultiInput {
             mainInput.classList.add(elemclass);
         return mainInput;
     }
+    addItem(key, label, classes, refresh = false) {
+        this.labels[key] = label;
+        this.classes[key] = classes;
+        if (refresh)
+            this.refresh();
+    }
 }
+globalThis.WNMultiInput = WNMultiInput;
 class WNMultiInputPhone {
     nameType = 'WNMultiInputPhone';
     element;
@@ -9352,6 +9686,7 @@ class WNMultiInputPhone {
         this.refreshAllLinkNode();
     }
 }
+globalThis.WNMultiInputPhone = WNMultiInputPhone;
 class WNMultiSelect {
     nameType = 'WNMultiSelect';
     element;
@@ -9444,7 +9779,7 @@ class WNMultiSelect {
             text: n.text,
             value: n.value
         };
-        if (this.add(item) != null) {
+        if (this.addSelectedItem(item) != null) {
             if (t.nameType != 'WNTree')
                 n.element.classList.add('d-none');
             this.dropdown.hide();
@@ -9452,7 +9787,15 @@ class WNMultiSelect {
         }
         t.selectedItem = null;
     }
-    add(node) {
+    addSelectedItemByList(rows, textField, valueField, append) {
+        if (append == false)
+            this.clearAll();
+        rows?.forEach(x => this.addSelectedItemBy(WNGetRecordValue(x, textField), WNGetRecordValue(x, valueField)));
+    }
+    addSelectedItemBy(text, value) {
+        return this.addSelectedItem({ text: text, value: value });
+    }
+    addSelectedItem(node) {
         if (this.max != 0 && this.selectedItems.length >= this.max)
             return null;
         if (this.selectedItems.find(x => x.id == node.id && x.value == node.value && x.text == node.text))
@@ -9463,7 +9806,7 @@ class WNMultiSelect {
         sp.setAttribute('value', node.value);
         sp.dir = this.element.dir;
         sp.addEventListener('click', (t) => {
-            if (this.remove(node)) {
+            if (this.removeSelectedItem(node)) {
                 this.search.list.findByValue(node.value, false)?.element.classList.remove('d-none');
                 this.afterDeselect?.(this, node);
                 this.selectionChanged?.(this, null);
@@ -9473,7 +9816,7 @@ class WNMultiSelect {
         node.element = sp;
         return node;
     }
-    remove(node) {
+    removeSelectedItem(node) {
         if (this.beforeDeselect && !this.beforeDeselect?.(this, node))
             return null;
         for (var i = 0; i < this.selectedItems.length; i++) {
@@ -9494,29 +9837,29 @@ class WNMultiSelect {
     set selectedItems(value) {
         this.clearAll();
         for (var i = 0; i < value.length; i++) {
-            if (this.add(value[i]) != null) {
+            if (this.addSelectedItem(value[i]) != null) {
                 let node = this.search.list.findByValue(value[i].value);
-                if (this.add(node) != null)
+                if (this.addSelectedItem(node) != null)
                     node.element.classList.add('d-none');
             }
         }
     }
     get selectedValue() {
         let ret = [];
-        this.selectedItems.forEach(x => ret.push(x.value));
+        this.selectedItems?.forEach(x => ret.push(x.value));
         return ret;
     }
     set selectedValue(value) {
         this.clearAll();
         for (var i = 0; i < value.length; i++) {
-            let node = this.search.list.findByValue(value[i]);
+            let node = this.search.list?.findByValue(value[i]);
             if (node) {
                 let item = {
                     id: node.id,
                     text: node.text,
                     value: node.value
                 };
-                if (this.add(item) != null)
+                if (this.addSelectedItem(item) != null)
                     node.element.classList.add('d-none');
             }
         }
@@ -9531,6 +9874,7 @@ class WNMultiSelect {
         this.searchbox.value = '';
     }
 }
+globalThis.WNMultiSelect = WNMultiSelect;
 class WNProgress {
     nameType = 'WNProgress';
     element;
@@ -9594,6 +9938,303 @@ class WNProgress {
     set max(value) { this._max = value; this.showProgress(); }
     get max() { return this._max; }
 }
+globalThis.WNProgress = WNProgress;
+class WNRange {
+    nameType = 'WNRange';
+    element;
+    min = 0;
+    max = 100;
+    step = 1;
+    tooltip = 'none';
+    format = '0';
+    unit = '';
+    values = [];
+    change = (t) => { };
+    resizeObserver;
+    _count = 2;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        if (this.element.hasAttribute('min'))
+            this.min = WNparseNumber(this.element.getAttribute('min'), 0);
+        if (this.element.hasAttribute('max'))
+            this.max = WNparseNumber(this.element.getAttribute('max'), 100);
+        if (this.element.hasAttribute('count'))
+            this._count = WNparseNumber(this.element.getAttribute('count'), 2);
+        if (this.element.hasAttribute('step'))
+            this.step = WNparseNumber(this.element.getAttribute('step'), 1);
+        if (this.element.hasAttribute('tooltip'))
+            this.tooltip = this.element.getAttribute('tooltip').toLowerCase();
+        if (this.element.hasAttribute('unit'))
+            this.unit = this.element.getAttribute('unit');
+        if (this.element.hasAttribute('format'))
+            this.format = this.element.getAttribute('format');
+        if (this.element.hasAttribute('onchange'))
+            this.change = WNGenerateFunction(this.element.getAttribute('onchange'), 't');
+        if (this.element.hasAttribute('value')) {
+            this.values = this.element.getAttribute('value').split(',').map(x => {
+                let v = 0;
+                if (x.includes('%'))
+                    v = this.min + ((this.max - this.min) / 100 * WNparseNumber(x.replace('%', ''), 0));
+                else
+                    v = WNparseNumber(x, this.min);
+                if (v < this.min)
+                    v = this.min;
+                if (v > this.max)
+                    v = this.max;
+                return v;
+            });
+            this.change?.(this);
+        }
+        if (this.element.className == '')
+            this.element.className = 'range';
+        if (this._count < 1)
+            this._count = 1;
+        if (this._count > 10)
+            this._count = 10;
+        window.addEventListener('resize', () => this.layout());
+        this.refresh();
+        this.resizeObserver = new ResizeObserver(() => this.layout());
+        this.resizeObserver.observe(this.element);
+    }
+    get value() { return this.values.join(','); }
+    set value(value) {
+        this.values = value.split(',').map(x => {
+            let v = 0;
+            if (x.includes('%'))
+                v = this.min + ((this.max - this.min) / 100 * WNparseNumber(x.replace('%', ''), 0));
+            else
+                v = WNparseNumber(x, this.min);
+            if (v < this.min)
+                v = this.min;
+            if (v > this.max)
+                v = this.max;
+            return v;
+        });
+        this.layout();
+        this.change?.(this);
+    }
+    get count() { return this._count; }
+    set count(value) {
+        value = Number(value);
+        if (isNaN(value))
+            value = 2;
+        if (value == this._count)
+            return;
+        this._count = value;
+        if (this._count < 1)
+            this._count = 1;
+        if (this._count > 10)
+            this._count = 10;
+        this.refresh();
+    }
+    eThumb;
+    eTooltip;
+    eBar;
+    eBar2;
+    refresh() {
+        this.element.innerHTML = '';
+        this.eBar = document.createElement('div');
+        this.eBar2 = document.createElement('div');
+        this.eBar.className = 'bar';
+        this.eBar2.className = 'range-bar';
+        this.element.appendChild(this.eBar);
+        this.element.appendChild(this.eBar2);
+        this.eThumb = [];
+        this.eTooltip = [];
+        for (let i = 0; i < this.count; i++) {
+            this.eThumb.push(document.createElement('div'));
+            this.eThumb[i].className = 'thumb';
+            this.eThumb[i].setAttribute('draggable', 'true');
+            this.eThumb[i].ondragstart = (e) => { e.preventDefault(); return false; };
+            this.eThumb[i].onmousedown = (e) => {
+                if (e.button === 0)
+                    this.startMove(i, e.clientX);
+            };
+            this.eThumb[i].ontouchstart = (e) => {
+                e.preventDefault();
+                if (e.touches.length === 1)
+                    this.startMove(i, e.touches[0].clientX);
+            };
+            this.element.appendChild(this.eThumb[i]);
+            if (this.tooltip != 'none') {
+                this.eTooltip.push(document.createElement('div'));
+                this.eTooltip[i].className = 'tooltip-value ' + this.tooltip;
+                this.element.appendChild(this.eTooltip[i]);
+            }
+        }
+        this.layout();
+    }
+    layout() {
+        while (this.values.length < this.count)
+            this.values.push(this.min);
+        requestAnimationFrame(() => {
+            let range = this.max - this.min;
+            let width = this.eBar.clientWidth;
+            let scale = width / range;
+            let min = Infinity;
+            let max = -Infinity;
+            let max2 = -Infinity;
+            let thunbWidth = this.eThumb[0].offsetWidth;
+            for (let i = 0; i < this.count; i++) {
+                let value = this.values[i];
+                let left = this.eBar.offsetLeft + (value - this.min) * scale;
+                this.eThumb[i].style.left = (left - thunbWidth / 2) + 'px';
+                if (this.eTooltip && this.eTooltip[i]) {
+                    this.eTooltip[i].textContent = WNStringFormat(value, this.format) + this.unit;
+                    setTimeout(() => {
+                        let w = left - this.eTooltip[i].clientWidth / 2;
+                        if (w < max2)
+                            w = max2;
+                        if (w < this.eBar.offsetLeft)
+                            w = this.eBar.offsetLeft;
+                        if ((w + this.eTooltip[i].clientWidth) >= this.eBar.offsetLeft + this.eBar.offsetWidth)
+                            w = this.eBar.offsetLeft + this.eBar.offsetWidth - this.eTooltip[i].clientWidth;
+                        this.eTooltip[i].style.left = w + 'px';
+                        max2 = Math.max(left + 5 + this.eTooltip[i].clientWidth / 2, max2);
+                    }, 0);
+                }
+                min = Math.min(left, min);
+                max = Math.max(left, max);
+            }
+            if (min < 0)
+                min = 0;
+            if (max > width)
+                max = width;
+            this.eBar2.style.left = min + 'px';
+            this.eBar2.style.right = (width - max + thunbWidth) + 'px';
+        });
+    }
+    movingIndex = -1;
+    startMove(index, clientX) {
+        this.movingIndex = index;
+        document.addEventListener('mousemove', this._onMove);
+        document.addEventListener('mouseup', this._endMove);
+        document.addEventListener('touchmove', this._onTouchMove);
+        document.addEventListener('touchend', this._onTouchEnd);
+    }
+    _onTouchMove = (e) => {
+        e.preventDefault();
+        if (this.movingIndex === -1)
+            return;
+        if (e.touches.length === 1)
+            this.onMove(this.movingIndex, e.touches[0].clientX);
+    };
+    _onTouchEnd = (e) => {
+        e.preventDefault();
+        if (this.movingIndex === -1)
+            return;
+        if (e.changedTouches.length === 1)
+            this.endMove(this.movingIndex, e.changedTouches[0].clientX);
+        document.removeEventListener('touchmove', this._onTouchMove);
+        document.removeEventListener('touchend', this._onTouchEnd);
+        this.movingIndex = -1;
+    };
+    _onMove = (e) => {
+        if (this.movingIndex === -1)
+            return;
+        this.onMove(this.movingIndex, e.clientX);
+    };
+    _endMove = (e) => {
+        if (this.movingIndex === -1)
+            return;
+        this.endMove(this.movingIndex, e.clientX);
+        document.removeEventListener('mousemove', this._onMove);
+        document.removeEventListener('mouseup', this._endMove);
+        this.movingIndex = -1;
+    };
+    onMove(index, clientX) {
+        let rect = this.eBar.getBoundingClientRect();
+        let width = this.eBar.clientWidth;
+        let range = this.max - this.min;
+        let x = clientX - rect.left;
+        let percent = x / width;
+        let rawValue = percent * range + this.min;
+        let value = Math.round((rawValue - this.min) / this.step) * this.step + this.min;
+        value = Math.max(this.min, Math.min(this.max, value));
+        if (index > 0)
+            value = Math.max(value, this.values[index - 1] + this.step);
+        if (index < this.count - 1)
+            value = Math.min(value, this.values[index + 1] - this.step);
+        this.values[index] = value;
+        this.change?.(this);
+        this.layout();
+    }
+    endMove(index, clientX) {
+        this.onMove(index, clientX);
+        this.change?.(this);
+    }
+}
+globalThis.WNRange = WNRange;
+class WNRank {
+    nameType = 'WNRank';
+    element;
+    max = 5;
+    _value = 0;
+    change = (t) => { };
+    beforeChange;
+    click;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        if (this.element.hasAttribute('max'))
+            this.max = WNparseNumber(this.element.getAttribute('max'), 5);
+        if (this.element.hasAttribute('value'))
+            this._value = WNparseNumber(this.element.getAttribute('value'), 0);
+        if (this.element.hasAttribute('onbeforechange'))
+            this.beforeChange = WNGenerateFunction(this.element.getAttribute('onbeforechange'), 't,v');
+        if (this.element.hasAttribute('onclick'))
+            this.click = WNGenerateFunction(this.element.getAttribute('onclick'), 't,e');
+        if (this.element.className == '')
+            this.element.className = 'rank';
+        this.layout();
+    }
+    get value() { return this._value; }
+    set value(value) {
+        this._value = value;
+        this.layout();
+    }
+    layout() {
+        let divs = this.element.querySelectorAll('div');
+        if (divs.length != this.max) {
+            divs.forEach(x => x.remove());
+            for (let i = 0; i < this.max; i++) {
+                let div = document.createElement('div');
+                div.addEventListener('click', (e) => {
+                    if (this.element.classList.contains('readonly') ||
+                        this.element.classList.contains('disabled') ||
+                        this.element.hasAttribute('readonly') ||
+                        this.element.hasAttribute('disabled'))
+                        return;
+                    let v = i + 1;
+                    if (this._value == 1 && v == 1 && e.target.classList.contains('active'))
+                        v = 0;
+                    if (!(this.beforeChange?.(this, v) ?? true))
+                        return;
+                    this.value = v;
+                    this.click?.(this, e);
+                });
+                this.element.appendChild(div);
+            }
+            divs = this.element.querySelectorAll('div');
+        }
+        requestAnimationFrame(() => {
+            divs.forEach(x => x.className = '');
+            for (let i = 0; i < this._value; i++) {
+                divs[i].className = 'active';
+            }
+        });
+    }
+}
+globalThis.WNRank = WNRank;
 class WNScroll {
     nameType = 'WNScroll';
     element;
@@ -9638,6 +10279,7 @@ class WNScroll {
         }
     }
 }
+globalThis.WNScroll = WNScroll;
 class WNSearchList {
     nameType = 'WNSearchList';
     element;
@@ -9663,10 +10305,6 @@ class WNSearchList {
         this.searchbox.autocomplete = 'off';
         if (this.element.hasAttribute('list-id'))
             this.listElement = document.getElementById(this.element.getAttribute('list-id'));
-        else if (this.searchbox.nextElementSibling != null)
-            this.listElement = this.searchbox.nextElementSibling;
-        else if (this.searchbox.previousElementSibling != null)
-            this.listElement = this.searchbox.previousElementSibling;
         else {
             this.listElement = this.element.querySelector('ul,.list,.tree');
             if (this.listElement == null)
@@ -9684,27 +10322,25 @@ class WNSearchList {
             this.afterFilterChanged = WNGenerateFunction(this.element.getAttribute('onafterfilterchanged'), 't,text');
         if (this.element.hasAttribute('onselectionchanged'))
             this.selectionChanged = WNGenerateFunction(this.element.getAttribute('onselectionchanged'), 't,n');
+        let inputTimeHandler = 0;
         this.searchbox.addEventListener('input', async (e) => {
             if (this.list == null)
                 return;
             let v = e.target.value;
             if (v.length != 0 && v.length < this.minLength)
                 return;
-            if (this.beforeFilterChanged && !this.beforeFilterChanged?.(this, v))
-                return;
-            this.list.filterByText(v, true);
-            this.afterFilterChanged?.(this, v);
+            if (inputTimeHandler != 0)
+                clearTimeout(inputTimeHandler);
+            inputTimeHandler = setTimeout(() => {
+                let v = this.searchbox.value;
+                if (this.beforeFilterChanged && !this.beforeFilterChanged?.(this, v))
+                    return;
+                this.list.filterByText(v, true);
+                this.afterFilterChanged?.(this, v);
+            }, 300);
         });
-        this.waitToInitList();
-    }
-    waitToInitList() {
-        let tim = setInterval(() => {
-            if (WN(this.listElement.id).wn != null) {
-                this.list = WN(this.listElement.id).wn;
-                this.list.selectionChanged = (t, n) => this.selectionchanged(t, n);
-                clearInterval(tim);
-            }
-        }, 100);
+        this.list = new WNList(this.listElement);
+        this.list.selectionChanged = (t, n) => this.selectionchanged(t, n);
     }
     selectionchanged(t, n) {
         if (this.displayElement) {
@@ -9722,8 +10358,9 @@ class WNSearchList {
         this.selectionChanged?.(t, n);
     }
 }
+globalThis.WNSearchList = WNSearchList;
 class WNSelect {
-    nameType = 'WNList';
+    nameType = 'WNSelect';
     element;
     list;
     selectionChanged;
@@ -9847,6 +10484,7 @@ class WNSelect {
         this.list.redraw();
     }
 }
+globalThis.WNSelect = WNSelect;
 class WNSlicker {
     nameType = 'WNSlicker';
     element;
@@ -10101,6 +10739,7 @@ class WNSlicker {
         await this.AnimateSlide();
     }
 }
+globalThis.WNSlicker = WNSlicker;
 class WNSticky {
     nameType = 'WNSticky';
     element;
@@ -10158,15 +10797,19 @@ class WNSticky {
         }
     }
 }
+globalThis.WNSticky = WNSticky;
 class WNTab {
     nameType = 'WNTab';
     element;
     items;
     beforeSelected;
     selectionChanged;
+    onTabAdded;
     _selectedIndex = -1;
     get selectedIndex() { return this._selectedIndex; }
     set selectedIndex(value) {
+        if (this.items.length == 0)
+            return;
         if (value < 0 && this.items.length > 0)
             value = 0;
         if (value < 0)
@@ -10175,7 +10818,7 @@ class WNTab {
             value = this.items.length - 1;
         if (this.items[value].head.hasAttribute('disabled') || this.items[value].head.classList.contains('disabled'))
             return;
-        if (this.beforeSelected && this.beforeSelected(this, value) != false)
+        if (this.beforeSelected && this.beforeSelected(this, value) == false)
             return;
         this._selectedIndex = value;
         this.setCollapse();
@@ -10194,15 +10837,19 @@ class WNTab {
         let bodies = this.element.querySelectorAll('.tab-pan');
         heads.forEach((x) => {
             if (!x.hasAttribute('wn-type')) {
-                if (index < bodies.length) {
-                    x.setAttribute('index', index.toString());
+                x.setAttribute('index', index.toString());
+                if (x.hasAttribute("target"))
+                    this.items.push({ head: x, body: document.getElementById(x.getAttribute("target")) });
+                else if (index < bodies.length)
+                    this.items.push({ head: x, body: bodies[index] });
+                if (this.items[this.items.length - 1].head == x)
                     x.addEventListener("click", (e) => {
                         this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
                     });
-                    this.items.push({ head: x, body: bodies[index] });
-                    index++;
-                }
+                index++;
             }
+            if (x.tagName == 'BUTTON')
+                x.type = 'button';
         });
         if (this.element.hasAttribute('selected-index'))
             this.selectedIndex = WNparseNumber(this.element.getAttribute('selected-index'));
@@ -10219,7 +10866,56 @@ class WNTab {
             this.items[this.selectedIndex].body.classList.add('show');
         }
     }
+    addTab(caption, target = '') {
+        let cnt = this.element.querySelector('.nav-tab');
+        if (!cnt)
+            return;
+        let x;
+        if (cnt.nodeName == 'UL') {
+            x = document.createElement('li');
+        }
+        else {
+            x = document.createElement('button');
+            x.type = "button";
+        }
+        x.classList.add('nav-item');
+        x.setAttribute('index', this.items.length.toString());
+        x.innerHTML = caption;
+        x.addEventListener("click", (e) => {
+            this.selectedIndex = WNparseNumber(e.target.getAttribute('index'), -1);
+        });
+        cnt.appendChild(x);
+        if (target != '')
+            this.items.push({ head: x, body: document.getElementById(target) });
+        else {
+            cnt = this.element.querySelector('.tab-content');
+            let pan = document.createElement('div');
+            pan.classList.add('tab-pan');
+            cnt.appendChild(pan);
+            this.items.push({ head: x, body: pan });
+        }
+        if (this.selectedIndex == -1) {
+            if (this.element.hasAttribute('selected-index'))
+                this.selectedIndex = WNparseNumber(this.element.getAttribute('selected-index'));
+            else if (this.items.length > 0)
+                this.selectedIndex = 0;
+        }
+        this.onTabAdded?.(this, this.items.length - 1);
+    }
+    removeTab(index) {
+        if (index < 0 || index >= this.items.length)
+            return;
+        const { head, body } = this.items[index];
+        head.remove();
+        body.remove();
+        this.items.splice(index, 1);
+        if (this.selectedIndex >= this.items.length)
+            this.selectedIndex = this.items.length - 1;
+        else
+            this.setCollapse();
+    }
 }
+globalThis.WNTab = WNTab;
 class WNTable {
     nameType = 'WNTable';
     element;
@@ -10921,6 +11617,7 @@ class WNTable {
         return this._dataSource.find(x => x.fields[fieldName].value === value);
     }
 }
+globalThis.WNTable = WNTable;
 class WNTime {
     nameType = 'WNTime';
     element;
@@ -11150,6 +11847,7 @@ class WNTime {
         return tDate.toDateTime().toISOString();
     }
 }
+globalThis.WNTime = WNTime;
 class WNToast {
     nameType = 'WNToast';
     element;
@@ -11191,6 +11889,105 @@ class WNToast {
         this.element.classList.remove('show');
     }
 }
+globalThis.WNToast = WNToast;
+class WNToolbar {
+    nameType = 'WNToolbar';
+    element;
+    itemsarea;
+    dropdownlist;
+    dropdownbutton;
+    dropdown;
+    resizeObserver;
+    constructor(elem) {
+        if (elem !== undefined && elem !== null) {
+            this.element = elem;
+            this.init();
+        }
+    }
+    init() {
+        if (this.element.classList.length == 0)
+            this.element.className = 'wn-toolbar';
+        this.itemsarea = this.element.querySelector('.items');
+        if (this.itemsarea == null) {
+            this.itemsarea = document.createElement('div');
+            this.itemsarea.className = 'items';
+            this.element.appendChild(this.itemsarea);
+        }
+        this.dropdownbutton = this.element.querySelector('.button-toggle');
+        if (this.dropdownbutton == null) {
+            this.dropdownbutton = document.createElement('button');
+            this.dropdownbutton.className = 'button-toggle';
+            this.element.appendChild(this.dropdownbutton);
+        }
+        this.dropdownbutton.onclick = () => this.dropdown.toggle();
+        this.dropdownlist = this.element.querySelector('.dropdown');
+        if (this.dropdownlist == null) {
+            if (this.element.nextSibling?.classList?.contains('.dropdown'))
+                this.dropdownlist = this.element.nextSibling;
+        }
+        if (this.dropdownlist == null) {
+            this.dropdownlist = document.createElement("div");
+            this.dropdownlist.className = "dropdown list align-end";
+            this.element.appendChild(this.dropdownlist);
+        }
+        this.element.setAttribute('wn-dropdown-event', 'none');
+        this.dropdown = new WNDropdown(this.element);
+        window.addEventListener('resize', () => this.layout());
+        this.layout();
+        this.resizeObserver = new ResizeObserver(() => this.layout());
+        this.resizeObserver.observe(this.element);
+    }
+    layout() {
+        const allItems = Array.from(this.itemsarea.querySelectorAll('.item,li'))
+            .concat(Array.from(this.dropdownlist.querySelectorAll('.item,li')));
+        allItems.forEach(item => this.itemsarea.appendChild(item));
+        this.dropdownbutton.style.display = '';
+        this.dropdownlist.style.display = 'none';
+        const styleElement = getComputedStyle(this.element);
+        const toolbarWidth = this.element.clientWidth - parseInt(styleElement.paddingLeft) - parseInt(styleElement.paddingRight);
+        let gap = 0;
+        const styleItemsArea = getComputedStyle(this.itemsarea);
+        if (styleItemsArea.gap)
+            gap = parseInt(styleItemsArea.gap) || 0;
+        let usedWidth = 0;
+        for (var i = 0; i < this.element.children.length; i++) {
+            let el = this.element.children[i];
+            if (!(el.classList.contains('items') || el === this.dropdownlist)) {
+                const style = getComputedStyle(el);
+                usedWidth += el.offsetWidth +
+                    parseInt(style.marginLeft) || 0 +
+                    parseInt(style.marginRight) || 0 +
+                    parseInt(styleElement.gap) || 0;
+            }
+        }
+        let hasDropdown = false;
+        const items = Array.from(this.itemsarea.children);
+        let list = this.dropdownlist;
+        if (this.itemsarea.tagName == 'UL') {
+            this.dropdownlist.innerHTML = '';
+            list = document.createElement('ul');
+            this.dropdownlist.appendChild(list);
+        }
+        items.forEach((item, idx) => {
+            const el = item;
+            const style = getComputedStyle(el);
+            const itemWidth = el.offsetWidth;
+            const marginLeft = parseInt(style.marginLeft) || 0;
+            const marginRight = parseInt(style.marginRight) || 0;
+            const totalWidth = itemWidth + marginLeft + marginRight + gap;
+            if (usedWidth + totalWidth > toolbarWidth) {
+                list.appendChild(item);
+                hasDropdown = true;
+            }
+            else {
+                usedWidth += totalWidth;
+            }
+        });
+        this.dropdownbutton.style.display = hasDropdown ? '' : 'none';
+        this.dropdownlist.style.display = hasDropdown ? '' : 'none';
+    }
+}
+globalThis.WNToolbar = WNToolbar;
 class WNTooltip {
     nameType = 'WNTooltip';
     element;
@@ -11300,6 +12097,7 @@ class WNTooltip {
         this.target?.classList.remove('show');
     }
 }
+globalThis.WNTooltip = WNTooltip;
 function WNTooltipAssign(elem) {
     let selectors = elem.querySelectorAll("[wn-tooltip]");
     for (var i = 0; i < selectors.length; i++) {
@@ -11704,7 +12502,7 @@ class WNTree {
         let subItem = dataSource.filter(x => x[parentFieldName] == parentValue);
         for (var i = 0; i < subItem.length; i++) {
             let item = subItem[i];
-            let node = this.addToDataSource(parentNode, item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            let node = this.addToDataSource(parentNode, WNGetRecordValue(item, displayFieldName), WNGetRecordValue(item, linkFieldName), WNGetRecordValue(item, valueFieldName), WNGetRecordValue(item, imageFieldName));
             this.convertParentId(node, node.value, dataSource, idFieldName, parentFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
         }
     }
@@ -11717,7 +12515,7 @@ class WNTree {
     convertByItem(parentNode, dataSource, itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName) {
         for (var i = 0; i < dataSource.length; i++) {
             let item = dataSource[i];
-            let node = this.addToDataSource(parentNode, item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            let node = this.addToDataSource(parentNode, WNGetRecordValue(item, displayFieldName), WNGetRecordValue(item, linkFieldName), WNGetRecordValue(item, valueFieldName), WNGetRecordValue(item, imageFieldName));
             if (item[itemFieldName] && item[itemFieldName].length > 0)
                 this.convertByItem(node, item[itemFieldName], itemFieldName, displayFieldName, valueFieldName, linkFieldName, imageFieldName);
         }
@@ -11826,6 +12624,7 @@ class WNTree {
         });
     }
 }
+globalThis.WNTree = WNTree;
 class WNTreeTable {
     nameType = 'WNTreeTable';
     element;
@@ -11858,6 +12657,7 @@ class WNTreeTable {
         }
     }
 }
+globalThis.WNTreeTable = WNTreeTable;
 class WNValidator {
     nameType = 'WNValidator';
     element;
@@ -11887,16 +12687,29 @@ class WNValidator {
         return form.checkValidity();
     }
     isValid() {
+        this.reset();
         wnValidator_onvalidationcheck(this.element.children, null);
         this.element.classList.add('validated');
         return this.element.checkValidity();
     }
     reset() {
         this.element.classList.remove('validated');
+        this.element.classList.remove('was-validated');
         this.element.noValidate = true;
-        this.element.querySelectorAll('input').forEach(x => x.setCustomValidity(''));
+        const clearValidation = (parent) => {
+            parent.querySelectorAll('input, select, textarea').forEach((el) => {
+                el.setCustomValidity('');
+                el.classList.remove('invalid', 'valid');
+            });
+            parent.querySelectorAll('.hidden-validation').forEach((el) => {
+                el.remove();
+            });
+        };
+        clearValidation(this.element);
+        this.element.noValidate = false;
     }
 }
+globalThis.WNValidator = WNValidator;
 async function wnValidator_onvalidationcheck(children, event) {
     for (var i = 0; i < children.length; i++) {
         let x = children.item(i);
@@ -12099,6 +12912,7 @@ class WNDateShow {
             this.element.innerHTML = disp;
     }
 }
+globalThis.WNDateShow = WNDateShow;
 var AccordionMode;
 (function (AccordionMode) {
     AccordionMode["single"] = "single";

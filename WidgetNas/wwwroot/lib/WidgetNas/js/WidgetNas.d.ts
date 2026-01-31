@@ -3,6 +3,7 @@ declare var WNLanguage: {
     [id: string]: any;
 };
 declare var wnConfig: IWNConfig;
+declare var WNRTLLanguages: string[];
 declare class WNCultureInfo_ar_SA implements IWNCultureInfo {
     readonly displayName = "\u0627\u0644\u0639\u0631\u0628\u064A\u0629";
     readonly englishName = "Arabic";
@@ -433,55 +434,100 @@ declare var WNElements: {
     [id: string]: WNElement;
 };
 declare class WNElement {
-    wn: any | IWNComponent | IWNValidator | IWNSticky;
+    wn: any | IWNComponent;
     element: any;
-    get htmlElement(): HTMLElement;
-    get document(): Document;
-    get fieldSetElement(): HTMLFieldSetElement;
-    get embedElement(): HTMLEmbedElement;
-    get formElement(): HTMLFormElement;
-    get hrElement(): HTMLHRElement;
-    get headElement(): HTMLHeadElement;
-    get headingElement(): HTMLHeadingElement;
-    get linkElement(): HTMLLinkElement;
-    get iFrameElement(): HTMLIFrameElement;
-    get imageElement(): HTMLImageElement;
-    get inputElement(): HTMLInputElement;
-    get liElement(): HTMLLIElement;
-    get labelElement(): HTMLLabelElement;
-    get legendElement(): HTMLLegendElement;
-    get mapElement(): HTMLMapElement;
-    get mediaElement(): HTMLMediaElement;
-    get menuElement(): HTMLMenuElement;
-    get metaElement(): HTMLMetaElement;
-    get meterElement(): HTMLMeterElement;
-    get oListElement(): HTMLOListElement;
-    get objectElement(): HTMLObjectElement;
-    get optGroupElement(): HTMLOptGroupElement;
-    get optionElement(): HTMLOptionElement;
-    get outputElement(): HTMLOutputElement;
-    get paragraphElement(): HTMLParagraphElement;
-    get pictureElement(): HTMLPictureElement;
-    get preElement(): HTMLPreElement;
-    get progressElement(): HTMLProgressElement;
-    get quoteElement(): HTMLQuoteElement;
-    get scriptElement(): HTMLScriptElement;
-    get selectElement(): HTMLSelectElement;
-    get sourceElement(): HTMLSourceElement;
-    get spanElement(): HTMLSpanElement;
-    get tableCaptionElement(): HTMLTableCaptionElement;
-    get tableCellElement(): HTMLTableCellElement;
-    get tableColElement(): HTMLTableColElement;
-    get tableElement(): HTMLTableElement;
-    get tableRowElement(): HTMLTableRowElement;
-    get tableSectionElement(): HTMLTableSectionElement;
-    get templateElement(): HTMLTemplateElement;
-    get textAreaElement(): HTMLTextAreaElement;
-    get timeElement(): HTMLTimeElement;
-    get titleElement(): HTMLTitleElement;
-    get trackElement(): HTMLTrackElement;
-    get uListElement(): HTMLUListElement;
-    get videoElement(): HTMLVideoElement;
+    get WNAccordion(): IWNAccordion | null;
+    get WNCaptcha(): IWNCaptcha | null;
+    get WNCarousel(): IWNCarousel | null;
+    get WNCloseButton(): IWNCloseButton | null;
+    get WNCollapse(): IWNCollapse | null;
+    get WNConfirm(): IWNConfirm | null;
+    get WNCounter(): IWNCounter | null;
+    get WNDateShow(): IWNDateShow | null;
+    get WNDropdown(): IWNDropdown | null;
+    get WNEditor(): IWNEditor | null;
+    get WNFileList(): IWNFileList | null;
+    get WNFilter(): IWNFilter | null;
+    get WNImageEditor(): IWNImageEditor | null;
+    get WNInputList(): IWNInputList | null;
+    get WNLightbox(): IWNLightbox | null;
+    get WNList(): IWNList | null;
+    get WNModal(): IWNModal | null;
+    get WNMonthCalendar(): IWNMonthCalendar | null;
+    get WNMultiInput(): IWNMultiInput | null;
+    get WNMultiInputPhone(): IWNMultiInputPhone | null;
+    get WNMultiSelect(): IWNMultiSelect | null;
+    get WNProgress(): IWNProgress | null;
+    get WNScroll(): IWNScroll | null;
+    get WNSearchList(): IWNSearchList | null;
+    get WNSlicker(): IWNSlicker | null;
+    get WNSticky(): IWNSticky | null;
+    get WNTab(): IWNTab | null;
+    get WNTable(): IWNTable | null;
+    get WNTime(): IWNTime | null;
+    get WNToast(): IWNToast | null;
+    get WNTooltip(): IWNTooltip | null;
+    get WNToolbar(): IWNToolbar | null;
+    get WNTree(): IWNTree | null;
+    get WNTreeTable(): IWNTreeTable | null;
+    get WNValidator(): IWNValidator | null;
+    get WNSelect(): IWNSelect | null;
+    get WNCalendar(): IWNCalendar | null;
+    get WNCultureInfo(): IWNCultureInfo | null;
+    get WNDate(): IWNDate | null;
+    get WNRange(): IWNRange | null;
+    get htmlElement(): HTMLElement | null;
+    get document(): Document | null;
+    get fieldSetElement(): HTMLFieldSetElement | null;
+    get embedElement(): HTMLEmbedElement | null;
+    get formElement(): HTMLFormElement | null;
+    get hrElement(): HTMLHRElement | null;
+    get headElement(): HTMLHeadElement | null;
+    get headingElement(): HTMLHeadingElement | null;
+    get linkElement(): HTMLLinkElement | null;
+    get iFrameElement(): HTMLIFrameElement | null;
+    get imageElement(): HTMLImageElement | null;
+    get inputElement(): HTMLInputElement | null;
+    get liElement(): HTMLLIElement | null;
+    get labelElement(): HTMLLabelElement | null;
+    get legendElement(): HTMLLegendElement | null;
+    get mapElement(): HTMLMapElement | null;
+    get mediaElement(): HTMLMediaElement | null;
+    get menuElement(): HTMLMenuElement | null;
+    get metaElement(): HTMLMetaElement | null;
+    get meterElement(): HTMLMeterElement | null;
+    get oListElement(): HTMLOListElement | null;
+    get objectElement(): HTMLObjectElement | null;
+    get optGroupElement(): HTMLOptGroupElement | null;
+    get optionElement(): HTMLOptionElement | null;
+    get outputElement(): HTMLOutputElement | null;
+    get paragraphElement(): HTMLParagraphElement | null;
+    get pictureElement(): HTMLPictureElement | null;
+    get preElement(): HTMLPreElement | null;
+    get progressElement(): HTMLProgressElement | null;
+    get quoteElement(): HTMLQuoteElement | null;
+    get scriptElement(): HTMLScriptElement | null;
+    get selectElement(): HTMLSelectElement | null;
+    get sourceElement(): HTMLSourceElement | null;
+    get spanElement(): HTMLSpanElement | null;
+    get tableCaptionElement(): HTMLTableCaptionElement | null;
+    get tableCellElement(): HTMLTableCellElement | null;
+    get tableColElement(): HTMLTableColElement | null;
+    get tableElement(): HTMLTableElement | null;
+    get tableRowElement(): HTMLTableRowElement | null;
+    get tableSectionElement(): HTMLTableSectionElement | null;
+    get templateElement(): HTMLTemplateElement | null;
+    get textAreaElement(): HTMLTextAreaElement | null;
+    get timeElement(): HTMLTimeElement | null;
+    get titleElement(): HTMLTitleElement | null;
+    get trackElement(): HTMLTrackElement | null;
+    get uListElement(): HTMLUListElement | null;
+    get videoElement(): HTMLVideoElement | null;
+    get buttonElement(): HTMLButtonElement | null;
+    get customElement(): HTMLElement | null;
+    get documentFragment(): DocumentFragment | null;
+    query(selector: string): HTMLElement | null;
+    queryAll(selector: string): NodeListOf<HTMLElement> | null;
     ready(callBack: any, options?: boolean): void;
     click(callBack: any): void;
     change(callBack: any): void;
@@ -519,7 +565,7 @@ declare class WNElement {
     touchMove(callBack: any): void;
     touchStart(callBack: any): void;
     wheel(callBack: any): void;
-    constructor(element: Document | HTMLElement);
+    constructor(element: Document | HTMLElement | DocumentFragment);
 }
 declare function WNReset(): void;
 declare function WN(element: HTMLElement | Document | string): WNElement;
@@ -588,6 +634,11 @@ declare function WNQueryString(key: string): string;
 declare function WNToBase64String(str: string): string;
 declare function WNFromBase64String(str: string): string;
 declare function WNIsStringArray(input: any[]): boolean;
+declare function WNFormatBytes(bytes: number): string;
+declare function WNFormatCompactNumber(bytes: number): string;
+declare function WNReverseFormatBytes(value: string): number;
+declare function WNSwap(array: any[], index: number, targetIndex: number): void;
+declare function WNGetRecordValue(record: any, fieldName: string, defualtValue?: any): any;
 declare class WNConfig implements IWNConfig {
     nativeDigit: boolean;
     calendar: IWNCalendar;
@@ -610,6 +661,8 @@ declare function CheckBrowserCompatibility(): void;
 declare function InitWNBlock(elem?: HTMLElement | Document): void;
 declare function InitWN(masterelem?: HTMLElement | Document): void;
 declare function SetComponentCompatibility(elem?: HTMLElement | Document): void;
+declare function WNDateString(date: Date, Format?: string): string;
+declare function WNPanXSetup(): void;
 declare class WNAccordion implements IWNAccordion {
     readonly nameType: string;
     element: HTMLElement;
@@ -758,8 +811,8 @@ declare class WNDropdown implements IWNDropdown {
     private windowClick;
     toggle(): void;
     hide(): void;
-    show(): void;
-    setPosition(): void;
+    show(): Promise<void>;
+    setPosition(lastElement?: HTMLElement): void;
     hideAllDropDowns(): void;
 }
 declare class WNEditor implements IWNEditor {
@@ -857,6 +910,7 @@ declare class WNEditor implements IWNEditor {
     private setLanguage;
     private createElement;
     private assignEvents;
+    private fireChangeEvent;
     private recheckToolbar;
     private isSelectionInTag;
     private execCommand;
@@ -866,8 +920,7 @@ declare class WNEditor implements IWNEditor {
     private setSelectionTag;
     private saveSelection;
     private restoreSelection;
-    private cleanWordPaste;
-    private isMarkUp;
+    private cleanHtmlPaste;
     private colorPicker;
     private _colorPickerStyle;
     private _colorPickerselectTag;
@@ -880,10 +933,12 @@ declare class WNEditor implements IWNEditor {
     private _insertImageDropDown;
     private _insertImageSelected;
     private insertImage;
+    private editImage;
     private createImageObject;
     private _insertMediaDropDown;
     private _insertMediaSelected;
     private insertMedia;
+    private editMedia;
     private createMediaObject;
     private _insertIFrameDropDown;
     private _insertIFrameSelected;
@@ -896,14 +951,14 @@ declare class WNEditor implements IWNEditor {
     switchDarkMode(): void;
     switchFullScreen(): void;
 }
-declare class WNFileList implements IWNFilelist {
+declare class WNFileList implements IWNFileList {
     readonly nameType: string;
     element: HTMLElement;
     mode: string;
     url: string;
     multiSelect: boolean;
-    selectionChanged: (t: IWNFilelist) => {};
-    dblClick: (t: IWNFilelist) => {};
+    selectionChanged: (t: IWNFileList) => {};
+    dblClick: (t: IWNFileList) => {};
     private basepath;
     private _head;
     private _foldersAddress;
@@ -1201,15 +1256,27 @@ declare class WNMultiInput implements IWNMultiInput {
     readonly nameType: string;
     element: HTMLElement;
     inputs: HTMLElement[];
+    labels: WNDictionary;
+    classes: WNDictionary;
+    default: string;
     private detail;
-    private labels;
+    private inputType;
+    private requiredStatus;
+    private validation;
+    private inputIG;
+    private expandButton;
+    private inputclass;
+    private doRefresh;
     constructor(elem: HTMLElement);
     private init;
+    clear(): void;
+    refresh(): void;
     private getLables;
-    private toggle;
+    toggle(): void;
     get values(): WNDictionary;
     set values(value: WNDictionary | string);
     private createInput;
+    addItem(key: string, label: string, classes: string, refresh?: boolean): void;
 }
 declare class WNMultiInputPhone implements IWNMultiInputPhone {
     readonly nameType: string;
@@ -1262,14 +1329,16 @@ declare class WNMultiSelect implements IWNMultiSelect {
     private init;
     private WaitToInitList;
     private selectionchange;
-    private add;
-    private remove;
+    addSelectedItemByList(rows: [], textField: string, valueField: string, append: boolean): void;
+    addSelectedItemBy(text: string, value: string): WNGeneralNode;
+    addSelectedItem(node: WNGeneralNode): WNGeneralNode;
+    removeSelectedItem(node: WNGeneralNode): boolean;
     private _selectedItems;
     get selectedItems(): WNGeneralNode[];
     set selectedItems(value: WNGeneralNode[]);
     get selectedValue(): string[];
     set selectedValue(value: string[]);
-    private clearAll;
+    clearAll(): void;
     clearSearch(): void;
 }
 declare class WNProgress implements IWNProgress {
@@ -1289,6 +1358,54 @@ declare class WNProgress implements IWNProgress {
     get min(): number;
     set max(value: number);
     get max(): number;
+}
+declare class WNRange implements IWNRange {
+    readonly nameType: string;
+    element: HTMLFormElement;
+    min: number;
+    max: number;
+    step: number;
+    tooltip: string;
+    format: string;
+    unit: string;
+    values: number[];
+    change: (t: IWNRange) => void;
+    private resizeObserver;
+    private _count;
+    constructor(elem: HTMLElement);
+    private init;
+    get value(): string;
+    set value(value: string);
+    get count(): number;
+    set count(value: number);
+    private eThumb;
+    private eTooltip;
+    private eBar;
+    private eBar2;
+    refresh(): void;
+    private layout;
+    private movingIndex;
+    private startMove;
+    private _onTouchMove;
+    private _onTouchEnd;
+    private _onMove;
+    private _endMove;
+    private onMove;
+    private endMove;
+}
+declare class WNRank implements IWNRank {
+    readonly nameType: string;
+    element: HTMLFormElement;
+    max: number;
+    private _value;
+    change: (t: IWNRange) => void;
+    beforeChange: any;
+    click: any;
+    constructor(elem: HTMLElement);
+    private init;
+    get value(): number;
+    set value(value: number);
+    private layout;
 }
 declare class WNScroll implements IWNScroll {
     readonly nameType: string;
@@ -1315,7 +1432,6 @@ declare class WNSearchList implements IWNSearchList {
     private searchbox;
     constructor(elem: HTMLElement);
     private init;
-    private waitToInitList;
     private selectionchanged;
 }
 declare class WNSelect implements IWNSelect {
@@ -1394,15 +1510,21 @@ declare class WNSticky implements IWNSticky {
 declare class WNTab implements IWNTab {
     readonly nameType: string;
     element: HTMLElement;
-    private items;
+    items: {
+        head: HTMLElement;
+        body: HTMLElement;
+    }[];
     beforeSelected: (t: any, index: any) => boolean;
     selectionChanged: (t: any) => void;
+    onTabAdded: (t: any, index: any) => void;
     private _selectedIndex;
     get selectedIndex(): number;
     set selectedIndex(value: number);
     constructor(elem: HTMLElement);
     private init;
     private setCollapse;
+    addTab(caption: string, target?: string): void;
+    removeTab(index: number): void;
 }
 declare class WNTable implements IWNTable {
     readonly nameType: string;
@@ -1508,6 +1630,18 @@ declare class WNToast implements IWNToast {
     show(): void;
     toggle(): void;
     hide(): void;
+}
+declare class WNToolbar implements IWNToolbar {
+    readonly nameType: string;
+    element: HTMLElement;
+    private itemsarea;
+    private dropdownlist;
+    private dropdownbutton;
+    dropdown: WNDropdown;
+    private resizeObserver;
+    constructor(elem: HTMLElement);
+    private init;
+    private layout;
 }
 declare class WNTooltip implements IWNTooltip {
     readonly nameType: string;
@@ -1758,7 +1892,7 @@ interface IWNDropdown extends IWNComponent {
     toggle(): void;
     hide(): void;
     show(): void;
-    setPosition(): void;
+    setPosition(lastElement: HTMLElement): void;
     hideAllDropDowns(): void;
 }
 interface IWNEditor extends IWNComponent {
@@ -1774,12 +1908,12 @@ interface IWNEditor extends IWNComponent {
     switchDarkMode(): any;
     switchFullScreen(): any;
 }
-interface IWNFilelist extends IWNComponent {
+interface IWNFileList extends IWNComponent {
     mode: string;
     url: string;
     multiSelect: boolean;
-    selectionChanged: (t: IWNFilelist) => {};
-    dblClick: (t: IWNFilelist) => {};
+    selectionChanged: (t: IWNFileList) => {};
+    dblClick: (t: IWNFileList) => {};
     selectedItems: {
         path: any;
         files: any;
@@ -1899,8 +2033,15 @@ type WNDictionary = {
     [id: string]: any;
 };
 interface IWNMultiInput extends IWNComponent {
+    labels: WNDictionary;
     inputs: HTMLElement[];
     values: WNDictionary | string;
+    classes: WNDictionary;
+    default: string;
+    clear(): any;
+    refresh(): any;
+    toggle(): any;
+    addItem(key: string, label: string, classes: string, refresh: boolean): any;
 }
 interface IWNMultiInputPhone extends IWNComponent {
     value: string[];
@@ -1925,6 +2066,11 @@ interface IWNMultiSelect extends IWNComponent {
     max: number;
     search: IWNSearchList;
     clearSearch(): void;
+    clearAll(): void;
+    addSelectedItemBy(text: string, value: string): WNGeneralNode;
+    addSelectedItem(node: WNGeneralNode): WNGeneralNode;
+    addSelectedItemByList(rows: [], textField: string, valueField: string, append: boolean): void;
+    removeSelectedItem(node: WNGeneralNode): boolean;
 }
 type WNGeneralNode = {
     id?: number;
@@ -1937,6 +2083,25 @@ interface IWNProgress extends IWNComponent {
     value: number;
     min: number;
     max: number;
+}
+interface IWNRange extends IWNComponent {
+    min: number;
+    max: number;
+    count: number;
+    step: number;
+    tooltip: string;
+    format: string;
+    unit: string;
+    value: string;
+    values: number[];
+    refresh(): void;
+    change: (t: IWNRange) => void;
+}
+interface IWNRank extends IWNComponent {
+    value: number;
+    max: number;
+    beforeChange: (t: IWNRank, value: number) => boolean;
+    click: (t: IWNRank, e: MouseEvent) => void;
 }
 interface IWNScroll extends IWNComponent {
     value: number;
@@ -1954,6 +2119,14 @@ interface IWNSearchList extends IWNComponent {
     displayElement: HTMLElement;
     valueElement: HTMLElement;
 }
+interface IWNSelect extends IWNComponent {
+    value: string;
+    list: IWNList;
+    selectionChanged: (t: IWNSelect) => void;
+    addToDataSource(text: string, value: string): void;
+    removeFromDataSource(index: number): boolean;
+    setDataSource(dataSource: HTMLOptionElement[], append?: boolean): void;
+}
 interface IWNSlicker extends IWNComponent {
     interval: number;
     autoPlay: boolean;
@@ -1966,9 +2139,16 @@ interface IWNSlicker extends IWNComponent {
 interface IWNSticky extends IWNComponent {
 }
 interface IWNTab extends IWNComponent {
+    items: {
+        head: HTMLElement;
+        body: HTMLElement;
+    }[];
     selectedIndex: number;
     beforeSelected: (t: any, index: any) => boolean;
     selectionChanged: (t: any) => void;
+    onTabAdded: (t: any, index: any) => void;
+    addTab(caption: string, target: string): any;
+    removeTab(index: number): any;
 }
 interface IWNTable extends IWNComponent {
     element: HTMLTableElement;
@@ -2043,6 +2223,9 @@ interface IWNToast extends IWNComponent {
     show(): void;
     toggle(): void;
     hide(): void;
+}
+interface IWNToolbar extends IWNComponent {
+    dropdown: WNDropdown;
 }
 interface IWNTooltip extends IWNComponent {
     target: HTMLElement;
@@ -2119,14 +2302,6 @@ interface IWNTreeTable extends IWNComponent {
 interface IWNValidator extends IWNComponent {
     isValid(): boolean;
     reset(): void;
-}
-interface IWNSelect extends IWNComponent {
-    value: string;
-    list: IWNList;
-    selectionChanged: (t: IWNSelect) => void;
-    addToDataSource(text: string, value: string): void;
-    removeFromDataSource(index: number): boolean;
-    setDataSource(dataSource: HTMLOptionElement[], append?: boolean): void;
 }
 interface IWNCalendar {
     readonly localeName: string;

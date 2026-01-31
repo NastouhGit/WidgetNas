@@ -57,3 +57,4 @@
         }
     }
 }
+(globalThis as any).WNSticky = WNSticky;

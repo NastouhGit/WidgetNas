@@ -86,3 +86,4 @@
     }
 
 }
+(globalThis as any).WNCaptcha = WNCaptcha;

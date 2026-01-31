@@ -449,16 +449,25 @@
             this._content.focus();
         })
         editorbody.addEventListener('paste', (event) => {
-            let paste = (event.clipboardData).getData('text');
+            let paste = event.clipboardData.getData('text/html');
+            if (!paste) {
+                paste = event.clipboardData.getData('text/plain');
+            }
+            if (!paste) {
+                return true;
+            }
             if (this._editor_source_mode == 'html') {
-                paste = this.cleanWordPaste(paste);
+                paste = this.cleanHtmlPaste(paste);
                 if (paste == '') {
                     event.preventDefault();
                     return false;
                 }
+                this.fireChangeEvent();
             }
-            else
+            else {
+                this.fireChangeEvent();
                 return true;
+            }
 
             const selection = window.getSelection();
             if (!selection.rangeCount)
@@ -466,11 +475,10 @@
             selection.deleteFromDocument();
 
             let elem = selection.getRangeAt(0).createContextualFragment(paste);
-            //document.createElement('p');
-            //elem.innerHTML = paste;
             selection.getRangeAt(0).insertNode(elem);
 
             event.preventDefault();
+            this.fireChangeEvent();
             return true;
         });
 
@@ -480,6 +488,8 @@
 
         this.element.appendChild(editorbody);
     }
+
+
     private setLanguage() {
         if (this._editor_undo != null) this._editor_undo.title = this._lang['undo'];
         if (this._editor_redo != null) this._editor_redo.title = this._lang['redo'];
@@ -596,14 +606,27 @@
             const parser = new DOMParser();
             const doc3 = parser.parseFromString(this._editor_source_textarea.value, "text/html");
             this._content.innerHTML = doc3.body.innerHTML;
-            if (this.change != null && this.OldHtml != this.html) {
-                this.change(this);
-                this.OldHtml = this.html;
-            }
+            this.fireChangeEvent();
         });
         this._dark_mode?.nextSibling.addEventListener('click', () => { this.switchDarkMode(); });
 
         this._fullscreen?.addEventListener('click', () => { this.switchFullScreen(); });
+
+        this._content.addEventListener('dblclick', (event) => {
+            const target = event.target as HTMLElement;
+            if (target.tagName.toLowerCase() === 'img') {
+                this.editImage(target as HTMLImageElement);
+            }
+            else if (target.tagName.toLowerCase() === 'video' || target.tagName.toLowerCase() === 'audio') {
+                this.editMedia(target as HTMLMediaElement);
+            }
+        });
+    }
+    private fireChangeEvent() {
+        if (this.change != null && this.OldHtml != this.html) {
+            this.change(this);
+            this.OldHtml = this.html;
+        }
     }
     private recheckToolbar() {
         if (this._editor_bold != undefined) this._editor_bold.checked = this.getCurrentStyle('font-weight') > '500';
@@ -643,17 +666,14 @@
             this._editor_elementtag.value = (this.TagList.find((e) => e.includes(tagName)) ?? this.TagList[0]).split(':')[1];
         }
         if (this.valueElement != undefined) this.valueElement.value = this.html;
-        if (this.change != null && this.OldHtml != this.html) {
-            this.change(this);
-            this.OldHtml = this.html;
-        }
+        this.fireChangeEvent();
 
     }
     private isSelectionInTag(tag: string): boolean {
         tag = tag.toUpperCase();
         let currentNode = window.getSelection().focusNode as HTMLElement;
         if (currentNode != null)
-            while (!currentNode?.classList?.contains('editor-content')) {
+            while (currentNode != null && !currentNode?.classList?.contains('editor-content')) {
                 if (currentNode.tagName == tag) return true;
                 currentNode = currentNode.parentNode as HTMLElement;
             }
@@ -715,7 +735,7 @@
                         span = span.parentElement;
                 }
                 if (span?.innerHTML != '') {
-                    span.childNodes.forEach(x => {
+                    span?.childNodes.forEach(x => {
                         if (x.nodeName != '#text')
                             (<HTMLElement>x)?.style.removeProperty(prop);
                     });
@@ -803,120 +823,72 @@
             }
         }
     }
+    private cleanHtmlPaste(str: string): string {
+        // 1. تبدیل فرمت‌های Markdown به HTML
+        str = str
+            .replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>') // **bold** or __bold__
+            .replace(/(\*|_)(.*?)\1/g, '<em>$2</em>')            // *italic* or _italic_
+            .replace(/~~(.*?)~~/g, '<s>$1</s>')                  // ~~strike~~
+            .replace(/`([^`]+)`/g, '<code>$1</code>')            // `code`
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>'); // [text](url)
 
-    private cleanWordPaste(str: string): string {
-        str = str.replace(/<o:p>\s*<\/o:p>/g, "");
-        str = str.replace(/<o:p>.*?<\/o:p>/g, "&nbsp;");
-        str = str.replace(/\s*mso-[^:]+:[^;"]+;?/gi, "");
-        str = str.replace(/\s*MARGIN: 0cm 0cm 0pt\s*;/gi, "");
-        str = str.replace(/\s*MARGIN: 0cm 0cm 0pt\s*"/gi, "\"");
-        str = str.replace(/\s*TEXT-INDENT: 0cm\s*;/gi, "");
-        str = str.replace(/\s*TEXT-INDENT: 0cm\s*"/gi, "\"");
-        str = str.replace(/\s*TEXT-ALIGN: [^\s;]+;?"/gi, "\"");
-        str = str.replace(/\s*PAGE-BREAK-BEFORE: [^\s;]+;?"/gi, "\"");
-        str = str.replace(/\s*FONT-VARIANT: [^\s;]+;?"/gi, "\"");
-        str = str.replace(/\s*tab-stops:[^;"]*;?/gi, "");
-        str = str.replace(/\s*tab-stops:[^"]*/gi, "");
-        str = str.replace(/\s*face="[^"]*"/gi, "");
-        str = str.replace(/\s*face=[^ >]*/gi, "");
-        str = str.replace(/\s*FONT-FAMILY:[^;"]*;?/gi, "");
-        str = str.replace(/<(\w[^>]*) class=([^ |>]*)([^>]*)/gi, "<$1$3");
-        str = str.replace(/<(\w[^>]*) style="([^\"]*)"([^>]*)/gi, "<$1$3");
-        str = str.replace(/\s*style="\s*"/gi, '');
-        str = str.replace(/<SPAN\s*[^>]*>\s*&nbsp;\s*<\/SPAN>/gi, '&nbsp;');
-        str = str.replace(/<SPAN\s*[^>]*><\/SPAN>/gi, '');
-        str = str.replace(/<(\w[^>]*) lang=([^ |>]*)([^>]*)/gi, "<$1$3");
-        str = str.replace(/<SPAN\s*>(.*?)<\/SPAN>/gi, '$1');
-        str = str.replace(/<FONT\s*>(.*?)<\/FONT>/gi, '$1');
-        str = str.replace(/<\\?\?xml[^>]*>/gi, "");
-        str = str.replace(/<\/?\w+:[^>]*>/gi, "");
-        str = str.replace(/<H\d>\s*<\/H\d>/gi, '');
-        str = str.replace(/<H1([^>]*)>/gi, '');
-        str = str.replace(/<H2([^>]*)>/gi, '');
-        str = str.replace(/<H3([^>]*)>/gi, '');
-        str = str.replace(/<H4([^>]*)>/gi, '');
-        str = str.replace(/<H5([^>]*)>/gi, '');
-        str = str.replace(/<H6([^>]*)>/gi, '');
-        str = str.replace(/<\/H\d>/gi, '<br/>'); //remove this to take out breaks where Heading tags were 
-        str = str.replace(/<(U|I|STRIKE)>&nbsp;<\/\1>/g, '&nbsp;');
-        str = str.replace(/<(B|b)>&nbsp;<\/\b|B>/g, '');
-        str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
-        str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
-        str = str.replace(/<([^\s>]+)[^>]*>\s*<\/\1>/g, '');
-        //some RegEx code for the picky browsers
-        var re = new RegExp("(<P)([^>]*>.*?)(<\/P>)", "gi");
-        str = str.replace(re, "<div$2</div>");
-        var re2 = new RegExp("(<font|<FONT)([^*>]*>.*?)(<\/FONT>|<\/font>)", "gi");
-        str = str.replace(re2, "<div$2</div>");
-        str = str.replace(/size|SIZE = ([\d]{1})/g, '');
-        str = str.replace(/¬/g, '\u200C');
-
-        if (this.isMarkUp(str)) {
-            var h = '';
-            function escape(t) {
-                return new Option(t).innerHTML;
-            }
-            function inlineEscape(s) {
-                return escape(s)
-                    .replace(/!\[([^\]]*)]\(([^(]+)\)/g, '<img alt="$1" src="$2">')
-                    .replace(/\[([^\]]+)]\(([^(]+?)\)/g, '$1'.link('$2'))
-                    .replace(/`([^`]+)`/g, '<code>$1</code>')
-                    .replace(/(\*\*|__)(?=\S)([^\r]*?\S[*_]*)\1/g, '<strong>$2</strong>')
-                    .replace(/(\*|_)(?=\S)([^\r]*?\S)\1/g, '<em>$2</em>');
-            }
-
-
-            str
-                .replace(/^\s+|\r|\s+$/g, '')
-                .replace(/\t/g, '    ')
-                .split(/\n\n+/)
-                .forEach(function (b: any, f: any, R) {
-                    f = b[0];
-                    R =
-                        {
-                            '*': [/\n\* /, '<ul><li>', '</li></ul>'],
-                            '1': [/\n[1-9]\d*\.? /, '<ol><li>', '</li></ol>'],
-                            ' ': [/\n    /, '<pre><code>', '</code></pre>', '\n'],
-                            '>': [/\n> /, '<blockquote>', '</blockquote>', '\n']
-                        }[f];
-                    h +=
-                        R ? R[1] + ('\n' + b)
-                            .split(R[0])
-                            .slice(1)
-                            .map(R[3] ? escape : inlineEscape)
-                            .join(R[3] || '</li>\n<li>') + R[2] :
-                            f == '#' ? '<h' + (f = b.indexOf(' ')) + '>' + inlineEscape(b.slice(f + 1)) + '</h' + f + '>' :
-                                f == '<' ? b :
-                                    '<p>' + inlineEscape(b) + '</p>';
-                });
-            str = h;
+        // اگر هیچ تگ HTML وجود ندارد، متن را داخل <p> قرار بده
+        if (!/<[a-z][\s\S]*>/i.test(str)) {
+            str = `<p>${str}</p>`;
         }
-        str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-        return str;
-    }
-    private isMarkUp(src: string): boolean {
-        const h1 = /(^|\n) {0,3}#{1,6} {1,8}[^\n]{1,64}\r?\n\r?\n\s{0,32}\S/;
-        const bold = /(?:\s|^)(_|__|\*|\*\*|~~|==|\+\+)(?!\s).{1,64}(?<!\s)(?=\1)/;
-        const link = /\[[^\]]{1,128}\]\(https?:\/\/\S{1,999}\)/;
-        const code = /(?:\s|^)`(?!\s)[^`]{1,48}(?<!\s)`([^\w]|$)/;
-        const ul = /(?:^|\n)\s{0,5}\-\s{1}[^\n]+\n\s{0,15}\-\s/;
-        const ol = /(?:^|\n)\s{0,5}\d+\.\s{1}[^\n]+\n\s{0,15}\d+\.\s/;
-        const hr = /\n{2} {0,3}\-{2,48}\n{2}/;
-        const fences = /(?:\n|^)(```|~~~|\$\$)(?!`|~)[^\s]{0,64} {0,64}[^\n]{0,64}\n[\s\S]{0,9999}?\s*\1 {0,64}(?:\n+|$)/;
-        const title = /(?:\n|^)(?!\s)\w[^\n]{0,64}\r?\n(\-|=)\1{0,64}\n\n\s{0,64}(\w|$)/;
-        const blockquote = /(?:^|(\r?\n\r?\n))( {0,3}>[^\n]{1,333}\n){1,999}($|(\r?\n))/;
-        return h1.test(src) ||
-            bold.test(src) ||
-            link.test(src) ||
-            code.test(src) ||
-            ul.test(src) ||
-            ol.test(src) ||
-            hr.test(src) ||
-            fences.test(src) ||
-            title.test(src) ||
-            blockquote.test(src);
-    }
+        str = str.replace(/(?:\r\n|\r|\n)/g, ' ');
 
+        const allowedTags = [
+            'P', 'B', 'I', 'U', 'STRONG', 'EM', 'BR', 'UL', 'OL', 'LI', 'A', 'CODE', 'S', 'SUB', 'SUP',
+            'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'TABLE', 'TR', 'TD', 'TH', 'THEAD', 'TBODY', 'TFOOT',
+            'BODY'
+        ];
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(str, 'text/html');
+
+        function cleanNode(node: Node) {
+            if (node.childNodes.length > 0)
+                Array.from(node.childNodes).forEach(x => cleanNode(x));
+            // حذف کامنت‌ها
+            if (node.nodeType === Node.COMMENT_NODE) {
+                node.parentNode?.removeChild(node);
+                return;
+            }
+            if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) {
+                const el = node as HTMLElement;
+                // حذف همه attributeها (حتی اگر تگ غیرمجاز است)
+                // استفاده از while برای اطمینان از حذف همه attributeها
+                while (el.attributes?.length > 0) {
+                    el.removeAttribute(el.attributes[0].name);
+                }
+                const tag = el.tagName;
+                if (!allowedTags.includes(tag)) {
+                    if (!el.hasChildNodes()) {
+                        const text = document.createTextNode(el.textContent.trim() || '');
+                        if (text.textContent.trim() != '') {
+                            el.replaceWith(text);
+                        }
+                        else el.remove();
+                    }
+                    else {
+                        el.outerHTML = el.innerHTML;
+                    }
+                    return;
+                }
+            }
+            else {
+                node.parentElement.removeChild(node);
+            }
+        }
+
+
+        // پاکسازی کل body
+        cleanNode(doc.body);
+
+        // خروجی نهایی
+        return doc.body?.innerHTML ?? '';//.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+    }
 
     private colorPicker(parent: HTMLElement, style: string, selectTag: boolean = false) {
         if (this._colorPicker == undefined)
@@ -924,7 +896,7 @@
         this._colorPickerStyle = style;
         this._colorPickerselectTag = selectTag;
         this._colorPickerDropDown.element = parent;
-        this._colorPickerDropDown.setPosition();
+        //this._colorPickerDropDown.setPosition();
         this._colorPickerInput.value = WNRGB2HEX(this.getCurrentStyle(style));
         this._colorPickerDropDown.show();
     }
@@ -999,7 +971,7 @@
             this._insertLinkTarget.value = '';// (elem as HTMLLinkElement).target;
         }
         this._insertLinkDropDown.element = this._editor_link;
-        this._insertLinkDropDown.setPosition();
+        //this._insertLinkDropDown.setPosition();
         this._oldSelection = this.saveSelection();
 
         this._insertLinkDropDown.show();
@@ -1072,7 +1044,7 @@
             this.createImageObject();
 
         let elem = this.getParentTagSelection();
-        if (elem?.tagName.toLowerCase() != 'img') {
+        if (elem && elem?.tagName.toLowerCase() != 'img') {
             elem = elem.querySelector('img');
         }
         this._insertImageUrl.value = '';
@@ -1096,9 +1068,28 @@
         else
             this._insertImageSelected = null;
         this._insertImageDropDown.element = this._editor_image;
-        this._insertImageDropDown.setPosition();
+        //this._insertImageDropDown.setPosition();
         this._oldSelection = this.saveSelection();
+        this._insertImageDropDown.show();
+    }
+    private editImage(image: HTMLImageElement): void {
+        if (!this._insertImage) {
+            this.createImageObject(); // اگر فرم ویرایش تصویر قبلاً ایجاد نشده، آن را بسازید
+        }
 
+        // مقداردهی اولیه فیلدهای فرم با خصوصیات تصویر انتخاب‌شده
+        this._insertImageSelected = image;
+        this._insertImageUrl.value = image.src;
+        this._insertImageAlt.value = image.alt;
+        this._insertImageWidth.value = image.style.width || '';
+        this._insertImageHeight.value = image.style.height || '';
+        this._insertImageBorderWidth.value = image.style.borderWidth || '';
+        this._insertImageBorderStyle.value = image.style.borderStyle || 'none';
+        this._insertImageClass.value = image.className || '';
+
+        // نمایش فرم ویرایش تصویر
+        this._insertImageDropDown.element = this._editor_image;
+        //this._insertImageDropDown.setPosition();
         this._insertImageDropDown.show();
     }
     private createImageObject() {
@@ -1107,6 +1098,7 @@
         this._insertImage.classList.add('dropdown');
         this._insertImage.id = this.element.id + '_insertImage';
         this._insertImage.setAttribute('wn-dropdown', this._insertImage.id);
+
 
         let _insertImage = document.createElement('div');
         _insertImage.classList.add('imagepicker');
@@ -1243,18 +1235,16 @@
     private _insertMediaDropDown: WNDropdown;
     private _insertMediaSelected: HTMLMediaElement;
     private insertMedia() {
-        if (this._insertMedia == undefined)
+        if (this._insertMedia == undefined) {
             this.createMediaObject();
+        }
 
         let elem = this.getParentTagSelection();
-        if (elem)
-            if (elem?.tagName.toLowerCase() != 'video' && elem?.tagName.toLowerCase() != 'audio') {
-                let elemVideo = elem.querySelector('video');
-                if (elemVideo == null)
-                    elem = elem.querySelector('audio');
-                else
-                    elem = elemVideo;
-            }
+        if (elem && elem.tagName.toLowerCase() !== 'video' && elem.tagName.toLowerCase() !== 'audio') {
+            let videoElem = elem.querySelector('video');
+            elem = videoElem ? videoElem : elem.querySelector('audio');
+        }
+
         this._insertMediaType.value = 'video';
         this._insertMediaUrl.value = '';
         this._insertMediaWidth.value = '';
@@ -1266,27 +1256,39 @@
         this._insertMediaBorderStyle.value = 'none';
         this._insertMediaClass.value = '';
 
-        if (elem != null) {
-            this._insertMediaSelected = elem as HTMLMediaElement;
-            this._insertMediaType.value = this._insertMediaSelected.tagName.toLowerCase();
-            this._insertMediaUrl.value = this._insertMediaSelected.src;
-            this._insertMediaWidth.value = this._insertMediaSelected.style.width;
-            this._insertMediaHeight.value = this._insertMediaSelected.style.height;
-            this._insertMediaControls.checked = this._insertMediaSelected.hasAttribute('controls');
-            this._insertMediaMute.checked = this._insertMediaSelected.hasAttribute('muted');
-            this._insertMediaautoPlay.checked = this._insertMediaSelected.hasAttribute('autoPlay');
-            this._insertMediaBorderWidth.value = this._insertMediaSelected.style.borderWidth;
-            this._insertMediaBorderStyle.value = this._insertMediaSelected.style.borderStyle;
-            this._insertMediaClass.value = this._insertMediaSelected.className;
-        }
-        else
+        if (elem) {
+            this.editMedia(elem as HTMLMediaElement);
+        } else {
             this._insertMediaSelected = null;
-        this._insertMediaDropDown.element = this._editor_media;
-        this._insertMediaDropDown.setPosition();
-        this._oldSelection = this.saveSelection();
+            this._insertMediaDropDown.element = this._editor_media;
+            this._oldSelection = this.saveSelection();
+            this._insertMediaDropDown.show();
+        }
+    }
 
+    private editMedia(media: HTMLMediaElement): void {
+        if (!this._insertMedia) {
+            this.createMediaObject();
+        }
+
+        this._insertMediaSelected = media;
+        this._insertMediaType.value = media.tagName.toLowerCase();
+        let s = media.querySelector('source');
+        this._insertMediaUrl.value = s?.src ?? '';
+        this._insertMediaWidth.value = media.style.width || '';
+        this._insertMediaHeight.value = media.style.height || '';
+        this._insertMediaControls.checked = media.hasAttribute('controls');
+        this._insertMediaMute.checked = media.hasAttribute('muted');
+        this._insertMediaautoPlay.checked = media.hasAttribute('autoplay');
+        this._insertMediaBorderWidth.value = media.style.borderWidth || '';
+        this._insertMediaBorderStyle.value = media.style.borderStyle || 'none';
+        this._insertMediaClass.value = media.className || '';
+
+        this._insertMediaDropDown.element = this._editor_media;
         this._insertMediaDropDown.show();
     }
+
+
     private createMediaObject() {
 
         this._insertMedia = document.createElement('div');
@@ -1484,7 +1486,7 @@
             this.createIFrameObject();
 
         let elem = this.getParentTagSelection();
-        if (elem?.tagName.toLowerCase() != 'iframe') {
+        if (elem && elem?.tagName.toLowerCase() != 'iframe') {
             elem = elem.querySelector('iframe');
         }
         this._insertIFrameUrl.value = '';
@@ -1508,7 +1510,7 @@
         else
             this._insertIFrameSelected = null;
         this._insertIFrameDropDown.element = this._editor_iframe;
-        this._insertIFrameDropDown.setPosition();
+        //this._insertIFrameDropDown.setPosition();
         this._oldSelection = this.saveSelection();
 
         this._insertIFrameDropDown.show();
@@ -1684,10 +1686,7 @@
             this._content.classList.remove('hide');
             this._editor_source_mode = 'html';
         }
-        if (this.change != null && this.OldHtml != this.html) {
-            this.change(this);
-            this.OldHtml = this.html;
-        }
+        this.fireChangeEvent();
     }
     switchDarkMode() {
         this._dark_mode.checked = !this._dark_mode.checked;
@@ -1709,3 +1708,4 @@
         }
     }
 }
+(globalThis as any).WNEditor = WNEditor;

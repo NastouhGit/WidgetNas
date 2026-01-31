@@ -72,3 +72,4 @@
         oemCodePage: 720
     };
 }
+(globalThis as any).WNCultureInfo_fa_IR = WNCultureInfo_fa_IR;

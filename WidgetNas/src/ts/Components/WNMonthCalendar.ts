@@ -315,6 +315,7 @@
         calendarhead.appendChild(now);
 
         this._monthyearcaption = document.createElement('label');
+        this._monthyearcaption.classList.add('clean');
         calendarhead.appendChild(this._monthyearcaption);
 
         if (!this.onlyMonthYear) {
@@ -661,3 +662,4 @@
         return tDate.toDateTime().toISOString();
     }
 }
+(globalThis as any).WNMonthCalendar = WNMonthCalendar;

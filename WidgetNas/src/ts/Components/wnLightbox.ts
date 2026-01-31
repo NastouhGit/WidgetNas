@@ -227,4 +227,4 @@
         this.TouchStart = -99999999;
     }
 }
-
+(globalThis as any).WNLightbox = WNLightbox;

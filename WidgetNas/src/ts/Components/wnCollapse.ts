@@ -103,3 +103,4 @@
         }
     }
 }
+(globalThis as any).WNCollapse = WNCollapse;

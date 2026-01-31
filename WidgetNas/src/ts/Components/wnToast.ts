@@ -42,3 +42,4 @@
         this.element.classList.remove('show');
     }
 }
+(globalThis as any).WNToast = WNToast;

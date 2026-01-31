@@ -1,13 +1,12 @@
-﻿
-class WNFileList implements IWNFilelist {
+﻿class WNFileList implements IWNFileList {
     public readonly nameType: string = 'WNFileList';
     public element: HTMLElement;
     public mode: string = "select";
     public url: string = "";
     public multiSelect: boolean = false;
 
-    public selectionChanged: (t: IWNFilelist) => {};
-    public dblClick: (t: IWNFilelist) => {};
+    public selectionChanged: (t: IWNFileList) => {};
+    public dblClick: (t: IWNFileList) => {};
 
 
     private basepath: string = '/';
@@ -1620,3 +1619,4 @@ class WNFileList implements IWNFilelist {
         return this.basepath + this._foldertree.selectedItem.value;
     }
 }
+(globalThis as any).WNFileList = WNFileList;

@@ -14,6 +14,11 @@
 
     search: IWNSearchList;
     clearSearch(): void;
+    clearAll(): void;
+    addSelectedItemBy(text: string, value: string): WNGeneralNode;
+    addSelectedItem(node: WNGeneralNode): WNGeneralNode;
+    addSelectedItemByList(rows: [], textField: string, valueField: string, append: boolean): void;
+    removeSelectedItem(node: WNGeneralNode): boolean;
 }
 
 

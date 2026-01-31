@@ -118,7 +118,7 @@
             <ig class="group">
                 <label>پیش فرض</label>
                 <input readonly id="date1_ltr" wn-type="DateShow" calendar="WNGregorianCalendar" cultureinfo="WNCultureInfo_en_US" value="@ViewData["CurrentDate"]">
-                <button class="primary" onclick="WN('date1_ltr'].Date.addDays(1);">Next</button>
+                <button class="primary" onclick="WN('date1_ltr').wn.date.addDays(1);">Next</button>
             </ig>
         </div>
     </div>
@@ -128,7 +128,7 @@
             <ig class="group">
                 <label>پیش فرض</label>
                 <input readonly id="date1_rtl" wn-type="DateShow" calendar="WNPersianCalendar" cultureinfo="WNCultureInfo_fa_IR" value="@ViewData["CurrentDate"]">
-                <button class="primary" onclick="WN('date1_rtl'].Date.addDays(1);">بعدی</button>
+                <button class="primary" onclick="WN('date1_rtl').wn.date.addDays(1);">بعدی</button>
             </ig>
         </div>
     </div>

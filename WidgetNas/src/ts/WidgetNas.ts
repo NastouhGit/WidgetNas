@@ -90,9 +90,9 @@ function InitWNBlock(elem: HTMLElement | Document = document) {
     SetComponentCompatibility(elem);
     WNTooltipAssign(elem as HTMLElement);
     WNAnimationSetup();
+    WNPanXSetup();
 }
 function InitWN(masterelem: HTMLElement | Document = document) {
-    //let selectors: NodeListOf<HTMLDivElement> = masterelem.querySelectorAll("[wn-type]");
     let selectors: NodeListOf<HTMLElement> = masterelem.querySelectorAll("*");
     let idIndex = 1;
     for (var i = 0; i < selectors.length; i++) {
@@ -109,13 +109,19 @@ function InitWN(masterelem: HTMLElement | Document = document) {
                 elem.setAttribute('id', elem.id);
                 idIndex++;
             }
+            if (elem.tagName == 'BUTTON' && !elem.getAttribute('type'))
+                (elem as HTMLButtonElement).type = 'button';
             try {
                 if (type != null) {
 
                     let welem = WN(elem);
                     if (welem.wn == null) {
-                        let wn = new Function('elem', 'return new WN' + type[0].toUpperCase() + type.substring(1) + '(elem)')(elem);
-                        welem.wn = wn;
+                        const className = 'WN' + type[0].toUpperCase() + type.substring(1);
+                        const constructor = (globalThis as any)[className];
+                        if (constructor)
+                            welem.wn = new constructor(elem);
+                        else
+                            console.error('Constructor not found ' + className);
                     }
                     else
                         console.error('Duplicated WNElement ID! ' + elem.id + ' ' + type)
@@ -144,4 +150,10 @@ function SetComponentCompatibility(elem: HTMLElement | Document = document) {
             }
         }
     }
+}
+
+function WNDateString(date: Date, Format = 'yyyy/MM/dd HH:mm:ss') {
+    let d = new WNDate();
+    d.setUTCDate(date);
+    return d.toString(Format);
 }

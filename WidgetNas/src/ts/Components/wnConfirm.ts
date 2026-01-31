@@ -111,3 +111,4 @@
         modaldialog.focus();
     };
 }
+(globalThis as any).WNConfirm = WNConfirm;

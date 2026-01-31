@@ -43,3 +43,4 @@
         
     }
 }
+(globalThis as any).WNGregorianCalendar = WNGregorianCalendar;

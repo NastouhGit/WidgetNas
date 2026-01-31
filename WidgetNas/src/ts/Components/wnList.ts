@@ -50,6 +50,8 @@
         this.selectedItem = null;
         this.initDataSource();
         this.initItems();
+        if (this.element.hasAttribute('selectedindex'))
+            this.selectedIndex = WNparseNumber(this.element.getAttribute('selectedindex'), -1);
 
     }
     private initDataSource() {
@@ -367,7 +369,11 @@
 
         for (var i = 0; i < dataSource.length; i++) {
             let item = dataSource[i];
-            this.addToDataSource(item[displayFieldName] ?? null, item[linkFieldName] ?? null, item[valueFieldName] ?? null, item[imageFieldName] ?? null);
+            this.addToDataSource(
+                WNGetRecordValue(item, displayFieldName),
+                WNGetRecordValue(item, linkFieldName),
+                WNGetRecordValue(item, valueFieldName),
+                WNGetRecordValue(item, imageFieldName));
         }
         this.selectedItem = null;
     }
@@ -448,3 +454,4 @@
 
 
 }
+(globalThis as any).WNList = WNList;

@@ -54,3 +54,4 @@
         return [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, mLeapYear ? 30 : 29, 0];
     }
 }
+(globalThis as any).WNHijriCalendar = WNHijriCalendar;

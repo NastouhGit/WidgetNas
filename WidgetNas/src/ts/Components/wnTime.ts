@@ -247,3 +247,4 @@
         return tDate.toDateTime().toISOString();
     }
 }
+(globalThis as any).WNTime = WNTime;

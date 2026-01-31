@@ -1,0 +1,60 @@
+﻿.wn-toolbar {
+    position: relative;
+    background-color: var(--normal-back);
+    padding-block: var(--padding-block);
+    padding-inline: var(--padding-inline);
+    overflow: hidden;
+    min-height: 1em;
+    min-width: 1em;
+    padding-inline-end: 1.1em;
+    display:flex;
+    flex-wrap:nowrap;
+    flex-direction:row;
+    align-items:center;
+
+    .button-toggle {
+        width: 1em;
+        background-image: var(--arrow-down-image);
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        border: none;
+        background-position: center;
+        background-size: 0.8em;
+        background-repeat: no-repeat;
+        z-index: $zindex-dropdown;
+        box-shadow: none;
+
+        &[dir=ltr] {
+            left: auto;
+            right: 0;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    .items {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        min-width: max-content;
+        width:100%;
+        height:100%;
+        position: relative;
+        list-style: none;
+    }
+
+    .item {
+        width: max-content;
+    }
+
+    .dropdown {
+        padding-block: var(--padding-block);
+        padding-inline: var(--padding-inline);
+    }
+}

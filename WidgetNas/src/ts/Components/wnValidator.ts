@@ -32,6 +32,7 @@
     }
     //Check all the entries to check whether the information is correct or not.
     public isValid(): boolean {
+        this.reset();
         wnValidator_onvalidationcheck(this.element.children, null);
         this.element.classList.add('validated');
         return this.element.checkValidity();
@@ -39,10 +40,26 @@
     //The previous validation messages are deleted and the system returns to the initial state.
     public reset(): void {
         this.element.classList.remove('validated');
+        this.element.classList.remove('was-validated');
         this.element.noValidate = true;
-        this.element.querySelectorAll('input').forEach(x => x.setCustomValidity(''));
+
+        // Recursively clear validation state, classes, and custom validity
+        const clearValidation = (parent: HTMLElement) => {
+            parent.querySelectorAll('input, select, textarea').forEach((el) => {
+                (el as HTMLInputElement).setCustomValidity('');
+                el.classList.remove('invalid', 'valid');
+            });
+            parent.querySelectorAll('.hidden-validation').forEach((el) => {
+                el.remove();
+            });
+        };
+        clearValidation(this.element);
+
+        // Allow browser validation again
+        this.element.noValidate = false;
     }
 }
+(globalThis as any).WNValidator = WNValidator;
 async function wnValidator_onvalidationcheck(children: HTMLCollection, event: Event) {
     for (var i = 0; i < children.length; i++) {
         let x = children.item(i) as HTMLElement;

@@ -6,6 +6,7 @@
 }
 <h1>@ViewData["Title"]</h1>
 
+
 <p>
     در برخی مواقع نیاز است یک ورودی اطلاعاتی داشته باشیم که مقدار اصلی است، ولی ممکن است مقادیر دیگری را نیاز داشته باشیم که در صورت
     نیاز کاربر قرار به پر کردن آنها باشد.<br />
@@ -374,3 +375,41 @@
 <p><strong>first-label</strong>اگر میخواهید ابتدا برچسب قرار گیرد و سپس ورودی بعد از آن باشد از این کلاس استفاده کنید.</p>
 <p><strong>first-input</strong>اگر میخواهید ابتدا ورودی قرار گیرد و سپس برچسب بعد از آن باشد از این کلاس استفاده کنید.</p>
 <p><strong>group-input-button</strong>اگر ابتدا برچسب باشد و سپس ورودی و دکمه، اگر بخواهید ورودی و دکمه در یک گروه div باشند از این کلاس استفاده کنید.</p>
+
+<h2>اضافه کردن به صورت دستی</h2>
+<div class="example-div">
+    <div class="ltr" id="form5">
+        <multiinput id="ml1" class="multi-input floating" wn-type="MultiInput" type="text" default="en">  </multiinput>
+        <button type="button" onclick="WN('ml1').wn.addItem('en','Text','ltr',true)">en</button>
+        <button type="button" onclick="WN('ml1').wn.addItem('fa','Persian','rtl',true)">fa</button>
+        <button type="button" onclick="WN('ml1').wn.addItem('ar','Arabic','rtl',true)">ar</button>
+        <button type="button" onclick="WN('ml1').wn.clear();WN('ml1').wn.refresh();">Clear</button>
+    </div>
+</div>
+<p>
+    <strong>addItem</strong>
+    برای اضافه کردن به صورت دستی و توسط کد، میتوانید از تابع addItem استفاده کنید. <br />
+    ابتدا کلید، سپس برچسب و کلاس مرتبط و در نهایت اگر میخواهید کل مجموعه دوباره بازسازی شود، آنرا true کنید. دقت کنید، بهتر است در آخرین اضافه کردن
+    یا کلا مجزا تابع refresh را صدا کنید.
+    <br />
+    <bidi>addItem(key: string, label: string, classes: string, refresh: boolean)</bidi>
+</p>
+<p>
+    <strong>toggle</strong>
+    اگر میخواهی بین باز شدن و بسته شدن، زیر مجموعه سوییچ کنید این تابع را فراخوانی کنید.
+    <br />
+    <bidi>toggle()</bidi>
+</p>
+<p>
+    <strong>refresh</strong>
+    اگر میخواهید دوباره ورودی ها و برچسب ها بر اساس مقادیر جدید ساخته شوند این تابع را فراخوانی کنید.
+    دقت کنید، این تابع مقادیر ورودی ها را نمایش نمیدهد.
+    <br />
+    <bidi>refresh()</bidi>
+</p>
+<p>
+    <strong>clear</strong>
+    اگر میخواهید تمام اطلاعات ورودی ها پاک شوند، این تابع را فراخوانی کنید.
+    <br />
+    <bidi>clear()</bidi>
+</p>

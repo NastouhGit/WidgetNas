@@ -389,7 +389,8 @@
 </div>
 <figure><code data-on="form6"></code></figure>
 <h3>ایجاد کاربرگ</h3>
-<p>برای ساخت یک کاربرگ، پس از تعریف ساختار html کافیست مقدار wn-type را مقدار tab تعریف کنید. <br />
+<p>
+    برای ساخت یک کاربرگ، پس از تعریف ساختار html کافیست مقدار wn-type را مقدار tab تعریف کنید. <br />
     سیستم به صورت خودکار تمامی nav-item ها را شناسایی کرده و سپس در صورتیکه nav-item دارای wn-type نباشد، به صورت متناظر یک tab-pan به آن نسبت میدهد.<br />
     یعنی اولین nav-item به اولین tab-pan و الی آخر.
 </p>
@@ -398,16 +399,20 @@
     <strong>خصوصیت selected-index</strong><br>
     با انتخاب شماره ایندکس صفحه که از 0 شروع میشود، صفحه انتخاب شده را تغییر میدهد.
 </p>
+<p>
+    <strong>خصوصیت target</strong><br>
+    اگر میخواهید، با انتخاب هر عنوان یک tab-pan خاص نمایش داده شود، میتوانید به آن tab-pan یک نام داده و در هنگام تعریف button ها، خصوصیت target را به آن id مد نظر نسبت دهید.
+</p>
 <div class="example-div">
     <div class="ltr" id="form7">
         <h3>LTR</h3>
         <div class="m-bs-50r p-100r" wn-type="Tab">
-            <nav class="nav-tab" >
+            <nav class="nav-tab">
                 <button class="nav-item">Home</button>
                 <button class="nav-item">Profile</button>
                 <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
             </nav>
-            <div  class="tab-content">
+            <div class="tab-content">
                 <div class="tab-pan">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
                 </div>
@@ -416,7 +421,7 @@
                 </div>
             </div>
         </div>
-        <div class="m-bs-50r p-100r"  wn-type="Tab">
+        <div class="m-bs-50r p-100r" wn-type="Tab">
             <div class="tab-content nav-bottom">
                 <div class="tab-pan">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
@@ -426,25 +431,25 @@
                 </div>
             </div>
             <nav class="nav-tab nav-bottom">
-                <button class="nav-item" >Home</button>
-                <button class="nav-item" >Profile</button>
+                <button class="nav-item">Home</button>
+                <button class="nav-item">Profile</button>
                 <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
             </nav>
         </div>
         <div class="m-bs-50r p-100r">
-            <div class="row g-i-0"  wn-type="Tab">
-                <div class="col-3" >
+            <div class="row g-i-0" wn-type="Tab">
+                <div class="col-3">
                     <nav class="nav-tab flex-column nav-start">
-                        <button class="nav-item" >Home</button>
+                        <button class="nav-item">Home</button>
                         <button class="nav-item">Profile</button>
                         <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
                     </nav>
                 </div>
                 <div class="tab-content nav-start col">
-                    <div class="tab-pan" >
+                    <div class="tab-pan">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
                     </div>
-                    <div class="tab-pan" >
+                    <div class="tab-pan">
                         Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
                     </div>
                 </div>
@@ -453,17 +458,17 @@
         <div class="m-bs-50r p-100r" wn-type="Tab">
             <div class="row g-i-0">
                 <div class="tab-content nav-end col">
-                    <div class="tab-pan" >
+                    <div class="tab-pan">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
                     </div>
-                    <div class="tab-pan" >
+                    <div class="tab-pan">
                         Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
                     </div>
                 </div>
                 <div class="col-4">
                     <nav id="tabnav4_ltr" class="nav-tab flex-column nav-end">
-                        <button class="nav-item" >Home</button>
-                        <button class="nav-item" >Profile</button>
+                        <button class="nav-item">Home</button>
+                        <button class="nav-item">Profile</button>
                         <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_ltr">Dropdown</button>
                     </nav>
                 </div>
@@ -474,22 +479,22 @@
         <h3>RTL</h3>
         <div class="m-bs-50r p-100r" wn-type="Tab">
             <nav class="nav-tab">
-                <button class="nav-item" >خانه</button>
-                <button class="nav-item" >پروفایل</button>
+                <button class="nav-item">خانه</button>
+                <button class="nav-item">پروفایل</button>
                 <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
             </nav>
             <div class="tab-content">
-                <div class="tab-pan" >
+                <div class="tab-pan">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                 </div>
-                <div class="tab-pan" >
+                <div class="tab-pan">
                     کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.
                 </div>
             </div>
         </div>
         <div class="m-bs-50r p-100r" wn-type="Tab">
             <div class="tab-content nav-bottom">
-                <div class="tab-pan" >
+                <div class="tab-pan">
                     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
                 </div>
                 <div class="tab-pan">
@@ -497,8 +502,8 @@
                 </div>
             </div>
             <nav class="nav-tab nav-bottom">
-                <button class="nav-item" >خانه</button>
-                <button class="nav-item" >پروفایل</button>
+                <button class="nav-item">خانه</button>
+                <button class="nav-item">پروفایل</button>
                 <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
             </nav>
         </div>
@@ -506,8 +511,8 @@
             <div class="row g-i-0">
                 <div class="col-3">
                     <nav class="nav-tab flex-column nav-start">
-                        <button class="nav-item" >خانه</button>
-                        <button class="nav-item" >پروفایل</button>
+                        <button class="nav-item">خانه</button>
+                        <button class="nav-item">پروفایل</button>
                         <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
                     </nav>
                 </div>
@@ -533,8 +538,8 @@
                 </div>
                 <div class="col-4">
                     <nav class="nav-tab flex-column nav-end">
-                        <button class="nav-item" >خانه</button>
-                        <button class="nav-item" >پروفایل</button>
+                        <button class="nav-item">خانه</button>
+                        <button class="nav-item">پروفایل</button>
                         <button class="nav-item dropdown-toggle" wn-type="dropdown" wn-dropdown="dropdown_rtl">بازشو</button>
                     </nav>
                 </div>
@@ -727,21 +732,25 @@
     زمانیکه یک صفحه جدید انتخاب و نمایش داده میشود، این رخداد فراخوانی میشود.<br />
     <bidi>selectionChanged: (t) => void</bidi>
 </p>
-
+<p>
+    <string>items</string><br />
+    برای دسترسی به جزئیات موضوعی هر آیتم موجود میتوانید از آرایه items استفاده کنید.<br />
+    <bidi>items: { head: HTMLElement, body: HTMLElement }[]</bidi>
+</p>
 <div class="example-div">
     <div class="ltr" id="form10">
         <h3>LTR</h3>
         <div id="tab1" class="m-bs-50r p-100r" wn-type="Tab">
-            <nav  class="nav-tab">
-                <button class="nav-item show" >Home</button>
+            <nav class="nav-tab">
+                <button class="nav-item show">Home</button>
                 <button class="nav-item">Profile</button>
                 <button class="nav-item" disabled>Disabled </button>
             </nav>
             <div class="tab-content">
-                <div class="tab-pan" >
+                <div class="tab-pan">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed augue lacus viverra vitae congue eu consequat ac. Augue lacus viverra vitae congue eu. Ut morbi tincidunt augue interdum velit euismod in pellentesque massa. Senectus et netus et malesuada fames ac.
                 </div>
-                <div class="tab-pan" >
+                <div class="tab-pan">
                     Est pellentesque elit ullamcorper dignissim cras. Bibendum neque egestas congue quisque egestas. Nec feugiat in fermentum posuere urna nec tincidunt praesent semper. Eu tincidunt tortor aliquam nulla facilisi. Rhoncus dolor purus non enim praesent elementum facilisis leo.
                 </div>
                 <div class="tab-pan">
@@ -757,3 +766,41 @@
 </div>
 
 <figure><code data-on="form10"></code></figure>
+
+
+<p>
+    <string>addTab</string><br />
+    با استفاده از این تابع میتوانید به صورت ران تایم یک تب اضافه کنید.<br />
+    <bidi>addTab(caption: string, target: string)</bidi>
+</p>
+
+<div class="example-div">
+    <div class="ltr" id="form11">
+        <h3>LTR</h3>
+        <div id="tab2" class="m-bs-50r p-100r" wn-type="Tab">
+            <nav class="nav-tab">
+            </nav>
+            <div class="tab-content">
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <button class="primary" onclick="WN('tab2').wn.addTab('Home','');WN('tab2').wn.items[0].body.innerHTML='This is Home Body';">Home</button>
+            <button class="secondary" onclick="WN('tab2').wn.addTab('Profile','');WN('tab2').wn.items[1].body.innerHTML='This is Profile Body';">Profile</button>
+            <button class="third" onclick="WN('tab2').wn.removeTab(0)">Remove First Tab</button>
+
+        </div>
+        <script>
+            WN(document).ready(()=>{
+                WN('tab2').wn.beforeSelected = (t, idx) => {
+                    if(idx === 1) return confirm('آیا مطمئن هستید؟');
+                    return true;
+                };
+                WN('tab2').wn.selectionChanged = (t) => {
+                    alert('تب جدید انتخاب شد: ' + t.selectedIndex);
+                };
+            });
+        </script>
+
+    </div>
+</div>
+<figure><code data-on="form11"></code></figure>

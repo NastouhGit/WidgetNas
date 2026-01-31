@@ -434,3 +434,4 @@
         return this.toNumber() !== rhs.toNumber();
     }
 }
+(globalThis as any).WNDate = WNDate;

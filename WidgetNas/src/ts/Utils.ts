@@ -1,10 +1,10 @@
 ﻿function WNmod(a: number, b: number) { return a - (b * Math.floor(a / b)); }
 function WNdtr(d) { return (d * Math.PI) / 180.0; }
-function WNrtd(r) { return (r * 180.0) / Math.PI;}
+function WNrtd(r) { return (r * 180.0) / Math.PI; }
 function WNdcos(d) { return Math.cos(WNdtr(d)); }
 function WNdsin(d) { return Math.sin(WNdtr(d)); }
 function WNfixangle(a) { return a - 360.0 * (Math.floor(a / 360.0)); }
-function WNfixangr(a) {return a - (2 * Math.PI) * (Math.floor(a / (2 * Math.PI)));}
+function WNfixangr(a) { return a - (2 * Math.PI) * (Math.floor(a / (2 * Math.PI))); }
 function WNparseBoolean(value: any, Default?: boolean): boolean {
     if ((value === undefined || value == null) && Default != undefined)
         return Default;
@@ -414,7 +414,8 @@ function WNStringFormat(text: string | number, format: string, culture: IWNCultu
     let ret: string = text.toString();
     if (format.includes('{0}'))
         ret = format.replace('{0}', ret);
-    else if (format.toLowerCase() == 'l' || format.toLowerCase() == 'lowercase')
+
+    if (format.toLowerCase() == 'l' || format.toLowerCase() == 'lowercase')
         ret = ret.toLowerCase();
     else if (format.toLowerCase() == 'u' || format.toLowerCase() == 'uppercase')
         ret = ret.toUpperCase();
@@ -432,6 +433,18 @@ function WNStringFormat(text: string | number, format: string, culture: IWNCultu
         ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toLongTimeString();
     else if (format.toLowerCase() == 'shorttime')
         ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toShortTimeString();
+    else if (format.toLowerCase() == 'fulltime')
+        ret = new WNDate(culture, wnConfig.calendar, new Date(ret)).toString("yyyy/MM/dd HH:mm:ss");
+    else if (format.toLowerCase() == 'formatbytes')
+        ret = WNFormatBytes(text as number);
+    else if (format.toLowerCase() == 'compact')
+        ret = WNFormatCompactNumber(text as number);
+    else if (format.includes(',0')) {
+        let num = WNparseNumber(text);
+        ret = WNNumberToString(num, culture);
+    }
+    else if (format.toLowerCase().startsWith('return'))
+        ret = new Function(ret)();
     return ret;
 }
 function WNToggleClass(elem: string | HTMLElement, setclass: string, classes: string[]) {
@@ -586,4 +599,82 @@ function WNFromBase64String(str: string): string {
 
 function WNIsStringArray(input: any[]): boolean {
     return Array.isArray(input) && input.every(item => typeof item === 'string');
+}
+function WNFormatBytes(bytes: number): string {
+    const units = ["B", "K", "M", "G", "T"];
+    let index = 0;
+
+    while (bytes >= 1024 && index < units.length - 1) {
+        bytes /= 1024;
+        index++;
+    }
+    let o='';
+    if (index==0)
+        o = bytes.toFixed(0)
+    else
+        o = bytes.toFixed(1)
+    if (o.endsWith('.0')) {
+        o = o.slice(0, -2);
+    }
+    return `${o}${units[index]}`;
+}
+function WNFormatCompactNumber(bytes: number): string {
+    const units = ["", "K", "M", "B", "T"];
+    let index = 0;
+
+    while (bytes >= 1000 && index < units.length - 1) {
+        bytes /= 1000;
+        index++;
+    }
+    let o = '';
+    if (index == 0)
+        o = bytes.toFixed(0)
+    else
+        o = bytes.toFixed(1)
+    if (o.endsWith('.0')) {
+        o = o.slice(0, -2);
+    }
+    return `${o}${units[index]}`;
+}
+function WNReverseFormatBytes(value: string): number {
+    const units: { [key: string]: string } = { "B": "B", "KB": "K", "MB": "M", "GB": "G", "TB": "T" };
+    const regex = /^(\d+(?:\.\d+)?)([BKMGTP]{1,2})$/; // پذیرش واحدهای یک یا دو حرفی
+
+    value = value.replace(/\s+/g, "").toUpperCase(); // حذف فاصله‌های اضافی و تبدیل به حروف بزرگ
+
+    const match = value.match(regex);
+    if (!match) throw new Error("فرمت ورودی نامعتبر است");
+
+    let [_, num, unit] = match;
+    unit = units[unit] || unit; // تبدیل "KB" به "K"، "MB" به "M" و...
+
+    let index = ["B", "K", "M", "G", "T"].indexOf(unit);
+    if (index === -1) throw new Error("واحد نامعتبر است");
+
+    return parseFloat(num) * Math.pow(1024, index);
+}
+function WNSwap(array: any[], index: number, targetIndex: number) {
+    if (
+        !Array.isArray(array) ||
+        index < 0 || index >= array.length ||
+        targetIndex < 0 || targetIndex >= array.length
+    ) return;
+    const temp = array[index];
+    array[index] = array[targetIndex];
+    array[targetIndex] = temp;
+}
+
+function WNGetRecordValue(record: any, fieldName: string,defualtValue=null) {
+    if (!record || !fieldName) return defualtValue;
+    const fields = fieldName.split('.');
+    let value = record;
+    for (let i = 0; i < fields.length; i++) {
+        if (value == null) return defualtValue;
+        const keys = Object.keys(value);
+        // پیدا کردن کلید معادل بدون حساسیت به حروف
+        const key = keys.find(k => k.toLowerCase() === fields[i].toLowerCase());
+        if (!key) return defualtValue;
+        value = value[key];
+    }
+    return value;
 }

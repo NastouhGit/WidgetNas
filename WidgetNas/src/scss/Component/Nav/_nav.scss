@@ -267,15 +267,11 @@ nav {
 
     .tab-pan {
         transition: $transition;
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
+        display: none;
 
         &.show {
             transition: $transition;
-            opacity: 1;
-            height: unset;
-            overflow: unset;
+            display: block;
         }
     }
 

@@ -207,6 +207,38 @@
 <figure><code data-on="form1"></code></figure>
 <h4>توابع جاوا اسکریپت</h4>
 <p>
+    <h5>clearAll</h5>
+    این تابع تمامی گزینه های انتخاب شده را حذف میکند.
+    <br /><bidi>clearAll(): void</bidi>
+</p>
+
+<p>
+    <h5>addSelectedItemBy</h5>
+    با استفاد از این تابع میتوانید موارد مورد نظر را به عنوان انتخاب شده استفاده کنید. در زمانیکه میخواهید مقدار دهی اولیه برای پر کردن اطلاعات قبلی داشته باشید.
+    <br /><bidi>addSelectedItemBy(text: string, value: string): WNGeneralNode</bidi>
+</p>
+
+<p>
+    <h5>addSelectedItem</h5>
+    دقیقا همانند addSelectedItemBy است با این تفاوت که نوع ورودی متفاوت است.
+    <br /><bidi>addSelectedItem(node: WNGeneralNode): WNGeneralNode</bidi>
+</p>
+<p>
+    <h5>addSelectedItemByList</h5>
+    برای انتخاب به صورت لیست از موضوعات، ابتدا در پارامتر rows لیست مد نظر را داده سپس
+    در پارامتر textField مشخص میکنید، نا فیلد برای عنوان چیست سپس 
+    در پارامتر valueField مشخص میکنید نام فیلد برای مقدار چیست.
+    پارامتر append هم مشخص میکند، لیست به انتخاب شده ها اضافه شود یا قبلی ها را از بین ببرد.
+    <br /><bidi>addSelectedItemByList(rows: [], textField: string, valueField: string, append: boolean): void</bidi>
+</p>
+
+<p>
+    <h5>removeSelectedItem</h5>
+    اگر میخواهید یک گزینه انتخاب شده از لیست حذف شود، از این تابع میتوانید استفاده کنید.
+    <br /><bidi>removeSelectedItem(node: WNGeneralNode): boolean</bidi>
+</p>
+
+<p>
     <h5>selectedItems</h5>
     با استفاده از این خصوصیت میتوانید لیست موضوعات انتخاب شده را در قالب یک آرایه از نوع <bidi>WNListNode</bidi> یا <bidi>WNTreeNode</bidi> را دریافت کنید.
     <br /><bidi>selectedItems: WNGeneralNode[]</bidi>

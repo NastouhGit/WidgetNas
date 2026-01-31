@@ -29,24 +29,27 @@ html {
 
 body {
     font-family: WNFont;
+    overflow-x: auto;
 }
-
+main {
+    overflow-x:auto;
+}
 
 .example-div {
     direction: ltr;
     background-color: #fff;
     border: 1px solid #ddd;
-    margin-bottom: 1rem;
     margin-block: 1rem;
-    margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
-    flex: 1;
     width: 100%;
     justify-content: center;
     padding-inline: 0.5rem;
     padding-block: 1rem;
     overflow: auto;
+    gap: 1rem;
+    min-width: 0;
+    overflow-x: auto;
 }
 
     .example-div h3 {
@@ -61,9 +64,9 @@ body {
 
     .example-div .rtl,
     .example-div .ltr {
-        flex: 1 auto;
-        width: 45%;
-        margin-inline: 0.5rem;
+        flex: 1 1 45%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
 @media (max-width: 768px) {

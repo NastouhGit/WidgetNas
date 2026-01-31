@@ -3,9 +3,18 @@
     public element: HTMLElement;
 
     public inputs: HTMLElement[];
+    public labels: WNDictionary;
+    public classes: WNDictionary;
+    public default = ''
 
     private detail: HTMLElement;
-    private labels: WNDictionary;
+    private inputType = 'text';
+    private requiredStatus = '';
+    private validation = '';
+    private inputIG: HTMLElement;
+    private expandButton: HTMLButtonElement;
+    private inputclass = '';
+    private doRefresh = true;
     constructor(elem: HTMLElement) {
         if (elem !== undefined && elem !== null) {
             this.element = elem;
@@ -13,165 +22,190 @@
         }
     }
     private init() {
-        this.inputs = [];
-        this.labels = {};
-        let _labels = {};
-        let values: WNDictionary = {};
-        let classes: WNDictionary = {};
-        let _default = '';
-        let setDefaultValue = true;
-        let inputType = 'text';
+        this.clear();
+        let lValue = {};
 
-        if (this.element.hasAttribute('labels')) _labels = WNToDictionary(this.element.getAttribute('labels'));
-        if (this.element.hasAttribute('values')) values = WNToDictionary(this.element.getAttribute('values'));
-        if (this.element.hasAttribute('classes')) classes = WNToDictionary(this.element.getAttribute('classes'));
-        if (this.element.hasAttribute('default')) _default = WNparseString(this.element.getAttribute('default'));
-        if (this.element.hasAttribute('type')) inputType = WNparseString(this.element.getAttribute('type'), inputType);
+        if (this.element.hasAttribute('labels')) this.labels = WNToDictionary(this.element.getAttribute('labels'));
+        if (this.element.hasAttribute('values')) lValue = WNToDictionary(this.element.getAttribute('values'));
+        if (this.element.hasAttribute('classes')) this.classes = WNToDictionary(this.element.getAttribute('classes'));
+        if (this.element.hasAttribute('default')) this.default = WNparseString(this.element.getAttribute('default'));
+        if (this.element.hasAttribute('type')) this.inputType = WNparseString(this.element.getAttribute('type'), this.inputType);
 
-        let lkey = Object.keys(_labels);
+        //خواندن متن لیبل ها اگر در پارامترها نباشه.
+        let lkey = Object.keys(this.labels);
         if (lkey.length == 0) {
-            _labels = this.getLables();
-            lkey = Object.keys(_labels);
-            setDefaultValue = false;
+            this.labels = this.getLables();
+            lkey = Object.keys(this.labels);
+            if (lkey.length > 0)
+                this.doRefresh = false;
         }
-        if (_default == '' && lkey.length > 0)
-            _default = lkey[0];
-        this.labels[_default] = _labels[_default];
+
+        //مقدار پیش فرض خالی برای ورودی هایی که تعریف نشده باشند
+
         lkey.forEach((x) => {
-            if (x != _default)
-                this.labels[x] = _labels[x];
-            if (!values[x])
-                values[x] = '';
+            if (!(x in lValue)) lValue[x] = '';
+            if (!(x in this.classes)) this.classes[x] = '';
         });
 
-        let inputIG = this.element.querySelector("ig,.ig");
-        if (!inputIG) {
-            inputIG = document.createElement("ig");
+        if (this.default == '' && lkey.length > 0) this.default = lkey[0];
+
+        this.inputIG = this.element.querySelector("ig,.ig");
+        if (!this.inputIG) {
+            this.inputIG = document.createElement("ig");
         }
-        let inputclass = '';
+        else
+            this.doRefresh = false;
+
+        //خواندن کلاس های پیش فرض تعیین شده و حذف آنها از المانها
+        this.inputclass = '';
         let ele = this.element;
-        while (ele && inputclass == '') {
+        while (ele && this.inputclass == '') {
             if (ele.classList.contains('floating'))
-                inputclass += ' floating';
+                this.inputclass += ' floating';
             else if (ele.classList.contains('floatingline'))
-                inputclass += ' floatingline';
+                this.inputclass += ' floatingline';
             else if (ele.classList.contains('group'))
-                inputclass += ' group';
+                this.inputclass += ' group';
             else if (ele.classList.contains('first-label'))
-                inputclass += ' first-label';
+                this.inputclass += ' first-label';
             else if (ele.classList.contains('first-input'))
-                inputclass += ' first-input';
+                this.inputclass += ' first-input';
             ele = ele.parentElement;
         }
-        inputclass = inputclass.trim();
+        this.inputclass = this.inputclass.trim();
 
-        if (inputclass != '') {
-            inputIG.classList.add(inputclass);
-            this.element.classList.remove(inputclass);
+        if (this.inputclass != '') {
+            this.inputIG.classList.add(this.inputclass);
+            this.inputclass.split(' ').forEach(x => this.element.classList.remove(x));
         }
 
-        let mainInput: HTMLElement = inputIG.querySelector('input,select,textarea') as HTMLElement;
-        //inputIG.querySelectorAll('*').forEach(x => {
-        //    if (x.tagName != 'LABEL' && x.tagName != 'BUTTON') {
-        //        mainInput = x as HTMLElement;
-        //        return;
-        //    }
-        //});
-
-        if (!mainInput) mainInput = this.createInput(inputType, inputclass, classes[_default],false);
-        
-        let mainLabel = inputIG.querySelector('label');
-        if (!mainLabel) {
-            mainLabel = document.createElement('label');
-            mainLabel.innerHTML = this.labels[_default];
+        this.requiredStatus = '';
+        if (this.element.hasAttribute('required')) {
+            this.requiredStatus = 'required';
+            this.element.removeAttribute('required');
+        } else if (this.element.hasAttribute('norequired')) {
+            this.requiredStatus = 'norequired';
+            this.element.removeAttribute('norequired');
         }
 
-        let expandButton = inputIG.querySelector('button');
-        if (!expandButton) {
-            expandButton = document.createElement('button');
+        this.validation = '';
+        if (this.element.hasAttribute('onvalidation')) {
+            this.validation = this.element.getAttribute('onvalidation');
+            this.element.removeAttribute('onvalidation');
         }
-        expandButton.type = 'button';
-        expandButton.addEventListener("click", () => { this.toggle() })
 
-        if (inputclass.includes('floating') || inputclass.includes('floatingline') || inputclass.includes('first-input')) {
-            inputIG.appendChild(mainInput);
-            inputIG.appendChild(mainLabel);
-            inputIG.appendChild(expandButton);
-}
-        else {
-            inputIG.appendChild(mainLabel);
-            if (this.element.classList.contains('group-input-button')) {
-                let div = document.createElement('div');
-                div.appendChild(mainInput);
-                div.appendChild(expandButton);
-                inputIG.appendChild(div);
-            }
-            else {
-                inputIG.appendChild(mainInput);
-                inputIG.appendChild(expandButton);
-            }
-}
+        this.inputs = [];
 
-        this.inputs.push(mainInput);
+        let mainInput = this.inputIG.querySelector('input,select,textarea') as HTMLElement;
+        if (mainInput) this.inputs.push(mainInput);
+        this.expandButton = this.inputIG.querySelector('button');
 
         this.detail = this.element.querySelector('detail,.detail');
         if (!this.detail) {
             this.detail = document.createElement('div');
             this.detail.className = 'detail';
         }
-        if (this.detail.innerHTML == '') {
-            lkey = Object.keys(this.labels);
-            for (var i = 1; i < lkey.length; i++) {
-                let ig = document.createElement('ig');
-                let label = document.createElement('label');
-                let input = this.createInput(inputType, '', classes[lkey[i]],true);
-                label.innerHTML = this.labels[lkey[i]];
-                ig.appendChild(label);
-                ig.appendChild(input);
-                this.detail.appendChild(ig);
-                this.inputs.push(input);
-            }
-        }
-        else {
-            this.inputs = [];
+        else if (this.detail.hasChildNodes) {
             this.element.querySelectorAll('input,select,textarea').forEach((x: HTMLElement) => this.inputs.push(x));
         }
 
-        if (setDefaultValue == true)
-            this.values = values;
-
-        if (this.element.hasAttribute('required')) {
-            if (this.inputs.length > 0) {
-                this.inputs[0].setAttribute('required', this.element.getAttribute('required'));
-            }
-            this.element.removeAttribute('required');
-        }
-        if (this.element.hasAttribute('norequired')) {
-            if (this.inputs.length > 0) {
-                this.inputs[0].setAttribute('norequired', this.element.getAttribute('norequired'));
-            }
-            this.element.removeAttribute('norequired');
-        }
-        if (this.element.hasAttribute('onvalidation')) {
-            if (this.inputs.length > 0) {
-                this.inputs[0].setAttribute('onvalidation', this.element.getAttribute('onvalidation'));
-            }
-            this.element.removeAttribute('onvalidation');
-        }
-
-
         let feedback = this.element.querySelector('.valid-feedback');
         if (feedback)
-            inputIG.appendChild(feedback);
+            this.inputIG.appendChild(feedback);
 
         feedback = this.element.querySelector('.invalid-feedback');
         if (feedback)
-            inputIG.appendChild(feedback);
+            this.inputIG.appendChild(feedback);
 
-        this.element.appendChild(inputIG);
+        this.element.appendChild(this.inputIG);
         this.element.appendChild(this.detail);
 
+        this.refresh();
+        this.values = lValue;
     }
+    public clear() {
+        this.inputs = [];
+        this.labels = {};
+        this.classes = {};
+        this.values = {};
+    }
+
+    public refresh() {
+        if (this.doRefresh == false) {
+            this.expandButton.onclick = () => { this.toggle() };
+            return;
+        }
+        let lkey = Object.keys(this.labels);
+        if (lkey.length == 0) {
+            this.inputIG.innerHTML = '';
+            this.detail.innerHTML = '';
+            return;
+        }
+        let tDefault = this.default;
+        if (!lkey.includes(tDefault)) tDefault = lkey[0];
+
+        this.inputIG.innerHTML = '';
+        this.inputs = [];
+
+        this.inputs.push(this.createInput(this.inputType, this.inputclass, this.classes[tDefault], false))
+        let mainLabel = document.createElement('label');
+        mainLabel.innerHTML = this.labels[tDefault] ?? '';
+
+        if (lkey.length > 1) {
+            if (!this.expandButton)
+                this.expandButton = document.createElement('button');
+            this.expandButton.type = 'button';
+            this.expandButton.onclick = () => { this.toggle() };
+        }
+
+
+        if (this.inputclass.includes('floating') || this.inputclass.includes('floatingline') || this.inputclass.includes('first-input')) {
+            this.inputIG.appendChild(this.inputs[0]);
+            this.inputIG.appendChild(mainLabel);
+            if (this.expandButton) this.inputIG.appendChild(this.expandButton);
+        }
+        else {
+            this.inputIG.appendChild(mainLabel);
+            if (this.element.classList.contains('group-input-button')) {
+                let div = document.createElement('div');
+                div.appendChild(this.inputs[0]);
+                if (this.expandButton) div.appendChild(this.expandButton);
+                this.inputIG.appendChild(div);
+            }
+            else {
+                this.inputIG.appendChild(this.inputs[0]);
+                if (this.expandButton) this.inputIG.appendChild(this.expandButton);
+            }
+        }
+        this.detail.innerHTML = '';
+
+
+        for (var i = 0; i < lkey.length; i++) {
+            if (lkey[i] != tDefault) {
+                let ig = document.createElement('ig');
+                let label = document.createElement('label');
+                let input = this.createInput(this.inputType, '', this.classes[lkey[i]], true);
+                this.inputs.push(input);
+
+                label.innerHTML = this.labels[lkey[i]] ?? '';
+                ig.appendChild(label);
+                ig.appendChild(input);
+                this.detail.appendChild(ig);
+
+            }
+        }
+
+        if (this.inputs.length > 0) {
+            if (this.requiredStatus == 'required')
+                this.inputs[0].setAttribute('required', this.element.getAttribute('required'));
+            else if (this.requiredStatus == 'norequired')
+                this.inputs[0].setAttribute('norequired', this.element.getAttribute('norequired'));
+        }
+        if (this.validation != '')
+            this.inputs[0].setAttribute('onvalidation', this.validation);
+
+    }
+
     private getLables(): WNDictionary {
         let l = this.element.querySelectorAll('label');
         let lables: WNDictionary = {};
@@ -182,9 +216,10 @@
         });
         return lables;
     }
-    private toggle() {
+    public toggle() {
         this.element.classList.toggle('expand');
     }
+
     public get values(): WNDictionary {
         let value = {};
         let lkey = Object.keys(this.labels);
@@ -212,7 +247,7 @@
             for (var i = 0; i < lkey.length; i++)
                 t[lkey[i]] = ''
             t[lkey[0]] = value;
-            value=t;
+            value = t;
         }
         if (!value) value = {};
 
@@ -230,6 +265,8 @@
         }
 
     }
+
+
     private createInput(inputType: string, inputclass: string, elemclass: string, detail: boolean): HTMLElement {
         let mainInput;
         if (inputType == 'textarea') {
@@ -250,6 +287,12 @@
 
         return mainInput;
     }
-}
 
+    public addItem(key: string, label: string, classes: string, refresh: boolean = false) {
+        this.labels[key] = label;
+        this.classes[key] = classes;
+        if (refresh) this.refresh();
+    }
+}
+(globalThis as any).WNMultiInput = WNMultiInput;
 

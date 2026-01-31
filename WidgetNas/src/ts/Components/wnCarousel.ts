@@ -186,3 +186,4 @@
         this.play();
     }
 }
+(globalThis as any).WNCarousel = WNCarousel;

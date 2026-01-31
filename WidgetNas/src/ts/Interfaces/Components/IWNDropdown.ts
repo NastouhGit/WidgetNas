@@ -11,6 +11,6 @@
     toggle(): void;
     hide(): void;
     show(): void;
-    setPosition(): void;
+    setPosition(lastElement: HTMLElement): void;
     hideAllDropDowns(): void;
 }

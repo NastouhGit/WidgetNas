@@ -673,3 +673,4 @@
         return this._saveImage.toDataURL('image/png');
     }
 }
+(globalThis as any).WNImageEditor = WNImageEditor;

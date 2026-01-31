@@ -25,10 +25,12 @@
 @import "Component/Card/_card.scss";
 @import "Component/Carousel/_carousel.scss";
 @import "Component/Slicker/_Slicker.scss";
+@import "Component/Slicker/_PanX.scss";
 @import "Component/Tooltip/_tooltip.scss";
 @import "Component/Nav/_nav.scss";
 @import "Component/Navbar/_navbar.scss";
 @import "Component/Navbar/_navside.scss";
+@import "Component/Navbar/_toolbar.scss";
 @import "Component/Offcanvas/_offcanvas.scss";
 @import "Component/Modal/_modal.scss";
 @import "Base/_transform.scss";
@@ -47,4 +49,6 @@
 @import "Component/MultiInputPhone/MultiInputPhone.scss";
 @import "Component/Captcha/_captcha.scss";
 @import "Component/InputList/InputList.scss";
+@import "Component/Range/_range.scss";
+@import "Component/Range/_rank.scss";
 @import "Common/_preloader.scss";

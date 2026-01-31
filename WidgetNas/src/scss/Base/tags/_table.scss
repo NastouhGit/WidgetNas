@@ -164,6 +164,21 @@ table {
                 }
             }
         }
+
+        tfoot {
+            nav, .nav {
+                button {
+                    padding: var(--padding-block);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    i {
+                        margin: 0;
+                    }
+                }
+            }
+        }
     }
 
     .grouprow {

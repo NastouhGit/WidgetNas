@@ -1,0 +1,82 @@
+﻿.range {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.5rem;
+    position: relative;
+    direction: ltr;
+    --base-bar: 50%;
+
+    &:has(.up) {
+        --base-bar: calc(50% + 1rem);
+    }
+
+    &:has(.down) {
+        --base-bar: calc(50% -1rem);
+    }
+
+    .bar {
+        position: absolute;
+        height: 0.25rem;
+        background-color: var(--disable-color);
+        top: calc(var(--base-bar) - 0.125rem);
+        left: 0.5rem;
+        right: 0.5rem;
+        border-radius: 1rem;
+        z-index: 1;
+    }
+
+    .range-bar {
+        position: absolute;
+        height: 0.25rem;
+        background-color: var(--select-back);
+        top: calc(var(--base-bar) - 0.125rem);
+        z-index: 2;
+    }
+
+    .thumb {
+        position: absolute;
+        height: 0.25rem;
+        width: 0.75rem;
+        height: 0.75rem;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: var(--active-back);
+        top: calc(var(--base-bar) - 0.375rem);
+        z-index: 3;
+    }
+
+    .tooltip-value {
+        position: absolute;
+        padding-block: 0.125rem;
+        padding-inline: 0.25rem;
+        width: fit-content;
+        height: fit-content;
+        border-radius: var(--border-radius);
+        background-color: var(--dark-back);
+        color: var(--dark-color);
+        pointer-events: none;
+
+        &.up {
+            bottom: calc(var(--base-bar) - 1.5rem);
+        }
+
+        &.down {
+            top: calc(var(--base-bar) + 0.5rem);
+        }
+    }
+
+    &[readonly] *,
+    &.readonly * {
+        pointer-events: none;
+    }
+
+    &[disabled],
+    &.disabled {
+        .bar,
+        .range-bar,
+        .thumb {
+            background-color: var(--disable-color) !important;
+            pointer-events: none;
+        }
+    }
+}

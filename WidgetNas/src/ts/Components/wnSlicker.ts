@@ -283,3 +283,4 @@
         await this.AnimateSlide();
     }
 }
+(globalThis as any).WNSlicker = WNSlicker;

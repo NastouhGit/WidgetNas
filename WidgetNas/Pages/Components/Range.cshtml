@@ -1,0 +1,295 @@
+﻿@page
+@model WidgetNas.Pages.Components.RangeModel
+@{
+    ViewData["Title"] = "انتخاب بازه Range";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>کامپوننت «انتخاب بازه» ابزاری تعاملی جهت تعیین محدوده‌ای مشخص از مقادیر عددی است که معمولاً در فیلترگذاری داده‌ها، مانند قیمت، تاریخ یا امتیاز، مورد استفاده قرار می‌گیرد. این کامپوننت امکان کنترل دقیق بر حداقل و حداکثر مقدار را برای کاربر فراهم می‌سازد.</p>
+<h4>ویژگی‌های کلیدی:</h4>
+<ul>
+    <li>تعامل‌پذیری بالا: قابلیت تنظیم بازه از طریق کشیدن دسته‌های قابل حرکت روی نوار محدوده</li>
+    <li>نمایش عددی مقادیر انتخاب‌شده: جهت افزایش شفافیت و دقت در انتخاب</li>
+    <li>واکنش‌گرا (Responsive): سازگار با انواع دستگاه‌ها از جمله موبایل، تبلت و دسکتاپ</li>
+    <li>قابل ترکیب با سایر فیلترها: جهت بهینه‌سازی تجربه کاربری در جستجو و مرور داده‌ها</li>
+</ul>
+<h4>کاربردهای متداول:</h4>
+<ul>
+    <li>تعیین بازه قیمت در فروشگاه‌های اینترنتی</li>
+    <li>فیلترگذاری بر اساس تاریخ در سامانه‌های گزارش‌گیری</li>
+    <li>انتخاب محدوده امتیاز در سیستم‌های رتبه‌بندی و بررسی</li>
+</ul>
+<p>
+    <b>WNRange</b> یک کامپوننت انتخاب بازه عددی با قابلیت چند نقطه (multi-thumb) است که برای فیلترگذاری، جستجو و فرم‌های تعاملی کاربرد دارد. این کامپوننت کاملاً واکنش‌گرا بوده و از راست به چپ و چپ به راست پشتیبانی می‌کند.
+</p>
+<h3>نحوه استفاده سریع</h3>
+<p>برای تعیین بازه موردنظر، کافی‌ست دسته‌های موجود در دو طرف نوار را به موقعیت دلخواه منتقل نمایید. مقادیر انتخاب‌شده به‌صورت عددی در زیر نوار نمایش داده می‌شوند و در لحظه قابل ویرایش هستند.</p>
+<h2>مثال</h2>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <h5 class="m-b-100r">Up tooltip</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="up"
+             value="10,60">
+        </div>
+        <h5 class="m-b-100r">Down tooltip</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="down"
+             value="10,60">
+        </div>
+        <h5 class="m-b-100r">3 point</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="3"
+             step="5"
+             unit="%"
+             tooltip="up"
+             value="10,50,90">
+        </div>
+        <h5 class="m-b-100r">Step 10</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="1000000"
+             format="#,0"
+             count="2"
+             step="10"
+             unit="%"
+             tooltip="down"
+             value="10%,60%">
+        </div>
+        <h5 class="m-b-100r">No tip</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="none"
+             value="10,60">
+        </div>
+        <h5 class="m-b-100r">Read only</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="up"
+             value="10,60"
+             readonly
+            >
+        </div>
+        <h5 class="m-b-100r">Disabled</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="up"
+             value="10,60"
+             disabled>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <h5 class="m-b-100r">مقدار در بالا</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="up"
+             value="10,60">
+        </div>
+        <h5 class="m-b-100r">مقدار در پایین</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="down"
+             value="10,60">
+        </div>
+        <h5 class="m-b-100r">3 نقطه</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="3"
+             step="5"
+             unit="%"
+             tooltip="up"
+             value="10,50,90">
+        </div>
+        <h5 class="m-b-100r">پرش 10 تایی</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="1000"
+             count="2"
+             step="10"
+             unit="%"
+             tooltip="down"
+             value="10,600">
+        </div>
+        <h5 class="m-b-100r">بدون نمایش</h5>
+        <div class="range"
+             wn-type="Range"
+             min="0"
+             max="100"
+             count="2"
+             step="1"
+             unit="%"
+             tooltip="none"
+             value="10,60">
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+<h2>مثال 2</h2>
+<div class="example-div">
+    <div class="ltr" id="form2">
+        <h3>LTR</h3>
+        <ig>
+            <label>Price</label>
+            <div id="range1-ltr"
+                 class="range"
+                 wn-type="Range"
+                 min="10"
+                 max="1000"
+                 count="2"
+                 step="10"
+                 unit="$"
+                 tooltip="up"
+                 value="50,100"
+                 onchange="WN('form2-i1-ltr').inputElement.value=t.values[0];WN('form2-i2-ltr').inputElement.value=t.values[1];">
+            </div>
+            <div class="d-flex">
+                <input id="form2-i1-ltr" type="number" readonly />
+                <input id="form2-i2-ltr" type="number" readonly />
+                <button class="w-1100r-i" onclick="WN('range1-ltr').WNRange.value='100,900'">100-900</button>
+            </div>
+        </ig>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <ig>
+            <label>قیمت</label>
+            <div id="range1-rtl"
+                 class="range"
+                 wn-type="Range"
+                 min="10"
+                 max="1000"
+                 count="2"
+                 step="10"
+                 unit="$"
+                 tooltip="up"
+                 value="50,100"
+                 onchange="WN('form2-i1-rtl').inputElement.value=t.values[0];WN('form2-i2-rtl').inputElement.value=t.values[1];">
+            </div>
+            <div class="d-flex">
+                <input id="form2-i1-rtl" type="number" readonly />
+                <input id="form2-i2-rtl" type="number" readonly />
+                <button class="w-1100r-i" onclick="WN('range1-rtl').WNRange.value='100,900'">100-900</button>
+            </div>
+        </ig>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
+
+
+
+
+<h3>خصوصیات (Attributes)</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>نام</th>
+            <th>نوع</th>
+            <th>پیش‌فرض</th>
+            <th>توضیحات</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>min</td><td>عدد</td><td>0</td><td>حداقل مقدار قابل انتخاب</td></tr>
+        <tr><td>max</td><td>عدد</td><td>100</td><td>حداکثر مقدار قابل انتخاب</td></tr>
+        <tr><td>count</td><td>عدد</td><td>2</td><td>تعداد نقاط قابل انتخاب (thumb)</td></tr>
+        <tr><td>step</td><td>عدد</td><td>1</td><td>گام تغییر مقدار هنگام جابجایی thumb</td></tr>
+        <tr><td>unit</td><td>رشته</td><td>""</td><td>واحد نمایش مقدار (مثلاً %, $)</td></tr>
+        <tr><td>format</td><td>رشته</td><td>""</td><td>فورمت نمایش مقدار (مثلاً #,0)</td></tr>
+        <tr><td>tooltip</td><td>رشته</td><td>none</td><td>محل نمایش مقدار انتخاب‌شده (up, down, none)</td></tr>
+        <tr><td>value</td><td>رشته</td><td>min,max</td><td>مقادیر اولیه نقاط انتخاب‌شده، با کاما جدا شود (مثلاً "10,60")</td></tr>
+        <tr><td>readonly</td><td>بولین</td><td>false</td><td>اگر مقداردهی شود، کاربر فقط می‌تواند مقادیر را مشاهده کند و امکان تغییر وجود ندارد.</td></tr>
+        <tr><td>disabled</td><td>بولین</td><td>false</td><td>اگر مقداردهی شود، کامپوننت غیرفعال می‌شود و هیچ تعاملی با کاربر ندارد.</td></tr>
+        <tr><td>onchange</td><td>تابع</td><td>-</td><td>رویداد تغییر مقدار، قابل تعریف به صورت جاوااسکریپت</td></tr>
+    </tbody>
+</table>
+
+<h3>رویدادها</h3>
+<ul>
+    <li>
+        <b>onchange / change</b>: با تغییر مقدار هر thumb، این رویداد اجرا می‌شود و می‌توانید مقادیر جدید را دریافت و استفاده کنید.<br>
+        <code>&lt;div class="range" ... onchange="console.log(t.values)"&gt;&lt;/div&gt;</code>
+    </li>
+</ul>
+
+<h3>نکات مهم</h3>
+<ul>
+    <li>کامپوننت کاملاً واکنش‌گرا بوده و روی موبایل و دسکتاپ به‌درستی کار می‌کند.</li>
+    <li>برای جلوگیری از اسکرول صفحه هنگام جابجایی thumb روی موبایل، این قابلیت به‌صورت داخلی مدیریت شده است.</li>
+    <li>مقادیر thumbها هیچ‌گاه روی هم قرار نمی‌گیرند و فاصله حداقل برابر با مقدار <b>step</b> رعایت می‌شود.</li>
+    <li>
+        می‌توانید مقدار کامپوننت را به صورت برنامه‌نویسی تغییر دهید:<br>
+        <code>WN('range1').WNRange.value = '100,900';</code>
+    </li>
+</ul>
+
+<h3>نکات توسعه‌دهندگان</h3>
+<ul>
+    <li>برای دریافت مقادیر انتخاب‌شده از آرایه <b>t.values</b> استفاده کنید.</li>
+    <li>می‌توانید با تغییر مقدار <b>value</b>، thumbها را به موقعیت دلخواه منتقل کنید.</li>
+    <li>اگر نیاز به سفارشی‌سازی ظاهر دارید، کلاس‌های CSS مربوط به <b>.range</b>, <b>.thumb</b>, <b>.tooltip-value</b> را تغییر دهید.</li>
+</ul>
+<h3>استفاده از جاوااسکریپت</h3>
+<p>
+    برای کنترل و مقداردهی کامپوننت <b>WNRange</b> به صورت برنامه‌نویسی، می‌توانید خصوصیات آن را از طریق جاوااسکریپت تغییر دهید.<br>
+    پس از مقداردهی هر یک از خصوصیات (مانند <b>min</b>، <b>max</b>، <b>count</b>، <b>step</b>، <b>value</b> و غیره)، حتماً تابع <b>refresh</b> را صدا بزنید تا تغییرات در رابط کاربری اعمال شود.
+</p>
+<pre>
+// نمونه مقداردهی و بروزرسانی کامپوننت
+var range = WN('range1').WNRange;
+range.min = 50;
+range.max = 500;
+range.count = 3;
+range.step = 10;
+range.value = "60,200,400";
+range.refresh(); // اعمال تغییرات در UI
+</pre>
+<p>
+    تابع <b>refresh</b> باعث می‌شود وضعیت ظاهری و مقادیر کامپوننت به‌روزرسانی شود و تغییرات اعمال‌شده در خصوصیات بلافاصله نمایش داده شوند.
+</p>

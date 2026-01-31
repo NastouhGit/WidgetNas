@@ -162,16 +162,6 @@
                 this.add(n);
             }
         }
-        //if (this.element.hasAttribute('required') && this.hiddenElemet) {
-        //    if (this._value.length == 0) {
-
-        //        this.hiddenElemet?.setCustomValidity('Error');
-        //        this.hiddenElemet?.reportValidity();
-        //    }
-        //    else {
-        //        this.hiddenElemet?.setCustomValidity('');
-        //    }
-        //}
     }
     private makeFullNumber(n: WNPhoneNode): string {
         let number = '';
@@ -286,4 +276,4 @@
         this.refreshAllLinkNode();
     }
 }
-
+(globalThis as any).WNMultiInputPhone = WNMultiInputPhone;

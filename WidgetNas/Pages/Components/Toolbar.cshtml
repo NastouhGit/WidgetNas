@@ -1,0 +1,132 @@
+﻿@page
+@{
+    ViewData["Title"] = "میله ابزار Toolbar";
+    ViewData["Description"] = "ویجت نس یک فریم ورک فارسی با پشتیبانی کامل از راست به چپ و همچنین چپ به راست است.";
+}
+<h1>@ViewData["Title"]</h1>
+<p>
+    <b>Toolbar</b> یا «میله ابزار» یک کامپوننت کاربردی برای نمایش مجموعه‌ای از گزینه‌ها و ابزارها به صورت افقی است. این کامپوننت به صورت واکنش‌گرا طراحی شده و در صورت کمبود فضا، گزینه‌های اضافی را به صورت منوی کشویی (Dropdown) نمایش می‌دهد. Toolbar قابلیت استفاده با عناصر <code>div</code> و <code>ul/li</code> را دارد و به راحتی می‌توان آن را با سایر کامپوننت‌ها ترکیب کرد.
+</p>
+<ul>
+    <li>پشتیبانی کامل از راست به چپ و چپ به راست</li>
+    <li>جابجایی خودکار گزینه‌ها به منوی کشویی هنگام کمبود فضا</li>
+    <li>امکان سفارشی‌سازی آیتم‌ها و افزودن آیکون یا دکمه</li>
+    <li>قابل استفاده در فرم‌ها، صفحات مدیریت، و ابزارهای ویرایشی</li>
+    <li>سازگار با انواع دستگاه‌ها (موبایل، دسکتاپ، تبلت)</li>
+</ul>
+<p>
+    برای استفاده کافیست مجموعه آیتم‌ها را داخل عنصر <code>.items</code> قرار دهید و کلاس <code>wn-toolbar</code> را به عنصر والد اختصاص دهید. گزینه‌های اضافی به صورت خودکار به منوی کشویی منتقل می‌شوند.
+</p>
+<div class="example-div">
+    <div class="ltr" id="form1">
+        <h3>LTR</h3>
+        <div class="m-bs-50r p-100r">
+            <style>
+                .wn-toolbar .items .item {
+                    border:1px solid gray;
+                    padding:0.5rem;
+                    width:5rem;
+                }
+            </style>
+            <h4>div</h4>
+            <div class="wn-toolbar" wn-type="Toolbar">
+                <div class="items">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                    <div class="item">Item 3</div>
+                    <div class="item">Item 4</div>
+                    <div class="item">Item 5</div>
+                    <div class="item">Item 6</div>
+                    <div class="item">Item 7</div>
+                    <div class="item">Item 8</div>
+                    <div class="item">Item 9</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <h4>ul</h4>
+            <div class="wn-toolbar" wn-type="Toolbar">
+                <ul class="items">
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                    <li>Item 5</li>
+                    <li>Item 6</li>
+                    <li>Item 7</li>
+                    <li>Item 8</li>
+                    <li>Item 9</li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <h4>Too small</h4>
+            <div class="wn-toolbar w-500r" wn-type="Toolbar">
+                <div class="items">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                    <div class="item">Item 3</div>
+                    <div class="item">Item 4</div>
+                    <div class="item">Item 5</div>
+                    <div class="item">Item 6</div>
+                    <div class="item">Item 7</div>
+                    <div class="item">Item 8</div>
+                    <div class="item">Item 9</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <h4>With labels</h4>
+            <div class="wn-toolbar" wn-type="Toolbar">
+                <div style="white-space:nowrap;margin-inline-end:0.5rem"><i class="fa-solid fa-star"></i> Some Text</div>
+                <div class="items">
+                    <div class="item">Item 1</div>
+                    <div class="item">Item 2</div>
+                    <div class="item">Item 3</div>
+                    <div class="item">Item 4</div>
+                    <div class="item">Item 5</div>
+                    <div class="item">Item 6</div>
+                    <div class="item">Item 7</div>
+                    <div class="item">Item 8</div>
+                    <div class="item">Item 9</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rtl">
+        <h3>RTL</h3>
+        <div class="m-bs-50r p-100r">
+            <h4>div</h4>
+            <div class="wn-toolbar" wn-type="Toolbar">
+                <div class="items">
+                    <div class="item">گزینه 1</div>
+                    <div class="item">گزینه 2</div>
+                    <div class="item">گزینه 3</div>
+                    <div class="item">گزینه 4</div>
+                    <div class="item">گزینه 5</div>
+                    <div class="item">گزینه 6</div>
+                    <div class="item">گزینه 7</div>
+                    <div class="item">گزینه 8</div>
+                    <div class="item">گزینه 9</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-bs-50r p-100r">
+            <h4>ul</h4>
+            <div class="wn-toolbar" wn-type="Toolbar">
+                <ul class="items">
+                    <li>گزینه 1</li>
+                    <li>گزینه 2</li>
+                    <li>گزینه 3</li>
+                    <li>گزینه 4</li>
+                    <li>گزینه 5</li>
+                    <li>گزینه 6</li>
+                    <li>گزینه 7</li>
+                    <li>گزینه 8</li>
+                    <li>گزینه 9</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<figure><code data-on="form1"></code></figure>
